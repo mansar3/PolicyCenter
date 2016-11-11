@@ -75,7 +75,7 @@ public class CreateAccount extends CenterPanelBase
 	public CreateAccount setState(String state)
 	{
 		sh.setText(by.state, state);
-//		sh.tab();
+		sh.tab();
 		return this;
 	}
 
@@ -88,7 +88,7 @@ public class CreateAccount extends CenterPanelBase
 
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
-		sh.wait(5).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
+		sh.waitForNoMask(5);
 		sh.clickElement(by.verifyAddress);
 		return new SelectStandardizedAddress(sh);
 	}
@@ -96,21 +96,21 @@ public class CreateAccount extends CenterPanelBase
 	public CreateAccount setAddressType(String addressType)
 	{
 		sh.setText(by.addressType, addressType);
-//		sh.tab();
+		sh.tab();
 		return this;
 	}
 
 	public CreateAccount setOrganization(String organization)
 	{
 		sh.setText(by.organization, organization);
-//		sh.tab();
+		sh.tab();
 		return this;
 	}
 
 	public CreateAccount setProducerCode(String producerCode)
 	{
 		sh.setText(by.producerCode, producerCode);
-//		sh.tab();
+		sh.tab();
 		return this;
 	}
 }

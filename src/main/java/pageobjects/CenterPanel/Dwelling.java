@@ -34,6 +34,7 @@ public class Dwelling extends CenterPanelBase
 
 	public Dwelling setDistanceToFireStation(String distanceToFireStation)
 	{
+		sh.waitForNoMask(5);
 		sh.setText(by.distanceToFireStation, distanceToFireStation);
 		return this;
 	}

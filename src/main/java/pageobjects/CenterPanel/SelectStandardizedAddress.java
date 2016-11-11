@@ -24,6 +24,7 @@ public class SelectStandardizedAddress extends CenterPanelBase
 
 	public CreateAccount selectAddress(int row)
 	{
+		sh.waitForNoMask(5);
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return new CreateAccount(sh);
 	}
