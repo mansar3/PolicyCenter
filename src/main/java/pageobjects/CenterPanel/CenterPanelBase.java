@@ -15,6 +15,11 @@ abstract public class CenterPanelBase
 		final static public By title = By.cssSelector("#centerPanel .g-title");
 	}
 
+	protected void clickNext()
+	{
+		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+	}
+
 	public String getTitle()
 	{
 		return sh.getText(CenterPanelBy.title);
