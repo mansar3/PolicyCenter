@@ -2,9 +2,11 @@ package Helpers;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.pagefactory.ByChained;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class CenterSeleniumHelper
 {
@@ -67,11 +69,46 @@ public class CenterSeleniumHelper
 	{
 		new WebDriverWait(driver, waitTime).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
 	}
+	public void waitForValue(By bylocator, int waitTime)
+	{
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+           public Boolean apply(WebDriver d) {
+        return d.findElement(bylocator).getAttribute("value").length() != 0;
+   		 }
+		});
+	}
 	public CenterSeleniumHelper tab()
 	{
 		Actions tab = new Actions(driver);
 		tab.sendKeys(Keys.TAB).perform();
 
 		return this;
+	}
+	public boolean isDisplayed(By by)
+	{
+		List<WebElement> elements = driver.findElements(by);
+		try
+		{
+			return !elements.isEmpty() && elements.get(0).isDisplayed();
+		}
+		catch(StaleElementReferenceException e)
+		{
+			return false;
+		}
+	}
+	public void waitForElementToAppear(By by)
+	{
+		new WebDriverWait(driver,10).until(new ExpectedCondition<Boolean>() {
+           public Boolean apply(WebDriver d)
+		   {
+			   return isDisplayed(by);
+		   }
+		   @Override
+			public String toString()
+		   {
+			   return String.format("Element located by ('%s') is visible.",by);
+		   }
+
+		   });
 	}
 }

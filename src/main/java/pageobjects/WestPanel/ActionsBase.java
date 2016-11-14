@@ -13,6 +13,7 @@ abstract public class ActionsBase
 
 	public void clickActions()
 	{
+		sh.waitForNoMask(5);
 		sh.clickElement(by.actions);
 	}
 }

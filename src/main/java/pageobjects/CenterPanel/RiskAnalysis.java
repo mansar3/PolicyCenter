@@ -2,7 +2,6 @@ package pageobjects.CenterPanel;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.pagefactory.ByChained;
 
 public class RiskAnalysis extends CenterPanelBase
 {

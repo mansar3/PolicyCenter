@@ -2,7 +2,6 @@ package pageobjects.CenterPanel;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 abstract public class CenterPanelBase
@@ -17,6 +16,7 @@ abstract public class CenterPanelBase
 
 	protected void clickNext()
 	{
+		sh.waitForNoMask(5);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 	}
 
@@ -27,6 +27,6 @@ abstract public class CenterPanelBase
 
 	public void waitForTitle(CenterSeleniumHelper sh)
 	{
-		sh.wait(5).until(ExpectedConditions.textToBe(CenterPanelBy.title, expectedPanelTitle));
+		sh.wait(10).until(ExpectedConditions.textToBe(CenterPanelBy.title, expectedPanelTitle));
 	}
 }

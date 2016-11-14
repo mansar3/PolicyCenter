@@ -16,6 +16,7 @@ public class Dwelling extends CenterPanelBase
 
 	public DwellingConstruction next()
 	{
+		sh.waitForNoMask(5);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		return new DwellingConstruction(sh);
 	}
@@ -38,10 +39,31 @@ public class Dwelling extends CenterPanelBase
 		sh.setText(by.distanceToFireStation, distanceToFireStation);
 		return this;
 	}
+	public Dwelling setBCEG(String bceg)
+	{
+		sh.setText(by.bceg,bceg);
+		sh.tab();
+		return this;
+	}
+	public Dwelling setProtectionClassCode(String pcc)
+	{
+		sh.setText(by.protectionClassCode, pcc);
+		sh.tab();
+		return this;
+	}
+	public Dwelling setTerritoryCode(String code)
+	{
+		sh.setText(by.territoryCode, code);
+		return this;
+	}
+
 
 	public static class DwellingBy{
 		public static final By	yearBuilt = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:YearBuilt-inputEl"),
 								distanceToFireHydrant = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:DistanceToFireHydrant-inputEl"),
-								distanceToFireStation = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:DistanceToFireStation-inputEl");
+								distanceToFireStation = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:DistanceToFireStation-inputEl"),
+								territoryCode = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:TerritoryCodeInputSet:0:TerritoryCode-inputEl"),
+								bceg = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:BCEG_fli-inputEl"),
+								protectionClassCode = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:HOProtectionClassCode_fli-inputEl");
 	}
 }

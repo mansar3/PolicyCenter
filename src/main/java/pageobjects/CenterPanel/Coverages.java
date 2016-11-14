@@ -14,14 +14,18 @@ public class Coverages extends CenterPanelBase
 		System.out.println("Navigated to page: " + getTitle());
 	}
 
-	public void next()
+	public RiskAnalysis next()
 	{
 		clickNext();
+		return new RiskAnalysis(sh);
 	}
 
 	public Coverages setDwellingLimit(String limit)
 	{
+
 		sh.setText(by.dwellingLimit, limit);
+		sh.tab();
+		sh.waitForValue(by.personalPropertyLimit,10);
 		return this;
 	}
 

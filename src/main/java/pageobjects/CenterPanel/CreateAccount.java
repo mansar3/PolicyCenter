@@ -1,10 +1,7 @@
 package pageobjects.CenterPanel;
 
 import Helpers.CenterSeleniumHelper;
-import org.openqa.selenium.*;
-
-
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.By;
 
 public class CreateAccount extends CenterPanelBase
 {
