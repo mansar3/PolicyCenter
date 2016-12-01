@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Qualification extends CenterPanelBase
 {
-	private QualificationBy by;
+	private QualificationBy by = new QualificationBy();;
 	public Questionnaire questionnaire;
 	public Qualification(CenterSeleniumHelper sh)
 	{
@@ -19,10 +19,21 @@ public class Qualification extends CenterPanelBase
 		questionnaire = new Questionnaire(sh);
 	}
 
+	public String getOfferingSelection()
+	{
+		return sh.getValue(by.offeringSelection);
+	}
+
+	public Qualification setOfferingSelection(String offeringSelection)
+	{
+		sh.setText(by.offeringSelection, offeringSelection);
+		return this;
+	}
 	public Qualification setPolicyType(String policyType)
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
+		sh.waitForNoMask(15);
 		return this;
 	}
 
@@ -42,7 +53,7 @@ public class Qualification extends CenterPanelBase
 		private Questionnaire(CenterSeleniumHelper sh)
 		{
 			super(By.id("SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body"), sh);
-			sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(tableId));
+			sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(tableId));
 		}
 
 		public String getQuestionText(int questionNum)
@@ -58,10 +69,11 @@ public class Qualification extends CenterPanelBase
 				System.out.println("Found too many elements on question: " + questionNum);
 				answerBy = By.cssSelector("[id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body'] tbody tr:nth-of-type(" + questionNum + ") td:nth-of-type(3) tbody input[inputvalue='false']");
 			}
-			sh.waitForNoMask(5);
+			sh.waitForNoMask(25);
 			sh.clickElement(answerBy);
 			return this;
 		}
+
 
 		public Questionnaire answerYes(int questionNum)
 		{
@@ -74,7 +86,9 @@ public class Qualification extends CenterPanelBase
 		}
 	}
 
-	public static class QualificationBy{
-		public static final By	policyType = By.id("SubmissionWizard:SubmissionWizard_PreQualificationScreen:PolicyTypeDV:HOPolicyType-inputEl");
+	private class QualificationBy{
+		final String qualificationBase = "SubmissionWizard:SubmissionWizard_PreQualificationScreen:";
+		final By		policyType = By.id(qualificationBase + "PolicyTypeDV:HOPolicyType-inputEl"),
+							offeringSelection = By.id(qualificationBase + "OfferingSelection-inputEl");
 	}
 }

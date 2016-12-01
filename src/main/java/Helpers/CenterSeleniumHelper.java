@@ -18,7 +18,7 @@ public class CenterSeleniumHelper
 
 	public void clickElement(By byLocator)
 	{
-		wait(5).until(ExpectedConditions.elementToBeClickable(byLocator));
+		wait(20).until(ExpectedConditions.elementToBeClickable(byLocator));
 		driver.findElement(byLocator).click();
 	}
 
@@ -28,7 +28,7 @@ public class CenterSeleniumHelper
 	}
 	public void setText(By byLocator, String text)
 	{
-		wait(5).until(ExpectedConditions.refreshed(driver1 -> {
+		wait(25).until(ExpectedConditions.refreshed(driver1 -> {
 			driver1.findElement(byLocator).sendKeys("");
 			if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
 				return false;
@@ -69,9 +69,13 @@ public class CenterSeleniumHelper
 	{
 		new WebDriverWait(driver, waitTime).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
 	}
+	public void waitForNoMask()
+	{
+		new WebDriverWait(driver, 25).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
+	}
 	public void waitForValue(By bylocator, int waitTime)
 	{
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 25)).until(new ExpectedCondition<Boolean>() {
            public Boolean apply(WebDriver d) {
         return d.findElement(bylocator).getAttribute("value").length() != 0;
    		 }
@@ -96,9 +100,9 @@ public class CenterSeleniumHelper
 			return false;
 		}
 	}
-	public void waitForElementToAppear(By by)
+	public void waitForElementToAppear(By by )
 	{
-		new WebDriverWait(driver,10).until(new ExpectedCondition<Boolean>() {
+		new WebDriverWait(driver,45).until(new ExpectedCondition<Boolean>() {
            public Boolean apply(WebDriver d)
 		   {
 			   return isDisplayed(by);
@@ -110,5 +114,36 @@ public class CenterSeleniumHelper
 		   }
 
 		   });
+	}
+	public WebElement getElement(By by)
+	{
+		return driver.findElement(by);
+	}
+	public class CheckboxHelper
+	{
+		public boolean isChecked(By by)
+		{
+			return driver.findElement(by).isSelected();
+		}
+
+		public void checkElement(By by)
+		{
+			if (!getElement(by).isSelected())
+			{
+				clickElement(by);
+			}
+
+			assert isChecked(by);
+		}
+
+		public void unCheckElement(By by)
+		{
+			if (getElement(by).isSelected())
+			{
+				clickElement(by);
+			}
+
+			assert !isChecked(by);
+		}
 	}
 }

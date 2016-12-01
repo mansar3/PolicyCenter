@@ -3,7 +3,6 @@ package pageobjects.CenterPanel;
 import Helpers.CenterSeleniumHelper;
 import Helpers.TableBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.support.pagefactory.ByChained;
 
 public class NewSubmission extends CenterPanelBase
@@ -12,10 +11,11 @@ public class NewSubmission extends CenterPanelBase
 	public ProductSelectionTable productTable;
 	public NewSubmission(CenterSeleniumHelper sh)
 	{
-		super();
+		//super();
 		this.sh = sh;
 		expectedPanelTitle = "New Submissions";
 		waitForTitle(sh);
+		path = Path.SUBMISSION;
 		System.out.println("Navigated to page: " + getTitle());
 		productTable = new ProductSelectionTable(sh);
 	}
@@ -38,6 +38,15 @@ public class NewSubmission extends CenterPanelBase
 			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
 			{
 				if(getTextTableElement(i, 2).contains("Homeowners"))
+					clickTableElement(i, 1);
+			}
+			return new Qualification(sh);
+		}
+		public Qualification selectCommercialProperty()
+		{
+			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
+			{
+				if(getTextTableElement(i, 2).contains("Commercial Property"))
 					clickTableElement(i, 1);
 			}
 			return new Qualification(sh);

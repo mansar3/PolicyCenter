@@ -6,20 +6,59 @@ import org.openqa.selenium.By;
 public class RiskAnalysis extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
+	protected String riskAnalysisBase;
 	public RiskAnalysis(CenterSeleniumHelper sh)
 	{
 		this.sh = sh;
 		expectedPanelTitle = "Risk Analysis";
 		waitForTitle(sh);
+		setID(path);
+		by = new RiskAnalysisBy();
 		System.out.println("Navigated to page: " + getTitle());
 	}
 
-	public void quote()
+	public void setID(Path path)
 	{
-		sh.clickElement(by.quote);
+		switch(path)
+		{
+			case SUBMISSION:
+				this.riskAnalysisBase = "SubmissionWizard:Job_RiskAnalysisScreen:";
+				break;
+			case POLICYRENEWAL:
+				this.riskAnalysisBase = "RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:";
+				break;
+			case POLICYCHANGE:
+				//this.dwellingBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				break;
+
+		}
 	}
 
-	public static class RiskAnalysisBy{
-		public static final By	quote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
+	public Quote quote()
+	{
+		switch(path)
+		{
+			case SUBMISSION:
+				sh.clickElement(by.submissionQuote);
+				break;
+			case POLICYRENEWAL:
+				sh.clickElement(by.renewalQuote);
+				break;
+		}
+		//sh.clickElement(by.submissionQuote);
+		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+		return new Quote(sh);
+	}
+	public UWActivity requestApproval()
+	{
+		sh.clickElement(by.requestApproval);
+		return new UWActivity(sh);
+	}
+
+	public class RiskAnalysisBy{
+
+		public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
+							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 	}
 }
