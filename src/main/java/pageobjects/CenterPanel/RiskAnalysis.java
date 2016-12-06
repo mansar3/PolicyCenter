@@ -7,9 +7,10 @@ public class RiskAnalysis extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
 	protected String riskAnalysisBase;
-	public RiskAnalysis(CenterSeleniumHelper sh)
+	public RiskAnalysis(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "Risk Analysis";
 		waitForTitle(sh);
 		setID(path);
@@ -47,12 +48,12 @@ public class RiskAnalysis extends CenterPanelBase
 		}
 		//sh.clickElement(by.submissionQuote);
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-		return new Quote(sh);
+		return new Quote(sh,path);
 	}
 	public UWActivity requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
-		return new UWActivity(sh);
+		return new UWActivity(sh,path);
 	}
 
 	public class RiskAnalysisBy{

@@ -8,9 +8,10 @@ public class PolicyInfo extends CenterPanelBase
 
 	private PolicyInfoBy by;
 	protected String policyBase;
-	public PolicyInfo(CenterSeleniumHelper sh)
+	public PolicyInfo(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "Policy Info";
 		waitForTitle(sh);
 		setID(path);
@@ -71,7 +72,7 @@ public class PolicyInfo extends CenterPanelBase
 	public Dwelling next()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new Dwelling(sh);
+		return new Dwelling(sh,path);
 	}
 	public void clickDoesInsuredOwnOtherResidence(boolean option)
 	{

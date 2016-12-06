@@ -8,16 +8,16 @@ import org.openqa.selenium.By;
  */
 public class InitiateManualRenewal extends CenterPanelBase
 {
-	private InitateManualRenewalBy by;
+	private InitiateManualRenewalBy by;
 	public InitiateManualRenewal(CenterSeleniumHelper sh)
 	{
 		this.sh = sh;
 		expectedPanelTitle = "Initiate Manual Renewal";
-		super.path = Path.POLICYRENEWAL;
-		by = new InitateManualRenewalBy();
+		path = Path.POLICYRENEWAL;
+		by = new InitiateManualRenewalBy();
 		waitForTitle(sh);
 	}
-	static class InitateManualRenewalBy
+	static class InitiateManualRenewalBy
 	{
 
 		static final String manualBase = "InitManualRenewalPage:",
@@ -34,8 +34,10 @@ public class InitiateManualRenewal extends CenterPanelBase
 							inspectionDate = By.id(manualBase + "LastInspectionDate-inputEl"),
 							inflationGuard = By.id(manualBase + "inflationGuard-inputEl"),
 							excludeLossOfUseCoverageNo = By.id(manualBase + "excludeLossOfUse_false-inputEl"),
-							excludeLossOfUseCoverageYes = By.id(manualBase + "excludeLossOfUse_true-inputEl");
+							excludeLossOfUseCoverageYes = By.id(manualBase + "excludeLossOfUse_true-inputEl"),
+							theftCoverage = By.id(manualBase + "theft-inputEl");
 	}
+	
 	public String getOrganization()
 	{
 		return sh.getValue(by.organization);
@@ -150,6 +152,20 @@ public class InitiateManualRenewal extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	
+	public String getTheftCoverage()
+	{
+		return sh.getValue(by.theftCoverage);
+	}
+	
+	public InitiateManualRenewal setTheftCoverage(String theftCoverage)
+	{
+		sh.setText(by.theftCoverage, theftCoverage);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
+	
 	public InitiateManualRenewal clickExcludeLossOfUseCoverage(boolean bool)
 	{
 
@@ -175,7 +191,7 @@ public class InitiateManualRenewal extends CenterPanelBase
 		sh.clickElement(By.id("InitManualRenewalPage:NewManualConvertRenewal-btnInnerEl"));
 		sh.waitForNoMask();
 		accept();
-		return new Offerings(sh);
+		return new Offerings(sh,path);
 	}
 
 	private void accept()

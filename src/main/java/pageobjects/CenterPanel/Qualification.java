@@ -10,9 +10,10 @@ public class Qualification extends CenterPanelBase
 {
 	private QualificationBy by = new QualificationBy();;
 	public Questionnaire questionnaire;
-	public Qualification(CenterSeleniumHelper sh)
+	public Qualification(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "Qualification";
 		waitForTitle(sh);
 		System.out.println("Navigated to page: " + getTitle());
@@ -45,7 +46,7 @@ public class Qualification extends CenterPanelBase
 	public PolicyInfo next()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new PolicyInfo(sh);
+		return new PolicyInfo(sh,path);
 	}
 
 	public static class Questionnaire extends TableBase

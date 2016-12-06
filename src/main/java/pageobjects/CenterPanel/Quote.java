@@ -9,12 +9,29 @@ import pageobjects.WestPanel.WestPanelBase;
 public class Quote extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
-	public Quote(CenterSeleniumHelper sh)
+	public Quote(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
-		expectedPanelTitle = "Quote";
+		this.path = path;
+		expectedPanelTitle = setExpectedTitle();
 		waitForTitle(sh);
 		System.out.println("Navigated to page: " + getTitle());
 		westPanel = new WestPanelBase(sh);
+	}
+	private String setExpectedTitle()
+	{
+		switch(path)
+		{
+			case POLICYRENEWAL:
+				return "View Quote";
+
+				default:
+				return "Quote";
+		}
+	}
+	public RiskAnalysis back()
+	{
+		clickBack();
+		return new RiskAnalysis(sh,path);
 	}
 }

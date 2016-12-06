@@ -11,9 +11,10 @@ public class Dwelling extends CenterPanelBase
 {
 	private DwellingBy by;
 	protected String dwellingBase;
-	public Dwelling(CenterSeleniumHelper sh)
+	public Dwelling(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "Dwelling";
 		waitForTitle(sh);
 		setID(path);
@@ -42,7 +43,7 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.waitForNoMask(20);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new DwellingConstruction(sh);
+		return new DwellingConstruction(sh,path);
 	}
 
 	public Dwelling setYearBuilt(String yearBuilt)
@@ -60,7 +61,8 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.waitForNoMask();
 		sh.setText(by.distanceToFireHydrant, distanceToFireHydrant);
-		sh.waitForValue(by.territoryCode,10);
+		if(path != Path.POLICYRENEWAL)
+			sh.waitForValue(by.territoryCode,10);
 
 		return this;
 	}
@@ -107,7 +109,8 @@ public class Dwelling extends CenterPanelBase
 	public Dwelling setTerritoryCode(String code)
 	{
 		sh.setText(by.territoryCode, code);
-		sh.waitForValue(by.bceg,10);
+		if(path != Path.POLICYRENEWAL)
+			sh.waitForValue(by.bceg,10);
 		return this;
 	}
 	public String getTerritoryCode()
@@ -280,6 +283,17 @@ public class Dwelling extends CenterPanelBase
 		return this;
 	}
 
+	public Dwelling atInceptionOfPolicyisDeedOwnedByEntity(boolean flag)
+	{
+		if(flag)
+			sh.clickElement(by.ownedByLLCYes);
+		else
+			sh.clickElement(by.ownedByLLCNo);
+		sh.waitForNoMask();
+		return this;
+	}
+
+
 
 	public class DwellingBy{
 		//final static String dwellingBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
@@ -302,6 +316,8 @@ public class Dwelling extends CenterPanelBase
 								dwellingUsage = By.id(dwellingBase + "DwellingUsage-inputEl"),
 								dwellingOccupancy = By.id(dwellingBase + "Occupancy-inputEl"),
 								housekeepingCondition = By.id(dwellingBase + "HousekeepingCondition_fli-inputEl"),
+								ownedByLLCYes = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_true-inputEl"),
+								ownedByLLCNo = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_false-inputEl"),
 								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]");
 
 	}

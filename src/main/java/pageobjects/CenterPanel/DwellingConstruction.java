@@ -6,10 +6,11 @@ import org.openqa.selenium.By;
 public class DwellingConstruction extends CenterPanelBase
 {
 	private DwellingConstructionBy by;
-	protected String dwellingConstructionBase, windMitigationBase;
-	public DwellingConstruction(CenterSeleniumHelper sh)
+	protected String dwellingConstructionBase, windMitigationBase,tabBase;
+	public DwellingConstruction(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "Dwelling Construction";
 		waitForTitle(sh);
 		setID(path);
@@ -22,17 +23,20 @@ public class DwellingConstruction extends CenterPanelBase
 		switch(path)
 		{
 			case SUBMISSION:
-				this.dwellingConstructionBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				this.windMitigationBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+				dwellingConstructionBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
+				windMitigationBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+				tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
 				break;
 			case POLICYRENEWAL:
-				this.dwellingConstructionBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				this.windMitigationBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+				dwellingConstructionBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
+				windMitigationBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+				tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
 				break;
 			case POLICYCHANGE:
-				this.dwellingConstructionBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				this.windMitigationBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
-
+				dwellingConstructionBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
+				windMitigationBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+				tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+				break;
 		}
 	}
 
@@ -40,7 +44,7 @@ public class DwellingConstruction extends CenterPanelBase
 	{
 		sh.waitForNoMask(15);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new Coverages(sh);
+		return new Coverages(sh,path);
 	}
 
 	public DwellingConstruction setRoofYear(String roofYear)
@@ -313,6 +317,85 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public String getDiscountType()
+	{
+		return sh.getValue(by.discountType);
+	}
+	
+	public DwellingConstruction setDiscountType(String discountType)
+	{
+		sh.setText(by.discountType, discountType);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
+	public String getFortifiedHomeType()
+	{
+		return sh.getValue(by.fortifiedHomeType);
+	}
+
+	public DwellingConstruction setFortifiedHomeType(String fortifiedHomeType)
+	{
+		sh.setText(by.fortifiedHomeType, fortifiedHomeType);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public String getRoofDeck()
+	{
+		return sh.getValue(by.roofDeck);
+	}
+
+	public DwellingConstruction setRoofDeck(String roofDeck)
+	{
+		sh.setText(by.roofDeck, roofDeck);
+		sh.tab();
+		return this;
+	}
+
+	public String getFbcWindSpeed()
+	{
+		return sh.getValue(by.fbcWindSpeed);
+	}
+
+	public DwellingConstruction setFbcWindSpeed(String fbcWindSpeed)
+	{
+		sh.setText(by.fbcWindSpeed, fbcWindSpeed);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
+	public String getInternalPressure()
+	{
+		return sh.getValue(by.internalPressure);
+	}
+
+	public DwellingConstruction setInternalPressure(String internalPressure)
+	{
+		sh.setText(by.internalPressure, internalPressure);
+		sh.tab();
+		return this;
+	}
+
+	public DwellingConstruction WindBorneDebris(boolean flag)
+	{
+		if(flag)
+			sh.clickElement(by.windBorneDebrisYes);
+		else
+			sh.clickElement(by.windBorneDebrisNo);
+		return this;
+	}
+
+	public DwellingConstruction clickSecondaryWaterResistance(boolean flag)
+	{
+		if(flag)
+			sh.clickElement(by.secondaryWaterResistanceYes);
+		else
+			sh.clickElement(by.secondaryWaterResistanceNo);
+		return this;
+	}
+
 
 	public class DwellingConstructionBy
 	{
@@ -334,15 +417,27 @@ public class DwellingConstruction extends CenterPanelBase
 								electricalSystem = By.id(dwellingConstructionBase + "ElectricalType-inputEl"),
 								roofType = By.id(dwellingConstructionBase +"RoofType-inputEl"),
 								conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
-								windMitigation = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:WindMitTab-btnInnerEl"),
+								windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl"),
 
 								// Wind Mitigation
+								discountType = By.id(windMitigationBase + "WindMitDiscountType_fli-inputEl"),
+								fortifiedHomeType = By.id(windMitigationBase + "FortifiedHomeType_fli-inputEl"),
 								roofShapeType = By.id(windMitigationBase + "RoofShapeType_fli-inputEl"),
 								openingProtectionType = By.id(windMitigationBase + "OpeningProtectionType_fli-inputEl"),
 								terrain = By.id(windMitigationBase + "TerrainType_fli-inputEl"),
 								roofCover = By.id(windMitigationBase + "RoofCoverType_fli-inputEl"),
 								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
-								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl");
+								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
+								secondaryWaterResistanceYes = By.id(windMitigationBase + "IsSecondaryWaterResistance_true-inputEl"),
+								secondaryWaterResistanceNo = By.id(windMitigationBase + "IsSecondaryWaterResistance_false-inputEl"),
+								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
+								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
+								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
+								windBorneDebrisYes = By.id(windMitigationBase + "IsWindBorneDebrisRegion_true-inputEl"),
+								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl");
+
+
+
 
 
 	}

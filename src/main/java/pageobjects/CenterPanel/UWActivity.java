@@ -9,9 +9,10 @@ import org.openqa.selenium.By;
 public class UWActivity extends CenterPanelBase
 {
 	private UWActivityBy by;
-	public UWActivity(CenterSeleniumHelper sh)
+	public UWActivity(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
+		this.path = path;
 		expectedPanelTitle = "UW Activity";
 		waitForTitle(sh);
 		System.out.println("Navigated to page: " + getTitle());
@@ -25,7 +26,7 @@ public class UWActivity extends CenterPanelBase
 	public RiskAnalysis sendRequest()
 	{
 		sh.clickElement(by.sendRequest);
-		return new RiskAnalysis(sh);
+		return new RiskAnalysis(sh,path);
 	}
 
 }

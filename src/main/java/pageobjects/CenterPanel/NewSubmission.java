@@ -40,7 +40,7 @@ public class NewSubmission extends CenterPanelBase
 				if(getTextTableElement(i, 2).contains("Homeowners"))
 					clickTableElement(i, 1);
 			}
-			return new Qualification(sh);
+			return new Qualification(sh,path);
 		}
 		public Qualification selectCommercialProperty()
 		{
@@ -49,7 +49,7 @@ public class NewSubmission extends CenterPanelBase
 				if(getTextTableElement(i, 2).contains("Commercial Property"))
 					clickTableElement(i, 1);
 			}
-			return new Qualification(sh);
+			return new Qualification(sh,path);
 		}
 	}
 }
