@@ -10,7 +10,8 @@ import java.util.List;
 public class Dwelling extends CenterPanelBase
 {
 	private DwellingBy by;
-	protected String dwellingBase;
+	protected String 	dwellingBase, tabBase,
+						protectionDetailsBase;
 	public Dwelling(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -27,13 +28,17 @@ public class Dwelling extends CenterPanelBase
 		switch(path)
 		{
 			case SUBMISSION:
-				this.dwellingBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				dwellingBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+				protectionDetailsBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingProtectionDetailsHOEDV:";
 				break;
 			case POLICYRENEWAL:
-				this.dwellingBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				dwellingBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+				protectionDetailsBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingProtectionDetailsHOEDV:";
 				break;
 			case POLICYCHANGE:
-				this.dwellingBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				dwellingBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
 				break;
 
 		}
@@ -99,6 +104,7 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.setText(by.protectionClassCode, pcc);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 	public String getProtectionClassCode()
@@ -292,12 +298,225 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public Dwelling clickProtectionDetails()
+	{
+		sh.clickElement(by.protectionDetails);
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling burglarAlarm(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling lockedPrivacyFence(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling burglarBarsOnWindows(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling communityGuarded(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling gatedCommunity(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling fireAlarm(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling smokeAlarm(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling fireExtinguishers(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling sprinklerSystem(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling deadbolts(boolean flag)	
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	
+
+	public Dwelling residenceVisibleToNeighbors(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling safetyLatchesPresent(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public String getAlarmType()
+	{
+		return sh.getValue(by.alarmType);
+	}
+	
+	public Dwelling setAlarmType(String alarmType)
+	{
+		sh.setText(by.alarmType, alarmType);
+		sh.tab();
+		return this;
+	}
+	public String getFireAlarmType()
+	{
+		return sh.getValue(by.fireAlarmType);
+	}
+	
+	public Dwelling setFireAlarmType(String fireAlarmType)
+	{
+		sh.setText(by.fireAlarmType, fireAlarmType);
+		sh.tab();
+		return this;
+	}
+	public String getSprinklerSystemType()
+	{
+		return sh.getValue(by.sprinklerSystemType);
+	}
+	
+	public Dwelling setSprinklerSystemType(String sprinklerSystemType)
+	{
+		sh.setText(by.sprinklerSystemType, sprinklerSystemType);
+		sh.tab();
+		return this;
+	}
+
+
+	public Dwelling clickAdditionalInterests()
+	{
+		sh.clickElement(by.additionalInterests);
+		return this;
+	}
+	public Dwelling swimmingPool(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "SwimmingPoolExists_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling trampolineOnPremises(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "TrampolineExists_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public Dwelling skateboardBicycleRampOnPremises(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasBikeRamp_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling animalsOrExoticPets(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "AnimalsInDwelling_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling golfCarts(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasOwnedGolfCarts_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling recreationalVehiclesOwned(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasOwnedRecVehicles_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling poolFenced(boolean flag)
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "PropertyFenced_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling divingBoard(boolean flag)	
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "DivingBoard_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public Dwelling poolSlide(boolean flag)	
+	{
+		sh.clickElement(By.id(protectionDetailsBase + "HasSwimmingPoolSlide_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public String getPoolLocation()
+	{
+		return sh.getValue(by.poolLocation);
+	}
+	
+	public Dwelling setPoolLocation(String poolLocation)
+	{
+		sh.setText(by.poolLocation, poolLocation);
+		return this;
+	}
+	public String getFenceType()
+	{
+		return sh.getValue(by.fenceType);
+	}
+	
+	public Dwelling setFenceType(String fenceType)
+	{
+		sh.setText(by.fenceType, fenceType);
+		return this;
+	}
+
+
+
+
 
 
 
 	public class DwellingBy{
-		//final static String dwellingBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
 
+							//*********************************************************************************//
+							// Radio button locators are created and handled in their own individual methods.  //
+							//*********************************************************************************//
 
 		final By			locationName = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput-inputEl"),
 								yearBuilt = By.id(dwellingBase + "YearBuilt-inputEl"),
@@ -318,7 +537,23 @@ public class Dwelling extends CenterPanelBase
 								housekeepingCondition = By.id(dwellingBase + "HousekeepingCondition_fli-inputEl"),
 								ownedByLLCYes = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_true-inputEl"),
 								ownedByLLCNo = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_false-inputEl"),
-								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]");
+								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]"),
+								poolLocation = By.id(dwellingBase + "SwimmingPoolType_fli-inputEl"),
+								fenceType = By.id(dwellingBase + "SwimmingPoolFenceType_fli-inputEl"),
+
+
+								// Protection Details
+								protectionDetails = By.id(tabBase + "DwellingSingleProtectionIdTab-btnInnerEl"),
+								alarmType = By.id(protectionDetailsBase + "BurglarAlarmType-inputEl"),
+								fireAlarmType = By.id(protectionDetailsBase + "FireAlarmType_fli-inputEl"),
+								sprinklerSystemType = By.id(protectionDetailsBase + "SprinklerSystemType-inputEl"),
+
+
+
+
+
+								// Additional Interests
+								additionalInterests = By.id(tabBase + "DwellingAdditionalInterestIdTab-btnInnerEl");
 
 	}
 

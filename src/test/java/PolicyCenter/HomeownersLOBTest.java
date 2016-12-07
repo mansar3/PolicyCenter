@@ -27,8 +27,8 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237824",
-					policyNumDP3 = "FPD3-324237822";
+	private String 	policyNumHO3 = "FPH3-324237826",
+					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
 	public void beforeMethod()
@@ -260,17 +260,27 @@ public class HomeownersLOBTest extends BaseTest
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
 		PolicyInfo pi = offerings.next();
-		pi.setOccupation("Twinkie Smuggler");
+		pi.setOccupation("Twinkie Smuggler").clickDoesInsuredOwnOtherResidence(false).setTermType("Annual");
 
 		Dwelling dwelling = pi.next();
 		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
 		.setMarketValue("6000000").setResidenceType("Duplex")
-		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good");
+		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good")
+		.swimmingPool(true)
+		.setPoolLocation("In-Ground")
+		.poolFenced(true).setFenceType("Screen Enclosure").divingBoard(true).poolSlide(true).trampolineOnPremises(true)
+		.skateboardBicycleRampOnPremises(true).animalsOrExoticPets(false).golfCarts(true).recreationalVehiclesOwned(true)
+		.ownedByOther(false).occupiedDaily(false);
 
 		log("Specifying dwelling details");
 		dwelling
 		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2");
+		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
+		// Protection Details
+		.clickProtectionDetails().burglarAlarm(true).lockedPrivacyFence(true).burglarBarsOnWindows(true)
+		.communityGuarded(true).gatedCommunity(true).fireAlarm(true).smokeAlarm(true).fireExtinguishers(true)
+		.sprinklerSystem(true).deadbolts(true).residenceVisibleToNeighbors(true).safetyLatchesPresent(true)
+		.setFireAlarmType("Central Station").setSprinklerSystemType("Full").setAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -669,7 +679,112 @@ public class HomeownersLOBTest extends BaseTest
 		accountFileSummary = new AccountFileSummary(sh);
 		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
 		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
-		.setBaseState("Florida").setProduct("Homeowners").setPolicyType("Homeowners")
+		.setBaseState("Florida").setProduct("Homeowners").setPolicyType("Dwelling Fire")
+		.setLegacyPolicyNumber(policyNumDP3).setOriginalEffectiveDate("11/21/2016")
+		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage(true)
+		.setTheftCoverage("Limited");
+		Offerings offerings = imr.nextAndAccept();
+		offerings.setPolicyType("Dwelling Fire").setOfferingSelection("Most Popular");
+		PolicyInfo pi = offerings.next();
+		pi.setOccupation("Twinkie Smuggler");
+
+		Dwelling dwelling = pi.next();
+		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
+		.setMarketValue("6000000").setResidenceType("Duplex")
+		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good");
+
+		log("Specifying dwelling details");
+		dwelling
+		.setYearBuilt("2000")
+		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
+		.atInceptionOfPolicyisDeedOwnedByEntity(false);
+
+		DwellingConstruction dc = dwelling.next();
+
+		dc.setRoofYear("2000").setValuationType("Appraisal").setEstimatedReplacementCost("100000")
+		.setConstructionType("Superior").setNumberOfUnits("11-50").setUnitsInFireWall("2").setNumberOfStories("2")
+		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
+		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
+		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
+		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
+		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
+		Coverages co = dc.next();
+		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
+		.setPersonalPropertyValuationMethod("Actual Cash Value").setLossOfUseSelection("5%").setAllOtherPerils("5,000")
+		.setPersonalLiabilityLimit("500,000").setMedicalPaymentsLimit("5,000")
+		.next().quote();//.back().requestApproval().sendRequest();
+		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
+
+
+
+	}
+
+	public void SCDP3AccountRenewalPOC()
+	{
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+		System.out.println(new DateTime().toString());
+
+		log("Test new person account creation");
+		String firstName = "First" + dateString, lastName = "Last" + dateString;
+
+		enterAccountInfo
+			.setFirstName(firstName)
+			.setCompanyName("Jelly")
+			.setCountry("United States")
+			.setCity("Charleston")
+			.setState("South Carolina")
+			.setZipCode("29401")
+			.setLastName(lastName)
+			.clickSearch();
+		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+
+		log("Creating new account: " + dateString);
+		createAccount
+			.setAddressLine1("32 Legare St")
+			.setCity("Charleston")
+			.setState("South Carolina")
+			.setDateOfBirth("03/15/1987")
+			.setHomePhone("456-748-1503")
+			.setWorkPhone("958-562-1250")
+			.setMobilePhone("745-512-6590")
+			.setFaxPhone("487-963-8521")
+			.setPrimaryPhone("Work")
+			.setPrimaryEmail("djfklajs@gmail.com")
+			.setSecondaryEmail("jdklafj@hotmail.com")
+			.setState("South Carolina")
+
+			.setZipCode("32935")
+				.clickVerifyAddress()
+				.selectAddress(2)
+			.setAddressType("Home")
+			.setDescription("Nerd Lair")
+			.setSsn("555-44-3333")
+			.setOrganization("Brown and Brown of Florida, Inc")
+			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
+			", first name: " + firstName + ", last name: " + lastName);
+
+
+		// Policy Renewal
+
+		log("Test simple homeowners policy submission");
+		String accountNumber = accountFileSummary.getAccountNumber();
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
+
+		accountFileSummary = new AccountFileSummary(sh);
+		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
+		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
+		.setBaseState("South Carolina").setProduct("Homeowners").setPolicyType("Homeowners")
 		.setLegacyPolicyNumber(policyNumDP3).setOriginalEffectiveDate("11/21/2016")
 		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage(true);
 		.setTheftCoverage("Limited");
@@ -991,7 +1106,8 @@ public class HomeownersLOBTest extends BaseTest
 		for(int i = 1; i<9; i++)
 			qualification.questionnaire.answerNo(i);
 		PolicyInfo pi = qualification.next();
-		pi.setOccupation("Twinkie Smuggler");
+		pi.setOccupation("Twinkie Smuggler").clickDoesInsuredOwnOtherResidence(true).setTermType("Annual");
+		//.setEffectiveDate("11/14/2016").setOrganization().setProducerCode().setPolicyWriter().setUnderwritingCompanies();
 
 		Dwelling dwelling = pi.next();
 		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
@@ -1001,7 +1117,11 @@ public class HomeownersLOBTest extends BaseTest
 		log("Specifying dwelling details");
 		dwelling
 		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2");
+		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
+		.clickProtectionDetails().burglarAlarm(true).lockedPrivacyFence(true).burglarBarsOnWindows(true)
+		.communityGuarded(true).gatedCommunity(true).fireAlarm(true).smokeAlarm(true).fireExtinguishers(true)
+		.sprinklerSystem(true).deadbolts(true).residenceVisibleToNeighbors(true).safetyLatchesPresent(true)
+		.setFireAlarmType("Central Station").setSprinklerSystemType("Full").setAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();
 
