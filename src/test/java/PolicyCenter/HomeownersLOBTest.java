@@ -268,8 +268,8 @@ public class HomeownersLOBTest extends BaseTest
 		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good")
 		.swimmingPool(true)
 		.setPoolLocation("In-Ground")
-		.poolFenced(true).setFenceType("Screen Enclosure").divingBoard(true).poolSlide(true).trampolineOnPremises(true)
-		.skateboardBicycleRampOnPremises(true).animalsOrExoticPets(false).golfCarts(true).recreationalVehiclesOwned(true)
+		.setPoolFenced(true).setFenceType("Screen Enclosure").setDivingBoard(true).setPoolSlide(true).trampolineOnPremises(true)
+		.skateboardBicycleRampOnPremises(true).setAnimalsOrExoticPets(false).setGolfCarts(true).setRecreationalVehiclesOwned(true)
 		.ownedByOther(false).occupiedDaily(false);
 
 		log("Specifying dwelling details");

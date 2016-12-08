@@ -395,6 +395,16 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.clickElement(by.secondaryWaterResistanceNo);
 		return this;
 	}
+	
+	public DwellingConstruction plumbingSystemHaveKnownLeaks(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Does the plumbing system have known leaks?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+	
 
 
 	public class DwellingConstructionBy

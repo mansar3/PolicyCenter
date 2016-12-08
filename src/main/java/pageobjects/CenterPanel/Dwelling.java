@@ -449,37 +449,37 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling animalsOrExoticPets(boolean flag)
+	public Dwelling setAnimalsOrExoticPets(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "AnimalsInDwelling_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling golfCarts(boolean flag)
+	public Dwelling setGolfCarts(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "HasOwnedGolfCarts_fli_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling recreationalVehiclesOwned(boolean flag)
+	public Dwelling setRecreationalVehiclesOwned(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "HasOwnedRecVehicles_fli_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling poolFenced(boolean flag)
+	public Dwelling setPoolFenced(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "PropertyFenced_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling divingBoard(boolean flag)	
+	public Dwelling setDivingBoard(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "DivingBoard_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling poolSlide(boolean flag)	
+	public Dwelling setPoolSlide(boolean flag)
 	{
 		sh.clickElement(By.id(protectionDetailsBase + "HasSwimmingPoolSlide_fli_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
