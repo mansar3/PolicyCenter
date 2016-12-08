@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 public class CreateAccount extends CenterPanelBase
 {
 	private CreateAccountBy by;
+	public String streetAddress, city, state;
+
 	public static class CreateAccountBy extends CenterPanelBase.CenterPanelBy{
 		private String	base_id = "CreateAccount:CreateAccountScreen:",
 						createAccountDiv = base_id + "CreateAccountDV:",

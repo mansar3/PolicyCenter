@@ -378,7 +378,7 @@ public class DwellingConstruction extends CenterPanelBase
 		return this;
 	}
 
-	public DwellingConstruction WindBorneDebris(boolean flag)
+	public DwellingConstruction setWindBorneDebris(boolean flag)
 	{
 		if(flag)
 			sh.clickElement(by.windBorneDebrisYes);
@@ -396,7 +396,7 @@ public class DwellingConstruction extends CenterPanelBase
 		return this;
 	}
 	
-	public DwellingConstruction plumbingSystemHaveKnownLeaks(boolean flag)
+	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(boolean flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Does the plumbing system have known leaks?']/../..//input[@inputvalue = '" +
@@ -404,6 +404,52 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public DwellingConstruction setBuildingRetrofittedForEarthquakes(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Is the building retrofitted for earthquakes?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolations(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Was the structure originally built for other than a private residence and then converted?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+
+	public DwellingConstruction setLeadPaintHazard(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Any lead paint hazard?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(boolean flag)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Any lead paint hazard?']/../..//input[@inputvalue = '" +
+		String.valueOf(flag) + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+
 	
 
 

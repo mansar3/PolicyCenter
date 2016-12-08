@@ -75,6 +75,7 @@ public class PolicyInfo extends CenterPanelBase
 	public Dwelling next()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+		sh.waitForNoMask();
 		return new Dwelling(sh,path);
 	}
 	public PolicyInfo clickDoesInsuredOwnOtherResidence(boolean flag)
@@ -118,6 +119,7 @@ public class PolicyInfo extends CenterPanelBase
 	{
 		sh.setText(by.termType, termType);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 	public String getEffectiveDate()

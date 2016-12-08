@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237826",
+	private String 	policyNumHO3 = "FPH3-324237841",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -266,20 +266,21 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
 		.setMarketValue("6000000").setResidenceType("Duplex")
 		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good")
-		.swimmingPool(true)
+		.setSwimmingPool(true)
 		.setPoolLocation("In-Ground")
-		.setPoolFenced(true).setFenceType("Screen Enclosure").setDivingBoard(true).setPoolSlide(true).trampolineOnPremises(true)
-		.skateboardBicycleRampOnPremises(true).setAnimalsOrExoticPets(false).setGolfCarts(true).setRecreationalVehiclesOwned(true)
-		.ownedByOther(false).occupiedDaily(false);
+		.setPoolFenced(true).setFenceType("Screen Enclosure").setDivingBoard(true).setPoolSlide(true).setTrampolineOnPremises(true)
+		.setSkateboardBicycleRampOnPremises(true).setAnimalsOrExoticPets(false).setGolfCarts(true).setRecreationalVehiclesOwned(true)
+		.setOwnedByOther(false).setOccupiedDaily(false);
 
 		log("Specifying dwelling details");
 		dwelling
 		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
+		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2100").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
 		// Protection Details
-		.clickProtectionDetails().burglarAlarm(true).lockedPrivacyFence(true).burglarBarsOnWindows(true)
-		.communityGuarded(true).gatedCommunity(true).fireAlarm(true).smokeAlarm(true).fireExtinguishers(true)
-		.sprinklerSystem(true).deadbolts(true).residenceVisibleToNeighbors(true).safetyLatchesPresent(true)
+		.clickProtectionDetails()
+		.setBurglarAlarm(true).setLockedPrivacyFence(true).setBurglarBarsOnWindows(true)
+		.setCommunityGuarded(true).setGatedCommunity(true).setFireAlarm(true).setSmokeAlarm(true).setFireExtinguishers(true)
+		.setSprinklerSystem(true).setDeadbolts(true).setResidenceVisibleToNeighbors(true).safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station").setSprinklerSystemType("Full").setAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();
@@ -290,7 +291,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
 		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
-		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
+		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips").setPlumbingSystemHaveKnownLeaks(true);
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value").setLossOfUseSelection("5%").setAllOtherPerils("5,000")
@@ -697,7 +698,7 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
-		.atInceptionOfPolicyisDeedOwnedByEntity(false);
+		.setAtInceptionOfPolicyIsDeedOwnedByEntity(false);
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -802,7 +803,7 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
-		.atInceptionOfPolicyisDeedOwnedByEntity(false);
+		.setAtInceptionOfPolicyIsDeedOwnedByEntity(false);
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -1118,9 +1119,9 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
-		.clickProtectionDetails().burglarAlarm(true).lockedPrivacyFence(true).burglarBarsOnWindows(true)
-		.communityGuarded(true).gatedCommunity(true).fireAlarm(true).smokeAlarm(true).fireExtinguishers(true)
-		.sprinklerSystem(true).deadbolts(true).residenceVisibleToNeighbors(true).safetyLatchesPresent(true)
+		.clickProtectionDetails().setBurglarAlarm(true).setLockedPrivacyFence(true).setBurglarBarsOnWindows(true)
+		.setCommunityGuarded(true).setGatedCommunity(true).setFireAlarm(true).setSmokeAlarm(true).setFireExtinguishers(true)
+		.setSprinklerSystem(true).setDeadbolts(true).setResidenceVisibleToNeighbors(true).safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station").setSprinklerSystemType("Full").setAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();

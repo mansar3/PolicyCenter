@@ -352,12 +352,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 	
 	public String getSsn()
 	{
-		return sh.getValue(by.ssn);
+		return sh.getValue(by.officialID);
 	}
 	
 	public NewAdditionalInterest setSsn(String ssn)
 	{
-		sh.setText(by.ssn, ssn);
+		sh.setText(by.officialID, ssn);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
@@ -386,7 +386,18 @@ public class NewAdditionalInterest extends CenterPanelBase
 		sh.clickElement(by.checkForDuplicates);
 		return this;
 	}
-	
+	public String getFEIN()
+	{
+		return sh.getValue(by.officialID);
+	}
+
+	public NewAdditionalInterest setFEIN(String officialID)
+	{
+		sh.setText(by.officialID, officialID);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
 	
 	
 	final class NewAdditionalInterestBy
@@ -420,7 +431,8 @@ public class NewAdditionalInterest extends CenterPanelBase
 					addressDescription = By.id(contactDetailsBase + "AddressDescription-inputEl"),
 					licenseNumber = By.id(contactDetailsBase + "LicenseInputSet:LicenseNumber-inputEl"),
 					licenseState = By.id(contactDetailsBase  + "LicenseInputSet:LicenseState-inputEl"),
-					ssn = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+					officialID = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
 
 					// Tabs
