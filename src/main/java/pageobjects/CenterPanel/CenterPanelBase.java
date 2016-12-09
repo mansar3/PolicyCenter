@@ -8,6 +8,7 @@ abstract public class CenterPanelBase
 {
 	protected CenterSeleniumHelper sh;
 	protected String expectedPanelTitle = "Center Panel Base";
+	protected String address;
 	private CenterPanelBy by;
 	protected Path path = Path.SUBMISSION;
 

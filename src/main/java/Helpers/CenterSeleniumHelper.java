@@ -11,6 +11,7 @@ import java.util.List;
 public class CenterSeleniumHelper
 {
 	public WebDriver driver;
+	public CheckboxHelper checkboxHelper = new CheckboxHelper();
 	public CenterSeleniumHelper(WebDriver driver)
 	{
 		this.driver = driver;

@@ -11,6 +11,8 @@ import java.util.List;
 public class Dwelling extends CenterPanelBase
 {
 	private DwellingBy by;
+	public ProtectionDetails pd;
+	public AdditionalInterests ai;
 	protected String 	dwellingBase, tabBase,
 						protectionDetailsBase,
 						aiBase;
@@ -600,6 +602,24 @@ public class Dwelling extends CenterPanelBase
 		{
 
 			return this;
+		}
+	}
+
+	public class ProtectionDetails extends CenterPanelBase
+	{
+		public ProtectionDetails(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+		}
+	}
+
+	public class AdditionalInterests extends CenterPanelBase
+	{
+		public AdditionalInterests(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
 		}
 	}
 

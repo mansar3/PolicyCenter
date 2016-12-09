@@ -7,6 +7,7 @@ public class DwellingConstruction extends CenterPanelBase
 {
 	private DwellingConstructionBy by;
 	protected String dwellingConstructionBase, windMitigationBase,tabBase;
+	public WindMitigation wm;
 	public DwellingConstruction(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -15,6 +16,7 @@ public class DwellingConstruction extends CenterPanelBase
 		waitForTitle(sh);
 		setID(path);
 		by = new DwellingConstructionBy();
+		wm = new WindMitigation(sh, path);
 		System.out.println("Navigated to page: " + getTitle());
 	}
 
@@ -450,9 +452,6 @@ public class DwellingConstruction extends CenterPanelBase
 	}
 
 
-	
-
-
 	public class DwellingConstructionBy
 	{
 
@@ -497,4 +496,211 @@ public class DwellingConstruction extends CenterPanelBase
 
 
 	}
+
+
+	public class WindMitigation extends CenterPanelBase
+	{
+		private WindMitigationBy by;
+		public WindMitigation(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			setID(path);
+			by = new WindMitigationBy();
+		}
+		public void setID(Path path)
+		{
+			switch(path)
+			{
+				case SUBMISSION:
+					windMitigationBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+					tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+					break;
+				case POLICYRENEWAL:
+					windMitigationBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+					tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+					break;
+				case POLICYCHANGE:
+					windMitigationBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
+					tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+					break;
+			}
+		}
+
+		public class WindMitigationBy
+		{
+			final By			discountType = By.id(windMitigationBase + "WindMitDiscountType_fli-inputEl"),
+								fortifiedHomeType = By.id(windMitigationBase + "FortifiedHomeType_fli-inputEl"),
+								roofShapeType = By.id(windMitigationBase + "RoofShapeType_fli-inputEl"),
+								openingProtectionType = By.id(windMitigationBase + "OpeningProtectionType_fli-inputEl"),
+								terrain = By.id(windMitigationBase + "TerrainType_fli-inputEl"),
+								roofCover = By.id(windMitigationBase + "RoofCoverType_fli-inputEl"),
+								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
+								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
+								secondaryWaterResistanceYes = By.id(windMitigationBase + "IsSecondaryWaterResistance_true-inputEl"),
+								secondaryWaterResistanceNo = By.id(windMitigationBase + "IsSecondaryWaterResistance_false-inputEl"),
+								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
+								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
+								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
+								windBorneDebrisYes = By.id(windMitigationBase + "IsWindBorneDebrisRegion_true-inputEl"),
+								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl");
+		}
+
+		public String getRoofShapeType()
+		{
+			return sh.getValue(by.roofShapeType);
+		}
+
+		public WindMitigation setRoofShapeType(String roofShapeType)
+		{
+			sh.setText(by.roofShapeType, roofShapeType);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getDiscountType()
+		{
+			return sh.getValue(by.discountType);
+		}
+
+		public WindMitigation setDiscountType(String discountType)
+		{
+			sh.setText(by.discountType, discountType);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getFortifiedHomeType()
+		{
+			return sh.getValue(by.fortifiedHomeType);
+		}
+
+		public WindMitigation setFortifiedHomeType(String fortifiedHomeType)
+		{
+			sh.setText(by.fortifiedHomeType, fortifiedHomeType);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getOpeningProtectionType()
+		{
+			return sh.getValue(by.openingProtectionType);
+		}
+
+		public WindMitigation setOpeningProtectionType(String openingProtectionType)
+		{
+			sh.setText(by.openingProtectionType, openingProtectionType);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getTerrain()
+		{
+			return sh.getValue(by.terrain);
+		}
+
+		public WindMitigation setTerrain(String terrain)
+		{
+			sh.setText(by.terrain, terrain);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getRoofCover()
+		{
+			return sh.getValue(by.roofCover);
+		}
+
+		public WindMitigation setRoofCover(String roofCover)
+		{
+			sh.setText(by.roofCover, roofCover);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getRoofDeckAttachment()
+		{
+			return sh.getValue(by.roofDeckAttachment);
+		}
+
+		public WindMitigation setRoofDeckAttachment(String roofDeckAttachment)
+		{
+			sh.setText(by.roofDeckAttachment, roofDeckAttachment);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getRoofWallConnection()
+		{
+			return sh.getValue(by.roofWallConnection);
+		}
+
+		public WindMitigation setRoofWallConnection(String roofWallConnection)
+		{
+			sh.setText(by.roofWallConnection, roofWallConnection);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public WindMitigation setSecondaryWaterResistance(boolean flag)
+		{
+			if(flag)
+				sh.clickElement(by.secondaryWaterResistanceYes);
+			else
+				sh.clickElement(by.secondaryWaterResistanceNo);
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getRoofDeck()
+		{
+			return sh.getValue(by.roofDeck);
+		}
+
+		public WindMitigation setRoofDeck(String roofDeck)
+		{
+			sh.setText(by.roofDeck, roofDeck);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getFbcWindSpeed()
+		{
+			return sh.getValue(by.fbcWindSpeed);
+		}
+
+		public WindMitigation setFbcWindSpeed(String fbcWindSpeed)
+		{
+			sh.setText(by.fbcWindSpeed, fbcWindSpeed);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getInternalPressure()
+		{
+			return sh.getValue(by.internalPressure);
+		}
+
+		public WindMitigation setInternalPressure(String internalPressure)
+		{
+			sh.setText(by.internalPressure, internalPressure);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public WindMitigation setWindBorneDebris(boolean flag)
+		{
+			if(flag)
+				sh.clickElement(by.windBorneDebrisYes);
+			else
+				sh.clickElement(by.windBorneDebrisNo);
+
+			sh.waitForNoMask();
+			return this;
+		}
+
+
+
+	}
+
+
 }
