@@ -20,10 +20,10 @@ public class NewAdditionalInterest extends CenterPanelBase
 		System.out.println("Navigated to page: " + getTitle());
 	}
 	
-	public NewAdditionalInterest certRequired(boolean flag)
+	public NewAdditionalInterest clickCertificateRequired(boolean flag)
 	{
 		sh.clickElement(By.id(by.aiBase + "CertRequired_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
+
 		return this;
 	}
 
@@ -36,7 +36,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.type, type);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -49,7 +49,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.loanNumber, loanNumber);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 
@@ -62,7 +62,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -75,7 +75,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -88,7 +88,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -114,7 +114,6 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.primaryPhone, primaryPhone);
 		sh.tab();
-		sh.waitForNoMask();
 		return this;
 	}
 	
@@ -179,7 +178,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.primaryEmail, primaryEmail);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -192,7 +191,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.secondaryEmail, secondaryEmail);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -205,7 +204,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.country, country);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -363,12 +362,13 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return this;
 	}
 
-	public NewAdditionalInterest clickVerifyAddress()
+	public SelectStandardizedAddress<NewAdditionalInterest> clickVerifyAddress()
 	{
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
-		return this;
+		return new SelectStandardizedAddress<>(sh);
 	}
+
 	
 	public Dwelling clickOk()
 	{

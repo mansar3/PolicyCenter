@@ -54,18 +54,13 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.setText(by.roofYear, roofYear);
 		return this;
 	}
-	public DwellingConstruction clickMitigation()
+	public WindMitigation clickWindMitigation()
 	{
 
 		sh.clickElement(by.windMitigation);
-		return this;
+		return new WindMitigation(sh, path);
 	}
-	public DwellingConstruction setRoofShapeType(String roofType)
-	{
-		sh.setText(by.roofShapeType, roofType);
-		sh.tab();
-		return this;
-	}
+
 	public String getValuationType()
 	{
 		return sh.getValue(by.valuationType);
@@ -255,148 +250,6 @@ public class DwellingConstruction extends CenterPanelBase
 		return this;
 	}
 
-	public String getOpeningProtectionType()
-	{
-		return sh.getValue(by.openingProtectionType);
-	}
-
-	public DwellingConstruction setOpeningProtectionType(String openingProtectionType)
-	{
-		sh.setText(by.openingProtectionType, openingProtectionType);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getTerrain()
-	{
-		return sh.getValue(by.terrain);
-	}
-
-	public DwellingConstruction setTerrain(String terrain)
-	{
-		sh.setText(by.terrain, terrain);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getRoofCover()
-	{
-		return sh.getValue(by.roofCover);
-	}
-
-	public DwellingConstruction setRoofCover(String roofCover)
-	{
-		sh.setText(by.roofCover, roofCover);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getRoofDeckAttachment()
-	{
-		return sh.getValue(by.roofDeckAttachment);
-	}
-
-	public DwellingConstruction setRoofDeckAttachment(String roofDeckAttachment)
-	{
-		sh.setText(by.roofDeckAttachment, roofDeckAttachment);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getRoofWallConnection()
-	{
-		return sh.getValue(by.roofWallConnection);
-	}
-
-	public DwellingConstruction setRoofWallConnection(String roofWallConnection)
-	{
-		sh.setText(by.roofWallConnection, roofWallConnection);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-	public String getDiscountType()
-	{
-		return sh.getValue(by.discountType);
-	}
-	
-	public DwellingConstruction setDiscountType(String discountType)
-	{
-		sh.setText(by.discountType, discountType);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-	public String getFortifiedHomeType()
-	{
-		return sh.getValue(by.fortifiedHomeType);
-	}
-
-	public DwellingConstruction setFortifiedHomeType(String fortifiedHomeType)
-	{
-		sh.setText(by.fortifiedHomeType, fortifiedHomeType);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getRoofDeck()
-	{
-		return sh.getValue(by.roofDeck);
-	}
-
-	public DwellingConstruction setRoofDeck(String roofDeck)
-	{
-		sh.setText(by.roofDeck, roofDeck);
-		sh.tab();
-		return this;
-	}
-
-	public String getFbcWindSpeed()
-	{
-		return sh.getValue(by.fbcWindSpeed);
-	}
-
-	public DwellingConstruction setFbcWindSpeed(String fbcWindSpeed)
-	{
-		sh.setText(by.fbcWindSpeed, fbcWindSpeed);
-		sh.tab();
-		sh.waitForNoMask();
-		return this;
-	}
-	public String getInternalPressure()
-	{
-		return sh.getValue(by.internalPressure);
-	}
-
-	public DwellingConstruction setInternalPressure(String internalPressure)
-	{
-		sh.setText(by.internalPressure, internalPressure);
-		sh.tab();
-		return this;
-	}
-
-	public DwellingConstruction setWindBorneDebris(boolean flag)
-	{
-		if(flag)
-			sh.clickElement(by.windBorneDebrisYes);
-		else
-			sh.clickElement(by.windBorneDebrisNo);
-		return this;
-	}
-
-	public DwellingConstruction clickSecondaryWaterResistance(boolean flag)
-	{
-		if(flag)
-			sh.clickElement(by.secondaryWaterResistanceYes);
-		else
-			sh.clickElement(by.secondaryWaterResistanceNo);
-		return this;
-	}
 	
 	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(boolean flag)
 	{
@@ -451,7 +304,54 @@ public class DwellingConstruction extends CenterPanelBase
 		return this;
 	}
 
+	public DwellingConstruction setBuildingRetrofittedForEarthquakesDescription(String text)
+	{
+		sh.clickElement(By.xpath("//*[text() = 'Is the building retrofitted for earthquakes?']/../../following-sibling::tr[1]/td[3]/div"));
+		sh.waitForElementToAppear(By.name("c2"));
+		sh.setText(By.name("c2"),text);
 
+		return this;
+	}
+
+	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String text)
+	{
+		sh.clickElement(By.xpath("//*[text() = 'Was the structure originally built for other than a private residence and then converted?']/../../following-sibling::tr[1]/td[3]/div"));
+
+		sh.waitForElementToAppear(By.name("c2"));
+		sh.setText(By.name("c2"),text);
+
+		return this;
+	}
+
+	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolationsDescription(String text)
+	{
+		sh.clickElement(
+		By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../../following-sibling::tr[1]/td[3]/div"));
+		sh.waitForElementToAppear(By.name("c2"));
+		sh.setText(By.name("c2"),text);
+		return this;
+	}
+
+	public DwellingConstruction setLeadPaintHazardDescription(String text)
+	{
+		sh.clickElement(
+		By.xpath("//*[text() = 'Any lead paint hazard?']/../../following-sibling::tr[1]/td[3]/div"));
+		sh.waitForElementToAppear(By.name("c2"));
+		sh.setText(By.name("c2"),text);
+		return this;
+	}
+	public DwellingConstruction setScreenEnclosureOnPremises(boolean flag)
+	{
+		sh.clickElement(By.id(dwellingConstructionBase + "HasScreenedEnclosure_fli_" +  flag + "-inputEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+
+	private void setTextToDescription(String text)
+	{
+		sh.waitForElementToAppear(By.name("c2"));
+		sh.setText(By.name("c2"),text);
+	}
 	public class DwellingConstructionBy
 	{
 
@@ -472,25 +372,10 @@ public class DwellingConstruction extends CenterPanelBase
 								electricalSystem = By.id(dwellingConstructionBase + "ElectricalType-inputEl"),
 								roofType = By.id(dwellingConstructionBase +"RoofType-inputEl"),
 								conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
-								windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl"),
+
 
 								// Wind Mitigation
-								discountType = By.id(windMitigationBase + "WindMitDiscountType_fli-inputEl"),
-								fortifiedHomeType = By.id(windMitigationBase + "FortifiedHomeType_fli-inputEl"),
-								roofShapeType = By.id(windMitigationBase + "RoofShapeType_fli-inputEl"),
-								openingProtectionType = By.id(windMitigationBase + "OpeningProtectionType_fli-inputEl"),
-								terrain = By.id(windMitigationBase + "TerrainType_fli-inputEl"),
-								roofCover = By.id(windMitigationBase + "RoofCoverType_fli-inputEl"),
-								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
-								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
-								secondaryWaterResistanceYes = By.id(windMitigationBase + "IsSecondaryWaterResistance_true-inputEl"),
-								secondaryWaterResistanceNo = By.id(windMitigationBase + "IsSecondaryWaterResistance_false-inputEl"),
-								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
-								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
-								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
-								windBorneDebrisYes = By.id(windMitigationBase + "IsWindBorneDebrisRegion_true-inputEl"),
-								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl");
-
+								windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");
 
 
 
@@ -543,7 +428,21 @@ public class DwellingConstruction extends CenterPanelBase
 								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
 								windBorneDebrisYes = By.id(windMitigationBase + "IsWindBorneDebrisRegion_true-inputEl"),
-								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl");
+								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl"),
+
+								dwelling = By.id(tabBase + "DetailsTab-btnInnerEl");
+		}
+		public Dwelling clickDwelling()
+		{
+			sh.clickElement(by.dwelling);
+			return new Dwelling(sh, path);
+		}
+
+		public Coverages next()
+		{
+			sh.waitForNoMask(15);
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			return new Coverages(sh,path);
 		}
 
 		public String getRoofShapeType()
@@ -642,7 +541,7 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
-		public WindMitigation setSecondaryWaterResistance(boolean flag)
+		public WindMitigation clickSecondaryWaterResistance(boolean flag)
 		{
 			if(flag)
 				sh.clickElement(by.secondaryWaterResistanceYes);

@@ -24,6 +24,8 @@ public class Dwelling extends CenterPanelBase
 		waitForTitle(sh);
 		setID(path);
 		by = new DwellingBy();
+		pd = new ProtectionDetails(sh,path);
+		ai = new AdditionalInterests(sh,path);
 		System.out.println("Navigated to page: " + getTitle());
 	}
 
@@ -307,129 +309,11 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling clickProtectionDetails()
+	public ProtectionDetails clickProtectionDetails()
 	{
 		sh.clickElement(by.protectionDetails);
 		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setBurglarAlarm(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setLockedPrivacyFence(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setBurglarBarsOnWindows(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setCommunityGuarded(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setGatedCommunity(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setFireAlarm(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setSmokeAlarm(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setFireExtinguishers(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setSprinklerSystem(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public Dwelling setDeadbolts(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-	
-
-	public Dwelling setResidenceVisibleToNeighbors(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-	public Dwelling safetyLatchesPresent(boolean flag)
-	{
-		sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
-		return this;
-	}
-
-	public String getAlarmType()
-	{
-		return sh.getValue(by.alarmType);
-	}
-	
-	public Dwelling setAlarmType(String alarmType)
-	{
-		sh.setText(by.alarmType, alarmType);
-		sh.tab();
-		return this;
-	}
-	public String getFireAlarmType()
-	{
-		return sh.getValue(by.fireAlarmType);
-	}
-	
-	public Dwelling setFireAlarmType(String fireAlarmType)
-	{
-		sh.setText(by.fireAlarmType, fireAlarmType);
-		sh.tab();
-		return this;
-	}
-	public String getSprinklerSystemType()
-	{
-		return sh.getValue(by.sprinklerSystemType);
-	}
-	
-	public Dwelling setSprinklerSystemType(String sprinklerSystemType)
-	{
-		sh.setText(by.sprinklerSystemType, sprinklerSystemType);
-		sh.tab();
-		return this;
+		return new ProtectionDetails(sh,path);
 	}
 
 
@@ -518,26 +402,6 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public NewAdditionalInterest clickAddNewPerson()
-	{
-		sh.clickElement(by.add);
-		sh.clickElement(by.newPerson);
-		return new NewAdditionalInterest(sh, path);
-	}
-
-	public NewAdditionalInterest clickAddNewCompany()
-	{
-		sh.clickElement(by.add);
-		sh.clickElement(by.newCompany);
-		return new NewAdditionalInterest(sh, path);
-	}
-
-
-
-
-
-
-
 
 
 	public class DwellingBy{
@@ -573,21 +437,15 @@ public class Dwelling extends CenterPanelBase
 
 								// Protection Details
 								protectionDetails = By.id(tabBase + "DwellingSingleProtectionIdTab-btnInnerEl"),
-								alarmType = By.id(protectionDetailsBase + "BurglarAlarmType-inputEl"),
-								fireAlarmType = By.id(protectionDetailsBase + "FireAlarmType_fli-inputEl"),
-								sprinklerSystemType = By.id(protectionDetailsBase + "SprinklerSystemType-inputEl"),
+
 
 
 
 
 
 								// Additional Interests
-								additionalInterests = By.id(tabBase + "DwellingAdditionalInterestIdTab-btnInnerEl"),
-								add = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton-btnInnerEl"),
-								newPerson = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:1:ContactType-textEl"),
-								newCompany = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType-textEl"),
-								fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
-								remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
+								additionalInterests = By.id(tabBase + "DwellingAdditionalInterestIdTab-btnInnerEl");
+
 
 
 
@@ -609,20 +467,229 @@ public class Dwelling extends CenterPanelBase
 
 	public class ProtectionDetails extends CenterPanelBase
 	{
+		private ProtectionDetailsBy by;
 		public ProtectionDetails(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
 			this.path = path;
+			setID(path);
+			by= new ProtectionDetailsBy();
 		}
+
+		public void setID(Path path)
+		{
+			switch(path)
+			{
+				case SUBMISSION:
+					tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+					protectionDetailsBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingProtectionDetailsHOEDV:";
+					break;
+				case POLICYRENEWAL:
+					tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+					protectionDetailsBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingProtectionDetailsHOEDV:";
+					break;
+				case POLICYCHANGE:
+					dwellingBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+					break;
+
+			}
+		}
+		public class ProtectionDetailsBy
+		{
+			final By	alarmType = By.id(protectionDetailsBase + "BurglarAlarmType-inputEl"),
+						fireAlarmType = By.id(protectionDetailsBase + "FireAlarmType_fli-inputEl"),
+						sprinklerSystemType = By.id(protectionDetailsBase + "SprinklerSystemType-inputEl"),
+						additionalInterests = By.id(tabBase + "DwellingAdditionalInterestIdTab-btnInnerEl"),
+						detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
+
+		}
+		public AdditionalInterests clickAdditionalInterests()
+		{
+			sh.clickElement(by.additionalInterests);
+			return new AdditionalInterests(sh, path);
+		}
+		public Dwelling clickDetailsTab()
+		{
+			sh.clickElement(by.detailsTab);
+			return new Dwelling(sh, path);
+		}
+
+
+
+		public ProtectionDetails setBurglarAlarm(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setLockedPrivacyFence(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setBurglarBarsOnWindows(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setCommunityGuarded(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setGatedCommunity(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setFireAlarm(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setSmokeAlarm(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setFireExtinguishers(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setSprinklerSystem(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public ProtectionDetails setDeadbolts(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+
+		public ProtectionDetails setResidenceVisibleToNeighbors(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+		public ProtectionDetails safetyLatchesPresent(boolean flag)
+		{
+			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.waitForNoMask();
+			return this;
+		}
+
+		public String getAlarmType()
+		{
+			return sh.getValue(by.alarmType);
+		}
+
+		public ProtectionDetails setAlarmType(String alarmType)
+		{
+			sh.setText(by.alarmType, alarmType);
+			sh.tab();
+			return this;
+		}
+		public String getFireAlarmType()
+		{
+			return sh.getValue(by.fireAlarmType);
+		}
+
+		public ProtectionDetails setFireAlarmType(String fireAlarmType)
+		{
+			sh.setText(by.fireAlarmType, fireAlarmType);
+			sh.tab();
+			return this;
+		}
+		public String getSprinklerSystemType()
+		{
+			return sh.getValue(by.sprinklerSystemType);
+		}
+
+		public ProtectionDetails setSprinklerSystemType(String sprinklerSystemType)
+		{
+			sh.setText(by.sprinklerSystemType, sprinklerSystemType);
+			sh.tab();
+			return this;
+		}
+
+
+
+
 	}
 
 	public class AdditionalInterests extends CenterPanelBase
 	{
+		private AdditionalInterestsBy by;
 		public AdditionalInterests(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
 			this.path = path;
+			setID(path);
+			by = new AdditionalInterestsBy();
 		}
+
+		public void setID(Path path)
+		{
+			switch(path)
+			{
+				case SUBMISSION:
+					tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+					aiBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HOAdditionalInterestDetailsHOEDV:";
+					break;
+				case POLICYRENEWAL:
+					tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+					aiBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HOAdditionalInterestDetailsHOEDV:";
+					break;
+				case POLICYCHANGE:
+					break;
+
+			}
+		}
+
+		public class AdditionalInterestsBy
+		{
+			final By 	add = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton-btnInnerEl"),
+						newPerson = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:1:ContactType-textEl"),
+						newCompany = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType-textEl"),
+						fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
+						remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
+		}
+		public NewAdditionalInterest clickAddNewPerson()
+		{
+			sh.clickElement(by.add);
+			sh.clickElement(by.newPerson);
+			return new NewAdditionalInterest(sh, path);
+		}
+
+		public NewAdditionalInterest clickAddNewCompany()
+		{
+			sh.clickElement(by.add);
+			sh.clickElement(by.newCompany);
+			return new NewAdditionalInterest(sh, path);
+		}
+
 	}
 
 }

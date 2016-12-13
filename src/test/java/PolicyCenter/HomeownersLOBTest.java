@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237873",
+	private String 	policyNumHO3 = "FPH3-324237878",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -91,7 +91,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setDistanceToFireHydrant("2000").setBCEG("02").setProtectionClassCode("2");
 
 		DwellingConstruction dc = dwelling.next();
-		dc.setRoofYear("2000").clickMitigation().setRoofShapeType("Hip");
+		dc.setRoofYear("2000").clickWindMitigation().setRoofShapeType("Hip");
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000").next().quote();
 
@@ -176,7 +176,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		DwellingConstruction dc = dwelling.next();
 
-		dc.setRoofYear(eai.get("Roof Year")).clickMitigation().setRoofShapeType(eai.get("Roof Shape"));
+		dc.setRoofYear(eai.get("Roof Year")).clickWindMitigation().setRoofShapeType(eai.get("Roof Shape"));
 		Coverages co = dc.next();
 		co.setDwellingLimit(eai.get("Dwelling Limit")).setPersonalPropertyLimit(eai.get("Personal Property - Limit"))
 		.next().quote().back().requestApproval().sendRequest();
@@ -304,9 +304,9 @@ public class HomeownersLOBTest extends BaseTest
 
 
 		// Protection Details
-		.clickProtectionDetails();
+		.clickProtectionDetails()
 		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
-		dwelling.setBurglarAlarm(true)
+		.setBurglarAlarm(true)
 
 		.setLockedPrivacyFence(true)
 		.setBurglarBarsOnWindows(true)
@@ -321,7 +321,35 @@ public class HomeownersLOBTest extends BaseTest
 		.safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
-		.setAlarmType("Central Station");
+		.setAlarmType("Central Station")
+
+		// Additional Interests
+		.clickAdditionalInterests()
+		.clickAddNewPerson()
+		.setType("Additional Insured")
+		.clickCertificateRequired(true)
+		.setLoanNumber("747384")
+		.setFirstName("Jelly")
+		.setLastName("Junior")
+		.setDateOfBirth("10/20/1986")
+		.setMaritalStatus("Married")
+		.setPrimaryPhone("Home")
+		.setHomePhone("456-987-6542")
+		.setWorkPhone("453-985-6325")
+		.setMobilePhone("123-254-8457")
+		.setFaxPhone("156-984-5478")
+		.setPrimaryEmail("jelly@jellymail.com")
+		.setSecondaryEmail("jiggla@jigglamail.com")
+		.setCountry("United States")
+		.setAddress1("2470 Wild Wood dr")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickVerifyAddress()
+		.selectAddress(2)
+		.setAddressType("Billing");
+
+
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -346,26 +374,26 @@ public class HomeownersLOBTest extends BaseTest
 
 //		.setPlumbingSystemHaveKnownLeaks(true)
 //		.setBuildingRetrofittedForEarthquakes(true)
-//		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+////		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
 //		.setUncorrectedFireOrBuildingCodeViolations(true)
 //		.setStructureOriginallyBuiltForOtherThanPrivateResidence(true)
 //		.setLeadPaintHazard(true)
-//		.setLeadPaintHazardDescription("best")
-//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
-//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+////		.setLeadPaintHazardDescription("best")
+////		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+////		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
 
-
-		.clickMitigation()
+		// Wind Mitigation
+		.clickWindMitigation()
 		.setRoofShapeType("Hip")
 		.setOpeningProtectionType("Hurricane")
 		.setTerrain("C")
 		.setRoofCover("FBC Equivalent")
 		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
 		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance(true);
+		.clickSecondaryWaterResistance(true).next()
 
-		Coverages co = dc.next();
-		co.setDwellingLimit("300000")
+		// Coverages
+		.setDwellingLimit("300000")
 		.setPersonalPropertyLimit("150000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value")
 		.setLossOfUseSelection("5%")
@@ -374,11 +402,12 @@ public class HomeownersLOBTest extends BaseTest
 		.setHurricane("2%")
 		.setMedicalPaymentsLimit("5,000")
 
+		// Property Endorsements
 		.clickPropertyEndorsements()
-		.checkOtherStructuresIncreasedCoverageRentedToOthers()
-		.checkScheduledPersonalProperty()
-		.checkScreenEnclosureHurricaneCoverage()
-		.checkSinkholeLossCoverage()
+//		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+//		.checkScheduledPersonalProperty()
+//		.checkScreenEnclosureHurricaneCoverage()
+//		.checkSinkholeLossCoverage()
 		.next()
 		.quote();
 		//.back().requestApproval().sendRequest();
@@ -479,7 +508,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setDiscountType("Fortified Home").setFortifiedHomeType("Silver - Option 1")
+		.clickWindMitigation().setDiscountType("Fortified Home").setFortifiedHomeType("Silver - Option 1")
 		.setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
 //		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
 		Coverages co = dc.next();
@@ -584,7 +613,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
+		.clickWindMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
 //		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000").next().quote();//.back().requestApproval().sendRequest();
@@ -687,7 +716,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
+		.clickWindMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
 		//.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
@@ -792,7 +821,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
+		.clickWindMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
 		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
@@ -897,7 +926,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
 		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
+		.clickWindMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
 		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
 		Coverages co = dc.next();
 		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
@@ -1025,7 +1054,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setElectricalSystem("Circuit Breaker")
 		.setRoofType("Metal")
 		.setConditionOfRoof("Good")
-		.clickMitigation()
+		.clickWindMitigation()
 		.setRoofShapeType("Hip")
 		.setOpeningProtectionType("Hurricane")
 		.setTerrain("C")
@@ -1159,7 +1188,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setElectricalSystem("Circuit Breaker")
 		.setRoofType("Metal")
 		.setConditionOfRoof("Good")
-		.clickMitigation()
+		.clickWindMitigation()
 		.setRoofShapeType("Hip")
 		.setOpeningProtectionType("Hurricane")
 		.setTerrain("C")
@@ -1316,7 +1345,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setElectricalSystem("Circuit Breaker")
 		.setRoofType("Metal")
 		.setConditionOfRoof("Good")
-		.clickMitigation()
+		.clickWindMitigation()
 		.setRoofShapeType("Hip")
 		.setOpeningProtectionType("Hurricane")
 		.setTerrain("C")
@@ -1463,7 +1492,7 @@ public class HomeownersLOBTest extends BaseTest
 		DwellingConstruction dc = dwelling.next();
 
 		dc.setRoofYear(RoofYear)
-		.clickMitigation()
+		.clickWindMitigation()
 		.setRoofShapeType(RoofShape);
 		Coverages co = dc.next();
 		co.setDwellingLimit(DwellingLimit).setPersonalPropertyLimit(PersonalPropertyLimit)
