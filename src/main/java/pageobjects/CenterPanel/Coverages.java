@@ -487,6 +487,12 @@ public class Coverages extends CenterPanelBase
 			sh.checkboxHelper.unCheckElement(by.sinkholeLossCoverage);
 			return this;
 		}
+		public RiskAnalysis next()
+		{
+			sh.waitForNoMask(15);
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			return new RiskAnalysis(sh,path);
+		}
 		
 
 	}

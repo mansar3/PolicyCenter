@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237841",
+	private String 	policyNumHO3 = "FPH3-324237873",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -253,50 +253,134 @@ public class HomeownersLOBTest extends BaseTest
 
 		accountFileSummary = new AccountFileSummary(sh);
 		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
-		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
-		.setBaseState("Florida").setProduct("Homeowners").setPolicyType("Homeowners")
-		.setLegacyPolicyNumber(policyNumHO3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015").setInflationGuard("12%").clickExcludeLossOfUseCoverage(true);
+		imr.setOrganization("Brown and Brown of Florida, Inc")
+		.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
+		.setBaseState("Florida")
+		.setProduct("Homeowners")
+		.setPolicyType("Homeowners")
+		.setLegacyPolicyNumber(policyNumHO3)
+		.setOriginalEffectiveDate("11/21/2016")
+		.setEffectiveDate("10/29/2017")
+		.setLastInspectionCompletionDate("03/21/2015")
+		.setInflationGuard("12%")
+		.clickExcludeLossOfUseCoverage(true);
 		Offerings offerings = imr.nextAndAccept();
-		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
+		offerings.setPolicyType("Homeowners")
+		.setOfferingSelection("Most Popular");
 		PolicyInfo pi = offerings.next();
-		pi.setOccupation("Twinkie Smuggler").clickDoesInsuredOwnOtherResidence(false).setTermType("Annual");
+		pi.setOccupation("Twinkie Smuggler")
+		.clickDoesInsuredOwnOtherResidence(false)
+		.setTermType("Annual");
 
 		Dwelling dwelling = pi.next();
-		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
-		.setMarketValue("6000000").setResidenceType("Duplex")
-		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good")
+		dwelling.setPurchaseDate("01/25/2000")
+		.setPurchasePrice("500000")
+		.setMarketValue("6000000")
+		.setResidenceType("Duplex")
+		.setDwellingUsage("Seasonal")
+		.setHousekeepingCondition("Good")
 		.setSwimmingPool(true)
 		.setPoolLocation("In-Ground")
-		.setPoolFenced(true).setFenceType("Screen Enclosure").setDivingBoard(true).setPoolSlide(true).setTrampolineOnPremises(true)
-		.setSkateboardBicycleRampOnPremises(true).setAnimalsOrExoticPets(false).setGolfCarts(true).setRecreationalVehiclesOwned(true)
-		.setOwnedByOther(false).setOccupiedDaily(false);
+		.setPoolFenced(true)
+		.setFenceType("Screen Enclosure")
+		.setDivingBoard(true)
+		.setPoolSlide(true)
+		.setTrampolineOnPremises(true)
+		.setSkateboardBicycleRampOnPremises(true)
+		.setAnimalsOrExoticPets(false)
+		.setGolfCarts(true)
+		.setRecreationalVehiclesOwned(true)
+		.setOwnedByOther(false)
+		.setOccupiedDaily(false);
 
 		log("Specifying dwelling details");
 		dwelling
 		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2100").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
+		.setDistanceToFireHydrant("2000")
+		.setDistanceToFireStation("2100")
+		.setTerritoryCode("064")
+		.setBCEG("02")
+		.setProtectionClassCode("2")
+
+
 		// Protection Details
-		.clickProtectionDetails()
-		.setBurglarAlarm(true).setLockedPrivacyFence(true).setBurglarBarsOnWindows(true)
-		.setCommunityGuarded(true).setGatedCommunity(true).setFireAlarm(true).setSmokeAlarm(true).setFireExtinguishers(true)
-		.setSprinklerSystem(true).setDeadbolts(true).setResidenceVisibleToNeighbors(true).safetyLatchesPresent(true)
-		.setFireAlarmType("Central Station").setSprinklerSystemType("Full").setAlarmType("Central Station");
+		.clickProtectionDetails();
+		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		dwelling.setBurglarAlarm(true)
+
+		.setLockedPrivacyFence(true)
+		.setBurglarBarsOnWindows(true)
+		.setCommunityGuarded(true)
+		.setGatedCommunity(true)
+		.setFireAlarm(true)
+		.setSmokeAlarm(true)
+		.setFireExtinguishers(true)
+		.setSprinklerSystem(true)
+		.setDeadbolts(true)
+		.setResidenceVisibleToNeighbors(true)
+		.safetyLatchesPresent(true)
+		.setFireAlarmType("Central Station")
+		.setSprinklerSystemType("Full")
+		.setAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();
 
-		dc.setRoofYear("2000").setValuationType("Appraisal").setEstimatedReplacementCost("100000")
-		.setConstructionType("Superior").setNumberOfUnits("11-50").setUnitsInFireWall("2").setNumberOfStories("2")
-		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
-		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
-		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane").setTerrain("C")
-		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips").setPlumbingSystemHaveKnownLeaks(true);
+		dc.setRoofYear("2000")
+		.setValuationType("Appraisal")
+		.setEstimatedReplacementCost("100000")
+		.setConstructionType("Superior")
+		.setNumberOfUnits("11-50")
+		.setUnitsInFireWall("2")
+		.setNumberOfStories("2")
+		.setSquareFootage("3500")
+		.setFoundationType("Open")
+		.setPrimaryHeating("Gas")
+		.setPlumbing("Copper")
+		.setPlumbingYear("2003")
+		.setWaterHeaterYear("2004")
+		.setWiring("Multi-Strand Aluminum")
+		.setElectricalSystem("Circuit Breaker")
+		.setRoofType("Metal")
+		.setConditionOfRoof("Good")
+
+
+//		.setPlumbingSystemHaveKnownLeaks(true)
+//		.setBuildingRetrofittedForEarthquakes(true)
+//		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+//		.setUncorrectedFireOrBuildingCodeViolations(true)
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidence(true)
+//		.setLeadPaintHazard(true)
+//		.setLeadPaintHazardDescription("best")
+//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+
+
+		.clickMitigation()
+		.setRoofShapeType("Hip")
+		.setOpeningProtectionType("Hurricane")
+		.setTerrain("C")
+		.setRoofCover("FBC Equivalent")
+		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
+		.setRoofWallConnection("Clips")
+		.clickSecondaryWaterResistance(true);
+
 		Coverages co = dc.next();
-		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000")
-		.setPersonalPropertyValuationMethod("Actual Cash Value").setLossOfUseSelection("5%").setAllOtherPerils("5,000")
-		.setPersonalLiabilityLimit("500,000").setMedicalPaymentsLimit("5,000")
-		.next().quote();
+		co.setDwellingLimit("300000")
+		.setPersonalPropertyLimit("150000")
+		.setPersonalPropertyValuationMethod("Actual Cash Value")
+		.setLossOfUseSelection("5%")
+		.setAllOtherPerils("5,000")
+		.setPersonalLiabilityLimit("500,000")
+		.setHurricane("2%")
+		.setMedicalPaymentsLimit("5,000")
+
+		.clickPropertyEndorsements()
+		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+		.checkScheduledPersonalProperty()
+		.checkScreenEnclosureHurricaneCoverage()
+		.checkSinkholeLossCoverage()
+		.next()
+		.quote();
 		//.back().requestApproval().sendRequest();
 		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
 
