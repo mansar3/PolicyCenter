@@ -82,7 +82,7 @@ public class AccountTest extends BaseTest
 			.setState("Florida")
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(1)
+				.selectAddressForCreateAccount(1)
 			.setAddressType("Home")
 			.setOrganization("Brown and Brown of Florida, Inc")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
@@ -108,7 +108,7 @@ public class AccountTest extends BaseTest
 			.setState("Florida")
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setOrganization("Brown and Brown of Florida, Inc")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");

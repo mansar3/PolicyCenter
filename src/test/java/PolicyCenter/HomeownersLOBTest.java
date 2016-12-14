@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237878",
+	private String 	policyNumHO3 = "FPH3-324237886",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -133,7 +133,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode(eai.get("Mailing Zipcode"))
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType(eai.get("Address Type"))
 			.setOrganization(eai.get("Organization"))
 			.setProducerCode(eai.get("Producer Code"));
@@ -230,7 +230,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -336,8 +336,8 @@ public class HomeownersLOBTest extends BaseTest
 		.setPrimaryPhone("Home")
 		.setHomePhone("456-987-6542")
 		.setWorkPhone("453-985-6325")
-		.setMobilePhone("123-254-8457")
-		.setFaxPhone("156-984-5478")
+		.setMobilePhone("323-254-8457")
+		.setFaxPhone("356-984-5478")
 		.setPrimaryEmail("jelly@jellymail.com")
 		.setSecondaryEmail("jiggla@jigglamail.com")
 		.setCountry("United States")
@@ -346,14 +346,17 @@ public class HomeownersLOBTest extends BaseTest
 		.setState("Florida")
 		.setZipCode("32935")
 		.clickVerifyAddress()
-		.selectAddress(2)
-		.setAddressType("Billing");
+		.selectAddressForNewAdditionalInterests(2)
+		.setAddressType("Billing")
+		.setAddressDescription("Hideout")
+		.setLicenseNumber("156468465")
+		.setLicenseState("Florida")
+		.setSsn("598-99-6565")
+		.clickOk()
+		.next()
 
-
-
-		DwellingConstruction dc = dwelling.next();
-
-		dc.setRoofYear("2000")
+		// Dwelling Construction
+		.setRoofYear("2000")
 		.setValuationType("Appraisal")
 		.setEstimatedReplacementCost("100000")
 		.setConstructionType("Superior")
@@ -372,15 +375,15 @@ public class HomeownersLOBTest extends BaseTest
 		.setConditionOfRoof("Good")
 
 
-//		.setPlumbingSystemHaveKnownLeaks(true)
-//		.setBuildingRetrofittedForEarthquakes(true)
-////		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
-//		.setUncorrectedFireOrBuildingCodeViolations(true)
-//		.setStructureOriginallyBuiltForOtherThanPrivateResidence(true)
-//		.setLeadPaintHazard(true)
-////		.setLeadPaintHazardDescription("best")
-////		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
-////		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+		.setPlumbingSystemHaveKnownLeaks(true)
+		.setBuildingRetrofittedForEarthquakes(true)
+		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+		.setUncorrectedFireOrBuildingCodeViolations(true)
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence(true)
+		.setLeadPaintHazard(true)
+		.setLeadPaintHazardDescription("best")
+		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
 
 		// Wind Mitigation
 		.clickWindMitigation()
@@ -458,7 +461,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("28546")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -564,7 +567,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -664,7 +667,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -770,7 +773,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -875,7 +878,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -980,7 +983,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -1113,7 +1116,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -1253,7 +1256,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode("32935")
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType("Home")
 			.setDescription("Nerd Lair")
 			.setSsn("555-44-3333")
@@ -1450,7 +1453,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			.setZipCode(MailingZipcode)
 				.clickVerifyAddress()
-				.selectAddress(2)
+				.selectAddressForCreateAccount(2)
 			.setAddressType(AddressType)
 			.setOrganization(Organization)
 			.setProducerCode(ProducerCode);

@@ -15,7 +15,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 		this.sh= sh;
 		this.path = path;
 		expectedPanelTitle = "New Additional Interest";
-		waitForTitle(sh);
+		//waitForTitle(sh);
 		by = new NewAdditionalInterestBy();
 		System.out.println("Navigated to page: " + getTitle());
 	}
@@ -306,7 +306,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.addressType, addressType);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -319,7 +319,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.addressDescription, addressDescription);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -332,7 +332,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 	{
 		sh.setText(by.licenseNumber, licenseNumber);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 	
@@ -362,18 +362,18 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return this;
 	}
 
-	public SelectStandardizedAddress<NewAdditionalInterest> clickVerifyAddress()
+	public SelectStandardizedAddress clickVerifyAddress()
 	{
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
-		return new SelectStandardizedAddress<>(sh);
+		return new SelectStandardizedAddress(sh,path);
 	}
 
 	
-	public Dwelling clickOk()
+	public Dwelling.AdditionalInterests clickOk()
 	{
 		sh.clickElement(by.ok);
-		return new Dwelling(sh,path);
+		return new Dwelling(sh,path).new AdditionalInterests(sh, path);
 	}
 	
 	public Dwelling clickCancel()
@@ -403,8 +403,8 @@ public class NewAdditionalInterest extends CenterPanelBase
 	final class NewAdditionalInterestBy
 	{
 		final String 	aiBase = "NewAdditionalInterestPopup:ContactDetailScreen:AdditionalInterestInfoDV:",
-						tabBase = "NewAdditionalNamedInsuredPopup:ContactDetailScreen:",
-						contactDetailsBase = "NewAdditionalInterestPopup:ContactDetailScreen:NewPolicyContactRoleDetailsCV:PolicyContactDetailsDV:";
+						contactDetailsBase = "NewAdditionalInterestPopup:ContactDetailScreen:NewPolicyContactRoleDetailsCV:PolicyContactDetailsDV:",
+						tabBase = "NewAdditionalInterestPopup:ContactDetailScreen:" ;
 
 		final By	type = By.id(aiBase + "Type-inputEl"),
 					loanNumber = By.id(aiBase + "ContractNumber-inputEl"),
@@ -436,7 +436,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
 
 					// Tabs
-					ok = By.id(tabBase + "ForceDupCheckUpdate-btnInnerEl"),
+					ok = By.id(tabBase+ "ForceDupCheckUpdate-btnInnerEl"),
 					cancel = By.id(tabBase + "Cancel-btnInnerEl"),
 					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl");
 

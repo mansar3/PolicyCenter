@@ -298,7 +298,7 @@ public class DwellingConstruction extends CenterPanelBase
 	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(boolean flag)
 	{
 		sh.clickElement(
-		By.xpath(".//*[text() = 'Any lead paint hazard?']/../..//input[@inputvalue = '" +
+		By.xpath(".//*[text() = '']/../..//input[@inputvalue = '" +
 		String.valueOf(flag) + "']"));
 		sh.waitForNoMask();
 		return this;

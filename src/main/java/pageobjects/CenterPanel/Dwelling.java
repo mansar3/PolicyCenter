@@ -513,7 +513,12 @@ public class Dwelling extends CenterPanelBase
 			sh.clickElement(by.detailsTab);
 			return new Dwelling(sh, path);
 		}
-
+		public DwellingConstruction next()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			return new DwellingConstruction(sh,path);
+		}
 
 
 		public ProtectionDetails setBurglarAlarm(boolean flag)
@@ -688,6 +693,23 @@ public class Dwelling extends CenterPanelBase
 			sh.clickElement(by.add);
 			sh.clickElement(by.newCompany);
 			return new NewAdditionalInterest(sh, path);
+		}
+		public AdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
+		{
+			sh.clickElement(By.xpath(aiBase + "AdditionalInterestLV-body']//div[text()= '" + typeEffectiveDateLoanNumber + "']/../..//img"));
+			return this;
+		}
+		public AdditionalInterests selectRowInAdditionalInterestByName(String name)
+		{
+			sh.clickElement(By.xpath(aiBase + "AdditionalInterestLV-body']//a[text()= '" + name + "']/../../..//img"));
+			return this;
+		}
+
+		public DwellingConstruction next()
+		{
+			sh.waitForNoMask(20);
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			return new DwellingConstruction(sh,path);
 		}
 
 	}

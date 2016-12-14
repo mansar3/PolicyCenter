@@ -19,12 +19,26 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 		expectedPanelTitle = "Select a Standardized Address";
 		waitForTitle(sh);
 	}
+	public SelectStandardizedAddress(CenterSeleniumHelper sh,Path path)
+	{
+		this.sh = sh;
+		this.path = path;
+		by = new SelectStandardizedAddressBy();
+		expectedPanelTitle = "Select a Standardized Address";
+		waitForTitle(sh);
+	}
 
-	public T selectAddress(int row)
+	public CreateAccount selectAddressForCreateAccount(int row)
 	{
 		sh.waitForNoMask(5);
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
-		return (T)this;
+		return new CreateAccount(sh);
+	}
+	public NewAdditionalInterest selectAddressForNewAdditionalInterests(int row)
+	{
+		sh.waitForNoMask(5);
+		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
+		return new NewAdditionalInterest(sh,path);
 	}
 
 }
