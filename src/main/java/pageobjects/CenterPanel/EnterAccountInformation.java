@@ -115,7 +115,7 @@ public class EnterAccountInformation extends CenterPanelBase
 		sh.clickElement(by.searchBtn);
 		return this;
 	}
-	public EnterAccountInformation clickCompanyExactMatch()
+	public EnterAccountInformation clickCompanyNameExactMatch()
 	{
 		sh.clickElement(by.companyExactMatch);
 		return this;

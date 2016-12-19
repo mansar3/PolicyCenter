@@ -26,17 +26,14 @@ public class DwellingConstruction extends CenterPanelBase
 		{
 			case SUBMISSION:
 				dwellingConstructionBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				windMitigationBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
 				tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
 				break;
 			case POLICYRENEWAL:
 				dwellingConstructionBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				windMitigationBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
 				tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
 				break;
 			case POLICYCHANGE:
 				dwellingConstructionBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
-				windMitigationBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstructionWindMit_fliDV:";
 				tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
 				break;
 		}
@@ -164,6 +161,7 @@ public class DwellingConstruction extends CenterPanelBase
 	{
 		sh.setText(by.primaryHeating, primaryHeating);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
@@ -176,6 +174,7 @@ public class DwellingConstruction extends CenterPanelBase
 	{
 		sh.setText(by.plumbing, plumbing);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
@@ -235,6 +234,7 @@ public class DwellingConstruction extends CenterPanelBase
 	{
 		sh.setText(by.roofType, roofType);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
@@ -249,7 +249,49 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.tab();
 		return this;
 	}
+	public DwellingConstruction setIsThereASecondaryHeatingSystem(boolean flag)
+	{
+		sh.clickElement(By.id(dwellingConstructionBase + "SecondaryHeatingExists_" + String.valueOf(flag) + "-inputEl"));
 
+		return this;
+	}
+	public String getElectricalSystemDescribeOther()
+	{
+		return sh.getValue(by.electricalSystemDescribeOther);
+	}
+
+	public DwellingConstruction setElectricalSystemDescribeOther(String electricalSystemDescribeOther)
+	{
+		sh.setText(by.electricalSystemDescribeOther, electricalSystemDescribeOther);
+		sh.tab();
+
+		return this;
+	}
+	
+	public String getRoofTypeDescription()
+	{
+		return sh.getValue(by.roofTypeDescription);
+	}
+	
+	public DwellingConstruction setRoofTypeDescription(String roofTypeDescription)
+	{
+		sh.setText(by.roofTypeDescription, roofTypeDescription);
+		sh.tab();
+
+		return this;
+	}
+	public String getPlumbingDescribeOther()
+	{
+		return sh.getValue(by.plumbingDescribeOther);
+	}
+	
+	public DwellingConstruction setPlumbingDescribeOther(String plumbingDescribeOther)
+	{
+		sh.setText(by.plumbingDescribeOther, plumbingDescribeOther);
+		sh.tab();
+
+		return this;
+	}
 	
 	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(boolean flag)
 	{
@@ -366,11 +408,14 @@ public class DwellingConstruction extends CenterPanelBase
 								foundationType = By.id(dwellingConstructionBase + "Foundation-inputEl"),
 								primaryHeating = By.id(dwellingConstructionBase + "PrimaryHeating-inputEl"),
 								plumbing = By.id((dwellingConstructionBase + "PlumbingType-inputEl")),
+								plumbingDescribeOther = By.id(dwellingConstructionBase + "PlumbingTypeDescription-inputEl"),
 								plumbingYear = By.id(dwellingConstructionBase + "PlumbingYear_fli-inputEl"),
 								waterHeaterYear = By.id(dwellingConstructionBase + "WaterHeaterYear_fli-inputEl"),
 								wiring = By.id(dwellingConstructionBase + "WiringType-inputEl"),
 								electricalSystem = By.id(dwellingConstructionBase + "ElectricalType-inputEl"),
+								electricalSystemDescribeOther = By.id(dwellingConstructionBase + "ElectricalTypeDesc-inputEl"),
 								roofType = By.id(dwellingConstructionBase +"RoofType-inputEl"),
+								roofTypeDescription = By.id(dwellingConstructionBase + "RoofTypeDesc-inputEl"),
 								conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
 
 

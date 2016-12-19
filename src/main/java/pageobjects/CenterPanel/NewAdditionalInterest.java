@@ -375,6 +375,30 @@ public class NewAdditionalInterest extends CenterPanelBase
 		sh.clickElement(by.ok);
 		return new Dwelling(sh,path).new AdditionalInterests(sh, path);
 	}
+	public String getCompanyName()
+	{
+		return sh.getValue(by.companyName);
+	}
+	
+	public NewAdditionalInterest setCompanyName(String companyName)
+	{
+		sh.setText(by.companyName, companyName);
+		sh.tab();
+
+		return this;
+	}
+	public String getOfficePhone()
+	{
+		return sh.getValue(by.officePhone);
+	}
+	
+	public NewAdditionalInterest setOfficePhone(String officePhone)
+	{
+		sh.setText(by.officePhone, officePhone);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
 	
 	public Dwelling clickCancel()
 	{
@@ -410,9 +434,11 @@ public class NewAdditionalInterest extends CenterPanelBase
 					loanNumber = By.id(aiBase + "ContractNumber-inputEl"),
 					firstName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:FirstName-inputEl"),
 					lastName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:LastName-inputEl"),
+					companyName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
 					dateOfBirth = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:DateOfBirth-inputEl"),
 					maritalStatus = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:MaritalStatus-inputEl"),
 					primaryPhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:PrimaryPhone-inputEl"),
+					officePhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					homePhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:HomePhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					workPhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					mobilePhone =  By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:CellPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),

@@ -40,5 +40,10 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return new NewAdditionalInterest(sh,path);
 	}
-
+	public NewAdditionalNameInsured selectAddressForNewAdditionalNamedInsured(int row)
+	{
+		sh.waitForNoMask(5);
+		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
+		return new NewAdditionalNameInsured(sh,path);
+	}
 }

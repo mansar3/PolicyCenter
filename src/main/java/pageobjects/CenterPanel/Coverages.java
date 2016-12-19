@@ -82,10 +82,8 @@ public class Coverages extends CenterPanelBase
 
 	public Coverages setPersonalPropertyExcluded(boolean flag)
 	{
-		if(flag)
-			sh.clickElement(by.personalPropertyExcludedYes);
-		else
-			sh.clickElement(by.personalPropertyExcludedNo);
+		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../../../..//label[text() = 'Excluded?']/../..//label[contains(@id, '"
+		+ String.valueOf(flag) + "')]/..//input"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -146,10 +144,8 @@ public class Coverages extends CenterPanelBase
 	}
 	public Coverages setWindExcluded(boolean flag)
 	{
-		if(flag)
-			sh.clickElement(by.windExcludedYes);
-		else
-			sh.clickElement(by.windExcludedNo);
+		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//label[text() = 'Wind Excluded?']/../..//label[contains(@id, '"
+		+ String.valueOf(flag) + "')]/..//input"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -175,7 +171,7 @@ public class Coverages extends CenterPanelBase
 	{
 		sh.setText(by.medicalPaymentsLimit, medicalPaymentsLimit);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
 
@@ -248,13 +244,9 @@ public class Coverages extends CenterPanelBase
 								otherStructuresIncreasedCoverage = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../../../..//label[text() = 'Percentage']/../..//input"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../../../..//label[text() = 'Limit']/../..//div"),
-								personalPropertyExcludedNo = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"),
-								personalPropertyExcludedYes = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../../../..//label[text() = 'Valuation Method']/../..//input"),
 								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../../../..//label[text() = 'Limit']/../..//div"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../../../..//label[text() = 'Selection']/../..//input"),
-								windExcludedNo = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"),
-								windExcludedYes = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//label[text() = 'All Other Perils']/../..//input"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//label[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../../../..//label[text() = 'Limit']/../..//input"),
@@ -309,7 +301,11 @@ public class Coverages extends CenterPanelBase
 		public class PropertyEndorsementsBy
 		{
 							// Check Boxes at top of each section
-			public final By	guardianEndorsements = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
+			public final By	coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"),
+							liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
+
+
+							guardianEndorsements = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
 
 
 							whenSafe = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
@@ -318,13 +314,15 @@ public class Coverages extends CenterPanelBase
 
 
 							otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
-							addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../../div//span[text() = 'Add']"),
-							removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../../div//span[text() = 'Remove']"),
+							addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
+							removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../../div//span[text() = 'Remove']"),
 
 
 							scheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/..//input"),
-							addScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']///div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'A']"),
-							removeScheduledPersonalPropery = By.xpath("//*[@id='" + coveragesBase + "0']///div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'R']"),
+							addScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'A']"),
+							removeScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'R']"),
+
+							permittedIncidentalOccupancy =	By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Property']/..//input"),
 
 							creditCardFundTransferForgeryCounterfeitMoney = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/..//input"),
 							creditCardFundTransferForgeryCounterfeitMoneyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/../../../../div//label[text() = 'Limit']/../..//div"),
@@ -352,7 +350,109 @@ public class Coverages extends CenterPanelBase
 
 
 		}
+		public PropertyEndorsements setPersonalPropertyArticleType(int itemNumber,String articleType)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+
+			sh.waitForElementToAppear(By.name("c2"));
+			// Input text here
+			sh.setText(By.name("c2"),articleType);
+
+			sh.waitForNoMask();
+			return this;
+		}
+		public PropertyEndorsements setPersonalPropertyDescription(int itemNumber,String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+
+			sh.waitForElementToAppear(By.name("c3"));
+			// Input text here
+			sh.setText(By.name("c3"),description);
+
+			return this;
+		}
+		public PropertyEndorsements setPersonalPropertyValue(int itemNumber,String value)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[3]//div"));
+
+			sh.waitForElementToAppear(By.name("c4"));
+			// Input text here
+			sh.setText(By.name("c4"),value);
+
+			sh.waitForNoMask();
+			return this;
+		}
+		public PropertyEndorsements setOtherStructuresDescription(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '"
+			+ String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+
+			sh.waitForElementToAppear(By.name("c2"));
+			// Input text here
+			sh.setText(By.name("c2"),description);
+
+			return this;
+		}
+
+		public PropertyEndorsements setOtherStructuresLimit(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '"
+			+ String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+
+			sh.waitForElementToAppear(By.name("c3"));
+			// Input text here
+			sh.setText(By.name("c3"),description);
+
+			return this;
+		}
+
+
+		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
+		{
+			return sh.getValue(by.creditCardFundTransferForgeryCounterfeitMoneyLimit);
+		}
 		
+		public PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String creditCardFundTransferForgeryCounterfeitMoneyLimit)
+		{
+			sh.setText(by.creditCardFundTransferForgeryCounterfeitMoneyLimit, creditCardFundTransferForgeryCounterfeitMoneyLimit);
+			sh.tab();
+
+			return this;
+		}
+		public LiabilityEndorsements clickLiabilityEndorsements()
+		{
+			sh.clickElement(by.liabilityEndorsements);
+			sh.waitForNoMask();
+			return new LiabilityEndorsements(sh, path);
+		}
+		public Coverages clickCoverages()
+		{
+			sh.clickElement(by.coverages);
+			return new Coverages(sh, path);
+		}
+		public boolean isPermittedIncidentalOccupancyChecked()
+		{
+			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancy);
+		}
+		
+		public PropertyEndorsements checkPermittedIncidentalOccupancy()
+		{
+			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancy);
+			return this;
+		}
+		
+		public PropertyEndorsements unCheckPermittedIncidentalOccupancy()
+		{
+			sh.checkboxHelper.unCheckElement(by.permittedIncidentalOccupancy);
+			return this;
+		}
+		
+
 		public boolean isGuardianEndorsementsChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.guardianEndorsements);
@@ -361,6 +461,7 @@ public class Coverages extends CenterPanelBase
 		public PropertyEndorsements checkGuardianEndorsements()
 		{
 			sh.checkboxHelper.checkElement(by.guardianEndorsements);
+			sh.waitForNoMask();
 			return this;
 		}
 		
@@ -375,7 +476,7 @@ public class Coverages extends CenterPanelBase
 			return sh.getValue(by.creditPercentage);
 		}
 		
-		public PropertyEndorsements setCreditPercentage(String creditPercantage)
+		public PropertyEndorsements setWhenSafeCreditPercentage(String creditPercantage)
 		{
 			sh.setText(by.creditPercentage, creditPercantage);
 			sh.tab();
@@ -384,7 +485,10 @@ public class Coverages extends CenterPanelBase
 		}
 		public PropertyEndorsements clickAddOtherStructures()
 		{
-			sh.clickElement(by.addOtherStructures);
+			if(sh.isDisplayed(by.addScheduledPersonalProperty))
+				sh.clickElement(by.addOtherStructures);
+			else
+				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'A']"));
 			sh.waitForNoMask();
 			return this;
 		}
@@ -397,14 +501,17 @@ public class Coverages extends CenterPanelBase
 		
 		public PropertyEndorsements clickAddScheduledPersonalProperty()
 		{
-			sh.clickElement(by.addScheduledPersonalProperty);
+			if(sh.isDisplayed(by.addOtherStructures))
+				sh.clickElement(by.addScheduledPersonalProperty);
+			else
+				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'Add']"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public PropertyEndorsements clickRemoveScheduledPersonalPropery()
+		public PropertyEndorsements clickRemoveScheduledPersonalProperty()
 		{
-			sh.clickElement(by.removeScheduledPersonalPropery);
+			sh.clickElement(by.removeScheduledPersonalProperty);
 			sh.waitForNoMask();
 			return this;
 		}
@@ -537,6 +644,16 @@ public class Coverages extends CenterPanelBase
 		public PropertyEndorsements checkScheduledPersonalProperty()
 		{
 			sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+			// Added because mask would appear,disappear, then reappear and it would throw error on next method.
+			try
+			{
+				Thread.sleep(3000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			sh.waitForNoMask();
 			return this;
 		}
 		
@@ -571,6 +688,7 @@ public class Coverages extends CenterPanelBase
 		public PropertyEndorsements checkScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.screenEnclosureHurricaneCoverage);
+			sh.waitForNoMask();
 			return this;
 		}
 		
@@ -636,7 +754,41 @@ public class Coverages extends CenterPanelBase
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new RiskAnalysis(sh,path);
 		}
-		
+
+		public class OtherStructuresIncreasedCoverageRentedToOthers
+		{
+			public final By table = By.xpath("//*[@id='RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//tbody[@id]");
+
+			public void clickAddOtherStructures()
+			{
+				if(sh.isDisplayed(by.addScheduledPersonalProperty))
+					sh.clickElement(by.addOtherStructures);
+				else
+					sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'A']"));
+				sh.waitForNoMask();
+			}
+
+			public void clickRemoveOtherStructures()
+			{
+				sh.clickElement(by.removeOtherStructures);
+				sh.waitForNoMask();
+			}
+
+			public OtherStructuresIncreasedCoverageRentedToOthers addOtherStructures(String description, String limit)
+			{
+				clickAddOtherStructures();
+				return this;
+			}
+
+			public class Row
+			{
+
+				public Row()
+				{
+
+				}
+			}
+		}
 
 	}
 
@@ -673,7 +825,11 @@ public class Coverages extends CenterPanelBase
 		}
 		public class LiabilityEndorsementsBy
 		{
-			final By 	permittedIncidentalOccupancyLiability = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Liability']/..//input"),
+			final By 	coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"),
+						propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
+
+
+						permittedIncidentalOccupancyLiability = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Liability']/..//input"),
 
 
 						animalLiability = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Animal Liability']/..//input"),
@@ -694,6 +850,19 @@ public class Coverages extends CenterPanelBase
 						watercraftType = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Watercraft Liability']/../../../../div//label[text() = 'Watercraft Type']/../..//input");
 
 		}
+
+		public PropertyEndorsements clickPropertyEndorsements()
+		{
+			sh.clickElement(by.propertyEndorsements);
+			return new PropertyEndorsements(sh, path);
+		}
+		public Coverages clickCoverages()
+		{
+			sh.clickElement(by.coverages);
+			return new Coverages(sh, path);
+		}
+
+
 		public String getLocationName()
 		{
 			return sh.getValue(by.locationName);
@@ -751,6 +920,7 @@ public class Coverages extends CenterPanelBase
 		public LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancyLiability);
+			sh.waitForNoMask();
 			return this;
 		}
 		

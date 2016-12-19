@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324237886",
+	private String 	policyNumHO3 = "FPH3-324233202",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -187,10 +187,335 @@ public class HomeownersLOBTest extends BaseTest
 		log("Specifying dwelling protection details");
 		log("Waiting for Quote Page.");
 	}
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
+	public void FLH03AccountRenewalPOCWithHash(LinkedHashMap<String, String> eai)
+	{
+		int i= 0;
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+		System.out.println(new DateTime().toString());
 
+		log("Test new person account creation");
+		String[] insuredName = eai.get("Name Insured").split("\\s+");
+		String firstName = insuredName[0], lastName = insuredName[1];
+
+		enterAccountInfo
+			.setFirstName(firstName)
+			.setCompanyName("Jelly")
+			.setCountry("United States")
+			.setCity("Melbourne")
+			.setState("Florida")
+			.setZipCode("32935")
+			.setLastName(lastName)
+			.clickSearch();
+		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+
+		log("Creating new account: " + dateString);
+		createAccount
+			.setAddressLine1("2470 Wild Wood Dr")
+			.setCity("Melbourne")
+			.setState("Florida")
+			.setDateOfBirth("03/15/1987")
+			.setHomePhone("456-748-1503")
+			.setWorkPhone("958-562-1250")
+			.setMobilePhone("745-512-6590")
+			.setFaxPhone("487-963-8521")
+			.setPrimaryPhone("Work")
+			.setPrimaryEmail("djfklajs@gmail.com")
+			.setSecondaryEmail("jdklafj@hotmail.com")
+			.setState("Florida")
+
+			.setZipCode("32935")
+				.clickVerifyAddress()
+				.selectAddressForCreateAccount(2)
+			.setAddressType("Home")
+			.setDescription("Nerd Lair")
+			.setSsn("555-44-3333")
+			.setOrganization("Brown and Brown of Florida, Inc")
+			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+
+			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
+			", first name: " + firstName + ", last name: " + lastName);
+
+
+		// Policy Renewal
+
+		log("Test simple homeowners policy submission");
+		String accountNumber = accountFileSummary.getAccountNumber();
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
+
+		accountFileSummary = new AccountFileSummary(sh);
+		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
+
+		// Initiate Manual Renewal
+		imr.setOrganization("Brown and Brown of Florida, Inc")
+		.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
+		.setBaseState("Florida")
+		.setProduct("Homeowners")
+		.setPolicyType("Homeowners")
+		.setLegacyPolicyNumber(policyNumHO3)
+		.setOriginalEffectiveDate("11/21/2016")
+		.setEffectiveDate("10/29/2017")
+		.setLastInspectionCompletionDate("03/21/2015")
+		.setInflationGuard("12%")
+		.clickExcludeLossOfUseCoverage(false)
+		.nextAndAccept()
+
+		// Offerings
+		.setPolicyType("Homeowners")
+		.setOfferingSelection("Most Popular")
+		.next()
+
+		// Policy Info
+		.setOccupation("Twinkie Smuggler")
+		.clickDoesInsuredOwnOtherResidence(false)
+		.setTermType("Annual")
+		//.setPolicyWriter()
+		.clickAddNewPerson()
+
+
+		// New Additional Named Insured
+		.setRelationshipToPrimary("Sugah Mama")
+
+		.setFirstName("Jelly")
+		.setLastName("Junior")
+		.setDateOfBirth("10/20/1986")
+		.setMaritalStatus("Married")
+		.setPrimaryPhone("Home")
+		.setHomePhone("456-987-6542")
+		.setWorkPhone("453-985-6325")
+		.setMobilePhone("323-254-8457")
+		.setFaxPhone("356-984-5478")
+		.setPrimaryEmail("jelly@jellymail.com")
+		.setSecondaryEmail("jiggla@jigglamail.com")
+		.setCountry("United States")
+		.setAddress1("2470 Wild Wood dr")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickVerifyAddress()
+		.selectAddressForNewAdditionalNamedInsured(2)
+		.setAddressType("Billing")
+		.setAddressDescription("Hideout")
+		.setLicenseNumber("156468465")
+		.setLicenseState("Florida")
+		.setSsn("598-99-6565")
+		.clickOk().next()
+
+		// Dwelling
+		.setLocationName("1:") // Left as is
+		.setYearBuilt("2000")
+		.setDistanceToFireHydrant("2000")
+		.setDistanceToFireStation("2100")
+		.setTerritoryCode("064")
+		.setBCEG("02")
+		.setProtectionClassCode("2")
+		.setLocationType("In City Limits")
+		.setInTheWindpool(true)
+		.setDistanceToCoast("2000")
+		.setPurchaseDate("01/25/2000")
+		.setPurchasePrice("500000")
+		.setMarketValue("6000000")
+		.setOwnedByOther(false)
+		.setOccupiedDaily(false)
+		.setResidenceType("Duplex")
+		.setDwellingUsage("Seasonal")
+		.setDwellingOccupancy("Owner Occupied")
+		.setSwimmingPool(true)
+		.setPoolLocation("In-Ground")
+		.setPoolFenced(true)
+		.setFenceType("Screen Enclosure")
+		.setDivingBoard(true)
+		.setPoolSlide(true)
+		.setTrampolineOnPremises(true)
+		.setSkateboardBicycleRampOnPremises(true)
+		.setAnimalsOrExoticPets(false)
+		.setGolfCarts(true)
+		.setRecreationalVehiclesOwned(true)
+		.setHousekeepingCondition("Good")
+
+
+
+
+		// Protection Details
+		.clickProtectionDetails()
+		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		.setBurglarAlarm(true)
+		.setLockedPrivacyFence(true)
+		.setBurglarBarsOnWindows(true)
+		.setCommunityGuarded(true)
+		.setGatedCommunity(true)
+		.setFireAlarm(true)
+		.setSmokeAlarm(true)
+		.setFireExtinguishers(true)
+		.setSprinklerSystem(true)
+		.setDeadbolts(true)
+		.setResidenceVisibleToNeighbors(true)
+		.safetyLatchesPresent(true)
+		.setFireAlarmType("Central Station")
+		.setSprinklerSystemType("Full")
+		.setBurglarAlarmType("Central Station")
+
+		// Additional Interests
+		.clickAdditionalInterests()
+		.clickAddNewPerson()
+		.setType("Additional Insured")
+		.setLoanNumber("747384")
+		.clickCertificateRequired(true)
+		.setFirstName("Jelly")
+		.setLastName("Junior")
+		.setDateOfBirth("10/20/1986")
+		.setMaritalStatus("Married")
+		.setPrimaryPhone("Home")
+		.setHomePhone("456-987-6542")
+		.setWorkPhone("453-985-6325")
+		.setMobilePhone("323-254-8457")
+		.setFaxPhone("356-984-5478")
+		.setPrimaryEmail("jelly@jellymail.com")
+		.setSecondaryEmail("jiggla@jigglamail.com")
+		.setCountry("United States")
+		.setAddress1("2470 Wild Wood dr")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickVerifyAddress()
+		.selectAddressForNewAdditionalInterests(2)
+		.setAddressType("Billing")
+		.setAddressDescription("Hideout")
+		.setLicenseNumber("156468465")
+		.setLicenseState("Florida")
+		.setSsn("598-99-6565")
+		.clickOk()
+		.next()
+
+		// Dwelling Construction
+		.setValuationType("Appraisal")
+		.setEstimatedReplacementCost("100000")
+		.setConstructionType("Superior")
+		.setNumberOfUnits("11-50")
+		.setUnitsInFireWall("2")
+		.setNumberOfStories("2")
+		.setSquareFootage("3500")
+		.setFoundationType("Open")
+		.setPrimaryHeating("Gas")
+		.setIsThereASecondaryHeatingSystem(true)
+		.setPlumbing("Copper")
+		.setPlumbingYear("2003")
+		.setWaterHeaterYear("2004")
+		.setWiring("Multi-Strand Aluminum")
+		.setElectricalSystem("Circuit Breaker")
+		.setRoofType("Metal")
+		.setRoofYear("2000")
+		.setConditionOfRoof("Good")
+		.setScreenEnclosureOnPremises(true)
+
+
+
+		.setPlumbingSystemHaveKnownLeaks(false)
+		.setBuildingRetrofittedForEarthquakes(false)
+		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+		.setUncorrectedFireOrBuildingCodeViolations(false)
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence(false)
+		.setLeadPaintHazard(false)
+//		.setLeadPaintHazardDescription("best")
+//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+
+
+		// Wind Mitigation
+		.clickWindMitigation()
+		.setRoofShapeType("Hip")
+		.setOpeningProtectionType("Hurricane")
+		.setTerrain("C")
+		.setRoofCover("FBC Equivalent")
+		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
+		.setRoofWallConnection("Clips")
+		.clickSecondaryWaterResistance(true)
+		.next()
+
+		// Coverages
+		.setDwellingLimit("300000")
+		.setOtherStructuresPercentage("5%")
+		.setPersonalPropertyExcluded(false)
+		.setPersonalPropertyLimit("150000")
+		.setPersonalPropertyValuationMethod("Actual Cash Value")
+		.setLossOfUseSelection("5%")
+		.setWindExcluded(false)
+		.setAllOtherPerils("5,000")
+		.setHurricane("2%")
+		.setPersonalLiabilityLimit("500,000")
+		.setMedicalPaymentsLimit("5,000")
+
+
+
+
+
+		// Property Endorsements
+		.clickPropertyEndorsements()
+		.checkGuardianEndorsements()
+		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+		.clickAddOtherStructures()
+		.setOtherStructuresDescription(1,"Arsalans' Skill")
+		.setOtherStructuresLimit(1,"9001")
+		.checkScheduledPersonalProperty()
+		.clickAddScheduledPersonalProperty()
+		.setPersonalPropertyArticleType(1,"Jewelry")
+		.setPersonalPropertyDescription(1,"schweggggg")
+		.setPersonalPropertyValue(1,"234342")
+		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
+		//.checkPermittedIncidentalOccupancy()
+		.checkScreenEnclosureHurricaneCoverage()
+		.checkSinkholeLossCoverage()
+		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
+
+		.setWhenSafeCreditPercentage("20%")
+		.setOccurrenceAggregateLimit("10,000 / 50,000")
+		.setLossAssessmentLimit("3000")
+		.setOrdinanceOrLawLimit("25%")
+		.setPercentageOfAnnualIncrease("12%")
+		.setSinkholeClaimsIndex("4500")
+		.setSinkholeIndex("330")
+
+		// Liability Endorsements
+		.clickLiabilityEndorsements()
+		.checkPermittedIncidentalOccupancyLiability()
+		//.checkAnimalLiability()
+		.checkAdditionalResidenceRentedToOthers()
+		.checkBusinessPursuits()
+		.checkWatercraftLiability()
+
+		.setLocationName("1:")
+		.setNumberOfFamilies("2 Family Residence")
+		.setBusinessActivity("Clerical Employee")
+		.setWatercraftType("Up to 50 Horsepower and 16-26 feet")
+
+
+
+//		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+//		.checkScheduledPersonalProperty()
+//		.checkScreenEnclosureHurricaneCoverage()
+//		.checkSinkholeLossCoverage()
+		.next()
+		.quote();
+		//.back().requestApproval().sendRequest();
+		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
+
+
+
+	}
 	// Renewal types
 	public void FLH03AccountRenewalPOC()
 	{
+		int i= 0;
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
@@ -236,6 +561,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setSsn("555-44-3333")
 			.setOrganization("Brown and Brown of Florida, Inc")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+
 			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
@@ -253,6 +579,8 @@ public class HomeownersLOBTest extends BaseTest
 
 		accountFileSummary = new AccountFileSummary(sh);
 		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
+
+		// Initiate Manual Renewal
 		imr.setOrganization("Brown and Brown of Florida, Inc")
 		.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
 		.setBaseState("Florida")
@@ -263,22 +591,69 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate("10/29/2017")
 		.setLastInspectionCompletionDate("03/21/2015")
 		.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(true);
-		Offerings offerings = imr.nextAndAccept();
-		offerings.setPolicyType("Homeowners")
-		.setOfferingSelection("Most Popular");
-		PolicyInfo pi = offerings.next();
-		pi.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidence(false)
-		.setTermType("Annual");
+		.clickExcludeLossOfUseCoverage(false)
+		.nextAndAccept()
 
-		Dwelling dwelling = pi.next();
-		dwelling.setPurchaseDate("01/25/2000")
+		// Offerings
+		.setPolicyType("Homeowners")
+		.setOfferingSelection("Most Popular")
+		.next()
+
+		// Policy Info
+		.setOccupation("Twinkie Smuggler")
+		.clickDoesInsuredOwnOtherResidence(false)
+		.setTermType("Annual")
+		//.setPolicyWriter()
+		.clickAddNewPerson()
+
+
+		// New Additional Named Insured
+		.setRelationshipToPrimary("Sugah Mama")
+
+		.setFirstName("Jelly")
+		.setLastName("Junior")
+		.setDateOfBirth("10/20/1986")
+		.setMaritalStatus("Married")
+		.setPrimaryPhone("Home")
+		.setHomePhone("456-987-6542")
+		.setWorkPhone("453-985-6325")
+		.setMobilePhone("323-254-8457")
+		.setFaxPhone("356-984-5478")
+		.setPrimaryEmail("jelly@jellymail.com")
+		.setSecondaryEmail("jiggla@jigglamail.com")
+		.setCountry("United States")
+		.setAddress1("2470 Wild Wood dr")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickVerifyAddress()
+		.selectAddressForNewAdditionalNamedInsured(2)
+		.setAddressType("Billing")
+		.setAddressDescription("Hideout")
+		.setLicenseNumber("156468465")
+		.setLicenseState("Florida")
+		.setSsn("598-99-6565")
+		.clickOk().next()
+
+		// Dwelling
+		.setLocationName("1:")
+		.setYearBuilt("2000")
+		.setDistanceToFireHydrant("2000")
+		.setDistanceToFireStation("2100")
+		.setTerritoryCode("064")
+		.setBCEG("02")
+		.setProtectionClassCode("2")
+		.setLocationType("In City Limits")
+		.setInTheWindpool(true)
+		.setDistanceToCoast("2000")
+		.setPurchaseDate("01/25/2000")
 		.setPurchasePrice("500000")
 		.setMarketValue("6000000")
+		.setOwnedByOther(false)
+		.setOccupiedDaily(false)
 		.setResidenceType("Duplex")
 		.setDwellingUsage("Seasonal")
-		.setHousekeepingCondition("Good")
+		.setDwellingOccupancy("Owner Occupied")
 		.setSwimmingPool(true)
 		.setPoolLocation("In-Ground")
 		.setPoolFenced(true)
@@ -290,24 +665,15 @@ public class HomeownersLOBTest extends BaseTest
 		.setAnimalsOrExoticPets(false)
 		.setGolfCarts(true)
 		.setRecreationalVehiclesOwned(true)
-		.setOwnedByOther(false)
-		.setOccupiedDaily(false);
+		.setHousekeepingCondition("Good")
 
-		log("Specifying dwelling details");
-		dwelling
-		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000")
-		.setDistanceToFireStation("2100")
-		.setTerritoryCode("064")
-		.setBCEG("02")
-		.setProtectionClassCode("2")
+
 
 
 		// Protection Details
 		.clickProtectionDetails()
 		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
 		.setBurglarAlarm(true)
-
 		.setLockedPrivacyFence(true)
 		.setBurglarBarsOnWindows(true)
 		.setCommunityGuarded(true)
@@ -321,14 +687,14 @@ public class HomeownersLOBTest extends BaseTest
 		.safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
-		.setAlarmType("Central Station")
+		.setBurglarAlarmType("Central Station")
 
 		// Additional Interests
 		.clickAdditionalInterests()
 		.clickAddNewPerson()
 		.setType("Additional Insured")
-		.clickCertificateRequired(true)
 		.setLoanNumber("747384")
+		.clickCertificateRequired(true)
 		.setFirstName("Jelly")
 		.setLastName("Junior")
 		.setDateOfBirth("10/20/1986")
@@ -356,7 +722,6 @@ public class HomeownersLOBTest extends BaseTest
 		.next()
 
 		// Dwelling Construction
-		.setRoofYear("2000")
 		.setValuationType("Appraisal")
 		.setEstimatedReplacementCost("100000")
 		.setConstructionType("Superior")
@@ -366,24 +731,29 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500")
 		.setFoundationType("Open")
 		.setPrimaryHeating("Gas")
+		.setIsThereASecondaryHeatingSystem(true)
 		.setPlumbing("Copper")
 		.setPlumbingYear("2003")
 		.setWaterHeaterYear("2004")
 		.setWiring("Multi-Strand Aluminum")
 		.setElectricalSystem("Circuit Breaker")
 		.setRoofType("Metal")
+		.setRoofYear("2000")
 		.setConditionOfRoof("Good")
+		.setScreenEnclosureOnPremises(true)
 
 
-		.setPlumbingSystemHaveKnownLeaks(true)
-		.setBuildingRetrofittedForEarthquakes(true)
-		.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
-		.setUncorrectedFireOrBuildingCodeViolations(true)
-		.setStructureOriginallyBuiltForOtherThanPrivateResidence(true)
-		.setLeadPaintHazard(true)
-		.setLeadPaintHazardDescription("best")
-		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
-		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+
+		.setPlumbingSystemHaveKnownLeaks(false)
+		.setBuildingRetrofittedForEarthquakes(false)
+		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+		.setUncorrectedFireOrBuildingCodeViolations(false)
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence(false)
+		.setLeadPaintHazard(false)
+//		.setLeadPaintHazardDescription("best")
+//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+
 
 		// Wind Mitigation
 		.clickWindMitigation()
@@ -393,20 +763,67 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofCover("FBC Equivalent")
 		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
 		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance(true).next()
+		.clickSecondaryWaterResistance(true)
+		.next()
 
 		// Coverages
 		.setDwellingLimit("300000")
+		.setOtherStructuresPercentage("5%")
+		.setPersonalPropertyExcluded(false)
 		.setPersonalPropertyLimit("150000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value")
 		.setLossOfUseSelection("5%")
+		.setWindExcluded(false)
 		.setAllOtherPerils("5,000")
-		.setPersonalLiabilityLimit("500,000")
 		.setHurricane("2%")
+		.setPersonalLiabilityLimit("500,000")
 		.setMedicalPaymentsLimit("5,000")
+
+
+
+
 
 		// Property Endorsements
 		.clickPropertyEndorsements()
+		.checkGuardianEndorsements()
+		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+		.clickAddOtherStructures()
+		.setOtherStructuresDescription(1,"Arsalans' Skill")
+		.setOtherStructuresLimit(1,"9001")
+		.checkScheduledPersonalProperty()
+		.clickAddScheduledPersonalProperty()
+		.setPersonalPropertyArticleType(1,"Jewelry")
+		.setPersonalPropertyDescription(1,"schweggggg")
+		.setPersonalPropertyValue(1,"234342")
+		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
+		//.checkPermittedIncidentalOccupancy()
+		.checkScreenEnclosureHurricaneCoverage()
+		.checkSinkholeLossCoverage()
+		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
+
+		.setWhenSafeCreditPercentage("20%")
+		.setOccurrenceAggregateLimit("10,000 / 50,000")
+		.setLossAssessmentLimit("3000")
+		.setOrdinanceOrLawLimit("25%")
+		.setPercentageOfAnnualIncrease("12%")
+		.setSinkholeClaimsIndex("4500")
+		.setSinkholeIndex("330")
+
+		// Liability Endorsements
+		.clickLiabilityEndorsements()
+		.checkPermittedIncidentalOccupancyLiability()
+		//.checkAnimalLiability()
+		.checkAdditionalResidenceRentedToOthers()
+		.checkBusinessPursuits()
+		.checkWatercraftLiability()
+
+		.setLocationName("1:")
+		.setNumberOfFamilies("2 Family Residence")
+		.setBusinessActivity("Clerical Employee")
+		.setWatercraftType("Up to 50 Horsepower and 16-26 feet")
+
+
+
 //		.checkOtherStructuresIncreasedCoverageRentedToOthers()
 //		.checkScheduledPersonalProperty()
 //		.checkScreenEnclosureHurricaneCoverage()
@@ -1327,7 +1744,7 @@ public class HomeownersLOBTest extends BaseTest
 		.safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
-		.setAlarmType("Central Station");
+		.setBurglarAlarmType("Central Station");
 
 		DwellingConstruction dc = dwelling.next();
 

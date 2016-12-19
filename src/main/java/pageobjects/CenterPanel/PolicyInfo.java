@@ -89,16 +89,18 @@ public class PolicyInfo extends CenterPanelBase
 		return this;
 
 	}
-	public void clickAddNewCompany()
+	public NewAdditionalNameInsured clickAddNewCompany()
 	{
 		sh.clickElement(by.addAdditionalNameInsureds);
 		sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
+		return new NewAdditionalNameInsured(sh, path);
 
 	}
-	public void clickAddNewPerson()
+	public NewAdditionalNameInsured clickAddNewPerson()
 	{
 		sh.clickElement(by.addAdditionalNameInsureds);
 		sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
+		return new NewAdditionalNameInsured(sh, path);
 	}
 	public void clickAddFromAddressBook()
 	{

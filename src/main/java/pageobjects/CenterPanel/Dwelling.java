@@ -167,6 +167,7 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.setText(by.locationType, locationType);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
@@ -248,6 +249,7 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.setText(by.dwellingOccupancy, dwellingOccupancy);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
@@ -610,7 +612,7 @@ public class Dwelling extends CenterPanelBase
 			return sh.getValue(by.alarmType);
 		}
 
-		public ProtectionDetails setAlarmType(String alarmType)
+		public ProtectionDetails setBurglarAlarmType(String alarmType)
 		{
 			sh.setText(by.alarmType, alarmType);
 			sh.tab();
@@ -681,6 +683,12 @@ public class Dwelling extends CenterPanelBase
 						fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
 						remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
 		}
+		public AdditionalInterests clickRemove()
+		{
+			sh.clickElement(by.remove);
+			return this;
+		}
+		
 		public NewAdditionalInterest clickAddNewPerson()
 		{
 			sh.clickElement(by.add);
@@ -696,18 +704,18 @@ public class Dwelling extends CenterPanelBase
 		}
 		public AdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
 		{
-			sh.clickElement(By.xpath(aiBase + "AdditionalInterestLV-body']//div[text()= '" + typeEffectiveDateLoanNumber + "']/../..//img"));
+			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//div[text()= '" + typeEffectiveDateLoanNumber + "']/../..//img"));
 			return this;
 		}
 		public AdditionalInterests selectRowInAdditionalInterestByName(String name)
 		{
-			sh.clickElement(By.xpath(aiBase + "AdditionalInterestLV-body']//a[text()= '" + name + "']/../../..//img"));
+			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//a[text()= '" + name + "']/../../..//img"));
 			return this;
 		}
 
 		public DwellingConstruction next()
 		{
-			sh.waitForNoMask(20);
+			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new DwellingConstruction(sh,path);
 		}

@@ -338,17 +338,17 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 		return this;
 	}
 
-	public NewAdditionalNameInsured clickVerifyAddress()
+	public SelectStandardizedAddress clickVerifyAddress()
 	{
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
-		return this;
+		return new SelectStandardizedAddress(sh,path);
 	}
 
 	public PolicyInfo clickOk()
 	{
 		sh.clickElement(by.ok);
-		return new PolicyInfo(sh,path);
+		return new PolicyInfo(sh, path);
 	}
 
 	public PolicyInfo clickCancel()
@@ -370,7 +370,43 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 	{
 		sh.setText(by.relationshipToPrimary, relationshipToPrimary);
 		sh.tab();
+
+		return this;
+	}
+	public String getIndustryCode()
+	{
+		return sh.getValue(by.industryCode);
+	}
+	
+	public NewAdditionalNameInsured setIndustryCode(String industryCode)
+	{
+		sh.setText(by.industryCode, industryCode);
+		sh.tab();
+
+		return this;
+	}
+	public String getOfficePhone()
+	{
+		return sh.getValue(by.officePhone);
+	}
+	
+	public NewAdditionalNameInsured setOfficePhone(String officePhone)
+	{
+		sh.setText(by.officePhone, officePhone);
+		sh.tab();
 		sh.waitForNoMask();
+		return this;
+	}
+	public String getCompanyName()
+	{
+		return sh.getValue(by.companyName);
+	}
+	
+	public NewAdditionalNameInsured setCompanyName(String companyName)
+	{
+		sh.setText(by.companyName, companyName);
+		sh.tab();
+
 		return this;
 	}
 
@@ -382,6 +418,9 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 						contactDetailsBase = "NewAdditionalNamedInsuredPopup:ContactDetailScreen:NewPolicyContactRoleDetailsCV:PolicyContactDetailsDV:";
 
 		final By	relationshipToPrimary = By.id(anBase + "Relationship-inputEl"),
+					industryCode = By.id(anBase + "IndustryCode-inputEl"),
+					officePhone = By.id(anBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
+					companyName = By.id(anBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
 					firstName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:FirstName-inputEl"),
 					lastName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:LastName-inputEl"),
 					dateOfBirth = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:DateOfBirth-inputEl"),

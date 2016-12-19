@@ -134,7 +134,7 @@ public class CenterSeleniumHelper
 				clickElement(by);
 			}
 
-			assert isChecked(by);
+			//assert isChecked(by);
 		}
 
 		public void unCheckElement(By by)
