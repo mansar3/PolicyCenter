@@ -1,4 +1,4 @@
-package pageobjects.CenterPanel;
+package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
@@ -6,190 +6,214 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 12/7/16.
  */
-public class NewAdditionalNameInsured extends CenterPanelBase
+public class NewAdditionalInterest extends CenterPanelBase
 {
-	private NewAdditionalNameInsuredBy by;
+	private NewAdditionalInterestBy by;
 
-	public NewAdditionalNameInsured(CenterSeleniumHelper sh,Path path)
+	public NewAdditionalInterest(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh= sh;
 		this.path = path;
-		expectedPanelTitle = "New Additional Named Insured";
-		waitForTitle(sh);
-		by = new NewAdditionalNameInsuredBy();
+		expectedPanelTitle = "New Additional Interest";
+		//waitForTitle(sh);
+		by = new NewAdditionalInterestBy();
 		System.out.println("Navigated to page: " + getTitle());
 	}
-
-	public NewAdditionalNameInsured certRequired(boolean flag)
+	
+	public NewAdditionalInterest clickCertificateRequired(String flag)
 	{
-		sh.clickElement(By.id(by.anBase + "CertRequired_" + String.valueOf(flag) + "-inputEl"));
-		sh.waitForNoMask();
+		sh.clickElement(By.id(by.aiBase + "CertRequired_" + flag .toLowerCase()+ "-inputEl"));
+
 		return this;
 	}
 
+	public String getType()
+	{
+		return sh.getValue(by.type);
+	}
+
+	public NewAdditionalInterest setType(String type)
+	{
+		sh.setText(by.type, type);
+		sh.tab();
+
+		return this;
+	}
+	
+	public String getLoanNumber()
+	{
+		return sh.getValue(by.loanNumber);
+	}
+	
+	public NewAdditionalInterest setLoanNumber(String loanNumber)
+	{
+		sh.setText(by.loanNumber, loanNumber);
+		sh.tab();
+
+		return this;
+	}
 
 	public String getFirstName()
 	{
 		return sh.getValue(by.firstName);
 	}
-
-	public NewAdditionalNameInsured setFirstName(String firstName)
+	
+	public NewAdditionalInterest setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getLastName()
 	{
 		return sh.getValue(by.lastName);
 	}
-
-	public NewAdditionalNameInsured setLastName(String lastName)
+	
+	public NewAdditionalInterest setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getDateOfBirth()
 	{
 		return sh.getValue(by.dateOfBirth);
 	}
-
-	public NewAdditionalNameInsured setDateOfBirth(String dateOfBirth)
+	
+	public NewAdditionalInterest setDateOfBirth(String dateOfBirth)
 	{
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getMaritalStatus()
 	{
 		return sh.getValue(by.maritalStatus);
 	}
-
-	public NewAdditionalNameInsured setMaritalStatus(String maritalStatus)
+	
+	public NewAdditionalInterest setMaritalStatus(String maritalStatus)
 	{
 		sh.setText(by.maritalStatus, maritalStatus);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getPrimaryPhone()
 	{
 		return sh.getValue(by.primaryPhone);
 	}
-
-	public NewAdditionalNameInsured setPrimaryPhone(String primaryPhone)
+	
+	public NewAdditionalInterest setPrimaryPhone(String primaryPhone)
 	{
 		sh.setText(by.primaryPhone, primaryPhone);
 		sh.tab();
-		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getHomePhone()
 	{
 		return sh.getValue(by.homePhone);
 	}
-
-	public NewAdditionalNameInsured setHomePhone(String homePhone)
+	
+	public NewAdditionalInterest setHomePhone(String homePhone)
 	{
 		sh.setText(by.homePhone, homePhone);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getWorkPhone()
 	{
 		return sh.getValue(by.workPhone);
 	}
-
-	public NewAdditionalNameInsured setWorkPhone(String workPhone)
+	
+	public NewAdditionalInterest setWorkPhone(String workPhone)
 	{
 		sh.setText(by.workPhone, workPhone);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getMobilePhone()
 	{
 		return sh.getValue(by.mobilePhone);
 	}
-
-	public NewAdditionalNameInsured setMobilePhone(String mobilePhone)
+	
+	public NewAdditionalInterest setMobilePhone(String mobilePhone)
 	{
 		sh.setText(by.mobilePhone, mobilePhone);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getFaxPhone()
 	{
 		return sh.getValue(by.faxPhone);
 	}
-
-	public NewAdditionalNameInsured setFaxPhone(String faxPhone)
+	
+	public NewAdditionalInterest setFaxPhone(String faxPhone)
 	{
 		sh.setText(by.faxPhone, faxPhone);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getPrimaryEmail()
 	{
 		return sh.getValue(by.primaryEmail);
 	}
-
-	public NewAdditionalNameInsured setPrimaryEmail(String primaryEmail)
+	
+	public NewAdditionalInterest setPrimaryEmail(String primaryEmail)
 	{
 		sh.setText(by.primaryEmail, primaryEmail);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getSecondaryEmail()
 	{
 		return sh.getValue(by.secondaryEmail);
 	}
-
-	public NewAdditionalNameInsured setSecondaryEmail(String secondaryEmail)
+	
+	public NewAdditionalInterest setSecondaryEmail(String secondaryEmail)
 	{
 		sh.setText(by.secondaryEmail, secondaryEmail);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getCountry()
 	{
 		return sh.getValue(by.country);
 	}
-
-	public NewAdditionalNameInsured setCountry(String country)
+	
+	public NewAdditionalInterest setCountry(String country)
 	{
 		sh.setText(by.country, country);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getAddress1()
 	{
 		return sh.getValue(by.address1);
 	}
-
-	public NewAdditionalNameInsured setAddress1(String address1)
+	
+	public NewAdditionalInterest setAddress1(String address1)
 	{
 		sh.setText(by.address1, address1);
 		sh.tab();
@@ -200,8 +224,8 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 	{
 		return sh.getValue(by.address2);
 	}
-
-	public NewAdditionalNameInsured setAddress2(String address2)
+	
+	public NewAdditionalInterest setAddress2(String address2)
 	{
 		sh.setText(by.address2, address2);
 		sh.tab();
@@ -212,127 +236,127 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 	{
 		return sh.getValue(by.address3);
 	}
-
-	public NewAdditionalNameInsured setAddress3(String address3)
+	
+	public NewAdditionalInterest setAddress3(String address3)
 	{
 		sh.setText(by.address3, address3);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getCity()
 	{
 		return sh.getValue(by.city);
 	}
-
-	public NewAdditionalNameInsured setCity(String city)
+	
+	public NewAdditionalInterest setCity(String city)
 	{
 		sh.setText(by.city, city);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getCounty()
 	{
 		return sh.getValue(by.county);
 	}
-
-	public NewAdditionalNameInsured setCounty(String county)
+	
+	public NewAdditionalInterest setCounty(String county)
 	{
 		sh.setText(by.county, county);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getState()
 	{
 		return sh.getValue(by.state);
 	}
-
-	public NewAdditionalNameInsured setState(String state)
+	
+	public NewAdditionalInterest setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getZipCode()
 	{
 		return sh.getValue(by.zipCode);
 	}
-
-	public NewAdditionalNameInsured setZipCode(String zipCode)
+	
+	public NewAdditionalInterest setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getAddressType()
 	{
 		return sh.getValue(by.addressType);
 	}
-
-	public NewAdditionalNameInsured setAddressType(String addressType)
+	
+	public NewAdditionalInterest setAddressType(String addressType)
 	{
 		sh.setText(by.addressType, addressType);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getAddressDescription()
 	{
 		return sh.getValue(by.addressDescription);
 	}
-
-	public NewAdditionalNameInsured setAddressDescription(String addressDescription)
+	
+	public NewAdditionalInterest setAddressDescription(String addressDescription)
 	{
 		sh.setText(by.addressDescription, addressDescription);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getLicenseNumber()
 	{
 		return sh.getValue(by.licenseNumber);
 	}
-
-	public NewAdditionalNameInsured setLicenseNumber(String licenseNumber)
+	
+	public NewAdditionalInterest setLicenseNumber(String licenseNumber)
 	{
 		sh.setText(by.licenseNumber, licenseNumber);
 		sh.tab();
-		sh.waitForNoMask();
+
 		return this;
 	}
-
+	
 	public String getLicenseState()
 	{
 		return sh.getValue(by.licenseState);
 	}
-
-	public NewAdditionalNameInsured setLicenseState(String licenseState)
+	
+	public NewAdditionalInterest setLicenseState(String licenseState)
 	{
 		sh.setText(by.licenseState, licenseState);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-
+	
 	public String getSsn()
 	{
-		return sh.getValue(by.ssn);
+		return sh.getValue(by.officialID);
 	}
-
-	public NewAdditionalNameInsured setSsn(String ssn)
+	
+	public NewAdditionalInterest setSsn(String ssn)
 	{
-		sh.setText(by.ssn, ssn);
+		sh.setText(by.officialID, ssn);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
@@ -345,42 +369,20 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 		return new SelectStandardizedAddress(sh,path);
 	}
 
-	public PolicyInfo clickOk()
+	
+	public Dwelling.AdditionalInterests clickOk()
 	{
 		sh.clickElement(by.ok);
-		return new PolicyInfo(sh, path);
+		return new Dwelling(sh,path).new AdditionalInterests(sh, path);
 	}
-
-	public PolicyInfo clickCancel()
+	public String getCompanyName()
 	{
-		sh.clickElement(by.cancel);
-		return new PolicyInfo(sh, path);
-	}
-	public NewAdditionalNameInsured clickCheckForDuplicates()
-	{
-		sh.clickElement(by.checkForDuplicates);
-		return this;
-	}
-	public String getRelationshipToPrimary()
-	{
-		return sh.getValue(by.relationshipToPrimary);
+		return sh.getValue(by.companyName);
 	}
 	
-	public NewAdditionalNameInsured setRelationshipToPrimary(String relationshipToPrimary)
+	public NewAdditionalInterest setCompanyName(String companyName)
 	{
-		sh.setText(by.relationshipToPrimary, relationshipToPrimary);
-		sh.tab();
-
-		return this;
-	}
-	public String getIndustryCode()
-	{
-		return sh.getValue(by.industryCode);
-	}
-	
-	public NewAdditionalNameInsured setIndustryCode(String industryCode)
-	{
-		sh.setText(by.industryCode, industryCode);
+		sh.setText(by.companyName, companyName);
 		sh.tab();
 
 		return this;
@@ -390,42 +392,53 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 		return sh.getValue(by.officePhone);
 	}
 	
-	public NewAdditionalNameInsured setOfficePhone(String officePhone)
+	public NewAdditionalInterest setOfficePhone(String officePhone)
 	{
 		sh.setText(by.officePhone, officePhone);
 		sh.tab();
 		sh.waitForNoMask();
 		return this;
 	}
-	public String getCompanyName()
-	{
-		return sh.getValue(by.companyName);
-	}
 	
-	public NewAdditionalNameInsured setCompanyName(String companyName)
+	public Dwelling clickCancel()
 	{
-		sh.setText(by.companyName, companyName);
-		sh.tab();
-
+		sh.clickElement(by.cancel);
+		return new Dwelling(sh,path);
+	}
+	public NewAdditionalInterest clickCheckForDuplicates()
+	{
+		sh.clickElement(by.checkForDuplicates);
 		return this;
 	}
-
-
-	final class NewAdditionalNameInsuredBy
+	public String getFEIN()
 	{
-		final String 	anBase = "NewAdditionalNamedInsuredPopup:ContactDetailScreen:AdditionalNamedInsuredInfoDV:",
-						tabBase = "NewAdditionalNamedInsuredPopup:ContactDetailScreen:",
-						contactDetailsBase = "NewAdditionalNamedInsuredPopup:ContactDetailScreen:NewPolicyContactRoleDetailsCV:PolicyContactDetailsDV:";
+		return sh.getValue(by.officialID);
+	}
 
-		final By	relationshipToPrimary = By.id(anBase + "Relationship-inputEl"),
-					industryCode = By.id(anBase + "IndustryCode-inputEl"),
-					officePhone = By.id(anBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
-					companyName = By.id(anBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
+	public NewAdditionalInterest setFEIN(String officialID)
+	{
+		sh.setText(by.officialID, officialID);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
+	
+	
+	final class NewAdditionalInterestBy
+	{
+		final String 	aiBase = "NewAdditionalInterestPopup:ContactDetailScreen:AdditionalInterestInfoDV:",
+						contactDetailsBase = "NewAdditionalInterestPopup:ContactDetailScreen:NewPolicyContactRoleDetailsCV:PolicyContactDetailsDV:",
+						tabBase = "NewAdditionalInterestPopup:ContactDetailScreen:" ;
+
+		final By	type = By.id(aiBase + "Type-inputEl"),
+					loanNumber = By.id(aiBase + "ContractNumber-inputEl"),
 					firstName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:FirstName-inputEl"),
 					lastName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:LastName-inputEl"),
+					companyName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
 					dateOfBirth = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:DateOfBirth-inputEl"),
 					maritalStatus = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:MaritalStatus-inputEl"),
 					primaryPhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:PrimaryPhone-inputEl"),
+					officePhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					homePhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:HomePhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					workPhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 					mobilePhone =  By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:CellPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
@@ -444,18 +457,18 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 					addressDescription = By.id(contactDetailsBase + "AddressDescription-inputEl"),
 					licenseNumber = By.id(contactDetailsBase + "LicenseInputSet:LicenseNumber-inputEl"),
 					licenseState = By.id(contactDetailsBase  + "LicenseInputSet:LicenseState-inputEl"),
-					ssn = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+					officialID = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
 
 					// Tabs
-					ok = By.id(tabBase + "ForceDupCheckUpdate-btnInnerEl"),
+					ok = By.id(tabBase+ "ForceDupCheckUpdate-btnInnerEl"),
 					cancel = By.id(tabBase + "Cancel-btnInnerEl"),
 					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl");
 
 
 
 
-
+					
 	}
 }
-

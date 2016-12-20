@@ -12,9 +12,9 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.CenterPanel.AccountFileSummary;
-import pageobjects.CenterPanel.CreateAccount;
-import pageobjects.CenterPanel.EnterAccountInformation;
+import pageobjects.WizardPanelBase.AccountFileSummary;
+import pageobjects.WizardPanelBase.CreateAccount;
+import pageobjects.WizardPanelBase.EnterAccountInformation;
 import pageobjects.Login;
 
 

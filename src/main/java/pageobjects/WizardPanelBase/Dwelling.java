@@ -1,4 +1,4 @@
-package pageobjects.CenterPanel;
+package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import Helpers.TableBase;

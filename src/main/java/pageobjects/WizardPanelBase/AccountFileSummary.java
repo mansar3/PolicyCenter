@@ -1,8 +1,7 @@
-package pageobjects.CenterPanel;
+package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 
 public class AccountFileSummary extends CenterPanelBase

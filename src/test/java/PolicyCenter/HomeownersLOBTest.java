@@ -14,7 +14,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.CenterPanel.*;
+import pageobjects.WizardPanelBase.*;
 import pageobjects.Login;
 
 import java.util.LinkedHashMap;
@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233311",
+	private String 	policyNumHO3 = "FPH3-324233312",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod

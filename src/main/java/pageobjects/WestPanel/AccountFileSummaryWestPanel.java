@@ -2,8 +2,8 @@ package pageobjects.WestPanel;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import pageobjects.CenterPanel.InitiateManualRenewal;
-import pageobjects.CenterPanel.NewSubmission;
+import pageobjects.WizardPanelBase.InitiateManualRenewal;
+import pageobjects.WizardPanelBase.NewSubmission;
 
 public class AccountFileSummaryWestPanel extends WestPanelBase
 {
