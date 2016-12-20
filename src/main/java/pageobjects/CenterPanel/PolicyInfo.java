@@ -78,9 +78,9 @@ public class PolicyInfo extends CenterPanelBase
 		sh.waitForNoMask();
 		return new Dwelling(sh,path);
 	}
-	public PolicyInfo clickDoesInsuredOwnOtherResidence(boolean flag)
+	public PolicyInfo clickDoesInsuredOwnOtherResidenceWithFrontline(String flag)
 	{
-		if(flag)
+		if(flag.toLowerCase() == "true")
 			sh.clickElement(by.doesInsuredOwnOtherResidenceYes);
 		else
 			sh.clickElement(by.doesInsuredOwnOtherResidenceNo);

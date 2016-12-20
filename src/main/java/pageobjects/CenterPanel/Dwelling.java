@@ -265,26 +265,26 @@ public class Dwelling extends CenterPanelBase
 		return this;
 	}
 
-	public Dwelling setInTheWindpool(boolean flag)
+	public Dwelling setInTheWindpool(String flag)
 	{
-		if(flag)
+		if(flag.toLowerCase() == "true")
 			sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_true-inputEl"));
 		else
 			sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_false-inputEl"));
 		return this;
 	}
-	public Dwelling setOwnedByOther(boolean flag)
+	public Dwelling setOwnedByOther(String flag)
 	{
-		if(flag)
+		if(flag.toLowerCase() == "true")
 			sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_true-inputEl"));
 		else
 			sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_false-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setOccupiedDaily(boolean flag)
+	public Dwelling setOccupiedDaily(String flag)
 	{
-		if(flag)
+		if(flag.toLowerCase() == "true")
 			sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_true-inputEl"));
 		else
 			sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_false-inputEl"));
@@ -302,9 +302,9 @@ public class Dwelling extends CenterPanelBase
 		return this;
 	}
 
-	public Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(boolean flag)
+	public Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
 	{
-		if(flag)
+		if(flag == "true")
 			sh.clickElement(by.ownedByLLCYes);
 		else
 			sh.clickElement(by.ownedByLLCNo);
@@ -324,59 +324,59 @@ public class Dwelling extends CenterPanelBase
 		sh.clickElement(by.additionalInterests);
 		return this;
 	}
-	public Dwelling setSwimmingPool(boolean flag)
+	public Dwelling setSwimmingPool(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "SwimmingPoolExists_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "SwimmingPoolExists_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
 
-	public Dwelling setTrampolineOnPremises(boolean flag)
+	public Dwelling setTrampolineOnPremises(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "TrampolineExists_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "TrampolineExists_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
 
-	public Dwelling setSkateboardBicycleRampOnPremises(boolean flag)
+	public Dwelling setSkateboardBicycleRampOnPremises(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "HasBikeRamp_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "HasBikeRamp_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setAnimalsOrExoticPets(boolean flag)
+	public Dwelling setAnimalsOrExoticPets(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setGolfCarts(boolean flag)
+	public Dwelling setGolfCarts(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "HasOwnedGolfCarts_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "HasOwnedGolfCarts_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setRecreationalVehiclesOwned(boolean flag)
+	public Dwelling setRecreationalVehiclesOwned(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "HasOwnedRecVehicles_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "HasOwnedRecVehicles_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setPoolFenced(boolean flag)
+	public Dwelling setPoolFenced(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "PropertyFenced_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "PropertyFenced_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setDivingBoard(boolean flag)
+	public Dwelling setDivingBoard(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "DivingBoard_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "DivingBoard_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public Dwelling setPoolSlide(boolean flag)
+	public Dwelling setPoolSlide(String flag)
 	{
-		sh.clickElement(By.id(dwellingBase + "HasSwimmingPoolSlide_fli_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "HasSwimmingPoolSlide_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -523,86 +523,86 @@ public class Dwelling extends CenterPanelBase
 		}
 
 
-		public ProtectionDetails setBurglarAlarm(boolean flag)
+		public ProtectionDetails setBurglarAlarm(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setLockedPrivacyFence(boolean flag)
+		public ProtectionDetails setLockedPrivacyFence(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setBurglarBarsOnWindows(boolean flag)
+		public ProtectionDetails setBurglarBarsOnWindows(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setCommunityGuarded(boolean flag)
+		public ProtectionDetails setCommunityGuarded(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setGatedCommunity(boolean flag)
+		public ProtectionDetails setGatedCommunity(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setFireAlarm(boolean flag)
+		public ProtectionDetails setFireAlarm(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setSmokeAlarm(boolean flag)
+		public ProtectionDetails setSmokeAlarm(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setFireExtinguishers(boolean flag)
+		public ProtectionDetails setFireExtinguishers(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setSprinklerSystem(boolean flag)
+		public ProtectionDetails setSprinklerSystem(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
-		public ProtectionDetails setDeadbolts(boolean flag)
+		public ProtectionDetails setDeadbolts(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
 
 
-		public ProtectionDetails setResidenceVisibleToNeighbors(boolean flag)
+		public ProtectionDetails setResidenceVisibleToNeighbors(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}
-		public ProtectionDetails safetyLatchesPresent(boolean flag)
+		public ProtectionDetails safetyLatchesPresent(String flag)
 		{
-			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + String.valueOf(flag) + "-inputEl"));
+			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}

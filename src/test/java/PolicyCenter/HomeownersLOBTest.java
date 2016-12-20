@@ -27,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233202",
+	private String 	policyNumHO3 = "FPH3-324233311",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -200,43 +200,44 @@ public class HomeownersLOBTest extends BaseTest
 		System.out.println(new DateTime().toString());
 
 		log("Test new person account creation");
+		String[] addlInsuredName = eai.get("Addl Interest Name").split("\\s+");
 		String[] insuredName = eai.get("Name Insured").split("\\s+");
-		String firstName = insuredName[0], lastName = insuredName[1];
+		String firstName = eai.get("Name Insured First Name"), lastName = eai.get("Name Insured Last Name");
 
 		enterAccountInfo
 			.setFirstName(firstName)
 			.setCompanyName("Jelly")
 			.setCountry("United States")
-			.setCity("Melbourne")
-			.setState("Florida")
-			.setZipCode("32935")
+			.setCity(eai.get("Mailing City"))
+			.setState(eai.get("Mailing State"))
+			.setZipCode(eai.get("Mailing Zipcode"))
 			.setLastName(lastName)
 			.clickSearch();
 		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
 
 		log("Creating new account: " + dateString);
 		createAccount
-			.setAddressLine1("2470 Wild Wood Dr")
-			.setCity("Melbourne")
-			.setState("Florida")
-			.setDateOfBirth("03/15/1987")
-			.setHomePhone("456-748-1503")
-			.setWorkPhone("958-562-1250")
+			.setAddressLine1(eai.get("Mailing Address"))
+			.setCity(eai.get("Mailing City"))
+			.setState(eai.get("Mailing State"))
+			.setDateOfBirth(eai.get("Date of Birth"))
+			.setHomePhone(eai.get("Home Phone"))
+			.setWorkPhone(eai.get("Work Phone"))
 			.setMobilePhone("745-512-6590")
 			.setFaxPhone("487-963-8521")
 			.setPrimaryPhone("Work")
-			.setPrimaryEmail("djfklajs@gmail.com")
+			.setPrimaryEmail(eai.get("Email Address"))
 			.setSecondaryEmail("jdklafj@hotmail.com")
-			.setState("Florida")
+			.setState(eai.get("Mailing State"))
 
-			.setZipCode("32935")
+			.setZipCode(eai.get("Mailing Zipcode"))
 				.clickVerifyAddress()
 				.selectAddressForCreateAccount(2)
-			.setAddressType("Home")
+			.setAddressType(eai.get("Address Type"))
 			.setDescription("Nerd Lair")
-			.setSsn("555-44-3333")
-			.setOrganization("Brown and Brown of Florida, Inc")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setSsn(eai.get("SSN"))
+			.setOrganization(eai.get("Organization"))
+			.setProducerCode(eai.get("Producer Code"));
 
 			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
@@ -257,45 +258,45 @@ public class HomeownersLOBTest extends BaseTest
 		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
 
 		// Initiate Manual Renewal
-		imr.setOrganization("Brown and Brown of Florida, Inc")
-		.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
-		.setBaseState("Florida")
-		.setProduct("Homeowners")
-		.setPolicyType("Homeowners")
-		.setLegacyPolicyNumber(policyNumHO3)
-		.setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017")
-		.setLastInspectionCompletionDate("03/21/2015")
-		.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(false)
+		imr.setOrganization(eai.get("Organization"))
+		.setProducerCode(eai.get("Producer Code"))
+		.setBaseState(eai.get("Mailing State"))
+		.setProduct(eai.get("Product"))
+		.setPolicyType(eai.get("Policy Type"))
+		.setLegacyPolicyNumber(eai.get("Legacy Policy Number"))
+		.setOriginalEffectiveDate(eai.get("Policy Original Effective Date"))
+		.setEffectiveDate(eai.get("Effective Date"))
+		.setLastInspectionCompletionDate(eai.get("Last Inspection Completion Date"))
+		.setInflationGuard(eai.get("Inflation Guard"))
+		.clickExcludeLossOfUseCoverage(eai.get("Exclude Loss of Use Coverage"))
 		.nextAndAccept()
 
 		// Offerings
 		.setPolicyType("Homeowners")
-		.setOfferingSelection("Most Popular")
+		.setOfferingSelection(eai.get("Offering Selection"))
 		.next()
 
 		// Policy Info
 		.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidence(false)
+		.clickDoesInsuredOwnOtherResidenceWithFrontline(eai.get("Does the insured own any other residence that is insured with Frontline?"))
 		.setTermType("Annual")
-		//.setPolicyWriter()
+		//.setPolicyWriter(eai.get("Policy Writer"))
 		.clickAddNewPerson()
 
 
 		// New Additional Named Insured
 		.setRelationshipToPrimary("Sugah Mama")
 
-		.setFirstName("Jelly")
-		.setLastName("Junior")
-		.setDateOfBirth("10/20/1986")
+		.setFirstName(eai.get("Additional Name Insured First Name"))
+		.setLastName(eai.get("Additional Name Insured Last Name"))
+		.setDateOfBirth(eai.get("Additional Name Insured Date of Birth"))
 		.setMaritalStatus("Married")
 		.setPrimaryPhone("Home")
 		.setHomePhone("456-987-6542")
 		.setWorkPhone("453-985-6325")
 		.setMobilePhone("323-254-8457")
 		.setFaxPhone("356-984-5478")
-		.setPrimaryEmail("jelly@jellymail.com")
+		.setPrimaryEmail(eai.get("Email Address"))
 		.setSecondaryEmail("jiggla@jigglamail.com")
 		.setCountry("United States")
 		.setAddress1("2470 Wild Wood dr")
@@ -308,40 +309,40 @@ public class HomeownersLOBTest extends BaseTest
 		.setAddressDescription("Hideout")
 		.setLicenseNumber("156468465")
 		.setLicenseState("Florida")
-		.setSsn("598-99-6565")
+		.setSsn(eai.get("Additional Name Insured SSN"))
 		.clickOk().next()
 
 		// Dwelling
 		.setLocationName("1:") // Left as is
-		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000")
-		.setDistanceToFireStation("2100")
-		.setTerritoryCode("064")
-		.setBCEG("02")
-		.setProtectionClassCode("2")
-		.setLocationType("In City Limits")
-		.setInTheWindpool(true)
-		.setDistanceToCoast("2000")
-		.setPurchaseDate("01/25/2000")
-		.setPurchasePrice("500000")
-		.setMarketValue("6000000")
-		.setOwnedByOther(false)
-		.setOccupiedDaily(false)
+		.setYearBuilt(eai.get("Year Built"))
+		.setDistanceToFireHydrant(eai.get("Distance to Fire Hydrant"))
+		.setDistanceToFireStation(eai.get("Distance to Fire Station"))
+		.setTerritoryCode(eai.get("Territory Code"))
+		.setBCEG(eai.get("BCEG"))
+		.setProtectionClassCode(eai.get("Protection Class Code"))
+		.setLocationType(eai.get("Location Type"))
+		.setInTheWindpool(eai.get("In the Windpool?"))
+		.setDistanceToCoast(eai.get("Distance to Coast"))
+		.setPurchaseDate(eai.get("Purhcase Date"))
+		.setPurchasePrice(eai.get("Purchase Price"))
+		.setMarketValue(eai.get("Market Value"))
+		.setOwnedByOther(eai.get("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?"))
+		.setOccupiedDaily(eai.get("How is the dwelling occupied"))
 		.setResidenceType("Duplex")
 		.setDwellingUsage("Seasonal")
 		.setDwellingOccupancy("Owner Occupied")
-		.setSwimmingPool(true)
+		.setSwimmingPool(eai.get("Is there a swimming pool?"))
 		.setPoolLocation("In-Ground")
-		.setPoolFenced(true)
+		.setPoolFenced("true")
 		.setFenceType("Screen Enclosure")
-		.setDivingBoard(true)
-		.setPoolSlide(true)
-		.setTrampolineOnPremises(true)
-		.setSkateboardBicycleRampOnPremises(true)
-		.setAnimalsOrExoticPets(false)
-		.setGolfCarts(true)
-		.setRecreationalVehiclesOwned(true)
-		.setHousekeepingCondition("Good")
+		.setDivingBoard("true")
+		.setPoolSlide("true")
+		.setTrampolineOnPremises(eai.get("Is there a tampoline"))
+		.setSkateboardBicycleRampOnPremises(eai.get("is there a skateboard or bicycle ramp on premises?"))
+		.setAnimalsOrExoticPets(eai.get("Any animals or exotic pets on premses?"))
+		.setGolfCarts(eai.get("Any owned Golf Carts?"))
+		.setRecreationalVehiclesOwned(eai.get("Any owned recreational vehicles?"))
+		.setHousekeepingCondition(eai.get("Housekeeping Condition"))
 
 
 
@@ -349,18 +350,19 @@ public class HomeownersLOBTest extends BaseTest
 		// Protection Details
 		.clickProtectionDetails()
 		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
-		.setBurglarAlarm(true)
-		.setLockedPrivacyFence(true)
-		.setBurglarBarsOnWindows(true)
-		.setCommunityGuarded(true)
-		.setGatedCommunity(true)
-		.setFireAlarm(true)
-		.setSmokeAlarm(true)
-		.setFireExtinguishers(true)
-		.setSprinklerSystem(true)
-		.setDeadbolts(true)
-		.setResidenceVisibleToNeighbors(true)
-		.safetyLatchesPresent(true)
+		.setBurglarAlarm(eai.get("Burglar Alarm Type"))
+		.setLockedPrivacyFence(eai.get("Is there a locked privacy fence"))
+		.setBurglarBarsOnWindows(eai.get("are there any burglar bars on the windows/doors?"))
+		.setCommunityGuarded(eai.get("Is the community Guarded?"))
+		.setGatedCommunity(eai.get("Is the community Gated?"))
+		.setFireAlarm(eai.get("Fire Alarm type"))
+		.setSmokeAlarm(eai.get("Smoke Alarms"))
+		.setFireExtinguishers(eai.get("One or move fire extinguishers in the home?"))
+		.setSprinklerSystem(eai.get("Sprinkler System"))
+		.setDeadbolts(eai.get("Deadbolts"))
+		.setResidenceVisibleToNeighbors(eai.get("Residence Visible to neighbors"))
+
+		//.safetyLatchesPresent(true)
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
 		.setBurglarAlarmType("Central Station")
@@ -368,11 +370,11 @@ public class HomeownersLOBTest extends BaseTest
 		// Additional Interests
 		.clickAdditionalInterests()
 		.clickAddNewPerson()
-		.setType("Additional Insured")
-		.setLoanNumber("747384")
-		.clickCertificateRequired(true)
-		.setFirstName("Jelly")
-		.setLastName("Junior")
+		.setType(eai.get("Addl Interest Type"))
+		.setLoanNumber(eai.get("Addl Interest Loan Number"))
+		//.clickCertificateRequired("true")
+		.setFirstName(addlInsuredName[0])
+		.setLastName(addlInsuredName[addlInsuredName.length -1])
 		.setDateOfBirth("10/20/1986")
 		.setMaritalStatus("Married")
 		.setPrimaryPhone("Home")
@@ -383,10 +385,10 @@ public class HomeownersLOBTest extends BaseTest
 		.setPrimaryEmail("jelly@jellymail.com")
 		.setSecondaryEmail("jiggla@jigglamail.com")
 		.setCountry("United States")
-		.setAddress1("2470 Wild Wood dr")
-		.setCity("Melbourne")
-		.setState("Florida")
-		.setZipCode("32935")
+		.setAddress1(eai.get("Addl Interest Address"))
+		.setCity(eai.get("Addl Interest City"))
+		.setState(eai.get("Addl Interest State"))
+		.setZipCode(eai.get("Addl Interest Zip Code"))
 		.clickVerifyAddress()
 		.selectAddressForNewAdditionalInterests(2)
 		.setAddressType("Billing")
@@ -398,16 +400,16 @@ public class HomeownersLOBTest extends BaseTest
 		.next()
 
 		// Dwelling Construction
-		.setValuationType("Appraisal")
-		.setEstimatedReplacementCost("100000")
-		.setConstructionType("Superior")
-		.setNumberOfUnits("11-50")
-		.setUnitsInFireWall("2")
-		.setNumberOfStories("2")
+		.setValuationType(eai.get("Valuation Type"))
+		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
+		.setConstructionType(eai.get("Construction Type"))
+		.setNumberOfUnits(eai.get("Number Of Units"))
+		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
+		.setNumberOfStories(eai.get("Number of Stories"))
 		.setSquareFootage("3500")
 		.setFoundationType("Open")
 		.setPrimaryHeating("Gas")
-		.setIsThereASecondaryHeatingSystem(true)
+		.setIsThereASecondaryHeatingSystem("true")
 		.setPlumbing("Copper")
 		.setPlumbingYear("2003")
 		.setWaterHeaterYear("2004")
@@ -416,16 +418,16 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofType("Metal")
 		.setRoofYear("2000")
 		.setConditionOfRoof("Good")
-		.setScreenEnclosureOnPremises(true)
+		.setScreenEnclosureOnPremises("true")
 
 
 
-		.setPlumbingSystemHaveKnownLeaks(false)
-		.setBuildingRetrofittedForEarthquakes(false)
+		.setPlumbingSystemHaveKnownLeaks("false")
+		.setBuildingRetrofittedForEarthquakes("false")
 		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
-		.setUncorrectedFireOrBuildingCodeViolations(false)
-		.setStructureOriginallyBuiltForOtherThanPrivateResidence(false)
-		.setLeadPaintHazard(false)
+		.setUncorrectedFireOrBuildingCodeViolations("false")
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence("false")
+		.setLeadPaintHazard("false")
 //		.setLeadPaintHazardDescription("best")
 //		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
 //		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
@@ -439,17 +441,17 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofCover("FBC Equivalent")
 		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
 		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance(true)
+		.clickSecondaryWaterResistance("true")
 		.next()
 
 		// Coverages
 		.setDwellingLimit("300000")
 		.setOtherStructuresPercentage("5%")
-		.setPersonalPropertyExcluded(false)
+		.setPersonalPropertyExcluded("false")
 		.setPersonalPropertyLimit("150000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value")
 		.setLossOfUseSelection("5%")
-		.setWindExcluded(false)
+		.setWindExcluded("false")
 		.setAllOtherPerils("5,000")
 		.setHurricane("2%")
 		.setPersonalLiabilityLimit("500,000")
@@ -591,7 +593,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate("10/29/2017")
 		.setLastInspectionCompletionDate("03/21/2015")
 		.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(false)
+		.clickExcludeLossOfUseCoverage("false")
 		.nextAndAccept()
 
 		// Offerings
@@ -601,7 +603,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Info
 		.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidence(false)
+		.clickDoesInsuredOwnOtherResidenceWithFrontline("false")
 		.setTermType("Annual")
 		//.setPolicyWriter()
 		.clickAddNewPerson()
@@ -644,27 +646,27 @@ public class HomeownersLOBTest extends BaseTest
 		.setBCEG("02")
 		.setProtectionClassCode("2")
 		.setLocationType("In City Limits")
-		.setInTheWindpool(true)
+		.setInTheWindpool("true")
 		.setDistanceToCoast("2000")
 		.setPurchaseDate("01/25/2000")
 		.setPurchasePrice("500000")
 		.setMarketValue("6000000")
-		.setOwnedByOther(false)
-		.setOccupiedDaily(false)
+		.setOwnedByOther("false")
+		.setOccupiedDaily("false")
 		.setResidenceType("Duplex")
 		.setDwellingUsage("Seasonal")
 		.setDwellingOccupancy("Owner Occupied")
-		.setSwimmingPool(true)
+		.setSwimmingPool("true")
 		.setPoolLocation("In-Ground")
-		.setPoolFenced(true)
+		.setPoolFenced("true")
 		.setFenceType("Screen Enclosure")
-		.setDivingBoard(true)
-		.setPoolSlide(true)
-		.setTrampolineOnPremises(true)
-		.setSkateboardBicycleRampOnPremises(true)
-		.setAnimalsOrExoticPets(false)
-		.setGolfCarts(true)
-		.setRecreationalVehiclesOwned(true)
+		.setDivingBoard("true")
+		.setPoolSlide("true")
+		.setTrampolineOnPremises("true")
+		.setSkateboardBicycleRampOnPremises("true")
+		.setAnimalsOrExoticPets("false")
+		.setGolfCarts("true")
+		.setRecreationalVehiclesOwned("true")
 		.setHousekeepingCondition("Good")
 
 
@@ -673,18 +675,18 @@ public class HomeownersLOBTest extends BaseTest
 		// Protection Details
 		.clickProtectionDetails()
 		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
-		.setBurglarAlarm(true)
-		.setLockedPrivacyFence(true)
-		.setBurglarBarsOnWindows(true)
-		.setCommunityGuarded(true)
-		.setGatedCommunity(true)
-		.setFireAlarm(true)
-		.setSmokeAlarm(true)
-		.setFireExtinguishers(true)
-		.setSprinklerSystem(true)
-		.setDeadbolts(true)
-		.setResidenceVisibleToNeighbors(true)
-		.safetyLatchesPresent(true)
+		.setBurglarAlarm("true")
+		.setLockedPrivacyFence("true")
+		.setBurglarBarsOnWindows("true")
+		.setCommunityGuarded("true")
+		.setGatedCommunity("true")
+		.setFireAlarm("true")
+		.setSmokeAlarm("true")
+		.setFireExtinguishers("true")
+		.setSprinklerSystem("true")
+		.setDeadbolts("true")
+		.setResidenceVisibleToNeighbors("true")
+		.safetyLatchesPresent("true")
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
 		.setBurglarAlarmType("Central Station")
@@ -694,7 +696,7 @@ public class HomeownersLOBTest extends BaseTest
 		.clickAddNewPerson()
 		.setType("Additional Insured")
 		.setLoanNumber("747384")
-		.clickCertificateRequired(true)
+		.clickCertificateRequired("true")
 		.setFirstName("Jelly")
 		.setLastName("Junior")
 		.setDateOfBirth("10/20/1986")
@@ -731,7 +733,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage("3500")
 		.setFoundationType("Open")
 		.setPrimaryHeating("Gas")
-		.setIsThereASecondaryHeatingSystem(true)
+		.setIsThereASecondaryHeatingSystem("true")
 		.setPlumbing("Copper")
 		.setPlumbingYear("2003")
 		.setWaterHeaterYear("2004")
@@ -740,16 +742,16 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofType("Metal")
 		.setRoofYear("2000")
 		.setConditionOfRoof("Good")
-		.setScreenEnclosureOnPremises(true)
+		.setScreenEnclosureOnPremises("true")
 
 
 
-		.setPlumbingSystemHaveKnownLeaks(false)
-		.setBuildingRetrofittedForEarthquakes(false)
+		.setPlumbingSystemHaveKnownLeaks("false")
+		.setBuildingRetrofittedForEarthquakes("false")
 		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
-		.setUncorrectedFireOrBuildingCodeViolations(false)
-		.setStructureOriginallyBuiltForOtherThanPrivateResidence(false)
-		.setLeadPaintHazard(false)
+		.setUncorrectedFireOrBuildingCodeViolations("false")
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence("false")
+		.setLeadPaintHazard("false")
 //		.setLeadPaintHazardDescription("best")
 //		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
 //		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
@@ -763,17 +765,17 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofCover("FBC Equivalent")
 		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
 		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance(true)
+		.clickSecondaryWaterResistance("true")
 		.next()
 
 		// Coverages
 		.setDwellingLimit("300000")
 		.setOtherStructuresPercentage("5%")
-		.setPersonalPropertyExcluded(false)
+		.setPersonalPropertyExcluded("false")
 		.setPersonalPropertyLimit("150000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value")
 		.setLossOfUseSelection("5%")
-		.setWindExcluded(false)
+		.setWindExcluded("false")
 		.setAllOtherPerils("5,000")
 		.setHurricane("2%")
 		.setPersonalLiabilityLimit("500,000")
@@ -904,7 +906,7 @@ public class HomeownersLOBTest extends BaseTest
 		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
 		.setBaseState("North Carolina").setProduct("Homeowners").setPolicyType("Homeowners")
 		.setLegacyPolicyNumber(policyNumHO3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015");//.setInflationGuard("12%").clickExcludeLossOfUseCoverage(true);
+		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015");//.setInflationGuard("12%").clickExcludeLossOfUseCoverage("true");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
 		PolicyInfo pi = offerings.next();
@@ -1010,7 +1012,7 @@ public class HomeownersLOBTest extends BaseTest
 		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
 		.setBaseState("South Carolina").setProduct("Homeowners").setPolicyType("Homeowners")
 		.setLegacyPolicyNumber(policyNumHO3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015").setInflationGuard("12%").clickExcludeLossOfUseCoverage(true);
+		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015").setInflationGuard("12%").clickExcludeLossOfUseCoverage("true");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
 		PolicyInfo pi = offerings.next();
@@ -1111,7 +1113,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setBaseState("Alabama").setProduct("Homeowners").setPolicyType("Homeowners")
 		.setLegacyPolicyNumber(policyNumHO3).setOriginalEffectiveDate("11/21/2016")
 		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(true);
+		.clickExcludeLossOfUseCoverage("true");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
 		PolicyInfo pi = offerings.next();
@@ -1216,7 +1218,7 @@ public class HomeownersLOBTest extends BaseTest
 		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
 		.setBaseState("Florida").setProduct("Homeowners").setPolicyType("Dwelling Fire")
 		.setLegacyPolicyNumber(policyNumDP3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage(true)
+		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage("true")
 		.setTheftCoverage("Limited");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Dwelling Fire").setOfferingSelection("Most Popular");
@@ -1232,7 +1234,7 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
-		.setAtInceptionOfPolicyIsDeedOwnedByEntity(false);
+		.setAtInceptionOfPolicyIsDeedOwnedByEntity("false");
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -1321,7 +1323,7 @@ public class HomeownersLOBTest extends BaseTest
 		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
 		.setBaseState("South Carolina").setProduct("Homeowners").setPolicyType("Homeowners")
 		.setLegacyPolicyNumber(policyNumDP3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage(true);
+		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015")//.setInflationGuard("12%").clickExcludeLossOfUseCoverage("true");
 		.setTheftCoverage("Limited");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Dwelling Fire").setOfferingSelection("Most Popular");
@@ -1337,7 +1339,7 @@ public class HomeownersLOBTest extends BaseTest
 		dwelling
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000").setDistanceToFireStation("2000").setTerritoryCode("064").setBCEG("02").setProtectionClassCode("2")
-		.setAtInceptionOfPolicyIsDeedOwnedByEntity(false);
+		.setAtInceptionOfPolicyIsDeedOwnedByEntity("false");
 
 		DwellingConstruction dc = dwelling.next();
 
@@ -1432,7 +1434,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate("10/29/2017")
 		.setLastInspectionCompletionDate("03/21/2015")
 		.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(true);
+		.clickExcludeLossOfUseCoverage("true");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners")
 		.setOfferingSelection("Most Popular");
@@ -1566,7 +1568,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate("10/29/2017")
 		.setLastInspectionCompletionDate("03/21/2015")
 		.setInflationGuard("12%")
-		.clickExcludeLossOfUseCoverage(true);
+		.clickExcludeLossOfUseCoverage("true");
 		Offerings offerings = imr.nextAndAccept();
 		offerings.setPolicyType("Homeowners")
 		.setOfferingSelection("Most Popular");
@@ -1710,7 +1712,7 @@ public class HomeownersLOBTest extends BaseTest
 			qualification.questionnaire.answerNo(i);
 		PolicyInfo pi = qualification.next();
 		pi.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidence(true)
+		.clickDoesInsuredOwnOtherResidenceWithFrontline("true")
 		.setTermType("Annual");
 		//.setEffectiveDate("11/14/2016").setOrganization().setProducerCode().setPolicyWriter().setUnderwritingCompanies();
 
@@ -1730,18 +1732,18 @@ public class HomeownersLOBTest extends BaseTest
 		.setBCEG("02")
 		.setProtectionClassCode("2")
 		.clickProtectionDetails()
-		.setBurglarAlarm(true)
-		.setLockedPrivacyFence(true)
-		.setBurglarBarsOnWindows(true)
-		.setCommunityGuarded(true)
-		.setGatedCommunity(true)
-		.setFireAlarm(true)
-		.setSmokeAlarm(true)
-		.setFireExtinguishers(true)
-		.setSprinklerSystem(true)
-		.setDeadbolts(true)
-		.setResidenceVisibleToNeighbors(true)
-		.safetyLatchesPresent(true)
+		.setBurglarAlarm("true")
+		.setLockedPrivacyFence("true")
+		.setBurglarBarsOnWindows("true")
+		.setCommunityGuarded("true")
+		.setGatedCommunity("true")
+		.setFireAlarm("true")
+		.setSmokeAlarm("true")
+		.setFireExtinguishers("true")
+		.setSprinklerSystem("true")
+		.setDeadbolts("true")
+		.setResidenceVisibleToNeighbors("true")
+		.safetyLatchesPresent("true")
 		.setFireAlarmType("Central Station")
 		.setSprinklerSystemType("Full")
 		.setBurglarAlarmType("Central Station");

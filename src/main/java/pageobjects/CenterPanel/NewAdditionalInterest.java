@@ -20,9 +20,9 @@ public class NewAdditionalInterest extends CenterPanelBase
 		System.out.println("Navigated to page: " + getTitle());
 	}
 	
-	public NewAdditionalInterest clickCertificateRequired(boolean flag)
+	public NewAdditionalInterest clickCertificateRequired(String flag)
 	{
-		sh.clickElement(By.id(by.aiBase + "CertRequired_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(by.aiBase + "CertRequired_" + flag .toLowerCase()+ "-inputEl"));
 
 		return this;
 	}

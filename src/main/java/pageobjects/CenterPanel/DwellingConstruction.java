@@ -249,9 +249,9 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.tab();
 		return this;
 	}
-	public DwellingConstruction setIsThereASecondaryHeatingSystem(boolean flag)
+	public DwellingConstruction setIsThereASecondaryHeatingSystem(String flag)
 	{
-		sh.clickElement(By.id(dwellingConstructionBase + "SecondaryHeatingExists_" + String.valueOf(flag) + "-inputEl"));
+		sh.clickElement(By.id(dwellingConstructionBase + "SecondaryHeatingExists_" + flag.toLowerCase() + "-inputEl"));
 
 		return this;
 	}
@@ -293,55 +293,55 @@ public class DwellingConstruction extends CenterPanelBase
 		return this;
 	}
 	
-	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(boolean flag)
+	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Does the plumbing system have known leaks?']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public DwellingConstruction setBuildingRetrofittedForEarthquakes(boolean flag)
+	public DwellingConstruction setBuildingRetrofittedForEarthquakes(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Is the building retrofitted for earthquakes?']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
-	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolations(boolean flag)
+	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolations(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
 
-	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(boolean flag)
+	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Was the structure originally built for other than a private residence and then converted?']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
 
 
-	public DwellingConstruction setLeadPaintHazard(boolean flag)
+	public DwellingConstruction setLeadPaintHazard(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Any lead paint hazard?']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
 
-	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(boolean flag)
+	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = '']/../..//input[@inputvalue = '" +
-		String.valueOf(flag) + "']"));
+		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -382,9 +382,9 @@ public class DwellingConstruction extends CenterPanelBase
 		sh.setText(By.name("c2"),text);
 		return this;
 	}
-	public DwellingConstruction setScreenEnclosureOnPremises(boolean flag)
+	public DwellingConstruction setScreenEnclosureOnPremises(String flag)
 	{
-		sh.clickElement(By.id(dwellingConstructionBase + "HasScreenedEnclosure_fli_" +  flag + "-inputEl"));
+		sh.clickElement(By.id(dwellingConstructionBase + "HasScreenedEnclosure_fli_" +  flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -586,9 +586,9 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
-		public WindMitigation clickSecondaryWaterResistance(boolean flag)
+		public WindMitigation clickSecondaryWaterResistance(String flag)
 		{
-			if(flag)
+			if(flag.toLowerCase() == "true")
 				sh.clickElement(by.secondaryWaterResistanceYes);
 			else
 				sh.clickElement(by.secondaryWaterResistanceNo);

@@ -80,10 +80,10 @@ public class Coverages extends CenterPanelBase
 		return sh.getValue(by.otherStructuresLimit);
 	}
 
-	public Coverages setPersonalPropertyExcluded(boolean flag)
+	public Coverages setPersonalPropertyExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../../../..//label[text() = 'Excluded?']/../..//label[contains(@id, '"
-		+ String.valueOf(flag) + "')]/..//input"));
+		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -142,10 +142,10 @@ public class Coverages extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public Coverages setWindExcluded(boolean flag)
+	public Coverages setWindExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//label[text() = 'Wind Excluded?']/../..//label[contains(@id, '"
-		+ String.valueOf(flag) + "')]/..//input"));
+		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
 		return this;
 	}

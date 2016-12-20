@@ -166,10 +166,10 @@ public class InitiateManualRenewal extends CenterPanelBase
 		return this;
 	}
 	
-	public InitiateManualRenewal clickExcludeLossOfUseCoverage(boolean bool)
+	public InitiateManualRenewal clickExcludeLossOfUseCoverage(String bool)
 	{
 
-		if(bool)
+		if(bool.toLowerCase() == "true")
 			sh.clickElement(by.excludeLossOfUseCoverageYes);
 		else
 			sh.clickElement(by.excludeLossOfUseCoverageNo);
