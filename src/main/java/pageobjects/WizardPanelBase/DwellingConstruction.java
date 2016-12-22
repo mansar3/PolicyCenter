@@ -467,13 +467,11 @@ public class DwellingConstruction extends CenterPanelBase
 								roofCover = By.id(windMitigationBase + "RoofCoverType_fli-inputEl"),
 								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
 								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
-								secondaryWaterResistanceYes = By.id(windMitigationBase + "IsSecondaryWaterResistance_true-inputEl"),
-								secondaryWaterResistanceNo = By.id(windMitigationBase + "IsSecondaryWaterResistance_false-inputEl"),
+
 								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
 								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
-								windBorneDebrisYes = By.id(windMitigationBase + "IsWindBorneDebrisRegion_true-inputEl"),
-								windBorneDebrisNo = By.id(windMitigationBase + "IsWindBorneDebrisRegion_false-inputEl"),
+
 
 								dwelling = By.id(tabBase + "DetailsTab-btnInnerEl");
 		}
@@ -514,6 +512,7 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public String getFortifiedHomeType()
 		{
 			return sh.getValue(by.fortifiedHomeType);
@@ -586,13 +585,26 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
-		public WindMitigation clickSecondaryWaterResistance(String flag)
+		public WindMitigation setSecondaryWaterResistance(String flag)
 		{
-			if(flag.toLowerCase() == "true")
-				sh.clickElement(by.secondaryWaterResistanceYes);
-			else
-				sh.clickElement(by.secondaryWaterResistanceNo);
+
+			sh.clickElement(By.id(windMitigationBase + "IsSecondaryWaterResistance_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
+			return this;
+		}
+		public WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
+		{
+			sh.clickElement(By.id(windMitigationBase + "IsRoofCoverCompliant_" + flag.toLowerCase() + "-inputEl"));
+			return this;
+		}
+		public WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
+		{
+			sh.clickElement(By.id(windMitigationBase + "IsRoofDeckCompliant_" + flag.toLowerCase() + "-inputEl"));
+			return this;
+		}
+		public WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
+		{
+			sh.clickElement(By.id(windMitigationBase + "IsRoofWallCompliant_" + flag.toLowerCase() + "-inputEl"));
 			return this;
 		}
 		public String getRoofDeck()
@@ -631,13 +643,9 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
-		public WindMitigation setWindBorneDebris(boolean flag)
+		public WindMitigation setWindBorneDebris(String flag)
 		{
-			if(flag)
-				sh.clickElement(by.windBorneDebrisYes);
-			else
-				sh.clickElement(by.windBorneDebrisNo);
-
+			sh.clickElement(By.id(windMitigationBase + "IsWindBorneDebrisRegion_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
 			return this;
 		}

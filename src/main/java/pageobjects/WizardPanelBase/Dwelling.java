@@ -262,32 +262,25 @@ public class Dwelling extends CenterPanelBase
 	{
 		sh.setText(by.housekeepingCondition, housekeepingCondition);
 		sh.tab();
+		sh.waitForNoMask();
 		return this;
 	}
 
 	public Dwelling setInTheWindpool(String flag)
 	{
-		if(flag.toLowerCase() == "true")
-			sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_true-inputEl"));
-		else
-			sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_false-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_"+ flag.toLowerCase() + "-inputEl"));
 		return this;
 	}
 	public Dwelling setOwnedByOther(String flag)
 	{
-		if(flag.toLowerCase() == "true")
-			sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_true-inputEl"));
-		else
-			sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_false-inputEl"));
+		sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
 	public Dwelling setOccupiedDaily(String flag)
 	{
-		if(flag.toLowerCase() == "true")
-			sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_true-inputEl"));
-		else
-			sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_false-inputEl"));
+
+		sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_" + flag.toLowerCase() + "-inputEl"));
 		return this;
 	}
 	public Dwelling selectYesForAllOptions()
@@ -304,10 +297,7 @@ public class Dwelling extends CenterPanelBase
 
 	public Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
 	{
-		if(flag == "true")
-			sh.clickElement(by.ownedByLLCYes);
-		else
-			sh.clickElement(by.ownedByLLCNo);
+		sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 	}
@@ -404,6 +394,18 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public String getWindpoolZone()
+	{
+		return sh.getValue(by.windpoolZone);
+	}
+	
+	public Dwelling setWindpoolZone(String windpoolZone)
+	{
+		sh.setText(by.windpoolZone, windpoolZone);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
 
 
 	public class DwellingBy{
@@ -429,12 +431,11 @@ public class Dwelling extends CenterPanelBase
 								dwellingUsage = By.id(dwellingBase + "DwellingUsage-inputEl"),
 								dwellingOccupancy = By.id(dwellingBase + "Occupancy-inputEl"),
 								housekeepingCondition = By.id(dwellingBase + "HousekeepingCondition_fli-inputEl"),
-								ownedByLLCYes = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_true-inputEl"),
-								ownedByLLCNo = By.id(dwellingBase + "IsRiskOwnedByLLC_fli_false-inputEl"),
 								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]"),
 								poolLocation = By.id(dwellingBase + "SwimmingPoolType_fli-inputEl"),
 								fenceType = By.id(dwellingBase + "SwimmingPoolFenceType_fli-inputEl"),
 								exoticAnimalTableID = By.id(dwellingBase + "1"),
+								windpoolZone = By.id(dwellingBase + "WindpoolType_fli-inputEl"),
 
 
 								// Protection Details

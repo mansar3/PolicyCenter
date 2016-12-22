@@ -330,6 +330,13 @@ public class Coverages extends CenterPanelBase
 							screenEnclosureHurricaneCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/..//input"),
 							screenEnclosureHurricaneCoverageLimit =By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/../../../../div//label[text() = 'Limit']/../..//input"),
 
+							earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
+							earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../../../div//label[text() = 'Deductible Percentage']/../..//input"),
+
+
+							earthquakeLossAssessment  = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
+							earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../../../div//label[text() = 'Limit']/../..//input"),
+
 							waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"),
 							waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../../../div//label[text() = 'Limit']/../..//div"),
 
@@ -349,6 +356,12 @@ public class Coverages extends CenterPanelBase
 			
 
 
+		}
+		public PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
+		{
+			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" +
+			"/../../../../div//label[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
+			return this;
 		}
 		public PropertyEndorsements setPersonalPropertyArticleType(int itemNumber,String articleType)
 		{
@@ -416,6 +429,40 @@ public class Coverages extends CenterPanelBase
 		{
 			return sh.getValue(by.creditCardFundTransferForgeryCounterfeitMoneyLimit);
 		}
+		public PropertyEndorsements checkEarthquakeCoverage()
+		{
+			sh.clickElement(by.earthquakeCoverage);
+			return this;
+		}
+		public PropertyEndorsements checkEarthquakeLossAssessment()
+		{
+			sh.clickElement(by.earthquakeLossAssessment);
+			return this;
+		}
+		public String getEarthquakeLossAssessmentLimit()
+		{
+			return sh.getValue(by.earthquakeLossAssessmentLimit);
+		}
+		
+		public PropertyEndorsements setEarthquakeLossAssessmentLimit(String earthquakeLossAssessmentLimit)
+		{
+			sh.setText(by.earthquakeLossAssessmentLimit, earthquakeLossAssessmentLimit);
+			sh.tab();
+			sh.waitForNoMask();			return this;
+		}
+		public String getEarthquakeCoverageDeductiblePercentage()
+		{
+			return sh.getValue(by.earthquakeCoverageDeductiblePercentage);
+		}
+		
+		public PropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String earthquakeCoverageDeductiblePercentage)
+		{
+			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
+			sh.tab();
+
+			return this;
+		}
+		
 		
 		public PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String creditCardFundTransferForgeryCounterfeitMoneyLimit)
 		{

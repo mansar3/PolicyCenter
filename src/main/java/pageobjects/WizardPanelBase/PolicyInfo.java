@@ -7,7 +7,7 @@ public class PolicyInfo extends CenterPanelBase
 {
 
 	private PolicyInfoBy by;
-	protected String policyBase,insuredBase;
+	protected String policyBase,insuredBase,discountsBase;
 	public PolicyInfo(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -25,15 +25,20 @@ public class PolicyInfo extends CenterPanelBase
 		switch(path)
 		{
 			case SUBMISSION:
-				policyBase = "SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:SubmissionWizard_PolicyInfoDV:";
-				insuredBase = "SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:AdditionalNamedInsuredsDV:NamedInsuredInputSet:NamedInsuredsLV_tb:";
+				discountsBase = "SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:";
+				policyBase = discountsBase + "SubmissionWizard_PolicyInfoDV:";
+				insuredBase = discountsBase + "AdditionalNamedInsuredsDV:NamedInsuredInputSet:NamedInsuredsLV_tb:";
 				break;
 			case POLICYRENEWAL:
-				policyBase = "RenewalWizard:LOBWizardStepGroup:RenewalWizard_PolicyInfoScreen:RenewalWizard_PolicyInfoDV:";
-				insuredBase = "RenewalWizard:LOBWizardStepGroup:RenewalWizard_PolicyInfoScreen:AdditionalNamedInsuredsDV:NamedInsuredInputSet:NamedInsuredsLV_tb:";
+				discountsBase = "RenewalWizard:LOBWizardStepGroup:RenewalWizard_PolicyInfoScreen:";
+				policyBase = discountsBase + "RenewalWizard_PolicyInfoDV:";
+				insuredBase = discountsBase + "AdditionalNamedInsuredsDV:NamedInsuredInputSet:NamedInsuredsLV_tb:";
+
 				break;
 			case POLICYCHANGE:
-				policyBase = "PolicyChangeWizard:LOBWizardStepGroup:PolicyChangeWizard_PolicyInfoScreen:PolicyChangeWizard_PolicyInfoDV:";
+				discountsBase = "PolicyChangeWizard:LOBWizardStepGroup:PolicyChangeWizard_PolicyInfoScreen:";
+				policyBase = discountsBase + "PolicyChangeWizard_PolicyInfoDV:";
+				insuredBase = discountsBase + "AdditionalNamedInsuredsDV:NamedInsuredInputSet:NamedInsuredsLV_tb:";
 				break;
 
 
@@ -44,18 +49,15 @@ public class PolicyInfo extends CenterPanelBase
 	{
 
 		// REPLACE policyBase with enum value here
-		final  String	//policyBase = "SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:SubmissionWizard_PolicyInfoDV:",
-						addressBase = policyBase +"AccountInfoInputSet:PolicyAddressDisplayInputSet:globalAddressContainer:GlobalAddressInputSet:";
+		final  String	addressBase = policyBase +"AccountInfoInputSet:PolicyAddressDisplayInputSet:globalAddressContainer:GlobalAddressInputSet:";
 
-		final  By	termType = By.id(policyBase + "PolicyInfoInputSet:TermType-inputEl"),
+		final  By		termType = By.id(policyBase + "PolicyInfoInputSet:TermType-inputEl"),
 						effectiveDate = By.id(policyBase + "PolicyInfoInputSet:EffectiveDate-inputEl"),
 						originalEffectiveDate = By.id(policyBase + "PolicyInfoInputSet:PolicyOrigEffDate-inputEl"),
 						organization = By.id(policyBase + "PolicyInfoProducerOfRecordInputSet:Producer-inputEl"),
 						producerCode = By.id(policyBase + "PolicyInfoProducerOfRecordInputSet:ProducerCode-inputEl"),
 						policyWriter = By.id(policyBase + "PolicyInfoProducerOfRecordInputSet:PolicyWriter-inputEl"),
 						underwritingCompanies = By.id(policyBase + "UWCompanyInputSet:UWCompany-inputEl"),
-						doesInsuredOwnOtherResidenceYes = By.id(policyBase + "AccountInfoInputSet:otherresidences_true-inputEl"),
-						doesInsuredOwnOtherResidenceNo = By.id(policyBase + "AccountInfoInputSet:otherresidences_false-inputEl"),
 						occupation = By.id(policyBase + "AccountInfoInputSet:occupation-inputEl"),
 						addAdditionalNameInsureds = By.id(insuredBase + "AddContactsButton"),
 						removeAdditionalNameInsureds = By.id(insuredBase + "Remove"),
@@ -80,15 +82,18 @@ public class PolicyInfo extends CenterPanelBase
 	}
 	public PolicyInfo clickDoesInsuredOwnOtherResidenceWithFrontline(String flag)
 	{
-		if(flag.toLowerCase() == "true")
-			sh.clickElement(by.doesInsuredOwnOtherResidenceYes);
-		else
-			sh.clickElement(by.doesInsuredOwnOtherResidenceNo);
-
+		sh.clickElement(By.id(policyBase + "AccountInfoInputSet:otherresidences_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return this;
 
 	}
+	public PolicyInfo setNoPriorInsuranceSurcharge(String flag)
+	{
+		sh.clickElement(By.xpath("//*[@id='" + discountsBase + "Modifiers_fliPanelSet:aRateModifierListView:0-body']//input[@inputvalue = '" + flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
+		return this;
+	}
+
 	public NewAdditionalNameInsured clickAddNewCompany()
 	{
 		sh.clickElement(by.addAdditionalNameInsureds);
@@ -102,10 +107,11 @@ public class PolicyInfo extends CenterPanelBase
 		sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
 		return new NewAdditionalNameInsured(sh, path);
 	}
-	public void clickAddFromAddressBook()
+	public SearchAddressBook clickAddFromAddressBook()
 	{
 		sh.clickElement(by.addAdditionalNameInsureds);
 		sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
+		return new SearchAddressBook(sh, path);
 	}
 	public void clickRemoveAdditionalNameInsureds()
 	{

@@ -1,7 +1,6 @@
 package PolicyCenter;
 
 import DataProviders.AccountPolicyGenerator;
-import DataProviders.PolicyCreatorData;
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import org.joda.time.DateTime;
@@ -14,8 +13,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.WizardPanelBase.*;
 import pageobjects.Login;
+import pageobjects.WizardPanelBase.*;
 
 import java.util.LinkedHashMap;
 
@@ -27,7 +26,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233312",
+	private String 	policyNumHO3 = "FPH3-324233344",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -406,19 +405,19 @@ public class HomeownersLOBTest extends BaseTest
 		.setNumberOfUnits(eai.get("Number Of Units"))
 		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
 		.setNumberOfStories(eai.get("Number of Stories"))
-		.setSquareFootage("3500")
-		.setFoundationType("Open")
-		.setPrimaryHeating("Gas")
-		.setIsThereASecondaryHeatingSystem("true")
-		.setPlumbing("Copper")
-		.setPlumbingYear("2003")
-		.setWaterHeaterYear("2004")
-		.setWiring("Multi-Strand Aluminum")
-		.setElectricalSystem("Circuit Breaker")
-		.setRoofType("Metal")
-		.setRoofYear("2000")
-		.setConditionOfRoof("Good")
-		.setScreenEnclosureOnPremises("true")
+		.setSquareFootage(eai.get("Square Footage"))
+		.setFoundationType(eai.get("Foundation Type"))
+		.setPrimaryHeating(eai.get("Primary Heating"))
+		.setIsThereASecondaryHeatingSystem(eai.get("Is there a secondary heating system?"))
+		.setPlumbing(eai.get("Plumbing Type"))
+		.setPlumbingYear(eai.get("Plumbing Year"))
+		.setWaterHeaterYear(eai.get("Water Heater Year"))
+		.setWiring(eai.get("Wiring"))
+		.setElectricalSystem(eai.get("Electrical System"))
+		.setRoofType(eai.get("Roof Type"))
+		.setRoofYear(eai.get("Roof Year"))
+		.setConditionOfRoof(eai.get("Condition of Roof"))
+		.setScreenEnclosureOnPremises(eai.get("Is there a screen enclosure on premises?"))
 
 
 
@@ -435,27 +434,27 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Wind Mitigation
 		.clickWindMitigation()
-		.setRoofShapeType("Hip")
-		.setOpeningProtectionType("Hurricane")
-		.setTerrain("C")
-		.setRoofCover("FBC Equivalent")
-		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
-		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance("true")
+		.setRoofShapeType(eai.get("Roof Shape"))
+		.setOpeningProtectionType(eai.get("Opening Protection Type"))
+		.setTerrain(eai.get("Terrain"))
+		.setRoofCover(eai.get("Roof Cover"))
+		.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
+		.setRoofWallConnection(eai.get("Roof Wall Connection"))
+		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"))
 		.next()
 
 		// Coverages
-		.setDwellingLimit("300000")
-		.setOtherStructuresPercentage("5%")
+		.setDwellingLimit(eai.get("Dwelling Limit"))
+		.setOtherStructuresPercentage(eai.get("Other Structures - %"))
 		.setPersonalPropertyExcluded("false")
-		.setPersonalPropertyLimit("150000")
-		.setPersonalPropertyValuationMethod("Actual Cash Value")
-		.setLossOfUseSelection("5%")
-		.setWindExcluded("false")
-		.setAllOtherPerils("5,000")
-		.setHurricane("2%")
-		.setPersonalLiabilityLimit("500,000")
-		.setMedicalPaymentsLimit("5,000")
+		.setPersonalPropertyLimit(eai.get("Personal Property - Limit"))
+		.setPersonalPropertyValuationMethod(eai.get("Personal Property Valuation Method"))
+		.setLossOfUseSelection(eai.get("Loss of Use - %"))
+		.setWindExcluded(eai.get("Wind Excluded"))
+		.setAllOtherPerils(eai.get("Section I Deductibles AOP"))
+		.setHurricane(eai.get("Section I Deductibles - Hurricane"))
+		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
+		.setMedicalPaymentsLimit(eai.get("Medical Payments"))
 
 
 
@@ -466,8 +465,8 @@ public class HomeownersLOBTest extends BaseTest
 		.checkGuardianEndorsements()
 		.checkOtherStructuresIncreasedCoverageRentedToOthers()
 		.clickAddOtherStructures()
-		.setOtherStructuresDescription(1,"Arsalans' Skill")
-		.setOtherStructuresLimit(1,"9001")
+		.setOtherStructuresDescription(1,eai.get("Other Structures Increase Coverage - Rented to Others - Description"))
+		.setOtherStructuresLimit(1,eai.get("Other Structures Increase Coverage - Rented to Others - Limit"))
 		.checkScheduledPersonalProperty()
 		.clickAddScheduledPersonalProperty()
 		.setPersonalPropertyArticleType(1,"Jewelry")
@@ -479,10 +478,10 @@ public class HomeownersLOBTest extends BaseTest
 		.checkSinkholeLossCoverage()
 		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
 
-		.setWhenSafeCreditPercentage("20%")
+		.setWhenSafeCreditPercentage(eai.get("Whensafe - %"))
 		.setOccurrenceAggregateLimit("10,000 / 50,000")
-		.setLossAssessmentLimit("3000")
-		.setOrdinanceOrLawLimit("25%")
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"))
 		.setPercentageOfAnnualIncrease("12%")
 		.setSinkholeClaimsIndex("4500")
 		.setSinkholeIndex("330")
@@ -497,8 +496,8 @@ public class HomeownersLOBTest extends BaseTest
 
 		.setLocationName("1:")
 		.setNumberOfFamilies("2 Family Residence")
-		.setBusinessActivity("Clerical Employee")
-		.setWatercraftType("Up to 50 Horsepower and 16-26 feet")
+		.setBusinessActivity(eai.get("Business Pursuits - Business activity"))
+		.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"))
 
 
 
@@ -593,6 +592,354 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate("10/29/2017")
 		.setLastInspectionCompletionDate("03/21/2015")
 		.setInflationGuard("12%")
+		.clickExcludeLossOfUseCoverage("false");
+		Offerings offerings = imr.nextAndAccept()
+
+		// Offerings
+		.setPolicyType("Homeowners")
+		.setOfferingSelection("Most Popular");
+		PolicyInfo pi = offerings.next();
+
+		// Policy Info
+		pi.setOccupation("Twinkie Smuggler")
+		.clickDoesInsuredOwnOtherResidenceWithFrontline("false")
+		.setTermType("Annual");
+		SearchAddressBook sab = pi
+		//.setPolicyWriter()
+		//.clickAddNewPerson()
+		.clickAddFromAddressBook();
+
+
+		// Search Address Book
+		sab
+		.setType("Person")
+		.setFirstName("fsadfasd")
+		.setLastName("fadsfasdfasdf")
+		.setCountry("United States")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickSearch();
+		if(sab.areThereSearchResults())
+			sab.selectFirstSearchResult();
+		else
+		{
+			sab.clickReturnToPolicyInfo()
+			.clickAddNewPerson()
+			.setRelationshipToPrimary("Sugah Mama")
+
+			.setFirstName("Jelly")
+			.setLastName("Junior")
+			.setDateOfBirth("10/20/1986")
+			.setMaritalStatus("Married")
+			.setPrimaryPhone("Home")
+			.setHomePhone("456-987-6542")
+			.setWorkPhone("453-985-6325")
+			.setMobilePhone("323-254-8457")
+			.setFaxPhone("356-984-5478")
+			.setPrimaryEmail("jelly@jellymail.com")
+			.setSecondaryEmail("jiggla@jigglamail.com")
+			.setCountry("United States")
+			.setAddress1("2470 Wild Wood dr")
+			.setCity("Melbourne")
+			.setState("Florida")
+			.setZipCode("32935")
+			.clickVerifyAddress()
+			.selectAddressForNewAdditionalNamedInsured(2)
+			.setAddressType("Billing")
+			.setAddressDescription("Hideout")
+			.setLicenseNumber("156468465")
+			.setLicenseState("Florida")
+			.setSsn("598-99-6565")
+			.clickOk();
+
+		}
+
+
+
+		// New Additional Named Insured
+		Dwelling dwelling = pi.next();
+
+		// Dwelling
+		dwelling
+		.setLocationName("1:")
+		.setYearBuilt("2000")
+		.setDistanceToFireHydrant("2000")
+		.setDistanceToFireStation("2100")
+		.setTerritoryCode("064")
+		.setBCEG("02")
+		.setProtectionClassCode("2")
+		.setLocationType("In City Limits")
+		.setInTheWindpool("true")
+		.setDistanceToCoast("2000")
+		.setPurchaseDate("01/25/2000")
+		.setPurchasePrice("500000")
+		.setMarketValue("6000000")
+		.setOwnedByOther("false")
+		.setOccupiedDaily("false")
+		.setResidenceType("Duplex")
+		.setDwellingUsage("Seasonal")
+		.setDwellingOccupancy("Owner Occupied")
+		.setSwimmingPool("true")
+		.setPoolLocation("In-Ground")
+		.setPoolFenced("true")
+		.setFenceType("Screen Enclosure")
+		.setDivingBoard("true")
+		.setPoolSlide("true")
+		.setTrampolineOnPremises("true")
+		.setSkateboardBicycleRampOnPremises("true")
+		.setAnimalsOrExoticPets("false")
+		.setGolfCarts("true")
+		.setRecreationalVehiclesOwned("true")
+		.setHousekeepingCondition("Excellent");
+
+
+
+		// Protection Details
+		Dwelling.ProtectionDetails pd = dwelling.clickProtectionDetails();
+		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		pd
+		.setBurglarAlarm("true")
+		.setLockedPrivacyFence("true")
+		.setBurglarBarsOnWindows("true")
+		.setCommunityGuarded("true")
+		.setGatedCommunity("true")
+		.setFireAlarm("true")
+		.setSmokeAlarm("true")
+		.setFireExtinguishers("true")
+		.setSprinklerSystem("true")
+		.setDeadbolts("true")
+		.setResidenceVisibleToNeighbors("true")
+		.safetyLatchesPresent("true")
+		.setFireAlarmType("Central Station")
+		.setSprinklerSystemType("Full")
+		.setBurglarAlarmType("Central Station")
+
+		// Additional Interests
+		.clickAdditionalInterests()
+		.clickAddNewPerson()
+		.setType("Additional Insured")
+		.setLoanNumber("747384")
+		.clickCertificateRequired("true")
+		.setFirstName("Jelly")
+		.setLastName("Junior")
+		.setDateOfBirth("10/20/1986")
+		.setMaritalStatus("Married")
+		.setPrimaryPhone("Home")
+		.setHomePhone("456-987-6542")
+		.setWorkPhone("453-985-6325")
+		.setMobilePhone("323-254-8457")
+		.setFaxPhone("356-984-5478")
+		.setPrimaryEmail("jelly@jellymail.com")
+		.setSecondaryEmail("jiggla@jigglamail.com")
+		.setCountry("United States")
+		.setAddress1("2470 Wild Wood dr")
+		.setCity("Melbourne")
+		.setState("Florida")
+		.setZipCode("32935")
+		.clickVerifyAddress()
+		.selectAddressForNewAdditionalInterests(2)
+		.setAddressType("Billing")
+		.setAddressDescription("Hideout")
+		.setLicenseNumber("156468465")
+		.setLicenseState("Florida")
+		.setSsn("598-99-6565")
+		.clickOk()
+		.next()
+
+		// Dwelling Construction
+		.setValuationType("Appraisal")
+		.setEstimatedReplacementCost("100000")
+		.setConstructionType("Superior")
+		.setNumberOfUnits("11-50")
+		.setUnitsInFireWall("2")
+		.setNumberOfStories("2")
+		.setSquareFootage("3500")
+		.setFoundationType("Open")
+		.setPrimaryHeating("Gas")
+		.setIsThereASecondaryHeatingSystem("true")
+		.setPlumbing("Copper")
+		.setPlumbingYear("2003")
+		.setWaterHeaterYear("2004")
+		.setWiring("Multi-Strand Aluminum")
+		.setElectricalSystem("Circuit Breaker")
+		.setRoofType("Metal")
+		.setRoofYear("2000")
+		.setConditionOfRoof("Good")
+		.setScreenEnclosureOnPremises("true")
+
+
+
+		.setPlumbingSystemHaveKnownLeaks("false")
+		.setBuildingRetrofittedForEarthquakes("false")
+		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
+		.setUncorrectedFireOrBuildingCodeViolations("false")
+		.setStructureOriginallyBuiltForOtherThanPrivateResidence("false")
+		.setLeadPaintHazard("false")
+//		.setLeadPaintHazardDescription("best")
+//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+
+
+		// Wind Mitigation
+		.clickWindMitigation()
+		.setRoofShapeType("Hip")
+		.setOpeningProtectionType("Hurricane")
+		.setTerrain("C")
+		.setRoofCover("FBC Equivalent")
+		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
+		.setRoofWallConnection("Clips")
+		.setSecondaryWaterResistance("true")
+		.next()
+
+		// Coverages
+		.setDwellingLimit("300000")
+		.setOtherStructuresPercentage("5%")
+		.setPersonalPropertyExcluded("false")
+		.setPersonalPropertyLimit("150000")
+		.setPersonalPropertyValuationMethod("Actual Cash Value")
+		.setLossOfUseSelection("5%")
+		.setWindExcluded("false")
+		.setAllOtherPerils("5,000")
+		.setHurricane("2%")
+		.setPersonalLiabilityLimit("500,000")
+		.setMedicalPaymentsLimit("5,000")
+
+
+
+
+
+		// Property Endorsements
+		.clickPropertyEndorsements()
+		.checkGuardianEndorsements()
+		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+		.clickAddOtherStructures()
+		.setOtherStructuresDescription(1,"Arsalans' Skill")
+		.setOtherStructuresLimit(1,"9001")
+		.checkScheduledPersonalProperty()
+		.clickAddScheduledPersonalProperty()
+		.setPersonalPropertyArticleType(1,"Jewelry")
+		.setPersonalPropertyDescription(1,"schweggggg")
+		.setPersonalPropertyValue(1,"234342")
+		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
+		//.checkPermittedIncidentalOccupancy()
+		.checkScreenEnclosureHurricaneCoverage()
+		.checkSinkholeLossCoverage()
+		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
+
+		.setWhenSafeCreditPercentage("20%")
+		.setOccurrenceAggregateLimit("10,000 / 50,000")
+		.setLossAssessmentLimit("3000")
+		.setOrdinanceOrLawLimit("25%")
+		.setPercentageOfAnnualIncrease("12%")
+		.setSinkholeClaimsIndex("4500")
+		.setSinkholeIndex("330")
+
+		// Liability Endorsements
+		.clickLiabilityEndorsements()
+		.checkPermittedIncidentalOccupancyLiability()
+		//.checkAnimalLiability()
+		.checkAdditionalResidenceRentedToOthers()
+		.checkBusinessPursuits()
+		.checkWatercraftLiability()
+
+		.setLocationName("1:")
+		.setNumberOfFamilies("2 Family Residence")
+		.setBusinessActivity("Clerical Employee")
+		.setWatercraftType("Up to 50 Horsepower and 16-26 feet")
+
+
+
+//		.checkOtherStructuresIncreasedCoverageRentedToOthers()
+//		.checkScheduledPersonalProperty()
+//		.checkScreenEnclosureHurricaneCoverage()
+//		.checkSinkholeLossCoverage()
+		.next()
+		.quote();
+		//.back().requestApproval().sendRequest();
+		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
+
+
+
+	}
+	public void SCH03AccountRenewalPOC()
+	{
+		int i= 0;
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+		System.out.println(new DateTime().toString());
+
+		log("Test new person account creation");
+		String firstName = "First" + dateString, lastName = "Last" + dateString;
+
+		enterAccountInfo
+			.setFirstName(firstName)
+			.setCompanyName("Jelly")
+			.setCountry("United States")
+			.setCity("Charleston")
+			.setState("South Carolina")
+			.setZipCode("29401")
+			.setLastName(lastName)
+			.clickSearch();
+		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+
+		log("Creating new account: " + dateString);
+		createAccount
+			.setAddressLine1("32 Legare St")
+			.setCity("Charleston")
+			.setState("South Carolina")
+			.setDateOfBirth("03/15/1987")
+			.setHomePhone("456-748-1503")
+			.setWorkPhone("958-562-1250")
+			.setMobilePhone("745-512-6590")
+			.setFaxPhone("487-963-8521")
+			.setPrimaryPhone("Work")
+			.setPrimaryEmail("djfklajs@gmail.com")
+			.setSecondaryEmail("jdklafj@hotmail.com")
+			.setState("South Carolina")
+
+			.setZipCode("29401")
+				.clickVerifyAddress()
+				.selectAddressForCreateAccount(2)
+			.setAddressType("Home")
+			.setDescription("Nerd Lair")
+			.setSsn("555-44-3333")
+			.setOrganization("Brown and Brown of Florida, Inc")
+			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+
+			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
+			", first name: " + firstName + ", last name: " + lastName);
+
+
+		// Policy Renewal
+
+		log("Test simple homeowners policy submission");
+		String accountNumber = accountFileSummary.getAccountNumber();
+		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
+
+		accountFileSummary = new AccountFileSummary(sh);
+		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
+
+		// Initiate Manual Renewal
+		imr.setOrganization("Brown and Brown of Florida, Inc")
+		.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
+		.setBaseState("South Carolina")
+		.setProduct("Homeowners")
+		.setPolicyType("Homeowners")
+		.setLegacyPolicyNumber(policyNumHO3)
+		.setOriginalEffectiveDate("11/21/2016")
+		.setEffectiveDate("10/29/2017")
+		.setLastInspectionCompletionDate("03/21/2015")
+		.setInflationGuard("12%")
 		.clickExcludeLossOfUseCoverage("false")
 		.nextAndAccept()
 
@@ -604,6 +951,7 @@ public class HomeownersLOBTest extends BaseTest
 		// Policy Info
 		.setOccupation("Twinkie Smuggler")
 		.clickDoesInsuredOwnOtherResidenceWithFrontline("false")
+		.setNoPriorInsuranceSurcharge("false")
 		.setTermType("Annual")
 		//.setPolicyWriter()
 		.clickAddNewPerson()
@@ -642,11 +990,12 @@ public class HomeownersLOBTest extends BaseTest
 		.setYearBuilt("2000")
 		.setDistanceToFireHydrant("2000")
 		.setDistanceToFireStation("2100")
-		.setTerritoryCode("064")
+		.setTerritoryCode("03S")
 		.setBCEG("02")
 		.setProtectionClassCode("2")
 		.setLocationType("In City Limits")
 		.setInTheWindpool("true")
+		.setWindpoolZone("Windpool Zone 1")
 		.setDistanceToCoast("2000")
 		.setPurchaseDate("01/25/2000")
 		.setPurchasePrice("500000")
@@ -761,32 +1110,35 @@ public class HomeownersLOBTest extends BaseTest
 		.clickWindMitigation()
 		.setRoofShapeType("Hip")
 		.setOpeningProtectionType("Hurricane")
-		.setTerrain("C")
-		.setRoofCover("FBC Equivalent")
-		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
-		.setRoofWallConnection("Clips")
-		.clickSecondaryWaterResistance("true")
+//		.setTerrain("C")
+//		.setRoofCover("FBC Equivalent")
+//		.setRoofDeckAttachment("B(8d @ 6\"/12\") Nails")
+//		.setRoofWallConnection("Clips")
+		.setSecondaryWaterResistance("true")
+		.setIsTheRoofCoverConstructionBuildingCodeCompliant("true")
+		.setIsTheRoofDeckAttachmentBuildingCodeCompliant("true")
+		.setIsTheRoofWallconnectionBuildingCodeCompliant("true")
 		.next()
 
 		// Coverages
 		.setDwellingLimit("300000")
 		.setOtherStructuresPercentage("5%")
-		.setPersonalPropertyExcluded("false")
-		.setPersonalPropertyLimit("150000")
+		//.setPersonalPropertyExcluded("false")
+		.setPersonalPropertyLimit("120000")
 		.setPersonalPropertyValuationMethod("Actual Cash Value")
-		.setLossOfUseSelection("5%")
-		.setWindExcluded("false")
+		.setLossOfUseSelection("10,000")
+		//.setWindExcluded("false")
 		.setAllOtherPerils("5,000")
-		.setHurricane("2%")
-		.setPersonalLiabilityLimit("500,000")
-		.setMedicalPaymentsLimit("5,000")
+		.setHurricane("5%")
+		.setPersonalLiabilityLimit("100,000")
+		//.setMedicalPaymentsLimit("5,000")
+		.clickPropertyEndorsements()
 
 
 
 
 
 		// Property Endorsements
-		.clickPropertyEndorsements()
 		.checkGuardianEndorsements()
 		.checkOtherStructuresIncreasedCoverageRentedToOthers()
 		.clickAddOtherStructures()
@@ -798,23 +1150,28 @@ public class HomeownersLOBTest extends BaseTest
 		.setPersonalPropertyDescription(1,"schweggggg")
 		.setPersonalPropertyValue(1,"234342")
 		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
+		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
 		//.checkPermittedIncidentalOccupancy()
 		.checkScreenEnclosureHurricaneCoverage()
-		.checkSinkholeLossCoverage()
-		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
+		.checkEarthquakeCoverage()
+		.checkEarthquakeLossAssessment()
+		//.checkSinkholeLossCoverage()
 
 		.setWhenSafeCreditPercentage("20%")
 		.setOccurrenceAggregateLimit("10,000 / 50,000")
 		.setLossAssessmentLimit("3000")
 		.setOrdinanceOrLawLimit("25%")
+		.setEarthquakeCoverageDeductiblePercentage("10%")
+		.setDoesExteriorMasonryVeneerExclusionApply("true")
+		.setEarthquakeLossAssessmentLimit("5,000")
 		.setPercentageOfAnnualIncrease("12%")
-		.setSinkholeClaimsIndex("4500")
-		.setSinkholeIndex("330")
+		//.setSinkholeClaimsIndex("4500")
+		//.setSinkholeIndex("330")
+		.clickLiabilityEndorsements()
 
 		// Liability Endorsements
-		.clickLiabilityEndorsements()
 		.checkPermittedIncidentalOccupancyLiability()
-		//.checkAnimalLiability()
+		.checkAnimalLiability()
 		.checkAdditionalResidenceRentedToOthers()
 		.checkBusinessPursuits()
 		.checkWatercraftLiability()
@@ -945,7 +1302,7 @@ public class HomeownersLOBTest extends BaseTest
 
 	}
 
-	public void SCH03AccountRenewalPOC()
+	public void SCH03AccountRenewalPOCBasic()
 	{
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
@@ -1785,142 +2142,6 @@ public class HomeownersLOBTest extends BaseTest
 		.next()
 		.quote();
 		sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-
-
-
-		log("Specifying dwelling protection details");
-		System.out.println("waiting");
-	}
-
-	@Test(dataProviderClass = PolicyCreatorData.class, dataProvider = "TestingCSV")
-	public void AccountPolicyCreatorDoc(String NameInsured , String DateofBirth , String HomePhone , String WorkPhone , String EmailAddress , String MailingAddress ,
-										String MailingCity , String MailingCounty , String MailingState , String MailingZipcode , String AddressType , String SSN ,
-										String Organization , String ProducerCode , String BaseSate , String Product , String PolicyType , String LegacyPolicyNumber ,
-										String PolicyOriginalEffectiveDate , String LastInspectionCompletionDate , String InflationGuard ,
-										String AdditionalResidenceRentedtoOthersLocation , String ExcludeLossofUseCoverage , String PolicyType2 , String OfferingSelection ,
-										String secondNameInsuredName , String secondNameInsuredDateofBirth , String secondnameInsuredSSN , String SeniorCitizenDiscount ,
-										String DoestheinsuredownanyotherresidencethatisinsruedwithFrontline , String LocationAddress , String YearBuilt ,
-										String DistancetoFireHydrant , String DistancetoFireStation , String TerritoryCode , String BCEG , String ProtectionClassCode ,
-										String LocationType , String IntheWindpool , String DistancetoCoast , String PurchaseDate , String PurchasePrice , String MarketValue ,
-										String AttheinceptionofthispolicywillthispropertybedeededinthenameofcorporationbusinessLLCoranyotherentity ,
-										String OccupiedDaily , String ResidenceType , String HowisthedwellingcustomarilyUsed , String Howisthedwellingoccupied ,
-										String WeeksRentedAnnually , String MinimRentalIncrement , String UnderContractwithRentalManagementcompany , String Isthereaswimmingpool ,
-										String Isthereatrampoline , String isthereaskateboardorbicycleramponpremises , String Anyanimalsorexoticpetsonpremses ,
-										String AnyownedGolfCarts , String Anyownedrecreationalvehicles , String HousekeepingCondition , String BurglarAlarmType ,
-										String Istherealockedprivacyfence , String arethereanyburglarbarsonthewindowsdoors , String IsthecommunityGuarded ,
-										String IsthecommunityGated , String FireAlarmtype , String SmokeAlarms , String Oneormorefireextinguishersinthehome ,
-										String SprinklerSystem , String Deadbolts , String ResidenceVisibletoneighbors , String AdditionalInterest1Type ,
-										String AdditionalInterest1LoanNumber , String AdditionalInterest1Name , String AdditionalInterest1Address , String AdditionalInterest1City ,
-										String AdditionalInterest1State , String AdditionalInterest1ZipCode , String AdditionalInterest2Type , String AdditionalInterest2LoanNumber ,
-										String AdditionalInterest2Name , String AdditionalInterest2Address , String AdditionalInterest2City , String AdditionalInterest2State ,
-										String AdditionalInterest2ZipCode , String AdditionalInterest3Type , String AdditionalInterest3LoanNumber , String AdditionalInterest3Name ,
-										String AdditionalInterest3Address , String AdditionalInterest3City , String AdditionalInterest3State , String AdditionalInterest3ZipCode ,
-										String AdditionalInterest4Type , String AdditionalInterest4LoanNumber , String AdditionalInterest4Name , String AdditionalInterest4Address ,
-										String AdditionalInterest4City , String AdditionalInterest4State , String AdditionalInterest4ZipCode , String ValuationType ,
-										String EstimatedReplacementCost , String ConstructionType , String NumberofUnits , String UnitsinFireWall , String NumberofStories ,
-										String SquareFootage , String FoundationType , String PrimaryHeating , String Isthereasecondaryheatingsystem , String PlumbingType ,
-										String PlumbingYear , String WaterHeaterYear , String Wiring , String ElectricalSystem , String RoofType , String RoofYear ,
-										String ConditionofRoof , String Isthereascreenenclosureonpremises , String Doestheplumbingsystemhaveknownleaks ,
-										String Isthebuildingretrofittedforearthquakes , String Anyuncorrectedfireorbuildingcodeviolations ,
-										String Wasthestructureoriginallybuiltforotherthanaprivateresidenceandthenconverted , String Anyleadpainthazard ,
-										String Isanyportionofanystructureatthispropertylocationnoworeverhasbeenamobilehomemodularhometrailerhomeorotherprefabricatedhome ,
-										String DiscountType , String RoofShape , String OpeningProtectionType , String Terrain , String RoofCover ,
-										String RoofDeckAttachment , String RoofWallConnection , String SecondaryWaterResistance , String RoofDeck , String FBCWindSpeed ,
-										String InternalPressure , String WindBorneDebrisRegion , String DwellingLimit , String OtherStructures , String OtherStructuresIncreasedLimit ,
-										String PersonalPropertyLimit , String PersonalPropertyValuationMethod , String LossofUse , String WindExcluded ,
-										String SectionIDeductiblesAOP , String SectionIDeductiblesType , String PersonalLiability , String PremisesLiability ,
-										String MedicalPayments , String GuardianEndorsement , String Whensafe , String SpecificOtherStructuresDescription ,
-										String SpecificOtherStructuresLimit , String OtherStructuresIncreaseCoverageRentedtoOthersDescription ,
-										String OtherStructuresIncreaseCoverageRentedtoOthersLimit , String ScheduledPersonalProperty ,
-										String PermittedIncidentalOccupancyPropertyLimit , String CreditCardLimit , String LimitedFungiLimit , String LossAssessmentLimit ,
-										String OrdinanceorLawPercent , String RefrigeratedPersonalProperty , String EarthquakeCoverageDeductible ,
-										String EarthquakeCoverageConstructionClass , String EarthquakeZone , String EarthquakeLossAssessmentCoverageLimit ,
-										String SpecialComputerCoverage , String ScreenEnclosureHurricaneCoverageLimit , String ResidenceHeldinTrust ,
-										String SpecifiedAdditionalAmountofCoverageA , String UnitOwnersCoverageASpecialCoverageLimit , String UnitOwnersRentedtoOthers ,
-										String TheftCoverage , String WaterBackUpLimit , String InflationGuard2 , String SinkholeLossCoverage ,
-										String PermittedIncidentalOccupancyLiability , String AnimalLiability , String AdditionalResidenceRentedtoOthersLocation2 ,
-										String AdditionalResidenceRentedtoOthersNumberoffamilies , String BusinessPursuitsBusinessactivity , String PersonalInjury ,
-										String WatercraftLiablityWatercraftType , String BillingContactinsuredormortgage , String PaymentPlanSchedule)
-	{
-
-		// Create Account
-
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		Actions build = new Actions(driver);
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
-		System.out.println(new DateTime().toString());
-
-		log("Test new person account creation");
-		String[] name = NameInsured.split("  ");
-		String firstName = name[0], lastName = name[1];
-
-		enterAccountInfo
-			.setFirstName(firstName)
-
-			.setLastName(lastName)
-			.clickSearch();
-		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
-
-		log("Creating new account: " + dateString);
-		createAccount
-			.setAddressLine1(MailingAddress)
-			.setCity(MailingCity)
-			.setState(MailingState)
-
-			.setZipCode(MailingZipcode)
-				.clickVerifyAddress()
-				.selectAddressForCreateAccount(2)
-			.setAddressType(AddressType)
-			.setOrganization(Organization)
-			.setProducerCode(ProducerCode);
-			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
-            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
-			", first name: " + firstName + ", last name: " + lastName);
-
-
-
-		// Create policy
-
-		log("Test simple homeowners policy submission");
-		String accountNumber = accountFileSummary.getAccountNumber();
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
-
-		accountFileSummary = new AccountFileSummary(sh);
-		NewSubmission submission = accountFileSummary.westPanel.actions.newSubmission();
-
-		log("Answering qualification questions");
-		Qualification qualification = submission.productTable.selectHomeowners();
-		String policyType = "Homeowners";
-		log("Policy Type: " + policyType);
-		qualification.setPolicyType(PolicyType);
-
-		System.out.println(qualification.questionnaire.getQuestionText(1));
-		for(int i = 1; i<9; i++)
-			qualification.questionnaire.answerNo(i);
-		Dwelling dwelling = qualification.next().next();
-
-		log("Specifying dwelling details");
-		dwelling
-		.setYearBuilt(YearBuilt)
-		.setDistanceToFireHydrant(DistancetoFireHydrant).setTerritoryCode(TerritoryCode).setBCEG(BCEG).setProtectionClassCode(ProtectionClassCode);
-
-		DwellingConstruction dc = dwelling.next();
-
-		dc.setRoofYear(RoofYear)
-		.clickWindMitigation()
-		.setRoofShapeType(RoofShape);
-		Coverages co = dc.next();
-		co.setDwellingLimit(DwellingLimit).setPersonalPropertyLimit(PersonalPropertyLimit)
-		.next().quote().back().requestApproval();
-
-
 
 
 
