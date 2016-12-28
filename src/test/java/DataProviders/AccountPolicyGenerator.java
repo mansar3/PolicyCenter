@@ -1,5 +1,6 @@
 package DataProviders;
 
+import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import org.testng.annotations.DataProvider;
 
@@ -18,8 +19,9 @@ public class AccountPolicyGenerator
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;
+		List<LinkedHashMap<String, String>> addInts = new ArrayList<>();
 		CSVReader reader;
-		String filePath= "/Users/aansari/Desktop/csv_test3.csv";
+		String filePath= "/Users/jordanponceflhi/Desktop/Workbook1.csv";
 
 		try
 		{
@@ -30,12 +32,25 @@ public class AccountPolicyGenerator
 			for(int row = 1; row < data.size(); row++)
 			{
 				LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
-
 				int numColumns = data.get(row).length;
-				for(int column = 0; column < numColumns ; column++)
-					rowData.put(data.get(0)[column], data.get(row)[column]);
+				for(int column = 1; column < numColumns ; column++)
+				{
+					if(column > 181 && column < 184 && !data.get(row)[column].equals(""))
+					{
+						CSVReader addIntsReader = new CSVReader(new FileReader("/Users/jordanponceflhi/Desktop/"+ data.get(row)[column] +".csv"));
+						LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
+						List<String[]> addIntsData = addIntsReader.readAll();
+						for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
+						{
+							addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
+						}
+						addInts.add(addInt);
+					}
+					else
+						rowData.put(data.get(0)[column], data.get(row)[column]);
+				}
 
-				dataBuffer[row-1] = new Object[]{(rowData)};
+				dataBuffer[row-1] = new Object[]{(rowData),(addInts)};
 			}
 
 		}
@@ -50,8 +65,5 @@ public class AccountPolicyGenerator
 
 		System.out.println("databuffer.leg = '" + dataBuffer.length + "'");
 		return dataBuffer;
-
-
-
 	}
 }
