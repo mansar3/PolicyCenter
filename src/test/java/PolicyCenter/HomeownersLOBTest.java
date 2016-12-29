@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 @Test
@@ -26,7 +27,7 @@ public class HomeownersLOBTest extends BaseTest
 	private CenterSeleniumHelper sh;
 	private String dateString;
 	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233344",
+	private String 	policyNumHO3 = "FPH3-324233385",
 					policyNumDP3 = "FPD3-324237824";
 
 	@BeforeMethod
@@ -102,16 +103,18 @@ public class HomeownersLOBTest extends BaseTest
 	}
 
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
-	public void AccountPolicyCreatorPOCWithHash(LinkedHashMap<String, String> eai)
+	public void AccountPolicyCreatorPOCWithHash(LinkedHashMap<String, String> eai, LinkedHashMap<String, String> spp, LinkedHashMap<String, String> osic)
 	{
 		// Create Account
 
+		//Object spp = eai.get("Scheduled Personal Property");
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
 		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+		//EnterAccountInformation enterAccountInfo = new EnterAcLinkedHashMap<String, String> eaicountInformation(sh);
 		System.out.println(new DateTime().toString());
 
 		log("Test new person account creation");
@@ -187,9 +190,11 @@ public class HomeownersLOBTest extends BaseTest
 		log("Waiting for Quote Page.");
 	}
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
-	public void FLH03AccountRenewalPOCWithHash(LinkedHashMap<String, String> eai)
+	public void tableTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts,ArrayList<LinkedHashMap<String, String>> spp)
 	{
-		int i= 0;
+		int i;
+
+		//String value = eai.get("Scheduled Personal Property")
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
@@ -199,8 +204,8 @@ public class HomeownersLOBTest extends BaseTest
 		System.out.println(new DateTime().toString());
 
 		log("Test new person account creation");
-		String[] addlInsuredName = eai.get("Addl Interest Name").split("\\s+");
-		String[] insuredName = eai.get("Name Insured").split("\\s+");
+
+		//String[] insuredName = eai.get("Name Insured").split("\\s+");
 		String firstName = eai.get("Name Insured First Name"), lastName = eai.get("Name Insured Last Name");
 
 		enterAccountInfo
@@ -209,7 +214,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setCountry("United States")
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
-			.setZipCode(eai.get("Mailing Zipcode"))
+			.setZipCode(eai.get("Mailing Zip Code"))
 			.setLastName(lastName)
 			.clickSearch();
 		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
@@ -229,9 +234,9 @@ public class HomeownersLOBTest extends BaseTest
 			.setSecondaryEmail("jdklafj@hotmail.com")
 			.setState(eai.get("Mailing State"))
 
-			.setZipCode(eai.get("Mailing Zipcode"))
+			.setZipCode(eai.get("Mailing Zip Code"))
 				.clickVerifyAddress()
-				.selectAddressForCreateAccount(2)
+				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.get("Address Type"))
 			.setDescription("Nerd Lair")
 			.setSsn(eai.get("SSN"))
@@ -245,7 +250,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Renewal
 
-		log("Test simple homeowners policy submission");
+		log("Test simple homeowners policy renewal");
 		String accountNumber = accountFileSummary.getAccountNumber();
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
@@ -267,51 +272,84 @@ public class HomeownersLOBTest extends BaseTest
 		.setEffectiveDate(eai.get("Effective Date"))
 		.setLastInspectionCompletionDate(eai.get("Last Inspection Completion Date"))
 		.setInflationGuard(eai.get("Inflation Guard"))
-		.clickExcludeLossOfUseCoverage(eai.get("Exclude Loss of Use Coverage"))
-		.nextAndAccept()
+		.clickExcludeLossOfUseCoverage(eai.get("Exclude Loss of Use Coverage"));
+		Offerings offerings = imr.nextAndAccept();
 
 		// Offerings
-		.setPolicyType("Homeowners")
-		.setOfferingSelection(eai.get("Offering Selection"))
-		.next()
+		offerings
+		.setPolicyType(eai.get("Policy Type"))
+		.setOfferingSelection(eai.get("Offering Selection"));
+		PolicyInfo pi = offerings.next();
 
 		// Policy Info
+		pi
 		.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidenceWithFrontline(eai.get("Does the insured own any other residence that is insured with Frontline?"))
-		.setTermType("Annual")
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.get("Does the insured own any other residence that is insured with Frontline?"))
+		.setTermType("Annual");
 		//.setPolicyWriter(eai.get("Policy Writer"))
-		.clickAddNewPerson()
+		i=1;
+
+		if(keyContainsValue(eai,"Additional Name Insured Last Name" ) || keyContainsValue(eai,"Additional Name Insured Company Name" ))
+		{
+			boolean person = false;
+			SearchAddressBook sab = pi.clickAddFromAddressBook();
+			// See if value is for a person or company
+			if(keyContainsValue(eai,"Additional Name Insured First Name" ))
+			{
+				person = true;
+				sab.setType("Person")
+				.setFirstName(eai.get("Additional Name Insured First Name"))
+				.setLastName(eai.get("Additional Name Insured Last Name"))
+				.setTaxID(eai.get("Additional Name Insured SSN"));
+			}
+			else
+			{
+				sab.setType("Company")
+				.setCompanyName(eai.get("Additional Name Insured Company Name"));
+			}
+
+			sab.clickSearch();
+			// See if there are search results
+			if(sab.areThereSearchResults())
+				sab.selectFirstSearchResultPolicyInfo();
+
+			// No results, add person/company
+			else
+			{
+				pi = sab.clickReturnToPolicyInfo();
+				// Add a person
+				if(person)
+				{
+					NewAdditionalNameInsured ani = pi.clickAddNewPerson();
+					ani//.setRelationshipToPrimary("Sugah Mama")
+
+					.setFirstName(eai.get("Additional Name Insured First Name"))
+					.setLastName(eai.get("Additional Name Insured Last Name"))
+					.setDateOfBirth(eai.get("Additional Name Insured Date of Birth"))
+					.setSsn(eai.get("Additional Name Insured SSN"))
+					.clickSameAddressAsPrimaryNamedInsured()
+					.clickOk();
+				}
+				// Add a company
+				else
+				{
+					NewAdditionalNameInsured ani = pi.clickAddNewCompany();
+					ani
+					.setCompanyName(eai.get("Additional Name Insured Company Name"))
+					.clickSameAddressAsPrimaryNamedInsured()
+					.clickOk();
+
+				}
+
+			}
+			i++;
+		}
 
 
-		// New Additional Named Insured
-		.setRelationshipToPrimary("Sugah Mama")
-
-		.setFirstName(eai.get("Additional Name Insured First Name"))
-		.setLastName(eai.get("Additional Name Insured Last Name"))
-		.setDateOfBirth(eai.get("Additional Name Insured Date of Birth"))
-		.setMaritalStatus("Married")
-		.setPrimaryPhone("Home")
-		.setHomePhone("456-987-6542")
-		.setWorkPhone("453-985-6325")
-		.setMobilePhone("323-254-8457")
-		.setFaxPhone("356-984-5478")
-		.setPrimaryEmail(eai.get("Email Address"))
-		.setSecondaryEmail("jiggla@jigglamail.com")
-		.setCountry("United States")
-		.setAddress1("2470 Wild Wood dr")
-		.setCity("Melbourne")
-		.setState("Florida")
-		.setZipCode("32935")
-		.clickVerifyAddress()
-		.selectAddressForNewAdditionalNamedInsured(2)
-		.setAddressType("Billing")
-		.setAddressDescription("Hideout")
-		.setLicenseNumber("156468465")
-		.setLicenseState("Florida")
-		.setSsn(eai.get("Additional Name Insured SSN"))
-		.clickOk().next()
+		Dwelling dwelling = pi.next();
 
 		// Dwelling
+		dwelling
 		.setLocationName("1:") // Left as is
 		.setYearBuilt(eai.get("Year Built"))
 		.setDistanceToFireHydrant(eai.get("Distance to Fire Hydrant"))
@@ -322,87 +360,125 @@ public class HomeownersLOBTest extends BaseTest
 		.setLocationType(eai.get("Location Type"))
 		.setInTheWindpool(eai.get("In the Windpool?"))
 		.setDistanceToCoast(eai.get("Distance to Coast"))
-		.setPurchaseDate(eai.get("Purhcase Date"))
+		.setPurchaseDate(eai.get("Purchase Date"))
 		.setPurchasePrice(eai.get("Purchase Price"))
 		.setMarketValue(eai.get("Market Value"))
 		.setOwnedByOther(eai.get("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?"))
-		.setOccupiedDaily(eai.get("How is the dwelling occupied"))
-		.setResidenceType("Duplex")
-		.setDwellingUsage("Seasonal")
-		.setDwellingOccupancy("Owner Occupied")
-		.setSwimmingPool(eai.get("Is there a swimming pool?"))
-		.setPoolLocation("In-Ground")
-		.setPoolFenced("true")
-		.setFenceType("Screen Enclosure")
-		.setDivingBoard("true")
-		.setPoolSlide("true")
-		.setTrampolineOnPremises(eai.get("Is there a tampoline"))
+		.setOccupiedDaily(eai.get("Occupied Daily"))
+		.setResidenceType(eai.get("Residence Type"))
+		.setDwellingUsage(eai.get("How is the dwelling customarily Used"))
+		.setDwellingOccupancy(eai.get("How is the dwelling occupied"));
+
+
+		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false"))
+		{
+			dwelling
+			.setSwimmingPool("true")
+			.setPoolLocation(eai.get("Is there a swimming pool?"))
+			.setPoolFenced("true");
+
+			if(eai.get("Pool Fence Type").toLowerCase().equals("true")) // hashkey assumed
+				dwelling.setFenceType("Screen Enclosure");
+
+			dwelling
+			.setDivingBoard("true")
+			.setPoolSlide("true");
+		}
+		dwelling
+		.setTrampolineOnPremises(eai.get("Is there a trampoline"))
 		.setSkateboardBicycleRampOnPremises(eai.get("is there a skateboard or bicycle ramp on premises?"))
-		.setAnimalsOrExoticPets(eai.get("Any animals or exotic pets on premses?"))
+		.setAnimalsOrExoticPets(eai.get("Any animals or exotic pets on premises?"))
 		.setGolfCarts(eai.get("Any owned Golf Carts?"))
 		.setRecreationalVehiclesOwned(eai.get("Any owned recreational vehicles?"))
-		.setHousekeepingCondition(eai.get("Housekeeping Condition"))
+		.setHousekeepingCondition(eai.get("Housekeeping Condition"));
 
 
 
 
 		// Protection Details
-		.clickProtectionDetails()
+		Dwelling.ProtectionDetails pd = dwelling.clickProtectionDetails();
 		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
-		.setBurglarAlarm(eai.get("Burglar Alarm Type"))
-		.setLockedPrivacyFence(eai.get("Is there a locked privacy fence"))
-		.setBurglarBarsOnWindows(eai.get("are there any burglar bars on the windows/doors?"))
+
+
+		if(!eai.get("Burglar Alarm Type").toLowerCase().equals("false"))
+			pd.
+			setBurglarAlarm("true")
+			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
+
+		pd
+		.setLockedPrivacyFence(eai.get("Is there a locked privacy fence"));
+
+		if(eai.get("are there any burglar bars on the windows/doors?").toLowerCase().equals("true"))
+			pd.safetyLatchesPresent("true");
+		pd
 		.setCommunityGuarded(eai.get("Is the community Guarded?"))
-		.setGatedCommunity(eai.get("Is the community Gated?"))
-		.setFireAlarm(eai.get("Fire Alarm type"))
+		.setGatedCommunity(eai.get("Is the community Gated?"));
+
+		if(!eai.get("Fire Alarm type").equals("false"))
+			pd.setFireAlarm("true")
+				.setFireAlarmType(eai.get("Fire Alarm type"));
+		pd
 		.setSmokeAlarm(eai.get("Smoke Alarms"))
-		.setFireExtinguishers(eai.get("One or move fire extinguishers in the home?"))
-		.setSprinklerSystem(eai.get("Sprinkler System"))
+		.setFireExtinguishers(eai.get("One or move fire extinguishers in the home?"));
+
+		if(!eai.get("Sprinkler System").toLowerCase().equals("false"))
+
+			pd.
+			setSprinklerSystem("true")
+			.setSprinklerSystemType(eai.get("Sprinkler System"));
+		pd
 		.setDeadbolts(eai.get("Deadbolts"))
-		.setResidenceVisibleToNeighbors(eai.get("Residence Visible to neighbors"))
+		.setResidenceVisibleToNeighbors(eai.get("Residence Visible to neighbors"));
 
 		//.safetyLatchesPresent(true)
-		.setFireAlarmType("Central Station")
-		.setSprinklerSystemType("Full")
-		.setBurglarAlarmType("Central Station")
+
+
+
 
 		// Additional Interests
-		.clickAdditionalInterests()
-		.clickAddNewPerson()
-		.setType(eai.get("Addl Interest Type"))
-		.setLoanNumber(eai.get("Addl Interest Loan Number"))
-		//.clickCertificateRequired("true")
-		.setFirstName(addlInsuredName[0])
-		.setLastName(addlInsuredName[addlInsuredName.length -1])
-		.setDateOfBirth("10/20/1986")
-		.setMaritalStatus("Married")
-		.setPrimaryPhone("Home")
-		.setHomePhone("456-987-6542")
-		.setWorkPhone("453-985-6325")
-		.setMobilePhone("323-254-8457")
-		.setFaxPhone("356-984-5478")
-		.setPrimaryEmail("jelly@jellymail.com")
-		.setSecondaryEmail("jiggla@jigglamail.com")
-		.setCountry("United States")
-		.setAddress1(eai.get("Addl Interest Address"))
-		.setCity(eai.get("Addl Interest City"))
-		.setState(eai.get("Addl Interest State"))
-		.setZipCode(eai.get("Addl Interest Zip Code"))
-		.clickVerifyAddress()
-		.selectAddressForNewAdditionalInterests(2)
-		.setAddressType("Billing")
-		.setAddressDescription("Hideout")
-		.setLicenseNumber("156468465")
-		.setLicenseState("Florida")
-		.setSsn("598-99-6565")
-		.clickOk()
-		.next()
+		Dwelling.AdditionalInterests ai = pd.clickAdditionalInterests();
+//		NewAdditionalInterest nai = ai.clickAddNewPerson()
+//
+//
+//
+//		.setType(eai.get("Addl Interest Type"))
+//		.setLoanNumber(eai.get("Addl Interest Loan Number"));
+//		String[] addlInsuredName = eai.get("Addl Interest Name").split("\\s+");
+//		//.clickCertificateRequired("true")
+//		nai
+//		.setFirstName(addlInsuredName[0])
+//		.setLastName(addlInsuredName[addlInsuredName.length -1])
+//		.setDateOfBirth("10/20/1986")
+//		.setMaritalStatus("Married")
+//		.setPrimaryPhone("Home")
+//		.setHomePhone("456-987-6542")
+//		.setWorkPhone("453-985-6325")
+//		.setMobilePhone("323-254-8457")
+//		.setFaxPhone("356-984-5478")
+//		.setPrimaryEmail("jelly@jellymail.com")
+//		.setSecondaryEmail("jiggla@jigglamail.com")
+//		.setCountry("United States")
+//		.setAddress1(eai.get("Addl Interest Address"))
+//		.setCity(eai.get("Addl Interest City"))
+//		.setState(eai.get("Addl Interest State"))
+//		.setZipCode(eai.get("Addl Interest Zip Code"))
+//		.clickVerifyAddress()
+//		.selectAddressForNewAdditionalInterests(2)
+//		.setAddressType("Billing")
+//		.setAddressDescription("Hideout")
+//		.setLicenseNumber("156468465")
+//		.setLicenseState("Florida")
+//		.setSsn("598-99-6565");
+//
+//		ai = nai.clickOk();
+		DwellingConstruction dc = ai.next();
 
 		// Dwelling Construction
+		dc
 		.setValuationType(eai.get("Valuation Type"))
 		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
 		.setConstructionType(eai.get("Construction Type"))
-		.setNumberOfUnits(eai.get("Number Of Units"))
+		.setNumberOfUnits(eai.get("Number of Units"))
 		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
 		.setNumberOfStories(eai.get("Number of Stories"))
 		.setSquareFootage(eai.get("Square Footage"))
@@ -426,78 +502,138 @@ public class HomeownersLOBTest extends BaseTest
 		//.setBuildingRetrofittedForEarthquakesDescription("JellyJiggla")
 		.setUncorrectedFireOrBuildingCodeViolations("false")
 		.setStructureOriginallyBuiltForOtherThanPrivateResidence("false")
-		.setLeadPaintHazard("false")
+		.setLeadPaintHazard("false");
 //		.setLeadPaintHazardDescription("best")
 //		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
 //		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
 
 
 		// Wind Mitigation
-		.clickWindMitigation()
+		DwellingConstruction.WindMitigation wm = dc.clickWindMitigation();
+		wm
 		.setRoofShapeType(eai.get("Roof Shape"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"))
 		.setTerrain(eai.get("Terrain"))
 		.setRoofCover(eai.get("Roof Cover"))
 		.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
 		.setRoofWallConnection(eai.get("Roof Wall Connection"))
-		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"))
-		.next()
+		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"));
+		Coverages co = wm.next()
 
 		// Coverages
 		.setDwellingLimit(eai.get("Dwelling Limit"))
-		.setOtherStructuresPercentage(eai.get("Other Structures - %"))
-		.setPersonalPropertyExcluded("false")
-		.setPersonalPropertyLimit(eai.get("Personal Property - Limit"))
-		.setPersonalPropertyValuationMethod(eai.get("Personal Property Valuation Method"))
+		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+		if(!eai.get("Personal Property - Limit").toLowerCase().equals(""))
+			co.setPersonalPropertyExcluded("false")
+			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
+		else
+			co.setPersonalPropertyExcluded("true");
+		co
+		.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"))
 		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
-		.setAllOtherPerils(eai.get("Section I Deductibles AOP"))
-		.setHurricane(eai.get("Section I Deductibles - Hurricane"))
+		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
+
+		if(eai.get("Wind Excluded").toLowerCase().equals("false"))
+			co
+			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+
+		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
-		.setMedicalPaymentsLimit(eai.get("Medical Payments"))
+		.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
 
 
 
 
 		// Property Endorsements
-		.clickPropertyEndorsements()
-		.checkGuardianEndorsements()
-		.checkOtherStructuresIncreasedCoverageRentedToOthers()
-		.clickAddOtherStructures()
-		.setOtherStructuresDescription(1,eai.get("Other Structures Increase Coverage - Rented to Others - Description"))
-		.setOtherStructuresLimit(1,eai.get("Other Structures Increase Coverage - Rented to Others - Limit"))
-		.checkScheduledPersonalProperty()
-		.clickAddScheduledPersonalProperty()
-		.setPersonalPropertyArticleType(1,"Jewelry")
-		.setPersonalPropertyDescription(1,"schweggggg")
-		.setPersonalPropertyValue(1,"234342")
+		Coverages.PropertyEndorsements pe = co.clickPropertyEndorsements();
+		
+		if(!eai.get("Guardian Endorsement").toLowerCase().equals(""))
+			pe
+			.checkGuardianEndorsements();
+
+		if(eai.get("Whensafe - %").toLowerCase().equals(""))
+			pe
+			.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+
+		if(keyContainsValue(eai,"Specific Other Structures - Limit" ))
+		{
+			pe
+			.checkSpecificOtherStructures()
+			.addSpecificOtherStructures()
+			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
+		}
+
+		if(keyContainsValue(eai,"Other Structures Increase Coverage - Rented to Others - Limit"))
+		{
+			pe
+			.checkOtherStructuresIncreasedCoverageRentedToOthers()
+			.clickAddOtherStructures()
+			//.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description " + i))
+			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
+
+		}
+
+		if(spp.size() > 0)
+			pe.checkScheduledPersonalProperty();
+
+		for(int j = 1; j < spp.size();j++)
+		{
+			pe
+			.clickAddScheduledPersonalProperty()
+			.setPersonalPropertyArticleType(j,spp.get(j).get("Class"))
+			.setPersonalPropertyDescription(j, spp.get(j).get("Description"))
+			.setPersonalPropertyValue(j, spp.get(j).get("Limit"));
+
+		}
+
+		pe
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+
 		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
 		//.checkPermittedIncidentalOccupancy()
-		.checkScreenEnclosureHurricaneCoverage()
-		.checkSinkholeLossCoverage()
-		//.setCreditCardFundTransferForgeryCounterfeitMoneyLimit("2,500")
+		if(!eai.get("Screen Enclosure Hurricane Coverage (Limit)").toLowerCase().equals(""))
+			pe
+			.checkScreenEnclosureHurricaneCoverage()
+			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
+		
+//		if(keyContainsValue(eai,"Credit Card (Limit)"))
+//			pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		.setWhenSafeCreditPercentage(eai.get("Whensafe - %"))
-		.setOccurrenceAggregateLimit("10,000 / 50,000")
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
-		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"))
-		.setPercentageOfAnnualIncrease("12%")
-		.setSinkholeClaimsIndex("4500")
-		.setSinkholeIndex("330")
+
+		
+		//.setPercentageOfAnnualIncrease("12%")
+		if(!eai.get("Sinkhole Loss Coverage").toLowerCase().equals("false"))
+			pe
+			.checkSinkholeLossCoverage()
+			.setSinkholeClaimsIndex("4500")
+			.setSinkholeIndex("330");
 
 		// Liability Endorsements
-		.clickLiabilityEndorsements()
-		.checkPermittedIncidentalOccupancyLiability()
-		//.checkAnimalLiability()
-		.checkAdditionalResidenceRentedToOthers()
-		.checkBusinessPursuits()
-		.checkWatercraftLiability()
+		Coverages.LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+		if(!eai.get("Permitted Incidental Occupancy - Liability").toLowerCase().equals(""))
+			le
+			.checkPermittedIncidentalOccupancyLiability();
+		
+//		if(!eai.get("Animal Liability").equals(""))
+//			le.checkAnimalLiability();
 
-		.setLocationName("1:")
-		.setNumberOfFamilies("2 Family Residence")
-		.setBusinessActivity(eai.get("Business Pursuits - Business activity"))
-		.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"))
+		if(!eai.get("Additional Residence Rented to Others - Number of families").toLowerCase().equals(""))
+			le
+			.checkAdditionalResidenceRentedToOthers()
+			//.setLocationName("1:")
+			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		if(!eai.get("Business Pursuits - Business activity").toLowerCase().equals(""))
+			le
+			.checkBusinessPursuits()
+			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
+		if(!eai.get("Watercraft Liablity - Watercraft Type").toLowerCase().equals(""))
+			le
+			.checkWatercraftLiability()
+			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
 
 
@@ -505,6 +641,7 @@ public class HomeownersLOBTest extends BaseTest
 //		.checkScheduledPersonalProperty()
 //		.checkScreenEnclosureHurricaneCoverage()
 //		.checkSinkholeLossCoverage()
+		le
 		.next()
 		.quote();
 		//.back().requestApproval().sendRequest();
@@ -602,7 +739,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Info
 		pi.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidenceWithFrontline("false")
+		.setDoesInsuredOwnOtherResidenceWithFrontline("false")
 		.setTermType("Annual");
 		SearchAddressBook sab = pi
 		//.setPolicyWriter()
@@ -621,7 +758,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setZipCode("32935")
 		.clickSearch();
 		if(sab.areThereSearchResults())
-			sab.selectFirstSearchResult();
+			sab.selectFirstSearchResultPolicyInfo();
 		else
 		{
 			sab.clickReturnToPolicyInfo()
@@ -732,19 +869,23 @@ public class HomeownersLOBTest extends BaseTest
 		.setFaxPhone("356-984-5478")
 		.setPrimaryEmail("jelly@jellymail.com")
 		.setSecondaryEmail("jiggla@jigglamail.com")
-		.setCountry("United States")
-		.setAddress1("2470 Wild Wood dr")
-		.setCity("Melbourne")
-		.setState("Florida")
-		.setZipCode("32935")
-		.clickVerifyAddress()
-		.selectAddressForNewAdditionalInterests(2)
-		.setAddressType("Billing")
-		.setAddressDescription("Hideout")
-		.setLicenseNumber("156468465")
-		.setLicenseState("Florida")
-		.setSsn("598-99-6565")
+
+		.clickSameAddressAsPrimaryNamedInsured()
+//		.setCountry("United States")
+//		.setAddress1("2470 Wild Wood dr")
+//		.setCity("Melbourne")
+//		.setState("Florida")
+//		.setZipCode("32935")
+//		.clickVerifyAddress()
+//		.selectAddressForNewAdditionalInterests(2)
+//		.setAddressType("Billing")
+//		.setAddressDescription("Hideout")
+//		.setLicenseNumber("156468465")
+//		.setLicenseState("Florida")
+//		.setSsn("598-99-6565")
 		.clickOk()
+		.setType(1,"Trust")
+		.setEffectiveDate(1,"10/29/2017")
 		.next()
 
 		// Dwelling Construction
@@ -950,7 +1091,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Info
 		.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidenceWithFrontline("false")
+		.setDoesInsuredOwnOtherResidenceWithFrontline("false")
 		.setNoPriorInsuranceSurcharge("false")
 		.setTermType("Annual")
 		//.setPolicyWriter()
@@ -1296,106 +1437,6 @@ public class HomeownersLOBTest extends BaseTest
 		.setPersonalLiabilityLimit("500,000")//.setMedicalPaymentsLimit("5,000")
 		.setWindDeductibleType("Named Storm").setNamedStorm("5%")
 		.next().quote();//.back().requestApproval().sendRequest();
-		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
-
-
-
-	}
-
-	public void SCH03AccountRenewalPOCBasic()
-	{
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		Actions build = new Actions(driver);
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
-		System.out.println(new DateTime().toString());
-
-		log("Test new person account creation");
-		String firstName = "First" + dateString, lastName = "Last" + dateString;
-
-		enterAccountInfo
-			.setFirstName(firstName)
-			.setCompanyName("Jelly")
-			.setCountry("United States")
-			.setCity("Charleston")
-			.setState("South Carolina")
-			.setZipCode("29401")
-			.setLastName(lastName)
-			.clickSearch();
-		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
-
-		log("Creating new account: " + dateString);
-		createAccount
-			.setAddressLine1("32 Legare St")
-			.setCity("Charleston")
-			.setState("South Carolina")
-			.setDateOfBirth("03/15/1987")
-			.setHomePhone("456-748-1503")
-			.setWorkPhone("958-562-1250")
-			.setMobilePhone("745-512-6590")
-			.setFaxPhone("487-963-8521")
-			.setPrimaryPhone("Work")
-			.setPrimaryEmail("djfklajs@gmail.com")
-			.setSecondaryEmail("jdklafj@hotmail.com")
-			.setState("South Carolina")
-
-			.setZipCode("32935")
-				.clickVerifyAddress()
-				.selectAddressForCreateAccount(2)
-			.setAddressType("Home")
-			.setDescription("Nerd Lair")
-			.setSsn("555-44-3333")
-			.setOrganization("Brown and Brown of Florida, Inc")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
-			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
-            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
-			", first name: " + firstName + ", last name: " + lastName);
-
-
-		// Policy Renewal
-
-		log("Test simple homeowners policy submission");
-		String accountNumber = accountFileSummary.getAccountNumber();
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
-
-		accountFileSummary = new AccountFileSummary(sh);
-		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
-		imr.setOrganization("Brown and Brown of Florida, Inc").setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division")
-		.setBaseState("South Carolina").setProduct("Homeowners").setPolicyType("Homeowners")
-		.setLegacyPolicyNumber(policyNumHO3).setOriginalEffectiveDate("11/21/2016")
-		.setEffectiveDate("10/29/2017").setLastInspectionCompletionDate("03/21/2015").setInflationGuard("12%").clickExcludeLossOfUseCoverage("true");
-		Offerings offerings = imr.nextAndAccept();
-		offerings.setPolicyType("Homeowners").setOfferingSelection("Most Popular");
-		PolicyInfo pi = offerings.next();
-		pi.setOccupation("Twinkie Smuggler");
-
-		Dwelling dwelling = pi.next();
-		dwelling.setPurchaseDate("01/25/2000").setPurchasePrice("500000")
-		.setMarketValue("6000000").setResidenceType("Duplex")
-		.setDwellingUsage("Seasonal").setHousekeepingCondition("Good");
-
-		log("Specifying dwelling details");
-		dwelling
-		.setYearBuilt("2000")
-		.setDistanceToFireHydrant("2000").setTerritoryCode("04S").setBCEG("02").setProtectionClassCode("2");
-
-		DwellingConstruction dc = dwelling.next();
-
-		dc.setRoofYear("2000").setValuationType("Appraisal").setEstimatedReplacementCost("100000")
-		.setConstructionType("Superior").setNumberOfUnits("11-50").setUnitsInFireWall("2").setNumberOfStories("2")
-		.setSquareFootage("3500").setFoundationType("Open").setPrimaryHeating("Gas").setPlumbing("Copper")
-		.setPlumbingYear("2003").setWaterHeaterYear("2004").setWiring("Multi-Strand Aluminum")
-		.setElectricalSystem("Circuit Breaker").setRoofType("Metal").setConditionOfRoof("Good")
-		.clickWindMitigation().setRoofShapeType("Hip").setOpeningProtectionType("Hurricane");//.setTerrain("C")
-//		.setRoofCover("FBC Equivalent").setRoofDeckAttachment("B(8d @ 6\"/12\") Nails").setRoofWallConnection("Clips");
-		Coverages co = dc.next();
-		co.setDwellingLimit("300000").setPersonalPropertyLimit("150000").next().quote();//.back().requestApproval().sendRequest();
 		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
 
 
@@ -2069,7 +2110,7 @@ public class HomeownersLOBTest extends BaseTest
 			qualification.questionnaire.answerNo(i);
 		PolicyInfo pi = qualification.next();
 		pi.setOccupation("Twinkie Smuggler")
-		.clickDoesInsuredOwnOtherResidenceWithFrontline("true")
+		.setDoesInsuredOwnOtherResidenceWithFrontline("true")
 		.setTermType("Annual");
 		//.setEffectiveDate("11/14/2016").setOrganization().setProducerCode().setPolicyWriter().setUnderwritingCompanies();
 

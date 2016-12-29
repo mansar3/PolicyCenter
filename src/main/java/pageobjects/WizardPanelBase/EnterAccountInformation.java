@@ -62,6 +62,7 @@ public class EnterAccountInformation extends CenterPanelBase
 	public EnterAccountInformation setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
+		sh.tab();
 		return this;
 	}
 	
@@ -73,6 +74,7 @@ public class EnterAccountInformation extends CenterPanelBase
 	public EnterAccountInformation setState(String state)
 	{
 		sh.setText(by.state, state);
+		sh.tab();
 		return this;
 	}
 	

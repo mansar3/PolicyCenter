@@ -650,6 +650,7 @@ public class Dwelling extends CenterPanelBase
 	public class AdditionalInterests extends CenterPanelBase
 	{
 		private AdditionalInterestsBy by;
+
 		public AdditionalInterests(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
@@ -678,18 +679,19 @@ public class Dwelling extends CenterPanelBase
 
 		public class AdditionalInterestsBy
 		{
-			final By 	add = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton-btnInnerEl"),
-						newPerson = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:1:ContactType-textEl"),
-						newCompany = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType-textEl"),
-						fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
-						remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
+			final By add = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton-btnInnerEl"),
+			newPerson = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:1:ContactType-textEl"),
+			newCompany = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType-textEl"),
+			fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
+			remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
 		}
+
 		public AdditionalInterests clickRemove()
 		{
 			sh.clickElement(by.remove);
 			return this;
 		}
-		
+
 		public NewAdditionalInterest clickAddNewPerson()
 		{
 			sh.clickElement(by.add);
@@ -703,14 +705,44 @@ public class Dwelling extends CenterPanelBase
 			sh.clickElement(by.newCompany);
 			return new NewAdditionalInterest(sh, path);
 		}
+
+		public SearchAddressBook clickFromAddressBook()
+		{
+			sh.clickElement(by.add);
+			sh.clickElement(by.fromAddressBook);
+			return new SearchAddressBook(sh, path);
+		}
+
 		public AdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//div[text()= '" + typeEffectiveDateLoanNumber + "']/../..//img"));
 			return this;
 		}
+
 		public AdditionalInterests selectRowInAdditionalInterestByName(String name)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//a[text()= '" + name + "']/../../..//img"));
+			return this;
+		}
+
+		public AdditionalInterests setType(int row, String type)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[3]//div"));
+			sh.setText(By.name("Type"),type);
+			return this;
+		}
+
+		public AdditionalInterests setEffectiveDate(int row, String effectiveDate)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[4]//div"));
+			sh.setText(By.name("EffectiveDate"),effectiveDate);
+			return this;
+		}
+
+		public AdditionalInterests setLoanNumber(int row, String loanNumber)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[5]//div"));
+			sh.setText(By.name("ContractNumber"),loanNumber);
 			return this;
 		}
 

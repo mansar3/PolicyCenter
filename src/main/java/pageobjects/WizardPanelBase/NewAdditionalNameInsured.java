@@ -409,6 +409,22 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 
 		return this;
 	}
+	public NewAdditionalNameInsured clickSameAddressAsPrimaryNamedInsured()
+	{
+		sh.clickElement(by.sameAddressAs);
+		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail-textEl"));
+		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail:PrimaryAddress-textEl"));
+		sh.waitForNoMask();
+		return this;
+	}
+//	public NewAdditionalNameInsured clickSameAddressAsInsured(String personNameWithTitle)
+//	{
+//		sh.clickElement(by.sameAddressAs);
+//		sh.clickElement(By.xpath(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:LinkAddressMenuMenuIcon-fieldMenu']//span[text()='" + personNameWithTitle + "']"));
+//
+//		return this;
+//	}
+
 
 
 	final class NewAdditionalNameInsuredBy
@@ -446,6 +462,7 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 					licenseState = By.id(contactDetailsBase  + "LicenseInputSet:LicenseState-inputEl"),
 					ssn = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
+					sameAddressAs = By.id(contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:LinkAddressMenuMenuIcon"),
 
 					// Tabs
 					ok = By.id(tabBase + "ForceDupCheckUpdate-btnInnerEl"),

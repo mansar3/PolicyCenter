@@ -52,7 +52,9 @@ public class Coverages extends CenterPanelBase
 
 		sh.setText(by.dwellingLimit, limit);
 		sh.tab();
-
+		// Used to prevent Stale Element Exception
+		sh.waitForNoMask();
+		// In place in case mask disappears but value still isn't loaded
 		sh.waitForValue(by.personalPropertyLimit,15);
 		return this;
 	}
@@ -312,6 +314,9 @@ public class Coverages extends CenterPanelBase
 							creditPercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Percentage']/../..//input"),
 							creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Value']/../..//div"),
 
+							specificOtherStructures =By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
+							addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"),
+							removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
 
 							otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
 							addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
@@ -423,6 +428,31 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
+		public PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Specific Other Structures']/../../../..//div[text() = '"
+			+ String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+
+			sh.waitForElementToAppear(By.name("c2"));
+			// Input text here
+			sh.setText(By.name("c2"),description);
+
+			return this;
+		}
+
+		public PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
+			"//div[text() = 'Specific Other Structures']/../../../..//div[text() = '"
+			+ String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+
+			sh.waitForElementToAppear(By.name("c3"));
+			// Input text here
+			sh.setText(By.name("c3"),description);
+
+			return this;
+		}
 
 
 		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
@@ -434,6 +464,12 @@ public class Coverages extends CenterPanelBase
 			sh.clickElement(by.earthquakeCoverage);
 			return this;
 		}
+		public PropertyEndorsements checkSpecificOtherStructures()
+		{
+			sh.clickElement(by.specificOtherStructures);
+			return this;
+		}
+
 		public PropertyEndorsements checkEarthquakeLossAssessment()
 		{
 			sh.clickElement(by.earthquakeLossAssessment);
@@ -530,9 +566,27 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+		public PropertyEndorsements addSpecificOtherStructures()
+		{
+			if(sh.isDisplayed(by.addSpecificStructures))
+				sh.clickElement(by.addSpecificStructures);
+			else
+				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'A']"));
+			sh.waitForNoMask();
+			return this;
+		}
+		public PropertyEndorsements removeSpecificOtherStructures()
+		{
+			if(sh.isDisplayed(by.removeSpecificStructures))
+				sh.clickElement(by.removeSpecificStructures);
+			else
+				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'R']"));
+			sh.waitForNoMask();
+			return this;
+		}
 		public PropertyEndorsements clickAddOtherStructures()
 		{
-			if(sh.isDisplayed(by.addScheduledPersonalProperty))
+			if(sh.isDisplayed(by.addOtherStructures))
 				sh.clickElement(by.addOtherStructures);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'A']"));
@@ -548,7 +602,7 @@ public class Coverages extends CenterPanelBase
 		
 		public PropertyEndorsements clickAddScheduledPersonalProperty()
 		{
-			if(sh.isDisplayed(by.addOtherStructures))
+			if(sh.isDisplayed(by.addScheduledPersonalProperty))
 				sh.clickElement(by.addScheduledPersonalProperty);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'Add']"));

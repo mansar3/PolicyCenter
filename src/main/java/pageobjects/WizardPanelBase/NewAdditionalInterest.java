@@ -422,6 +422,15 @@ public class NewAdditionalInterest extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public NewAdditionalInterest clickSameAddressAsPrimaryNamedInsured()
+	{
+		sh.clickElement(by.sameAddressAs);
+		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail-textEl"));
+		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail:PrimaryAddress-textEl"));
+		sh.waitForNoMask();
+
+		return this;
+	}
 	
 	
 	final class NewAdditionalInterestBy
@@ -460,7 +469,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 					officialID = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
 
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
-
+					sameAddressAs = By.id(contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:LinkAddressMenuMenuIcon"),
 					// Tabs
 					ok = By.id(tabBase+ "ForceDupCheckUpdate-btnInnerEl"),
 					cancel = By.id(tabBase + "Cancel-btnInnerEl"),

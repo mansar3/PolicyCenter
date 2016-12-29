@@ -80,7 +80,7 @@ public class PolicyInfo extends CenterPanelBase
 		sh.waitForNoMask();
 		return new Dwelling(sh,path);
 	}
-	public PolicyInfo clickDoesInsuredOwnOtherResidenceWithFrontline(String flag)
+	public PolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
 	{
 		sh.clickElement(By.id(policyBase + "AccountInfoInputSet:otherresidences_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();

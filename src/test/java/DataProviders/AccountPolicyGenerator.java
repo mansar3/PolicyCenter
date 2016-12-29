@@ -1,12 +1,12 @@
 package DataProviders;
 
-import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import org.testng.annotations.DataProvider;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -20,8 +20,10 @@ public class AccountPolicyGenerator
 	{
 		Object[][] dataBuffer = null;
 		List<LinkedHashMap<String, String>> addInts = new ArrayList<>();
+		List<LinkedHashMap<String, String>> spc = new ArrayList<>();
 		CSVReader reader;
-		String filePath= "/Users/jordanponceflhi/Desktop/Workbook1.csv";
+		String filePathBase = "/Users/aansari/Desktop/";
+		String filePath= filePathBase + "output1.csv";
 
 		try
 		{
@@ -33,24 +35,38 @@ public class AccountPolicyGenerator
 			{
 				LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
 				int numColumns = data.get(row).length;
-				for(int column = 1; column < numColumns ; column++)
+				for(int column = 0; column < numColumns ; column++)
 				{
-					if(column > 181 && column < 184 && !data.get(row)[column].equals(""))
+					String key = data.get(0)[column],
+					value = data.get(row)[column];
+
+					if(key.equals("Additional Interests File") && !value.equals(""))
 					{
-						CSVReader addIntsReader = new CSVReader(new FileReader("/Users/jordanponceflhi/Desktop/"+ data.get(row)[column] +".csv"));
+						CSVReader addIntsReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
 						LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
 						List<String[]> addIntsData = addIntsReader.readAll();
+
 						for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
-						{
 							addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
-						}
+
 						addInts.add(addInt);
 					}
+					else if(key.equals("SPC File") && !value.equals(""))
+					{
+						CSVReader addIntsReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+						LinkedHashMap<String, String> spp = new LinkedHashMap<>();
+						List<String[]> addIntsData = addIntsReader.readAll();
+
+						for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
+							spp.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
+
+						spc.add(spp);
+					}
 					else
-						rowData.put(data.get(0)[column], data.get(row)[column]);
+						rowData.put(key, data.get(row)[column]);
 				}
 
-				dataBuffer[row-1] = new Object[]{(rowData),(addInts)};
+				dataBuffer[row-1] = new Object[]{(rowData),(addInts),(spc)};
 			}
 
 		}

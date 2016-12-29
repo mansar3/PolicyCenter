@@ -19,6 +19,7 @@ import Helpers.SessionInfo;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedHashMap;
 
 public abstract class BaseTest
 {
@@ -96,6 +97,21 @@ public abstract class BaseTest
 	protected void failureBehavior(WebDriver driver, String directory, String methodName)
 	{
 		takeScreenshot(driver, directory, methodName);
+	}
+
+	public boolean keyContainsValue(LinkedHashMap<String,String> lhm, String key)
+	{
+		String value = null;
+		try
+		{
+			value = lhm.get(key);
+		}
+		catch(Exception e)
+		{
+			System.out.println("key: " + key + " - does not exist in HashMap");
+		}
+
+		return value != null ? true : false;
 	}
 
 	public void log(String message) {
