@@ -50,6 +50,7 @@ public class Offerings extends CenterPanelBase
 	public PolicyInfo next()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+		sh.waitForNoMask();
 		return new PolicyInfo(sh,path);
 	}
 

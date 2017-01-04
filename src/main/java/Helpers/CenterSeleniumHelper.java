@@ -29,14 +29,15 @@ public class CenterSeleniumHelper
 	}
 	public void setText(By byLocator, String text)
 	{
-		wait(25).until(ExpectedConditions.refreshed(driver1 -> {
-			driver1.findElement(byLocator).sendKeys("");
-			if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
-				return false;
-			driver1.findElement(byLocator).clear();
-			driver1.findElement(byLocator).sendKeys(text);
-			return getValue(byLocator).equals(text);
-		}));
+		if(text != null)
+			wait(25).until(ExpectedConditions.refreshed(driver1 -> {
+				driver1.findElement(byLocator).sendKeys("");
+				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
+					return false;
+				driver1.findElement(byLocator).clear();
+				driver1.findElement(byLocator).sendKeys(text);
+				return getValue(byLocator).equals(text);
+			}));
 	}
 
 	public String getText(By byLocator)

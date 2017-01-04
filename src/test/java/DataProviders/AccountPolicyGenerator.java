@@ -19,8 +19,7 @@ public class AccountPolicyGenerator
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;
-		List<LinkedHashMap<String, String>> addInts = new ArrayList<>();
-		List<LinkedHashMap<String, String>> spc = new ArrayList<>();
+
 		CSVReader reader;
 		String filePathBase = "/Users/aansari/Desktop/";
 		String filePath= filePathBase + "output1.csv";
@@ -33,6 +32,8 @@ public class AccountPolicyGenerator
 			dataBuffer = new Object[data.size()-1][];
 			for(int row = 1; row < data.size(); row++)
 			{
+				List<LinkedHashMap<String, String>> addInts = new ArrayList<>();
+				List<LinkedHashMap<String, String>> spc = new ArrayList<>();
 				LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
 				int numColumns = data.get(row).length;
 				for(int column = 0; column < numColumns ; column++)
@@ -46,24 +47,30 @@ public class AccountPolicyGenerator
 						LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
 						List<String[]> addIntsData = addIntsReader.readAll();
 
-						for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
-							addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
+						for(int aiRow = 1; aiRow < addIntsData.size(); aiRow++)
+						{
+							for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
+								addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
 
-						addInts.add(addInt);
+							addInts.add(addInt);
+						}
 					}
 					else if(key.equals("SPC File") && !value.equals(""))
 					{
-						CSVReader addIntsReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+						CSVReader sppReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
 						LinkedHashMap<String, String> spp = new LinkedHashMap<>();
-						List<String[]> addIntsData = addIntsReader.readAll();
+						List<String[]> sppData = sppReader.readAll();
+						for(int sppRow = 1; sppRow < sppData.size();sppRow++)
+						{
+							for(int thisColumn = 0; thisColumn < sppData.get(0).length; thisColumn++)
+								spp.put(sppData.get(0)[thisColumn], sppData.get(1)[thisColumn]);
 
-						for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
-							spp.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
+							spc.add(spp);
+						}
 
-						spc.add(spp);
 					}
-					else
-						rowData.put(key, data.get(row)[column]);
+					else if(!value.equals(""))
+						rowData.put(key, value);
 				}
 
 				dataBuffer[row-1] = new Object[]{(rowData),(addInts),(spc)};

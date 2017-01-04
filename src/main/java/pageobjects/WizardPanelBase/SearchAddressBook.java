@@ -43,7 +43,7 @@ public class SearchAddressBook extends CenterPanelBase
 
 
 				// Buttons
-				returnToPolicyInfo = By.id("ContactSearchPopup:__crumb__"),
+				returnTo = By.id("ContactSearchPopup:__crumb__"),
 				search = By.id(addressBookBase + "SearchAndResetInputSet:SearchLinksInputSet:Search"),
 				reset = By.id(addressBookBase + "SearchAndResetInputSet:SearchLinksInputSet:Reset"),
 				printExport = By.id(addressBookBase + "ContactSearchResultsLV_tb:PrintMe-btnInnerEl"); 
@@ -71,9 +71,15 @@ public class SearchAddressBook extends CenterPanelBase
 	}
 	public PolicyInfo clickReturnToPolicyInfo()
 	{
-		sh.clickElement(by.returnToPolicyInfo);
+		sh.clickElement(by.returnTo);
 		sh.waitForNoMask();
 		return new PolicyInfo(sh, path);
+	}
+	public Dwelling.AdditionalInterests clickReturnToDwelling()
+	{
+		sh.clickElement(by.returnTo);
+		sh.waitForNoMask();
+		return new Dwelling(sh, path).new AdditionalInterests(sh, path);
 	}
 	
 	public SearchAddressBook clickSearch()
