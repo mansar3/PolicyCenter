@@ -47,8 +47,8 @@ public abstract class BaseTest
 		URL gridHub = null;
 		try
 		{
-//			gridHub = new URL("http://172.16.20.72:4444/wd/hub");
-			gridHub = new URL("http://localhost:4444/wd/hub");
+			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
+//			gridHub = new URL("http://localhost:4444/wd/hub");
 		}
 		catch(Exception e)
 		{
@@ -73,12 +73,13 @@ public abstract class BaseTest
 	protected DesiredCapabilities setCapabilities()
 	{
 		DesiredCapabilities capabilities;
-		capabilities = DesiredCapabilities.internetExplorer();
-		capabilities.setCapability("enablePersistentHover", false);
-		capabilities.setCapability("ie.ensureCleanSession", true);
-		capabilities.setCapability("ignoreProtectedModeSettings", true);
-		capabilities.setCapability("seleniumProtocol", "WebDriver");
-		capabilities.setCapability("requireWindowFocus", true);
+		capabilities = DesiredCapabilities.firefox();
+//		capabilities = DesiredCapabilities.internetExplorer();
+//		capabilities.setCapability("enablePersistentHover", false);
+//		capabilities.setCapability("ie.ensureCleanSession", true);
+//		capabilities.setCapability("ignoreProtectedModeSettings", true);
+//		capabilities.setCapability("seleniumProtocol", "WebDriver");
+//		capabilities.setCapability("requireWindowFocus", true);
 		return capabilities;
 	}
 
@@ -93,6 +94,7 @@ public abstract class BaseTest
 			driver = new FirefoxDriver(capabilities);
 		}
 		driver.manage().window().maximize();
+		LocalDriverManager.setWebDriver(driver);
 		return driver;
 	}
 

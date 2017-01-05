@@ -223,6 +223,7 @@ public class CreateAccount extends CenterPanelBase
 	
 	public AccountFileSummary clickUpdate()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.updateBtn);
 		return new AccountFileSummary(sh);
 	}

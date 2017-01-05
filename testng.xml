@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="12">
+	<test name="random">
+        <classes>
+            <class name="PolicyCenter.HomeownersLOBTest">
+                <methods>
+                    <include name="tableTest"></include>
+                </methods>
+            </class>
+        </classes>
+	</test>
+</suite>
