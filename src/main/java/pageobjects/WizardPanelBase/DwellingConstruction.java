@@ -340,8 +340,8 @@ public class DwellingConstruction extends CenterPanelBase
 	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
 	{
 		sh.clickElement(
-		By.xpath(".//*[text() = '']/../..//input[@inputvalue = '" +
-		flag.toLowerCase() + "']"));
+		By.xpath("//*[@id = '" + tabBase + "HODwellingConstruction_fliPanelSet:questionSetsDVx:QuestionSetsDV:0:QuestionSetLV-body']" +
+		"//div[contains(text(), 'Is any portion of any structure at this property location now (or ever has been) a mobile')]/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"  ));
 		sh.waitForNoMask();
 		return this;
 	}

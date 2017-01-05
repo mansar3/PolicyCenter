@@ -44,13 +44,14 @@ public class AccountPolicyGenerator
 					if(key.equals("Additional Interests File") && !value.equals(""))
 					{
 						CSVReader addIntsReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
-						LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
+
 						List<String[]> addIntsData = addIntsReader.readAll();
 
 						for(int aiRow = 1; aiRow < addIntsData.size(); aiRow++)
 						{
+							LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
 							for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
-								addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(1)[thisColumn]);
+								addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(aiRow)[thisColumn]);
 
 							addInts.add(addInt);
 						}
@@ -58,12 +59,14 @@ public class AccountPolicyGenerator
 					else if(key.equals("SPC File") && !value.equals(""))
 					{
 						CSVReader sppReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
-						LinkedHashMap<String, String> spp = new LinkedHashMap<>();
+
 						List<String[]> sppData = sppReader.readAll();
+
 						for(int sppRow = 1; sppRow < sppData.size();sppRow++)
 						{
+							LinkedHashMap<String, String> spp = new LinkedHashMap<>();
 							for(int thisColumn = 0; thisColumn < sppData.get(0).length; thisColumn++)
-								spp.put(sppData.get(0)[thisColumn], sppData.get(1)[thisColumn]);
+								spp.put(sppData.get(0)[thisColumn], sppData.get(sppRow)[thisColumn]);
 
 							spc.add(spp);
 						}

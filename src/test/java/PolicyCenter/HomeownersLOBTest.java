@@ -194,7 +194,6 @@ public class HomeownersLOBTest extends BaseTest
 	{
 		int i;
 
-		//String value = eai.get("Scheduled Personal Property")
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
@@ -210,7 +209,6 @@ public class HomeownersLOBTest extends BaseTest
 
 		enterAccountInfo
 			.setFirstName(firstName)
-			.setCompanyName("Jelly")
 			.setCountry("United States")
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
@@ -227,13 +225,8 @@ public class HomeownersLOBTest extends BaseTest
 			.setDateOfBirth(eai.get("Date of Birth"))
 			.setHomePhone(eai.get("Home Phone"))
 			.setWorkPhone(eai.getOrDefault("Work Phone",null))
-			//.setMobilePhone("745-512-6590")
-			//.setFaxPhone("487-963-8521")
-			//.setPrimaryPhone("Work")
 			.setPrimaryEmail(eai.getOrDefault("Email Address",null))
-			//.setSecondaryEmail("jdklafj@hotmail.com")
 			.setState(eai.getOrDefault("Mailing State",null))
-
 			.setZipCode(eai.getOrDefault("Mailing Zip Code",null))
 				.clickVerifyAddress()
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
@@ -249,7 +242,6 @@ public class HomeownersLOBTest extends BaseTest
 
 
 		// Policy Renewal
-
 		log("Test simple homeowners policy renewal");
 		String accountNumber = accountFileSummary.getAccountNumber();
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
@@ -283,10 +275,8 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Info
 		pi
-		//.setOccupation("Twinkie Smuggler")
 		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
-		//.setTermType("Annual");
-		//.setPolicyWriter(eai.get("Policy Writer"))
+
 		i=1;
 
 		if(keyContainsValue(eai,"Additional Name Insured Last Name" ) || keyContainsValue(eai,"Additional Name Insured Company Name" ))
@@ -321,7 +311,7 @@ public class HomeownersLOBTest extends BaseTest
 				if(person)
 				{
 					NewAdditionalNameInsured ani = pi.clickAddNewPerson();
-					ani//.setRelationshipToPrimary("Sugah Mama")
+					ani
 
 					.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
 					.setLastName(eai.getOrDefault("Additional Name Insured Last Name", null))
@@ -370,7 +360,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setDwellingOccupancy(eai.getOrDefault("How is the dwelling occupied", null));
 
 
-		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false"))
+		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false") && eai.get("Is there a swimming pool?") != null)
 		{
 			dwelling
 			.setSwimmingPool("true")
@@ -381,8 +371,8 @@ public class HomeownersLOBTest extends BaseTest
 				dwelling.setFenceType("Screen Enclosure");
 
 			dwelling
-			.setDivingBoard("true")
-			.setPoolSlide("true");
+			.setDivingBoard("false")
+			.setPoolSlide("false");
 		}
 		dwelling
 		.setTrampolineOnPremises(eai.getOrDefault("Is there a trampoline","false"))
@@ -397,7 +387,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Protection Details
 		Dwelling.ProtectionDetails pd = dwelling.clickProtectionDetails();
-		//sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+
 
 
 		if(!eai.get("Burglar Alarm Type").toLowerCase().equals("false") && eai.get("Burglar Alarm Type") != null)
@@ -431,19 +421,19 @@ public class HomeownersLOBTest extends BaseTest
 		.setDeadbolts(eai.get("Deadbolts"))
 		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
 
-		//.safetyLatchesPresent(true)
+
 
 
 
 
 		// Additional Interests
 		Dwelling.AdditionalInterests ai = pd.clickAdditionalInterests();
-		for(i= 0; i < addInts.size() -1;i++)
+		for(i= 0; i <= addInts.size() -1;i++)
 		{
 
 			SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = name[name.length-1];
+			String fName =  name[0], lName = getLastName(name);
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -472,11 +462,14 @@ public class HomeownersLOBTest extends BaseTest
 				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
 				.setFirstName(fName)
 				.setLastName(lName)
-				.clickSameAddressAsPrimaryNamedInsured()
-//				.setAddress1(addInts.get(i).get("Address"))
-//				.setCity(addInts.get(i).get("City"))
-//				.setState(addInts.get(i).get("State"))
-//				.setZipCode(addInts.get(i).get("Zipcode"))
+//				.clickSameAddressAsPrimaryNamedInsured()
+				.setAddress1(addInts.get(i).get("Address"))
+				.setCity(addInts.get(i).get("City"))
+				.setState(addInts.get(i).get("State"))
+				.setZipCode(addInts.get(i).get("Zipcode"))
+				.clickVerifyAddress()
+				.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+				.setAddressType("Home")
 				.clickOk();
 
 
@@ -487,39 +480,6 @@ public class HomeownersLOBTest extends BaseTest
 
 		}
 
-
-//
-//
-//		.setType(eai.get("Addl Interest Type"))
-//		.setLoanNumber(eai.get("Addl Interest Loan Number"));
-//		String[] addlInsuredName = eai.get("Addl Interest Name").split("\\s+");
-//		//.clickCertificateRequired("true")
-//		nai
-//		.setFirstName(addlInsuredName[0])
-//		.setLastName(addlInsuredName[addlInsuredName.length -1])
-//		.setDateOfBirth("10/20/1986")
-//		.setMaritalStatus("Married")
-//		.setPrimaryPhone("Home")
-//		.setHomePhone("456-987-6542")
-//		.setWorkPhone("453-985-6325")
-//		.setMobilePhone("323-254-8457")
-//		.setFaxPhone("356-984-5478")
-//		.setPrimaryEmail("jelly@jellymail.com")
-//		.setSecondaryEmail("jiggla@jigglamail.com")
-//		.setCountry("United States")
-//		.setAddress1(eai.get("Addl Interest Address"))
-//		.setCity(eai.get("Addl Interest City"))
-//		.setState(eai.get("Addl Interest State"))
-//		.setZipCode(eai.get("Addl Interest Zip Code"))
-//		.clickVerifyAddress()
-//		.selectAddressForNewAdditionalInterests(2)
-//		.setAddressType("Billing")
-//		.setAddressDescription("Hideout")
-//		.setLicenseNumber("156468465")
-//		.setLicenseState("Florida")
-//		.setSsn("598-99-6565");
-//
-//		ai = nai.clickOk();
 		DwellingConstruction dc = ai.next();
 
 		// Dwelling Construction
@@ -540,7 +500,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
 		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
 		.setRoofType(eai.get("Roof Type"))
-		.setRoofYear(eai.get("Roof Year"))
+		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
 		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
 		.setScreenEnclosureOnPremises(eai.get("Is there a screen enclosure on premises?"))
 
@@ -550,10 +510,9 @@ public class HomeownersLOBTest extends BaseTest
 		.setBuildingRetrofittedForEarthquakes(eai.getOrDefault("Is the building retrofitted for earthquakes?","false"))
 		.setUncorrectedFireOrBuildingCodeViolations(eai.getOrDefault("Any uncorrected fire or building code violations?","false"))
 		.setStructureOriginallyBuiltForOtherThanPrivateResidence(eai.getOrDefault("Was the structure originally built for other than a private residence and then converted?","false"))
-		.setLeadPaintHazard(eai.getOrDefault("Any lead paint hazard", "false"));
-//		.setLeadPaintHazardDescription("best")
-//		.setUncorrectedFireOrBuildingCodeViolationsDescription("is")
-//		.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription("the")
+		.setLeadPaintHazard(eai.getOrDefault("Any lead paint hazard", "false"))
+		.setAnyPortionOfAnyStructureAtThisPropertyLocation(eai.getOrDefault("Is any portion of any structure at this property location now (or ever has been) " +
+		"a mobile home, modular home, trailer home, or other pre-fabricated home?", "false"));
 
 
 		// Wind Mitigation
@@ -641,8 +600,6 @@ public class HomeownersLOBTest extends BaseTest
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
-		//.checkCreditCardFundTransferForgeryCounterfeitMoney()
-		//.checkPermittedIncidentalOccupancy()
 		if(!eai.get("Screen Enclosure Hurricane Coverage (Limit)").toLowerCase().equals(""))
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
@@ -683,12 +640,6 @@ public class HomeownersLOBTest extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-
-
-//		.checkOtherStructuresIncreasedCoverageRentedToOthers()
-//		.checkScheduledPersonalProperty()
-//		.checkScreenEnclosureHurricaneCoverage()
-//		.checkSinkholeLossCoverage()
 		le
 		.next()
 		.quote();

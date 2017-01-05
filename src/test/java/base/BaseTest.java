@@ -1,5 +1,6 @@
 package base;
 
+import Helpers.SessionInfo;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -14,12 +15,13 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import Helpers.SessionInfo;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public abstract class BaseTest
 {
@@ -112,6 +114,22 @@ public abstract class BaseTest
 		}
 
 		return value != null ? true : false;
+	}
+	public String getLastName(String[] names)
+	{
+		if(names.length == 1)
+			return names[0];
+		List<String> suffix = Arrays.asList("B.V.M.", "CFRE", "CLU", "CPA", "C.S.C.", "C.S.J.","D.C.",
+		"D.D.", "D.D.S.", "D.M.D.", "D.O.", "D.V.M.", "Ed.D.", "Esq.", "II", "III", "IV", "Inc.",
+		"J.D.", "Jr.", "LL.D.", "Ltd.", "M.D.", "O.D.", "O.S.B", "P.C.", "P.E.","Ph.D.", "Ret.", "R.G.S", "R.N.",
+		"R.N.C.", "S.H.C.J.", "S.J.", "S.N.J.M.", "Sr.", "S.S.M.O.", "USA", "USAF", "USAFR", "USAR", "USCG", "USMC",
+		"USMCR", "USN", "USNR");
+
+		for(String suf:suffix)
+			if(suf.toLowerCase().equals( names[names.length -1].toLowerCase() ))
+				return getLastName(Arrays.copyOf(names,names.length-1));
+
+		return names[names.length-1];
 	}
 
 	public void log(String message) {

@@ -50,10 +50,9 @@ public class SearchAddressBook extends CenterPanelBase
 
 
 	}
-	public PolicyInfo selectSearchResult(int row)
+	public void selectSearchResult(int row)
 	{
 		sh.clickElement(By.id(by.addressBookBase + "ContactSearchResultsLV:" + String.valueOf(row) + ":_Select"));
-		return new PolicyInfo(sh, path);
 	}
 	public PolicyInfo selectFirstSearchResultPolicyInfo()
 	{
