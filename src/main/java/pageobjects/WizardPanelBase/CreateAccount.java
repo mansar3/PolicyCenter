@@ -280,6 +280,14 @@ public class CreateAccount extends CenterPanelBase
 	{
 		sh.setText(by.zip, zip);
 //		sh.tab();
+		try
+		{
+			Thread.sleep(10000);
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		return this;
 	}
 
