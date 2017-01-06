@@ -8,7 +8,7 @@ public class CreateAccount extends CenterPanelBase
 	private CreateAccountBy by;
 	public String streetAddress, city, state;
 
-	public static class CreateAccountBy extends CenterPanelBase.CenterPanelBy{
+	public class CreateAccountBy extends CenterPanelBase.CenterPanelBy{
 		private String	base_id = "CreateAccount:CreateAccountScreen:",
 						createAccountDiv = base_id + "CreateAccountDV:",
 						accountInputSet = createAccountDiv +"CreateAccountContactInputSet:",
@@ -282,7 +282,7 @@ public class CreateAccount extends CenterPanelBase
 //		sh.tab();
 		try
 		{
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 		}
 		catch(InterruptedException e)
 		{

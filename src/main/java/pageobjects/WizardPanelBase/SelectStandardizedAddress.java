@@ -8,7 +8,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 	private SelectStandardizedAddressBy by;
 	private String addressRows = "[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(2) td:nth-of-type(1) a";
 
-	public static class SelectStandardizedAddressBy extends CenterPanelBy
+	public  class SelectStandardizedAddressBy extends CenterPanelBy
 	{
 		final By 	matchedAddress = By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(2) td:nth-of-type(1) a"),
 					unmatchedAddress = By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(1) td:nth-of-type(1) a");

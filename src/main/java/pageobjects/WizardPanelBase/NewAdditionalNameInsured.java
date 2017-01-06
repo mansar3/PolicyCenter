@@ -435,8 +435,8 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 
 		final By	relationshipToPrimary = By.id(anBase + "Relationship-inputEl"),
 					industryCode = By.id(anBase + "IndustryCode-inputEl"),
-					officePhone = By.id(anBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
-					companyName = By.id(anBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
+					officePhone = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:WorkPhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
+					companyName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalContactNameInputSet:Name-inputEl"),
 					firstName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:FirstName-inputEl"),
 					lastName = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:GlobalPersonNameInputSet:LastName-inputEl"),
 					dateOfBirth = By.id(contactDetailsBase + "PolicyContactRoleNameInputSet:DateOfBirth-inputEl"),

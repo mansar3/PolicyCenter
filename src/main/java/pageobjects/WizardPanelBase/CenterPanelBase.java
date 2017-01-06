@@ -9,7 +9,7 @@ abstract public class CenterPanelBase
 	protected CenterSeleniumHelper sh;
 	protected String expectedPanelTitle = "Center Panel Base";
 	protected String address;
-	private CenterPanelBy by;
+	private CenterPanelBy by = new CenterPanelBy();
 	protected Path path = Path.SUBMISSION;
 
 
@@ -20,8 +20,8 @@ abstract public class CenterPanelBase
 	}
 
 
-	public static class CenterPanelBy{
-		final static public By 	title = By.cssSelector("#centerPanel .g-title"),
+	public class CenterPanelBy{
+		final public By 	title = By.cssSelector("#centerPanel .g-title"),
 								back = By.cssSelector("[id*='Prev-btnInnerEl']"),
 								next = By.cssSelector("[id*='Next-btnInnerEl']"),
 								quote = By.cssSelector("[id*='QuoteOrReview-btnInnerEl']"),
@@ -76,11 +76,11 @@ abstract public class CenterPanelBase
 
 	public String getTitle()
 	{
-		return sh.getText(CenterPanelBy.title);
+		return sh.getText(by.title);
 	}
 
 	public void waitForTitle(CenterSeleniumHelper sh)
 	{
-		sh.wait(15).until(ExpectedConditions.textToBe(CenterPanelBy.title, expectedPanelTitle));
+		sh.wait(30).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
 	}
 }

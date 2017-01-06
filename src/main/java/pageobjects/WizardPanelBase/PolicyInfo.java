@@ -109,8 +109,16 @@ public class PolicyInfo extends CenterPanelBase
 	}
 	public SearchAddressBook clickAddFromAddressBook()
 	{
+
 		sh.clickElement(by.addAdditionalNameInsureds);
-		sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
+		if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:AddFromSearch")))
+			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
+		else
+		{
+			sh.clickElement(by.addAdditionalNameInsureds);
+			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
+		}
+
 		return new SearchAddressBook(sh, path);
 	}
 	public void clickRemoveAdditionalNameInsureds()

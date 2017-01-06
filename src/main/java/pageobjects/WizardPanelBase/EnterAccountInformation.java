@@ -8,7 +8,7 @@ public class EnterAccountInformation extends CenterPanelBase
 	CenterSeleniumHelper sh;
 	EnterAccountInformationBy by;
 
-	public static class EnterAccountInformationBy extends CenterPanelBase.CenterPanelBy{
+	public class EnterAccountInformationBy extends CenterPanelBase.CenterPanelBy{
 		private String 	base_id = "NewAccount:NewAccountScreen:NewAccountSearchDV:",
 						addressBase = base_id +"AddressOwnerAddressInputSet:globalAddressContainer:GlobalAddressInputSet:";
 

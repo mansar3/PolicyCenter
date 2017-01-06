@@ -310,8 +310,9 @@ public class HomeownersLOBTest extends BaseTest
 					.clickOk();
 				}
 				// Add a company
-				else
+				else if (eai.getOrDefault("Additional Name Insured Company Name", null) != null)
 				{
+					System.out.println("COMPANY NAME IS: " + eai.get("Additional Name Insured Company Name"));
 					NewAdditionalNameInsured ani = pi.clickAddNewCompany();
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
@@ -349,15 +350,13 @@ public class HomeownersLOBTest extends BaseTest
 		.setDwellingOccupancy(eai.getOrDefault("How is the dwelling occupied", null));
 
 
-		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false") && eai.get("Is there a swimming pool?") != null)
+		if(!eai.getOrDefault("Is there a swimming pool?","false").toLowerCase().equals("false"))
 		{
 			dwelling
 			.setSwimmingPool("true")
 			.setPoolLocation(eai.getOrDefault("Is there a swimming pool?", "<none>"))
-			.setPoolFenced("true");
-
-			if(eai.get("Pool Fence Type").toLowerCase().equals("true")) // hashkey assumed
-				dwelling.setFenceType("Screen Enclosure");
+			.setPoolFenced("true")
+			.setFenceType("Approved Fence");
 
 			dwelling
 			.setDivingBoard("false")
@@ -388,17 +387,17 @@ public class HomeownersLOBTest extends BaseTest
 		.setLockedPrivacyFence(eai.getOrDefault("Is there a locked privacy fence","false"))
 		.setBurglarBarsOnWindows(eai.getOrDefault("are there any burglar bars on the windows/doors?","false"));
 
-		if(eai.get("are there any burglar bars on the windows/doors?").toLowerCase().equals("true"))
+		if(eai.getOrDefault("are there any burglar bars on the windows/doors?", "false").toLowerCase().equals("true"))
 			pd.safetyLatchesPresent("true");
 		pd
-		.setCommunityGuarded(eai.get("Is the community Guarded?"))
-		.setGatedCommunity(eai.get("Is the community Gated?"));
+		.setCommunityGuarded(eai.getOrDefault("Is the community Guarded?", "false"))
+		.setGatedCommunity(eai.getOrDefault("Is the community Gated?", "false"));
 
 		if(!eai.get("Fire Alarm type").equals("false") && eai.get("Fire Alarm type") != null)
 			pd.setFireAlarm("true")
 				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
-		.setSmokeAlarm(eai.get("Smoke Alarms"))
+		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
 		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
 
 		if(!eai.get("Sprinkler System").toLowerCase().equals("false") && eai.get("Sprinkler System") != null)
@@ -558,6 +557,7 @@ public class HomeownersLOBTest extends BaseTest
 			pe
 			.checkSpecificOtherStructures()
 			.addSpecificOtherStructures()
+			.setSpecificOtherStructuresDescription(1,"Jelly")
 			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
 		}
 
@@ -566,7 +566,7 @@ public class HomeownersLOBTest extends BaseTest
 			pe
 			.checkOtherStructuresIncreasedCoverageRentedToOthers()
 			.clickAddOtherStructures()
-			//.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description " + i))
+			.setOtherStructuresDescription(1, eai.getOrDefault("Other Structures Increase Coverage - Rented to Others - Description", "Jiggla"))
 			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
 
 		}
