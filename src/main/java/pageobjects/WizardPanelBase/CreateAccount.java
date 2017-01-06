@@ -279,15 +279,8 @@ public class CreateAccount extends CenterPanelBase
 	public CreateAccount setZipCode(String zip)
 	{
 		sh.setText(by.zip, zip);
-//		sh.tab();
-		try
-		{
-			Thread.sleep(5000);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		sh.tab();
+		sh.waitForPageLoad();
 		return this;
 	}
 

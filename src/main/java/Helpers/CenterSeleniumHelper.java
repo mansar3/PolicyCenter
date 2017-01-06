@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CenterSeleniumHelper
 {
@@ -38,6 +39,11 @@ public class CenterSeleniumHelper
 				driver1.findElement(byLocator).sendKeys(text);
 				return getValue(byLocator).equals(text);
 			}));
+	}
+
+	public void waitForPageLoad()
+	{
+		getDriver().manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 
 	public String getText(By byLocator)
