@@ -99,6 +99,7 @@ public class Dwelling extends CenterPanelBase
 
 	public Dwelling setBCEG(String bceg)
 	{
+
 		sh.setText(by.bceg,bceg);
 		sh.tab();
 		sh.waitForNoMask();
@@ -124,9 +125,13 @@ public class Dwelling extends CenterPanelBase
 	public Dwelling setTerritoryCode(String code)
 	{
 		sh.setText(by.territoryCode, code);
-		if(path != Path.POLICYRENEWAL)
-			sh.waitForValue(by.bceg,10);
+		sh.tab();
 		sh.waitForNoMask();
+
+		if(path != Path.POLICYRENEWAL)
+			if(sh.getText(by.bceg) == "")
+				sh.waitForValue(by.bceg,10);
+
 		return this;
 	}
 	public String getTerritoryCode()
@@ -213,6 +218,7 @@ public class Dwelling extends CenterPanelBase
 	public Dwelling setMarketValue(String marketValue)
 	{
 		sh.setText(by.marketValue, marketValue);
+		sh.waitForNoMask();
 		return this;
 	}
 

@@ -473,7 +473,17 @@ public class DwellingConstruction extends CenterPanelBase
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
 
 
-								dwelling = By.id(tabBase + "DetailsTab-btnInnerEl");
+								dwelling = By.id(tabBase + "DetailsTab-btnInnerEl"),
+
+								policyQualificationWarning = By.className("warning_icon");
+		}
+		private boolean policyQualifiesErrorIsPresent()
+		{
+			String warning= "Policy qualifies for Hurricane Opening Protection:";
+			if(sh.isDisplayed(by.policyQualificationWarning))
+				return sh.getText(by.policyQualificationWarning).contains(warning);
+
+			return false;
 		}
 		public Dwelling clickDwelling()
 		{
@@ -485,6 +495,9 @@ public class DwellingConstruction extends CenterPanelBase
 		{
 			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			sh.waitForPageLoad();
+			if(policyQualifiesErrorIsPresent())
+				sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new Coverages(sh,path);
 		}
 

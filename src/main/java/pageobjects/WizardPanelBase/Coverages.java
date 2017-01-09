@@ -273,7 +273,7 @@ public class Coverages extends CenterPanelBase
 	public class PropertyEndorsements extends CenterPanelBase
 	{
 		private PropertyEndorsementsBy by;
-		protected  String coveragesBase;
+		protected String coveragesBase;
 
 		public PropertyEndorsements(CenterSeleniumHelper sh, Path path)
 		{
@@ -302,154 +302,130 @@ public class Coverages extends CenterPanelBase
 
 		public class PropertyEndorsementsBy
 		{
-							// Check Boxes at top of each section
-			public final By	coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"),
-							liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
+			// Check Boxes at top of each section
+			public final By coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"), liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 
 
-							guardianEndorsements = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
+			guardianEndorsements = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
 
 
-							whenSafe = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
-							creditPercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Percentage']/../..//input"),
-							creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Value']/../..//div"),
+			whenSafe = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"), creditPercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Percentage']/../..//input"), creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../../../div//label[text() = 'Credit Value']/../..//div"),
 
-							specificOtherStructures =By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
-							addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"),
-							removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
+			specificOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"), addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"), removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
 
-							otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
-							addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
-							removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../../div//span[text() = 'Remove']"),
+			otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"), addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"), removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../../div//span[text() = 'Remove']"),
 
 
-							scheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/..//input"),
-							addScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'A']"),
-							removeScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'R']"),
+			scheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/..//input"), addScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'A']"), removeScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../../../div//span[text() = 'R']"),
 
-							permittedIncidentalOccupancy =	By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Property']/..//input"),
+			permittedIncidentalOccupancy = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Property']/..//input"),
 
-							creditCardFundTransferForgeryCounterfeitMoney = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/..//input"),
-							creditCardFundTransferForgeryCounterfeitMoneyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/../../../../div//label[text() = 'Limit']/../..//div"),
+			creditCardFundTransferForgeryCounterfeitMoney = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/..//input"), creditCardFundTransferForgeryCounterfeitMoneyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/../../../../div//label[text() = 'Limit']/../..//div"),
 
-							screenEnclosureHurricaneCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/..//input"),
-							screenEnclosureHurricaneCoverageLimit =By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/../../../../div//label[text() = 'Limit']/../..//input"),
+			screenEnclosureHurricaneCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/..//input"), screenEnclosureHurricaneCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/../../../../div//label[text() = 'Limit']/../..//input"),
 
-							earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
-							earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../../../div//label[text() = 'Deductible Percentage']/../..//input"),
+			earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"), earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../../../div//label[text() = 'Deductible Percentage']/../..//input"),
 
 
-							earthquakeLossAssessment  = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
-							earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../../../div//label[text() = 'Limit']/../..//input"),
+			earthquakeLossAssessment = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"), earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../../../div//label[text() = 'Limit']/../..//input"),
 
-							waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"),
-							waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../../../div//label[text() = 'Limit']/../..//div"),
+			waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"), waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../../../div//label[text() = 'Limit']/../..//div"),
 
-							inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"),
-							percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../../../div//label[text() = 'Percentage Of Annual Increase']/../..//input"),
+			inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"), percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../../../div//label[text() = 'Percentage Of Annual Increase']/../..//input"),
 
 
-							sinkholeLossCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/..//input"),
-							sinkholeIndex = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/../../../../div//label[text() = 'Sinkhole Index']/../..//input"),
-							sinkholeClaimsIndex	 = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/../../../../div//label[text() = 'Sinkhole Claims Index']/../..//input"),
+			sinkholeLossCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/..//input"), sinkholeIndex = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/../../../../div//label[text() = 'Sinkhole Index']/../..//input"), sinkholeClaimsIndex = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/../../../../div//label[text() = 'Sinkhole Claims Index']/../..//input"),
 
-							occurrenceAggregateLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Limited Fungi, Wet or Dry Rot, or Bacteria']/../../../../div//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
+			occurrenceAggregateLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Limited Fungi, Wet or Dry Rot, or Bacteria']/../../../../div//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 
-							lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../../../div//label[text() = 'Limit']/../..//input"),
+			lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../../../div//label[text() = 'Limit']/../..//input"),
 
-							ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../../../div//label[text() = 'Limit']/../..//input");
-			
+			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../../../div//label[text() = 'Limit']/../..//input");
 
 
 		}
+
 		public PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
-			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" +
-			"/../../../../div//label[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
+			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" + "/../../../../div//label[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
 			return this;
 		}
-		public PropertyEndorsements setPersonalPropertyArticleType(int itemNumber,String articleType)
+
+		public PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String articleType)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
 			sh.waitForElementToAppear(By.name("c2"));
 			// Input text here
-			sh.setText(By.name("c2"),articleType);
+			sh.setText(By.name("c2"), articleType);
 
 			sh.waitForNoMask();
 			return this;
 		}
-		public PropertyEndorsements setPersonalPropertyDescription(int itemNumber,String description)
+
+		public PropertyEndorsements setPersonalPropertyDescription(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
 			sh.waitForElementToAppear(By.name("c3"));
 			// Input text here
-			sh.setText(By.name("c3"),description);
+			sh.setText(By.name("c3"), description);
 
 			return this;
 		}
-		public PropertyEndorsements setPersonalPropertyValue(int itemNumber,String value)
+
+		public PropertyEndorsements setPersonalPropertyValue(int itemNumber, String value)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[3]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[3]//div"));
 
 			sh.waitForElementToAppear(By.name("c4"));
 			// Input text here
-			sh.setText(By.name("c4"),value);
+			sh.setText(By.name("c4"), value);
 
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public PropertyEndorsements setOtherStructuresDescription(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '"
-			+ String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
 			sh.waitForElementToAppear(By.name("c2"));
 			// Input text here
-			sh.setText(By.name("c2"),description);
+			sh.setText(By.name("c2"), description);
 
 			return this;
 		}
 
 		public PropertyEndorsements setOtherStructuresLimit(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '"
-			+ String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
 			sh.waitForElementToAppear(By.name("c3"));
 			// Input text here
-			sh.setText(By.name("c3"),description);
+			sh.setText(By.name("c3"), description);
 
 			return this;
 		}
+
 		public PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Specific Other Structures']/../../../..//div[text() = '"
-			+ String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
 			sh.waitForElementToAppear(By.name("c2"));
 			// Input text here
-			sh.setText(By.name("c2"),description);
+			sh.setText(By.name("c2"), description);
 
 			return this;
 		}
 
 		public PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" +
-			"//div[text() = 'Specific Other Structures']/../../../..//div[text() = '"
-			+ String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
 			sh.waitForElementToAppear(By.name("c3"));
 			// Input text here
-			sh.setText(By.name("c3"),description);
+			sh.setText(By.name("c3"), description);
 
 			return this;
 		}
@@ -459,11 +435,13 @@ public class Coverages extends CenterPanelBase
 		{
 			return sh.getValue(by.creditCardFundTransferForgeryCounterfeitMoneyLimit);
 		}
+
 		public PropertyEndorsements checkEarthquakeCoverage()
 		{
 			sh.clickElement(by.earthquakeCoverage);
 			return this;
 		}
+
 		public PropertyEndorsements checkSpecificOtherStructures()
 		{
 			sh.clickElement(by.specificOtherStructures);
@@ -475,22 +453,25 @@ public class Coverages extends CenterPanelBase
 			sh.clickElement(by.earthquakeLossAssessment);
 			return this;
 		}
+
 		public String getEarthquakeLossAssessmentLimit()
 		{
 			return sh.getValue(by.earthquakeLossAssessmentLimit);
 		}
-		
+
 		public PropertyEndorsements setEarthquakeLossAssessmentLimit(String earthquakeLossAssessmentLimit)
 		{
 			sh.setText(by.earthquakeLossAssessmentLimit, earthquakeLossAssessmentLimit);
 			sh.tab();
-			sh.waitForNoMask();			return this;
+			sh.waitForNoMask();
+			return this;
 		}
+
 		public String getEarthquakeCoverageDeductiblePercentage()
 		{
 			return sh.getValue(by.earthquakeCoverageDeductiblePercentage);
 		}
-		
+
 		public PropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String earthquakeCoverageDeductiblePercentage)
 		{
 			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
@@ -498,8 +479,8 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
-		
-		
+
+
 		public PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String creditCardFundTransferForgeryCounterfeitMoneyLimit)
 		{
 			sh.setText(by.creditCardFundTransferForgeryCounterfeitMoneyLimit, creditCardFundTransferForgeryCounterfeitMoneyLimit);
@@ -507,58 +488,61 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
+
 		public LiabilityEndorsements clickLiabilityEndorsements()
 		{
 			sh.clickElement(by.liabilityEndorsements);
 			sh.waitForNoMask();
 			return new LiabilityEndorsements(sh, path);
 		}
+
 		public Coverages clickCoverages()
 		{
 			sh.clickElement(by.coverages);
 			return new Coverages(sh, path);
 		}
+
 		public boolean isPermittedIncidentalOccupancyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancy);
 		}
-		
+
 		public PropertyEndorsements checkPermittedIncidentalOccupancy()
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancy);
 			return this;
 		}
-		
+
 		public PropertyEndorsements unCheckPermittedIncidentalOccupancy()
 		{
 			sh.checkboxHelper.unCheckElement(by.permittedIncidentalOccupancy);
 			return this;
 		}
-		
+
 
 		public boolean isGuardianEndorsementsChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.guardianEndorsements);
 		}
-		
+
 		public PropertyEndorsements checkGuardianEndorsements()
 		{
 			sh.checkboxHelper.checkElement(by.guardianEndorsements);
 			sh.waitForNoMask();
 			return this;
 		}
-		
+
 		public PropertyEndorsements unCheckGuardianEndorsements()
 		{
 			sh.checkboxHelper.unCheckElement(by.guardianEndorsements);
 			return this;
 		}
-		
+
 		public String getCreditPercentage()
 		{
 			return sh.getValue(by.creditPercentage);
 		}
-		
+
 		public PropertyEndorsements setWhenSafeCreditPercentage(String creditPercantage)
 		{
 			sh.setText(by.creditPercentage, creditPercantage);
@@ -566,6 +550,7 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public PropertyEndorsements addSpecificOtherStructures()
 		{
 			if(sh.isDisplayed(by.addSpecificStructures))
@@ -575,6 +560,7 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public PropertyEndorsements removeSpecificOtherStructures()
 		{
 			if(sh.isDisplayed(by.removeSpecificStructures))
@@ -584,6 +570,7 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public PropertyEndorsements clickAddOtherStructures()
 		{
 			if(sh.isDisplayed(by.addOtherStructures))
@@ -593,13 +580,14 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public PropertyEndorsements clickRemoveOtherStructures()
 		{
 			sh.clickElement(by.removeOtherStructures);
 			sh.waitForNoMask();
 			return this;
 		}
-		
+
 		public PropertyEndorsements clickAddScheduledPersonalProperty()
 		{
 			if(sh.isDisplayed(by.addScheduledPersonalProperty))
@@ -616,11 +604,12 @@ public class Coverages extends CenterPanelBase
 			sh.waitForNoMask();
 			return this;
 		}
+
 		public String getOccurrenceAggregateLimit()
 		{
 			return sh.getValue(by.occurrenceAggregateLimit);
 		}
-		
+
 		public PropertyEndorsements setOccurrenceAggregateLimit(String occurenceAggregateLimit)
 		{
 			sh.setText(by.occurrenceAggregateLimit, occurenceAggregateLimit);
@@ -628,11 +617,12 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
+
 		public String getLossAssessmentLimit()
 		{
 			return sh.getValue(by.lossAssessmentLimit);
 		}
-		
+
 		public PropertyEndorsements setLossAssessmentLimit(String lossAssessmentLimit)
 		{
 			sh.setText(by.lossAssessmentLimit, lossAssessmentLimit);
@@ -640,11 +630,12 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
+
 		public String getOrdinanceOrLawLimit()
 		{
 			return sh.getValue(by.ordinanceOrLawLimit);
 		}
-		
+
 		public PropertyEndorsements setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
 		{
 			sh.setText(by.ordinanceOrLawLimit, ordinanceOrLawLimit);
@@ -652,11 +643,12 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
+
 		public String getPercentageOfAnnualIncrease()
 		{
 			return sh.getValue(by.percentageOfAnnualIncrease);
 		}
-		
+
 		public PropertyEndorsements setPercentageOfAnnualIncrease(String percentageOfAnnualIncrease)
 		{
 			sh.setText(by.percentageOfAnnualIncrease, percentageOfAnnualIncrease);
@@ -664,18 +656,25 @@ public class Coverages extends CenterPanelBase
 
 			return this;
 		}
-		
+
 		public String getSinkholeIndex()
 		{
 			return sh.getValue(by.sinkholeIndex);
 		}
-		
+
 		public PropertyEndorsements setSinkholeIndex(String sinkholeIndex)
 		{
 			sh.setText(by.sinkholeIndex, sinkholeIndex);
 			sh.tab();
 
 			return this;
+		}
+
+		public boolean isCreditCardCheckBoxAvailable()
+		{
+			if(sh.isDisplayed(by.creditCardFundTransferForgeryCounterfeitMoney))
+				return true;
+			return false;
 		}
 		
 		public String getSinkholeClaimsIndex()

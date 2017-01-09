@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;
 
 		CSVReader reader;
 		String filePathBase = "/Users/aansari/Desktop/";
-		String filePath= filePathBase + "output1.csv";
+		String filePath= filePathBase + "output2.csv";
 
 		try
 		{
@@ -36,7 +36,7 @@ public class AccountPolicyGenerator
 				List<LinkedHashMap<String, String>> spc = new ArrayList<>();
 				LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
 				int numColumns = data.get(row).length;
-				for(int column = 0; column < numColumns ; column++)
+				for(int column = 0; column < numColumns  ; column++)
 				{
 					String key = data.get(0)[column],
 					value = data.get(row)[column];
@@ -72,7 +72,7 @@ public class AccountPolicyGenerator
 						}
 
 					}
-					else if(!value.equals(""))
+					else if(!value.equals("") && !value.equals(" "))
 						rowData.put(key, value);
 				}
 

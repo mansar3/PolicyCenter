@@ -31,7 +31,8 @@ public class CenterSeleniumHelper
 	public void setText(By byLocator, String text)
 	{
 		if(text != null)
-			wait(25).until(ExpectedConditions.refreshed(driver1 -> {
+			wait(25).until(ExpectedConditions.refreshed(driver1 ->
+			{
 				driver1.findElement(byLocator).sendKeys("");
 				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
 					return false;
@@ -83,10 +84,12 @@ public class CenterSeleniumHelper
 	}
 	public void waitForValue(By bylocator, int waitTime)
 	{
-		(new WebDriverWait(driver, 25)).until(new ExpectedCondition<Boolean>() {
-           public Boolean apply(WebDriver d) {
-        return d.findElement(bylocator).getAttribute("value").length() != 0;
-   		 }
+		(new WebDriverWait(driver, 25)).until(new ExpectedCondition<Boolean>()
+		{
+			public Boolean apply(WebDriver d)
+			{
+				return d.findElement(bylocator).getAttribute("value").length() != 0;
+			}
 		});
 	}
 	public CenterSeleniumHelper tab()
@@ -108,20 +111,22 @@ public class CenterSeleniumHelper
 			return false;
 		}
 	}
-	public void waitForElementToAppear(By by )
+	public void waitForElementToAppear(By by)
 	{
-		new WebDriverWait(driver,45).until(new ExpectedCondition<Boolean>() {
-           public Boolean apply(WebDriver d)
-		   {
-			   return isDisplayed(by);
-		   }
-		   @Override
-			public String toString()
-		   {
-			   return String.format("Element located by ('%s') is visible.",by);
-		   }
+		new WebDriverWait(driver, 45).until(new ExpectedCondition<Boolean>()
+		{
+			public Boolean apply(WebDriver d)
+			{
+				return isDisplayed(by);
+			}
 
-		   });
+			@Override
+			public String toString()
+			{
+				return String.format("Element located by ('%s') is visible.", by);
+			}
+
+		});
 	}
 	public WebElement getElement(By by)
 	{

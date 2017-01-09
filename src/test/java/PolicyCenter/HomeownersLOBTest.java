@@ -334,8 +334,13 @@ public class HomeownersLOBTest extends BaseTest
 		.setYearBuilt(eai.getOrDefault("Year Built", null))
 		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
 		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
-		.setTerritoryCode(eai.getOrDefault("Territory Code", null))
-		.setBCEG(eai.getOrDefault("BCEG", null))
+		.setTerritoryCode(eai.getOrDefault("Territory Code", null));
+
+		if(Integer.parseInt(eai.get("Year Built")) >1994)
+		{
+			dwelling.setBCEG(eai.getOrDefault("BCEG", null));
+		}
+		dwelling
 		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
 		.setInTheWindpool(eai.getOrDefault("In the Windpool?", null))
@@ -378,7 +383,7 @@ public class HomeownersLOBTest extends BaseTest
 
 
 
-		if(!eai.get("Burglar Alarm Type").toLowerCase().equals("false") && eai.get("Burglar Alarm Type") != null)
+		if(!eai.getOrDefault("Burglar Alarm Type","none").toLowerCase().equals("none"))
 			pd.
 			setBurglarAlarm("true")
 			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
@@ -393,14 +398,14 @@ public class HomeownersLOBTest extends BaseTest
 		.setCommunityGuarded(eai.getOrDefault("Is the community Guarded?", "false"))
 		.setGatedCommunity(eai.getOrDefault("Is the community Gated?", "false"));
 
-		if(!eai.get("Fire Alarm type").equals("false") && eai.get("Fire Alarm type") != null)
+		if(!eai.getOrDefault("Fire Alarm type", "none").toLowerCase().equals("none"))
 			pd.setFireAlarm("true")
 				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
 		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
 
-		if(!eai.get("Sprinkler System").toLowerCase().equals("false") && eai.get("Sprinkler System") != null)
+		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none"))
 
 			pd.
 			setSprinklerSystem("true")
@@ -481,7 +486,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setSquareFootage(eai.get("Square Footage"))
 		.setFoundationType(eai.get("Foundation Type"))
 		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
-		.setIsThereASecondaryHeatingSystem(eai.get("Is there a secondary heating system?"))
+		.setIsThereASecondaryHeatingSystem(eai.getOrDefault("Is there a secondary heating system?","false"))
 		.setPlumbing(eai.get("Plumbing Type"))
 		.setPlumbingYear(eai.get("Plumbing Year"))
 		.setWaterHeaterYear(eai.get("Water Heater Year"))
@@ -490,7 +495,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofType(eai.get("Roof Type"))
 		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
 		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
-		.setScreenEnclosureOnPremises(eai.get("Is there a screen enclosure on premises?"))
+		.setScreenEnclosureOnPremises(eai.getOrDefault("Is there a screen enclosure on premises?","false"))
 
 
 
@@ -509,10 +514,23 @@ public class HomeownersLOBTest extends BaseTest
 		.setRoofShapeType(eai.get("Roof Shape"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"))
 		.setTerrain(eai.get("Terrain"))
-		.setRoofCover(eai.get("Roof Cover"))
-		.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
-		.setRoofWallConnection(eai.get("Roof Wall Connection"))
-		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"));
+		.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
+
+		if(Integer.parseInt(eai.get("Year Built")) >= 2002)
+		{
+			wm
+			.setRoofDeck(eai.getOrDefault("Roof Deck","<none>"))
+			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
+			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
+			.setWindBorneDebris(eai.getOrDefault("Wind Borne Debris Region","true"));
+		}
+		else
+		{
+			wm.setRoofCover(eai.get("Roof Cover"))
+			.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
+			.setRoofWallConnection(eai.get("Roof Wall Connection"));
+		}
+
 		Coverages co = wm.next()
 
 		// Coverages
@@ -589,18 +607,19 @@ public class HomeownersLOBTest extends BaseTest
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
-		if(!eai.get("Screen Enclosure Hurricane Coverage (Limit)").toLowerCase().equals(""))
+		if(eai.getOrDefault("Screen Enclosure Hurricane Coverage (Limit)",null) != null)
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 
-//		if(keyContainsValue(eai,"Credit Card (Limit)"))
-//			pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
+		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
+			if(pe.isCreditCardCheckBoxAvailable())
+				pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 
 
 		//.setPercentageOfAnnualIncrease("12%")
-		if(!eai.get("Sinkhole Loss Coverage").toLowerCase().equals("false"))
+		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
 			pe
 			.checkSinkholeLossCoverage()
 			.setSinkholeClaimsIndex("4500")
@@ -608,23 +627,23 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Liability Endorsements
 		Coverages.LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(!eai.get("Permitted Incidental Occupancy - Liability").toLowerCase().equals("false") && eai.get("Permitted Incidental Occupancy - Liability") != null)
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
 //		if(!eai.get("Animal Liability").equals(""))
 //			le.checkAnimalLiability();
 
-		if(!eai.get("Additional Residence Rented to Others - Number of families").toLowerCase().equals("false") && eai.get("Additional Residence Rented to Others - Number of families") != null)
+		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
 			.checkAdditionalResidenceRentedToOthers()
 			.setLocationName("1:")
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
-		if(!eai.get("Business Pursuits - Business activity").toLowerCase().equals("false") && eai.get("Business Pursuits - Business activity") != null)
+		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()
 			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
-		if(!eai.get("Watercraft Liablity - Watercraft Type").toLowerCase().equals("false") && eai.get("Watercraft Liablity - Watercraft Type") != null)
+		if(eai.getOrDefault("Watercraft Liablity - Watercraft Type",null) != null)
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
