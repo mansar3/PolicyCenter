@@ -83,4 +83,8 @@ abstract public class CenterPanelBase
 	{
 		sh.wait(30).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
 	}
+	public void waitToBeQuoted(CenterSeleniumHelper sh)
+	{
+		sh.wait(60).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
+	}
 }

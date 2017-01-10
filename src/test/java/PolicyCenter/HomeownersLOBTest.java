@@ -459,7 +459,7 @@ public class HomeownersLOBTest extends BaseTest
 				.setAddress1(addInts.get(i).get("Address"))
 				.setCity(addInts.get(i).get("City"))
 				.setState(addInts.get(i).get("State"))
-				.setZipCode(addInts.get(i).get("Zipcode"))
+				.setZipCode(addInts.get(i).get("Zip Code"))
 				.clickVerifyAddress()
 				.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 				.setAddressType("Home")
@@ -530,6 +530,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
 			.setRoofWallConnection(eai.get("Roof Wall Connection"));
 		}
+
 
 		Coverages co = wm.next()
 

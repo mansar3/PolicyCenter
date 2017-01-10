@@ -114,6 +114,7 @@ public class EnterAccountInformation extends CenterPanelBase
 
 	public EnterAccountInformation clickSearch()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.searchBtn);
 		return this;
 	}

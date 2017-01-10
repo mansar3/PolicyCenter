@@ -39,7 +39,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 	{
 		sh.waitForNoMask(5);
 
-		if(sh.isDisplayed(by.matchedAddress))
+		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0']//tr[2]//td[4]//div")).length() > 1)
 			sh.clickElement(by.matchedAddress);
 		else
 			sh.clickElement(by.unmatchedAddress);
@@ -49,7 +49,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 	{
 		sh.waitForNoMask(5);
 
-		if(sh.isDisplayed(by.matchedAddress))
+		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0']//tr[2]//td[4]//div")).length() > 1)
 			sh.clickElement(by.matchedAddress);
 		else
 			sh.clickElement(by.unmatchedAddress);

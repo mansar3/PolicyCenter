@@ -70,7 +70,7 @@ public class Qualification extends CenterPanelBase
 				System.out.println("Found too many elements on question: " + questionNum);
 				answerBy = By.cssSelector("[id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body'] tbody tr:nth-of-type(" + questionNum + ") td:nth-of-type(3) tbody input[inputvalue='false']");
 			}
-			sh.waitForNoMask(25);
+			sh.waitForNoMask();
 			sh.clickElement(answerBy);
 			return this;
 		}

@@ -80,7 +80,7 @@ public class CenterSeleniumHelper
 	}
 	public void waitForNoMask()
 	{
-		new WebDriverWait(driver, 25).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
+		new WebDriverWait(driver, 27).until(ExpectedConditions.numberOfElementsToBe(By.className("x-mask-fixed"), 0));
 	}
 	public void waitForValue(By bylocator, int waitTime)
 	{

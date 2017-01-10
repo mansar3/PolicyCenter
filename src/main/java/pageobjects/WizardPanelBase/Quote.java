@@ -14,7 +14,7 @@ public class Quote extends CenterPanelBase
 		this.sh = sh;
 		this.path = path;
 		expectedPanelTitle = setExpectedTitle();
-		waitForTitle(sh);
+		waitToBeQuoted(sh);
 		System.out.println("Navigated to page: " + getTitle());
 		westPanel = new WestPanelBase(sh);
 	}
