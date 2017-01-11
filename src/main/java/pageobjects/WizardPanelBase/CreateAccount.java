@@ -280,13 +280,13 @@ public class CreateAccount extends CenterPanelBase
 	{
 		sh.setText(by.zip, zip);
 		sh.tab();
+		sh.waitForNoMask();
 		sh.waitForPageLoad();
 		return this;
 	}
 
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
-		sh.waitForNoMask(5);
 		sh.clickElement(by.verifyAddress);
 		return new SelectStandardizedAddress(sh);
 	}

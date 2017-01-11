@@ -33,7 +33,7 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local"})
 	@BeforeSuite
-	public void beforeSuite(@Optional("45") String environment, @Optional("true") Boolean local)
+	public void beforeSuite(@Optional("47") String environment, @Optional("true") Boolean local)
 	{
 		FileUtils.deleteQuietly(new File("src/test/resources/screenshot"));
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());

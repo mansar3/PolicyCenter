@@ -10,8 +10,8 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 
 	public  class SelectStandardizedAddressBy extends CenterPanelBy
 	{
-		final By 	matchedAddress = By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(2) td:nth-of-type(1) a"),
-					unmatchedAddress = By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(1) td:nth-of-type(1) a");
+		final By 	unmatchedAddress = By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'User Override']/../preceding-sibling::td//a"),
+					matchedAddress =By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../preceding-sibling::td//a");
 	}
 	public SelectStandardizedAddress(CenterSeleniumHelper sh)
 	{
@@ -39,7 +39,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 	{
 		sh.waitForNoMask(5);
 
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0']//tr[2]//td[4]//div")).length() > 1)
+		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
 			sh.clickElement(by.matchedAddress);
 		else
 			sh.clickElement(by.unmatchedAddress);
@@ -49,7 +49,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 	{
 		sh.waitForNoMask(5);
 
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0']//tr[2]//td[4]//div")).length() > 1)
+		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
 			sh.clickElement(by.matchedAddress);
 		else
 			sh.clickElement(by.unmatchedAddress);

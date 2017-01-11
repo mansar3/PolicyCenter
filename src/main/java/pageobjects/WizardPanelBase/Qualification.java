@@ -3,7 +3,6 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import Helpers.TableBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Qualification extends CenterPanelBase
@@ -64,12 +63,14 @@ public class Qualification extends CenterPanelBase
 
 		private Questionnaire answerQuestion(int questionNum, Boolean bool)
 		{
-			By answerBy = new ByChained(getTableBy(questionNum, 3), By.cssSelector("tbody input[inputvalue='"+bool+"']"));
-			if(sh.driver.findElements(answerBy).size() > 1)
-			{
-				System.out.println("Found too many elements on question: " + questionNum);
-				answerBy = By.cssSelector("[id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body'] tbody tr:nth-of-type(" + questionNum + ") td:nth-of-type(3) tbody input[inputvalue='false']");
-			}
+			By answerBy = By.xpath("//*[@id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body']//table["
+			+ questionNum + "]//table[1]//input[@inputvalue = '" + String.valueOf(bool).toLowerCase() +"']");
+//			By answerBy = new ByChained(getTableBy(questionNum, 3), By.cssSelector("tbody input[inputvalue='"+bool+"']"));
+//			if(sh.driver.findElements(answerBy).size() > 1)
+//			{
+//				System.out.println("Found too many elements on question: " + questionNum);
+//				answerBy = By.cssSelector("[id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body'] tbody tr:nth-of-type(" + questionNum + ") td:nth-of-type(3) tbody input[inputvalue='false']");
+//			}
 			sh.waitForNoMask();
 			sh.clickElement(answerBy);
 			return this;
