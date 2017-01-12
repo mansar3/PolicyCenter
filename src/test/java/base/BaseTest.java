@@ -25,7 +25,8 @@ import java.util.List;
 
 public abstract class BaseTest
 {
-	protected static String screenShotDirectory = "src/test/resources/ScreenShots/";
+	protected static String screenShotDirectory = "src/test/resources/ScreenShots/",accountNumber;
+	private File screenShotFolder = new File(screenShotDirectory);
 	protected SessionInfo sessionInfo;
 	private Boolean local;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
@@ -33,9 +34,10 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local"})
 	@BeforeSuite
-	public void beforeSuite(@Optional("47") String environment, @Optional("true") Boolean local)
+	public void beforeSuite(@Optional("48") String environment, @Optional("false") Boolean local)
 	{
-		FileUtils.deleteQuietly(new File("src/test/resources/screenshot"));
+		FileUtils.deleteQuietly(screenShotFolder);
+		screenShotFolder.mkdir();
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
 		this.local = local;
 		assert sessionInfo.capabilities != null;
