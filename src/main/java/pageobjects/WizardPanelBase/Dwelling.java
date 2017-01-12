@@ -701,8 +701,23 @@ public class Dwelling extends CenterPanelBase
 
 		public NewAdditionalInterest clickAddNewPerson()
 		{
-			sh.clickElement(by.add);
-			sh.clickElement(by.newPerson);
+//			String id = sh.driver.findElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType']/../../../..")).getAttribute("id");
+//			WebElement we = sh.driver.findElement(By.id(id));
+//			makeMenuVisible(we);
+			for(int i = 0; i<5; i++)
+			{
+				sh.clickElement(by.add);
+				if(sh.isDisplayed(by.newPerson))
+					break;
+			}
+//			sh.clickElement(by.add);
+//			if(sh.isDisplayed(by.newPerson))
+				sh.clickElement(by.newPerson);
+//			else
+//			{
+//				sh.clickElement(by.add);
+//				sh.clickElement(by.newPerson);
+//			}
 			return new NewAdditionalInterest(sh, path);
 		}
 
@@ -734,21 +749,21 @@ public class Dwelling extends CenterPanelBase
 
 		public AdditionalInterests setType(int row, String type)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[3]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[3]//div"));
 			sh.setText(By.name("Type"),type);
 			return this;
 		}
 
 		public AdditionalInterests setEffectiveDate(int row, String effectiveDate)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[4]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[4]//div"));
 			sh.setText(By.name("EffectiveDate"),effectiveDate);
 			return this;
 		}
 
 		public AdditionalInterests setLoanNumber(int row, String loanNumber)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//tr[" + row + "]//td[5]//div"));
+			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[5]//div"));
 			sh.setText(By.name("ContractNumber"),loanNumber);
 			return this;
 		}

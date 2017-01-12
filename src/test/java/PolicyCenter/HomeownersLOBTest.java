@@ -433,7 +433,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setLastName(lName)
 			.setCity(addInts.get(i).get("City"))
 			.setState(addInts.get(i).get("State"))
-			.setZipCode(addInts.get(i).get("Zipcode"))
+			.setZipCode(addInts.get(i).get("Zip Code"))
 			.clickSearch();
 			// See if there are search results
 			if(sab.areThereSearchResults())

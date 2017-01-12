@@ -66,6 +66,7 @@ public class SearchAddressBook extends CenterPanelBase
 	}
 	public boolean areThereSearchResults()
 	{
+		sh.waitForNoMask();
 		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:0:_Select"));
 	}
 	public PolicyInfo clickReturnToPolicyInfo()
@@ -83,8 +84,9 @@ public class SearchAddressBook extends CenterPanelBase
 	
 	public SearchAddressBook clickSearch()
 	{
-		sh.clickElement(by.search);
 		sh.waitForNoMask();
+		sh.clickElement(by.search);
+		sh.waitForPageLoad();
 		return this;
 	}
 	public SearchAddressBook clickReset()
