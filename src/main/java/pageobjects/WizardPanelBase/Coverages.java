@@ -20,7 +20,7 @@ public class Coverages extends CenterPanelBase
 		by = new CoveragesBy();
 		pe = new PropertyEndorsements(sh, path);
 		le = new LiabilityEndorsements(sh, path);
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)

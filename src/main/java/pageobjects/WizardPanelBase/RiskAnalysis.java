@@ -15,7 +15,7 @@ public class RiskAnalysis extends CenterPanelBase
 		waitForTitle(sh);
 		setID(path);
 		by = new RiskAnalysisBy();
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)

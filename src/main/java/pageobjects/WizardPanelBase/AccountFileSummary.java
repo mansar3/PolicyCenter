@@ -13,7 +13,7 @@ public class AccountFileSummary extends CenterPanelBase
 		this.sh = sh;
 		expectedPanelTitle = "Account File Summary";
 		waitForTitle(sh);
-		//System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 		westPanel = new AccountFileSummaryWestPanel(sh);
 	}
 

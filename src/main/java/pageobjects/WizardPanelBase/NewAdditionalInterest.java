@@ -15,9 +15,9 @@ public class NewAdditionalInterest extends CenterPanelBase
 		this.sh= sh;
 		this.path = path;
 		expectedPanelTitle = "New Additional Interest";
-		//waitForTitle(sh);
+		waitForTitleToContain(sh);
 		by = new NewAdditionalInterestBy();
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 	
 	public NewAdditionalInterest clickCertificateRequired(String flag)

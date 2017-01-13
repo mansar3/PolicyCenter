@@ -16,6 +16,7 @@ public class InitiateManualRenewal extends CenterPanelBase
 		path = Path.POLICYRENEWAL;
 		by = new InitiateManualRenewalBy();
 		waitForTitle(sh);
+		System.out.println("Navigated to page: " + expectedPanelTitle );
 	}
 	static class InitiateManualRenewalBy
 	{

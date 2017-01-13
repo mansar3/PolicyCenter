@@ -55,6 +55,7 @@ public class CreateAccount extends CenterPanelBase
 		by = new CreateAccountBy();
 		expectedPanelTitle = "Create account";
 		waitForTitle(sh);
+		System.out.println("Navigated to page: "+ expectedPanelTitle);
 	}
 	
 	public String getHomePhone()

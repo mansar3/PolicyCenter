@@ -26,7 +26,7 @@ public class Dwelling extends CenterPanelBase
 		by = new DwellingBy();
 		pd = new ProtectionDetails(sh,path);
 		ai = new AdditionalInterests(sh,path);
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)
@@ -704,6 +704,7 @@ public class Dwelling extends CenterPanelBase
 //			String id = sh.driver.findElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType']/../../../..")).getAttribute("id");
 //			WebElement we = sh.driver.findElement(By.id(id));
 //			makeMenuVisible(we);
+			System.out.println("Adding a New Person");
 			for(int i = 0; i<5; i++)
 			{
 				sh.clickElement(by.add);

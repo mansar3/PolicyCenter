@@ -15,7 +15,7 @@ public class Qualification extends CenterPanelBase
 		this.path = path;
 		expectedPanelTitle = "Qualification";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 		questionnaire = new Questionnaire(sh);
 	}
 

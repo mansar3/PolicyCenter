@@ -16,7 +16,7 @@ public class NewSubmission extends CenterPanelBase
 		expectedPanelTitle = "New Submissions";
 		waitForTitle(sh);
 		path = Path.SUBMISSION;
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 		productTable = new ProductSelectionTable(sh);
 	}
 

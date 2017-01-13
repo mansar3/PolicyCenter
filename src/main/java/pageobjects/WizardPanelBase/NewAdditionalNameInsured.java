@@ -17,7 +17,7 @@ public class NewAdditionalNameInsured extends CenterPanelBase
 		expectedPanelTitle = "New Additional Named Insured";
 		waitForTitle(sh);
 		by = new NewAdditionalNameInsuredBy();
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public NewAdditionalNameInsured certRequired(boolean flag)

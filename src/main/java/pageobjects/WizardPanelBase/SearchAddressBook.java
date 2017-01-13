@@ -16,7 +16,7 @@ public class SearchAddressBook extends CenterPanelBase
 		expectedPanelTitle = "Search Address Book";
 		waitForTitle(sh);
 		by = new SearchAddressBookBy();
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public class SearchAddressBookBy
@@ -57,11 +57,13 @@ public class SearchAddressBook extends CenterPanelBase
 	public PolicyInfo selectFirstSearchResultPolicyInfo()
 	{
 		selectSearchResult(0);
+		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return new PolicyInfo(sh, path);
 	}
 	public Dwelling.AdditionalInterests selectFirstSearchResultAdditionalInterests()
 	{
 		selectSearchResult(0);
+		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return new Dwelling(sh, path).new AdditionalInterests(sh, path);
 	}
 	public boolean areThereSearchResults()
@@ -163,6 +165,7 @@ public class SearchAddressBook extends CenterPanelBase
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
+		this.firstName = firstName;
 
 		return this;
 	}
@@ -175,6 +178,7 @@ public class SearchAddressBook extends CenterPanelBase
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
+		this.lastName = lastName;
 
 		return this;
 	}

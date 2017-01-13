@@ -1,16 +1,20 @@
 package pageobjects.WizardPanelBase;
 
+
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 abstract public class CenterPanelBase
 {
 	protected CenterSeleniumHelper sh;
 	protected String expectedPanelTitle = "Center Panel Base";
-	protected String address;
 	private CenterPanelBy by = new CenterPanelBy();
 	protected Path path = Path.SUBMISSION;
+	protected String firstName, lastName;
 
 
 	public enum Path
@@ -82,6 +86,19 @@ abstract public class CenterPanelBase
 	public void waitForTitle(CenterSeleniumHelper sh)
 	{
 		sh.wait(30).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
+	}
+	public void waitForTitleToContain(CenterSeleniumHelper sh)
+	{
+		(new WebDriverWait(sh.driver, 30)).until(new ExpectedCondition<Boolean>()
+		{
+			public Boolean apply(WebDriver d)
+			{
+				return d.findElement(by.title).getText().contains(expectedPanelTitle);
+			}
+
+			@Override
+			public String toString() {return String.format("Current page is not: %s ",expectedPanelTitle);}
+		});
 	}
 	public void waitToBeQuoted(CenterSeleniumHelper sh)
 	{

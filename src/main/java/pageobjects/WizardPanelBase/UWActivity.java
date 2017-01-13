@@ -15,7 +15,7 @@ public class UWActivity extends CenterPanelBase
 		this.path = path;
 		expectedPanelTitle = "UW Activity";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	static class UWActivityBy

@@ -16,7 +16,7 @@ public class Offerings extends CenterPanelBase
 		expectedPanelTitle = "Offerings";
 		waitForTitle(sh);
 		by = new OfferingsBy();
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 	public class OfferingsBy{
 		final String offeringsBase = "RenewalWizard:OfferingScreen:";

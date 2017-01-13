@@ -17,7 +17,7 @@ public class DwellingConstruction extends CenterPanelBase
 		setID(path);
 		by = new DwellingConstructionBy();
 		wm = new WindMitigation(sh, path);
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)

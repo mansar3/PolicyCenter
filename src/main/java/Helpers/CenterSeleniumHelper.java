@@ -90,6 +90,9 @@ public class CenterSeleniumHelper
 			{
 				return d.findElement(bylocator).getAttribute("value").length() != 0;
 			}
+
+			@Override
+			public String toString() {return String.format("No value for element: ('%s')",bylocator );}
 		});
 	}
 	public CenterSeleniumHelper tab()

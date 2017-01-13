@@ -17,7 +17,7 @@ public class PolicyInfo extends CenterPanelBase
 		setID(path);
 		by = new PolicyInfoBy();
 
-		System.out.println("Navigated to page: " + getTitle());
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)
@@ -96,6 +96,7 @@ public class PolicyInfo extends CenterPanelBase
 
 	public NewAdditionalNameInsured clickAddNewCompany()
 	{
+		System.out.println("Adding a new company...");
 		sh.clickElement(by.addAdditionalNameInsureds);
 		if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:0:ContactType")))
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
@@ -109,7 +110,7 @@ public class PolicyInfo extends CenterPanelBase
 	}
 	public NewAdditionalNameInsured clickAddNewPerson()
 	{
-
+		System.out.println("~~~~~~~~Adding a new person~~~~~~~~~");
 		for(int i= 0 ;i < 5;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);
