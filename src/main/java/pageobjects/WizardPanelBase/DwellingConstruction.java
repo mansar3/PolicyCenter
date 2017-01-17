@@ -500,6 +500,16 @@ public class DwellingConstruction extends CenterPanelBase
 				sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new Coverages(sh,path);
 		}
+		public Coverages doubleClickNext()
+		{
+			//sh.waitForNoMask(15);
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			sh.waitForPageLoad();
+			sh.waitForNoMask();
+			sh.waitForElementToAppear(By.className("warning_icon"));
+			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			return new Coverages(sh,path);
+		}
 
 		public String getRoofShapeType()
 		{

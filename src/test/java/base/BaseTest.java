@@ -174,4 +174,14 @@ public abstract class BaseTest
 			e.printStackTrace();
 		}
 	}
+	public boolean isInArray(int[] arr, int flag)
+	{
+		for(int a : arr)
+		{
+			if(a == flag)
+				return true;
+		}
+		return false;
+	}
+
 }
