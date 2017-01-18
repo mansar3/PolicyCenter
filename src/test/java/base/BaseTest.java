@@ -145,7 +145,7 @@ public abstract class BaseTest
 		return lastLoggedMessage;
 	}
 
-	protected void takeScreenShot(WebDriver driver)
+	protected String takeScreenShot(WebDriver driver)
 	{
 		File screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
@@ -173,6 +173,7 @@ public abstract class BaseTest
 		{
 			e.printStackTrace();
 		}
+		return fileName;
 	}
 	public boolean isInArray(int[] arr, int flag)
 	{

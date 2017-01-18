@@ -18,7 +18,9 @@ import org.testng.annotations.Test;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -29,6 +31,10 @@ public class HomeownersLOBTest extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
+	String 	filePathBase = "/Users/aansari/Desktop/",
+			timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());;
+	String filePath= filePathBase + "testResult" + timeStamp + ".csv";
+
 
 	@BeforeMethod
 	public void beforeMethod()
@@ -49,11 +55,26 @@ public class HomeownersLOBTest extends BaseTest
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, ITestContext itc)
 	{
-		//CSVWriter writer = new CSVWriter(new FileWriter("/Users/aansari/Desktop/output4.csv"));
+
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
-			takeScreenShot(driver);
+
+			String screenshotName = takeScreenShot(driver);
+//			String[] csvInput = errorReportingInfo(itc.getCurrentXmlTest().getAllParameters());
+//			CSVWriter writer;
+//			try
+//			{
+//				if(!new File(filePath).exists())
+//					writer = new CSVWriter(new FileWriter(filePath));
+//				else
+//					writer = new CSVWriter(new FileWriter(filePath,true));
+//			}
+//			catch(IOException e)
+//			{
+//				e.printStackTrace();
+//			}
+
 			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
 			System.out.println("wait");
 		}
@@ -699,20 +720,24 @@ public class HomeownersLOBTest extends BaseTest
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
 	public void SubmissionLoadTest(ITestContext itc, LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
+		/***********************************************/
+		/*      Remove hardcoded org and prod code 	   */
+		/***********************************************/
+
 		int i;
 		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
 //		for(i =0 ; i < eai.size() - 1; i++)
 //		{
 //			itc.getCurrentXmlTest().addParameter(eai.keySet());
 //		}
-		for (Map.Entry<String, String> entry : eai.entrySet())
-		{
-			String key = entry.getKey();
-			String value = entry.getValue();
-
-			itc.getCurrentXmlTest().addParameter(key,value);
-
-		}
+//		for (Map.Entry<String, String> entry : eai.entrySet())
+//		{
+//			String key = entry.getKey();
+//			String value = entry.getValue();
+//
+//			itc.getCurrentXmlTest().addParameter(key,value);
+//
+//		}
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
@@ -756,8 +781,8 @@ public class HomeownersLOBTest extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization(eai.getOrDefault("Organization", null))
-			.setProducerCode(eai.getOrDefault("Producer Code", null));
+			.setOrganization("4 CORNERS INSURANCE")
+			.setProducerCode("8329736");
 
 			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
@@ -1012,7 +1037,10 @@ public class HomeownersLOBTest extends BaseTest
 		.setWaterHeaterYear(eai.get("Water Heater Year"))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
 		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
-		.setRoofType(eai.get("Roof Type"))
+		.setRoofType(eai.get("Roof Type"));;
+		if(eai.get("Roof Type").toLowerCase().equals("other"))
+			dc.setRoofTypeDescription("Other");
+		dc
 		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
 		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
 		.setScreenEnclosureOnPremises(eai.getOrDefault("Is there a screen enclosure on premises?","false"))
@@ -1142,7 +1170,9 @@ public class HomeownersLOBTest extends BaseTest
 
 		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
 			if(pe.isCreditCardCheckBoxAvailable())
-				pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
+				pe
+				.checkCreditCardFundTransferForgeryCounterfeitMoney()
+				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 
 
@@ -1188,7 +1218,7 @@ public class HomeownersLOBTest extends BaseTest
 
 
 	}
-	public boolean qualifiesForHurricaneProtection(LinkedHashMap<String, String> eai)
+	private boolean qualifiesForHurricaneProtection(LinkedHashMap<String, String> eai)
 	{
 		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
 
@@ -1231,6 +1261,24 @@ public class HomeownersLOBTest extends BaseTest
 		))
 			return true;
 		return false;
+
+	}
+	private String[] errorReportingInfo(Map<String, String> eai)
+	{
+		String[] info = new String[8];
+		info[0] = eai.get("Legacy Policy Number");
+		info[1] = eai.get("Effective Date");
+		info[2] = eai.get("");
+		info[3] = eai.get("Year Built");
+		info[4] = eai.get("Construction Type");
+		info[5] = eai.get("Dwelling Limit");
+		info[6] = eai.get("Territory Code");
+		info[7] = eai.get("Section I Deductibles - AOP");
+
+		return info;
+
+
+
 
 	}
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
