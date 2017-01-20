@@ -173,7 +173,8 @@ public abstract class BaseTest
 		{
 			e.printStackTrace();
 		}
-		return fileName;
+
+		return fileName.substring(fileName.lastIndexOf("/") + 1);
 	}
 	public boolean isInArray(int[] arr, int flag)
 	{

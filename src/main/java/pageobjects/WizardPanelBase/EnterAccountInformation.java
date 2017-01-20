@@ -34,6 +34,7 @@ public class EnterAccountInformation extends CenterPanelBase
 		by = new EnterAccountInformationBy();
 		expectedPanelTitle = "Enter Account Information";
 		waitForTitle(sh);
+		System.out.println("Navigated to: " + expectedPanelTitle);
 	}
 
 	public EnterAccountInformation setCompanyName(String companyName)

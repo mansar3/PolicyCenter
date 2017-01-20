@@ -37,6 +37,7 @@ public class RiskAnalysis extends CenterPanelBase
 
 	public Quote quote()
 	{
+		sh.waitForNoMask();
 		switch(path)
 		{
 			case SUBMISSION:
@@ -55,15 +56,7 @@ public class RiskAnalysis extends CenterPanelBase
 		quote();
 		sh.waitForNoMask();
 		sh.waitForElementToAppear(By.className("warning_icon"));
-		switch(path)
-		{
-			case SUBMISSION:
-				sh.clickElement(by.submissionQuote);
-				break;
-			case POLICYRENEWAL:
-				sh.clickElement(by.renewalQuote);
-				break;
-		}
+		quote();
 
 		return new Quote(sh,path);
 	}

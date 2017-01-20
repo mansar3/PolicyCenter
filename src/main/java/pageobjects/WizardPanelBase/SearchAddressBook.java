@@ -71,6 +71,11 @@ public class SearchAddressBook extends CenterPanelBase
 		sh.waitForNoMask();
 		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:0:_Select"));
 	}
+	public boolean areThereMoreThanOneSearchResult()
+	{
+		sh.waitForNoMask();
+		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:1:_Select"));
+	}
 	public PolicyInfo clickReturnToPolicyInfo()
 	{
 		sh.clickElement(by.returnTo);

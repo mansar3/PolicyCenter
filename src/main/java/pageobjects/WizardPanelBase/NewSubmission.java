@@ -22,9 +22,23 @@ public class NewSubmission extends CenterPanelBase
 
 	public static class NewSubmissionBy{
 		final static By	newOrganization = By.id("NewSubmission:NewSubmissionScreen:SelectAccountAndProducerDV:ProducerSelectionInputSet:Producer-inputEl"),
-						productSelectionTable = By.id("NewSubmission:NewSubmissionScreen:ProductOffersDV:ProductSelectionLV");
+						productSelectionTable = By.id("NewSubmission:NewSubmissionScreen:ProductOffersDV:ProductSelectionLV"),
+						baseState = By.id("NewSubmission:NewSubmissionScreen:ProductSettingsDV:StateSelection_fliInputSet:DefaultBaseState-inputEl");
+
+
+	}
+	public String getBaseState()
+	{
+		return sh.getValue(by.baseState);
 	}
 
+	public NewSubmission setBaseState(String baseState)
+	{
+		sh.setText(by.baseState, baseState);
+		sh.tab();
+		sh.waitForNoMask();
+		return this;
+	}
 
 	public class ProductSelectionTable extends TableBase
 	{

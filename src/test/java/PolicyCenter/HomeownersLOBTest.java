@@ -4,6 +4,7 @@ import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
+import com.opencsv.CSVWriter;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,7 @@ import org.testng.annotations.Test;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,12 +30,14 @@ import java.util.Map;
 public class HomeownersLOBTest extends BaseTest
 {
 	private String dateString;
+	private String errorOutput;
+
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
 	String 	filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());;
-	String filePath= filePathBase + "testResult" + timeStamp + ".csv";
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
+	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -53,31 +57,93 @@ public class HomeownersLOBTest extends BaseTest
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
 	@AfterMethod(alwaysRun = true)
-	public void afterMethod(ITestResult testResult, ITestContext itc)
+	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
-
+		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
 
+
 			String screenshotName = takeScreenShot(driver);
-//			String[] csvInput = errorReportingInfo(itc.getCurrentXmlTest().getAllParameters());
-//			CSVWriter writer;
-//			try
+			String[] csvInput =  errorReportingInfo(eai,false).clone();
+			csvInput[13] = screenshotName;
+//			for(int i = 0; i < csvInput.length - 1; i++)
 //			{
-//				if(!new File(filePath).exists())
-//					writer = new CSVWriter(new FileWriter(filePath));
-//				else
-//					writer = new CSVWriter(new FileWriter(filePath,true));
+//				System.out.print(csvInput[i] + "\t");
+//
 //			}
-//			catch(IOException e)
-//			{
-//				e.printStackTrace();
-//			}
+//			System.out.println();
+			CSVWriter writer;
+			try
+			{
+				if(!new File(filePath).exists())
+				{
+					writer = new CSVWriter(new FileWriter(filePath));
+					writer.writeNext(headers);
+				}
+
+				else
+					writer = new CSVWriter(new FileWriter(filePath,true));
+			}
+			catch(IOException e)
+			{
+				writer = null;
+				e.printStackTrace();
+			}
+			writer.writeNext(csvInput);
+			try
+			{
+				writer.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
 
 			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
 			System.out.println("wait");
 		}
+		else if(testResult.getStatus() == ITestResult.SUCCESS)
+		{
+			String[] csvInput =  errorReportingInfo(eai,true).clone();
+//			for(int i = 0; i < csvInput.length - 1; i++)
+//			{
+//				System.out.print(csvInput[i] + "\t");
+//
+//			}
+//			System.out.println();
+			CSVWriter writer;
+			try
+			{
+				if(!new File(filePath).exists())
+				{
+					writer = new CSVWriter(new FileWriter(filePath));
+					writer.writeNext(headers);
+				}
+
+				else
+					writer = new CSVWriter(new FileWriter(filePath,true));
+			}
+			catch(IOException e)
+			{
+				writer = null;
+				e.printStackTrace();
+			}
+			writer.writeNext(csvInput);
+			try
+			{
+
+				writer.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
 		if(driver != null)
 			driver.quit();
 	}
@@ -718,7 +784,7 @@ public class HomeownersLOBTest extends BaseTest
 
 	}
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
-	public void SubmissionLoadTest(ITestContext itc, LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
+	public void SubmissionLoadTest( LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		/***********************************************/
 		/*      Remove hardcoded org and prod code 	   */
@@ -726,18 +792,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		int i;
 		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
-//		for(i =0 ; i < eai.size() - 1; i++)
-//		{
-//			itc.getCurrentXmlTest().addParameter(eai.keySet());
-//		}
-//		for (Map.Entry<String, String> entry : eai.entrySet())
-//		{
-//			String key = entry.getKey();
-//			String value = entry.getValue();
-//
-//			itc.getCurrentXmlTest().addParameter(key,value);
-//
-//		}
+
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
@@ -748,7 +803,7 @@ public class HomeownersLOBTest extends BaseTest
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
 		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
-		System.out.println(new DateTime().toString());
+
 
 		log("Test new person account creation");
 
@@ -766,6 +821,7 @@ public class HomeownersLOBTest extends BaseTest
 		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
 
 		log("Creating new account: " + dateString);
+
 		createAccount
 			.setAddressLine1(eai.get("Mailing Address"))
 			.setCity(eai.get("Mailing City"))
@@ -792,6 +848,7 @@ public class HomeownersLOBTest extends BaseTest
 		// Policy Renewal
 		log("Test simple homeowners policy renewal");
 		String accountNumber = accountFileSummary.getAccountNumber();
+		eai.put("Account Number", accountNumber);
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
@@ -800,6 +857,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		accountFileSummary = new AccountFileSummary(sh);
 		NewSubmission submission = accountFileSummary.westPanel.actions.newSubmission();
+		submission.setBaseState(eai.get("Base State"));
 		Qualification qualification = submission.productTable.selectHomeowners();
 
 		qualification.setPolicyType(eai.get("Policy Type"));
@@ -834,7 +892,7 @@ public class HomeownersLOBTest extends BaseTest
 
 			sab.clickSearch();
 			// See if there are search results
-			if(sab.areThereSearchResults())
+			if(sab.areThereSearchResults() && !sab.areThereMoreThanOneSearchResult())
 				sab.selectFirstSearchResultPolicyInfo();
 
 			// No results, add person/company
@@ -981,7 +1039,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setZipCode(addInts.get(i).get("Zip Code"))
 			.clickSearch();
 			// See if there are search results
-			if(sab.areThereSearchResults())
+			if(sab.areThereSearchResults() && !sab.areThereMoreThanOneSearchResult())
 			{
 				ai = sab.selectFirstSearchResultAdditionalInterests();
 				ai
@@ -999,16 +1057,23 @@ public class HomeownersLOBTest extends BaseTest
 				.setType(addInts.get(i).get("Type"))
 				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
 				.setFirstName(fName)
-				.setLastName(lName)
-//				.clickSameAddressAsPrimaryNamedInsured()
-				.setAddress1(addInts.get(i).get("Address"))
-				.setCity(addInts.get(i).get("City"))
-				.setState(addInts.get(i).get("State"))
-				.setZipCode(addInts.get(i).get("Zip Code"))
-				.clickVerifyAddress()
-				.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
-				.setAddressType("Home")
-				.clickOk();
+				.setLastName(lName);
+				if(addInts.get(i).get("Address") != null)
+				{
+					nai
+
+					.setAddress1(addInts.get(i).get("Address"))
+					.setCity(addInts.get(i).get("City"))
+					.setState(addInts.get(i).get("State"))
+					.setZipCode(addInts.get(i).get("Zip Code"))
+					.clickVerifyAddress()
+					.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+					.setAddressType("Home");
+				}
+				else
+					nai.clickSameAddressAsPrimaryNamedInsured();
+
+				nai.clickOk();
 
 
 
@@ -1037,7 +1102,7 @@ public class HomeownersLOBTest extends BaseTest
 		.setWaterHeaterYear(eai.get("Water Heater Year"))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
 		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
-		.setRoofType(eai.get("Roof Type"));;
+		.setRoofType(eai.get("Roof Type"));
 		if(eai.get("Roof Type").toLowerCase().equals("other"))
 			dc.setRoofTypeDescription("Other");
 		dc
@@ -1059,7 +1124,7 @@ public class HomeownersLOBTest extends BaseTest
 		// Wind Mitigation
 		DwellingConstruction.WindMitigation wm = dc.clickWindMitigation();
 		wm
-		.setRoofShapeType(eai.get("Roof Shape"))
+		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"))
 		.setTerrain(eai.get("Terrain"))
 		.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
@@ -1207,13 +1272,22 @@ public class HomeownersLOBTest extends BaseTest
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
 		RiskAnalysis ra = le.next();
-
+		Quote quote;
 		if(qualifiesForHurricaneProtection(eai))
-			ra.qualifiesForAdditionalProtectionQuote();
+			quote = ra.qualifiesForAdditionalProtectionQuote();
 		else
-			ra.quote();
+			quote = ra.quote();
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+//		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
+////		System.out.println("In test result is ~~~~~" );
+//		for(i = 0; i < j.length - 1; i++)
+//		{
+//				System.out.print(j[i] + "\t");
+//
+//		}
+//		System.out.println();
 		//.back().requestApproval().sendRequest();
-		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
+
 
 
 
@@ -1263,17 +1337,34 @@ public class HomeownersLOBTest extends BaseTest
 		return false;
 
 	}
-	private String[] errorReportingInfo(Map<String, String> eai)
+
+	private String[] errorReportingInfo(Map<String, String> eai, boolean result)
 	{
-		String[] info = new String[8];
-		info[0] = eai.get("Legacy Policy Number");
-		info[1] = eai.get("Effective Date");
-		info[2] = eai.get("");
-		info[3] = eai.get("Year Built");
-		info[4] = eai.get("Construction Type");
-		info[5] = eai.get("Dwelling Limit");
-		info[6] = eai.get("Territory Code");
-		info[7] = eai.get("Section I Deductibles - AOP");
+
+		String[] info = new String[14]; //logs = baos.toString().split("\n");
+		if(result)
+			info[0] = "PASS";
+		else
+			info[0] = "FAIL";
+		if(eai.get("Account Number") != null)
+			info[1] = eai.get("Account Number");
+		info[2] = eai.get("Legacy Policy Number");
+		info[3] = eai.get("Effective Date");
+		if(eai.get("Annualized Total Cost") != null)
+			info[4] = String.valueOf(Math.abs(Double.parseDouble(eai.get("Total Cost")) - Double.parseDouble(eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]",""))));
+		info[5] = eai.get("Year Built");
+		info[6] = eai.get("Construction Type");
+		info[7] = eai.get("Dwelling Limit");
+		info[8] = eai.get("Territory Code");
+		info[9] = eai.get("Section I Deductibles - AOP");
+		if(eai.get("Whensafe - %") != null)
+			info[10] = eai.get("Whensafe - %");
+		else
+			info[10] = "NA";
+		if(!result)
+			info[11] = new CenterSeleniumHelper(LocalDriverManager.getDriver()).getText(CenterPanelBase.CenterPanelBy.title);
+		if(eai.get("Annualized Total Cost") != null)
+			info[12] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
 
 		return info;
 

@@ -11,7 +11,7 @@ public class Quote extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
 	protected String quoteBase;
-	private QuoteBy by = new QuoteBy();
+	private QuoteBy by ;
 	public Quote(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -19,6 +19,7 @@ public class Quote extends CenterPanelBase
 		expectedPanelTitle = setExpectedTitle();
 		waitToBeQuoted(sh);
 		setID(path);
+		by = new QuoteBy();
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 		westPanel = new WestPanelBase(sh);
 	}
@@ -47,11 +48,18 @@ public class Quote extends CenterPanelBase
 	}
 	public class QuoteBy
 	{
-		By	totalPremium = By.id(quoteBase + "TotalPremium-inputEl");
+		By	totalPremium = By.id(quoteBase + "TotalPremium-inputEl"),
+			annualizedTotalCost = By.id(quoteBase + "TotalAnnualCost-inputEl");
+
+
 	}
-	public String getTotalPremium()
+	public int getTotalPremium()
 	{
-		return sh.getText(by.totalPremium);
+		return Integer.parseInt(sh.getText(by.totalPremium));
+	}
+	public String getAnnualizedTotalCost()
+	{
+		return sh.getText(by.annualizedTotalCost);
 	}
 	public RiskAnalysis back()
 	{

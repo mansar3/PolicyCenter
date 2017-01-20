@@ -21,8 +21,8 @@ public class AccountPolicyGenerator
 		Object[][] dataBuffer = null;
 
 		CSVReader reader;
-		String filePathBase = "/Users/aansari/Desktop/";
-		String filePath= filePathBase + "output3.csv";
+		String filePathBase = "/Users/aansari/Downloads/FLHO3-20170119_114257/";
+		String filePath= filePathBase + "policies.csv";
 
 		try
 		{
@@ -51,7 +51,8 @@ public class AccountPolicyGenerator
 						{
 							LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
 							for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
-								addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(aiRow)[thisColumn]);
+								if(!addIntsData.get(aiRow)[thisColumn].equals("") && !addIntsData.get(aiRow)[thisColumn].equals(" "))
+									addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(aiRow)[thisColumn]);
 
 							addInts.add(addInt);
 						}
@@ -66,7 +67,8 @@ public class AccountPolicyGenerator
 						{
 							LinkedHashMap<String, String> spp = new LinkedHashMap<>();
 							for(int thisColumn = 0; thisColumn < sppData.get(0).length; thisColumn++)
-								spp.put(sppData.get(0)[thisColumn], sppData.get(sppRow)[thisColumn]);
+								if(!sppData.get(sppRow)[thisColumn].equals("") && !!sppData.get(sppRow)[thisColumn].equals(" "))
+									spp.put(sppData.get(0)[thisColumn], sppData.get(sppRow)[thisColumn]);
 
 							spc.add(spp);
 						}
@@ -74,6 +76,16 @@ public class AccountPolicyGenerator
 					}
 					else if(!value.equals("") && !value.equals(" "))
 						rowData.put(key, value);
+				}
+				
+				if(rowData.get("Mailing Address") == null)
+				{
+					rowData.put("Mailing Address", rowData.remove("Location Address"));
+					rowData.put("Mailing City", rowData.remove("Location Address - City"));
+					rowData.put("Mailing State", rowData.remove("Location Address - State"));
+					rowData.put("Mailing Zip Code",rowData.remove("Location Address - Zip"));
+
+
 				}
 
 				dataBuffer[row-1] = new Object[]{(rowData),(addInts),(spc)};
