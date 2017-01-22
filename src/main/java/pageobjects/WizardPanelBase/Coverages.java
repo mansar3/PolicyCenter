@@ -343,7 +343,7 @@ public class Coverages extends CenterPanelBase
 			earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
 			waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"),
-			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div"),
+			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
 
 			inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"),
 			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../..//input"),
@@ -361,6 +361,11 @@ public class Coverages extends CenterPanelBase
 
 
 		}
+		public String getWaterBackUpLimit()
+		{
+			return sh.getText(by.waterBackUpLimit);
+		}
+
 
 		public PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
@@ -823,7 +828,7 @@ public class Coverages extends CenterPanelBase
 		
 		public boolean isWaterBackUpChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.waterBackUp);
+			return sh.isDisplayed(by.waterBackUpLimit);
 		}
 		
 		public PropertyEndorsements checkWaterBackUp()

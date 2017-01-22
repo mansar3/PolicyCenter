@@ -51,12 +51,26 @@ public class RiskAnalysis extends CenterPanelBase
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 		return new Quote(sh,path);
 	}
+	private void warningQuote()
+	{
+		sh.waitForNoMask();
+		switch(path)
+		{
+			case SUBMISSION:
+				sh.clickElement(by.submissionQuote);
+				break;
+			case POLICYRENEWAL:
+				sh.clickElement(by.renewalQuote);
+				break;
+		}
+	}
 	public Quote qualifiesForAdditionalProtectionQuote()
 	{
-		quote();
+		warningQuote();
+		sh.waitForPageLoad();
 		sh.waitForNoMask();
 		sh.waitForElementToAppear(By.className("warning_icon"));
-		quote();
+		warningQuote();
 
 		return new Quote(sh,path);
 	}
