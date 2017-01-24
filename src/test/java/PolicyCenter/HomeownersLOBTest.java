@@ -21,10 +21,7 @@ import pageobjects.WizardPanelBase.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Test
 public class HomeownersLOBTest extends BaseTest
@@ -61,7 +58,7 @@ public class HomeownersLOBTest extends BaseTest
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
 		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
-					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot"};
+					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
@@ -70,12 +67,7 @@ public class HomeownersLOBTest extends BaseTest
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
 			csvInput[13] = screenshotName;
-//			for(int i = 0; i < csvInput.length - 1; i++)
-//			{
-//				System.out.print(csvInput[i] + "\t");
-//
-//			}
-//			System.out.println();
+
 			CSVWriter writer;
 			try
 			{
@@ -109,12 +101,7 @@ public class HomeownersLOBTest extends BaseTest
 		else if(testResult.getStatus() == ITestResult.SUCCESS)
 		{
 			String[] csvInput =  errorReportingInfo(eai,true).clone();
-//			for(int i = 0; i < csvInput.length - 1; i++)
-//			{
-//				System.out.print(csvInput[i] + "\t");
-//
-//			}
-//			System.out.println();
+
 			CSVWriter writer;
 			try
 			{
@@ -1323,7 +1310,7 @@ public class HomeownersLOBTest extends BaseTest
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
-		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		sh.wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
@@ -1456,10 +1443,24 @@ public class HomeownersLOBTest extends BaseTest
 
 
 		Dwelling dwelling = pi.next();
-
+		LocationInformation li = null; //= null;
+		SelectStandardizedAddress ssa;
 		// Dwelling
+
+		if(dwelling.getLocationName().equals("1: FL"))
+			li = dwelling.addNewLocation();
+			li
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty("Location Address - County")
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation();
+			dwelling = li.clickOk();
+		// Left as is
+
 		dwelling
-		.setLocationName("1:") // Left as is
 		.setYearBuilt(eai.getOrDefault("Year Built", null))
 		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
 		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
@@ -1623,9 +1624,12 @@ public class HomeownersLOBTest extends BaseTest
 		.setFoundationType(eai.get("Foundation Type"))
 		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
 		.setIsThereASecondaryHeatingSystem(eai.getOrDefault("Is there a secondary heating system?","false"))
-		.setPlumbing(eai.get("Plumbing Type"))
-		.setPlumbingYear(eai.get("Plumbing Year"))
-		.setWaterHeaterYear(eai.get("Water Heater Year"))
+		.setPlumbing(eai.getOrDefault("Plumbing Type",null));
+		if(eai.getOrDefault("Plumbing Type","none").toLowerCase().equals("other"))
+			dc.setPlumbingDescribeOther("Other");
+		dc
+		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
+		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
 		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
 		.setRoofType(eai.get("Roof Type"));
@@ -1671,9 +1675,10 @@ public class HomeownersLOBTest extends BaseTest
 		}
 		else
 		{
-			wm.setRoofCover(eai.get("Roof Cover"))
-			.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
-			.setRoofWallConnection(eai.get("Roof Wall Connection"));
+			wm.setRoofCover(eai.get("Roof Cover"));
+			if(eai.get("Roof Deck Attachment") != null)
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
 
@@ -1869,8 +1874,13 @@ public class HomeownersLOBTest extends BaseTest
 
 	private String[] errorReportingInfo(Map<String, String> eai, boolean result)
 	{
-
-		String[] info = new String[14]; //logs = baos.toString().split("\n");
+		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
+		String[] info;
+		if(sh.isDisplayed(By.className("error_icon")))
+			info = new String[15 + sh.getElements(By.className("error_icon")).size()];
+		else
+			info = new String[15];
+		//String[] info = new String[25]; //logs = baos.toString().split("\n");
 		if(result)
 			info[0] = "PASS";
 		else
@@ -1893,15 +1903,23 @@ public class HomeownersLOBTest extends BaseTest
 		if(!result)
 			try
 			{
-				info[11] = new CenterSeleniumHelper(LocalDriverManager.getDriver()).getText(CenterPanelBase.CenterPanelBy.title);
+				info[11] = sh.getText(CenterPanelBase.CenterPanelBy.title);
 			}
 			catch(Exception e)
 			{
-				info[11] = "Last Page cannot be obtained";
+				info[11] = "Last page cannot be obtained";
 			}
 
-			if(eai.get("Annualized Total Cost") != null)
+		if(eai.get("Annualized Total Cost") != null)
 			info[12] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
+
+
+		if(sh.isDisplayed(By.className("error_icon")))
+		{
+			String[] warnings = getBannerErrors(sh);
+			for(int i = 0; i < warnings.length ; i++)
+				info[14 + i] = warnings[i];
+		}
 
 		return info;
 
@@ -1909,469 +1927,482 @@ public class HomeownersLOBTest extends BaseTest
 
 
 	}
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
-	public void tableTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts,ArrayList<LinkedHashMap<String, String>> spp)
+	private String[] getBannerErrors(CenterSeleniumHelper sh)
 	{
+		List<WebElement> errors = sh.getElements(By.className("message"));
+		String[] bannerText = new String[errors.size()];
 
-		WebDriver driver = LocalDriverManager.getDriver();
-		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
-		int i;
-
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		Actions build = new Actions(driver);
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
-		System.out.println(new DateTime().toString());
-
-		log("Test new person account creation");
-
-		//String[] insuredName = eai.get("Name Insured").split("\\s+");
-		String firstName = eai.get("Name Insured First Name"), lastName = eai.get("Name Insured Last Name");
-
-		enterAccountInfo
-			.setFirstName(firstName)
-			.setCountry("United States")
-			.setCity(eai.get("Mailing City"))
-			.setState(eai.get("Mailing State"))
-			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
-			.clickSearch();
-		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
-
-		log("Creating new account: " + dateString);
-		createAccount
-			.setAddressLine1(eai.get("Mailing Address"))
-			.setCity(eai.get("Mailing City"))
-			.setState(eai.get("Mailing State"))
-			.setDateOfBirth(eai.get("Date of Birth"))
-			.setHomePhone(eai.get("Home Phone"))
-			.setWorkPhone(eai.getOrDefault("Work Phone",null))
-			.setPrimaryEmail(eai.getOrDefault("Email Address",null))
-			.setState(eai.getOrDefault("Mailing State",null))
-			.setZipCode(eai.getOrDefault("Mailing Zip Code",null))
-				.clickVerifyAddress()
-				.selectSuccessfulVerificationIfPossibleForCreateAccount()
-			.setAddressType(eai.getOrDefault("Address Type","Home"))
-			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization(eai.getOrDefault("Organization", null))
-			.setProducerCode(eai.getOrDefault("Producer Code", null));
-
-			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
-            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
-			", first name: " + firstName + ", last name: " + lastName);
-
-
-		// Policy Renewal
-		log("Test simple homeowners policy renewal");
-		String accountNumber = accountFileSummary.getAccountNumber();
-		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
-		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
-
-		accountFileSummary = new AccountFileSummary(sh);
-		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
-
-		// Initiate Manual Renewal
-		imr.setOrganization(eai.getOrDefault("Organization", null))
-		.setProducerCode(eai.getOrDefault("Producer Code", null))
-		.setBaseState(eai.getOrDefault("Mailing State", null))
-		.setProduct(eai.getOrDefault("Product", null))
-		.setPolicyType(eai.getOrDefault("Policy Type", null))
-		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
-		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
-		.setInflationGuard(eai.getOrDefault("Inflation Guard", null))
-		.clickExcludeLossOfUseCoverage(eai.getOrDefault("Exclude Loss of Use Coverage", null));
-		Offerings offerings = imr.nextAndAccept();
-
-		// Offerings
-		offerings
-		.setPolicyType(eai.getOrDefault("Policy Type", null))
-		.setOfferingSelection(eai.getOrDefault("Offering Selection","Most Popular"));
-		PolicyInfo pi = offerings.next();
-
-		// Policy Info
-		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
-
-		i=1;
-
-		if(keyContainsValue(eai,"Additional Name Insured Last Name" ) || keyContainsValue(eai,"Additional Name Insured Company Name" ))
+		for(int i = 0; i < errors.size(); i++)
 		{
-			boolean person = false;
-			SearchAddressBook sab = pi.clickAddFromAddressBook();
-			// See if value is for a person or company
-			if(keyContainsValue(eai,"Additional Name Insured First Name" ))
-			{
-				person = true;
-				sab.setType("Person")
-				.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
-				.setLastName(eai.get("Additional Name Insured Last Name"))
-				.setTaxID(eai.getOrDefault("Additional Name Insured SSN", null));
-			}
-			else
-			{
-				sab.setType("Company")
-				.setCompanyName(eai.get("Additional Name Insured Company Name"));
-			}
-
-			sab.clickSearch();
-			// See if there are search results
-			if(sab.areThereSearchResults())
-				sab.selectFirstSearchResultPolicyInfo();
-
-			// No results, add person/company
-			else
-			{
-				pi = sab.clickReturnToPolicyInfo();
-				// Add a person
-				if(person)
-				{
-					NewAdditionalNameInsured ani = pi.clickAddNewPerson();
-					ani
-
-					.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
-					.setLastName(eai.getOrDefault("Additional Name Insured Last Name", null))
-					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
-					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
-					.clickSameAddressAsPrimaryNamedInsured()
-					.clickOk();
-				}
-				// Add a company
-				else
-				{
-					NewAdditionalNameInsured ani = pi.clickAddNewCompany();
-					ani
-					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
-					.clickSameAddressAsPrimaryNamedInsured()
-					.clickOk();
-
-				}
-
-			}
-			i++;
+			bannerText[i] = errors.get(i).getText();
 		}
-
-
-		Dwelling dwelling = pi.next();
-
-		// Dwelling
-		dwelling
-		.setLocationName("1:") // Left as is
-		.setYearBuilt(eai.getOrDefault("Year Built", null))
-		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
-		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
-		.setTerritoryCode(eai.getOrDefault("Territory Code", null))
-		.setBCEG(eai.getOrDefault("BCEG", null))
-		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
-		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", null))
-		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
-		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
-		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
-		.setMarketValue(eai.getOrDefault("Market Value", null))
-		.setOwnedByOther(eai.getOrDefault("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?", "false"))
-		.setOccupiedDaily(eai.getOrDefault("Occupied Daily","true"))
-		.setResidenceType(eai.getOrDefault("Residence Type", null))
-		.setDwellingUsage(eai.getOrDefault("How is the dwelling customarily Used", null))
-		.setDwellingOccupancy(eai.getOrDefault("How is the dwelling occupied", null));
-
-
-		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false") && eai.get("Is there a swimming pool?") != null)
-		{
-			dwelling
-			.setSwimmingPool("true")
-			.setPoolLocation(eai.getOrDefault("Is there a swimming pool?", "<none>"))
-			.setPoolFenced("true");
-
-			if(eai.get("Pool Fence Type").toLowerCase().equals("true")) // hashkey assumed
-				dwelling.setFenceType("Screen Enclosure");
-
-			dwelling
-			.setDivingBoard("false")
-			.setPoolSlide("false");
-		}
-		dwelling
-		.setTrampolineOnPremises(eai.getOrDefault("Is there a trampoline","false"))
-		.setSkateboardBicycleRampOnPremises(eai.getOrDefault("is there a skateboard or bicycle ramp on premises?","false"))
-		.setAnimalsOrExoticPets(eai.getOrDefault("Any animals or exotic pets on premises?","false"))
-		.setGolfCarts(eai.getOrDefault("Any owned Golf Carts?","false"))
-		.setRecreationalVehiclesOwned(eai.getOrDefault("Any owned recreational vehicles?","false"))
-		.setHousekeepingCondition(eai.getOrDefault("Housekeeping Condition","Average Condition"));
-
-
-
-
-		// Protection Details
-		Dwelling.ProtectionDetails pd = dwelling.clickProtectionDetails();
-
-
-
-		if(!eai.get("Burglar Alarm Type").toLowerCase().equals("false") && eai.get("Burglar Alarm Type") != null)
-			pd.
-			setBurglarAlarm("true")
-			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
-
-		pd
-		.setLockedPrivacyFence(eai.getOrDefault("Is there a locked privacy fence","false"))
-		.setBurglarBarsOnWindows(eai.getOrDefault("are there any burglar bars on the windows/doors?","false"));
-
-		if(eai.get("are there any burglar bars on the windows/doors?").toLowerCase().equals("true"))
-			pd.safetyLatchesPresent("true");
-		pd
-		.setCommunityGuarded(eai.get("Is the community Guarded?"))
-		.setGatedCommunity(eai.get("Is the community Gated?"));
-
-		if(!eai.get("Fire Alarm type").equals("false") && eai.get("Fire Alarm type") != null)
-			pd.setFireAlarm("true")
-				.setFireAlarmType(eai.get("Fire Alarm type"));
-		pd
-		.setSmokeAlarm(eai.get("Smoke Alarms"))
-		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
-
-		if(!eai.get("Sprinkler System").toLowerCase().equals("false") && eai.get("Sprinkler System") != null)
-
-			pd.
-			setSprinklerSystem("true")
-			.setSprinklerSystemType(eai.get("Sprinkler System"));
-		pd
-		.setDeadbolts(eai.get("Deadbolts"))
-		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
-
-
-
-
-
-
-		// Additional Interests
-		Dwelling.AdditionalInterests ai = pd.clickAdditionalInterests();
-		for(i= 0; i <= addInts.size() -1;i++)
-		{
-
-			SearchAddressBook sab = ai.clickFromAddressBook();
-			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
-			sab
-			.setType("Person")
-			.setFirstName(fName)
-			.setLastName(lName)
-			.setCity(addInts.get(i).get("City"))
-			.setState(addInts.get(i).get("State"))
-			.setZipCode(addInts.get(i).get("Zipcode"))
-			.clickSearch();
-			// See if there are search results
-			if(sab.areThereSearchResults())
-			{
-				ai = sab.selectFirstSearchResultAdditionalInterests();
-				ai
-				.setType(i+1,addInts.get(i).get("Type"))
-				.setLoanNumber(i+1,addInts.get(i).getOrDefault("Loan Number", null));
-
-
-			}
-			else
-			{
-
-				ai = sab.clickReturnToDwelling();
-				NewAdditionalInterest nai =  ai.clickAddNewPerson();
-				nai
-				.setType(addInts.get(i).get("Type"))
-				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
-				.setFirstName(fName)
-				.setLastName(lName)
-//				.clickSameAddressAsPrimaryNamedInsured()
-				.setAddress1(addInts.get(i).get("Address"))
-				.setCity(addInts.get(i).get("City"))
-				.setState(addInts.get(i).get("State"))
-				.setZipCode(addInts.get(i).get("Zipcode"))
-				.clickVerifyAddress()
-				.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
-				.setAddressType("Home")
-				.clickOk();
-
-
-
-
-			}
-
-
-		}
-
-		DwellingConstruction dc = ai.next();
-
-		// Dwelling Construction
-		dc
-		.setValuationType(eai.getOrDefault("Valuation Type","<none>"))
-		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
-		.setConstructionType(eai.get("Construction Type"))
-		.setNumberOfUnits(eai.get("Number of Units"))
-		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
-		.setNumberOfStories(eai.get("Number of Stories"))
-		.setSquareFootage(eai.get("Square Footage"))
-		.setFoundationType(eai.get("Foundation Type"))
-		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
-		.setIsThereASecondaryHeatingSystem(eai.get("Is there a secondary heating system?"))
-		.setPlumbing(eai.get("Plumbing Type"))
-		.setPlumbingYear(eai.get("Plumbing Year"))
-		.setWaterHeaterYear(eai.get("Water Heater Year"))
-		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
-		.setRoofType(eai.get("Roof Type"))
-		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
-		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
-		.setScreenEnclosureOnPremises(eai.get("Is there a screen enclosure on premises?"))
-
-
-
-		.setPlumbingSystemHaveKnownLeaks(eai.getOrDefault("Does the plumbing system have known leaks?","false"))
-		.setBuildingRetrofittedForEarthquakes(eai.getOrDefault("Is the building retrofitted for earthquakes?","false"))
-		.setUncorrectedFireOrBuildingCodeViolations(eai.getOrDefault("Any uncorrected fire or building code violations?","false"))
-		.setStructureOriginallyBuiltForOtherThanPrivateResidence(eai.getOrDefault("Was the structure originally built for other than a private residence and then converted?","false"))
-		.setLeadPaintHazard(eai.getOrDefault("Any lead paint hazard", "false"))
-		.setAnyPortionOfAnyStructureAtThisPropertyLocation(eai.getOrDefault("Is any portion of any structure at this property location now (or ever has been) " +
-		"a mobile home, modular home, trailer home, or other pre-fabricated home?", "false"));
-
-
-		// Wind Mitigation
-		DwellingConstruction.WindMitigation wm = dc.clickWindMitigation();
-		wm
-		.setRoofShapeType(eai.get("Roof Shape"))
-		.setOpeningProtectionType(eai.get("Opening Protection Type"))
-		.setTerrain(eai.get("Terrain"))
-		.setRoofCover(eai.get("Roof Cover"))
-		.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
-		.setRoofWallConnection(eai.get("Roof Wall Connection"))
-		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"));
-		Coverages co = wm.next()
-
-		// Coverages
-		.setDwellingLimit(eai.get("Dwelling Limit"))
-		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		if(eai.get("Personal Property - Limit") != null)
-			co.setPersonalPropertyExcluded("false")
-			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
-		else
-			co.setPersonalPropertyExcluded("true");
-		co
-		.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"))
-		.setLossOfUseSelection(eai.get("Loss of Use - %"))
-		.setWindExcluded(eai.get("Wind Excluded"))
-		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
-
-		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
-			co
-			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
-
-		co
-		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
-		.setMedicalPaymentsLimit(eai.get("Medical Payments"));
-
-
-
-
-
-		// Property Endorsements
-		Coverages.PropertyEndorsements pe = co.clickPropertyEndorsements();
-		
-		if(eai.get("Guardian Endorsement") != null)
-			pe
-			.checkGuardianEndorsements();
-
-		if(eai.get("Whensafe - %") != null)
-			pe
-			.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-
-		if(eai.get("Specific Other Structures - Limit" ) != null)
-		{
-			pe
-			.checkSpecificOtherStructures()
-			.addSpecificOtherStructures()
-			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
-		}
-
-		if(eai.get("Other Structures Increase Coverage - Rented to Others - Limit") != null)
-		{
-			pe
-			.checkOtherStructuresIncreasedCoverageRentedToOthers()
-			.clickAddOtherStructures()
-			//.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description " + i))
-			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
-
-		}
-
-		if(spp.size() > 0)
-			pe.checkScheduledPersonalProperty();
-
-		for(int j = 1; j <= spp.size();j++)
-		{
-			pe
-			.clickAddScheduledPersonalProperty()
-			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
-			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
-
-		}
-
-		pe
-		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
-		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
-
-		if(!eai.get("Screen Enclosure Hurricane Coverage (Limit)").toLowerCase().equals(""))
-			pe
-			.checkScreenEnclosureHurricaneCoverage()
-			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-		
-//		if(keyContainsValue(eai,"Credit Card (Limit)"))
-//			pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
-
-
-		
-		//.setPercentageOfAnnualIncrease("12%")
-		if(!eai.get("Sinkhole Loss Coverage").toLowerCase().equals("false"))
-			pe
-			.checkSinkholeLossCoverage()
-			.setSinkholeClaimsIndex("4500")
-			.setSinkholeIndex("330");
-
-		// Liability Endorsements
-		Coverages.LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(!eai.get("Permitted Incidental Occupancy - Liability").toLowerCase().equals("false") && eai.get("Permitted Incidental Occupancy - Liability") != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
-		
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
-
-		if(!eai.get("Additional Residence Rented to Others - Number of families").toLowerCase().equals("false") && eai.get("Additional Residence Rented to Others - Number of families") != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-			//.setLocationName("1:")
-			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
-		if(!eai.get("Business Pursuits - Business activity").toLowerCase().equals("false") && eai.get("Business Pursuits - Business activity") != null)
-			le
-			.checkBusinessPursuits()
-			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
-		if(!eai.get("Watercraft Liablity - Watercraft Type").toLowerCase().equals("false") && eai.get("Watercraft Liablity - Watercraft Type") != null)
-			le
-			.checkWatercraftLiability()
-			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
-
-		le
-		.next()
-		.quote();
-		//.back().requestApproval().sendRequest();
-		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
-
-
+		return bannerText;
 
 	}
+
+//	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
+//	public void tableTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts,ArrayList<LinkedHashMap<String, String>> spp)
+//	{
+//
+//		WebDriver driver = LocalDriverManager.getDriver();
+//		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
+//		int i;
+//
+//		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+//		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+//		Actions build = new Actions(driver);
+//		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+//		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+//		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+//		System.out.println(new DateTime().toString());
+//
+//		log("Test new person account creation");
+//
+//		//String[] insuredName = eai.get("Name Insured").split("\\s+");
+//		String firstName = eai.get("Name Insured First Name"), lastName = eai.get("Name Insured Last Name");
+//
+//		enterAccountInfo
+//			.setFirstName(firstName)
+//			.setCountry("United States")
+//			.setCity(eai.get("Mailing City"))
+//			.setState(eai.get("Mailing State"))
+//			.setZipCode(eai.get("Mailing Zip Code"))
+//			.setLastName(lastName)
+//			.clickSearch();
+//		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+//
+//		log("Creating new account: " + dateString);
+//		createAccount
+//			.setAddressLine1(eai.get("Mailing Address"))
+//			.setCity(eai.get("Mailing City"))
+//			.setState(eai.get("Mailing State"))
+//			.setDateOfBirth(eai.get("Date of Birth"))
+//			.setHomePhone(eai.get("Home Phone"))
+//			.setWorkPhone(eai.getOrDefault("Work Phone",null))
+//			.setPrimaryEmail(eai.getOrDefault("Email Address",null))
+//			.setState(eai.getOrDefault("Mailing State",null))
+//			.setZipCode(eai.getOrDefault("Mailing Zip Code",null))
+//				.clickVerifyAddress()
+//				.selectSuccessfulVerificationIfPossibleForCreateAccount()
+//			.setAddressType(eai.getOrDefault("Address Type","Home"))
+//			//.setDescription("Nerd Lair")
+//			.setSsn(eai.getOrDefault("SSN", null))
+//			.setOrganization(eai.getOrDefault("Organization", null))
+//			.setProducerCode(eai.getOrDefault("Producer Code", null));
+//
+//			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+//            log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
+//			", first name: " + firstName + ", last name: " + lastName);
+//
+//
+//		// Policy Renewal
+//		log("Test simple homeowners policy renewal");
+//		String accountNumber = accountFileSummary.getAccountNumber();
+//		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+//		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+//		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+//		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
+//		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
+//
+//		accountFileSummary = new AccountFileSummary(sh);
+//		InitiateManualRenewal imr = accountFileSummary.westPanel.actions.convertManualPolicy();
+//
+//		// Initiate Manual Renewal
+//		imr.setOrganization(eai.getOrDefault("Organization", null))
+//		.setProducerCode(eai.getOrDefault("Producer Code", null))
+//		.setBaseState(eai.getOrDefault("Mailing State", null))
+//		.setProduct(eai.getOrDefault("Product", null))
+//		.setPolicyType(eai.getOrDefault("Policy Type", null))
+//		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
+//		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+//		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
+//		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
+//		.setInflationGuard(eai.getOrDefault("Inflation Guard", null))
+//		.clickExcludeLossOfUseCoverage(eai.getOrDefault("Exclude Loss of Use Coverage", null));
+//		Offerings offerings = imr.nextAndAccept();
+//
+//		// Offerings
+//		offerings
+//		.setPolicyType(eai.getOrDefault("Policy Type", null))
+//		.setOfferingSelection(eai.getOrDefault("Offering Selection","Most Popular"));
+//		PolicyInfo pi = offerings.next();
+//
+//		// Policy Info
+//		pi
+//		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+//
+//		i=1;
+//
+//		if(keyContainsValue(eai,"Additional Name Insured Last Name" ) || keyContainsValue(eai,"Additional Name Insured Company Name" ))
+//		{
+//			boolean person = false;
+//			SearchAddressBook sab = pi.clickAddFromAddressBook();
+//			// See if value is for a person or company
+//			if(keyContainsValue(eai,"Additional Name Insured First Name" ))
+//			{
+//				person = true;
+//				sab.setType("Person")
+//				.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
+//				.setLastName(eai.get("Additional Name Insured Last Name"))
+//				.setTaxID(eai.getOrDefault("Additional Name Insured SSN", null));
+//			}
+//			else
+//			{
+//				sab.setType("Company")
+//				.setCompanyName(eai.get("Additional Name Insured Company Name"));
+//			}
+//
+//			sab.clickSearch();
+//			// See if there are search results
+//			if(sab.areThereSearchResults())
+//				sab.selectFirstSearchResultPolicyInfo();
+//
+//			// No results, add person/company
+//			else
+//			{
+//				pi = sab.clickReturnToPolicyInfo();
+//				// Add a person
+//				if(person)
+//				{
+//					NewAdditionalNameInsured ani = pi.clickAddNewPerson();
+//					ani
+//
+//					.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
+//					.setLastName(eai.getOrDefault("Additional Name Insured Last Name", null))
+//					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
+//					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
+//					.clickSameAddressAsPrimaryNamedInsured()
+//					.clickOk();
+//				}
+//				// Add a company
+//				else
+//				{
+//					NewAdditionalNameInsured ani = pi.clickAddNewCompany();
+//					ani
+//					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
+//					.clickSameAddressAsPrimaryNamedInsured()
+//					.clickOk();
+//
+//				}
+//
+//			}
+//			i++;
+//		}
+//
+//
+//		Dwelling dwelling = pi.next();
+//
+//		// Dwelling
+//		dwelling
+//		.setLocationName("1:") // Left as is
+//		.setYearBuilt(eai.getOrDefault("Year Built", null))
+//		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
+//		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
+//		.setTerritoryCode(eai.getOrDefault("Territory Code", null))
+//		.setBCEG(eai.getOrDefault("BCEG", null))
+//		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
+//		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
+//		.setInTheWindpool(eai.getOrDefault("In the Windpool?", null))
+//		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
+//		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
+//		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
+//		.setMarketValue(eai.getOrDefault("Market Value", null))
+//		.setOwnedByOther(eai.getOrDefault("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?", "false"))
+//		.setOccupiedDaily(eai.getOrDefault("Occupied Daily","true"))
+//		.setResidenceType(eai.getOrDefault("Residence Type", null))
+//		.setDwellingUsage(eai.getOrDefault("How is the dwelling customarily Used", null))
+//		.setDwellingOccupancy(eai.getOrDefault("How is the dwelling occupied", null));
+//
+//
+//		if(!eai.get("Is there a swimming pool?").toLowerCase().equals("false") && eai.get("Is there a swimming pool?") != null)
+//		{
+//			dwelling
+//			.setSwimmingPool("true")
+//			.setPoolLocation(eai.getOrDefault("Is there a swimming pool?", "<none>"))
+//			.setPoolFenced("true");
+//
+//			if(eai.get("Pool Fence Type").toLowerCase().equals("true")) // hashkey assumed
+//				dwelling.setFenceType("Screen Enclosure");
+//
+//			dwelling
+//			.setDivingBoard("false")
+//			.setPoolSlide("false");
+//		}
+//		dwelling
+//		.setTrampolineOnPremises(eai.getOrDefault("Is there a trampoline","false"))
+//		.setSkateboardBicycleRampOnPremises(eai.getOrDefault("is there a skateboard or bicycle ramp on premises?","false"))
+//		.setAnimalsOrExoticPets(eai.getOrDefault("Any animals or exotic pets on premises?","false"))
+//		.setGolfCarts(eai.getOrDefault("Any owned Golf Carts?","false"))
+//		.setRecreationalVehiclesOwned(eai.getOrDefault("Any owned recreational vehicles?","false"))
+//		.setHousekeepingCondition(eai.getOrDefault("Housekeeping Condition","Average Condition"));
+//
+//
+//
+//
+//		// Protection Details
+//		Dwelling.ProtectionDetails pd = dwelling.clickProtectionDetails();
+//
+//
+//
+//		if(!eai.get("Burglar Alarm Type").toLowerCase().equals("false") && eai.get("Burglar Alarm Type") != null)
+//			pd.
+//			setBurglarAlarm("true")
+//			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
+//
+//		pd
+//		.setLockedPrivacyFence(eai.getOrDefault("Is there a locked privacy fence","false"))
+//		.setBurglarBarsOnWindows(eai.getOrDefault("are there any burglar bars on the windows/doors?","false"));
+//
+//		if(eai.get("are there any burglar bars on the windows/doors?").toLowerCase().equals("true"))
+//			pd.safetyLatchesPresent("true");
+//		pd
+//		.setCommunityGuarded(eai.get("Is the community Guarded?"))
+//		.setGatedCommunity(eai.get("Is the community Gated?"));
+//
+//		if(!eai.get("Fire Alarm type").equals("false") && eai.get("Fire Alarm type") != null)
+//			pd.setFireAlarm("true")
+//				.setFireAlarmType(eai.get("Fire Alarm type"));
+//		pd
+//		.setSmokeAlarm(eai.get("Smoke Alarms"))
+//		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
+//
+//		if(!eai.get("Sprinkler System").toLowerCase().equals("false") && eai.get("Sprinkler System") != null)
+//
+//			pd.
+//			setSprinklerSystem("true")
+//			.setSprinklerSystemType(eai.get("Sprinkler System"));
+//		pd
+//		.setDeadbolts(eai.get("Deadbolts"))
+//		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
+//
+//
+//
+//
+//
+//
+//		// Additional Interests
+//		Dwelling.AdditionalInterests ai = pd.clickAdditionalInterests();
+//		for(i= 0; i <= addInts.size() -1;i++)
+//		{
+//
+//			SearchAddressBook sab = ai.clickFromAddressBook();
+//			String[] name =  addInts.get(i).get("Name").split("\\s+");
+//			String fName =  name[0], lName = getLastName(name);
+//			sab
+//			.setType("Person")
+//			.setFirstName(fName)
+//			.setLastName(lName)
+//			.setCity(addInts.get(i).get("City"))
+//			.setState(addInts.get(i).get("State"))
+//			.setZipCode(addInts.get(i).get("Zipcode"))
+//			.clickSearch();
+//			// See if there are search results
+//			if(sab.areThereSearchResults())
+//			{
+//				ai = sab.selectFirstSearchResultAdditionalInterests();
+//				ai
+//				.setType(i+1,addInts.get(i).get("Type"))
+//				.setLoanNumber(i+1,addInts.get(i).getOrDefault("Loan Number", null));
+//
+//
+//			}
+//			else
+//			{
+//
+//				ai = sab.clickReturnToDwelling();
+//				NewAdditionalInterest nai =  ai.clickAddNewPerson();
+//				nai
+//				.setType(addInts.get(i).get("Type"))
+//				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
+//				.setFirstName(fName)
+//				.setLastName(lName)
+////				.clickSameAddressAsPrimaryNamedInsured()
+//				.setAddress1(addInts.get(i).get("Address"))
+//				.setCity(addInts.get(i).get("City"))
+//				.setState(addInts.get(i).get("State"))
+//				.setZipCode(addInts.get(i).get("Zipcode"))
+//				.clickVerifyAddress()
+//				.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+//				.setAddressType("Home")
+//				.clickOk();
+//
+//
+//
+//
+//			}
+//
+//
+//		}
+//
+//		DwellingConstruction dc = ai.next();
+//
+//		// Dwelling Construction
+//		dc
+//		.setValuationType(eai.getOrDefault("Valuation Type","<none>"))
+//		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
+//		.setConstructionType(eai.get("Construction Type"))
+//		.setNumberOfUnits(eai.get("Number of Units"))
+//		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
+//		.setNumberOfStories(eai.get("Number of Stories"))
+//		.setSquareFootage(eai.get("Square Footage"))
+//		.setFoundationType(eai.get("Foundation Type"))
+//		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
+//		.setIsThereASecondaryHeatingSystem(eai.get("Is there a secondary heating system?"))
+//		.setPlumbing(eai.get("Plumbing Type"))
+//		.setPlumbingYear(eai.get("Plumbing Year"))
+//		.setWaterHeaterYear(eai.get("Water Heater Year"))
+//		.setWiring(eai.getOrDefault("Wiring", "Copper"))
+//		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
+//		.setRoofType(eai.get("Roof Type"))
+//		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
+//		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
+//		.setScreenEnclosureOnPremises(eai.get("Is there a screen enclosure on premises?"))
+//
+//
+//
+//		.setPlumbingSystemHaveKnownLeaks(eai.getOrDefault("Does the plumbing system have known leaks?","false"))
+//		.setBuildingRetrofittedForEarthquakes(eai.getOrDefault("Is the building retrofitted for earthquakes?","false"))
+//		.setUncorrectedFireOrBuildingCodeViolations(eai.getOrDefault("Any uncorrected fire or building code violations?","false"))
+//		.setStructureOriginallyBuiltForOtherThanPrivateResidence(eai.getOrDefault("Was the structure originally built for other than a private residence and then converted?","false"))
+//		.setLeadPaintHazard(eai.getOrDefault("Any lead paint hazard", "false"))
+//		.setAnyPortionOfAnyStructureAtThisPropertyLocation(eai.getOrDefault("Is any portion of any structure at this property location now (or ever has been) " +
+//		"a mobile home, modular home, trailer home, or other pre-fabricated home?", "false"));
+//
+//
+//		// Wind Mitigation
+//		DwellingConstruction.WindMitigation wm = dc.clickWindMitigation();
+//		wm
+//		.setRoofShapeType(eai.get("Roof Shape"))
+//		.setOpeningProtectionType(eai.get("Opening Protection Type"))
+//		.setTerrain(eai.get("Terrain"))
+//		.setRoofCover(eai.get("Roof Cover"))
+//		.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
+//		.setRoofWallConnection(eai.get("Roof Wall Connection"))
+//		.setSecondaryWaterResistance(eai.get("Secondary Water Resistance"));
+//		Coverages co = wm.next()
+//
+//		// Coverages
+//		.setDwellingLimit(eai.get("Dwelling Limit"))
+//		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+//		if(eai.get("Personal Property - Limit") != null)
+//			co.setPersonalPropertyExcluded("false")
+//			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
+//		else
+//			co.setPersonalPropertyExcluded("true");
+//		co
+//		.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"))
+//		.setLossOfUseSelection(eai.get("Loss of Use - %"))
+//		.setWindExcluded(eai.get("Wind Excluded"))
+//		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
+//
+//		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
+//			co
+//			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+//
+//		co
+//		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
+//		.setMedicalPaymentsLimit(eai.get("Medical Payments"));
+//
+//
+//
+//
+//
+//		// Property Endorsements
+//		Coverages.PropertyEndorsements pe = co.clickPropertyEndorsements();
+//
+//		if(eai.get("Guardian Endorsement") != null)
+//			pe
+//			.checkGuardianEndorsements();
+//
+//		if(eai.get("Whensafe - %") != null)
+//			pe
+//			.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//
+//		if(eai.get("Specific Other Structures - Limit" ) != null)
+//		{
+//			pe
+//			.checkSpecificOtherStructures()
+//			.addSpecificOtherStructures()
+//			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
+//		}
+//
+//		if(eai.get("Other Structures Increase Coverage - Rented to Others - Limit") != null)
+//		{
+//			pe
+//			.checkOtherStructuresIncreasedCoverageRentedToOthers()
+//			.clickAddOtherStructures()
+//			//.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description " + i))
+//			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
+//
+//		}
+//
+//		if(spp.size() > 0)
+//			pe.checkScheduledPersonalProperty();
+//
+//		for(int j = 1; j <= spp.size();j++)
+//		{
+//			pe
+//			.clickAddScheduledPersonalProperty()
+//			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
+//			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+//			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
+//
+//		}
+//
+//		pe
+//		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
+//		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+//		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+//
+//		if(!eai.get("Screen Enclosure Hurricane Coverage (Limit)").toLowerCase().equals(""))
+//			pe
+//			.checkScreenEnclosureHurricaneCoverage()
+//			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
+//
+////		if(keyContainsValue(eai,"Credit Card (Limit)"))
+////			pe.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
+//
+//
+//
+//		//.setPercentageOfAnnualIncrease("12%")
+//		if(!eai.get("Sinkhole Loss Coverage").toLowerCase().equals("false"))
+//			pe
+//			.checkSinkholeLossCoverage()
+//			.setSinkholeClaimsIndex("4500")
+//			.setSinkholeIndex("330");
+//
+//		// Liability Endorsements
+//		Coverages.LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+//		if(!eai.get("Permitted Incidental Occupancy - Liability").toLowerCase().equals("false") && eai.get("Permitted Incidental Occupancy - Liability") != null)
+//			le
+//			.checkPermittedIncidentalOccupancyLiability();
+//
+////		if(!eai.get("Animal Liability").equals(""))
+////			le.checkAnimalLiability();
+//
+//		if(!eai.get("Additional Residence Rented to Others - Number of families").toLowerCase().equals("false") && eai.get("Additional Residence Rented to Others - Number of families") != null)
+//			le
+//			.checkAdditionalResidenceRentedToOthers()
+//			//.setLocationName("1:")
+//			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+//		if(!eai.get("Business Pursuits - Business activity").toLowerCase().equals("false") && eai.get("Business Pursuits - Business activity") != null)
+//			le
+//			.checkBusinessPursuits()
+//			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
+//		if(!eai.get("Watercraft Liablity - Watercraft Type").toLowerCase().equals("false") && eai.get("Watercraft Liablity - Watercraft Type") != null)
+//			le
+//			.checkWatercraftLiability()
+//			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+//
+//		le
+//		.next()
+//		.quote();
+//		//.back().requestApproval().sendRequest();
+//		//sh.waitForElementToAppear(By.id("RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:ttlBar"));
+//
+//
+//
+//	}
 //	// Renewal types
 //	public void FLH03AccountRenewalPOC()
 //	{

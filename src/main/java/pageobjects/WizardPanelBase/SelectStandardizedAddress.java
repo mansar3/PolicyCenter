@@ -56,6 +56,16 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 			sh.clickElement(by.unmatchedAddress);
 		return new NewAdditionalInterest(sh, path);
 	}
+	public LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
+	{
+		sh.waitForNoMask(5);
+
+		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
+			sh.clickElement(by.matchedAddress);
+		else
+			sh.clickElement(by.unmatchedAddress);
+		return new LocationInformation(sh, path);
+	}
 
 	public NewAdditionalNameInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{

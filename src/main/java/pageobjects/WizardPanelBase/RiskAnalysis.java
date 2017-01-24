@@ -67,9 +67,9 @@ public class RiskAnalysis extends CenterPanelBase
 	public Quote qualifiesForAdditionalProtectionQuote()
 	{
 		warningQuote();
-		sh.waitForPageLoad();
 		sh.waitForNoMask();
 		sh.waitForElementToAppear(By.className("warning_icon"));
+		sh.waitForPageLoad();
 		warningQuote();
 
 		return new Quote(sh,path);

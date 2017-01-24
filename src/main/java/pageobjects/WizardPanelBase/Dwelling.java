@@ -413,6 +413,19 @@ public class Dwelling extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
+	public LocationInformation addNewLocation()
+	{
+		sh.clickElement(by.locationDropDown);
+		sh.clickElement(by.newLocation);
+		return new LocationInformation(sh, path);
+	}
+	public LocationInformation editLocation()
+	{
+		sh.clickElement(by.locationDropDown);
+		sh.clickElement(by.editLocation);
+		return new LocationInformation(sh, path);
+	}
+
 
 
 	public class DwellingBy{
@@ -443,7 +456,9 @@ public class Dwelling extends CenterPanelBase
 								fenceType = By.id(dwellingBase + "SwimmingPoolFenceType_fli-inputEl"),
 								exoticAnimalTableID = By.id(dwellingBase + "1"),
 								windpoolZone = By.id(dwellingBase + "WindpoolType_fli-inputEl"),
-
+								locationDropDown = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:HODwellingLocationInputMenuIcon"),
+								newLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:NewGarageLocation-itemEl"),
+								editLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:EditDwellingLocation-itemEl"),
 
 								// Protection Details
 								protectionDetails = By.id(tabBase + "DwellingSingleProtectionIdTab-btnInnerEl"),
@@ -460,6 +475,7 @@ public class Dwelling extends CenterPanelBase
 
 
 	}
+
 
 	public class ExoticAnimalTable extends TableBase
 	{

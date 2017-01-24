@@ -493,7 +493,7 @@ public class DwellingConstruction extends CenterPanelBase
 
 		public Coverages next()
 		{
-			sh.waitForNoMask(15);
+			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForPageLoad();
 			if(policyQualifiesErrorIsPresent())
@@ -502,7 +502,6 @@ public class DwellingConstruction extends CenterPanelBase
 		}
 		public Coverages doubleClickNext()
 		{
-			//sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForPageLoad();
 			sh.waitForNoMask();
