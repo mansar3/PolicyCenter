@@ -21,8 +21,9 @@
 								<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<systemPropertyVariables>
-								<environment>true</environment>
+								<environment>48</environment>
                                 <local>true</local>
+                                <threads>1</threads>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
@@ -54,7 +55,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19</version>
 				<configuration>
-					<skipTests>${skipTests}</skipTests>
+					<skipTests>false</skipTests>
 				</configuration>
 			</plugin>
 			<plugin>
