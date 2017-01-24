@@ -21,7 +21,7 @@ public class AccountPolicyGenerator
 		Object[][] dataBuffer = null;
 
 		CSVReader reader;
-		String filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
+		String filePathBase = "//FLHIFS1/General/ConversionData/FLHO3-20170119_114257/";
 		String filePath= filePathBase + "policies.csv";
 
 		try
