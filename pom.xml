@@ -23,7 +23,6 @@
 							<systemPropertyVariables>
 								<environment>48</environment>
                                 <local>true</local>
-                                <threads>1</threads>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
