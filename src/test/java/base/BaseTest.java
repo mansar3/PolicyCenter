@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import org.testng.xml.XmlTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +33,11 @@ public abstract class BaseTest
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 
-	@Parameters({"environment", "local"})
+	@Parameters({"environment", "local", "threads"})
 	@BeforeSuite
-	public void beforeSuite(@Optional("48") String environment, @Optional("false") Boolean local)
+	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("10") int threads)
 	{
+		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
 		screenShotFolder.mkdir();
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());

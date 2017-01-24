@@ -8,6 +8,28 @@
     <artifactId>qa-centers</artifactId>
     <version>1.0.0</version>
 
+    <profiles>
+        <profile>
+            <id>QAPolicyCenter</id>
+            <build>
+                <plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>src/test/resources/QAPolicyCenter.xml</suiteXmlFile>
+							</suiteXmlFiles>
+							<systemPropertyVariables>
+								<environment>true</environment>
+                                <local>true</local>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+            </build>
+        </profile>
+    </profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipTests>true</skipTests>
