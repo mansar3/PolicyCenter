@@ -21,8 +21,29 @@ public class AccountPolicyGenerator
 		Object[][] dataBuffer = null;
 
 		CSVReader reader;
+//		String filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
 		String filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
 		String filePath= filePathBase + "policies.csv";
+
+		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
+//		NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("fpic.net", "username", "password"); // replace with actual values
+//		SmbFile file = null; // note the different format
+//		try
+//		{
+//			file = new SmbFile(filePath, authentication);
+//		}
+//		catch(MalformedURLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		try
+//		{
+//			OutputStream out = file.getOutputStream();
+//		}
+//		catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
 
 		try
 		{
