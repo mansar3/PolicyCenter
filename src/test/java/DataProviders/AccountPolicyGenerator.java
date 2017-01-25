@@ -1,6 +1,7 @@
 package DataProviders;
 
 import com.opencsv.CSVReader;
+import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
 
 import java.io.FileNotFoundException;
@@ -15,14 +16,18 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;
 
 		CSVReader reader;
-//		String filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
-		String filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
+		String filePathBase;
+		if(SystemUtils.IS_OS_MAC)
+			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170123_143054/";
+			filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
+		else
+			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
 		String filePath= filePathBase + "policies.csv";
 
 		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
@@ -98,7 +103,7 @@ public class AccountPolicyGenerator
 					else if(!value.equals("") && !value.equals(" "))
 						rowData.put(key, value);
 				}
-				
+
 				if(rowData.get("Mailing Address") == null)
 				{
 					rowData.put("Mailing Address", rowData.remove("Location Address"));
