@@ -1443,21 +1443,19 @@ public class HomeownersLOBTest extends BaseTest
 
 
 		Dwelling dwelling = pi.next();
-		LocationInformation li = null; //= null;
-		SelectStandardizedAddress ssa;
+
 		// Dwelling
 
-		if(dwelling.getLocationName().equals("1: FL"))
-			li = dwelling.addNewLocation();
-			li
+		if(dwelling.getLocationName().equals("1: FL") || !eai.getOrDefault("Mailing Address","").equals(eai.get("Location Address")))
+			dwelling = dwelling.addNewLocation()
 			.setAddress1(eai.get("Location Address"))
 			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
 			.setCity(eai.get("Location Address - City"))
 			.setZipCode(eai.get("Location Address - Zip"))
 			.setCounty("Location Address - County")
 			.clickVerifyAddress()
-			.selectSuccessfulVerificationIfPossibleForLocationInformation();
-			dwelling = li.clickOk();
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickOk();
 		// Left as is
 
 		dwelling

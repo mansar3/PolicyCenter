@@ -473,22 +473,16 @@ public class DwellingConstruction extends CenterPanelBase
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
 
 
-								dwelling = By.id(tabBase + "DetailsTab-btnInnerEl"),
+								details = By.id(tabBase + "DetailsTab-btnInnerEl"),
 
 								policyQualificationWarning = By.className("warning_icon");
 		}
-		private boolean policyQualifiesErrorIsPresent()
-		{
-			String warning= "Policy qualifies for Hurricane Opening Protection:";
-			if(sh.isDisplayed(by.policyQualificationWarning))
-				return sh.getText(by.policyQualificationWarning).contains(warning);
 
-			return false;
-		}
-		public Dwelling clickDwelling()
+		public DwellingConstruction clickDetails()
 		{
-			sh.clickElement(by.dwelling);
-			return new Dwelling(sh, path);
+			sh.clickElement(by.details);
+			sh.waitForNoMask();
+			return new DwellingConstruction(sh, path);
 		}
 
 		public Coverages next()
@@ -496,8 +490,6 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForPageLoad();
-			if(policyQualifiesErrorIsPresent())
-				sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new Coverages(sh,path);
 		}
 		public Coverages doubleClickNext()
@@ -506,7 +498,21 @@ public class DwellingConstruction extends CenterPanelBase
 			sh.waitForPageLoad();
 			sh.waitForNoMask();
 			sh.waitForElementToAppear(By.className("warning_icon"));
-			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+//			for(int i =0; i < 5; i++)
+//			{
+//				if(sh.isDisplayed(By.className("warning_icon")))
+//				{
+//					sh.waitForNoMask();
+//					sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+//				}
+//				else
+//					break;
+//			}
+			clickDetails().next();
+
+//			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+
+			//sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return new Coverages(sh,path);
 		}
 

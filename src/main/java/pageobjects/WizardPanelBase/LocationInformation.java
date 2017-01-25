@@ -13,7 +13,10 @@ public class LocationInformation extends CenterPanelBase
 	{
 		this.sh = sh;
 		this.path = path;
+		expectedPanelTitle = "Location Information";
+		waitForTitle(sh);
 		by = new LocationInformationBy();
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 
 	}
 	public class LocationInformationBy

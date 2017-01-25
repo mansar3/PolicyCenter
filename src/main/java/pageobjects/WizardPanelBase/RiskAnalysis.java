@@ -54,14 +54,17 @@ public class RiskAnalysis extends CenterPanelBase
 	private void warningQuote()
 	{
 		sh.waitForNoMask();
-		switch(path)
+		if(getTitle().equals("Risk Analysis"))
 		{
-			case SUBMISSION:
-				sh.clickElement(by.submissionQuote);
-				break;
-			case POLICYRENEWAL:
-				sh.clickElement(by.renewalQuote);
-				break;
+			switch(path)
+			{
+				case SUBMISSION:
+					sh.clickElement(by.submissionQuote);
+					break;
+				case POLICYRENEWAL:
+					sh.clickElement(by.renewalQuote);
+					break;
+			}
 		}
 	}
 	public Quote qualifiesForAdditionalProtectionQuote()
@@ -69,11 +72,25 @@ public class RiskAnalysis extends CenterPanelBase
 		warningQuote();
 		sh.waitForNoMask();
 		sh.waitForElementToAppear(By.className("warning_icon"));
-		sh.waitForPageLoad();
-		warningQuote();
-
-		return new Quote(sh,path);
+		sh.clickElement(By.className("warning_icon"));
+//		for(int i = 0; i < 5; i++)
+//		{
+//			if(sh.isDisplayed(By.className("warning_icon")) && (sh.isDisplayed(by.submissionQuote) || sh.isDisplayed(by.renewalQuote)))
+//			{
+//				warningQuote();
+//				sh.waitForPageLoad();
+//			}
+//			else
+//				break;
+//		}
+		return clickContingencies().quote();
 	}
+	public Contingencies clickContingencies()
+	{
+		sh.clickElement(by.contingencies);
+		return new Contingencies(sh, path);
+	}
+
 	public UWActivity requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
@@ -84,6 +101,44 @@ public class RiskAnalysis extends CenterPanelBase
 
 		public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
+							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
+
+							contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
+	}
+
+	public class Contingencies extends CenterPanelBase
+	{
+		private ContingenciesBy by;
+		public Contingencies(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			setID(path);
+			by = new ContingenciesBy();
+		}
+
+		public class ContingenciesBy
+		{
+			public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
+		}
+		public Quote quote()
+		{
+			sh.waitForNoMask();
+			switch(path)
+			{
+				case SUBMISSION:
+					sh.clickElement(by.submissionQuote);
+					break;
+				case POLICYRENEWAL:
+					sh.clickElement(by.renewalQuote);
+					break;
+			}
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new Quote(sh,path);
+		}
+
 	}
 }

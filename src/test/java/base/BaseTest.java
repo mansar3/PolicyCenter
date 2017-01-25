@@ -3,6 +3,7 @@ package base;
 import Helpers.SessionInfo;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.joda.time.DateTime;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -30,12 +31,13 @@ public abstract class BaseTest
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected SessionInfo sessionInfo;
 	private Boolean local;
+	protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 
 	@Parameters({"environment", "local", "threads"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("10") int threads)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("30") int threads)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -44,6 +46,11 @@ public abstract class BaseTest
 		this.local = local;
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
+		if(SystemUtils.IS_OS_MAC)
+			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
+		else
+			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
+
 	}
 
 	protected URL setGridHub()
