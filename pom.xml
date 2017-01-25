@@ -22,7 +22,7 @@
 							</suiteXmlFiles>
 							<systemPropertyVariables>
 								<environment>48</environment>
-                                <local>true</local>
+                                <local>false</local>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
