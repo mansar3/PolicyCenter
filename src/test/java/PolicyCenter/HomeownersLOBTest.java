@@ -32,7 +32,7 @@ public class HomeownersLOBTest extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	filePathBase = "/Users/aansari/Desktop/",
+	String 	filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
