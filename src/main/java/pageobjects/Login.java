@@ -4,7 +4,6 @@ import Helpers.CenterSeleniumHelper;
 import Helpers.SessionInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login
 {
@@ -20,7 +19,8 @@ public class Login
 	{
 		this.sh = sh;
 		loginURL = "http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
-
+		// AWS URL
+		//loginURL = "http://10.0.4." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
 		System.out.println("LoginURL set to: " + loginURL);
 	}
 

@@ -32,7 +32,8 @@ public class HomeownersLOBTest extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\",
+	String 	filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
+			//filePathBase = "/Users/aansari/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
@@ -1452,7 +1453,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
 			.setCity(eai.get("Location Address - City"))
 			.setZipCode(eai.get("Location Address - Zip"))
-			.setCounty("Location Address - County")
+			.setCounty(eai.get("Location Address - County"))
 			.clickVerifyAddress()
 			.selectSuccessfulVerificationIfPossibleForLocationInformation()
 			.clickOk();
@@ -1725,7 +1726,7 @@ public class HomeownersLOBTest extends BaseTest
 			pe
 			.checkSpecificOtherStructures()
 			.addSpecificOtherStructures()
-			//.setSpecificOtherStructuresDescription(1,"Jelly")
+			.setSpecificOtherStructuresDescription(1,"test")
 			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
 		}
 
@@ -1828,7 +1829,7 @@ public class HomeownersLOBTest extends BaseTest
 	{
 		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
 
-		if(eai.get("Mailing State").toLowerCase().equals("florida")
+		if(eai.get("Location Address - State").toLowerCase().equals("florida")
 		&& eai.get("Wind Borne Debris Region").toLowerCase().equals("true")
 		&& eai.getOrDefault("Opening Protection Type", "<none>").toLowerCase() != "hurricane"
 		&&

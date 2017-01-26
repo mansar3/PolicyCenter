@@ -28,6 +28,7 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 		by = new SelectStandardizedAddressBy();
 		expectedPanelTitle = "Select a Standardized Address";
 		waitForTitle(sh);
+		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public CreateAccount selectAddressForCreateAccount(int row)

@@ -364,6 +364,7 @@ public class NewAdditionalInterest extends CenterPanelBase
 
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
 		return new SelectStandardizedAddress(sh,path);

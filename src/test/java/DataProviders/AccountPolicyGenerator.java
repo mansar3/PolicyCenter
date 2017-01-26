@@ -24,8 +24,9 @@ public class AccountPolicyGenerator
 		CSVReader reader;
 		String filePathBase;
 		if(SystemUtils.IS_OS_MAC)
-			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170123_143054/";
+			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
 			filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
+			//filePathBase = "/Users/aansari/Downloads/FLHO3data/FLHO3-20170122_100250/";
 		else
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
 		String filePath= filePathBase + "policies.csv";
@@ -93,7 +94,7 @@ public class AccountPolicyGenerator
 						{
 							LinkedHashMap<String, String> spp = new LinkedHashMap<>();
 							for(int thisColumn = 0; thisColumn < sppData.get(0).length; thisColumn++)
-								if(!sppData.get(sppRow)[thisColumn].equals("") && !!sppData.get(sppRow)[thisColumn].equals(" "))
+								if(!sppData.get(sppRow)[thisColumn].equals("") && !sppData.get(sppRow)[thisColumn].equals(" "))
 									spp.put(sppData.get(0)[thisColumn], sppData.get(sppRow)[thisColumn]);
 
 							spc.add(spp);
@@ -106,10 +107,10 @@ public class AccountPolicyGenerator
 
 				if(rowData.get("Mailing Address") == null)
 				{
-					rowData.put("Mailing Address", rowData.remove("Location Address"));
-					rowData.put("Mailing City", rowData.remove("Location Address - City"));
-					rowData.put("Mailing State", rowData.remove("Location Address - State"));
-					rowData.put("Mailing Zip Code",rowData.remove("Location Address - Zip"));
+					rowData.put("Mailing Address", rowData.get("Location Address"));
+					rowData.put("Mailing City", rowData.get("Location Address - City"));
+					rowData.put("Mailing State", rowData.get("Location Address - State"));
+					rowData.put("Mailing Zip Code",rowData.get("Location Address - Zip"));
 
 
 				}

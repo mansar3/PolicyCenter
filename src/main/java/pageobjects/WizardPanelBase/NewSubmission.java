@@ -23,7 +23,8 @@ public class NewSubmission extends CenterPanelBase
 	public static class NewSubmissionBy{
 		final static By	newOrganization = By.id("NewSubmission:NewSubmissionScreen:SelectAccountAndProducerDV:ProducerSelectionInputSet:Producer-inputEl"),
 						productSelectionTable = By.id("NewSubmission:NewSubmissionScreen:ProductOffersDV:ProductSelectionLV"),
-						baseState = By.id("NewSubmission:NewSubmissionScreen:ProductSettingsDV:StateSelection_fliInputSet:DefaultBaseState-inputEl");
+						baseState = By.id("NewSubmission:NewSubmissionScreen:ProductSettingsDV:StateSelection_fliInputSet:DefaultBaseState-inputEl"),
+						selectHomeowners = By.xpath(".//*[@id='NewSubmission:NewSubmissionScreen:ProductOffersDV:ProductSelectionLV-body']//div[text() = 'Homeowners']/../..//a");
 
 
 	}
@@ -49,11 +50,12 @@ public class NewSubmission extends CenterPanelBase
 
 		public Qualification selectHomeowners()
 		{
-			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
-			{
-				if(getTextTableElement(i, 2).contains("Homeowners"))
-					clickTableElement(i, 1);
-			}
+//			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
+//			{
+//				if(getTextTableElement(i, 2).contains("Homeowners"))
+//					clickTableElement(i, 1);
+//			}
+			sh.clickElement(by.selectHomeowners);
 			return new Qualification(sh,path);
 		}
 		public Qualification selectCommercialProperty()
