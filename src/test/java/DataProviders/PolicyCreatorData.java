@@ -21,7 +21,7 @@ public class PolicyCreatorData
 		Object[][] objectList = null;
 		int counter = 0;
 		int numRows = 0;
-		String filePath= "/Users/aansari/Desktop/csv_test2.csv";
+		String filePath= String.format("/Users/%s/Desktop/csv_test2.csv", System.getenv("USERNAME"));
 
 		try
 		{

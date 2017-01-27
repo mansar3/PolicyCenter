@@ -41,12 +41,9 @@ public class CreateAccount extends CenterPanelBase
 						secondaryEmail = By.id(accountInputSet + "EmailAddress2-inputEl"),
 						description = By.id(createAccountDiv + "AddressDescription-inputEl"),
 						ssn = By.id(createAccountDiv + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
-						preferredLanguage = By.id(createAccountDiv + "PrimaryLanguage-inputEl");
-
-
-
-
-
+						preferredLanguage = By.id(createAccountDiv + "PrimaryLanguage-inputEl"),
+						organizationSearchButton = By.id(baseProducerId + "Producer:SelectOrganization"),
+						producerCodeDropdown = By.id(base_id + baseProducerId + "ProducerCode-trigger-picker");
 	}
 
 	public CreateAccount(CenterSeleniumHelper sh)
@@ -288,6 +285,7 @@ public class CreateAccount extends CenterPanelBase
 
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.verifyAddress);
 		return new SelectStandardizedAddress(sh);
 	}
@@ -314,6 +312,23 @@ public class CreateAccount extends CenterPanelBase
 	{
 		sh.setText(by.producerCode, producerCode);
 		sh.tab();
+		return this;
+	}
+
+	public CreateAccount clickProducerCode()
+	{
+		sh.clickElement(By.cssSelector(".x-boundlist-selected"));
+		return this;
+	}
+	public Organizations clickOrganizationSearch()
+	{
+		sh.clickElement(by.organizationSearchButton);
+		return new Organizations(sh);
+	}
+
+	public CreateAccount clickProducerCodeDropdown()
+	{
+		sh.clickElement(by.producerCodeDropdown);
 		return this;
 	}
 }

@@ -41,23 +41,6 @@ public class CenterSeleniumHelper
 				return getValue(byLocator).equals(text);
 			}));
 	}
-	public void setTextAndTab(By byLocator, String text)
-	{
-		if(text != null)
-			wait(25).until(ExpectedConditions.refreshed(driver1 ->
-			{
-				driver1.findElement(byLocator).sendKeys("");
-				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
-					return false;
-				driver1.findElement(byLocator).clear();
-				driver1.findElement(byLocator).sendKeys(text);
-				return getValue(byLocator).equals(text);
-			}));
-		tab();
-		//waitForNoMask();
-		assert getValue(byLocator).equals(text);
-
-	}
 
 	public void waitForPageLoad()
 	{
@@ -173,14 +156,19 @@ public class CenterSeleniumHelper
 			//assert isChecked(by);
 		}
 
-		public void unCheckElement(By by)
-		{
-			if (getElement(by).isSelected())
-			{
+		public void unCheckElement(By by) {
+			if (getElement(by).isSelected()) {
 				clickElement(by);
 			}
 
 			assert !isChecked(by);
 		}
+	}
+
+	public void clickRightOfElement(By by)
+	{
+		WebElement actionTab = getElement(by);
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1, actionTab.getSize().getHeight() / 2).click().build().perform();
 	}
 }

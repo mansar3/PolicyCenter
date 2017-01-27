@@ -37,6 +37,18 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return new CreateAccount(sh);
 	}
+
+	/**
+	 * @param row number among verified addresses
+	 * @return a CreateAccount page object
+	 */
+	public CreateAccount selectVerifiedAddressForCreateAccount(int row)
+	{
+		sh.waitForNoMask(5);
+		sh.clickElement(By.cssSelector("a[id='FP_VerifiedAddressSelectionPopup:" + row + ":_Select']"));
+		return new CreateAccount(sh);
+	}
+
 	public CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
 		sh.waitForNoMask(5);

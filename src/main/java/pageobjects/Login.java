@@ -4,6 +4,7 @@ import Helpers.CenterSeleniumHelper;
 import Helpers.SessionInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pageobjects.WizardPanelBase.MyActivities;
 
 public class Login
 {
@@ -75,10 +76,11 @@ public class Login
 		return this;
 	}
 
-	public void login(String username, String password)
+	public MyActivities login(String username, String password)
 	{
 		setUsername(username)
 		.setPassword(password)
 		.clickLogin();
+		return new MyActivities(sh);
 	}
 }

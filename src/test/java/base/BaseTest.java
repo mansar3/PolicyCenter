@@ -27,7 +27,11 @@ import java.util.List;
 
 public abstract class BaseTest
 {
-	protected static String screenShotDirectory = "src/test/resources/ScreenShots/",accountNumber;
+	protected static String screenShotDirectory =
+			System.getenv("SCREENSHOTS_HOME") == null
+					? "src/test/resources/ScreenShots/"
+					: System.getenv("SCREENSHOTS_HOME"),
+			accountNumber;
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected SessionInfo sessionInfo;
 	private Boolean local;
@@ -62,7 +66,8 @@ public abstract class BaseTest
 			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
 			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
-			// gridHub = new URL("http://localhost:4444/wd/hub");
+			// ubuntu vm
+			gridHub = new URL("http://172.16.35.79:4444/wd/hub");
 		}
 		catch(Exception e)
 		{
