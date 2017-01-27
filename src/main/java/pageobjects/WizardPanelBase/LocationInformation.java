@@ -135,6 +135,7 @@ public class LocationInformation extends CenterPanelBase
 	}
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.verifyAddress);
 		return new SelectStandardizedAddress(sh, path);
 	}
