@@ -280,7 +280,7 @@ public class HomeownersLOBTest extends BaseTest
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
-		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		sh.wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
@@ -429,8 +429,20 @@ public class HomeownersLOBTest extends BaseTest
 		Dwelling dwelling = pi.next();
 
 		// Dwelling
+
+		if(dwelling.getLocationName().equals("1: FL") || !eai.getOrDefault("Mailing Address","").equals(eai.get("Location Address")))
+			dwelling = dwelling.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickOk();
+		// Left as is
+
 		dwelling
-		.setLocationName("1:") // Left as is
 		.setYearBuilt(eai.getOrDefault("Year Built", null))
 		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
 		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
@@ -594,9 +606,12 @@ public class HomeownersLOBTest extends BaseTest
 		.setFoundationType(eai.get("Foundation Type"))
 		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
 		.setIsThereASecondaryHeatingSystem(eai.getOrDefault("Is there a secondary heating system?","false"))
-		.setPlumbing(eai.get("Plumbing Type"))
-		.setPlumbingYear(eai.get("Plumbing Year"))
-		.setWaterHeaterYear(eai.get("Water Heater Year"))
+		.setPlumbing(eai.getOrDefault("Plumbing Type",null));
+		if(eai.getOrDefault("Plumbing Type","none").toLowerCase().equals("other"))
+			dc.setPlumbingDescribeOther("Other");
+		dc
+		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
+		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
 		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
 		.setRoofType(eai.get("Roof Type"));
@@ -642,9 +657,10 @@ public class HomeownersLOBTest extends BaseTest
 		}
 		else
 		{
-			wm.setRoofCover(eai.get("Roof Cover"))
-			.setRoofDeckAttachment(eai.get("Roof Deck Attachment"))
-			.setRoofWallConnection(eai.get("Roof Wall Connection"));
+			wm.setRoofCover(eai.get("Roof Cover"));
+			if(eai.get("Roof Deck Attachment") != null)
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
 
@@ -693,7 +709,7 @@ public class HomeownersLOBTest extends BaseTest
 			pe
 			.checkSpecificOtherStructures()
 			.addSpecificOtherStructures()
-			//.setSpecificOtherStructuresDescription(1,"Jelly")
+			.setSpecificOtherStructuresDescription(1,"test")
 			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
 		}
 
