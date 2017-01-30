@@ -192,11 +192,11 @@ public abstract class BaseTest
 
 		return fileName.substring(fileName.lastIndexOf("/") + 1);
 	}
-	public boolean isInArray(int[] arr, int flag)
+	public boolean isInArray(String[] arr, String flag)
 	{
-		for(int a : arr)
+		for(String a : arr)
 		{
-			if(a == flag)
+			if(a.equals(flag))
 				return true;
 		}
 		return false;
