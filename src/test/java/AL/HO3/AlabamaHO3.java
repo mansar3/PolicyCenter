@@ -117,7 +117,7 @@ public class AlabamaHO3 extends BaseTest
         }
     }
 
-    @Test
+    @Test(description = "AL.HO3.ProductModel.More.001")
     public void productModelMore(ITestContext itc)
     {
         log(itc.getName());
@@ -127,13 +127,6 @@ public class AlabamaHO3 extends BaseTest
         Actions build = new Actions(driver);
         build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
         sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-        driver.get("http://www.duckduckgo.com");
-    }
-
-    @Test
-    public void test3()
-    {
-        driver.get("http://www.liamfitzpatricks.com");
     }
 
     @AfterMethod(alwaysRun = true)

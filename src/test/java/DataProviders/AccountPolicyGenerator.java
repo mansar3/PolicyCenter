@@ -104,13 +104,13 @@ public class AccountPolicyGenerator
 					else if(!value.equals("") && !value.equals(" "))
 						rowData.put(key, value);
 				}
-				
+
 				if(rowData.get("Mailing Address") == null)
 				{
-					rowData.put("Mailing Address", rowData.remove("Location Address"));
-					rowData.put("Mailing City", rowData.remove("Location Address - City"));
-					rowData.put("Mailing State", rowData.remove("Location Address - State"));
-					rowData.put("Mailing Zip Code",rowData.remove("Location Address - Zip"));
+					rowData.put("Mailing Address", rowData.get("Location Address"));
+					rowData.put("Mailing City", rowData.get("Location Address - City"));
+					rowData.put("Mailing State", rowData.get("Location Address - State"));
+					rowData.put("Mailing Zip Code",rowData.get("Location Address - Zip"));
 
 
 				}
