@@ -35,7 +35,7 @@ public abstract class BaseTest
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected SessionInfo sessionInfo;
 	private Boolean local;
-	protected String errorReportDirectory;
+    protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 
@@ -43,7 +43,6 @@ public abstract class BaseTest
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("false") Boolean local, @Optional("30") int threads)
 	{
-		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
 		screenShotFolder.mkdir();
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());

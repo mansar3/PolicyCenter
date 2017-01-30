@@ -156,8 +156,10 @@ public class CenterSeleniumHelper
 			//assert isChecked(by);
 		}
 
-		public void unCheckElement(By by) {
-			if (getElement(by).isSelected()) {
+		public void unCheckElement(By by)
+		{
+			if (getElement(by).isSelected())
+			{
 				clickElement(by);
 			}
 

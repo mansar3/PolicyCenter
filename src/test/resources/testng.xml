@@ -2,12 +2,19 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30">
 	<test name="FLHO3 SUBMISSION">
+        <parameter name="environment" value="48" />
+        <parameter name="local" value="false" />
         <classes>
-            <class name="PolicyCenter.HomeownersLOBTest">
+            <class name="AL.HO3.AlabamaHO3">
                 <methods>
-                    <include name="SubmissionLoadTest"></include>
+                    <include name="createPersonAccountALHO3"></include>
                 </methods>
             </class>
+            <!--<class name="PolicyCenter.HomeownersLOBTest">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
         </classes>
 	</test>
 </suite>

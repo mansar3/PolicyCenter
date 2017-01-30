@@ -1,5 +1,6 @@
 package PolicyCenter;
 
+import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import org.joda.time.DateTime;
@@ -16,6 +17,10 @@ import pageobjects.WizardPanelBase.AccountFileSummary;
 import pageobjects.WizardPanelBase.CreateAccount;
 import pageobjects.WizardPanelBase.EnterAccountInformation;
 import pageobjects.Login;
+import pageobjects.WizardPanelBase.MyActivities;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 public class AccountTest extends BaseTest
@@ -115,5 +120,14 @@ public class AccountTest extends BaseTest
 			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", company name: " + companyName);
+	}
+
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
+	public void testNewPersonAccountFromCSV(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
+	{
+		System.out.println("hello");
+//		System.out.println(s1);
+//		System.out.println(s2);
+//		System.out.println(s3);
 	}
 }
