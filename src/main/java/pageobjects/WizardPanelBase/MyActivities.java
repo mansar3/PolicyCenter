@@ -10,6 +10,7 @@ public class MyActivities extends CenterPanelBase
 
     public class MyActivitiesBy extends CenterPanelBase.CenterPanelBy
     {
+
     }
 
     public MyActivities(CenterSeleniumHelper sh)

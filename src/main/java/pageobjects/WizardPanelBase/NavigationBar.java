@@ -30,7 +30,7 @@ public class NavigationBar extends CenterPanelBase
         return this;
     }
 
-    public NavigationBar clickAccountDropdown()
+    public NavigationBar clickNewAccountDropdown()
     {
         sh.clickRightOfElement(by.accountTab);
         sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
