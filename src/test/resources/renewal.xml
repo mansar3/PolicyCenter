@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30">
+	<test name="FLHO3 SUBMISSION">
+        <parameter name="environment" value="48" />
+        <parameter name="local" value="false" />
+        <classes>
+            <class name="PolicyCenter.HomeownersLOBTest">
+                <methods>
+                    <include name="RenewalLoadTest2"></include>
+                </methods>
+            </class>
+        </classes>
+	</test>
+</suite>

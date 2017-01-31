@@ -717,37 +717,42 @@ public class Dwelling extends CenterPanelBase
 
 		public NewAdditionalInterest clickAddNewPerson()
 		{
-//			String id = sh.driver.findElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType']/../../../..")).getAttribute("id");
-//			WebElement we = sh.driver.findElement(By.id(id));
-//			makeMenuVisible(we);
+
 			System.out.println("Adding a New Person");
-			for(int i = 0; i<5; i++)
+			for(int i = 0; i<10; i++)
 			{
 				sh.clickElement(by.add);
 				if(sh.isDisplayed(by.newPerson))
 					break;
 			}
-//			sh.clickElement(by.add);
-//			if(sh.isDisplayed(by.newPerson))
+
 				sh.clickElement(by.newPerson);
-//			else
-//			{
-//				sh.clickElement(by.add);
-//				sh.clickElement(by.newPerson);
-//			}
+
 			return new NewAdditionalInterest(sh, path);
 		}
 
 		public NewAdditionalInterest clickAddNewCompany()
 		{
-			sh.clickElement(by.add);
+			for(int i = 0; i<10; i++)
+			{
+				sh.clickElement(by.add);
+				if(sh.isDisplayed(by.newCompany))
+					break;
+			}
+
 			sh.clickElement(by.newCompany);
 			return new NewAdditionalInterest(sh, path);
 		}
 
 		public SearchAddressBook clickFromAddressBook()
 		{
-			sh.clickElement(by.add);
+			for(int i = 0; i<10; i++)
+			{
+				sh.clickElement(by.add);
+				if(sh.isDisplayed(by.fromAddressBook))
+					break;
+			}
+
 			sh.clickElement(by.fromAddressBook);
 			return new SearchAddressBook(sh, path);
 		}

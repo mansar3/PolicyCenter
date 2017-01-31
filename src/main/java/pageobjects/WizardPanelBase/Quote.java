@@ -10,7 +10,7 @@ import pageobjects.WestPanel.WestPanelBase;
 public class Quote extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
-	protected String quoteBase;
+	protected String quoteBase, errorBase;
 	private QuoteBy by ;
 	public Quote(CenterSeleniumHelper sh,Path path)
 	{
@@ -42,14 +42,17 @@ public class Quote extends CenterPanelBase
 				quoteBase = "SubmissionWizard:SubmissionWizard_QuoteScreen:Quote_SummaryDV:";
 				break;
 			case POLICYRENEWAL:
-				quoteBase = "RenewalWizard:RenewalWizard_QuoteScreen:Quote_SummaryDV:";
+				quoteBase = "RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:Quote_SummaryDV:";
+				errorBase = "RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:";
 
 		}
 	}
 	public class QuoteBy
 	{
 		By	totalPremium = By.id(quoteBase + "TotalPremium-inputEl"),
-			annualizedTotalCost = By.id(quoteBase + "TotalAnnualCost-inputEl");
+			annualizedTotalCost = By.id(quoteBase + "TotalAnnualCost-inputEl"),
+			annualizedTotalCostIncludingWhenSafe = By.id(quoteBase + "TotalAnnualCostPlusWhenSafe-inputEl"),
+			underWritingApprovalError = By.id(errorBase + "WarningsPanelSet:0:PanelSet:Warning");
 
 
 	}
@@ -61,9 +64,25 @@ public class Quote extends CenterPanelBase
 	{
 		return sh.getText(by.annualizedTotalCost);
 	}
-	public RiskAnalysis back()
+	public String getAnnualizedTotalCostIncludingWhenSafe()
+	{
+		return sh.getText(by.annualizedTotalCostIncludingWhenSafe);
+	}
+	public RiskAnalysis backToRiskAnalysis()
 	{
 		clickBack();
 		return new RiskAnalysis(sh,path);
+	}
+	public PolicyReview backToPolicyReview()
+	{
+		clickBack();
+		return new PolicyReview(sh,path);
+	}
+	public boolean isUnderWritingApprovalNeeded()
+	{
+		String message = "This quote will require underwriting approval prior to binding.";
+		if(sh.isDisplayed(by.underWritingApprovalError) && sh.getText(by.underWritingApprovalError).equals(message))
+			return true;
+		return false;
 	}
 }

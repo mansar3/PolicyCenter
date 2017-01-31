@@ -4,11 +4,12 @@ import Helpers.CenterSeleniumHelper;
 import Helpers.SessionInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.WizardPanelBase.MyActivities;
+import pageobjects.WizardPanelBase.NavigationBar;
 
 public class Login
 {
 	String loginURL;
+	protected String user,pwd;
 	CenterSeleniumHelper sh;
 
 	private By	byUsername = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:username-inputEl"),
@@ -76,11 +77,13 @@ public class Login
 		return this;
 	}
 
-	public MyActivities login(String username, String password)
+	public NavigationBar login(String username, String password)
 	{
+		user = username;
+		pwd = password;
 		setUsername(username)
 		.setPassword(password)
 		.clickLogin();
-		return new MyActivities(sh);
+		return new NavigationBar(sh);
 	}
 }

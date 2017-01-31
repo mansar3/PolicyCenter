@@ -91,6 +91,9 @@ public class SearchAddressBook extends CenterPanelBase
 	
 	public SearchAddressBook clickSearch()
 	{
+		// Added because even after waitForNoMask sometimes "click at point.."
+		// would still occur.
+		sh.waitForPageLoad();
 		sh.waitForNoMask();
 		sh.clickElement(by.search);
 		sh.waitForPageLoad();

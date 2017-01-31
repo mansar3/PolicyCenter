@@ -27,6 +27,7 @@ public class AccountPolicyGenerator
 			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
 			filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
 			//filePathBase = "/Users/aansari/Downloads/FLHO3data/FLHO3-20170122_100250/";
+			//filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170130_155715/FLHO3-20170130_155718/";
 		else
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
 		String filePath= filePathBase + "policies.csv";
@@ -111,6 +112,7 @@ public class AccountPolicyGenerator
 					rowData.put("Mailing City", rowData.get("Location Address - City"));
 					rowData.put("Mailing State", rowData.get("Location Address - State"));
 					rowData.put("Mailing Zip Code",rowData.get("Location Address - Zip"));
+					rowData.put("Mailing County",rowData.get("Location Address - County"));
 
 
 				}

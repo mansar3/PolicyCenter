@@ -46,7 +46,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = "mcoad", pwd = "";
+		String user = "conversion2", pwd = "";
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Login login = new Login(new CenterSeleniumHelper(driver), sessionInfo);
 		login.load();
@@ -797,12 +797,12 @@ public class HomeownersLOBTest extends BaseTest
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "POCData")
 	public void RenewalLoadTest2( LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
-		/***********************************************/
-		/*      Remove hardcoded org and prod code 	   */
-		/***********************************************/
+		/***************************************************************************/
+		/*    Remove hardcoded org, prod code, SpecificOtherStructuresDescription  */
+		/***************************************************************************/
 
 		int i;
-		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
+
 
 
 		WebDriver driver = LocalDriverManager.getDriver();
@@ -837,6 +837,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setAddressLine1(eai.get("Mailing Address"))
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
+			.setCounty(eai.getOrDefault("Mailing County", null))
 			.setDateOfBirth(eai.get("Date of Birth"))
 			.setHomePhone(eai.get("Home Phone"))
 			.setWorkPhone(eai.getOrDefault("Work Phone",null))
@@ -871,7 +872,7 @@ public class HomeownersLOBTest extends BaseTest
 		// Initiate Manual Renewal
 		imr//.setOrganization(eai.getOrDefault("Organization", null))
 		//.setProducerCode(eai.getOrDefault("Producer Code", null))
-		.setBaseState(eai.getOrDefault("Mailing State", null))
+		.setBaseState(eai.getOrDefault("Base State", null))
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
@@ -1178,9 +1179,9 @@ public class HomeownersLOBTest extends BaseTest
 			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
 			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
 			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-			if(qualifiesForHurricaneProtection(eai))
-				co = wm.doubleClickNext();
-			else
+//			if(qualifiesForHurricaneProtection(eai))
+//				co = wm.doubleClickNext();
+//			else
 				co = wm.next();
 		}
 		else
@@ -1317,11 +1318,13 @@ public class HomeownersLOBTest extends BaseTest
 
 		RiskAnalysis ra = le.next();
 		Quote quote;
-		if(qualifiesForHurricaneProtection(eai))
-			quote = ra.qualifiesForAdditionalProtectionQuote();
-		else
+//		if(qualifiesForHurricaneProtection(eai))
+//			quote = ra.qualifiesForAdditionalProtectionQuote();
+//		else
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		if(quote.isUnderWritingApprovalNeeded())
+			ra = quote.backToPolicyReview().back().requestApproval().sendRequest();
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -1849,7 +1852,7 @@ public class HomeownersLOBTest extends BaseTest
 		/***********************************************/
 
 		int i;
-		int[] territoryList = new int[] {043,193, 393, 593, 596, 601, 603, 604, 605, 606, 607, 608, 609, 693, 721, 722, 723, 724, 725, 726, 737, 793, 931, 932, 934,993};
+
 
 
 		WebDriver driver = LocalDriverManager.getDriver();
@@ -1884,6 +1887,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setAddressLine1(eai.get("Mailing Address"))
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
+			.setCounty(eai.getOrDefault("Mailing County", null))
 			.setDateOfBirth(eai.get("Date of Birth"))
 			.setHomePhone(eai.get("Home Phone"))
 			.setWorkPhone(eai.getOrDefault("Work Phone",null))

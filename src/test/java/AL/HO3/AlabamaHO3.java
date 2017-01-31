@@ -52,9 +52,9 @@ public class AlabamaHO3 extends BaseTest
     public void createPersonAccountALHO3(ITestContext itc)
     {
         String user = "Su", password = "";
-        MyActivities ma = login.login(user, password);
-        ma.navbar.clickAccountTab();
-        ma.navbar.clickNewAccountDropdown();
+        NavigationBar nb = login.login(user, password);
+        nb.clickAccountTab();
+        nb.clickNewAccountDropdown();
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
         log(itc.getName());
 

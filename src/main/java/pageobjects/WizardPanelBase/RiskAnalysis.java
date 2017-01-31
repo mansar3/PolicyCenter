@@ -94,6 +94,7 @@ public class RiskAnalysis extends CenterPanelBase
 	public UWActivity requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
+		sh.waitForNoMask();
 		return new UWActivity(sh,path);
 	}
 
