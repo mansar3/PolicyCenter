@@ -97,56 +97,43 @@ public class PolicyInfo extends CenterPanelBase
 	public NewAdditionalNameInsured clickAddNewCompany()
 	{
 		System.out.println("Adding a new company...");
-		sh.clickElement(by.addAdditionalNameInsureds);
-		if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:0:ContactType")))
-			sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
-		else
+		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);
-			sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
+			sh.waitForNoMask();
+			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:0:ContactType")))
+				break;
+
 		}
+			sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
+
 		return new NewAdditionalNameInsured(sh, path);
 
 	}
 	public NewAdditionalNameInsured clickAddNewPerson()
 	{
 		System.out.println("~~~~~~~~Adding a new person~~~~~~~~~");
-		for(int i= 0 ;i < 5;i++)
+		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);
+			sh.waitForNoMask();
 			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:1:ContactType")))
 				break;
 
 		}
-
-
-//		sh.clickElement(by.addAdditionalNameInsureds);
-//		if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:1:ContactType")))
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
-//		else
-//		{
-//			sh.clickElement(by.addAdditionalNameInsureds);
-//			sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
-//		}
 		return new NewAdditionalNameInsured(sh, path);
 	}
 	public SearchAddressBook clickAddFromAddressBook()
 	{
-		for(int i= 0 ;i < 5;i++)
+		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);
+			sh.waitForPageLoad();
 			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:AddFromSearch")))
 				break;
 		}
-//		sh.clickElement(by.addAdditionalNameInsureds);
-//		if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:AddFromSearch")))
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
-//		else
-//		{
-//			sh.clickElement(by.addAdditionalNameInsureds);
-//			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
-//		}
-
 		return new SearchAddressBook(sh, path);
 	}
 	public void clickRemoveAdditionalNameInsureds()

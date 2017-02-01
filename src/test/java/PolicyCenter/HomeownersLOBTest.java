@@ -59,7 +59,7 @@ public class HomeownersLOBTest extends BaseTest
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
 		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
-					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot", "GW Warnings"};
+					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
@@ -859,6 +859,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		// Policy Renewal
 		log("Test simple homeowners policy renewal");
+		eai.put("Account Number", accountNumber);
 		String accountNumber = accountFileSummary.getAccountNumber();
 		sh.wait(3).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
 		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
@@ -878,8 +879,11 @@ public class HomeownersLOBTest extends BaseTest
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
 		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
-		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
-		.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
+		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
+		if(eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
+			imr.setInflationGuard("<none>");
+		else
+			imr.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
 		if(eai.get("Exclude Loss of Use Coverage") == null)
 			imr.clickExcludeLossOfUseCoverage("true");
 		else
@@ -1188,7 +1192,7 @@ public class HomeownersLOBTest extends BaseTest
 		{
 			wm.setRoofCover(eai.get("Roof Cover"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -1305,7 +1309,7 @@ public class HomeownersLOBTest extends BaseTest
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
 			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName("1:")
+//			.setLocationName("1")
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
@@ -1324,7 +1328,10 @@ public class HomeownersLOBTest extends BaseTest
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 		if(quote.isUnderWritingApprovalNeeded())
+		{
 			ra = quote.backToPolicyReview().back().requestApproval().sendRequest();
+			eai.put("Submitted for Approval","true");
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -2426,9 +2433,9 @@ public class HomeownersLOBTest extends BaseTest
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
 		String[] info;
 		if(sh.isDisplayed(By.className("error_icon")))
-			info = new String[15 + sh.getElements(By.className("error_icon")).size()];
+			info = new String[16 + sh.getElements(By.className("error_icon")).size()];
 		else
-			info = new String[15];
+			info = new String[16];
 		//String[] info = new String[25]; //logs = baos.toString().split("\n");
 		if(result)
 			info[0] = "PASS";
@@ -2462,12 +2469,13 @@ public class HomeownersLOBTest extends BaseTest
 		if(eai.get("Annualized Total Cost") != null)
 			info[12] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
 
-
+		if(eai.get("Submitted for Approval") != null)
+			info[14] = eai.get("Submitted for Approval");
 		if(sh.isDisplayed(By.className("error_icon")))
 		{
 			String[] warnings = getBannerErrors(sh);
 			for(int i = 0; i < warnings.length ; i++)
-				info[14 + i] = warnings[i];
+				info[15 + i] = warnings[i];
 		}
 
 		return info;

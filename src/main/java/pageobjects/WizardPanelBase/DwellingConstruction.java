@@ -597,6 +597,16 @@ public class DwellingConstruction extends CenterPanelBase
 		public WindMitigation setRoofDeckAttachment(String roofDeckAttachment)
 		{
 			sh.setText(by.roofDeckAttachment, roofDeckAttachment);
+			// Added because tabbing is occurring too quickly for the value to match
+			// with value in drop down.
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 			sh.tab();
 			sh.waitForNoMask();
 			return this;

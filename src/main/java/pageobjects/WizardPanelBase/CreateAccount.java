@@ -286,6 +286,7 @@ public class CreateAccount extends CenterPanelBase
 	public SelectStandardizedAddress clickVerifyAddress()
 	{
 		sh.waitForNoMask();
+		sh.waitForPageLoad();
 		sh.clickElement(by.verifyAddress);
 		return new SelectStandardizedAddress(sh);
 	}
