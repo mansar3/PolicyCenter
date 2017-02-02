@@ -21,7 +21,7 @@
 								<suiteXmlFile>src/test/resources/renewal.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<systemPropertyVariables>
-								<environment>48</environment>
+								<environment>47</environment>
                                 <local>false</local>
 							</systemPropertyVariables>
 						</configuration>
