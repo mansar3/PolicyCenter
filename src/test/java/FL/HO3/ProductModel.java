@@ -141,7 +141,6 @@ public class ProductModel extends BaseTest
         {
             takeScreenShot(driver);
             System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-            System.out.println("wait");
         }
         if(driver != null)
             driver.quit();

@@ -97,7 +97,6 @@ public class HomeownersLOBTest extends BaseTest
 			}
 
 			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
-			System.out.println("wait");
 		}
 		else if(testResult.getStatus() == ITestResult.SUCCESS)
 		{
