@@ -20,16 +20,15 @@ public class AccountPolicyGenerator
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;
-
 		CSVReader reader;
 		String filePathBase;
 		if(SystemUtils.IS_OS_MAC)
 			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
-			filePathBase = "/Volumes/General/ConversionData/FLHO3-20170119_114257/";
+			filePathBase = "/Volumes/General/ConversionData/Policies/FLHO3-20170202_130152/";
 			//filePathBase = "/Users/aansari/Downloads/FLHO3data/FLHO3-20170122_100250/";
-			//filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170130_155715/FLHO3-20170130_155718/";
+			//filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170202_130149/FLHO3-20170202_130152/";
 		else
-			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\";
+			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Policies\\FLHO3-20170202_130152\\";
 		String filePath= filePathBase + "policies.csv";
 
 		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));

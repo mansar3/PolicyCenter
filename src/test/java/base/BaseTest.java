@@ -41,7 +41,7 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local", "threads"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("false") Boolean local, @Optional("30") int threads)
+	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("30") int threads)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
