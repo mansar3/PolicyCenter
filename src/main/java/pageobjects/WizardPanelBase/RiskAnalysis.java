@@ -97,12 +97,20 @@ public class RiskAnalysis extends CenterPanelBase
 		sh.waitForNoMask();
 		return new UWActivity(sh,path);
 	}
+	public CreateNewUWIssue addUWIssue()
+	{
+		sh.clickElement(by.addUWIssue);
+		sh.waitForNoMask();
+		return new CreateNewUWIssue(sh, path);
+
+	}
 
 	public class RiskAnalysisBy{
 
 		public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
+							addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
 
 							contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
 	}
@@ -140,6 +148,89 @@ public class RiskAnalysis extends CenterPanelBase
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 			return new Quote(sh,path);
 		}
+
+	}
+	public class CreateNewUWIssue extends CenterPanelBase
+	{
+
+		private CreateNewUWIssueBy by;
+		public CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			expectedPanelTitle = "Create New UW Issue";
+			waitForTitle(sh);
+			by = new CreateNewUWIssueBy();
+
+		}
+		public class CreateNewUWIssueBy
+		{
+			final String 	buttonBase = "NewManualUWIssuePopup:",
+							CNUIBase  = "WIssueDelegateDV:";
+
+			final By 	issueType = By.id(CNUIBase + "IssueType-inputEl"),
+						shortDescription = By.id(CNUIBase + "ShortDescription-inputEl"),
+						longDescription = By.id(CNUIBase + "LongDescription-inputEl"),
+
+						ok = By.id(buttonBase + "Update-btnInnerEl"),
+						cancel = By.id(buttonBase + "Cancel-btnInnerEl"),
+
+						returnToRiskAnalysis = By.id(buttonBase+ "__crumb__");
+
+
+		}
+		public String getIssueType()
+		{
+			return sh.getValue(by.issueType);
+		}
+
+		public CreateNewUWIssue setIssueType(String issueType)
+		{
+			sh.setText(by.issueType, issueType);
+			sh.tab();
+			sh.waitForNoMask();
+			return this;
+		}
+		public String getShortDescription()
+		{
+			return sh.getValue(by.shortDescription);
+		}
+
+		public CreateNewUWIssue setShortDescription(String shortDescription)
+		{
+			sh.setText(by.shortDescription, shortDescription);
+			sh.tab();
+			//sh.waitForNoMask();
+			return this;
+		}
+		public String getLongDescription()
+		{
+			return sh.getValue(by.longDescription);
+		}
+
+		public CreateNewUWIssue setLongDescription(String longDescription)
+		{
+			sh.setText(by.longDescription, longDescription);
+			sh.tab();
+			//sh.waitForNoMask();
+			return this;
+		}
+		public RiskAnalysis clickOk()
+		{
+			sh.clickElement(by.ok);
+			return new RiskAnalysis(sh, path);
+		}
+		public RiskAnalysis clickCancel()
+		{
+			sh.clickElement(by.cancel);
+			return new RiskAnalysis(sh, path);
+		}
+		public RiskAnalysis clickReturnToRiskAnalysis()
+		{
+			sh.clickElement(by.returnToRiskAnalysis);
+			return new RiskAnalysis(sh, path);
+		}
+
 
 	}
 }
