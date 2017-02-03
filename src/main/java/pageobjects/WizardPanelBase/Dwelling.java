@@ -1,12 +1,7 @@
 package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
-import Helpers.TableBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.List;
 
 public class Dwelling<T extends Dwelling> extends CenterPanelBase
 {
@@ -52,25 +47,25 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		}
 	}
 
-	public T DwellingConstructionNext()
+	protected T DwellingConstructionNext()
 	{
 		sh.waitForNoMask(20);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		return (T)this;
 	}
 
-	public Dwelling setYearBuilt(String yearBuilt)
+	protected T setYearBuilt(String yearBuilt)
 	{
 		sh.setText(by.yearBuilt, yearBuilt);
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getYearBuilt()
+	protected String getYearBuilt()
 	{
 		return sh.getValue(by.yearBuilt);
 	}
 
-	public Dwelling setDistanceToFireHydrant(String distanceToFireHydrant)
+	protected T setDistanceToFireHydrant(String distanceToFireHydrant)
 	{
 		sh.waitForNoMask();
 		sh.setText(by.distanceToFireHydrant, distanceToFireHydrant);
@@ -78,52 +73,52 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 //		if(path != Path.POLICYRENEWAL)
 //			sh.waitForValue(by.territoryCode,10);
 
-		return this;
+		return (T)this;
 	}
 
-	public String getDistanceToFireHydrant()
+	protected String getDistanceToFireHydrant()
 	{
 		return sh.getValue(by.distanceToFireHydrant);
 	}
 
 
-	public Dwelling setDistanceToFireStation(String distanceToFireStation)
+	protected T setDistanceToFireStation(String distanceToFireStation)
 	{
 		sh.waitForNoMask(5);
 		sh.setText(by.distanceToFireStation, distanceToFireStation);
-		return this;
+		return (T)this;
 	}
-	public String getDistanceToFireStation()
+	protected String getDistanceToFireStation()
 	{
 		return sh.getValue(by.distanceToFireStation);
 	}
 
-	public Dwelling setBCEG(String bceg)
+	protected T setBCEG(String bceg)
 	{
 
 		sh.setText(by.bceg,bceg);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getBCEG()
+	protected String getBCEG()
 	{
 		return sh.getValue(by.bceg);
 	}
 
-	public Dwelling setProtectionClassCode(String pcc)
+	protected T setProtectionClassCode(String pcc)
 	{
 		sh.setText(by.protectionClassCode, pcc);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getProtectionClassCode()
+	protected String getProtectionClassCode()
 	{
 		return sh.getValue(by.protectionClassCode);
 	}
 
-	public Dwelling setTerritoryCode(String code)
+	protected T setTerritoryCode(String code)
 	{
 		sh.setText(by.territoryCode, code);
 		sh.tab();
@@ -133,172 +128,172 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			if(sh.getText(by.bceg) == "")
 				sh.waitForValue(by.bceg,10);
 
-		return this;
+		return (T)this;
 	}
-	public String getTerritoryCode()
+	protected String getTerritoryCode()
 	{
 		return sh.getValue(by.territoryCode);
 	}
 
 
-	public String getLocationName()
+	protected String getLocationName()
 	{
 		return sh.getValue(by.locationName);
 	}
 
-	public Dwelling setLocationName(String locationName)
+	protected T setLocationName(String locationName)
 	{
 		sh.setText(by.locationName, locationName);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getLocalTaxJurisdiction()
+	protected String getLocalTaxJurisdiction()
 	{
 		return sh.getValue(by.localTaxJurisdiction);
 	}
 
-	public Dwelling setLocalTaxJurisdiction(String localTaxJurisdiction)
+	protected T setLocalTaxJurisdiction(String localTaxJurisdiction)
 	{
 		sh.setText(by.localTaxJurisdiction, localTaxJurisdiction);
-		return this;
+		return (T)this;
 	}
 
-	public String getLocationType()
+	protected String getLocationType()
 	{
 		return sh.getValue(by.locationType);
 	}
 
-	public Dwelling setLocationType(String locationType)
+	protected T setLocationType(String locationType)
 	{
 		sh.setText(by.locationType, locationType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getDistanceToCoast()
+	protected String getDistanceToCoast()
 	{
 		return sh.getValue(by.distanceToCoast);
 	}
 
-	public Dwelling setDistanceToCoast(String distanceToCoast)
+	protected T setDistanceToCoast(String distanceToCoast)
 	{
 		sh.setText(by.distanceToCoast, distanceToCoast);
-		return this;
+		return (T)this;
 	}
 
-	public String getPurchaseDate()
+	protected String getPurchaseDate()
 	{
 		return sh.getValue(by.purchaseDate);
 	}
 
-	public Dwelling setPurchaseDate(String purchaseDate)
+	protected T setPurchaseDate(String purchaseDate)
 	{
 		sh.setText(by.purchaseDate, purchaseDate);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getPurchasePrice()
+	protected String getPurchasePrice()
 	{
 		return sh.getValue(by.purchasePrice);
 	}
 
-	public Dwelling setPurchasePrice(String purchasePrice)
+	protected T setPurchasePrice(String purchasePrice)
 	{
 		sh.setText(by.purchasePrice, purchasePrice);
-		return this;
+		return (T)this;
 	}
 
-	public String getMarketValue()
+	protected String getMarketValue()
 	{
 		return sh.getValue(by.marketValue);
 	}
 
-	public Dwelling setMarketValue(String marketValue)
+	protected T setMarketValue(String marketValue)
 	{
 		sh.setText(by.marketValue, marketValue);
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getResidenceType()
+	protected String getResidenceType()
 	{
 		return sh.getValue(by.residenceType);
 	}
 
-	public Dwelling setResidenceType(String residenceType)
+	protected T setResidenceType(String residenceType)
 	{
 		sh.setText(by.residenceType, residenceType);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getDwellingUsage()
+	protected String getDwellingUsage()
 	{
 		return sh.getValue(by.dwellingUsage);
 	}
 
-	public Dwelling setDwellingUsage(String dwellingUsage)
+	protected T setDwellingUsage(String dwellingUsage)
 	{
 		sh.setText(by.dwellingUsage, dwellingUsage);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getDwellingOccupancy()
+	protected String getDwellingOccupancy()
 	{
 		return sh.getValue(by.dwellingOccupancy);
 	}
 
-	public Dwelling setDwellingOccupancy(String dwellingOccupancy)
+	protected T setDwellingOccupancy(String dwellingOccupancy)
 	{
 		sh.setText(by.dwellingOccupancy, dwellingOccupancy);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getHousekeepingCondition()
+	protected String getHousekeepingCondition()
 	{
 		return sh.getValue(by.housekeepingCondition);
 	}
 
-	public Dwelling setHousekeepingCondition(String housekeepingCondition)
+	protected T setHousekeepingCondition(String housekeepingCondition)
 	{
 		sh.setText(by.housekeepingCondition, housekeepingCondition);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public Dwelling setInTheWindpool(String flag)
+	protected T setInTheWindpool(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_"+ flag.toLowerCase() + "-inputEl"));
-		return this;
+		return (T)this;
 	}
-	public Dwelling setOwnedByOther(String flag)
+	protected T setOwnedByOther(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setOccupiedDaily(String flag)
+	protected T setOccupiedDaily(String flag)
 	{
 
 		sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_" + flag.toLowerCase() + "-inputEl"));
-		return this;
+		return (T)this;
 	}
 
 
-	public Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
+	protected T setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "IsRiskOwnedByLLC_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public T clickProtectionDetailsTab()
+	protected T clickProtectionDetailsTab()
 	{
 		sh.clickElement(by.protectionDetails);
 		sh.waitForNoMask();
@@ -306,110 +301,110 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 
 
-	public Dwelling clickAdditionalInterestsTab()
+	protected T clickAdditionalInterestsTab()
 	{
 		sh.clickElement(by.additionalInterests);
-		return this;
+		return (T)this;
 	}
-	public Dwelling setSwimmingPool(String flag)
+	protected T setSwimmingPool(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "SwimmingPoolExists_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public Dwelling setTrampolineOnPremises(String flag)
+	protected T setTrampolineOnPremises(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "TrampolineExists_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public Dwelling setSkateboardBicycleRampOnPremises(String flag)
+	protected T setSkateboardBicycleRampOnPremises(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "HasBikeRamp_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setAnimalsOrExoticPets(String flag)
+	protected T setAnimalsOrExoticPets(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setGolfCarts(String flag)
+	protected T setGolfCarts(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "HasOwnedGolfCarts_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setRecreationalVehiclesOwned(String flag)
+	protected T setRecreationalVehiclesOwned(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "HasOwnedRecVehicles_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setPoolFenced(String flag)
+	protected T setPoolFenced(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "PropertyFenced_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setDivingBoard(String flag)
+	protected T setDivingBoard(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "DivingBoard_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Dwelling setPoolSlide(String flag)
+	protected T setPoolSlide(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "HasSwimmingPoolSlide_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getPoolLocation()
+	protected String getPoolLocation()
 	{
 		return sh.getValue(by.poolLocation);
 	}
 	
-	public Dwelling setPoolLocation(String poolLocation)
+	protected T setPoolLocation(String poolLocation)
 	{
 		sh.setText(by.poolLocation, poolLocation);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getFenceType()
+	protected String getFenceType()
 	{
 		return sh.getValue(by.fenceType);
 	}
 	
-	public Dwelling setFenceType(String fenceType)
+	protected T setFenceType(String fenceType)
 	{
 		sh.setText(by.fenceType, fenceType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getWindpoolZone()
+	protected String getWindpoolZone()
 	{
 		return sh.getValue(by.windpoolZone);
 	}
 	
-	public Dwelling setWindpoolZone(String windpoolZone)
+	protected T setWindpoolZone(String windpoolZone)
 	{
 		sh.setText(by.windpoolZone, windpoolZone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public T addNewDwellingLocation()
+	protected T addNewDwellingLocation()
 	{
 		sh.clickElement(by.locationDropDown);
 		sh.clickElement(by.newLocation);
 		return (T)this;
 	}
-	public T editDwellingLocation()
+	protected T editDwellingLocation()
 	{
 		sh.clickElement(by.locationDropDown);
 		sh.clickElement(by.editLocation);
@@ -467,20 +462,6 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 
 
-	public class ExoticAnimalTable extends TableBase
-	{
-		private ExoticAnimalTable(CenterSeleniumHelper sh)
-		{
-			super(by.exoticAnimalTableID, sh);
-		}
-
-		public ExoticAnimalTable setType()
-		{
-
-			return this;
-		}
-	}
-
 	public class ProtectionDetails<T extends ProtectionDetails> extends CenterPanelBase
 	{
 		private ProtectionDetailsBy by;
@@ -519,140 +500,141 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 						detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
 
 		}
-		public T clickAdditionalInterestsTab()
+		protected T clickAdditionalInterestsTab()
 		{
 			sh.clickElement(by.additionalInterests);
 			return (T)this;
 		}
-		public Dwelling clickDetailsTab()
+		protected T clickDetailsTab()
 		{
 			sh.clickElement(by.detailsTab);
-			return new Dwelling(sh, path);
+			return (T)this;
 		}
-		public DwellingConstruction next()
+		protected T dwellingConstructionNext()
 		{
 			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-			return new DwellingConstruction(sh,path);
+			return (T)this;
 		}
 
 
-		public ProtectionDetails setBurglarAlarm(String flag)
+		protected T setBurglarAlarm(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setLockedPrivacyFence(String flag)
+		protected T setLockedPrivacyFence(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "HasLockedPrivacyFence_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setBurglarBarsOnWindows(String flag)
+		protected T setBurglarBarsOnWindows(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBars_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setCommunityGuarded(String flag)
+		protected T setCommunityGuarded(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "HasSecurityGuards_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setGatedCommunity(String flag)
+		protected T setGatedCommunity(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "IsGatedCommunity_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setFireAlarm(String flag)
+		protected T setFireAlarm(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "FireAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setSmokeAlarm(String flag)
+		protected T setSmokeAlarm(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "SmokeAlarm_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setFireExtinguishers(String flag)
+		protected T setFireExtinguishers(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "FireExtinguishers_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setSprinklerSystem(String flag)
+		protected T setSprinklerSystem(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "HasSprinklerSystem_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public ProtectionDetails setDeadbolts(String flag)
+		protected T setDeadbolts(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "Deadbolts_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
 
-		public ProtectionDetails setResidenceVisibleToNeighbors(String flag)
+		protected T setResidenceVisibleToNeighbors(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "VisibleToNeighbors_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public ProtectionDetails safetyLatchesPresent(String flag)
+		protected T safetyLatchesPresent(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "HasBurglarBarSafetyLatches_fli_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public String getAlarmType()
+		protected String getBurglarAlarmType()
 		{
 			return sh.getValue(by.alarmType);
 		}
 
-		public ProtectionDetails setBurglarAlarmType(String alarmType)
+		protected T setBurglarAlarmType(String alarmType)
 		{
 			sh.setText(by.alarmType, alarmType);
 			sh.tab();
-			return this;
+			return (T)this;
 		}
-		public String getFireAlarmType()
+
+		protected String getFireAlarmType()
 		{
 			return sh.getValue(by.fireAlarmType);
 		}
 
-		public ProtectionDetails setFireAlarmType(String fireAlarmType)
+		protected T setFireAlarmType(String fireAlarmType)
 		{
 			sh.setText(by.fireAlarmType, fireAlarmType);
 			sh.tab();
-			return this;
+			return (T)this;
 		}
-		public String getSprinklerSystemType()
+		protected String getSprinklerSystemType()
 		{
 			return sh.getValue(by.sprinklerSystemType);
 		}
 
-		public ProtectionDetails setSprinklerSystemType(String sprinklerSystemType)
+		protected T setSprinklerSystemType(String sprinklerSystemType)
 		{
 			sh.setText(by.sprinklerSystemType, sprinklerSystemType);
 			sh.tab();
-			return this;
+			return (T)this;
 		}
 
 
@@ -671,7 +653,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			setID(path);
 			by = new AdditionalInterestsBy();
 		}
-
+	
 		public void setID(Path path)
 		{
 			switch(path)
@@ -696,16 +678,33 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			newPerson = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:1:ContactType-textEl"),
 			newCompany = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:0:ContactType-textEl"),
 			fromAddressBook = By.id(aiBase + "AdditionalInterestLV_tb:AddContactsButton:AddFromSearch-textEl"),
-			remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl");
+			remove = By.id(aiBase + "AdditionalInterestLV_tb:Remove-btnInnerEl"),
+
+			protectionDetails = By.id(tabBase + "DwellingSingleProtectionIdTab-btnInnerEl"),
+			detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
+		}
+		
+		protected T clickProtectionDetailsTab()
+		{
+			sh.clickElement(by.protectionDetails);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected T clickDetailsTab()
+		{
+			sh.clickElement(by.detailsTab);
+			sh.waitForNoMask();
+			return (T)this;
 		}
 
-		public AdditionalInterests clickRemove()
+
+		protected T clickRemove()
 		{
 			sh.clickElement(by.remove);
-			return this;
+			return (T)this;
 		}
 
-		public NewAdditionalInterest clickAddNewPerson()
+		protected T addNewPerson()
 		{
 
 			System.out.println("~~~~~~Adding a New Person for New Additional Interest~~~~~~~~");
@@ -718,10 +717,10 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 				sh.clickElement(by.newPerson);
 
-			return new NewAdditionalInterest(sh, path);
+			return (T)this;
 		}
 
-		public NewAdditionalInterest clickAddNewCompany()
+		protected T addNewCompany()
 		{
 			for(int i = 0; i<10; i++)
 			{
@@ -731,10 +730,10 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			}
 
 			sh.clickElement(by.newCompany);
-			return new NewAdditionalInterest(sh, path);
+			return (T)this;
 		}
 
-		public SearchAddressBook clickFromAddressBook()
+		protected T fromAddressBook()
 		{
 			for(int i = 0; i<10; i++)
 			{
@@ -744,47 +743,47 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			}
 
 			sh.clickElement(by.fromAddressBook);
-			return new SearchAddressBook(sh, path);
+			return (T)this;
 		}
 
-		public AdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
+		protected T selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//div[text()= '" + typeEffectiveDateLoanNumber + "']/../..//img"));
-			return this;
+			return (T)this;
 		}
 
-		public AdditionalInterests selectRowInAdditionalInterestByName(String name)
+		protected T selectRowInAdditionalInterestByName(String name)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + aiBase + "AdditionalInterestLV-body']//a[text()= '" + name + "']/../../..//img"));
-			return this;
+			return (T)this;
 		}
 
-		public AdditionalInterests setType(int row, String type)
+		protected T setType(int row, String type)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[3]//div"));
 			sh.setText(By.name("Type"),type);
-			return this;
+			return (T)this;
 		}
 
-		public AdditionalInterests setEffectiveDate(int row, String effectiveDate)
+		protected T setEffectiveDate(int row, String effectiveDate)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[4]//div"));
 			sh.setText(By.name("EffectiveDate"),effectiveDate);
-			return this;
+			return (T)this;
 		}
 
-		public AdditionalInterests setLoanNumber(int row, String loanNumber)
+		protected T setLoanNumber(int row, String loanNumber)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + aiBase + "AdditionalInterestLV-body']//table[" + row + "]//td[5]//div"));
 			sh.setText(By.name("ContractNumber"),loanNumber);
-			return this;
+			return (T)this;
 		}
 
-		public DwellingConstruction next()
+		protected T dwellingConstructionNext()
 		{
 			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-			return new DwellingConstruction(sh,path);
+			return (T)this;
 		}
 
 	}

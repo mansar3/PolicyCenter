@@ -1,7 +1,6 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.WizardPanelBase.CenterPanelBase;
 import pageobjects.WizardPanelBase.Dwelling;
 
 
@@ -288,14 +287,89 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 		public FLHO3Dwelling clickDetails()
 		{
 			super.clickDetailsTab();
-
+			return new FLHO3Dwelling(sh, path);
+		}
+		public FLHO3DwellingConstruction next()
+		{
+			dwellingConstructionNext();
+			return new FLHO3DwellingConstruction(sh, path);
+		}
+		public FLHO3ProtectionDetails setBurglarAlarm(String flag)
+		{
+			return super.setBurglarAlarm(flag);
+		}
+		public FLHO3ProtectionDetails setLockedPrivacyFence(String flag)
+		{
+			return super.setLockedPrivacyFence(flag);
+		}
+		public FLHO3ProtectionDetails setBurglarBarsOnWindows(String flag)
+		{
+			return super.setBurglarBarsOnWindows(flag);
+		}
+		public FLHO3ProtectionDetails setCommunityGuarded(String flag)
+		{
+			return super.setCommunityGuarded(flag);
+		}
+		public FLHO3ProtectionDetails setGatedCommunity(String flag)
+		{
+			return super.setGatedCommunity(flag);
+		}
+		public FLHO3ProtectionDetails setFireAlarm(String flag)
+		{
+			return super.setFireAlarm(flag);
+		}
+		public FLHO3ProtectionDetails setSmokeAlarm(String flag)
+		{
+			return super.setSmokeAlarm(flag);
+		}
+		public FLHO3ProtectionDetails setFireExtinguishers(String flag)
+		{
+			return super.setFireExtinguishers(flag);
+		}
+		public FLHO3ProtectionDetails setSprinklerSystem(String flag)
+		{
+			return super.setSprinklerSystem(flag);
+		}
+		public FLHO3ProtectionDetails setDeadbolts(String flag)
+		{
+			return super.setDeadbolts(flag);
+		}
+		public FLHO3ProtectionDetails setResidenceVisibleToNeighbors(String flag)
+		{
+			return super.setResidenceVisibleToNeighbors(flag);
+		}
+		public FLHO3ProtectionDetails safetyLatchesPresent(String flag)
+		{
+			return super.safetyLatchesPresent(flag);
+		}
+		public FLHO3ProtectionDetails setBurglarAlarmType(String text)
+		{
+			return super.setBurglarAlarmType(text);
 		}
 
+		public String getBurglarAlarmType()
+		{
+			return super.getBurglarAlarmType();
+		}
+		public FLHO3ProtectionDetails setFireAlarmType(String text)
+		{
+			return super.setFireAlarmType(text);
+		}
 
+		public String getFireAlarmType()
+		{
+			return super.getFireAlarmType();
+		}
 
+		public FLHO3ProtectionDetails setSprinklerSystemType(String text)
+		{
+			return super.setSprinklerSystemType(text);
+		}
 
-
-
+		public String getSprinklerSystemType()
+		{
+			return super.getSprinklerSystemType();
+		}
 
 	}
 
@@ -306,5 +380,77 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 			super(sh, path);
 		}
 
+
+		public FLHO3ProtectionDetails clickProtectionDetails()
+		{
+			super.clickProtectionDetailsTab();
+			return new FLHO3ProtectionDetails(sh, path);
+		}
+
+		public FLHO3Dwelling clickDetails()
+		{
+			super.clickDetailsTab();
+			return new FLHO3Dwelling(sh, path);
+		}
+		public FLHO3AdditionalInterests clickRemove()
+		{
+			super.clickRemove();
+			return this;
+		}
+		public FLHO3NewAdditionalInterest clickAddNewPerson()
+		{
+			addNewPerson();
+			return new FLHO3NewAdditionalInterest(sh,path);
+		}
+		public FLHO3NewAdditionalInterest clickAddNewCompany()
+		{
+			addNewCompany();
+			return new FLHO3NewAdditionalInterest(sh,path);
+		}
+		public FLHO3SearchAddressBook clickFromAddressBook()
+		{
+			fromAddressBook();
+			return new FLHO3SearchAddressBook(sh,path);
+		}
+		public FLHO3AdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
+		{
+			return super.selectRowInAdditionalInterest(typeEffectiveDateLoanNumber);
+		}
+		public FLHO3AdditionalInterests selectRowInAdditionalInterestByName(String name)
+		{
+			return super.selectRowInAdditionalInterestByName(name);
+		}
+		public FLHO3AdditionalInterests setType(int row, String type)
+		{
+			return super.setType(row,type);
+		}
+		public FLHO3AdditionalInterests setEffectiveDate(int row, String effectiveDate)
+		{
+			return super.setEffectiveDate(row,effectiveDate);
+		}
+		public FLHO3AdditionalInterests setLoanNumber(int row, String loanNumber)
+		{
+			return super.setLoanNumber(row,loanNumber);
+		}
+		public FLHO3DwellingConstruction next()
+		{
+			super.dwellingConstructionNext();
+			return new FLHO3DwellingConstruction(sh, path);
+		}
+
+
+
+
+
+
 	}
+
+
+
+
+
+
+
+
+
 }
