@@ -52,11 +52,11 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		}
 	}
 
-	public DwellingConstruction next()
+	public T DwellingConstructionNext()
 	{
 		sh.waitForNoMask(20);
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new DwellingConstruction(sh,path);
+		return (T)this;
 	}
 
 	public Dwelling setYearBuilt(String yearBuilt)
@@ -290,17 +290,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.clickElement(By.id(dwellingBase + "IsOccupiedDaily_fli_" + flag.toLowerCase() + "-inputEl"));
 		return this;
 	}
-	public Dwelling selectYesForAllOptions()
-	{
-		List<WebElement> buttons = sh.driver.findElements(by.allCheckBoxesYes);
-		for(WebElement box:buttons)
-		{
-			sh.waitForNoMask();
-			sh.wait(5).until(ExpectedConditions.elementToBeClickable(box));
-			box.click();
-		}
-		return this;
-	}
+
 
 	public Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
 	{
@@ -308,15 +298,15 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public ProtectionDetails clickProtectionDetails()
+	public T clickProtectionDetailsTab()
 	{
 		sh.clickElement(by.protectionDetails);
 		sh.waitForNoMask();
-		return new ProtectionDetails(sh,path);
+		return (T)this;
 	}
 
 
-	public Dwelling clickAdditionalInterests()
+	public Dwelling clickAdditionalInterestsTab()
 	{
 		sh.clickElement(by.additionalInterests);
 		return this;
@@ -413,17 +403,17 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.waitForNoMask();
 		return this;
 	}
-	public LocationInformation addNewLocation()
+	public T addNewDwellingLocation()
 	{
 		sh.clickElement(by.locationDropDown);
 		sh.clickElement(by.newLocation);
-		return new LocationInformation(sh, path);
+		return (T)this;
 	}
-	public LocationInformation editLocation()
+	public T editDwellingLocation()
 	{
 		sh.clickElement(by.locationDropDown);
 		sh.clickElement(by.editLocation);
-		return new LocationInformation(sh, path);
+		return (T)this;
 	}
 
 
@@ -491,7 +481,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		}
 	}
 
-	public class ProtectionDetails extends CenterPanelBase
+	public class ProtectionDetails<T extends ProtectionDetails> extends CenterPanelBase
 	{
 		private ProtectionDetailsBy by;
 		public ProtectionDetails(CenterSeleniumHelper sh, Path path)
@@ -529,10 +519,10 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 						detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
 
 		}
-		public AdditionalInterests clickAdditionalInterests()
+		public T clickAdditionalInterestsTab()
 		{
 			sh.clickElement(by.additionalInterests);
-			return new AdditionalInterests(sh, path);
+			return (T)this;
 		}
 		public Dwelling clickDetailsTab()
 		{
@@ -670,7 +660,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	}
 
-	public class AdditionalInterests extends CenterPanelBase
+	public class AdditionalInterests<T extends AdditionalInterests> extends CenterPanelBase
 	{
 		private AdditionalInterestsBy by;
 
