@@ -18,10 +18,10 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/renewal.xml</suiteXmlFile>
+								<suiteXmlFile>src/test/resources/submission.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<systemPropertyVariables>
-								<environment>47</environment>
+								<environment>73</environment>
                                 <local>false</local>
 							</systemPropertyVariables>
 						</configuration>

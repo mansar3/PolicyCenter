@@ -20,9 +20,9 @@ public class Login
 	public Login(CenterSeleniumHelper sh, SessionInfo sessionInfo)
 	{
 		this.sh = sh;
-		loginURL = "http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
+//		loginURL = "http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
 		// AWS URL
-		//loginURL = "http://10.0.4." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
+		loginURL = "http://10.0.4." + sessionInfo.environment + ":8180/pc/PolicyCenter.do";
 		System.out.println("LoginURL set to: " + loginURL);
 	}
 
