@@ -5,7 +5,7 @@ import Helpers.TableBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.ByChained;
 
-public class NewSubmission extends CenterPanelBase
+public abstract class NewSubmission<T extends NewSubmission> extends CenterPanelBase
 {
 	public NewSubmissionBy by;
 	public ProductSelectionTable productTable;

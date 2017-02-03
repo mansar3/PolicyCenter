@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30">
-	<test name="FLHO3 SUBMISSION">
+	<test name="Renewal ETL">
         <parameter name="environment" value="47" />
         <parameter name="local" value="false" />
         <classes>

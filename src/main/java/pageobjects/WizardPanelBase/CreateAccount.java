@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class CreateAccount extends CenterPanelBase
+public abstract class CreateAccount<T extends CreateAccount> extends CenterPanelBase
 {
 	private CreateAccountBy by;
 	public String streetAddress, city, state;
@@ -219,11 +219,11 @@ public class CreateAccount extends CenterPanelBase
 	}
 	
 	
-	public AccountFileSummary clickUpdate()
+	public T clickUpdate()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.updateBtn);
-		return new AccountFileSummary(sh);
+		return (T)this;
 	}
 
 	//region Contact Input Set
@@ -283,12 +283,12 @@ public class CreateAccount extends CenterPanelBase
 		return this;
 	}
 
-	public SelectStandardizedAddress clickVerifyAddress()
+	public T clickVerifyAddress()
 	{
 		sh.waitForNoMask();
 		sh.waitForPageLoad();
 		sh.clickElement(by.verifyAddress);
-		return new SelectStandardizedAddress(sh);
+		return (T)this;
 	}
 
 	public CreateAccount setAddressType(String addressType)
@@ -321,10 +321,10 @@ public class CreateAccount extends CenterPanelBase
 		sh.clickElement(By.cssSelector(".x-boundlist-selected"));
 		return this;
 	}
-	public Organizations clickOrganizationSearch()
+	public T clickOrganizationSearch()
 	{
 		sh.clickElement(by.organizationSearchButton);
-		return new Organizations(sh);
+		return (T)this;
 	}
 
 	public CreateAccount clickProducerCodeDropdown()

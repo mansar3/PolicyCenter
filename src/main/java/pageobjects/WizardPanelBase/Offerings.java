@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 11/30/16.
  */
-public class Offerings extends CenterPanelBase
+public abstract class Offerings extends CenterPanelBase
 {
 	private OfferingsBy by;
 	public Offerings(CenterSeleniumHelper sh,Path path)

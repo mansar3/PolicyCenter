@@ -12,6 +12,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.FLHO3.FLHO3EnterAccountInformation;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 import pageobjects.WizardPanelBase.CreateAccount;
 import pageobjects.WizardPanelBase.EnterAccountInformation;
@@ -96,6 +97,7 @@ public class AccountTest extends BaseTest
 	{
 		log("Test new company account creation");
 		String companyName = "company " + dateString;
+
 		enterAccountInfo
 			.setCompanyName(companyName)
 			.clickSearch();

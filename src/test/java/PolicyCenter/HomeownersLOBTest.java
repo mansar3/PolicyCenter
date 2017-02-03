@@ -16,10 +16,14 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.FLHO3.FLHO3CreateAccount;
+import pageobjects.FLHO3.FLHO3EnterAccountInformation;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -1869,7 +1873,7 @@ public class HomeownersLOBTest extends BaseTest
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-		EnterAccountInformation enterAccountInfo = new EnterAccountInformation(sh);
+		FLHO3EnterAccountInformation enterAccountInfo = new FLHO3EnterAccountInformation(sh);
 
 
 		log("Test new person account creation");
@@ -1885,7 +1889,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setZipCode(eai.get("Mailing Zip Code"))
 			.setLastName(lastName)
 			.clickSearch();
-		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+		FLHO3CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
 
 		log("Creating new account: " + dateString);
 
@@ -1908,7 +1912,7 @@ public class HomeownersLOBTest extends BaseTest
 			.setOrganization("4 CORNERS INSURANCE")
 			.setProducerCode("8329736");
 
-			AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 

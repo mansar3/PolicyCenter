@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 12/7/16.
  */
-public class NewAdditionalNameInsured extends CenterPanelBase
+public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsured> extends CenterPanelBase
 {
 	private NewAdditionalNameInsuredBy by;
 

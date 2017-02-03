@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class RiskAnalysis extends CenterPanelBase
+public abstract abstract class RiskAnalysis extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
 	protected String riskAnalysisBase;

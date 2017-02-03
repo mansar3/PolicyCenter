@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class Dwelling extends CenterPanelBase
+public class Dwelling<T extends Dwelling> extends CenterPanelBase
 {
 	private DwellingBy by;
 	public ProtectionDetails pd;
@@ -718,7 +718,7 @@ public class Dwelling extends CenterPanelBase
 		public NewAdditionalInterest clickAddNewPerson()
 		{
 
-			System.out.println("Adding a New Person");
+			System.out.println("~~~~~~Adding a New Person for New Additional Interest~~~~~~~~");
 			for(int i = 0; i<10; i++)
 			{
 				sh.clickElement(by.add);

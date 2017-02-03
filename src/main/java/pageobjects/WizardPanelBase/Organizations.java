@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class Organizations extends CenterPanelBase
+public abstract class Organizations extends CenterPanelBase
 {
     private OrganizationsBy by;
 

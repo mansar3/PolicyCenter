@@ -1,9 +1,8 @@
 package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
-import org.openqa.selenium.By;
 
-public class MyActivities extends CenterPanelBase
+public abstract class MyActivities<T extends MyActivities> extends CenterPanelBase
 {
     private MyActivitiesBy by;
     public NavigationBar navbar;

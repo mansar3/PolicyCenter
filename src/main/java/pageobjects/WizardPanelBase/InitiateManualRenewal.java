@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 11/23/16.
  */
-public class InitiateManualRenewal extends CenterPanelBase
+public class InitiateManualRenewal<T extends InitiateManualRenewal> extends CenterPanelBase
 {
 	private InitiateManualRenewalBy by;
 	public InitiateManualRenewal(CenterSeleniumHelper sh)

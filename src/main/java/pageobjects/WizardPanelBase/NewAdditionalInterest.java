@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 12/7/16.
  */
-public class NewAdditionalInterest extends CenterPanelBase
+public abstract class NewAdditionalInterest<T extends NewAdditionalInterest> extends CenterPanelBase
 {
 	private NewAdditionalInterestBy by;
 

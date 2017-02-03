@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class PolicyInfo extends CenterPanelBase
+public abstract class PolicyInfo extends CenterPanelBase
 {
 
 	private PolicyInfoBy by;
@@ -112,7 +112,7 @@ public class PolicyInfo extends CenterPanelBase
 	}
 	public NewAdditionalNameInsured clickAddNewPerson()
 	{
-		System.out.println("~~~~~~~~Adding a new person~~~~~~~~~");
+		System.out.println("~~~~~~~~Adding a new person for Additional Named Insured~~~~~~~~~");
 		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);

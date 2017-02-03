@@ -24,9 +24,9 @@ public class AccountPolicyGenerator
 		String filePathBase;
 		if(SystemUtils.IS_OS_MAC)
 			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
-			filePathBase = "/Volumes/General/ConversionData/Policies/FLHO3-20170202_130152/";
+			//filePathBase = "/Volumes/General/ConversionData/Policies/FLHO3-20170202_130152/";
 			//filePathBase = "/Users/aansari/Downloads/FLHO3data/FLHO3-20170122_100250/";
-			//filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170202_130149/FLHO3-20170202_130152/";
+			filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170202_130149/FLHO3-20170202_130152/";
 		else
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Policies\\FLHO3-20170202_130152\\";
 		String filePath= filePathBase + "policies.csv";

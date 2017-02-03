@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class EnterAccountInformation extends CenterPanelBase
+public abstract class EnterAccountInformation<E extends EnterAccountInformation> extends CenterPanelBase
 {
 	CenterSeleniumHelper sh;
 	EnterAccountInformationBy by;
@@ -37,10 +37,10 @@ public class EnterAccountInformation extends CenterPanelBase
 		System.out.println("Navigated to: " + expectedPanelTitle);
 	}
 
-	public EnterAccountInformation setCompanyName(String companyName)
+	public E setCompanyName(String companyName)
 	{
 		sh.setText(by.companyName, companyName);
-		return this;
+		return (E)this;
 	}
 
 	public EnterAccountInformation setFirstName(String firstName)

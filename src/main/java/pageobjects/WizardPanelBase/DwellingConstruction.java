@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class DwellingConstruction extends CenterPanelBase
+public abstract class DwellingConstruction<T extends DwellingConstruction> extends CenterPanelBase
 {
 	private DwellingConstructionBy by;
 	protected String dwellingConstructionBase, windMitigationBase,tabBase;

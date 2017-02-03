@@ -3,10 +3,8 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-public class NavigationBar extends CenterPanelBase
+public abstract class NavigationBar<T extends NavigationBar> extends CenterPanelBase
 {
     private NavigationBarBy by;
 

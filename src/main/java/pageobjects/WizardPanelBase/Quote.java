@@ -7,7 +7,7 @@ import pageobjects.WestPanel.WestPanelBase;
 /**
  * Created by aansari on 11/21/16.
  */
-public class Quote extends CenterPanelBase
+public abstract class Quote extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
 	protected String quoteBase, errorBase;

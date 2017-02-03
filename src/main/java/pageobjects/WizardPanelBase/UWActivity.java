@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 11/21/16.
  */
-public class UWActivity extends CenterPanelBase
+public abstract class UWActivity extends CenterPanelBase
 {
 	private UWActivityBy by;
 	public UWActivity(CenterSeleniumHelper sh,Path path)

@@ -41,7 +41,7 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local", "threads"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("30") int threads)
+	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("5") int threads)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -63,9 +63,9 @@ public abstract class BaseTest
 		try
 		{
 			// Dockers URL
-			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
-			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
+			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");
 		}

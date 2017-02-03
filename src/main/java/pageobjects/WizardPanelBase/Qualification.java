@@ -5,7 +5,7 @@ import Helpers.TableBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Qualification extends CenterPanelBase
+public abstract class Qualification extends CenterPanelBase
 {
 	private QualificationBy by = new QualificationBy();;
 	public Questionnaire questionnaire;

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 1/30/17.
  */
-public class PolicyReview extends CenterPanelBase
+public abstract class PolicyReview extends CenterPanelBase
 {
 	private PolicyReviewBy by;
 	protected String buttonBase;

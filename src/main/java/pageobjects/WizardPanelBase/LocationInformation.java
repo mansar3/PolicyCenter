@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 1/24/17.
  */
-public class LocationInformation extends CenterPanelBase
+public abstract class LocationInformation<T extends LocationInformation> extends CenterPanelBase
 {
 	private LocationInformationBy by;
 	public LocationInformation(CenterSeleniumHelper sh, Path path)
