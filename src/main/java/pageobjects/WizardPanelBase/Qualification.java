@@ -5,7 +5,7 @@ import Helpers.TableBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public abstract class Qualification extends CenterPanelBase
+public abstract class Qualification<T extends Qualification> extends CenterPanelBase
 {
 	private QualificationBy by = new QualificationBy();;
 	public Questionnaire questionnaire;
@@ -24,17 +24,17 @@ public abstract class Qualification extends CenterPanelBase
 		return sh.getValue(by.offeringSelection);
 	}
 
-	public Qualification setOfferingSelection(String offeringSelection)
+	public T setOfferingSelection(String offeringSelection)
 	{
 		sh.setText(by.offeringSelection, offeringSelection);
-		return this;
+		return (T)this;
 	}
-	public Qualification setPolicyType(String policyType)
+	public T setPolicyType(String policyType)
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
 		sh.waitForNoMask(15);
-		return this;
+		return (T)this;
 	}
 
 	public String getPolicyType()
@@ -42,10 +42,10 @@ public abstract class Qualification extends CenterPanelBase
 		return sh.getValue(by.policyType);
 	}
 
-	public PolicyInfo next()
+	protected T next()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new PolicyInfo(sh,path);
+		return (T)this;
 	}
 
 	public static class Questionnaire extends TableBase

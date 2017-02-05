@@ -6,7 +6,7 @@ import pageobjects.WizardPanelBase.SelectStandardizedAddress;
 /**
  * Created by aansari on 2/2/17.
  */
-public class FLHO3SelectStandardizedAddress extends SelectStandardizedAddress
+public class FLHO3SelectStandardizedAddress extends SelectStandardizedAddress<FLHO3SelectStandardizedAddress>
 {
 	public FLHO3SelectStandardizedAddress(CenterSeleniumHelper sh, Path path)
 	{

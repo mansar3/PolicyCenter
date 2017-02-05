@@ -6,7 +6,7 @@ import pageobjects.WizardPanelBase.UWActivity;
 /**
  * Created by aansari on 2/2/17.
  */
-public class FLHO3UWActivity extends UWActivity
+public class FLHO3UWActivity extends UWActivity<FLHO3UWActivity>
 {
 	public FLHO3UWActivity(CenterSeleniumHelper sh, Path path)
 	{

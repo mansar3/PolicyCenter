@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 12/21/16.
  */
-public class SearchAddressBook extends CenterPanelBase
+public abstract class SearchAddressBook<T extends CenterPanelBase> extends CenterPanelBase
 {
 	private  SearchAddressBookBy by;
 	public SearchAddressBook(CenterSeleniumHelper sh, Path path)
@@ -54,42 +54,42 @@ public class SearchAddressBook extends CenterPanelBase
 	{
 		sh.clickElement(By.id(by.addressBookBase + "ContactSearchResultsLV:" + String.valueOf(row) + ":_Select"));
 	}
-	public PolicyInfo selectFirstSearchResultPolicyInfo()
+	protected T selectFirstSearchResultPolicyInfo()
 	{
 		selectSearchResult(0);
 		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
-		return new PolicyInfo(sh, path);
+		return (T)this;
 	}
-	public Dwelling.AdditionalInterests selectFirstSearchResultAdditionalInterests()
+	protected T selectFirstSearchResultAdditionalInterests()
 	{
 		selectSearchResult(0);
 		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return new Dwelling(sh, path).new AdditionalInterests(sh, path);
 	}
-	public boolean areThereSearchResults()
+	protected boolean areThereSearchResults()
 	{
 		sh.waitForNoMask();
 		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:0:_Select"));
 	}
-	public boolean areThereMoreThanOneSearchResult()
+	protected boolean areThereMoreThanOneSearchResult()
 	{
 		sh.waitForNoMask();
 		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:1:_Select"));
 	}
-	public PolicyInfo clickReturnToPolicyInfo()
+	protected T clickReturnToPolicyInfo()
 	{
 		sh.clickElement(by.returnTo);
 		sh.waitForNoMask();
-		return new PolicyInfo(sh, path);
+		return (T)this;
 	}
-	public Dwelling.AdditionalInterests clickReturnToDwelling()
+	protected T clickReturnToDwelling()
 	{
 		sh.clickElement(by.returnTo);
 		sh.waitForNoMask();
-		return new Dwelling(sh, path).new AdditionalInterests(sh, path);
+		return (T)this;
 	}
 	
-	public SearchAddressBook clickSearch()
+	protected T clickSearch()
 	{
 		// Added because even after waitForNoMask sometimes "click at point.."
 		// would still occur.
@@ -97,181 +97,181 @@ public class SearchAddressBook extends CenterPanelBase
 		sh.waitForNoMask();
 		sh.clickElement(by.search);
 		sh.waitForPageLoad();
-		return this;
+		return (T)this;
 	}
-	public SearchAddressBook clickReset()
+
+	protected T clickReset()
 	{
 		sh.clickElement(by.reset);
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public SearchAddressBook clickPrintExport()
+
+	protected T clickPrintExport()
 	{
 		sh.clickElement(by.printExport);
-		return this;
+		return (T)this;
 	}
 	
-
-	
-	public String getWorkPhone()
+	protected String getWorkPhone()
 	{
 		return sh.getValue(by.workPhone);
 	}
 	
-	public SearchAddressBook setWorkPhone(String workPhone)
+	protected T setWorkPhone(String workPhone)
 	{
 		sh.setText(by.workPhone, workPhone);
 		sh.tab();
-
-		return this;
+		return (T)this;
 	}
-	public SearchAddressBook clickFirstNameExactMatch()
+
+	protected T clickFirstNameExactMatch()
 	{
 		sh.clickElement(by.firstNameExactMatch);
-		return this;
+		return (T)this;
 	}
-	public SearchAddressBook clickLastNameExactMatch()
+	protected T clickLastNameExactMatch()
 	{
 		sh.clickElement(by.lastNameExactMatch);
-		return this;
+		return (T)this;
 	}
-	public SearchAddressBook clickCompanyNameExactMatch()
+
+	protected T clickCompanyNameExactMatch()
 	{
 		sh.clickElement(by.companyNameExactMatch);
-		return this;
+		return (T)this;
 	}
-	public String getType()
+
+	protected String getType()
 	{
 		return sh.getValue(by.type);
 	}
 	
-	public SearchAddressBook setType(String type)
+	protected T setType(String type)
 	{
 		sh.setText(by.type, type);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getCompanyName()
+	protected String getCompanyName()
 	{
 		return sh.getValue(by.companyName);
 	}
 
-	public SearchAddressBook setCompanyName(String companyName)
+	protected T setCompanyName(String companyName)
 	{
 		sh.setText(by.companyName, companyName);
 		sh.tab();
-
-		return this;
+		return (T)this;
 	}
-	public String getFirstName()
+	protected String getFirstName()
 	{
 		return sh.getValue(by.firstName);
 	}
 
-	public SearchAddressBook setFirstName(String firstName)
+	protected T setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
 		this.firstName = firstName;
-
-		return this;
+		return (T)this;
 	}
-	public String getLastName()
+	protected String getLastName()
 	{
 		return sh.getValue(by.lastName);
 	}
 
-	public SearchAddressBook setLastName(String lastName)
+	protected T setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
 		this.lastName = lastName;
-
-		return this;
+		return (T)this;
 	}
-	public String getCountry()
+	protected String getCountry()
 	{
 		return sh.getValue(by.country);
 	}
 	
-	public SearchAddressBook setCountry(String country)
+	protected T setCountry(String country)
 	{
 		sh.setText(by.country, country);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getCity()
+	protected String getCity()
 	{
 		return sh.getValue(by.city);
 	}
 
-	public SearchAddressBook setCity(String city)
+	protected T setCity(String city)
 	{
 		sh.setText(by.city, city);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getState()
+	protected String getState()
 	{
 		return sh.getValue(by.state);
 	}
 
-	public SearchAddressBook setState(String state)
+	protected T setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getCounty()
+	protected String getCounty()
 	{
 		return sh.getValue(by.county);
 	}
 
-	public SearchAddressBook setCounty(String county)
+	protected T setCounty(String county)
 	{
 		sh.setText(by.county, county);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getZipCode()
+	protected String getZipCode()
 	{
 		return sh.getValue(by.zipCode);
 	}
 
-	public SearchAddressBook setZipCode(String zipCode)
+	protected T setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getTaxID()
+
+	protected String getTaxID()
 	{
 		return sh.getValue(by.taxID);
 	}
 
-	public SearchAddressBook setTaxID(String taxID)
+	protected T setTaxID(String taxID)
 	{
 		sh.setText(by.taxID, taxID);
 		sh.tab();
-
-		return this;
+		return (T)this;
 	}
-	public String getPhone()
+
+	protected String getPhone()
 	{
 		return sh.getValue(by.phone);
 	}
 	
-	public SearchAddressBook setPhone(String phone)
+	protected T setPhone(String phone)
 	{
 		sh.setText(by.phone, phone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 }

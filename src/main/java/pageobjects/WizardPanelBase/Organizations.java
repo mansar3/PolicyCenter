@@ -2,8 +2,9 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.FLHO3.FLHO3Organizations;
 
-public abstract class Organizations extends CenterPanelBase
+public abstract class Organizations<T extends Organizations> extends CenterPanelBase
 {
     private OrganizationsBy by;
 

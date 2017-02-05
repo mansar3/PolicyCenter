@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public abstract abstract class RiskAnalysis extends CenterPanelBase
+public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
 	protected String riskAnalysisBase;
@@ -35,7 +35,7 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 		}
 	}
 
-	public Quote quote()
+	protected T quote()
 	{
 		sh.waitForNoMask();
 		switch(path)
@@ -49,9 +49,9 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 		}
 		//sh.clickElement(by.submissionQuote);
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-		return new Quote(sh,path);
+		return (T)this;
 	}
-	private void warningQuote()
+	protected void warningQuote()
 	{
 		sh.waitForNoMask();
 		if(getTitle().equals("Risk Analysis"))
@@ -67,7 +67,7 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 			}
 		}
 	}
-	public Quote qualifiesForAdditionalProtectionQuote()
+	protected T qualifiesForAdditionalProtectionQuote()
 	{
 		warningQuote();
 		sh.waitForNoMask();
@@ -91,11 +91,11 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 		return new Contingencies(sh, path);
 	}
 
-	public UWActivity requestApproval()
+	public T requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
 		sh.waitForNoMask();
-		return new UWActivity(sh,path);
+		return (T)this;
 	}
 	public CreateNewUWIssue addUWIssue()
 	{
@@ -115,7 +115,7 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 							contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
 	}
 
-	public class Contingencies extends CenterPanelBase
+	public class Contingencies<T extends Contingencies> extends CenterPanelBase
 	{
 		private ContingenciesBy by;
 		public Contingencies(CenterSeleniumHelper sh, Path path)
@@ -132,7 +132,7 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		public Quote quote()
+		public T quote()
 		{
 			sh.waitForNoMask();
 			switch(path)
@@ -146,7 +146,7 @@ public abstract abstract class RiskAnalysis extends CenterPanelBase
 			}
 			//sh.clickElement(by.submissionQuote);
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-			return new Quote(sh,path);
+			return (T)this;
 		}
 
 	}

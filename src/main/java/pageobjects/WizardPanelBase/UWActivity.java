@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 11/21/16.
  */
-public abstract class UWActivity extends CenterPanelBase
+public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 {
 	private UWActivityBy by;
 	public UWActivity(CenterSeleniumHelper sh,Path path)
@@ -23,10 +23,10 @@ public abstract class UWActivity extends CenterPanelBase
 		final static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl");
 	}
 
-	public RiskAnalysis sendRequest()
+	protected T sendRequest()
 	{
 		sh.clickElement(by.sendRequest);
-		return new RiskAnalysis(sh,path);
+		return (T)this;
 	}
 
 }
