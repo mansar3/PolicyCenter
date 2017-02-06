@@ -35,7 +35,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		}
 	}
 
-	protected T quote()
+	protected T riskAnalysisQuote()
 	{
 		sh.waitForNoMask();
 		switch(path)
@@ -67,7 +67,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			}
 		}
 	}
-	protected T qualifiesForAdditionalProtectionQuote()
+	protected T raQualifiesForAdditionalProtectionQuote()
 	{
 		warningQuote();
 		sh.waitForNoMask();
@@ -83,10 +83,10 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 //			else
 //				break;
 //		}
-		clickContingencies().quote();
+		riskAnalysisClickContingencies().riskAnalysisQuote();
 		return (T)this;
 	}
-	protected T clickContingencies()
+	protected T riskAnalysisClickContingencies()
 	{
 		sh.clickElement(by.contingencies);
 		return (T)this;
@@ -98,7 +98,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		sh.waitForNoMask();
 		return (T)this;
 	}
-	protected T addUWIssue()
+	protected T riskAnalysisAddUWIssue()
 	{
 		sh.clickElement(by.addUWIssue);
 		sh.waitForNoMask();

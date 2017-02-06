@@ -2,8 +2,6 @@ package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import pageobjects.WizardPanelBase.CenterPanelBase;
-import pageobjects.WizardPanelBase.Quote;
 import pageobjects.WizardPanelBase.RiskAnalysis;
 
 /**
@@ -18,33 +16,33 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 
 	public FLHO3Quote quote()
 	{
-		super.quote();
+		super.riskAnalysisQuote();
 		return new FLHO3Quote(sh,path);
 	}
-
 	public void warningQuote()
 	{
 		super.warningQuote();
 	}
 	public FLHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
-		super.qualifiesForAdditionalProtectionQuote();
-		return super.clickContingencies().quote();
+		super.raQualifiesForAdditionalProtectionQuote();
+		super.riskAnalysisClickContingencies().riskAnalysisQuote();
+		return new FLHO3Quote(sh, path);
 	}
 	public FLHO3RiskAnalysis.FLHO3Contingencies clickContingencies()
 	{
-		super.clickContingencies();
+		super.riskAnalysisClickContingencies();
 		return new FLHO3RiskAnalysis.FLHO3Contingencies(sh, path);
 	}
 
-	public FLHO3UWActivity requestApproval()
+	public FLHO3UWActivity riskAnalysisRequestApproval()
 	{
 		super.requestApproval();
 		return new FLHO3UWActivity(sh, path);
 	}
 	public FLHO3RiskAnalysis.FLHO3CreateNewUWIssue addUWIssue()
 	{
-		super.addUWIssue();
+		super.riskAnalysisAddUWIssue();
 		return new FLHO3RiskAnalysis.FLHO3CreateNewUWIssue(sh, path);
 
 	}
