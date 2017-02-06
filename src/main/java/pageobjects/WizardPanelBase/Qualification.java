@@ -19,17 +19,17 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 		questionnaire = new Questionnaire(sh);
 	}
 
-	public String getOfferingSelection()
+	protected String getOfferingSelection()
 	{
 		return sh.getValue(by.offeringSelection);
 	}
 
-	public T setOfferingSelection(String offeringSelection)
+	protected T setOfferingSelection(String offeringSelection)
 	{
 		sh.setText(by.offeringSelection, offeringSelection);
 		return (T)this;
 	}
-	public T setPolicyType(String policyType)
+	protected T setPolicyType(String policyType)
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
@@ -37,31 +37,31 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 		return (T)this;
 	}
 
-	public String getPolicyType()
+	protected String getPolicyType()
 	{
 		return sh.getValue(by.policyType);
 	}
 
-	protected T next()
+	protected T policyInfoNext()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		return (T)this;
 	}
 
-	public static class Questionnaire extends TableBase
+	public static class Questionnaire<T extends Questionnaire> extends TableBase
 	{
-		private Questionnaire(CenterSeleniumHelper sh)
+		protected Questionnaire(CenterSeleniumHelper sh)
 		{
 			super(By.id("SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body"), sh);
 			sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(tableId));
 		}
 
-		public String getQuestionText(int questionNum)
+		protected String getQuestionText(int questionNum)
 		{
 			return getTextTableElement(questionNum, 1);
 		}
 
-		private Questionnaire answerQuestion(int questionNum, Boolean bool)
+		private T answerQuestion(int questionNum, Boolean bool)
 		{
 			By answerBy = By.xpath("//*[@id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body']//table["
 			+ questionNum + "]//table[1]//input[@inputvalue = '" + String.valueOf(bool).toLowerCase() +"']");
@@ -73,16 +73,16 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 //			}
 			sh.waitForNoMask();
 			sh.clickElement(answerBy);
-			return this;
+			return (T)this;
 		}
 
 
-		public Questionnaire answerYes(int questionNum)
+		protected T answerYes(int questionNum)
 		{
 			return answerQuestion(questionNum, true);
 		}
 
-		public Questionnaire answerNo(int questionNum)
+		protected T answerNo(int questionNum)
 		{
 			return answerQuestion(questionNum, false);
 		}

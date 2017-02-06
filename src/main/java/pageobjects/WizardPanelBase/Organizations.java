@@ -2,7 +2,6 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import pageobjects.FLHO3.FLHO3Organizations;
 
 public abstract class Organizations<T extends Organizations> extends CenterPanelBase
 {
@@ -42,32 +41,32 @@ public abstract class Organizations<T extends Organizations> extends CenterPanel
         waitForTitle(sh);
     }
 
-    public Organizations setOrganizationName(String name)
+    public T setOrganizationName(String name)
     {
         sh.setText(by.organizationName, name);
         sh.tab();
-        return this;
+        return (T)this;
     }
 
-    public Organizations setOrganizationType(String type)
+    public T setOrganizationType(String type)
     {
         sh.setText(by.organizationType, type);
         sh.tab();
-        return this;
+        return (T)this;
     }
 
-    public Organizations clickSearchButton()
+    public T clickSearchButton()
     {
         sh.clickElement(by.searchButton);
         sh.waitForNoMask();
-        return this;
+        return (T)this;
     }
 
-    public CreateAccount clickSelectOrganizationButton()
+    public T selectOrganizationButton()
     {
         sh.waitForElementToAppear(by.organizationSearchResult);
-        sh.waitForNoMask(5);
+        sh.waitForNoMask();
         sh.clickElement(by.organizationSearchResult);
-        return new CreateAccount(sh);
+        return (T)this;
     }
 }

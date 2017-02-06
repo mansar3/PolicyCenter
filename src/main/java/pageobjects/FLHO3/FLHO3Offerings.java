@@ -12,4 +12,29 @@ public class FLHO3Offerings extends Offerings<FLHO3Offerings>
 	{
 		super(sh, path);
 	}
+
+	public FLHO3Offerings setOfferingSelection(String text)
+	{
+		return super.setOfferingSelection(text);
+	}
+
+	public String getOfferingSelection()
+	{
+		return super.getOfferingSelection();
+	}
+	public FLHO3Offerings setPolicyType(String text)
+	{
+		return super.setPolicyType(text);
+	}
+
+	public String getPolicyType()
+	{
+		return super.getPolicyType();
+	}
+	public FLHO3PolicyInfo next()
+	{
+		super.policyInfoNext();
+		return new FLHO3PolicyInfo(sh,path);
+	}
+
 }

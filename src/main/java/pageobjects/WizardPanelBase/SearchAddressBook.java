@@ -18,6 +18,14 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 		by = new SearchAddressBookBy();
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
+	public SearchAddressBook(CenterSeleniumHelper sh)
+	{
+		this.sh = sh;
+		expectedPanelTitle = "Search Address Book";
+		waitForTitle(sh);
+		by = new SearchAddressBookBy();
+		System.out.println("Navigated to page: " + expectedPanelTitle);
+	}
 
 	public class SearchAddressBookBy
 	{

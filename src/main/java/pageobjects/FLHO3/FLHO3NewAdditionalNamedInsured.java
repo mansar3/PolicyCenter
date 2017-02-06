@@ -12,4 +12,20 @@ public class FLHO3NewAdditionalNamedInsured extends NewAdditionalNameInsured<FLH
 	{
 		super(sh, path);
 	}
+
+	public FLHO3PolicyInfo clickOk()
+	{
+		super.ok();
+		return new FLHO3PolicyInfo(sh,path);
+	}
+	public FLHO3PolicyInfo clickCancel()
+	{
+		super.cancel();
+		return new FLHO3PolicyInfo(sh,path);
+	}
+	public FLHO3SelectStandardizedAddress clickVerifyAddress()
+	{
+		super.verifyAddress();
+		return new FLHO3SelectStandardizedAddress(sh,path);
+	}
 }

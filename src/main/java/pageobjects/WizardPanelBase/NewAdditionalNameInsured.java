@@ -20,11 +20,11 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
-	public NewAdditionalNameInsured certRequired(boolean flag)
+	public T certRequired(boolean flag)
 	{
 		sh.clickElement(By.id(by.anBase + "CertRequired_" + String.valueOf(flag) + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 
@@ -33,12 +33,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.firstName);
 	}
 
-	public NewAdditionalNameInsured setFirstName(String firstName)
+	public T setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getLastName()
@@ -46,12 +46,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.lastName);
 	}
 
-	public NewAdditionalNameInsured setLastName(String lastName)
+	public T setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getDateOfBirth()
@@ -59,12 +59,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.dateOfBirth);
 	}
 
-	public NewAdditionalNameInsured setDateOfBirth(String dateOfBirth)
+	public T setDateOfBirth(String dateOfBirth)
 	{
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getMaritalStatus()
@@ -72,12 +72,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.maritalStatus);
 	}
 
-	public NewAdditionalNameInsured setMaritalStatus(String maritalStatus)
+	public T setMaritalStatus(String maritalStatus)
 	{
 		sh.setText(by.maritalStatus, maritalStatus);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getPrimaryPhone()
@@ -85,12 +85,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.primaryPhone);
 	}
 
-	public NewAdditionalNameInsured setPrimaryPhone(String primaryPhone)
+	public T setPrimaryPhone(String primaryPhone)
 	{
 		sh.setText(by.primaryPhone, primaryPhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getHomePhone()
@@ -98,12 +98,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.homePhone);
 	}
 
-	public NewAdditionalNameInsured setHomePhone(String homePhone)
+	public T setHomePhone(String homePhone)
 	{
 		sh.setText(by.homePhone, homePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getWorkPhone()
@@ -111,12 +111,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.workPhone);
 	}
 
-	public NewAdditionalNameInsured setWorkPhone(String workPhone)
+	public T setWorkPhone(String workPhone)
 	{
 		sh.setText(by.workPhone, workPhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getMobilePhone()
@@ -124,12 +124,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.mobilePhone);
 	}
 
-	public NewAdditionalNameInsured setMobilePhone(String mobilePhone)
+	public T setMobilePhone(String mobilePhone)
 	{
 		sh.setText(by.mobilePhone, mobilePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getFaxPhone()
@@ -137,12 +137,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.faxPhone);
 	}
 
-	public NewAdditionalNameInsured setFaxPhone(String faxPhone)
+	public T setFaxPhone(String faxPhone)
 	{
 		sh.setText(by.faxPhone, faxPhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getPrimaryEmail()
@@ -150,12 +150,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.primaryEmail);
 	}
 
-	public NewAdditionalNameInsured setPrimaryEmail(String primaryEmail)
+	public T setPrimaryEmail(String primaryEmail)
 	{
 		sh.setText(by.primaryEmail, primaryEmail);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getSecondaryEmail()
@@ -163,12 +163,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.secondaryEmail);
 	}
 
-	public NewAdditionalNameInsured setSecondaryEmail(String secondaryEmail)
+	public T setSecondaryEmail(String secondaryEmail)
 	{
 		sh.setText(by.secondaryEmail, secondaryEmail);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getCountry()
@@ -176,12 +176,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.country);
 	}
 
-	public NewAdditionalNameInsured setCountry(String country)
+	public T setCountry(String country)
 	{
 		sh.setText(by.country, country);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getAddress1()
@@ -189,36 +189,36 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.address1);
 	}
 
-	public NewAdditionalNameInsured setAddress1(String address1)
+	public T setAddress1(String address1)
 	{
 		sh.setText(by.address1, address1);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	public String getAddress2()
 	{
 		return sh.getValue(by.address2);
 	}
 
-	public NewAdditionalNameInsured setAddress2(String address2)
+	public T setAddress2(String address2)
 	{
 		sh.setText(by.address2, address2);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	public String getAddress3()
 	{
 		return sh.getValue(by.address3);
 	}
 
-	public NewAdditionalNameInsured setAddress3(String address3)
+	public T setAddress3(String address3)
 	{
 		sh.setText(by.address3, address3);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getCity()
@@ -226,12 +226,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.city);
 	}
 
-	public NewAdditionalNameInsured setCity(String city)
+	public T setCity(String city)
 	{
 		sh.setText(by.city, city);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getCounty()
@@ -239,12 +239,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.county);
 	}
 
-	public NewAdditionalNameInsured setCounty(String county)
+	public T setCounty(String county)
 	{
 		sh.setText(by.county, county);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getState()
@@ -252,12 +252,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.state);
 	}
 
-	public NewAdditionalNameInsured setState(String state)
+	public T setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getZipCode()
@@ -265,12 +265,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.zipCode);
 	}
 
-	public NewAdditionalNameInsured setZipCode(String zipCode)
+	public T setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getAddressType()
@@ -278,12 +278,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.addressType);
 	}
 
-	public NewAdditionalNameInsured setAddressType(String addressType)
+	public T setAddressType(String addressType)
 	{
 		sh.setText(by.addressType, addressType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getAddressDescription()
@@ -291,12 +291,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.addressDescription);
 	}
 
-	public NewAdditionalNameInsured setAddressDescription(String addressDescription)
+	public T setAddressDescription(String addressDescription)
 	{
 		sh.setText(by.addressDescription, addressDescription);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getLicenseNumber()
@@ -304,12 +304,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.licenseNumber);
 	}
 
-	public NewAdditionalNameInsured setLicenseNumber(String licenseNumber)
+	public T setLicenseNumber(String licenseNumber)
 	{
 		sh.setText(by.licenseNumber, licenseNumber);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getLicenseState()
@@ -317,12 +317,12 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.licenseState);
 	}
 
-	public NewAdditionalNameInsured setLicenseState(String licenseState)
+	public T  setLicenseState(String licenseState)
 	{
 		sh.setText(by.licenseState, licenseState);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	public String getSsn()
@@ -330,99 +330,99 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		return sh.getValue(by.ssn);
 	}
 
-	public NewAdditionalNameInsured setSsn(String ssn)
+	public T  setSsn(String ssn)
 	{
 		sh.setText(by.ssn, ssn);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public SelectStandardizedAddress clickVerifyAddress()
+	public T verifyAddress()
 	{
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
-		return new SelectStandardizedAddress(sh,path);
+		return (T)this;
 	}
 
-	public PolicyInfo clickOk()
+	public T ok()
 	{
 		sh.clickElement(by.ok);
-		return new PolicyInfo(sh, path);
+		return (T)this;
 	}
 
-	public PolicyInfo clickCancel()
+	public T cancel()
 	{
 		sh.clickElement(by.cancel);
-		return new PolicyInfo(sh, path);
+		return (T)this;
 	}
-	public NewAdditionalNameInsured clickCheckForDuplicates()
+	public T  clickCheckForDuplicates()
 	{
 		sh.clickElement(by.checkForDuplicates);
-		return this;
+		return (T)this;
 	}
 	public String getRelationshipToPrimary()
 	{
 		return sh.getValue(by.relationshipToPrimary);
 	}
 	
-	public NewAdditionalNameInsured setRelationshipToPrimary(String relationshipToPrimary)
+	public T  setRelationshipToPrimary(String relationshipToPrimary)
 	{
 		sh.setText(by.relationshipToPrimary, relationshipToPrimary);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	public String getIndustryCode()
 	{
 		return sh.getValue(by.industryCode);
 	}
 	
-	public NewAdditionalNameInsured setIndustryCode(String industryCode)
+	public T  setIndustryCode(String industryCode)
 	{
 		sh.setText(by.industryCode, industryCode);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	public String getOfficePhone()
 	{
 		return sh.getValue(by.officePhone);
 	}
 	
-	public NewAdditionalNameInsured setOfficePhone(String officePhone)
+	public T  setOfficePhone(String officePhone)
 	{
 		sh.setText(by.officePhone, officePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	public String getCompanyName()
 	{
 		return sh.getValue(by.companyName);
 	}
 	
-	public NewAdditionalNameInsured setCompanyName(String companyName)
+	public T  setCompanyName(String companyName)
 	{
 		sh.setText(by.companyName, companyName);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
-	public NewAdditionalNameInsured clickSameAddressAsPrimaryNamedInsured()
+	public T  clickSameAddressAsPrimaryNamedInsured()
 	{
 		sh.clickElement(by.sameAddressAs);
 		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail-textEl"));
 		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail:PrimaryAddress-textEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-//	public NewAdditionalNameInsured clickSameAddressAsInsured(String personNameWithTitle)
+//	public T  clickSameAddressAsInsured(String personNameWithTitle)
 //	{
 //		sh.clickElement(by.sameAddressAs);
 //		sh.clickElement(By.xpath(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:LinkAddressMenuMenuIcon-fieldMenu']//span[text()='" + personNameWithTitle + "']"));
 //
-//		return this;
+//		return (T)this;
 //	}
 
 

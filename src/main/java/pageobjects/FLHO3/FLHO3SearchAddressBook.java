@@ -15,6 +15,10 @@ public class FLHO3SearchAddressBook extends SearchAddressBook<FLHO3SearchAddress
 	{
 		super(sh, path);
 	}
+	public FLHO3SearchAddressBook(CenterSeleniumHelper sh)
+	{
+		super(sh);
+	}
 
 	public FLHO3PolicyInfo selectFirstSearchResultPolicyInfo()
 	{

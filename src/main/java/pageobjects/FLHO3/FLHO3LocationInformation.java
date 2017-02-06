@@ -12,4 +12,20 @@ public class FLHO3LocationInformation extends LocationInformation<FLHO3LocationI
 	{
 		super(sh, path);
 	}
+
+	public FLHO3SelectStandardizedAddress clickVerifyAddress()
+	{
+		super.verifyAddress();
+		return new FLHO3SelectStandardizedAddress(sh,path);
+	}
+	public FLHO3Dwelling clickOk()
+	{
+		super.ok();
+		return new FLHO3Dwelling(sh,path);
+	}
+	public FLHO3Dwelling clickCancel()
+	{
+		super.cancel();
+		return new FLHO3Dwelling(sh,path);
+	}
 }

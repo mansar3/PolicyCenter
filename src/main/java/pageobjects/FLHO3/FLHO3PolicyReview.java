@@ -12,4 +12,10 @@ public class FLHO3PolicyReview extends PolicyReview<FLHO3PolicyReview>
 	{
 		super(sh, path);
 	}
+
+	public FLHO3RiskAnalysis back()
+	{
+		super.riskAnalysisBack();
+		return new FLHO3RiskAnalysis(sh,path);
+	}
 }

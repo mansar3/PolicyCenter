@@ -28,27 +28,27 @@ public abstract class NewSubmission<T extends NewSubmission> extends CenterPanel
 
 
 	}
-	public String getBaseState()
+	protected String getBaseState()
 	{
 		return sh.getValue(by.baseState);
 	}
 
-	public NewSubmission setBaseState(String baseState)
+	protected T setBaseState(String baseState)
 	{
 		sh.setText(by.baseState, baseState);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public class ProductSelectionTable extends TableBase
+	public class ProductSelectionTable<T extends ProductSelectionTable> extends TableBase
 	{
-		private ProductSelectionTable(CenterSeleniumHelper sh)
+		public ProductSelectionTable(CenterSeleniumHelper sh)
 		{
 			super(by.productSelectionTable, sh);
 		}
 
-		public Qualification selectHomeowners()
+		protected T selectHomeowners()
 		{
 //			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
 //			{
@@ -56,16 +56,16 @@ public abstract class NewSubmission<T extends NewSubmission> extends CenterPanel
 //					clickTableElement(i, 1);
 //			}
 			sh.clickElement(by.selectHomeowners);
-			return new Qualification(sh,path);
+			return (T)this;
 		}
-		public Qualification selectCommercialProperty()
+		protected T selectCommercialProperty()
 		{
 			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
 			{
 				if(getTextTableElement(i, 2).contains("Commercial Property"))
 					clickTableElement(i, 1);
 			}
-			return new Qualification(sh,path);
+			return (T)this;
 		}
 	}
 }

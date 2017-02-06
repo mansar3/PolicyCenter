@@ -12,4 +12,31 @@ public class FLHO3NewSubmission extends NewSubmission<FLHO3NewSubmission>
 	{
 		super(sh);
 	}
+
+	public FLHO3NewSubmission setBaseState(String text)
+	{
+		return super.setBaseState(text);
+	}
+
+	public String getBaseState()
+	{
+		return super.getBaseState();
+	}
+	public class FLHO3ProductSelectionTable extends ProductSelectionTable<FLHO3ProductSelectionTable>
+	{
+		public FLHO3ProductSelectionTable(CenterSeleniumHelper sh)
+		{
+			super(sh);
+		}
+		public FLHO3ProductSelectionTable selectHomeowners()
+		{
+			super.selectHomeowners();
+			return this;
+		}
+		public FLHO3ProductSelectionTable selectCommercialProperty()
+		{
+			super.selectCommercialProperty();
+			return this;
+		}
+	}
 }

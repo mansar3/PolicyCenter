@@ -74,27 +74,27 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 
 	}
 
-	public Dwelling next()
+	protected T dwellingNext()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		sh.waitForNoMask();
-		return new Dwelling(sh,path);
+		return (T)this;
 	}
-	public PolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
+	protected T setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
 	{
 		sh.clickElement(By.id(policyBase + "AccountInfoInputSet:otherresidences_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 
 	}
-	public PolicyInfo setNoPriorInsuranceSurcharge(String flag)
+	protected T setNoPriorInsuranceSurcharge(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id='" + discountsBase + "Modifiers_fliPanelSet:aRateModifierListView:0-body']//input[@inputvalue = '" + flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	protected T clickAddNewCompany()
+	protected T addNewCompany()
 	{
 		System.out.println("Adding a new company...");
 		for(int i= 0 ;i < 10;i++)
@@ -110,7 +110,7 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		return (T)this;
 
 	}
-	public NewAdditionalNameInsured clickAddNewPerson()
+	protected T addNewPerson()
 	{
 		System.out.println("~~~~~~~~Adding a new person for Additional Named Insured~~~~~~~~~");
 		for(int i= 0 ;i < 10;i++)
@@ -122,9 +122,9 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 
 		}
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
-		return new NewAdditionalNameInsured(sh, path);
+		return (T)this;
 	}
-	public SearchAddressBook clickAddFromAddressBook()
+	protected T addFromAddressBook()
 	{
 		for(int i= 0 ;i < 10;i++)
 		{
@@ -134,118 +134,119 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 				break;
 		}
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
-		return new SearchAddressBook(sh, path);
+		return (T)this;
 	}
-	public void clickRemoveAdditionalNameInsureds()
+	protected T clickRemoveAdditionalNameInsureds()
 	{
 		sh.clickElement(by.removeAdditionalNameInsureds);
+		return (T)this;
 	}
 
-	public String getTermType()
+	protected String getTermType()
 	{
 		return sh.getValue(by.termType);
 	}
 	
-	public PolicyInfo setTermType(String termType)
+	protected T setTermType(String termType)
 	{
 		sh.setText(by.termType, termType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getEffectiveDate()
+	protected String getEffectiveDate()
 	{
 		return sh.getValue(by.effectiveDate);
 	}
 
-	public PolicyInfo setEffectiveDate(String effectiveDate)
+	protected T setEffectiveDate(String effectiveDate)
 	{
 		sh.setText(by.effectiveDate, effectiveDate);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getOrganization()
+	protected String getOrganization()
 	{
 		return sh.getValue(by.organization);
 	}
 
-	public PolicyInfo setOrganization(String organization)
+	protected T setOrganization(String organization)
 	{
 		sh.setText(by.organization, organization);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getProducerCode()
+	protected String getProducerCode()
 	{
 		return sh.getValue(by.producerCode);
 	}
 
-	public PolicyInfo setProducerCode(String producerCode)
+	protected T setProducerCode(String producerCode)
 	{
 		sh.setText(by.producerCode, producerCode);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getPolicyWriter()
+	protected String getPolicyWriter()
 	{
 		return sh.getValue(by.policyWriter);
 	}
 
-	public PolicyInfo setPolicyWriter(String policyWriter)
+	protected T setPolicyWriter(String policyWriter)
 	{
 		sh.setText(by.policyWriter, policyWriter);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
-	public String getUnderwritingCompanies()
+	protected String getUnderwritingCompanies()
 	{
 		return sh.getValue(by.underwritingCompanies);
 	}
 
-	public PolicyInfo setUnderwritingCompanies(String underwritingCompanies)
+	protected T setUnderwritingCompanies(String underwritingCompanies)
 	{
 		sh.setText(by.underwritingCompanies, underwritingCompanies);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
-	public String getOccupation()
+	protected String getOccupation()
 	{
 		return sh.getValue(by.occupation);
 	}
 
-	public PolicyInfo setOccupation(String occupation)
+	protected T setOccupation(String occupation)
 	{
 		sh.setText(by.occupation, occupation);
-		return this;
+		return (T)this;
 	}
-	public String getName()
+	protected String getName()
 	{
 		return sh.getText(by.name);
 	}
-	public String getMailingAddress()
+	protected String getMailingAddress()
 	{
 		return sh.getText(by.mailingAddress);
 	}
-	public String getVerificationStatus()
+	protected String getVerificationStatus()
 	{
 		return sh.getText(by.verificationStatus);
 	}
-	public String getPolicyType()
+	protected String getPolicyType()
 	{
 		return sh.getText(by.policyType);
 	}
-	public String getExpirationDate()
+	protected String getExpirationDate()
 	{
 		return sh.getText(by.expirationDate);
 	}
-	public String getWrittenDate()
+	protected String getWrittenDate()
 	{
 		return sh.getText(by.writtenDate);
 	}
-	public String getBaseState()
+	protected String getBaseState()
 	{
 		return sh.getText(by.baseState);
 	}

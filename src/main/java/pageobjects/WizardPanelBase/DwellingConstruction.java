@@ -57,11 +57,11 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 	}
 
 
-	protected WindMitigation windMitigation()
+	protected T windMitigation()
 	{
 
 		sh.clickElement(by.windMitigation);
-		return new WindMitigation(sh, path);
+		return (T)this;
 	}
 
 	protected String getValuationType()

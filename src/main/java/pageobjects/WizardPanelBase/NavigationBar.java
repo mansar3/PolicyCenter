@@ -22,16 +22,16 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
         sh.waitForElementToAppear(by.navbar);
     }
 
-    public NavigationBar clickAccountTab()
+    public T clickAccountTab()
     {
         sh.clickElement(by.accountTab);
-        return this;
+        return (T)this;
     }
 
-    public NavigationBar clickNewAccountDropdown()
+    public T clickNewAccountDropdown()
     {
         sh.clickRightOfElement(by.accountTab);
         sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-        return this;
+        return (T)this;
     }
 }

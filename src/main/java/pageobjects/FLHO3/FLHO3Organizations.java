@@ -12,4 +12,10 @@ public class FLHO3Organizations extends Organizations<FLHO3Organizations>
 	{
 		super(sh);
 	}
+
+	public FLHO3CreateAccount clickSelectOrganizationButton()
+	{
+		super.selectOrganizationButton();
+		return new FLHO3CreateAccount(sh);
+	}
 }

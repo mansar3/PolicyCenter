@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public abstract class EnterAccountInformation<E extends EnterAccountInformation> extends CenterPanelBase
 {
-	CenterSeleniumHelper sh;
+
 	EnterAccountInformationBy by;
 
 	public class EnterAccountInformationBy extends CenterPanelBase.CenterPanelBy{
@@ -43,16 +43,16 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return (E)this;
 	}
 
-	public EnterAccountInformation setFirstName(String firstName)
+	public E  setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
-		return this;
+		return (E)this;
 	}
 
-	public EnterAccountInformation setLastName(String lastName)
+	public E  setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
-		return this;
+		return (E)this;
 	}
 	
 	public String getZipCode()
@@ -60,11 +60,11 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return sh.getValue(by.zipCode);
 	}
 	
-	public EnterAccountInformation setZipCode(String zipCode)
+	public E  setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
 		sh.tab();
-		return this;
+		return (E)this;
 	}
 	
 	public String getState()
@@ -72,11 +72,11 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return sh.getValue(by.state);
 	}
 	
-	public EnterAccountInformation setState(String state)
+	public E  setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
-		return this;
+		return (E)this;
 	}
 	
 	public String getCity()
@@ -84,10 +84,10 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return sh.getValue(by.city);
 	}
 	
-	public EnterAccountInformation setCity(String city)
+	public E  setCity(String city)
 	{
 		sh.setText(by.city, city);
-		return this;
+		return (E)this;
 	}
 	
 	public String getCounty()
@@ -95,10 +95,10 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return sh.getValue(by.county);
 	}
 	
-	public EnterAccountInformation setCounty(String county)
+	public E  setCounty(String county)
 	{
 		sh.setText(by.county, county);
-		return this;
+		return (E)this;
 	}
 	
 	public String getCountry()
@@ -106,34 +106,34 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return sh.getValue(by.country);
 	}
 	
-	public EnterAccountInformation setCountry(String country)
+	public E  setCountry(String country)
 	{
 		sh.setText(by.country, country);
 		sh.tab();
-		return this;
+		return (E)this;
 	}
 
-	public EnterAccountInformation clickSearch()
+	public E  clickSearch()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.searchBtn);
-		return this;
+		return (E)this;
 	}
-	public EnterAccountInformation clickCompanyNameExactMatch()
+	public E  clickCompanyNameExactMatch()
 	{
 		sh.clickElement(by.companyExactMatch);
-		return this;
+		return (E)this;
 	}
 
-	public EnterAccountInformation clickFirstNameExactMatch()
+	public E  clickFirstNameExactMatch()
 	{
 		sh.clickElement(by.firstNameExactMatch);
-		return this;
+		return (E)this;
 	}
-	public EnterAccountInformation clickLastNameExactMatch()
+	public E  clickLastNameExactMatch()
 	{
 		sh.clickElement(by.lastNameExactMatch);
-		return this;
+		return (E)this;
 	}
 	
 	public void clickResetBtn()
@@ -143,32 +143,32 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 	
 
 
-	public EnterAccountInformation clickCreateNewAccount()
+	public E  clickCreateNewAccount()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.createNewAcctBtn);
-		return this;
+		return (E)this;
 	}
 
-	private CreateAccount createNewAccount(String accountType)
+	private E newAccount(String accountType)
 	{
 		clickCreateNewAccount();
 		sh.clickElement(By.id("NewAccount:NewAccountScreen:NewAccountButton:NewAccount_"+accountType+"-itemEl"));
-		return new CreateAccount(sh);
+		return (E)this;
 	}
 
-	public CreateAccount CreateCompanyAccount()
+	public E createNewCompanyAccount()
 	{
-		return createNewAccount("Company");
+		return newAccount("Company");
 	}
 
-	public CreateAccount CreatePersonAccount()
+	public E createNewPersonAccount()
 	{
-		return createNewAccount("Person");
+		return newAccount("Person");
 	}
 
-	public CreateAccount CreateFromAddressBookAccount()
+	public E searchFromAddressBookAccount()
 	{
-		return createNewAccount("FromAB");
+		return newAccount("FromAB");
 	}
 }

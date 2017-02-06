@@ -39,10 +39,10 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 		By	back = By.id(buttonBase + "Prev-btnInnerEl");
 	}
 
-	public RiskAnalysis back()
+	protected T riskAnalysisBack()
 	{
 		sh.clickElement(by.back);
-		return new RiskAnalysis(sh,path);
+		return (T)this;
 	}
 
 }

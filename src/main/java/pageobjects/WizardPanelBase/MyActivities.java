@@ -18,7 +18,7 @@ public abstract class MyActivities<T extends MyActivities> extends CenterPanelBa
         by = new MyActivitiesBy();
         expectedPanelTitle = "My Activities";
         waitForTitle(sh);
-        navbar = new NavigationBar(sh);
+
     }
     public void test()
     {

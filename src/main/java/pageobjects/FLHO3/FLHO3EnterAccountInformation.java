@@ -12,4 +12,20 @@ public class FLHO3EnterAccountInformation extends EnterAccountInformation<FLHO3E
 	{
 		super(sh);
 	}
+
+	public FLHO3CreateAccount createCompanyAccount()
+	{
+		super.createNewCompanyAccount();
+		return new FLHO3CreateAccount(sh);
+	}
+	public FLHO3CreateAccount createPersonAccount()
+	{
+		super.createNewPersonAccount();
+		return new FLHO3CreateAccount(sh);
+	}
+	public FLHO3SearchAddressBook createFromAddressBook()
+	{
+		super.searchFromAddressBookAccount();
+		return new FLHO3SearchAddressBook(sh);
+	}
 }
