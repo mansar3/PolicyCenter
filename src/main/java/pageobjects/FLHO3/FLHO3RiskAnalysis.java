@@ -64,10 +64,7 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		private FLHO3RiskAnalysis.FLHO3Contingencies.FLHO3ContingenciesBy by;
 		public FLHO3Contingencies(CenterSeleniumHelper sh, Path path)
 		{
-			this.sh = sh;
-			this.path = path;
-			setID(path);
-			by = new FLHO3RiskAnalysis.FLHO3Contingencies.FLHO3ContingenciesBy();
+			super(sh, path);
 		}
 
 		public class FLHO3ContingenciesBy
@@ -76,37 +73,22 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 					renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 					requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		public FLHO3Quote quote()
+		public FLHO3Contingencies quote()
 		{
-			sh.waitForNoMask();
-			switch(path)
-			{
-				case SUBMISSION:
-					sh.clickElement(by.submissionQuote);
-					break;
-				case POLICYRENEWAL:
-					sh.clickElement(by.renewalQuote);
-					break;
-			}
+			super.quote();
 			//sh.clickElement(by.submissionQuote);
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-			return new FLHO3Quote(sh,path);
+			return new FLHO3Contingencies(sh,path);
 		}
 
 	}
 	public class FLHO3CreateNewUWIssue extends CreateNewUWIssue<FLHO3CreateNewUWIssue>
 	{
-		/*
+
 		public FLHO3CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
 		{
-
-			this.sh = sh;
-			this.path = path;
-			expectedPanelTitle = "Create New UW Issue";
-			waitForTitle(sh);
-			by = new RiskAnalysis.CreateNewUWIssue.CreateNewUWIssueBy();
-
-		}*/
+			super(sh, path);
+		}
 		public class CreateNewUWIssueBy
 		{
 			final String 	buttonBase = "NewManualUWIssuePopup:",
@@ -154,20 +136,20 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 			super.setLongDescription(longDescription);
 			return this;
 		}
-		public FLHO3RiskAnalysis clickOk()
+		public FLHO3CreateNewUWIssue clickOk()
 		{
 			super.clickOk();
-			return new FLHO3RiskAnalysis(sh, path);
+			return new FLHO3CreateNewUWIssue(sh, path);
 		}
-		public FLHO3RiskAnalysis clickCancel()
+		public FLHO3CreateNewUWIssue clickCancel()
 		{
 			super.clickCancel();
-			return new FLHO3RiskAnalysis(sh, path);
+			return new FLHO3CreateNewUWIssue(sh, path);
 		}
-		public RiskAnalysis clickReturnToRiskAnalysis()
+		public FLHO3CreateNewUWIssue clickReturnToRiskAnalysis()
 		{
 			super.clickReturnToRiskAnalysis();
-			return new FLHO3RiskAnalysis(sh, path);
+			return new FLHO3CreateNewUWIssue(sh, path);
 		}
 
 

@@ -58,21 +58,21 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 
 
 	}
-	public void selectSearchResult(int row)
+	private void selectSearchResult(int row)
 	{
 		sh.clickElement(By.id(by.addressBookBase + "ContactSearchResultsLV:" + String.valueOf(row) + ":_Select"));
 	}
-	protected T selectFirstSearchResultPolicyInfo()
+	protected T clickFirstSearchResultPolicyInfo()
 	{
 		selectSearchResult(0);
 		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return (T)this;
 	}
-	protected T selectFirstSearchResultAdditionalInterests()
+	protected T clickFirstSearchResultAdditionalInterest()
 	{
 		selectSearchResult(0);
 		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
-		return new Dwelling(sh, path).new AdditionalInterests(sh, path);
+		return (T)this;
 	}
 	protected boolean areThereSearchResults()
 	{
@@ -84,13 +84,13 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 		sh.waitForNoMask();
 		return sh.isDisplayed(By.id(by.addressBookBase + "ContactSearchResultsLV:1:_Select"));
 	}
-	protected T clickReturnToPolicyInfo()
+	protected T returnToPolicyInfo()
 	{
 		sh.clickElement(by.returnTo);
 		sh.waitForNoMask();
 		return (T)this;
 	}
-	protected T clickReturnToDwelling()
+	protected T returnToDwelling()
 	{
 		sh.clickElement(by.returnTo);
 		sh.waitForNoMask();

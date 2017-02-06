@@ -83,7 +83,8 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 //			else
 //				break;
 //		}
-		return clickContingencies().quote();
+		clickContingencies().quote();
+		return (T)this;
 	}
 	protected T clickContingencies()
 	{

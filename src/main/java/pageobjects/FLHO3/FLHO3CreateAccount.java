@@ -148,11 +148,11 @@ public class FLHO3CreateAccount extends CreateAccount<FLHO3CreateAccount>
 //	{
 //		return super.getDateOfBirth();
 //	}
-//	public FLHO3AccountFileSummary clickUpdate()
-//	{
-//		super.update();
-//		return new FLHO3AccountFileSummary(sh);
-//	}
+	public FLHO3AccountFileSummary clickUpdate()
+	{
+		super.update();
+		return new FLHO3AccountFileSummary(sh);
+	}
 //	public FLHO3CreateAccount setFirstName(String text)
 //	{
 //		return super.setFirstName(text);
@@ -207,11 +207,11 @@ public class FLHO3CreateAccount extends CreateAccount<FLHO3CreateAccount>
 //	{
 //		return super.getZipCode();
 //	}
-//	public FLHO3SelectStandardizedAddress clickVerifyAddress()
-//	{
-//		super.verifyAddress();
-//		return new FLHO3SelectStandardizedAddress(sh);
-//	}
+	public FLHO3SelectStandardizedAddress clickVerifyAddress()
+	{
+		super.verifyAddress();
+		return new FLHO3SelectStandardizedAddress(sh);
+	}
 //	public FLHO3CreateAccount setAddressType(String text)
 //	{
 //		return super.setAddressType(text);
@@ -244,11 +244,11 @@ public class FLHO3CreateAccount extends CreateAccount<FLHO3CreateAccount>
 //	{
 //		return super.clickProducerCode();
 //	}
-//	public FLHO3Organizations clickOrganizationSearch()
-//	{
-//		super.organizationSearch();
-//		return new FLHO3Organizations(sh);
-//	}
+	public FLHO3Organizations clickOrganizationSearch()
+	{
+		super.organizationSearch();
+		return new FLHO3Organizations(sh);
+	}
 //	public FLHO3CreateAccount clickProducerCodeDropdown()
 //	{
 //		return super.clickProducerCodeDropdown();
