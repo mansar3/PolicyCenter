@@ -74,7 +74,7 @@
 //			.setFirstName(firstName)
 //			.setLastName(lastName)
 //			.clickSearch();
-//		CreateAccount createAccount = enterAccountInfo.CreatePersonAccount();
+//		CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 //
 //		log("Creating new account: " + dateString);
 //		createAccount

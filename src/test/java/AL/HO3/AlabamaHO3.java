@@ -14,6 +14,7 @@
 //import org.testng.annotations.BeforeMethod;
 //import org.testng.annotations.Test;
 //import pageobjects.FLHO3.FLHO3Coverages;
+//import pageobjects.FLHO3.FLHO3EnterAccountInformation;
 //import pageobjects.Login;
 //import pageobjects.WizardPanelBase.*;
 //
@@ -74,11 +75,7 @@
 //                producerCode = "523-23-21531 We Insure(Jacksonville)";
 //
 //        enterAccountInformation = new EnterAccountInformation(sh);
-//		new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
-//        enterAccountInformation
-//                .setFirstName(firstName)
-//                .setLastName(lastName)
-//                .setCountry(country);
+//
 //
 //        CreateAccount createAccount = enterAccountInformation.CreatePersonAccount();
 //        log(String.format("Creating new account: %s", dateString));

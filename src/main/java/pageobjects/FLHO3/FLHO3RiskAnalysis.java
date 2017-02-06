@@ -19,10 +19,7 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new FLHO3Quote(sh,path);
 	}
-	public void warningQuote()
-	{
-		super.warningQuote();
-	}
+
 	public FLHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -46,17 +43,6 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		return new FLHO3RiskAnalysis.FLHO3CreateNewUWIssue(sh, path);
 
 	}
-
-	public class FLHO3RiskAnalysisBy{
-
-		public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
-				renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
-				requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
-				addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
-
-		contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
-	}
-
 	public class FLHO3Contingencies extends Contingencies<FLHO3Contingencies>
 	{
 		private FLHO3RiskAnalysis.FLHO3Contingencies.FLHO3ContingenciesBy by;
@@ -86,22 +72,6 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		public FLHO3CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
 		{
 			super(sh, path);
-		}
-		public class CreateNewUWIssueBy
-		{
-			final String 	buttonBase = "NewManualUWIssuePopup:",
-					CNUIBase  = "WIssueDelegateDV:";
-
-			final By 	issueType = By.id(CNUIBase + "IssueType-inputEl"),
-					shortDescription = By.id(CNUIBase + "ShortDescription-inputEl"),
-					longDescription = By.id(CNUIBase + "LongDescription-inputEl"),
-
-			ok = By.id(buttonBase + "Update-btnInnerEl"),
-					cancel = By.id(buttonBase + "Cancel-btnInnerEl"),
-
-			returnToRiskAnalysis = By.id(buttonBase+ "__crumb__");
-
-
 		}
 		public String getIssueType()
 		{

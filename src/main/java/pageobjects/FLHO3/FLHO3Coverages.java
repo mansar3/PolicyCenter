@@ -420,7 +420,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			super.propertyEndorsementsNext();
 			return new FLHO3RiskAnalysis(sh, path);
 		}
-
+		public boolean isWaterBackUpChecked()
+		{
+			return super.isWaterBackUpChecked();
+		}
 	}
 
 

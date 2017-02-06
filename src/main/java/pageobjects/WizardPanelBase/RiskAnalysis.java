@@ -51,7 +51,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 		return (T)this;
 	}
-	protected void warningQuote()
+	private void warningQuote()
 	{
 		sh.waitForNoMask();
 		if(getTitle().equals("Risk Analysis"))

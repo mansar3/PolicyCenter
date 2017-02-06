@@ -48,7 +48,7 @@ public abstract class NewSubmission<T extends NewSubmission> extends CenterPanel
 			super(by.productSelectionTable, sh);
 		}
 
-		protected T selectHomeowners()
+		protected T clickHomeowners()
 		{
 //			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
 //			{
@@ -58,7 +58,7 @@ public abstract class NewSubmission<T extends NewSubmission> extends CenterPanel
 			sh.clickElement(by.selectHomeowners);
 			return (T)this;
 		}
-		protected T selectCommercialProperty()
+		protected T clickCommercialProperty()
 		{
 			for(int i = 1; i < sh.driver.findElements(new ByChained(by.productSelectionTable, By.cssSelector("table tr"))).size() + 1; i++)
 			{

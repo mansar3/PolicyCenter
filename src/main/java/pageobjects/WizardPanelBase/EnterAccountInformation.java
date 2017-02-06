@@ -157,17 +157,17 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return (E)this;
 	}
 
-	public E createNewCompanyAccount()
+	protected E createNewCompanyAccount()
 	{
 		return newAccount("Company");
 	}
 
-	public E createNewPersonAccount()
+	protected E createNewPersonAccount()
 	{
 		return newAccount("Person");
 	}
 
-	public E searchFromAddressBookAccount()
+	protected E searchFromAddressBookAccount()
 	{
 		return newAccount("FromAB");
 	}
