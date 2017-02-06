@@ -33,7 +33,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 
 	public T selectAddressForCreateAccount(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return (T)this;
 	}
@@ -44,14 +44,14 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 	 */
 	public T selectVerifiedAddressForCreateAccount(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("a[id='FP_VerifiedAddressSelectionPopup:" + row + ":_Select']"));
 		return (T)this;
 	}
 
 	public T selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 
 		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
 			sh.clickElement(by.matchedAddress);
@@ -61,7 +61,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 	}
 	public T selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 
 		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
 			sh.clickElement(by.matchedAddress);
@@ -82,7 +82,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 
 	public T selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 
 		if(sh.isDisplayed(by.matchedAddress))
 			sh.clickElement(by.matchedAddress);
@@ -93,13 +93,13 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 
 	public T selectAddressForNewAdditionalInterests(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return (T)this;
 	}
 	public T selectAddressForNewAdditionalNamedInsured(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return (T)this;
 	}

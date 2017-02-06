@@ -56,29 +56,29 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 
 
 	}
-	public int getTotalPremium()
+	protected int getTotalPremium()
 	{
 		return Integer.parseInt(sh.getText(by.totalPremium));
 	}
-	public String getAnnualizedTotalCost()
+	protected String getAnnualizedTotalCost()
 	{
 		return sh.getText(by.annualizedTotalCost);
 	}
-	public String getAnnualizedTotalCostIncludingWhenSafe()
+	protected String getAnnualizedTotalCostIncludingWhenSafe()
 	{
 		return sh.getText(by.annualizedTotalCostIncludingWhenSafe);
 	}
-	public RiskAnalysis backToRiskAnalysis()
+	protected T backRiskAnalysis()
 	{
 		clickBack();
-		return new RiskAnalysis(sh,path);
+		return (T)this;
 	}
-	public PolicyReview backToPolicyReview()
+	protected T backPolicyReview()
 	{
 		clickBack();
-		return new PolicyReview(sh,path);
+		return (T)this;
 	}
-	public boolean isUnderWritingApprovalNeeded()
+	protected boolean isUnderWritingApprovalNeeded()
 	{
 		String message = "This quote will require underwriting approval prior to binding.";
 		if(sh.isDisplayed(by.underWritingApprovalError) && sh.getText(by.underWritingApprovalError).equals(message))

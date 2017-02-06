@@ -1,9 +1,6 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
-import org.openqa.selenium.By;
-import pageobjects.WizardPanelBase.Dwelling;
-import pageobjects.WizardPanelBase.PolicyInfo;
 import pageobjects.WizardPanelBase.SearchAddressBook;
 
 /**
@@ -22,12 +19,12 @@ public class FLHO3SearchAddressBook extends SearchAddressBook<FLHO3SearchAddress
 
 	public FLHO3PolicyInfo selectFirstSearchResultPolicyInfo()
 	{
-		return super.selectFirstSearchResultPolicyInfo();
-		//return new FLHO3PolicyInfo(sh, path);
+		super.clickFirstSearchResultPolicyInfo();
+		return new FLHO3PolicyInfo(sh, path);
 	}
 	public FLHO3Dwelling.FLHO3AdditionalInterests selectFirstSearchResultAdditionalInterests()
 	{
-		super.selectFirstSearchResultAdditionalInterests();
+		super.clickFirstSearchResultAdditionalInterest();
 		return new FLHO3Dwelling(sh, path).new FLHO3AdditionalInterests(sh, path);
 	}
 	public boolean areThereSearchResults()
@@ -40,12 +37,12 @@ public class FLHO3SearchAddressBook extends SearchAddressBook<FLHO3SearchAddress
 	}
 	public FLHO3PolicyInfo clickReturnToPolicyInfo()
 	{
-		super.clickReturnToPolicyInfo();
+		super.returnToPolicyInfo();
 		return new FLHO3PolicyInfo(sh, path);
 	}
 	public FLHO3Dwelling.FLHO3AdditionalInterests clickReturnToDwelling()
 	{
-		super.clickReturnToDwelling();
+		super.returnToDwelling();
 		return new FLHO3Dwelling(sh, path).new FLHO3AdditionalInterests(sh, path);
 	}
 
