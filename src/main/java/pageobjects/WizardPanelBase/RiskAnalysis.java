@@ -85,29 +85,29 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 //		}
 		return clickContingencies().quote();
 	}
-	public Contingencies clickContingencies()
+	protected T clickContingencies()
 	{
 		sh.clickElement(by.contingencies);
-		return new Contingencies(sh, path);
+		return (T)this;
 	}
 
-	public T requestApproval()
+	protected T requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
 		sh.waitForNoMask();
 		return (T)this;
 	}
-	public CreateNewUWIssue addUWIssue()
+	protected T addUWIssue()
 	{
 		sh.clickElement(by.addUWIssue);
 		sh.waitForNoMask();
-		return new CreateNewUWIssue(sh, path);
+		return (T)this;
 
 	}
 
-	public class RiskAnalysisBy{
+	protected class RiskAnalysisBy{
 
-		public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		protected final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
 							addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
@@ -115,10 +115,10 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 							contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
 	}
 
-	public class Contingencies<T extends Contingencies> extends CenterPanelBase
+	protected class Contingencies<T extends Contingencies> extends CenterPanelBase
 	{
 		private ContingenciesBy by;
-		public Contingencies(CenterSeleniumHelper sh, Path path)
+		protected Contingencies(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
 			this.path = path;
@@ -126,13 +126,13 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			by = new ContingenciesBy();
 		}
 
-		public class ContingenciesBy
+		protected class ContingenciesBy
 		{
-			public final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+			protected final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		public T quote()
+		protected T quote()
 		{
 			sh.waitForNoMask();
 			switch(path)
@@ -150,11 +150,11 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		}
 
 	}
-	public class CreateNewUWIssue extends CenterPanelBase
+	protected class CreateNewUWIssue<T extends CreateNewUWIssue> extends CenterPanelBase
 	{
 
 		private CreateNewUWIssueBy by;
-		public CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
+		protected CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
 			this.path = path;
@@ -163,7 +163,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			by = new CreateNewUWIssueBy();
 
 		}
-		public class CreateNewUWIssueBy
+		protected class CreateNewUWIssueBy
 		{
 			final String 	buttonBase = "NewManualUWIssuePopup:",
 							CNUIBase  = "WIssueDelegateDV:";
@@ -179,56 +179,56 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 
 		}
-		public String getIssueType()
+		protected String getIssueType()
 		{
 			return sh.getValue(by.issueType);
 		}
 
-		public CreateNewUWIssue setIssueType(String issueType)
+		protected T setIssueType(String issueType)
 		{
 			sh.setText(by.issueType, issueType);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getShortDescription()
+		protected String getShortDescription()
 		{
 			return sh.getValue(by.shortDescription);
 		}
 
-		public CreateNewUWIssue setShortDescription(String shortDescription)
+		protected T setShortDescription(String shortDescription)
 		{
 			sh.setText(by.shortDescription, shortDescription);
 			sh.tab();
 			//sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getLongDescription()
+		protected String getLongDescription()
 		{
 			return sh.getValue(by.longDescription);
 		}
 
-		public CreateNewUWIssue setLongDescription(String longDescription)
+		protected T setLongDescription(String longDescription)
 		{
 			sh.setText(by.longDescription, longDescription);
 			sh.tab();
 			//sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public RiskAnalysis clickOk()
+		protected T clickOk()
 		{
 			sh.clickElement(by.ok);
-			return new RiskAnalysis(sh, path);
+			return (T)this;
 		}
-		public RiskAnalysis clickCancel()
+		protected T clickCancel()
 		{
 			sh.clickElement(by.cancel);
-			return new RiskAnalysis(sh, path);
+			return (T)this;
 		}
-		public RiskAnalysis clickReturnToRiskAnalysis()
+		protected T clickReturnToRiskAnalysis()
 		{
 			sh.clickElement(by.returnToRiskAnalysis);
-			return new RiskAnalysis(sh, path);
+			return (T)this;
 		}
 
 

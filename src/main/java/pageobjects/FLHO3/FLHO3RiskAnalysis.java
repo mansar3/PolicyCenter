@@ -29,25 +29,23 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 	public FLHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.qualifiesForAdditionalProtectionQuote();
-		return clickContingencies().quote();
+		return super.clickContingencies().quote();
 	}
-	public RiskAnalysis.Contingencies clickContingencies()
+	public FLHO3RiskAnalysis.FLHO3Contingencies clickContingencies()
 	{
-		sh.clickElement(by.contingencies);
-		return new RiskAnalysis.Contingencies(sh, path);
+		super.clickContingencies();
+		return new FLHO3RiskAnalysis.FLHO3Contingencies(sh, path);
 	}
 
-	public T requestApproval()
+	public FLHO3UWActivity requestApproval()
 	{
-		sh.clickElement(by.requestApproval);
-		sh.waitForNoMask();
-		return (T)this;
+		super.requestApproval();
+		return new FLHO3UWActivity(sh, path);
 	}
-	public RiskAnalysis.CreateNewUWIssue addUWIssue()
+	public FLHO3RiskAnalysis.FLHO3CreateNewUWIssue addUWIssue()
 	{
-		sh.clickElement(by.addUWIssue);
-		sh.waitForNoMask();
-		return new RiskAnalysis.CreateNewUWIssue(sh, path);
+		super.addUWIssue();
+		return new FLHO3RiskAnalysis.FLHO3CreateNewUWIssue(sh, path);
 
 	}
 
@@ -63,7 +61,7 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 
 	public class FLHO3Contingencies extends Contingencies<FLHO3Contingencies>
 	{
-		private RiskAnalysis.Contingencies.ContingenciesBy by;
+		private FLHO3RiskAnalysis.FLHO3Contingencies.FLHO3ContingenciesBy by;
 		public FLHO3Contingencies(CenterSeleniumHelper sh, Path path)
 		{
 			this.sh = sh;
@@ -78,7 +76,7 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 					renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 					requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		public Quote quote()
+		public FLHO3Quote quote()
 		{
 			sh.waitForNoMask();
 			switch(path)
@@ -92,23 +90,23 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 			}
 			//sh.clickElement(by.submissionQuote);
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
-			return new Quote(sh,path);
+			return new FLHO3Quote(sh,path);
 		}
 
 	}
-	public class FLHO3CreateNewUWIssue extends CreateNewUWIssue
+	public class FLHO3CreateNewUWIssue extends CreateNewUWIssue<FLHO3CreateNewUWIssue>
 	{
-
-		private RiskAnalysis.CreateNewUWIssue.CreateNewUWIssueBy by;
+		/*
 		public FLHO3CreateNewUWIssue(CenterSeleniumHelper sh, Path path)
 		{
+
 			this.sh = sh;
 			this.path = path;
 			expectedPanelTitle = "Create New UW Issue";
 			waitForTitle(sh);
 			by = new RiskAnalysis.CreateNewUWIssue.CreateNewUWIssueBy();
 
-		}
+		}*/
 		public class CreateNewUWIssueBy
 		{
 			final String 	buttonBase = "NewManualUWIssuePopup:",
@@ -127,54 +125,49 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		}
 		public String getIssueType()
 		{
-			return sh.getValue(by.issueType);
+			return super.getIssueType();
 		}
 
-		public RiskAnalysis.CreateNewUWIssue setIssueType(String issueType)
+		public FLHO3RiskAnalysis.FLHO3CreateNewUWIssue setIssueType(String issueType)
 		{
-			sh.setText(by.issueType, issueType);
-			sh.tab();
-			sh.waitForNoMask();
+			super.setIssueType(issueType);
 			return this;
 		}
+
 		public String getShortDescription()
 		{
-			return sh.getValue(by.shortDescription);
+			return super.getShortDescription();
 		}
 
-		public RiskAnalysis.CreateNewUWIssue setShortDescription(String shortDescription)
+		public FLHO3RiskAnalysis.FLHO3CreateNewUWIssue setShortDescription(String shortDescription)
 		{
-			sh.setText(by.shortDescription, shortDescription);
-			sh.tab();
-			//sh.waitForNoMask();
+			super.setShortDescription(shortDescription);
 			return this;
 		}
 		public String getLongDescription()
 		{
-			return sh.getValue(by.longDescription);
+			return super.getLongDescription();
 		}
 
-		public RiskAnalysis.CreateNewUWIssue setLongDescription(String longDescription)
+		public FLHO3RiskAnalysis.FLHO3CreateNewUWIssue setLongDescription(String longDescription)
 		{
-			sh.setText(by.longDescription, longDescription);
-			sh.tab();
-			//sh.waitForNoMask();
+			super.setLongDescription(longDescription);
 			return this;
 		}
-		public RiskAnalysis clickOk()
+		public FLHO3RiskAnalysis clickOk()
 		{
-			sh.clickElement(by.ok);
-			return new RiskAnalysis(sh, path);
+			super.clickOk();
+			return new FLHO3RiskAnalysis(sh, path);
 		}
-		public RiskAnalysis clickCancel()
+		public FLHO3RiskAnalysis clickCancel()
 		{
-			sh.clickElement(by.cancel);
-			return new RiskAnalysis(sh, path);
+			super.clickCancel();
+			return new FLHO3RiskAnalysis(sh, path);
 		}
 		public RiskAnalysis clickReturnToRiskAnalysis()
 		{
-			sh.clickElement(by.returnToRiskAnalysis);
-			return new RiskAnalysis(sh, path);
+			super.clickReturnToRiskAnalysis();
+			return new FLHO3RiskAnalysis(sh, path);
 		}
 
 
