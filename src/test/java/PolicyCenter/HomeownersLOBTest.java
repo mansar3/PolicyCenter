@@ -2294,7 +2294,7 @@ public class HomeownersLOBTest extends BaseTest
 			pe
 			.checkOtherStructuresIncreasedCoverageRentedToOthers()
 			.addOtherStructures()
-			.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description"))
+			.setOtherStructuresDescription(1, eai.getOrDefault("Other Structures Increase Coverage - Rented to Others - Description","Test"))
 			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
 
 		}
@@ -2392,7 +2392,7 @@ public class HomeownersLOBTest extends BaseTest
 
 		if(eai.get("Location Address - State").toLowerCase().equals("florida")
 		&& eai.get("Wind Borne Debris Region").toLowerCase().equals("true")
-		&& eai.getOrDefault("Opening Protection Type", "<none>").toLowerCase() != "hurricane"
+		&& !eai.getOrDefault("Opening Protection Type", "<none>").toLowerCase().equals("hurricane")
 		&&
 		(
 			(Integer.parseInt(eai.get("Year Built")) >= 2002

@@ -133,7 +133,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		protected T quote()
+		protected T contingenciesQuote()
 		{
 			sh.waitForNoMask();
 			switch(path)
