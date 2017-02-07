@@ -8,6 +8,7 @@ import pageobjects.WizardPanelBase.NewSubmission;
  */
 public class FLHO3NewSubmission extends NewSubmission<FLHO3NewSubmission>
 {
+	public FLHO3ProductSelectionTable productTable = new FLHO3ProductSelectionTable(sh);
 	public FLHO3NewSubmission(CenterSeleniumHelper sh)
 	{
 		super(sh);
@@ -28,14 +29,14 @@ public class FLHO3NewSubmission extends NewSubmission<FLHO3NewSubmission>
 		{
 			super(sh);
 		}
-		public FLHO3ProductSelectionTable selectHomeowners()
+		public FLHO3Qualification selectHomeowners()
 		{
-			super.selectHomeowners();
-			return this;
+			super.clickHomeowners();
+			return new FLHO3Qualification(sh,path);
 		}
 		public FLHO3ProductSelectionTable selectCommercialProperty()
 		{
-			super.selectCommercialProperty();
+			super.clickCommercialProperty();
 			return this;
 		}
 	}

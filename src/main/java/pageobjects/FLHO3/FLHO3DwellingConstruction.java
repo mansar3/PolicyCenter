@@ -148,7 +148,7 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 	{
 		return super.getWiring();
 	}
-	public FLHO3DwellingConstruction settElectricalSystem(String text)
+	public FLHO3DwellingConstruction setElectricalSystem(String text)
 	{
 		return super.setElectricalSystem(text);
 	}

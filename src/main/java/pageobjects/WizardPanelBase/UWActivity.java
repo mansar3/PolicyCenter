@@ -23,7 +23,7 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 		final static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl");
 	}
 
-	protected T sendRequest()
+	protected T clickSendRequest()
 	{
 		sh.clickElement(by.sendRequest);
 		return (T)this;

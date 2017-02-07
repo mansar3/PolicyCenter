@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] POCData()
 	{
 		Object[][] dataBuffer = null;

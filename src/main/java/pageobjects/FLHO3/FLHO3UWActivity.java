@@ -12,4 +12,10 @@ public class FLHO3UWActivity extends UWActivity<FLHO3UWActivity>
 	{
 		super(sh, path);
 	}
+
+	public FLHO3RiskAnalysis sendRequest()
+	{
+		super.clickSendRequest();
+		return new FLHO3RiskAnalysis(sh,path);
+	}
 }

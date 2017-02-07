@@ -31,7 +31,7 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
-	public T selectAddressForCreateAccount(int row)
+	public T clickAddressForCreateAccount(int row)
 	{
 		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
@@ -42,14 +42,14 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 	 * @param row number among verified addresses
 	 * @return a CreateAccount page object
 	 */
-	public <T extends CenterPanelBase> T selectVerifiedAddressForCreateAccount(int row)
+	public T clickVerifiedAddressForCreateAccount(int row)
 	{
 		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("a[id='FP_VerifiedAddressSelectionPopup:" + row + ":_Select']"));
 		return (T)this;
 	}
 
-	public T selectSuccessfulVerificationIfPossibleForCreateAccount()
+	public T clickSuccessfulVerificationIfPossibleForCreateAccount()
 	{
 		sh.waitForNoMask();
 
@@ -59,7 +59,7 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 			sh.clickElement(by.unmatchedAddress);
 		return (T)this;
 	}
-	public T selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+	public T clickSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 	{
 		sh.waitForNoMask();
 
@@ -69,7 +69,7 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 			sh.clickElement(by.unmatchedAddress);
 		return (T)this;
 	}
-	public T selectSuccessfulVerificationIfPossibleForLocationInformation()
+	public T clickSuccessfulVerificationIfPossibleForLocationInformation()
 	{
 		sh.waitForNoMask();
 
@@ -80,7 +80,7 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 		return (T)this;
 	}
 
-	public T selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
+	public T clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
 		sh.waitForNoMask();
 
@@ -91,13 +91,13 @@ public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*Selec
 		return (T)this;
 	}
 
-	public T selectAddressForNewAdditionalInterests(int row)
+	public T clickAddressForNewAdditionalInterests(int row)
 	{
 		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
 		return (T)this;
 	}
-	public T selectAddressForNewAdditionalNamedInsured(int row)
+	public T clickAddressForNewAdditionalNamedInsured(int row)
 	{
 		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));

@@ -8,6 +8,7 @@ import pageobjects.WizardPanelBase.Qualification;
  */
 public class FLHO3Qualification extends Qualification<FLHO3Qualification>
 {
+	public FLHO3Questionnaire questionnaire = new FLHO3Questionnaire(sh);
 	public FLHO3Qualification(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
@@ -47,11 +48,11 @@ public class FLHO3Qualification extends Qualification<FLHO3Qualification>
 		{
 			return super.getQuestionText(questionNum);
 		}
-		protected FLHO3Questionnaire answerYes(int questionNum)
+		public FLHO3Questionnaire answerYes(int questionNum)
 		{
 			return super.answerYes(questionNum);
 		}
-		protected FLHO3Questionnaire answerNo(int questionNum)
+		public FLHO3Questionnaire answerNo(int questionNum)
 		{
 			return super.answerNo(questionNum);
 		}

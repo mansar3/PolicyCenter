@@ -51,7 +51,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 		return (T)this;
 	}
-	protected void warningQuote()
+	private void warningQuote()
 	{
 		sh.waitForNoMask();
 		if(getTitle().equals("Risk Analysis"))
@@ -133,7 +133,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
 		}
-		protected T quote()
+		protected T contingenciesQuote()
 		{
 			sh.waitForNoMask();
 			switch(path)

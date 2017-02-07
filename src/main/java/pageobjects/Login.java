@@ -4,7 +4,6 @@ import Helpers.CenterSeleniumHelper;
 import Helpers.SessionInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.WizardPanelBase.NavigationBar;
 
 public class Login
 {
@@ -77,13 +76,13 @@ public class Login
 		return this;
 	}
 
-	public NavigationBar login(String username, String password)
+	public void login(String username, String password)
 	{
 		user = username;
 		pwd = password;
 		setUsername(username)
 		.setPassword(password)
 		.clickLogin();
-		return new NavigationBar(sh);
+		// new NavigationBar(sh);
 	}
 }

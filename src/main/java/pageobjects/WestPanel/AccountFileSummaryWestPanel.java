@@ -2,12 +2,10 @@ package pageobjects.WestPanel;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import pageobjects.WizardPanelBase.InitiateManualRenewal;
-import pageobjects.WizardPanelBase.NewSubmission;
 
-public class AccountFileSummaryWestPanel extends WestPanelBase
+public class AccountFileSummaryWestPanel<T extends AccountFileSummaryWestPanel> extends WestPanelBase
 {
-	public AccountFileSummaryActions actions;
+	public AccountFileSummaryActions actions = new AccountFileSummaryActions(sh);
 	public AccountFileSummaryWestPanel(CenterSeleniumHelper sh)
 	{
 		super(sh);
@@ -15,7 +13,7 @@ public class AccountFileSummaryWestPanel extends WestPanelBase
 	}
 
 
-	public static class AccountFileSummaryActions extends ActionsBase{
+	public static class AccountFileSummaryActions<T extends AccountFileSummaryActions> extends ActionsBase{
 		private AccountFileSummaryActionsBy by;
 		private AccountFileSummaryActions(CenterSeleniumHelper sh)
 		{
@@ -27,17 +25,17 @@ public class AccountFileSummaryWestPanel extends WestPanelBase
 								convertManualPolicy = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_ConvertManualPolicy-textEl");
 		}
 
-//		public NewSubmission newSubmission()
-//		{
-//			clickActions();
-//			sh.clickElement(by.submission);
-//			return new NewSubmission(sh);
-//		}
-		public InitiateManualRenewal convertManualPolicy()
+		public T newSubmission()
+		{
+			clickActions();
+			sh.clickElement(by.submission);
+			return (T)this;
+		}
+		public T convertManualPolicy()
 		{
 			clickActions();
 			sh.clickElement(by.convertManualPolicy);
-			return new InitiateManualRenewal(sh);
+			return (T)this;
 		}
 	}
 }
