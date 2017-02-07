@@ -162,7 +162,7 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		return newAccount("Company");
 	}
 
-	public E createNewPersonAccount()
+	protected E createNewPersonAccount()
 	{
 		return newAccount("Person");
 	}

@@ -21,11 +21,18 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 	public class AccountFileSummaryBy extends CenterPanelBy
 	{
 		private  String	screen = "AccountFile_Summary:AccountFile_SummaryScreen:";
-		public By	accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl");
+		public By	accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl"),
+					transactionNumber = By.id(screen + "AccountFile_Summary_WorkOrdersLV:0:WorkOrderNumber");
 	}
 
 	protected String getAccountNumber()
 	{
 		return sh.getText(by.accountNumber);
+	}
+
+	public <T extends CenterPanelBase> T clickTransactionNumber()
+	{
+		sh.clickElement(by.transactionNumber);
+		return (T)this;
 	}
 }

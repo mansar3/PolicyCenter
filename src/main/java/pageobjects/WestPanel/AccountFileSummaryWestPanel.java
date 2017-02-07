@@ -27,12 +27,12 @@ public class AccountFileSummaryWestPanel extends WestPanelBase
 								convertManualPolicy = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_ConvertManualPolicy-textEl");
 		}
 
-		public NewSubmission newSubmission()
-		{
-			clickActions();
-			sh.clickElement(by.submission);
-			return new NewSubmission(sh);
-		}
+//		public NewSubmission newSubmission()
+//		{
+//			clickActions();
+//			sh.clickElement(by.submission);
+//			return new NewSubmission(sh);
+//		}
 		public InitiateManualRenewal convertManualPolicy()
 		{
 			clickActions();
