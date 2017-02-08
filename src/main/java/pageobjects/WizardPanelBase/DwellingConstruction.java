@@ -41,7 +41,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
 	protected T coveragesNext()
 	{
-		sh.waitForNoMask(15);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		return (T)this;
 	}

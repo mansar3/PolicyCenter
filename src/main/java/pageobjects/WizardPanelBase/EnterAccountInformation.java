@@ -145,7 +145,21 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 
 	public E  clickCreateNewAccount()
 	{
-		sh.waitForNoMask();
+		for(int i=0;i<5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(sh.isMaskPresent())
+				break;
+		}
+
 		sh.clickElement(by.createNewAcctBtn);
 		return (E)this;
 	}

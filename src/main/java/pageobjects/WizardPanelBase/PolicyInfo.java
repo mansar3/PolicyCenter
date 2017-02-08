@@ -103,7 +103,14 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 			sh.waitForNoMask();
 			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:0:ContactType")))
 				break;
-
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:0:ContactType"));
 
@@ -119,6 +126,14 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 			sh.waitForNoMask();
 			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:1:ContactType")))
 				break;
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 
 		}
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:1:ContactType"));
@@ -132,6 +147,14 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 			sh.waitForPageLoad();
 			if(sh.isDisplayed(By.id(insuredBase + "AddContactsButton:AddFromSearch")))
 				break;
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 			sh.clickElement(By.id(insuredBase + "AddContactsButton:AddFromSearch"));
 		return (T)this;

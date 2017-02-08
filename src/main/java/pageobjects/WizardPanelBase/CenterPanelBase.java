@@ -85,7 +85,7 @@ abstract public class CenterPanelBase
 
 	public void waitForTitle(CenterSeleniumHelper sh)
 	{
-		sh.wait(60).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
+		sh.wait(70).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
 	}
 	public void waitForTitleToContain(CenterSeleniumHelper sh)
 	{

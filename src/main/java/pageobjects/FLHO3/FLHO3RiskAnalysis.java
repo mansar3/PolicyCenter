@@ -97,10 +97,10 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 			super.setLongDescription(longDescription);
 			return this;
 		}
-		public FLHO3CreateNewUWIssue clickOk()
+		public FLHO3RiskAnalysis clickOk()
 		{
-			super.clickOk();
-			return new FLHO3CreateNewUWIssue(sh, path);
+			super.riskAnalysisOk();
+			return new FLHO3RiskAnalysis(sh, path);
 		}
 		public FLHO3CreateNewUWIssue clickCancel()
 		{

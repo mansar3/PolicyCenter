@@ -713,6 +713,14 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 				sh.clickElement(by.add);
 				if(sh.isDisplayed(by.newPerson))
 					break;
+				try
+				{
+					Thread.sleep(1000);
+				}
+				catch(InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 			}
 
 				sh.clickElement(by.newPerson);
@@ -727,6 +735,14 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 				sh.clickElement(by.add);
 				if(sh.isDisplayed(by.newCompany))
 					break;
+				try
+				{
+					Thread.sleep(1000);
+				}
+				catch(InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 			}
 
 			sh.clickElement(by.newCompany);
@@ -740,6 +756,16 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 				sh.clickElement(by.add);
 				if(sh.isDisplayed(by.fromAddressBook))
 					break;
+				try
+				{
+					// Added in because selenium would click drop down too quickly
+					// and menu would not appear.
+					Thread.sleep(1000);
+				}
+				catch(InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 			}
 
 			sh.clickElement(by.fromAddressBook);

@@ -234,7 +234,7 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 	{
 		return super.setBuildingRetrofittedForEarthquakesDescription(flag);
 	}
-	public FLHO3DwellingConstruction settStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String flag)
+	public FLHO3DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String flag)
 	{
 		return super.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(flag);
 	}

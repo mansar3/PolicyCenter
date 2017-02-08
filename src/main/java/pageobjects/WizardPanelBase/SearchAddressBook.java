@@ -102,9 +102,23 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 		// Added because even after waitForNoMask sometimes "click at point.."
 		// would still occur.
 		sh.waitForPageLoad();
+		for(int i = 0; i < 5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(!sh.isMaskPresent())
+				break;
+
+		}
 		sh.waitForNoMask();
 		sh.clickElement(by.search);
-		sh.waitForPageLoad();
 		return (T)this;
 	}
 

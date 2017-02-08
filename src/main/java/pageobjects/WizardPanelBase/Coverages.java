@@ -108,6 +108,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
 	{
+		sh.waitForNoMask();
+		sh.waitForPageLoad();
 		sh.setText(by.personalPropertyValuationMethod, personalPropertyValuationMethod);
 		sh.tab();
 		sh.waitForNoMask();

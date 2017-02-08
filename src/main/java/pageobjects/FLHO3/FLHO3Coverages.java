@@ -225,43 +225,12 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
 		}
-		public FLHO3PropertyEndorsements checkEarthQuakeCoverage()
-		{
-			return super.checkEarthquakeCoverage();
-		}
 
 		public FLHO3PropertyEndorsements checkSpecificOtherStructures()
 		{
 			return super.checkSpecificOtherStructures();
 		}
 
-		public FLHO3PropertyEndorsements checkEarthquakeCoverage()
-		{
-			return super.checkEarthquakeCoverage();
-		}
-
-		public FLHO3PropertyEndorsements checkEarthquakeLossAssessment()
-		{
-			return super.checkEarthquakeLossAssessment();
-		}
-		public FLHO3PropertyEndorsements setEarthquakeLossAssessmentLimit(String text)
-		{
-			return super.setEarthquakeLossAssessmentLimit(text);
-		}
-
-		public String getEarthquakeLossAssessmentLimit()
-		{
-			return super.getEarthquakeLossAssessmentLimit();
-		}
-		public FLHO3PropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String text)
-		{
-			return super.setEarthquakeCoverageDeductiblePercentage(text);
-		}
-
-		public String getEarthquakeCoverageDeductiblePercentage()
-		{
-			return super.getEarthquakeCoverageDeductiblePercentage();
-		}
 		public FLHO3LiabilityEndorsements clickLiabilityEndorsements()
 		{
 			super.clickLiabilityEndorsementsTab();

@@ -303,6 +303,21 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 
 	public T verifyAddress()
 	{
+		for(int i = 0;i<5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(!sh.isMaskPresent())
+				break;
+
+		}
 		sh.waitForNoMask();
 		sh.waitForPageLoad();
 		sh.clickElement(by.verifyAddress);

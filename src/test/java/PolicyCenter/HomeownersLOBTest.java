@@ -1329,10 +1329,21 @@ public class HomeownersLOBTest extends BaseTest
 //		else
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
-		if(quote.isUnderWritingApprovalNeeded())
+		if(quote.isUnderWritingApprovalNeeded() && addInts.size() == 0)
 		{
-			ra = quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
-			eai.put("Submitted for Approval","true");
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		else if(addInts.size() > 0)
+		{
+			quote
+			.backToPoliycReview()
+			.back()
+			.addUWIssue()
+			.setIssueType("To be reviewed by underwriter 1, blocking bind")
+			.setShortDescription("AddInts")
+			.setLongDescription("Please check additional Interests section").clickOk();
+			eai.put("Submitted for Approval","Submitted as UnderWriting Issue");
 		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );

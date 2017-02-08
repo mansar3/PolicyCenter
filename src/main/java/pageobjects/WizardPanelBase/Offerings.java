@@ -38,7 +38,7 @@ public abstract class Offerings<T extends Offerings> extends CenterPanelBase
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
-		sh.waitForNoMask(15);
+		sh.waitForNoMask();
 		return (T)this;
 	}
 

@@ -216,7 +216,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			//sh.waitForNoMask();
 			return (T)this;
 		}
-		protected T clickOk()
+		protected T riskAnalysisOk()
 		{
 			sh.clickElement(by.ok);
 			return (T)this;

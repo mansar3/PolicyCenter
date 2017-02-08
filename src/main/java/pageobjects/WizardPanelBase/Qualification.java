@@ -33,7 +33,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
-		sh.waitForNoMask(15);
+		sh.waitForNoMask();
 		return (T)this;
 	}
 
