@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public abstract class SelectStandardizedAddress<T extends CenterPanelBase/*SelectStandardizedAddress*/> extends CenterPanelBase
+public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddress> extends CenterPanelBase
 {
 	private SelectStandardizedAddressBy by;
 	private String addressRows = "[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(2) td:nth-of-type(1) a";
