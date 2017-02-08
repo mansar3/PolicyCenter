@@ -63,7 +63,7 @@ public abstract class BaseTest
 		try
 		{
 			// Dockers URL
-			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			// gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
 			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm

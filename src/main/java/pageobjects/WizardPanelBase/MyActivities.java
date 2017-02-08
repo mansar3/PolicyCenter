@@ -1,6 +1,7 @@
 package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
+import org.openqa.selenium.By;
 
 public abstract class MyActivities<T extends MyActivities> extends CenterPanelBase
 {
@@ -9,7 +10,7 @@ public abstract class MyActivities<T extends MyActivities> extends CenterPanelBa
 
     public class MyActivitiesBy extends CenterPanelBase.CenterPanelBy
     {
-
+        final public By username = By.cssSelector("[id='AccountFile_Summary:AccountFile_SummaryScreen:AccountFile_Summary_BasicInfoDV:Name-inputEl']");
     }
 
     public MyActivities(CenterSeleniumHelper sh)
@@ -20,8 +21,13 @@ public abstract class MyActivities<T extends MyActivities> extends CenterPanelBa
         waitForTitle(sh);
 
     }
-    public void test()
+    public MyActivities getFirstname()
     {
-        System.out.println("test");
+        return this;
+    }
+
+    public MyActivities getLastname()
+    {
+        return this;
     }
 }

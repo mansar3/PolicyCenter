@@ -11,8 +11,9 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
     public class NavigationBarBy
     {
         final private By navbar = By.cssSelector("[id='northPanel']"),
-                         accountTab = By.id("TabBar:AccountTab");
-
+                         accountTab = By.id("TabBar:AccountTab"),
+                         newAccount = By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"),
+                         searchButton = By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button");
     }
 
     public NavigationBar(CenterSeleniumHelper sh)
@@ -31,7 +32,8 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
     public T clickNewAccountDropdown()
     {
         sh.clickRightOfElement(by.accountTab);
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+        sh.clickElement(by.newAccount);
         return (T)this;
     }
+
 }
