@@ -19,7 +19,6 @@ public class FLHO3AccountFileSummary extends AccountFileSummary<FLHO3AccountFile
 	{
 		return super.getAccountNumber();
 	}
-}
 
 	public FLHO3Quote clickTransactionNumber()
 	{
