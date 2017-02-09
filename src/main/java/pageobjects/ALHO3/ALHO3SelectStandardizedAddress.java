@@ -17,9 +17,38 @@ public class ALHO3SelectStandardizedAddress extends SelectStandardizedAddress<AL
 		super(sh);
 	}
 
-	public ALHO3CreateAccount selectVerifiedAddressForCreateAccount(int row)
+	public ALHO3CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
-		super.clickVerifiedAddressForCreateAccount(row);
+		super.clickSuccessfulVerificationIfPossibleForCreateAccount();
 		return new ALHO3CreateAccount(sh);
+	}
+	public ALHO3NewAdditionalInterest selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+	{
+		super.clickSuccessfulVerificationIfPossibleForNewAdditionalInterests();
+		return new ALHO3NewAdditionalInterest(sh,path);
+	}
+
+	public ALHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
+	{
+		super.clickSuccessfulVerificationIfPossibleForLocationInformation();
+		return new ALHO3LocationInformation(sh,path);
+	}
+
+	public ALHO3NewAdditionalNamedInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
+	{
+		super.clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured();
+		return new ALHO3NewAdditionalNamedInsured(sh,path);
+	}
+
+	public ALHO3NewAdditionalInterest selectAddressForNewAdditionalInterests(int row)
+	{
+		super.clickAddressForNewAdditionalInterests(row);
+		return new ALHO3NewAdditionalInterest(sh,path);
+	}
+
+	public ALHO3NewAdditionalNamedInsured selectAddressForNewAdditionalNamedInsured(int row)
+	{
+		super.clickAddressForNewAdditionalNamedInsured(row);
+		return new ALHO3NewAdditionalNamedInsured(sh,path);
 	}
 }

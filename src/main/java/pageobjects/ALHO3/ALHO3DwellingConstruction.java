@@ -1,7 +1,6 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3Coverages;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -14,15 +13,15 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		super(sh, path);
 	}
 
-	public FLHO3Coverages next()
+	public ALHO3Coverages next()
 	{
 		super.coveragesNext();
-		return new FLHO3Coverages(sh, path);
+		return new ALHO3Coverages(sh, path);
 	}
-	public FLHO3WindMitigation clickWindMitigation()
+	public ALHO3WindMitigation clickWindMitigation()
 	{
 		super.windMitigation();
-		return new FLHO3WindMitigation(sh,path);
+		return new ALHO3WindMitigation(sh,path);
 	}
 	public ALHO3DwellingConstruction setRoofYear(String text)
 	{
@@ -252,9 +251,9 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		return super.setScreenEnclosureOnPremises(flag);
 	}
 
-	public class FLHO3WindMitigation extends WindMitigation<FLHO3WindMitigation>
+	public class ALHO3WindMitigation extends WindMitigation<ALHO3WindMitigation>
 	{
-		public FLHO3WindMitigation(CenterSeleniumHelper sh, Path path)
+		public ALHO3WindMitigation(CenterSeleniumHelper sh, Path path)
 		{
 			super(sh, path);
 		}
@@ -264,17 +263,17 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 			super.clickDetailsTab();
 			return new ALHO3DwellingConstruction(sh, path);
 		}
-		public FLHO3Coverages next()
+		public ALHO3Coverages next()
 		{
 			super.coveragesNext();
-			return new FLHO3Coverages(sh,path);
+			return new ALHO3Coverages(sh,path);
 		}
-		public FLHO3Coverages doubleClickNext()
+		public ALHO3Coverages doubleClickNext()
 		{
 			super.doubleClickCoveragesNext();
-			return new FLHO3Coverages(sh, path);
+			return new ALHO3Coverages(sh, path);
 		}
-		public FLHO3WindMitigation setRoofShapeType(String text)
+		public ALHO3WindMitigation setRoofShapeType(String text)
 		{
 			return super.setRoofShapeType(text);
 		}
@@ -283,7 +282,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getRoofShapeType();
 		}
-		public FLHO3WindMitigation setDiscountType(String text)
+		public ALHO3WindMitigation setDiscountType(String text)
 		{
 			return super.setDiscountType(text);
 		}
@@ -292,7 +291,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getDiscountType();
 		}
-		public FLHO3WindMitigation setFortifiedHomeType(String text)
+		public ALHO3WindMitigation setFortifiedHomeType(String text)
 		{
 			return super.setFortifiedHomeType(text);
 		}
@@ -301,7 +300,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getFortifiedHomeType();
 		}
-		public FLHO3WindMitigation setOpeningProtectionType(String text)
+		public ALHO3WindMitigation setOpeningProtectionType(String text)
 		{
 			return super.setOpeningProtectionType(text);
 		}
@@ -310,7 +309,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getOpeningProtectionType();
 		}
-		public FLHO3WindMitigation setTerrain(String text)
+		public ALHO3WindMitigation setTerrain(String text)
 		{
 			return super.setTerrain(text);
 		}
@@ -319,7 +318,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getTerrain();
 		}
-		public FLHO3WindMitigation setRoofCover(String text)
+		public ALHO3WindMitigation setRoofCover(String text)
 		{
 			return super.setRoofCover(text);
 		}
@@ -328,7 +327,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getRoofCover();
 		}
-		public FLHO3WindMitigation setRoofDeckAttachment(String text)
+		public ALHO3WindMitigation setRoofDeckAttachment(String text)
 		{
 			return super.setRoofDeckAttachment(text);
 		}
@@ -337,7 +336,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getRoofDeckAttachment();
 		}
-		public FLHO3WindMitigation setRoofWallConnection(String text)
+		public ALHO3WindMitigation setRoofWallConnection(String text)
 		{
 			return super.setRoofWallConnection(text);
 		}
@@ -346,23 +345,23 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getRoofWallConnection();
 		}
-		public FLHO3WindMitigation setSecondaryWaterResistance(String flag)
+		public ALHO3WindMitigation setSecondaryWaterResistance(String flag)
 		{
 			return super.setSecondaryWaterResistance(flag);
 		}
-		public FLHO3WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
+		public ALHO3WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
 		{
 			return super.setIsTheRoofCoverConstructionBuildingCodeCompliant(flag);
 		}
-		public FLHO3WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
+		public ALHO3WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
 		{
 			return super.setIsTheRoofDeckAttachmentBuildingCodeCompliant(flag);
 		}
-		public FLHO3WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
+		public ALHO3WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
 		{
 			return super.setIsTheRoofWallconnectionBuildingCodeCompliant(flag);
 		}
-		public FLHO3WindMitigation setRoofDeck(String text)
+		public ALHO3WindMitigation setRoofDeck(String text)
 		{
 			return super.setRoofDeck(text);
 		}
@@ -371,7 +370,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getRoofDeck();
 		}
-		public FLHO3WindMitigation setFbcWindSpeed(String text)
+		public ALHO3WindMitigation setFbcWindSpeed(String text)
 		{
 			return super.setFbcWindSpeed(text);
 		}
@@ -380,7 +379,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		{
 			return super.getFbcWindSpeed();
 		}
-		public FLHO3WindMitigation setInternalPressure(String text)
+		public ALHO3WindMitigation setInternalPressure(String text)
 		{
 			return super.setInternalPressure(text);
 		}
@@ -390,7 +389,7 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 			return super.getInternalPressure();
 		}
 
-		public FLHO3WindMitigation setWindBorneDebris(String flag)
+		public ALHO3WindMitigation setWindBorneDebris(String flag)
 		{
 			return super.setWindBorneDebris(flag);
 		}

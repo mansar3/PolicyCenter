@@ -1,5 +1,6 @@
 package Helpers;
 
+import junit.framework.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -28,6 +29,7 @@ public class CenterSeleniumHelper
 	{
 		return this.driver;
 	}
+
 	public void setText(By byLocator, String text)
 	{
 		if(text != null)
@@ -44,18 +46,16 @@ public class CenterSeleniumHelper
 	public void setTextAndTab(By byLocator, String text)
 	{
 		if(text != null)
-			wait(25).until(ExpectedConditions.refreshed(driver1 ->
-			{
-				driver1.findElement(byLocator).sendKeys("");
-				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
-					return false;
-				driver1.findElement(byLocator).clear();
-				driver1.findElement(byLocator).sendKeys(text);
-				return getValue(byLocator).equals(text);
-			}));
-		tab();
-		//waitForNoMask();
-		assert getValue(byLocator).equals(text);
+		{
+			driver.findElement(byLocator).sendKeys("");
+			driver.findElement(byLocator).clear();
+			driver.findElement(byLocator).sendKeys(text);
+			tab();
+			Assert.assertSame("Expected value:" +text+ "\t Actual value: " + getValue(byLocator),text, getValue(byLocator));
+
+		}
+
+
 
 	}
 

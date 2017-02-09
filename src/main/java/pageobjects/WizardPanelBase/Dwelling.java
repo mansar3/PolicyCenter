@@ -315,6 +315,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setTrampolineOnPremises(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.id(dwellingBase + "TrampolineExists_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return (T)this;
@@ -410,8 +411,36 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.clickElement(by.editLocation);
 		return (T)this;
 	}
+	protected String getMinimumRentalIncrement()
+	{
+		return sh.getValue(by.minimumRentalIncrement);
+	}
 
+	protected T setMinimumRentalIncrement(String minimumRentalIncrement)
+	{
+		sh.setText(by.minimumRentalIncrement, minimumRentalIncrement);
+		sh.tab();
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T underContractWithRentalManagementCompany(String flag)
+	{
+		sh.clickElement(By.id(dwellingBase + "IsUnderRentalMgmtCompany_fli_" + flag.toLowerCase() + "-inputEl"));
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected String getWeeksRentedAnnually()
+	{
+		return sh.getValue(by.weeksRentedAnnually);
+	}
 
+	protected T setWeeksRentedAnnually(String weeksRentedAnnually)
+	{
+		sh.setText(by.weeksRentedAnnually, weeksRentedAnnually);
+		sh.tab();
+		sh.waitForNoMask();
+		return (T)this;
+	}
 
 	public class DwellingBy{
 
@@ -444,6 +473,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								locationDropDown = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:HODwellingLocationInputMenuIcon"),
 								newLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:NewGarageLocation-itemEl"),
 								editLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:EditDwellingLocation-itemEl"),
+								weeksRentedAnnually = By.id(dwellingBase + "WeeksRentedAnually_fli-inputEl"),
+								minimumRentalIncrement = By.id(dwellingBase + "RentalIncrementType_fli-inputEl"),
 
 								// Protection Details
 								protectionDetails = By.id(tabBase + "DwellingSingleProtectionIdTab-btnInnerEl"),

@@ -269,8 +269,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
 								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Medical Payments']/../..//span[text() = 'Limit']/../..//input"),
 								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Wind Deductible Type']/../..//input"),
-								windHail =By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Wind/Hail']/../..//input"),
-								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Named Storm']/../..//input"),
+								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
+								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Named Storm']/../..//input"),
 
 
 
@@ -363,7 +363,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
 
 			inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"),
-			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../..//input"),
+			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../../div/div"),
 
 
 			sinkholeLossCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/..//input"),
@@ -897,7 +897,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		
 		protected boolean isInflationGuardChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.inflationGuard);
+			return sh.isDisplayed(by.percentageOfAnnualIncrease);
 		}
 		
 		protected T checkInflationGuard()

@@ -1,8 +1,6 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3Dwelling;
-import pageobjects.FLHO3.FLHO3PolicyInfo;
 import pageobjects.WizardPanelBase.SearchAddressBook;
 
 /**
@@ -19,15 +17,15 @@ public class ALHO3SearchAddressBook extends SearchAddressBook<ALHO3SearchAddress
 		super(sh);
 	}
 
-	public FLHO3PolicyInfo selectFirstSearchResultPolicyInfo()
+	public ALHO3PolicyInfo selectFirstSearchResultPolicyInfo()
 	{
 		super.clickFirstSearchResultPolicyInfo();
-		return new FLHO3PolicyInfo(sh, path);
+		return new ALHO3PolicyInfo(sh, path);
 	}
-	public FLHO3Dwelling.FLHO3AdditionalInterests selectFirstSearchResultAdditionalInterests()
+	public ALHO3Dwelling.ALHO3AdditionalInterests selectFirstSearchResultAdditionalInterests()
 	{
 		super.clickFirstSearchResultAdditionalInterest();
-		return new FLHO3Dwelling(sh, path).new FLHO3AdditionalInterests(sh, path);
+		return new ALHO3Dwelling(sh, path).new ALHO3AdditionalInterests(sh, path);
 	}
 	public boolean areThereSearchResults()
 	{
@@ -37,15 +35,15 @@ public class ALHO3SearchAddressBook extends SearchAddressBook<ALHO3SearchAddress
 	{
 		return super.areThereMoreThanOneSearchResult();
 	}
-	public FLHO3PolicyInfo clickReturnToPolicyInfo()
+	public ALHO3PolicyInfo clickReturnToPolicyInfo()
 	{
 		super.returnToPolicyInfo();
-		return new FLHO3PolicyInfo(sh, path);
+		return new ALHO3PolicyInfo(sh, path);
 	}
-	public FLHO3Dwelling.FLHO3AdditionalInterests clickReturnToDwelling()
+	public ALHO3Dwelling.ALHO3AdditionalInterests clickReturnToDwelling()
 	{
 		super.returnToDwelling();
-		return new FLHO3Dwelling(sh, path).new FLHO3AdditionalInterests(sh, path);
+		return new ALHO3Dwelling(sh, path).new ALHO3AdditionalInterests(sh, path);
 	}
 
 	public ALHO3SearchAddressBook clickSearch()

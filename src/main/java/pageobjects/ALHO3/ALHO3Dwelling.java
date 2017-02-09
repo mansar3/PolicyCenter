@@ -1,9 +1,6 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.ALHO3.ALHO3LocationInformation;
-import pageobjects.ALHO3.ALHO3NewAdditionalInterest;
-import pageobjects.ALHO3.ALHO3SearchAddressBook;
 import pageobjects.WizardPanelBase.Dwelling;
 
 
@@ -201,6 +198,29 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		super.clickAdditionalInterestsTab();
 		return new ALHO3AdditionalInterests(sh, path);
 	}
+	public ALHO3Dwelling setMinimumRentalIncrement(String text)
+	{
+		return super.setMinimumRentalIncrement(text);
+	}
+
+	public String getMinimumRentalIncrement()
+	{
+		return super.getMinimumRentalIncrement();
+	}
+	public ALHO3Dwelling underContractWithRentalManagementCompany(String flag)
+	{
+		return super.underContractWithRentalManagementCompany(flag);
+	}
+	public ALHO3Dwelling setWeeksRentedAnnually(String text)
+	{
+		return super.setWeeksRentedAnnually(text);
+	}
+
+	public String getWeeksRentedAnnually()
+	{
+		return super.getWeeksRentedAnnually();
+	}
+
 	public ALHO3Dwelling setSwimmingPool(String flag)
 	{
 		return super.setSwimmingPool(flag);
