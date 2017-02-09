@@ -10,7 +10,7 @@ import pageobjects.WestPanel.WestPanelBase;
 public abstract class Quote<T extends Quote> extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
-	protected String quoteBase, errorBase;
+	protected String quoteBase, errorBase,bottomBase;
 	private QuoteBy by ;
 	public Quote(CenterSeleniumHelper sh,Path path)
 	{
@@ -40,6 +40,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		{
 			case SUBMISSION:
 				quoteBase = "SubmissionWizard:SubmissionWizard_QuoteScreen:Quote_SummaryDV:";
+				errorBase = "SubmissionWizard:SubmissionWizard_QuoteScreen:";
 				break;
 			case POLICYRENEWAL:
 				quoteBase = "RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:Quote_SummaryDV:";
@@ -52,7 +53,8 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		By	totalPremium = By.id(quoteBase + "TotalPremium-inputEl"),
 			annualizedTotalCost = By.id(quoteBase + "TotalAnnualCost-inputEl"),
 			annualizedTotalCostIncludingWhenSafe = By.id(quoteBase + "TotalAnnualCostPlusWhenSafe-inputEl"),
-			underWritingApprovalError = By.id(errorBase + "WarningsPanelSet:0:PanelSet:Warning");
+			underWritingApprovalError = By.id(errorBase + "WarningsPanelSet:0:PanelSet:Warning"),
+			overrideRating = By.id(errorBase + "RatingCumulDetailsPanelSet:RatingOverrideButtonDV:RatingOverrideButtonDV:OverrideRating");
 
 
 	}
@@ -84,5 +86,91 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		if(sh.isDisplayed(by.underWritingApprovalError) && sh.getText(by.underWritingApprovalError).equals(message))
 			return true;
 		return false;
+	}
+	protected T overrideRating()
+	{
+		sh.clickElement(by.overrideRating);
+		return (T)this;
+	}
+	
+	
+	public class RatingOverrides<T extends RatingOverrides> extends CenterPanelBase
+	{
+		RatingOverridesBy by;
+
+		public RatingOverrides(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			expectedPanelTitle = "Rating Overrides";
+			waitForTitle(sh);
+			System.out.println("Navigated to page: " + expectedPanelTitle);
+			by = new RatingOverridesBy();
+
+		}
+
+		public class RatingOverridesBy
+		{
+			By termAmountReadOnly = By.xpath(".//*[@id='RatingOverridePopup:RatingOverridePanelSet:1-body']//div[text() = 'CTR']/../following-sibling::td[2]/div"),
+			termAmountInput = By.name("c2"),
+			reasonReadOnly = By.xpath(".//*[@id='RatingOverridePopup:RatingOverridePanelSet:1-body']//div[text() = 'CTR']/../following-sibling::td[3]/div"),
+			reasonInput = By.name("c3"),
+			rerate = By.id("RatingOverridePopup:Update-btnInnerEl"),
+			cancel = By.id("RatingOverridePopup:Cancel"),
+			clearAll = By.id("RatingOverridePopup:ClearAllButton-btnInnerEl");
+
+		}
+		protected T rerate()
+		{
+			sh.clickElement(by.rerate);
+			return (T)this;
+		}
+		protected T cancel()
+		{
+			sh.clickElement(by.cancel);
+			return (T)this;
+		}
+		public T clickClearAll()
+		{
+			sh.clickElement(by.clearAll);
+			return (T)this;
+		}
+		
+		
+		
+		public String getTermAmountReadOnly()
+		{
+			return sh.getText(by.termAmountReadOnly);
+		}
+
+		public String getTermAmountInput()
+		{
+			return sh.getValue(by.termAmountInput);
+		}
+
+		public T setTermAmount(String termAmount)
+		{
+			sh.clickElement(by.termAmountReadOnly) ;
+			sh.waitForElementToAppear(by.termAmountInput);
+			sh.setText(by.termAmountInput, termAmount);
+			return (T) this;
+		}
+
+		public String getReasonReadOnly()
+		{
+			return sh.getText(by.reasonReadOnly);
+		}
+		public String getReasonInput()
+		{
+			return sh.getText(by.reasonInput);
+		}
+		public T setReason(String reason)
+		{
+			sh.clickElement(by.reasonReadOnly);
+			sh.waitForElementToAppear(by.reasonInput);
+			sh.setText(by.reasonInput,reason);
+			return (T)this;
+		}
+
 	}
 }

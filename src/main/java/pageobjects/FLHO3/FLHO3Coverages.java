@@ -196,6 +196,15 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.setPersonalPropertyDescription(itemNumber, text);
 		}
+		public FLHO3PropertyEndorsements clickAddScheduledPersonalProperty()
+		{
+			return super.clickAddScheduledPersonalProperty();
+
+		}
+		public FLHO3PropertyEndorsements clickRemoveScheduledPersonalProperty()
+		{
+			return super.clickRemoveScheduledPersonalProperty();
+		}
 		public FLHO3PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
 		{
 			return super.setPersonalPropertyValue(itemNumber, text);
@@ -254,6 +263,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public FLHO3PropertyEndorsements setWhenSafeCreditPercentage(String text)
 		{
 			return super.setWhenSafeCreditPercentage(text);
+		}
+		public boolean isWhenSafeChecked()
+		{
+			return super.isWhenSafeChecked();
 		}
 
 		public String getWhenSafeCreditPercentage()

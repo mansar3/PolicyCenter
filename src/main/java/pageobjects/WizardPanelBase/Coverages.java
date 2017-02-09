@@ -103,6 +103,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getPersonalPropertyValuationMethod()
 	{
+		sh.waitForNoMask();
 		return sh.getValue(by.personalPropertyValuationMethod);
 	}
 
@@ -122,6 +123,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setLossOfUseSelection(String lossOfUseSelection)
 	{
+		sh.waitForNoMask();
 		sh.setText(by.lossOfUseSelection, lossOfUseSelection);
 		sh.tab();
 		sh.waitForNoMask();
@@ -351,6 +353,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
 			earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Deductible Percentage']/../..//input"),
 
+			specificAdditionalAmountOfCoverageA = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/..//input"),
+			specificAdditionalAmountOfCoverageALimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/../../div//span[text() = 'Limit']/../..//div/div"),
 
 			earthquakeLossAssessment = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
 			earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
@@ -374,6 +378,17 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 
 		}
+		protected T checkSpecificAdditionalAmountOfCoverageA()
+		{
+			sh.clickElement(by.specificAdditionalAmountOfCoverageA);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected boolean isSpecificAdditionalAmountOfCoverageAChecked()
+		{
+			return sh.isDisplayed(by.specificAdditionalAmountOfCoverageALimit);
+		}
+
 		protected String getWaterBackUpLimit()
 		{
 			return sh.getText(by.waterBackUpLimit);
@@ -383,9 +398,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" + "/../../div//span[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
+			sh.waitForNoMask();
 			return (T)this;
 		}
-
+		protected boolean isEarthQuakeLossAssessmentChecked()
+		{
+			return sh.isDisplayed(by.earthquakeLossAssessmentLimit);
+		}
 		protected T setPersonalPropertyArticleType(int itemNumber, String articleType)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
@@ -474,7 +493,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkEarthquakeCoverage()
 		{
 			sh.clickElement(by.earthquakeCoverage);
+			sh.waitForNoMask();
 			return (T)this;
+		}
+		protected boolean isEarthquakeCoverageChecked()
+		{
+			return sh.isDisplayed(by.earthquakeCoverageDeductiblePercentage);
 		}
 
 		protected T checkSpecificOtherStructures()
@@ -486,6 +510,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkEarthquakeLossAssessment()
 		{
 			sh.clickElement(by.earthquakeLossAssessment);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 
@@ -511,6 +536,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
 			sh.tab();
+			sh.waitForNoMask();
 
 			return (T)this;
 		}
@@ -745,7 +771,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		
 		protected boolean isWhenSafeChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.whenSafe);
+			return sh.isDisplayed(by.creditPercentage);
 		}
 		
 		protected T checkWhenSafe()
@@ -784,7 +810,19 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		
 		protected T checkScheduledPersonalProperty()
 		{
+			sh.waitForNoMask();
+//			for(int i=0;i < 5;i++)
+//			{
+//				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+//				sh.waitForNoMask();
+//				if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+//					break;
+//			}
 			sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+			sh.waitForNoMask();
+			// Sometimes the checkbox will show up as not clicked.
+			if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
 			// Added because mask would appear,disappear, then reappear and it would throw error on next method.
 			try
 			{
@@ -843,6 +881,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.isDisplayed(by.waterBackUpLimit);
 		}
+
 		
 		protected T checkWaterBackUp()
 		{

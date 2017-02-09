@@ -42,4 +42,27 @@ public class SCHO3Quote extends Quote<SCHO3Quote>
 		return super.getAnnualizedTotalCostIncludingWhenSafe();
 	}
 
+	public SCHO3RatingOverrides clickOverrideRating()
+	{
+		super.overrideRating();
+		return new SCHO3RatingOverrides(sh, path);
+	}
+
+	public class SCHO3RatingOverrides extends RatingOverrides<SCHO3RatingOverrides>
+	{
+		public SCHO3RatingOverrides(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh,path);
+		}
+		public SCHO3Quote clickRerate()
+		{
+			super.rerate();
+			return new SCHO3Quote(sh,path);
+		}
+		public SCHO3Quote clickCancel()
+		{
+			super.cancel();
+			return new SCHO3Quote(sh, path);
+		}
+	}
 }

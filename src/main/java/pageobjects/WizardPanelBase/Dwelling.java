@@ -124,9 +124,9 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.tab();
 		sh.waitForNoMask();
 
-		if(path != Path.POLICYRENEWAL)
-			if(sh.getText(by.bceg) == "")
-				sh.waitForValue(by.bceg,10);
+//		if(path != Path.POLICYRENEWAL)
+//			if(sh.getText(by.bceg) == "")
+//				sh.waitForValue(by.bceg,10);
 
 		return (T)this;
 	}

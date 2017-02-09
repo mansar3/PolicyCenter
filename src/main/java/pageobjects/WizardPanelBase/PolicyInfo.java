@@ -87,6 +87,12 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		return (T)this;
 
 	}
+	protected T setSeniorCitizenDiscount(String flag)
+	{
+		sh.clickElement(By.xpath("//*[@id='" + discountsBase + "Modifiers_fliPanelSet:aRateModifierListView:0-body']//div[text() = 'Senior Citizens Discount']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
+		return (T)this;
+	}
 	protected T setNoPriorInsuranceSurcharge(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id='" + discountsBase + "Modifiers_fliPanelSet:aRateModifierListView:0-body']//input[@inputvalue = '" + flag.toLowerCase() + "']"));
