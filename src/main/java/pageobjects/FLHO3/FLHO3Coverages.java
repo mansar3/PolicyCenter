@@ -255,6 +255,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.setWhenSafeCreditPercentage(text);
 		}
+		public boolean isWhenSafeChecked()
+		{
+			return super.isWhenSafeChecked();
+		}
 
 		public String getWhenSafeCreditPercentage()
 		{

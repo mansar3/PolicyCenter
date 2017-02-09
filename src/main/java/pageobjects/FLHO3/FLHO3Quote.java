@@ -41,7 +41,30 @@ public class FLHO3Quote extends Quote<FLHO3Quote>
 	{
 		return super.getAnnualizedTotalCostIncludingWhenSafe();
 	}
+	
+	public FLHO3RatingOverrides clickOverrideRating()
+	{
+		super.overrideRating();
+		return new FLHO3RatingOverrides(sh, path);
+	}
 
+	public class FLHO3RatingOverrides extends RatingOverrides<FLHO3RatingOverrides>
+	{
+		public FLHO3RatingOverrides(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh,path);
+		}
+		public FLHO3Quote clickRerate()
+		{
+			super.rerate();
+			return new FLHO3Quote(sh,path);
+		}
+		public FLHO3Quote clickCancel()
+		{
+			super.cancel();
+			return new FLHO3Quote(sh, path);
+		}
+	}
 	
 	
 	

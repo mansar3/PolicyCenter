@@ -19,7 +19,7 @@ public class ALHO3SelectStandardizedAddress extends SelectStandardizedAddress<AL
 
 	public ALHO3CreateAccount selectVerifiedAddressForCreateAccount(int row)
 	{
-		super.selectVerifiedAddressForCreateAccount(row);
+		super.clickVerifiedAddressForCreateAccount(row);
 		return new ALHO3CreateAccount(sh);
 	}
 }

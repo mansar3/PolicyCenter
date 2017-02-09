@@ -27,6 +27,7 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 
 	protected String getAccountNumber()
 	{
+		sh.waitForNoMask();
 		return sh.getText(by.accountNumber);
 	}
 

@@ -188,6 +188,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
 		}
+		public boolean isEarthQuakeLossAssessment()
+		{
+			return super.isEarthQuakeLossAssessmentChecked();
+		}
 		public SCHO3PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
 		{
 			return super.setPersonalPropertyArticleType(itemNumber, text);
@@ -375,7 +379,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkWhenSafe();
 		}
-
+		public boolean isWhenSafeChecked()
+		{
+			return super.isWhenSafeChecked();
+		}
 		public SCHO3PropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			return super.checkOtherStructuresIncreasedCoverageRentedToOthers();
@@ -418,6 +425,14 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		public boolean isWaterBackUpChecked()
 		{
 			return super.isWaterBackUpChecked();
+		}
+		public boolean isSpecificAdditionalAmountOfCoverageAChecked()
+		{
+			return super.isSpecificAdditionalAmountOfCoverageAChecked();
+		}
+		public SCHO3PropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
+		{
+			return super.checkSpecificAdditionalAmountOfCoverageA();
 		}
 	}
 
