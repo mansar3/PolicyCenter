@@ -1,7 +1,6 @@
-package pageobjects.AL.HO3;
+package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3CreateAccount;
 import pageobjects.WizardPanelBase.Organizations;
 
 /**

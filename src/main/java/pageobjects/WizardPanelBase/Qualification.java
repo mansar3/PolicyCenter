@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class Qualification<T extends Qualification> extends CenterPanelBase
 {
-	private QualificationBy by = new QualificationBy();;
+	private QualificationBy by = new QualificationBy();
 	public Questionnaire questionnaire;
 	public Qualification(CenterSeleniumHelper sh,Path path)
 	{

@@ -1,3 +1,6 @@
 .idea/
 target/
+Thumbs.db
+src/test/resources/testng_local.xml
 qa-centers.iml
+src/test/resources/ScreenShots/

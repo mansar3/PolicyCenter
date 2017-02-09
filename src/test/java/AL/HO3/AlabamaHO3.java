@@ -7,7 +7,7 @@ import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -16,10 +16,7 @@ import org.testng.annotations.Test;
 //import pageobjects.ALHO3.ALHO3Coverages;
 //import pageobjects.ALHO3.ALHO3CreateAccount;
 //import pageobjects.ALHO3.ALHO3EnterAccountInformation;
-import pageobjects.AL.HO3.ALHO3AccountFileSummary;
-import pageobjects.AL.HO3.ALHO3CreateAccount;
-import pageobjects.AL.HO3.ALHO3EnterAccountInformation;
-import pageobjects.FLHO3.FLHO3EnterAccountInformation;
+import pageobjects.ALHO3.*;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
@@ -53,13 +50,16 @@ public class AlabamaHO3 extends BaseTest
         login = new Login(sh, sessionInfo);
         login.load();
         login.isLoaded();
+        String user = "Su", password = "";
+        login.login(user, password);
+        log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountALHO3(ITestContext itc)
     {
         String user = "Su", password = "";
-        NavigationBar nb = login.login(user, password);
+        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
@@ -122,23 +122,46 @@ public class AlabamaHO3 extends BaseTest
     {
         log(itc.getName());
 
-        String firstname = "Ricky";
-        String lastname = "Bobby";
+        String firstname = "Ricky0209015449";
+        String lastname = "Bobby0209015449";
+        String policyType = "Homeowners (HO3)";
+        String expectedOfferingSelection = "Most Popular";
+        String defaultOfferingSelection;
+        String county = "Mobile";
+        String yearBuilt = "2000";
+        String distanceToFireHydrant = "60";
 
-        login.isLoaded();
-        String user = "Su", password = "";
-        NavigationBar nb = login.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-
-        SearchAccounts sa = nb.clickSearchAccount();
-        AccountFileSummary afs = sa.setFirstname(firstname)
+        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
+        ALHO3SearchAccounts sa = nb.clickSearchAccount();
+        ALHO3AccountFileSummary afs = sa.setFirstname(firstname)
                 .setLastname(lastname)
                 .clickSearchButton()
-                .clickAccountNumber();
+                .clickAccountNumberSearchAccount();
 
         afs.westPanel.actions.clickActions();
-        NewSubmission ns = afs.westPanel.actions.clickNewSubmission();
+        afs.westPanel.actions.clickNewSubmission();
+        ALHO3NewSubmission ns = new ALHO3NewSubmission(sh);
+        ALHO3Qualification qualification = ns.productTable.selectHomeowners();
+        defaultOfferingSelection = qualification
+                .setPolicyType(policyType)
+                .getOfferingSelection();
 
+        Assert.assertTrue(defaultOfferingSelection.equals(expectedOfferingSelection),
+                "Expected " + expectedOfferingSelection +", but was " + defaultOfferingSelection);
+
+        // Answer 'no' to all 8 questions
+        for (int i=0; i< 8; i++) {
+            qualification.questionnaire.answerNo(i+1);
+        }
+
+        qualification
+                .next()
+                .next()
+                .editLocation()
+                .setCounty(county)
+                .clickOk()
+                .setYearBuilt(yearBuilt)
+                .setDistanceToFireHydrant(distanceToFireHydrant);
         System.out.println(String.format("%s, %s", firstname, lastname));
 
         takeScreenShot(driver);
@@ -150,26 +173,20 @@ public class AlabamaHO3 extends BaseTest
         String firstname = "Ricky";
         String lastname = "Bobby";
 
-        login.isLoaded();
-        String user = "Su", password = "";
-        NavigationBar nb = login.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
+        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
 
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
         log(itc.getName());
         sa.setFirstname(firstname)
                 .setLastname(lastname)
                 .clickSearchButton()
-                .clickAccountNumber();
+                .clickAccountNumberSearchAccount();
         System.out.println(String.format("%s, %s", firstname, lastname));
 
-        takeScreenShot(driver);
-//        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-//
-//        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-//        Actions build = new Actions(driver);
-//        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-//        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+        Actions build = new Actions(driver);
+        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
     }
 
     @AfterMethod(alwaysRun = true)

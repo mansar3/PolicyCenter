@@ -1,4 +1,4 @@
-package pageobjects.AL.HO3;
+package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.AccountFileSummary;
