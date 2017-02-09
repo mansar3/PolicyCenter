@@ -196,6 +196,15 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.setPersonalPropertyDescription(itemNumber, text);
 		}
+		public FLHO3PropertyEndorsements clickAddScheduledPersonalProperty()
+		{
+			return super.clickAddScheduledPersonalProperty();
+
+		}
+		public FLHO3PropertyEndorsements clickRemoveScheduledPersonalProperty()
+		{
+			return super.clickRemoveScheduledPersonalProperty();
+		}
 		public FLHO3PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
 		{
 			return super.setPersonalPropertyValue(itemNumber, text);

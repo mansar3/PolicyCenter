@@ -135,7 +135,21 @@ public abstract class LocationInformation<T extends LocationInformation> extends
 	}
 	public T verifyAddress()
 	{
-		sh.waitForNoMask();
+		// Added because mask would disappear and reappear
+		for(int i= 0;i<5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(!sh.isMaskPresent())
+				break;
+		}
 		sh.clickElement(by.verifyAddress);
 		return (T)this;
 	}

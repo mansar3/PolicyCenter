@@ -188,9 +188,13 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
 		}
-		public boolean isEarthQuakeLossAssessment()
+		public boolean isEarthQuakeLossAssessmentChecked()
 		{
 			return super.isEarthQuakeLossAssessmentChecked();
+		}
+		public boolean isEarthquakeCoverageChecked()
+		{
+			return super.isEarthquakeCoverageChecked();
 		}
 		public SCHO3PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
 		{
@@ -401,6 +405,15 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		public SCHO3PropertyEndorsements checkScreenEnclosureHurricaneCoverage()
 		{
 			return super.checkScreenEnclosureHurricaneCoverage();
+		}
+		public SCHO3PropertyEndorsements clickAddScheduledPersonalProperty()
+		{
+			return super.clickAddScheduledPersonalProperty();
+
+		}
+		public SCHO3PropertyEndorsements clickRemoveScheduledPersonalProperty()
+		{
+			return super.clickRemoveScheduledPersonalProperty();
 		}
 
 		public SCHO3PropertyEndorsements checkWaterBackUp()

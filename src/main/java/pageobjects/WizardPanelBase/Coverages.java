@@ -103,6 +103,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getPersonalPropertyValuationMethod()
 	{
+		sh.waitForNoMask();
 		return sh.getValue(by.personalPropertyValuationMethod);
 	}
 
@@ -122,6 +123,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setLossOfUseSelection(String lossOfUseSelection)
 	{
+		sh.waitForNoMask();
 		sh.setText(by.lossOfUseSelection, lossOfUseSelection);
 		sh.tab();
 		sh.waitForNoMask();
@@ -396,6 +398,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" + "/../../div//span[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
+			sh.waitForNoMask();
 			return (T)this;
 		}
 		protected boolean isEarthQuakeLossAssessmentChecked()
@@ -490,7 +493,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkEarthquakeCoverage()
 		{
 			sh.clickElement(by.earthquakeCoverage);
+			sh.waitForNoMask();
 			return (T)this;
+		}
+		protected boolean isEarthquakeCoverageChecked()
+		{
+			return sh.isDisplayed(by.earthquakeCoverageDeductiblePercentage);
 		}
 
 		protected T checkSpecificOtherStructures()
@@ -502,6 +510,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkEarthquakeLossAssessment()
 		{
 			sh.clickElement(by.earthquakeLossAssessment);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 
@@ -527,6 +536,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
 			sh.tab();
+			sh.waitForNoMask();
 
 			return (T)this;
 		}
@@ -801,7 +811,18 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkScheduledPersonalProperty()
 		{
 			sh.waitForNoMask();
+//			for(int i=0;i < 5;i++)
+//			{
+//				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+//				sh.waitForNoMask();
+//				if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+//					break;
+//			}
 			sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+			sh.waitForNoMask();
+			// Sometimes the checkbox will show up as not clicked.
+			if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
 			// Added because mask would appear,disappear, then reappear and it would throw error on next method.
 			try
 			{
