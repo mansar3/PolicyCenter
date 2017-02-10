@@ -70,6 +70,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.waitForNoMask();
 		sh.setText(by.distanceToFireHydrant, distanceToFireHydrant);
 		sh.waitForNoMask();
+		sh.tab();
 //		if(path != Path.POLICYRENEWAL)
 //			sh.waitForValue(by.territoryCode,10);
 
@@ -130,6 +131,13 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 		return (T)this;
 	}
+
+	protected T waitForProtectionClassToUpdate(String val)
+	{
+		sh.waitForValueToBeVal(by.protectionClassCode, val);
+		return (T)this;
+	}
+
 	protected String getTerritoryCode()
 	{
 		return sh.getValue(by.territoryCode);

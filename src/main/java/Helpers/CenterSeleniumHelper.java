@@ -152,6 +152,32 @@ public class CenterSeleniumHelper
 
 		});
 	}
+
+	/**
+	 * Waits until the value in the input box defined
+	 * by 'by' matches 'val'
+	 * @param by    locator for input field
+	 * @param val   value to match
+	 */
+	public void waitForValueToBeVal(By by, String val)
+	{
+		new WebDriverWait(driver, 10).until(new ExpectedCondition<Boolean>()
+		{
+		@Override
+		public Boolean apply(WebDriver driver)
+		{
+			try
+			{
+				String currentValue = driver.findElement(by).getAttribute("value");
+				return currentValue.equals(val);
+			} catch (Exception e) {
+				return false;
+			}
+
+		}
+		});
+	}
+
 	public WebElement getElement(By by)
 	{
 		return driver.findElement(by);

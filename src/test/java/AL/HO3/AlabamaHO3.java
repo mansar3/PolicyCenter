@@ -29,7 +29,7 @@ public class AlabamaHO3 extends BaseTest
     private Login login;
     private ALHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
-    private String dateString;
+    private String dateString, firstname, lastname;
     private MyActivities ma;
 
     @BeforeMethod
@@ -58,6 +58,8 @@ public class AlabamaHO3 extends BaseTest
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountALHO3(ITestContext itc)
     {
+        firstname = String.format("Ricky%s", dateString);
+        lastname = String.format("Bobby%s", dateString);
         String user = "Su", password = "";
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
@@ -65,9 +67,7 @@ public class AlabamaHO3 extends BaseTest
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
         log(itc.getName());
 
-        String firstName = String.format("Ricky%s", dateString),
-                lastName = String.format("Bobby%s", dateString),
-                country = "United States",
+        String  country = "United States",
                 dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
                 phoneNumber = "2561234567",
                 address = "5264 Willard Dr N",
@@ -82,8 +82,8 @@ public class AlabamaHO3 extends BaseTest
         enterAccountInformation = new ALHO3EnterAccountInformation(sh);
 		//new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
-                .setFirstName(firstName)
-                .setLastName(lastName)
+                .setFirstName(firstname)
+                .setLastName(lastname)
                 .setCountry(country);
 
         ALHO3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountALHO3();
@@ -98,7 +98,7 @@ public class AlabamaHO3 extends BaseTest
                     .setCity(city)
                     .setState(state)
                     .clickVerifyAddress()
-                    .selectVerifiedAddressForCreateAccount(1)
+                    .selectSuccessfulVerificationIfPossibleForCreateAccount()
                     .setAddressType(addressType)
                     .setSsn(ssn)
                     .clickOrganizationSearch()
@@ -109,7 +109,7 @@ public class AlabamaHO3 extends BaseTest
                     .setProducerCode(producerCode);
             ALHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
-                    ", first name: " + firstName + ", last name: " + lastName);
+                    ", first name: " + firstname + ", last name: " + lastname);
         }
         catch (Exception e)
         {
@@ -117,19 +117,29 @@ public class AlabamaHO3 extends BaseTest
         }
     }
 
-    @Test(description = "AL.HO3.ProductModel.Most.001")
+    @Test(description = "AL.HO3.ProductModel.Most.001"/*, dependsOnMethods =
+            { "createPersonAccountALHO3" }*/)
     public void productModelMostPopular(ITestContext itc)
     {
         log(itc.getName());
 
         String firstname = "Ricky0209015449";
         String lastname = "Bobby0209015449";
+//        firstname = String.format("Ricky%s", dateString);
+//        lastname = String.format("Bobby%s", dateString);
+
         String policyType = "Homeowners (HO3)";
-        String expectedOfferingSelection = "Most Popular";
-        String defaultOfferingSelection;
+        String defaultOfferingSelection,
+                expectedOfferingSelection = "Most Popular";
         String county = "Mobile";
         String yearBuilt = "2000";
         String distanceToFireHydrant = "60";
+        String protectionClassCode,
+                expectedProtectionClassCode = "5";
+        String roofShapeType = "Gable";
+        String dwellingLimit = "600000";
+        String otherStructuresPercentage,
+                expectedOtherStructuresPercentage = "2%";
 
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
@@ -147,14 +157,14 @@ public class AlabamaHO3 extends BaseTest
                 .getOfferingSelection();
 
         Assert.assertTrue(defaultOfferingSelection.equals(expectedOfferingSelection),
-                "Expected " + expectedOfferingSelection +", but was " + defaultOfferingSelection);
+                "Expected Offering Selection was " + expectedOfferingSelection +", but it was " + defaultOfferingSelection);
 
         // Answer 'no' to all 8 questions
         for (int i=0; i< 8; i++) {
             qualification.questionnaire.answerNo(i+1);
         }
 
-        qualification
+        ALHO3Dwelling dwelling = qualification
                 .next()
                 .next()
                 .editLocation()
@@ -162,6 +172,20 @@ public class AlabamaHO3 extends BaseTest
                 .clickOk()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant);
+        dwelling.waitForProtectionClassCode(expectedProtectionClassCode);
+        protectionClassCode = dwelling.getProtectionClassCode();
+        Assert.assertTrue(expectedProtectionClassCode.equals(protectionClassCode),
+                "Expected Protection Class Code was " + expectedProtectionClassCode + ", but it was " + protectionClassCode);
+
+        ALHO3Coverages coverages = dwelling.next()
+                .clickWindMitigation()
+                .setRoofShapeType(roofShapeType)
+                .next()
+                .setDwellingLimit(dwellingLimit);
+        otherStructuresPercentage = coverages.getOtherStructuresPercentage();
+        Assert.assertTrue(expectedOtherStructuresPercentage.equals(otherStructuresPercentage),
+                "Expected Other Structures Percentage was " + expectedOtherStructuresPercentage +", but it was " + otherStructuresPercentage);
+        System.out.println(coverages.getOtherStructuresLimit());
         System.out.println(String.format("%s, %s", firstname, lastname));
 
         takeScreenShot(driver);

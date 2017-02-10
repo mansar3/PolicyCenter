@@ -64,6 +64,13 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 	{
 		return super.getProtectionClassCode();
 	}
+
+	public ALHO3Dwelling waitForProtectionClassCode(String val)
+	{
+		super.waitForProtectionClassToUpdate(val);
+		return new ALHO3Dwelling(sh, path);
+	}
+
 	public ALHO3Dwelling setTerritoryCode(String text)
 	{
 		return super.setTerritoryCode(text);
