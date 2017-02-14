@@ -161,38 +161,30 @@ public class CenterSeleniumHelper
 	 */
 	public void waitForValueToBeVal(By by, String val)
 	{
-		new WebDriverWait(driver, 10).until(new ExpectedCondition<Boolean>()
-		{
-		@Override
-		public Boolean apply(WebDriver driver)
+		new WebDriverWait(driver, 10).until( (WebDriver d) ->
 		{
 			try
 			{
-				String currentValue = driver.findElement(by).getAttribute("value");
+				String currentValue = d.findElement(by).getAttribute("value");
 				return currentValue.equals(val);
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				return false;
 			}
-
-		}
 		});
 	}
 
 	public void waitForValueToBeNotEmpty(By by)
 	{
-		new WebDriverWait(driver, 10).until(new ExpectedCondition<Boolean>()
+		new WebDriverWait(driver, 10).until( (WebDriver d) ->
 		{
-			@Override
-			public Boolean apply(WebDriver driver)
+			try
 			{
-				try
-				{
-					String currentValue = driver.findElement(by).getText();
-					return !currentValue.equals("");
-				} catch (Exception e) {
-					return false;
-				}
-
+				String currentValue = driver.findElement(by).getText();
+				return !currentValue.equals("");
+			} catch (Exception e) {
+				return false;
 			}
 		});
 	}
