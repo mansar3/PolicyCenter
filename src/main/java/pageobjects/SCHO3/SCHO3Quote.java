@@ -23,6 +23,16 @@ public class SCHO3Quote extends Quote<SCHO3Quote>
 		super.backPolicyReview();
 		return new SCHO3PolicyReview(sh,path);
 	}
+		public SCHO3RenewalBound renew()
+	{
+		super.clickRenew();
+		return new SCHO3RenewalBound(sh, path);
+	}
+	public SCHO3RenewalBound issueNow()
+	{
+		super.clickIssueNow();
+		return new SCHO3RenewalBound(sh, path);
+	}
 	public boolean isUnderWritingApprovalNeeded()
 	{
 		return super.isUnderWritingApprovalNeeded();

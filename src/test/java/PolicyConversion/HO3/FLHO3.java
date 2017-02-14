@@ -694,11 +694,15 @@ public class FLHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
-		if(quote.isUnderWritingApprovalNeeded() && addInts.size() == 0)
+		if(quote.isUnderWritingApprovalNeeded())
 		{
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
+//		else
+//		{
+//			quote.renew();
+//		}
 //		else if(addInts.size() > 0)
 //		{
 //			quote

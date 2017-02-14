@@ -725,6 +725,15 @@ public class NCHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		if(quote.isUnderWritingApprovalNeeded())
+		{
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		//		else
+//		{
+//			quote.renew();
+//		}
 
 
 

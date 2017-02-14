@@ -85,7 +85,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setDistanceToFireStation(String distanceToFireStation)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.setText(by.distanceToFireStation, distanceToFireStation);
 		return (T)this;
 	}

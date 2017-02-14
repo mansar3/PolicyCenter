@@ -515,6 +515,8 @@ public class ALHO3 extends BaseTest
 		.setDiscountType(eai.get("Discount Type"))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
+		if(eai.get("Discount Type").toLowerCase().equals("fortified home"))
+			wm.setFortifiedHomeType(eai.get("Fortified Home Type"));
 		//.setTerrain(eai.get("Terrain"))
 		//.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
 
@@ -730,7 +732,15 @@ public class ALHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
-
+		if(quote.isUnderWritingApprovalNeeded())
+		{
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		//		else
+//		{
+//			quote.renew();
+//		}
 
 
 	}
@@ -1096,6 +1106,8 @@ public class ALHO3 extends BaseTest
 		.setDiscountType(eai.get("Discount Type"))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
+		if(eai.get("Discount Type").toLowerCase().equals("fortified home"))
+			wm.setFortifiedHomeType(eai.get("Fortified Home Type"));
 		//.setTerrain(eai.get("Terrain"))
 		//.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
 

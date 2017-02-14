@@ -23,6 +23,17 @@ public class FLHO3Quote extends Quote<FLHO3Quote>
 		super.backPolicyReview();
 		return new FLHO3PolicyReview(sh,path);
 	}
+	public FLHO3RenewalBound renew()
+	{
+		super.clickRenew();
+		return new FLHO3RenewalBound(sh, path);
+	}
+	public FLHO3RenewalBound issueNow()
+	{
+		super.clickIssueNow();
+		return new FLHO3RenewalBound(sh, path);
+	}
+
 	public boolean isUnderWritingApprovalNeeded()
 	{
 		return super.isUnderWritingApprovalNeeded();

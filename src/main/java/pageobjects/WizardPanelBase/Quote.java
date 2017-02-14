@@ -10,7 +10,7 @@ import pageobjects.WestPanel.WestPanelBase;
 public abstract class Quote<T extends Quote> extends CenterPanelBase
 {
 	public WestPanelBase westPanel;
-	protected String quoteBase, errorBase,bottomBase;
+	protected String quoteBase, errorBase,tabBase;
 	private QuoteBy by ;
 	public Quote(CenterSeleniumHelper sh,Path path)
 	{
@@ -41,10 +41,12 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 			case SUBMISSION:
 				quoteBase = "SubmissionWizard:SubmissionWizard_QuoteScreen:Quote_SummaryDV:";
 				errorBase = "SubmissionWizard:SubmissionWizard_QuoteScreen:";
+
 				break;
 			case POLICYRENEWAL:
 				quoteBase = "RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:Quote_SummaryDV:";
 				errorBase = "RenewalWizard:PostQuoteWizardStepSet:RenewalWizard_QuoteScreen:";
+
 
 		}
 	}
@@ -54,10 +56,40 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 			annualizedTotalCost = By.id(quoteBase + "TotalAnnualCost-inputEl"),
 			annualizedTotalCostIncludingWhenSafe = By.id(quoteBase + "TotalAnnualCostPlusWhenSafe-inputEl"),
 			underWritingApprovalError = By.id(errorBase + "WarningsPanelSet:0:PanelSet:Warning"),
-			overrideRating = By.id(errorBase + "RatingCumulDetailsPanelSet:RatingOverrideButtonDV:RatingOverrideButtonDV:OverrideRating");
+			overrideRating = By.id(errorBase + "RatingCumulDetailsPanelSet:RatingOverrideButtonDV:RatingOverrideButtonDV:OverrideRating"),
+
+			bindOptions = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions-btnInnerEl"),
+			bindOptionsRenew = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:SendToRenewal-itemEl"),
+			bindOptionsIssueNow = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:IssueNow-itemEl");
 
 
 	}
+	public T clickRenew()
+	{
+		sh.clickElement(by.bindOptions);
+		sh.clickElement(by.bindOptionsRenew);
+		accept();
+		return (T)this;
+
+	}
+	public T clickIssueNow()
+	{
+		sh.clickElement(by.bindOptions);
+		sh.clickElement(by.bindOptionsIssueNow);
+		accept();
+		return(T)this;
+	}
+	private T  dismiss()
+	{
+		sh.clickElement(By.xpath(".//*[text()= 'Cancel']"));
+		return (T)this;
+	}
+	private void accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+	}
+
 	protected int getTotalPremium()
 	{
 		return Integer.parseInt(sh.getText(by.totalPremium));

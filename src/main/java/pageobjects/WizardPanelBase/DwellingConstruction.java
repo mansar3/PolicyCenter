@@ -475,6 +475,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
 								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
 
+
 								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
 								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),

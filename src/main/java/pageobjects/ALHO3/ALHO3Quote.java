@@ -23,6 +23,16 @@ public class ALHO3Quote extends Quote<ALHO3Quote>
 		super.backPolicyReview();
 		return new ALHO3PolicyReview(sh,path);
 	}
+		public ALHO3RenewalBound renew()
+	{
+		super.clickRenew();
+		return new ALHO3RenewalBound(sh, path);
+	}
+	public ALHO3RenewalBound issueNow()
+	{
+		super.clickIssueNow();
+		return new ALHO3RenewalBound(sh, path);
+	}
 	public boolean isUnderWritingApprovalNeeded()
 	{
 		return super.isUnderWritingApprovalNeeded();
