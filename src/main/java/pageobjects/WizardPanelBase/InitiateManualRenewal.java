@@ -138,6 +138,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 	protected T  setLastInspectionCompletionDate(String inspectionDate)
 	{
 		sh.setText(by.inspectionDate, inspectionDate);
+		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
 	}
@@ -189,6 +190,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 	}
 	protected T nextANDAccept()
 	{
+		sh.waitForPageLoad();
 		sh.clickElement(By.id("InitManualRenewalPage:NewManualConvertRenewal-btnInnerEl"));
 		sh.waitForNoMask();
 		accept();
@@ -197,6 +199,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 
 	private void accept()
 	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
 		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
 	}
 	private T  dismiss()

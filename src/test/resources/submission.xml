@@ -4,11 +4,12 @@
 	<parameter name="environment" value="47" />
 	<parameter name="local" value="false" />
 	<parameter name="threads" value="30" />
-	<test name="Renewal ETL">
+
+	<test name="Submission ETL">
         <classes>
             <class name="PolicyConversion.HO3.ALHO3">
                 <methods>
-                    <include name="RenewalLoadTest2"></include>
+                    <include name="SubmissionLoadTest"></include>
                 </methods>
             </class>
         </classes>
