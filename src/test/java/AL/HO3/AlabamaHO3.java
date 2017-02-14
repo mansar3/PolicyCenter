@@ -140,6 +140,8 @@ public class AlabamaHO3 extends BaseTest
         String dwellingLimit = "600000";
         String otherStructuresPercentage,
                 expectedOtherStructuresPercentage = "2%";
+        String otherStructuresLimit,
+                expectedOtherStructuresLimit = "12,000";
 
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
@@ -156,6 +158,7 @@ public class AlabamaHO3 extends BaseTest
                 .setPolicyType(policyType)
                 .getOfferingSelection();
 
+        System.out.println(defaultOfferingSelection);
         Assert.assertTrue(defaultOfferingSelection.equals(expectedOfferingSelection),
                 "Expected Offering Selection was " + expectedOfferingSelection +", but it was " + defaultOfferingSelection);
 
@@ -184,10 +187,21 @@ public class AlabamaHO3 extends BaseTest
                 .setDwellingLimit(dwellingLimit);
         otherStructuresPercentage = coverages.getOtherStructuresPercentage();
         Assert.assertTrue(expectedOtherStructuresPercentage.equals(otherStructuresPercentage),
-                "Expected Other Structures Percentage was " + expectedOtherStructuresPercentage +", but it was " + otherStructuresPercentage);
-        System.out.println(coverages.getOtherStructuresLimit());
+                "Expected Other Structures Percentage was " + expectedOtherStructuresPercentage +
+                        ", but it was " + otherStructuresPercentage);
+
+        otherStructuresLimit = coverages.getOtherStructuresLimit();
+        Assert.assertTrue(expectedOtherStructuresLimit.equals(otherStructuresLimit),
+                "Expected Other Structures Limit was " + expectedOtherStructuresLimit + ", but it was " +
+                        otherStructuresLimit);
+        System.out.println(otherStructuresLimit);
+
+        Assert.assertTrue(coverages.isPersonalLiabilityLimitRequired(),
+                "Personal Liability Limit was expected to be a required field, but it was not");
         System.out.println(String.format("%s, %s", firstname, lastname));
 
+        Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
+                "Personal Liability Limit dropdown was expected to be enabled but it was not");
         takeScreenShot(driver);
     }
 

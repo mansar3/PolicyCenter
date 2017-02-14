@@ -88,11 +88,21 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+
 	protected String getOtherStructuresLimit()
 	{
-		return sh.getValue(by.otherStructuresLimit);
-	}
+		sh.waitForElementToAppear(by.otherStructuresLimit);
+		return sh.getText(by.otherStructuresLimit); // getValue is always returning null since this element is now a div with innerHTML instead of textbox
+	}           									 // you can change this function if you have a better idea */
 
+	/*
+	protected String getUpdatedOtherStructuresLimit()
+	{
+		sh.waitForElementToAppear(by.otherStructuresLimit);
+		sh.waitForValueToBeNotEmpty(by.otherStructuresLimit);
+		return sh.getText(by.otherStructuresLimit);
+	}
+	*/
 	protected T setPersonalPropertyExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
@@ -260,7 +270,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalPropertyLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Limit']/../..//input"),
 								otherStructuresIncreasedCoverage = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
-								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div"),
+								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
 								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Limit']/../..//div"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
@@ -271,9 +281,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Wind Deductible Type']/../..//input"),
 								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
 								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Named Storm']/../..//input"),
-
-
-
+								personalLiabilityLabel = By.id("ext-element-1300"),
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
@@ -283,6 +291,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 
 
+	}
+
+	protected boolean isPersonalLiabilityLabelRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalLiabilityLimit);
+	}
+
+	protected boolean isPersonalLiabilityDropdownEnabled()
+	{
+		return sh.isElementEnabled(by.personalLiabilityLimit);
 	}
 
 	public class PropertyEndorsements<T extends PropertyEndorsements> extends CenterPanelBase
@@ -483,7 +501,6 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			return (T)this;
 		}
-
 
 		protected String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
 		{

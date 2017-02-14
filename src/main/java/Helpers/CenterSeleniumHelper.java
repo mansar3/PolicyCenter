@@ -178,6 +178,24 @@ public class CenterSeleniumHelper
 		});
 	}
 
+	public void waitForValueToBeNotEmpty(By by)
+	{
+		new WebDriverWait(driver, 10).until(new ExpectedCondition<Boolean>()
+		{
+			@Override
+			public Boolean apply(WebDriver driver)
+			{
+				try
+				{
+					String currentValue = driver.findElement(by).getText();
+					return !currentValue.equals("");
+				} catch (Exception e) {
+					return false;
+				}
+
+			}
+		});
+	}
 	public WebElement getElement(By by)
 	{
 		return driver.findElement(by);
@@ -219,5 +237,15 @@ public class CenterSeleniumHelper
 		WebElement actionTab = getElement(by);
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1, actionTab.getSize().getHeight() / 2).click().build().perform();
+	}
+
+	public boolean isFieldMarkedRequired(By by)
+	{
+		return driver.findElement(by).findElement(By.xpath("../../../..")).getAttribute("class").contains("g-required");
+	}
+
+	public boolean isElementEnabled(By by)
+	{
+		return driver.findElement(by).isEnabled();
 	}
 }

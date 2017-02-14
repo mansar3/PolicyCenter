@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30">
-	<test name="FLHO3 SUBMISSION">
-        <parameter name="environment" value="48" />
-        <parameter name="local" value="false" />
+    <parameter name="environment" value="48" />
+    <parameter name="local" value="false" />
+    <test name="FLHO3 SUBMISSION">
         <classes>
             <class name="AL.HO3.AlabamaHO3">
                 <methods>
-                    <include name="createPersonAccountALHO3"></include>
+                    <!--<include name="createPersonAccountALHO3"></include>-->
+                    <include name="productModelMostPopular"></include>
                 </methods>
             </class>
             <!--<class name="PolicyCenter.HomeownersLOBTest">-->

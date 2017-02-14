@@ -161,6 +161,17 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.setNamedStorm(text);
 
 	}
+
+	public boolean isPersonalLiabilityLimitRequired()
+	{
+		return super.isPersonalLiabilityLabelRequired();
+	}
+
+	public boolean isPersonalLiabilityLimitEnabled()
+	{
+		return super.isPersonalLiabilityDropdownEnabled();
+	}
+
 	public ALHO3LiabilityEndorsements clickLiabilityEndorsements()
 	{
 		super.clickLiabilityEndorsementsTab();
