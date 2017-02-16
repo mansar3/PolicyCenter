@@ -57,6 +57,7 @@ public abstract class Organizations<T extends Organizations> extends CenterPanel
 
     public T clickSearchButton()
     {
+    	sh.waitForNoMask();
         sh.clickElement(by.searchButton);
         sh.waitForNoMask();
         return (T)this;
