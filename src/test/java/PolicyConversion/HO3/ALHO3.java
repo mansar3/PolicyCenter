@@ -636,8 +636,8 @@ public class ALHO3 extends BaseTest
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
-//		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
 //		{
@@ -737,10 +737,11 @@ public class ALHO3 extends BaseTest
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
-		//		else
-//		{
-//			quote.renew();
-//		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 
 
 	}
@@ -1227,8 +1228,8 @@ public class ALHO3 extends BaseTest
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
-//		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
 //		{

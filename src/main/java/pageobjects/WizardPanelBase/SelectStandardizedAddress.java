@@ -49,7 +49,27 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 		return (T)this;
 	}
 
-	public T clickSuccessfulVerificationIfPossibleForCreateAccount()
+//	public T clickSuccessfulVerificationIfPossibleForCreateAccount()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
+//	public T clickSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
+	public T clickSuccessfulVerificationIfPossible()
 	{
 		sh.waitForNoMask();
 
@@ -59,37 +79,17 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 			sh.clickElement(by.unmatchedAddress);
 		return (T)this;
 	}
-	public T clickSuccessfulVerificationIfPossibleForNewAdditionalInterests()
-	{
-		sh.waitForNoMask();
 
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return (T)this;
-	}
-	public T clickSuccessfulVerificationIfPossibleForLocationInformation()
-	{
-		sh.waitForNoMask();
-
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return (T)this;
-	}
-
-	public T clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
-	{
-		sh.waitForNoMask();
-
-		if(sh.isDisplayed(by.matchedAddress))
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return (T)this;
-	}
+//	public T clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress))
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
 
 	public T clickAddressForNewAdditionalInterests(int row)
 	{

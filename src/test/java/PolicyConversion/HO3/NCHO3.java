@@ -514,6 +514,9 @@ public class NCHO3 extends BaseTest
 		.setDiscountType(eai.get("Discount Type"))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
+		if(eai.get("Discount Type").toLowerCase().equals("fortified home"))
+			wm.setFortifiedHomeType(eai.get("Fortified Home Type"));
+
 		//.setTerrain(eai.get("Terrain"))
 		//.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
 
@@ -642,7 +645,7 @@ public class NCHO3 extends BaseTest
 				.checkEarthQuakeCoverage();
 			pe
 			.setEarthquakeCoverageDeductiblePercentage(eai.get("Earthquake Coverage Deductible"))
-			.setDoesExteriorMasonryVeneerExclusionApply("Earthquake Coverage - Construction Class");
+			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"));
 			
 			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
 			{
@@ -730,10 +733,11 @@ public class NCHO3 extends BaseTest
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
-		//		else
-//		{
-//			quote.renew();
-//		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 
 
 
@@ -1098,6 +1102,8 @@ public class NCHO3 extends BaseTest
 		.setDiscountType(eai.get("Discount Type"))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
+		if(eai.get("Discount Type").toLowerCase().equals("fortified home"))
+			wm.setFortifiedHomeType(eai.get("Fortified Home Type"));
 		//.setTerrain(eai.get("Terrain"))
 		//.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
 

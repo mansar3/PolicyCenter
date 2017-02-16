@@ -401,6 +401,17 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
 	}
+	protected String getFloorUnitIsLocatedOn()
+	{
+		return sh.getValue(by.floorUnitIsLocatedOn);
+	}
+	
+	protected DwellingConstruction setFloorUnitIsLocatedOn(String floorUnitIsLocatedOn)
+	{
+		sh.setText(by.floorUnitIsLocatedOn, floorUnitIsLocatedOn);
+		sh.tab();
+		return this;
+	}
 	public class DwellingConstructionBy
 	{
 
@@ -411,6 +422,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 								numberOfUnits = By.id(dwellingConstructionBase + "UnitsNumber-inputEl"),
 								unitsInFireWall = By.id(dwellingConstructionBase + "NumOfUnitsInFirewall_fli-inputEl"),
 								numberOfStories = By.id(dwellingConstructionBase + "NumberOfStories_fli-inputEl"),
+								floorUnitIsLocatedOn = By.id(dwellingConstructionBase + "CondoUnitFloorNumber_fli-inputEl"),
 								squareFootage = By.id(dwellingConstructionBase + "ApproxSquareFootage-inputEl"),
 								foundationType = By.id(dwellingConstructionBase + "Foundation-inputEl"),
 								primaryHeating = By.id(dwellingConstructionBase + "PrimaryHeating-inputEl"),

@@ -51,12 +51,10 @@ public class CenterSeleniumHelper
 			driver.findElement(byLocator).clear();
 			driver.findElement(byLocator).sendKeys(text);
 			tab();
+			waitForNoMask();
 			Assert.assertSame("Expected value:" +text+ "\t Actual value: " + getValue(byLocator),text, getValue(byLocator));
 
 		}
-
-
-
 	}
 
 	public void waitForPageLoad()

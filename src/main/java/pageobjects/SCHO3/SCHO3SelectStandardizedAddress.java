@@ -19,24 +19,24 @@ public class SCHO3SelectStandardizedAddress extends SelectStandardizedAddress<SC
 
 	public SCHO3CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
-		super.clickSuccessfulVerificationIfPossibleForCreateAccount();
+		super.clickSuccessfulVerificationIfPossible();
 		return new SCHO3CreateAccount(sh);
 	}
 	public SCHO3NewAdditionalInterest selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalInterests();
+		super.clickSuccessfulVerificationIfPossible();
 		return new SCHO3NewAdditionalInterest(sh,path);
 	}
 
 	public SCHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{
-		super.clickSuccessfulVerificationIfPossibleForLocationInformation();
+		super.clickSuccessfulVerificationIfPossible();
 		return new SCHO3LocationInformation(sh,path);
 	}
 
 	public SCHO3NewAdditionalNamedInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured();
+		super.clickSuccessfulVerificationIfPossible();
 		return new SCHO3NewAdditionalNamedInsured(sh,path);
 	}
 

@@ -54,7 +54,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		waitForTitle(sh);
 		System.out.println("Navigated to page: "+ expectedPanelTitle);
 	}
-	
+
 	public String getHomePhone()
 	{
 		return sh.getValue(by.homePhone);

@@ -19,24 +19,24 @@ public class FLHO3SelectStandardizedAddress extends SelectStandardizedAddress<FL
 
 	public FLHO3CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
-		super.clickSuccessfulVerificationIfPossibleForCreateAccount();
+		super.clickSuccessfulVerificationIfPossible();
 		return new FLHO3CreateAccount(sh);
 	}
 	public FLHO3NewAdditionalInterest selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalInterests();
+		super.clickSuccessfulVerificationIfPossible();
 		return new FLHO3NewAdditionalInterest(sh,path);
 	}
 
 	public FLHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{
-		super.clickSuccessfulVerificationIfPossibleForLocationInformation();
+		super.clickSuccessfulVerificationIfPossible();
 		return new FLHO3LocationInformation(sh,path);
 	}
 
 	public FLHO3NewAdditionalNamedInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured();
+		super.clickSuccessfulVerificationIfPossible();
 		return new FLHO3NewAdditionalNamedInsured(sh,path);
 	}
 

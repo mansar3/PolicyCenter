@@ -685,8 +685,8 @@ public class SCHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
+		if(eai.get("Animal Liability") != null)
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
@@ -727,10 +727,11 @@ public class SCHO3 extends BaseTest
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
-		//		else
-//		{
-//			quote.renew();
-//		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 
 
 
@@ -1267,8 +1268,8 @@ public class SCHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
+		if(!eai.get("Animal Liability").equals(""))
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le

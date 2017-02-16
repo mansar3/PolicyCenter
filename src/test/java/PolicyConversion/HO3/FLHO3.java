@@ -17,7 +17,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO3.*;
 import pageobjects.Login;
-import pageobjects.WizardPanelBase.AccountFileSummary;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 import java.io.File;
@@ -34,7 +33,6 @@ public class FLHO3 extends BaseTest
 	private String dateString;
 	private String errorOutput;
 
-	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
 	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -699,10 +697,11 @@ public class FLHO3 extends BaseTest
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
-//		else
-//		{
-//			quote.renew();
-//		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 //		else if(addInts.size() > 0)
 //		{
 //			quote

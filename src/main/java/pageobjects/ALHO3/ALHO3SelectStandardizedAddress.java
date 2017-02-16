@@ -19,24 +19,24 @@ public class ALHO3SelectStandardizedAddress extends SelectStandardizedAddress<AL
 
 	public ALHO3CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
 	{
-		super.clickSuccessfulVerificationIfPossibleForCreateAccount();
+		super.clickSuccessfulVerificationIfPossible();
 		return new ALHO3CreateAccount(sh);
 	}
 	public ALHO3NewAdditionalInterest selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalInterests();
+		super.clickSuccessfulVerificationIfPossible();
 		return new ALHO3NewAdditionalInterest(sh,path);
 	}
 
 	public ALHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{
-		super.clickSuccessfulVerificationIfPossibleForLocationInformation();
+		super.clickSuccessfulVerificationIfPossible();
 		return new ALHO3LocationInformation(sh,path);
 	}
 
 	public ALHO3NewAdditionalNamedInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
-		super.clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured();
+		super.clickSuccessfulVerificationIfPossible();
 		return new ALHO3NewAdditionalNamedInsured(sh,path);
 	}
 
