@@ -33,8 +33,8 @@ public abstract class BaseTest
 					: System.getenv("SCREENSHOTS_HOME"),
 			accountNumber;
 	private File screenShotFolder = new File(screenShotDirectory);
-	protected SessionInfo sessionInfo;
-	private Boolean local;
+	protected static SessionInfo sessionInfo;
+	private static Boolean local;
     protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
@@ -54,7 +54,6 @@ public abstract class BaseTest
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
-
 	}
 
 	protected URL setGridHub()
@@ -63,7 +62,7 @@ public abstract class BaseTest
 		try
 		{
 			// Dockers URL
-			// gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
 			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm

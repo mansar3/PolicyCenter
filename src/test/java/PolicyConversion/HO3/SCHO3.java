@@ -1212,8 +1212,8 @@ public class SCHO3 extends BaseTest
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
-		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
+		//.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
 		if(eai.get("Earthquake Coverage Deductible") != null)
 		{
@@ -1268,7 +1268,7 @@ public class SCHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-		if(!eai.get("Animal Liability").equals(""))
+		if(eai.get("Animal Liability") != null)
 			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)

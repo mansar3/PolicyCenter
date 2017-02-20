@@ -12,6 +12,21 @@
                     <include name="SubmissionLoadTest"></include>
                 </methods>
             </class>
+			<!--<class name="PolicyConversion.HO3.FLHO3">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<class name="PolicyConversion.HO3.NCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
+			<class name="PolicyConversion.HO3.SCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
         </classes>
 	</test>
 </suite>
