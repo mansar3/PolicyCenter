@@ -238,4 +238,9 @@ public class CenterSeleniumHelper
 	{
 		return driver.findElement(by).isEnabled();
 	}
+
+	public boolean isElementEditable(By by)
+	{
+		return (driver.findElement(by).getTagName().equals("input") && driver.findElement(by).isEnabled());
+	}
 }

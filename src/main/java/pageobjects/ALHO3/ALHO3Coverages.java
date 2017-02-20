@@ -167,9 +167,69 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.isPersonalLiabilityLabelRequired();
 	}
 
+	public boolean isPersonalPropertyLimitRequired()
+	{
+		return super.isPersonalPropertyLabelRequired();
+	}
+
+	public boolean isLossOfUseSelectionRequired()
+	{
+		return super.isLossOfUseSelectionRequired();
+	}
+
+	public boolean isLossOfUseSelectionEnabled()
+	{
+		return super.isLossOfUseSelectionEnabled();
+	}
+
+	public boolean isAllOtherPerilsRequired()
+	{
+		return super.isAllOtherPerilsRequired();
+	}
+
+	public boolean isAllOtherPerilsEditable()
+	{
+		return super.isAllOtherPerilsEditable();
+	}
+
+	public boolean isWindHailRequired()
+	{
+		return super.isWindHailRequired();
+	}
+
+	public boolean isWindHailEnabled()
+	{
+		return super.isWindHailEnabled();
+	}
+
+	public String getWindHailDeductible()
+	{
+		return super.getWindHailDeductible();
+	}
+
+	public boolean isPersonalPropertyLimitEnabled()
+	{
+		return super.isPersonalPropertyLimitEnabled();
+	}
+
 	public boolean isPersonalLiabilityLimitEnabled()
 	{
 		return super.isPersonalLiabilityDropdownEnabled();
+	}
+
+	public boolean isPersonalPropertyValuationMethodRequired()
+	{
+		return super.isPersonalPropertyValuationMethodRequired();
+	}
+
+	public boolean isPersonalPropertyValuationMethodEnabled()
+	{
+		return super.isPersonalPropertyValuationMethodEnabled();
+	}
+
+	public boolean isMedicalPaymentsLimitEditable()
+	{
+		return super.isMedicalPaymentsLimitEditable();
 	}
 
 	public ALHO3LiabilityEndorsements clickLiabilityEndorsements()

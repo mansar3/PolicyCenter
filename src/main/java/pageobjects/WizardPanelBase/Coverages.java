@@ -142,7 +142,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getLossOfUseLimit()
 	{
-		return sh.getValue(by.lossOfUseLimit);
+		return sh.getText(by.lossOfUseLimit);
 	}
 
 	protected String getHurricane()
@@ -191,7 +191,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getMedicalPaymentsLimit()
 	{
-		return sh.getValue(by.medicalPaymentsLimit);
+		return sh.getText(by.medicalPaymentsLimit);
 	}
 
 	protected T setMedicalPaymentsLimit(String medicalPaymentsLimit)
@@ -218,7 +218,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	{
 		return sh.getValue(by.windDeductibleType);
 	}
-	
+
+	public String getWindHailDeductible()
+	{
+		return sh.getText(by.windHailDeductible);
+	}
+
 	protected T setWindDeductibleType(String windDeductibleType)
 	{
 		sh.setText(by.windDeductibleType, windDeductibleType);
@@ -272,16 +277,17 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
-								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Limit']/../..//div"),
+								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
-								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Medical Payments']/../..//span[text() = 'Limit']/../..//input"),
+								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "sectionIIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:OptionTermInput-inputEl']"),
 								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind Deductible Type']/../..//input"),
 								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
+								windHailDeductible = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:3:CovTermInputSet:DirectTermInput-inputEl']"),
 								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Named Storm']/../..//input"),
-								personalLiabilityLabel = By.id("ext-element-1300"),
+								personalLiabilityLabel = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']"),
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
@@ -296,6 +302,61 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected boolean isPersonalLiabilityLabelRequired()
 	{
 		return sh.isFieldMarkedRequired(by.personalLiabilityLimit);
+	}
+
+	protected boolean isPersonalPropertyLabelRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalPropertyLimit);
+	}
+
+	protected boolean isLossOfUseSelectionRequired()
+	{
+		return sh.isFieldMarkedRequired(by.lossOfUseSelection);
+	}
+
+	protected boolean isLossOfUseSelectionEnabled()
+	{
+		return sh.isElementEnabled(by.lossOfUseSelection);
+	}
+
+	protected boolean isAllOtherPerilsRequired()
+	{
+		return sh.isFieldMarkedRequired(by.allOtherPerils);
+	}
+
+	protected boolean isAllOtherPerilsEditable()
+	{
+		return sh.isElementEnabled(by.allOtherPerils);
+	}
+
+	protected boolean isWindHailRequired()
+	{
+		return sh.isFieldMarkedRequired(by.windHail);
+	}
+
+	protected boolean isWindHailEnabled()
+	{
+		return sh.isElementEnabled(by.windHail);
+	}
+
+	protected boolean isPersonalPropertyValuationMethodRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalPropertyValuationMethod);
+	}
+
+	protected boolean isPersonalPropertyLimitEnabled()
+	{
+		return sh.isElementEnabled(by.personalPropertyLimit);
+	}
+
+	protected boolean isPersonalPropertyValuationMethodEnabled()
+	{
+		return sh.isElementEnabled(by.personalPropertyValuationMethod);
+	}
+
+	protected boolean isMedicalPaymentsLimitEditable()
+	{
+		return sh.isElementEditable(by.medicalPaymentsLimit);
 	}
 
 	protected boolean isPersonalLiabilityDropdownEnabled()

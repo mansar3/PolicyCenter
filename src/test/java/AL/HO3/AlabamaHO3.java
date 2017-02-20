@@ -142,6 +142,20 @@ public class AlabamaHO3 extends BaseTest
                 expectedOtherStructuresPercentage = "2%";
         String otherStructuresLimit,
                 expectedOtherStructuresLimit = "12,000";
+        String  personalLiabilityLimit,
+                expectedPersonalLiabilityLimit = "300,000";
+        String personalPropertyLimit,
+                expectedPersonalPropertyLimit = "300,000",
+                personalPropertyValuationMethod,
+                expectedPersonalPropertyValuationMethod = "Replacement Cost Value",
+                newPersonalPropertyValuationMethod = "Actual Cash Value";
+        String lossOfUseSelection, expectedLossOfUseSelection = "20%";
+        String lossOfUseLimit, expectedLossOfUseLimit = "120,000";
+        String allOtherPerils, expectedAllOtherPerils = "2,500";
+        String windHail, expectedWindHail = "2%",
+                windHailDeductible, expectedWindHailDeductible = "12,000";
+        String medicalPaymentsLimit, medicalPaymentsLimitDefault = "1,000";
+
 
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
@@ -196,13 +210,105 @@ public class AlabamaHO3 extends BaseTest
                         otherStructuresLimit);
         System.out.println(otherStructuresLimit);
 
+        /* Personal Liability */
         Assert.assertTrue(coverages.isPersonalLiabilityLimitRequired(),
-                "Personal Liability Limit was expected to be a required field, but it was not");
+                "Personal Liability Limit was expected to be a required field but it was not");
         System.out.println(String.format("%s, %s", firstname, lastname));
 
         Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
                 "Personal Liability Limit dropdown was expected to be enabled but it was not");
         takeScreenShot(driver);
+
+        personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
+        Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
+                "Personal Liability limit was " + expectedPersonalLiabilityLimit +
+                        ", but it was " + personalLiabilityLimit);
+
+        /* Personal Property Limit */
+        Assert.assertTrue(coverages.isPersonalPropertyLimitRequired(),
+                "Personal Property Limit was expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isPersonalPropertyLimitEnabled(),
+                "Personal Property Limit was expected to be enabled but it was not");
+        personalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                        "Personal Property limit was expected to be " + expectedPersonalPropertyLimit +
+                                ", but it was " + personalPropertyLimit);
+
+        /* Personal Property Valuation */
+        Assert.assertTrue(coverages.isPersonalPropertyValuationMethodRequired(),
+                "Personal Property Valuation Method is expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isPersonalPropertyValuationMethodEnabled(),
+                "Personal Property Valuation Method is expected to be enabled but it is not");
+        personalPropertyValuationMethod = coverages.getPersonalPropertyValuationMethod();
+        Assert.assertTrue(expectedPersonalPropertyValuationMethod.equals(personalPropertyValuationMethod),
+                        "Personal Property " + expectedPersonalPropertyValuationMethod +
+                                ", but it was " + personalPropertyLimit);
+        coverages.setPersonalPropertyValuationMethod(newPersonalPropertyValuationMethod);
+        coverages.setPersonalPropertyValuationMethod(personalPropertyValuationMethod);
+        
+        /* Loss of Use */
+        Assert.assertTrue(coverages.isLossOfUseSelectionRequired(),
+                "Loss of Use Selection is expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isLossOfUseSelectionEnabled(),
+                "Loss of Use Selection is expected to be enabled but it was not");
+        lossOfUseSelection = coverages.getLossOfUseSelection();
+        Assert.assertTrue(expectedLossOfUseSelection.equals(lossOfUseSelection),
+                        "Expected Loss Of Use Selection was " + expectedLossOfUseSelection +
+                                ", but it was " + lossOfUseSelection);
+        lossOfUseLimit = coverages.getLossOfUseLimit();
+        System.out.println(expectedLossOfUseLimit);
+        System.out.println(lossOfUseLimit);
+        Assert.assertTrue(expectedLossOfUseLimit.equals(lossOfUseLimit),
+                        "Expected Loss of Use Limit was " + expectedLossOfUseLimit +
+                                ", but it was " + lossOfUseLimit);
+
+        /* All Other Perils */
+        Assert.assertTrue(coverages.isAllOtherPerilsRequired(),
+                "All Other Perils is expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isAllOtherPerilsEditable(),
+                "All Other Perils is expected to be enabled but it was not");
+        allOtherPerils = coverages.getAllOtherPerils();
+        Assert.assertTrue(expectedAllOtherPerils.equals(allOtherPerils),
+                        "All Other Perils is expected to be " + expectedAllOtherPerils +
+                                ", but it was " + allOtherPerils);
+        Assert.assertTrue(coverages.isWindHailRequired(),
+                "Wind Hail is expected to be a required field, ");
+        Assert.assertTrue(coverages.isWindHailEnabled(),
+                "Wind Hail is expected to be enabled but it was not");
+
+        /* Wind Hail */
+        windHail = coverages.getWindHail();
+        Assert.assertTrue(expectedWindHail.equals(windHail),
+                        "Wind Hail is expected to be " + expectedWindHail +
+                                ", but it was " + windHail);
+        windHailDeductible = coverages.getWindHailDeductible();
+        Assert.assertTrue(expectedWindHailDeductible.equals(windHailDeductible),
+                        "Wind Hail deductible is expected to be " + expectedWindHailDeductible +
+                                ", but it was " + windHailDeductible);
+
+        /* Personal Liability Again */
+        Assert.assertTrue(coverages.isPersonalLiabilityLimitRequired(),
+                "Personal Liability Limit was expected to be a required field but it was not");
+        System.out.println(String.format("%s, %s", firstname, lastname));
+
+        Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
+                "Personal Liability Limit dropdown was expected to be enabled but it was not");
+        takeScreenShot(driver);
+
+        personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
+        Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
+                "Personal Liability limit was " + expectedPersonalLiabilityLimit +
+                        ", but it was " + personalLiabilityLimit);
+
+        /* Medical Payments */
+        Assert.assertFalse(coverages.isMedicalPaymentsLimitEditable(),
+                "Medical Payments Limit was not expected to be editable but it is");
+        medicalPaymentsLimit = coverages.getMedicalPaymentsLimit();
+        Assert.assertTrue(medicalPaymentsLimitDefault.equals(medicalPaymentsLimit),
+                        "Medical Payments Limit expected was " + medicalPaymentsLimitDefault +
+                                ", but it was " + medicalPaymentsLimit);
+        ALHO3Coverages.ALHO3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
+
     }
 
     @Test(description = "AL.HO3.ProductModel.More.001")
