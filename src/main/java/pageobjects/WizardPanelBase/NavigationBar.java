@@ -3,18 +3,17 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-public class NavigationBar extends CenterPanelBase
+public abstract class NavigationBar<T extends NavigationBar> extends CenterPanelBase
 {
     private NavigationBarBy by;
 
     public class NavigationBarBy
     {
         final private By navbar = By.cssSelector("[id='northPanel']"),
-                         accountTab = By.id("TabBar:AccountTab");
-
+                         accountTab = By.id("TabBar:AccountTab"),
+                         newAccount = By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"),
+                         searchButton = By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button");
     }
 
     public NavigationBar(CenterSeleniumHelper sh)
@@ -24,16 +23,24 @@ public class NavigationBar extends CenterPanelBase
         sh.waitForElementToAppear(by.navbar);
     }
 
-    public NavigationBar clickAccountTab()
+    public T clickAccountTab()
     {
         sh.clickElement(by.accountTab);
-        return this;
+        return (T)this;
     }
 
-    public NavigationBar clickNewAccountDropdown()
+    public T clickNewAccountDropdown()
+    {
+    	sh.waitForNoMask();
+        sh.clickRightOfElement(by.accountTab);
+        sh.clickElement(by.newAccount);
+        return (T)this;
+    }
+
+    public T clickSearchAccountNavBar()
     {
         sh.clickRightOfElement(by.accountTab);
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-        return this;
+        sh.clickElement(by.searchButton);
+        return (T)this;
     }
 }

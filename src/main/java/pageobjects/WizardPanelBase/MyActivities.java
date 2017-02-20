@@ -3,14 +3,14 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class MyActivities extends CenterPanelBase
+public abstract class MyActivities<T extends MyActivities> extends CenterPanelBase
 {
     private MyActivitiesBy by;
     public NavigationBar navbar;
 
     public class MyActivitiesBy extends CenterPanelBase.CenterPanelBy
     {
-
+        final public By username = By.cssSelector("[id='AccountFile_Summary:AccountFile_SummaryScreen:AccountFile_Summary_BasicInfoDV:Name-inputEl']");
     }
 
     public MyActivities(CenterSeleniumHelper sh)
@@ -19,10 +19,15 @@ public class MyActivities extends CenterPanelBase
         by = new MyActivitiesBy();
         expectedPanelTitle = "My Activities";
         waitForTitle(sh);
-        navbar = new NavigationBar(sh);
+
     }
-    public void test()
+    public MyActivities getFirstname()
     {
-        System.out.println("test");
+        return this;
+    }
+
+    public MyActivities getLastname()
+    {
+        return this;
     }
 }

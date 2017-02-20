@@ -33,15 +33,15 @@ public abstract class BaseTest
 					: System.getenv("SCREENSHOTS_HOME"),
 			accountNumber;
 	private File screenShotFolder = new File(screenShotDirectory);
-	protected SessionInfo sessionInfo;
-	private Boolean local;
+	protected static SessionInfo sessionInfo;
+	private static Boolean local;
     protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 
 	@Parameters({"environment", "local", "threads"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("47") String environment, @Optional("false") Boolean local, @Optional("30") int threads)
+	public void beforeSuite(XmlTest xml, @Optional("127") String environment, @Optional("true") Boolean local, @Optional("5") int threads)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -54,7 +54,6 @@ public abstract class BaseTest
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
-
 	}
 
 	protected URL setGridHub()

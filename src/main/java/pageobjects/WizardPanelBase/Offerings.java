@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 11/30/16.
  */
-public class Offerings extends CenterPanelBase
+public abstract class Offerings<T extends Offerings> extends CenterPanelBase
 {
 	private OfferingsBy by;
 	public Offerings(CenterSeleniumHelper sh,Path path)
@@ -24,34 +24,34 @@ public class Offerings extends CenterPanelBase
 							offeringSelection = By.id(offeringsBase + "OfferingSelection-inputEl");
 	}
 
-	public String getOfferingSelection()
+	protected String getOfferingSelection()
 	{
 		return sh.getValue(by.offeringSelection);
 	}
 
-	public Offerings setOfferingSelection(String offeringSelection)
+	protected T setOfferingSelection(String offeringSelection)
 	{
 		sh.setText(by.offeringSelection, offeringSelection);
-		return this;
+		return (T)this;
 	}
-	public Offerings setPolicyType(String policyType)
+	protected T setPolicyType(String policyType)
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
-		sh.waitForNoMask(15);
-		return this;
+		sh.waitForNoMask();
+		return (T)this;
 	}
 
-	public String getPolicyType()
+	protected String getPolicyType()
 	{
 		return sh.getValue(by.policyType);
 	}
 
-	public PolicyInfo next()
+	protected T policyInfoNext()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		sh.waitForNoMask();
-		return new PolicyInfo(sh,path);
+		return (T)this;
 	}
 
 }

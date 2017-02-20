@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class SelectStandardizedAddress<T extends CenterPanelBase> extends CenterPanelBase
+public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddress> extends CenterPanelBase
 {
 	private SelectStandardizedAddressBy by;
 	private String addressRows = "[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(2) td:nth-of-type(1) a";
@@ -31,45 +31,45 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
-	public CreateAccount selectAddressForCreateAccount(int row)
+	public T clickAddressForCreateAccount(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
-		return new CreateAccount(sh);
+		return (T)this;
 	}
 
 	/**
 	 * @param row number among verified addresses
 	 * @return a CreateAccount page object
 	 */
-	public CreateAccount selectVerifiedAddressForCreateAccount(int row)
+	public T clickVerifiedAddressForCreateAccount(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("a[id='FP_VerifiedAddressSelectionPopup:" + row + ":_Select']"));
-		return new CreateAccount(sh);
+		return (T)this;
 	}
 
-	public CreateAccount selectSuccessfulVerificationIfPossibleForCreateAccount()
-	{
-		sh.waitForNoMask(5);
-
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return new CreateAccount(sh);
-	}
-	public NewAdditionalInterest selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
-	{
-		sh.waitForNoMask(5);
-
-		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return new NewAdditionalInterest(sh, path);
-	}
-	public LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
+//	public T clickSuccessfulVerificationIfPossibleForCreateAccount()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
+//	public T clickSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress) && sh.getText(By.xpath(".//*[@id='FP_VerifiedAddressSelectionPopup:0-body']//div[text() = 'Successful Verification']/../following-sibling::td[2]")).length() > 1)
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
+	public T clickSuccessfulVerificationIfPossible()
 	{
 		sh.waitForNoMask();
 
@@ -77,30 +77,30 @@ public class SelectStandardizedAddress<T extends CenterPanelBase> extends Center
 			sh.clickElement(by.matchedAddress);
 		else
 			sh.clickElement(by.unmatchedAddress);
-		return new LocationInformation(sh, path);
+		return (T)this;
 	}
 
-	public NewAdditionalNameInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
-	{
-		sh.waitForNoMask(5);
+//	public T clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
+//	{
+//		sh.waitForNoMask();
+//
+//		if(sh.isDisplayed(by.matchedAddress))
+//			sh.clickElement(by.matchedAddress);
+//		else
+//			sh.clickElement(by.unmatchedAddress);
+//		return (T)this;
+//	}
 
-		if(sh.isDisplayed(by.matchedAddress))
-			sh.clickElement(by.matchedAddress);
-		else
-			sh.clickElement(by.unmatchedAddress);
-		return new NewAdditionalNameInsured(sh, path);
-	}
-
-	public NewAdditionalInterest selectAddressForNewAdditionalInterests(int row)
+	public T clickAddressForNewAdditionalInterests(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
-		return new NewAdditionalInterest(sh,path);
+		return (T)this;
 	}
-	public NewAdditionalNameInsured selectAddressForNewAdditionalNamedInsured(int row)
+	public T clickAddressForNewAdditionalNamedInsured(int row)
 	{
-		sh.waitForNoMask(5);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id='FP_VerifiedAddressSelectionPopup:0-body'] tbody>tr:nth-of-type(" + row + ") td:nth-of-type(1) a"));
-		return new NewAdditionalNameInsured(sh,path);
+		return (T)this;
 	}
 }

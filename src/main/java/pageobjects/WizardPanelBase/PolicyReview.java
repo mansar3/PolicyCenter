@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 1/30/17.
  */
-public class PolicyReview extends CenterPanelBase
+public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBase
 {
 	private PolicyReviewBy by;
 	protected String buttonBase;
@@ -39,10 +39,10 @@ public class PolicyReview extends CenterPanelBase
 		By	back = By.id(buttonBase + "Prev-btnInnerEl");
 	}
 
-	public RiskAnalysis back()
+	protected T riskAnalysisBack()
 	{
 		sh.clickElement(by.back);
-		return new RiskAnalysis(sh,path);
+		return (T)this;
 	}
 
 }

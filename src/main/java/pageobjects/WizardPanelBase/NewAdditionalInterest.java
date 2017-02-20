@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 /**
  * Created by aansari on 12/7/16.
  */
-public class NewAdditionalInterest extends CenterPanelBase
+public abstract class NewAdditionalInterest<T extends NewAdditionalInterest> extends CenterPanelBase
 {
 	private NewAdditionalInterestBy by;
 
@@ -20,11 +20,11 @@ public class NewAdditionalInterest extends CenterPanelBase
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 	
-	public NewAdditionalInterest clickCertificateRequired(String flag)
+	public T clickCertificateRequired(String flag)
 	{
 		sh.clickElement(By.id(by.aiBase + "CertRequired_" + flag .toLowerCase()+ "-inputEl"));
 
-		return this;
+		return (T)this;
 	}
 
 	public String getType()
@@ -32,12 +32,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.type);
 	}
 
-	public NewAdditionalInterest setType(String type)
+	public T setType(String type)
 	{
 		sh.setText(by.type, type);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getLoanNumber()
@@ -45,12 +45,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.loanNumber);
 	}
 	
-	public NewAdditionalInterest setLoanNumber(String loanNumber)
+	public T setLoanNumber(String loanNumber)
 	{
 		sh.setText(by.loanNumber, loanNumber);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 
 	public String getFirstName()
@@ -58,12 +58,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.firstName);
 	}
 	
-	public NewAdditionalInterest setFirstName(String firstName)
+	public T setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getLastName()
@@ -71,12 +71,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.lastName);
 	}
 	
-	public NewAdditionalInterest setLastName(String lastName)
+	public T setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getDateOfBirth()
@@ -84,12 +84,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.dateOfBirth);
 	}
 	
-	public NewAdditionalInterest setDateOfBirth(String dateOfBirth)
+	public T setDateOfBirth(String dateOfBirth)
 	{
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getMaritalStatus()
@@ -97,12 +97,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.maritalStatus);
 	}
 	
-	public NewAdditionalInterest setMaritalStatus(String maritalStatus)
+	public T setMaritalStatus(String maritalStatus)
 	{
 		sh.setText(by.maritalStatus, maritalStatus);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getPrimaryPhone()
@@ -110,11 +110,11 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.primaryPhone);
 	}
 	
-	public NewAdditionalInterest setPrimaryPhone(String primaryPhone)
+	public T setPrimaryPhone(String primaryPhone)
 	{
 		sh.setText(by.primaryPhone, primaryPhone);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	
 	public String getHomePhone()
@@ -122,12 +122,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.homePhone);
 	}
 	
-	public NewAdditionalInterest setHomePhone(String homePhone)
+	public T setHomePhone(String homePhone)
 	{
 		sh.setText(by.homePhone, homePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getWorkPhone()
@@ -135,12 +135,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.workPhone);
 	}
 	
-	public NewAdditionalInterest setWorkPhone(String workPhone)
+	public T setWorkPhone(String workPhone)
 	{
 		sh.setText(by.workPhone, workPhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getMobilePhone()
@@ -148,12 +148,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.mobilePhone);
 	}
 	
-	public NewAdditionalInterest setMobilePhone(String mobilePhone)
+	public T setMobilePhone(String mobilePhone)
 	{
 		sh.setText(by.mobilePhone, mobilePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getFaxPhone()
@@ -161,12 +161,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.faxPhone);
 	}
 	
-	public NewAdditionalInterest setFaxPhone(String faxPhone)
+	public T setFaxPhone(String faxPhone)
 	{
 		sh.setText(by.faxPhone, faxPhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getPrimaryEmail()
@@ -174,12 +174,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.primaryEmail);
 	}
 	
-	public NewAdditionalInterest setPrimaryEmail(String primaryEmail)
+	public T setPrimaryEmail(String primaryEmail)
 	{
 		sh.setText(by.primaryEmail, primaryEmail);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getSecondaryEmail()
@@ -187,12 +187,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.secondaryEmail);
 	}
 	
-	public NewAdditionalInterest setSecondaryEmail(String secondaryEmail)
+	public T setSecondaryEmail(String secondaryEmail)
 	{
 		sh.setText(by.secondaryEmail, secondaryEmail);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getCountry()
@@ -200,12 +200,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.country);
 	}
 	
-	public NewAdditionalInterest setCountry(String country)
+	public T setCountry(String country)
 	{
 		sh.setText(by.country, country);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getAddress1()
@@ -213,36 +213,36 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.address1);
 	}
 	
-	public NewAdditionalInterest setAddress1(String address1)
+	public T setAddress1(String address1)
 	{
 		sh.setText(by.address1, address1);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	public String getAddress2()
 	{
 		return sh.getValue(by.address2);
 	}
 	
-	public NewAdditionalInterest setAddress2(String address2)
+	public T setAddress2(String address2)
 	{
 		sh.setText(by.address2, address2);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	public String getAddress3()
 	{
 		return sh.getValue(by.address3);
 	}
 	
-	public NewAdditionalInterest setAddress3(String address3)
+	public T setAddress3(String address3)
 	{
 		sh.setText(by.address3, address3);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getCity()
@@ -250,12 +250,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.city);
 	}
 	
-	public NewAdditionalInterest setCity(String city)
+	public T setCity(String city)
 	{
 		sh.setText(by.city, city);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getCounty()
@@ -263,12 +263,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.county);
 	}
 	
-	public NewAdditionalInterest setCounty(String county)
+	public T setCounty(String county)
 	{
 		sh.setText(by.county, county);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getState()
@@ -276,12 +276,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.state);
 	}
 	
-	public NewAdditionalInterest setState(String state)
+	public T setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getZipCode()
@@ -289,12 +289,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.zipCode);
 	}
 	
-	public NewAdditionalInterest setZipCode(String zipCode)
+	public T setZipCode(String zipCode)
 	{
 		sh.setText(by.zipCode, zipCode);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getAddressType()
@@ -302,12 +302,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.addressType);
 	}
 	
-	public NewAdditionalInterest setAddressType(String addressType)
+	public T setAddressType(String addressType)
 	{
 		sh.setText(by.addressType, addressType);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getAddressDescription()
@@ -315,12 +315,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.addressDescription);
 	}
 	
-	public NewAdditionalInterest setAddressDescription(String addressDescription)
+	public T setAddressDescription(String addressDescription)
 	{
 		sh.setText(by.addressDescription, addressDescription);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getLicenseNumber()
@@ -328,12 +328,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.licenseNumber);
 	}
 	
-	public NewAdditionalInterest setLicenseNumber(String licenseNumber)
+	public T setLicenseNumber(String licenseNumber)
 	{
 		sh.setText(by.licenseNumber, licenseNumber);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
 	public String getLicenseState()
@@ -341,12 +341,12 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.licenseState);
 	}
 	
-	public NewAdditionalInterest setLicenseState(String licenseState)
+	public T setLicenseState(String licenseState)
 	{
 		sh.setText(by.licenseState, licenseState);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
 	public String getSsn()
@@ -354,83 +354,83 @@ public class NewAdditionalInterest extends CenterPanelBase
 		return sh.getValue(by.officialID);
 	}
 	
-	public NewAdditionalInterest setSsn(String ssn)
+	public T setSsn(String ssn)
 	{
 		sh.setText(by.officialID, ssn);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public SelectStandardizedAddress clickVerifyAddress()
+	public T verifyAddress()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.verifyAddress);
 		sh.waitForNoMask();
-		return new SelectStandardizedAddress(sh,path);
+		return (T)this;
 	}
 
 	
-	public Dwelling.AdditionalInterests clickOk()
+	public T ok()
 	{
 		sh.clickElement(by.ok);
-		return new Dwelling(sh,path).new AdditionalInterests(sh, path);
+		return (T)this;
 	}
 	public String getCompanyName()
 	{
 		return sh.getValue(by.companyName);
 	}
 	
-	public NewAdditionalInterest setCompanyName(String companyName)
+	public T setCompanyName(String companyName)
 	{
 		sh.setText(by.companyName, companyName);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	public String getOfficePhone()
 	{
 		return sh.getValue(by.officePhone);
 	}
 	
-	public NewAdditionalInterest setOfficePhone(String officePhone)
+	public T setOfficePhone(String officePhone)
 	{
 		sh.setText(by.officePhone, officePhone);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 	
-	public Dwelling clickCancel()
+	public T cancel()
 	{
 		sh.clickElement(by.cancel);
-		return new Dwelling(sh,path);
+		return (T)this;
 	}
-	public NewAdditionalInterest clickCheckForDuplicates()
+	public T clickCheckForDuplicates()
 	{
 		sh.clickElement(by.checkForDuplicates);
-		return this;
+		return (T)this;
 	}
 	public String getFEIN()
 	{
 		return sh.getValue(by.officialID);
 	}
 
-	public NewAdditionalInterest setFEIN(String officialID)
+	public T setFEIN(String officialID)
 	{
 		sh.setText(by.officialID, officialID);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public NewAdditionalInterest clickSameAddressAsPrimaryNamedInsured()
+	public T clickSameAddressAsPrimaryNamedInsured()
 	{
 		sh.clickElement(by.sameAddressAs);
 		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail-textEl"));
 		sh.clickElement(By.id(by.contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:0:contactDetail:PrimaryAddress-textEl"));
 		sh.waitForNoMask();
 
-		return this;
+		return (T)this;
 	}
 	
 	

@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class DwellingConstruction extends CenterPanelBase
+public abstract class DwellingConstruction<T extends DwellingConstruction> extends CenterPanelBase
 {
 	private DwellingConstructionBy by;
 	protected String dwellingConstructionBase, windMitigationBase,tabBase;
@@ -39,360 +39,378 @@ public class DwellingConstruction extends CenterPanelBase
 		}
 	}
 
-	public Coverages next()
+	protected T coveragesNext()
 	{
-		sh.waitForNoMask(15);
+		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new Coverages(sh,path);
+		return (T)this;
 	}
 
-	public DwellingConstruction setRoofYear(String roofYear)
+	protected T setRoofYear(String roofYear)
 	{
 		sh.setText(by.roofYear, roofYear);
-		return this;
+		return (T)this;
 	}
-	public WindMitigation clickWindMitigation()
+	protected String getRoofYear()
+	{
+		return sh.getValue(by.roofYear);
+	}
+
+
+	protected T windMitigation()
 	{
 
 		sh.clickElement(by.windMitigation);
-		return new WindMitigation(sh, path);
+		return (T)this;
 	}
 
-	public String getValuationType()
+	protected String getValuationType()
 	{
 		return sh.getValue(by.valuationType);
 	}
 
-	public DwellingConstruction setValuationType(String valuationType)
+	protected T setValuationType(String valuationType)
 	{
 		sh.setText(by.valuationType, valuationType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getEstimatedReplacementCost()
+	protected String getEstimatedReplacementCost()
 	{
 		return sh.getValue(by.estimatedReplacementCost);
 	}
 	
-	public DwellingConstruction setEstimatedReplacementCost(String estimatedReplacementCost)
+	protected T setEstimatedReplacementCost(String estimatedReplacementCost)
 	{
 		sh.setText(by.estimatedReplacementCost, estimatedReplacementCost);
-		return this;
+		return (T)this;
 	}
 
-	public String getConstructionType()
+	protected String getConstructionType()
 	{
 		return sh.getValue(by.constructionType);
 	}
 	
-	public DwellingConstruction setConstructionType(String constructionType)
+	protected T setConstructionType(String constructionType)
 	{
 		sh.setText(by.constructionType, constructionType);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	
-	public String getNumberOfUnits()
+	protected String getNumberOfUnits()
 	{
 		return sh.getValue(by.numberOfUnits);
 	}
 	
-	public DwellingConstruction setNumberOfUnits(String numberOfUnits)
+	protected T setNumberOfUnits(String numberOfUnits)
 	{
 		sh.setText(by.numberOfUnits, numberOfUnits);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getUnitsInFireWall()
+	protected String getUnitsInFireWall()
 	{
 		return sh.getValue(by.unitsInFireWall);
 	}
 
-	public DwellingConstruction setUnitsInFireWall(String unitsInFireWall)
+	protected T setUnitsInFireWall(String unitsInFireWall)
 	{
 		sh.setText(by.unitsInFireWall, unitsInFireWall);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getNumberOfStories()
+	protected String getNumberOfStories()
 	{
 		return sh.getValue(by.numberOfStories);
 	}
 
-	public DwellingConstruction setNumberOfStories(String numberOfStories)
+	protected T setNumberOfStories(String numberOfStories)
 	{
 		sh.setText(by.numberOfStories, numberOfStories);
-		return this;
+		return (T)this;
 	}
 
-	public String getSquareFootage()
+	protected String getSquareFootage()
 	{
 		return sh.getValue(by.squareFootage);
 	}
 
-	public DwellingConstruction setSquareFootage(String squareFootage)
+	protected T setSquareFootage(String squareFootage)
 	{
 		sh.setText(by.squareFootage, squareFootage);
-		return this;
+		return (T)this;
 	}
 
-	public String getFoundationType()
+	protected String getFoundationType()
 	{
 		return sh.getValue(by.foundationType);
 	}
 
-	public DwellingConstruction setFoundationType(String foundationType)
+	protected T setFoundationType(String foundationType)
 	{
 		sh.setText(by.foundationType, foundationType);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 
-	public String getPrimaryHeating()
+	protected String getPrimaryHeating()
 	{
 		return sh.getValue(by.primaryHeating);
 	}
 
-	public DwellingConstruction setPrimaryHeating(String primaryHeating)
+	protected T setPrimaryHeating(String primaryHeating)
 	{
 		sh.setText(by.primaryHeating, primaryHeating);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getPlumbing()
+	protected String getPlumbing()
 	{
 		return sh.getValue(by.plumbing);
 	}
 
-	public DwellingConstruction setPlumbing(String plumbing)
+	protected T setPlumbing(String plumbing)
 	{
 		sh.setText(by.plumbing, plumbing);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getPlumbingYear()
+	protected String getPlumbingYear()
 	{
 		return sh.getValue(by.plumbingYear);
 	}
 
-	public DwellingConstruction setPlumbingYear(String plumbingYear)
+	protected T setPlumbingYear(String plumbingYear)
 	{
 		sh.setText(by.plumbingYear, plumbingYear);
-		return this;
+		return (T)this;
 	}
 
-	public String getWaterHeaterYear()
+	protected String getWaterHeaterYear()
 	{
 		return sh.getValue(by.waterHeaterYear);
 	}
 
-	public DwellingConstruction setWaterHeaterYear(String waterHeaterYear)
+	protected T setWaterHeaterYear(String waterHeaterYear)
 	{
 		sh.setText(by.waterHeaterYear, waterHeaterYear);
-		return this;
+		return (T)this;
 	}
 
-	public String getWiring()
+	protected String getWiring()
 	{
 		return sh.getValue(by.wiring);
 	}
 
-	public DwellingConstruction setWiring(String wiring)
+	protected T setWiring(String wiring)
 	{
 		sh.setText(by.wiring, wiring);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 
-	public String getElectricalSystem()
+	protected String getElectricalSystem()
 	{
 		return sh.getValue(by.electricalSystem);
 	}
 
-	public DwellingConstruction setElectricalSystem(String electricalSystem)
+
+	protected T setElectricalSystem(String electricalSystem)
 	{
 		sh.setText(by.electricalSystem, electricalSystem);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getRoofType()
+	protected String getRoofType()
 	{
 		return sh.getValue(by.roofType);
 	}
 
-	public DwellingConstruction setRoofType(String roofType)
+	protected T setRoofType(String roofType)
 	{
 		sh.setText(by.roofType, roofType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getConditionOfRoof()
+	protected String getConditionOfRoof()
 	{
 		return sh.getValue(by.conditionOfRoof);
 	}
 
-	public DwellingConstruction setConditionOfRoof(String conditionOfRoof)
+	protected T setConditionOfRoof(String conditionOfRoof)
 	{
 		sh.setText(by.conditionOfRoof, conditionOfRoof);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
-	public DwellingConstruction setIsThereASecondaryHeatingSystem(String flag)
+	protected T setIsThereASecondaryHeatingSystem(String flag)
 	{
 		sh.clickElement(By.id(dwellingConstructionBase + "SecondaryHeatingExists_" + flag.toLowerCase() + "-inputEl"));
 
-		return this;
+		return (T)this;
 	}
-	public String getElectricalSystemDescribeOther()
+	protected String getElectricalSystemDescribeOther()
 	{
 		return sh.getValue(by.electricalSystemDescribeOther);
 	}
 
-	public DwellingConstruction setElectricalSystemDescribeOther(String electricalSystemDescribeOther)
+	protected T setElectricalSystemDescribeOther(String electricalSystemDescribeOther)
 	{
 		sh.setText(by.electricalSystemDescribeOther, electricalSystemDescribeOther);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
-	public String getRoofTypeDescription()
+	protected String getRoofTypeDescription()
 	{
 		return sh.getValue(by.roofTypeDescription);
 	}
 	
-	public DwellingConstruction setRoofTypeDescription(String roofTypeDescription)
+	protected T setRoofTypeDescription(String roofTypeDescription)
 	{
 		sh.setText(by.roofTypeDescription, roofTypeDescription);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
-	public String getPlumbingDescribeOther()
+	protected String getPlumbingDescribeOther()
 	{
 		return sh.getValue(by.plumbingDescribeOther);
 	}
 	
-	public DwellingConstruction setPlumbingDescribeOther(String plumbingDescribeOther)
+	protected T setPlumbingDescribeOther(String plumbingDescribeOther)
 	{
 		sh.setText(by.plumbingDescribeOther, plumbingDescribeOther);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 	
-	public DwellingConstruction setPlumbingSystemHaveKnownLeaks(String flag)
+	protected T setPlumbingSystemHaveKnownLeaks(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Does the plumbing system have known leaks?']/../..//input[@inputvalue = '" +
 		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public DwellingConstruction setBuildingRetrofittedForEarthquakes(String flag)
+	protected T setBuildingRetrofittedForEarthquakes(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Is the building retrofitted for earthquakes?']/../..//input[@inputvalue = '" +
 		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolations(String flag)
+	protected T setUncorrectedFireOrBuildingCodeViolations(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../..//input[@inputvalue = '" +
 		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag)
+	protected T setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Was the structure originally built for other than a private residence and then converted?']/../..//input[@inputvalue = '" +
 		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 
-	public DwellingConstruction setLeadPaintHazard(String flag)
+	protected T setLeadPaintHazard(String flag)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Any lead paint hazard?']/../..//input[@inputvalue = '" +
 		flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
+	protected T setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
 	{
 		sh.clickElement(
 		By.xpath("//*[@id = '" + tabBase + "HODwellingConstruction_fliPanelSet:questionSetsDVx:QuestionSetsDV:0:QuestionSetLV-body']" +
 		"//div[contains(text(), 'Is any portion of any structure at this property location now (or ever has been) a mobile')]/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"  ));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setBuildingRetrofittedForEarthquakesDescription(String text)
+	protected T setBuildingRetrofittedForEarthquakesDescription(String text)
 	{
 		sh.clickElement(By.xpath("//*[text() = 'Is the building retrofitted for earthquakes?']/../../following-sibling::tr[1]/td[3]/div"));
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
 
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String text)
+	protected T setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String text)
 	{
 		sh.clickElement(By.xpath("//*[text() = 'Was the structure originally built for other than a private residence and then converted?']/../../following-sibling::tr[1]/td[3]/div"));
 
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
 
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setUncorrectedFireOrBuildingCodeViolationsDescription(String text)
+	protected T setUncorrectedFireOrBuildingCodeViolationsDescription(String text)
 	{
 		sh.clickElement(
 		By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../../following-sibling::tr[1]/td[3]/div"));
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
-		return this;
+		return (T)this;
 	}
 
-	public DwellingConstruction setLeadPaintHazardDescription(String text)
+	protected T setLeadPaintHazardDescription(String text)
 	{
 		sh.clickElement(
 		By.xpath("//*[text() = 'Any lead paint hazard?']/../../following-sibling::tr[1]/td[3]/div"));
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
-		return this;
+		return (T)this;
 	}
-	public DwellingConstruction setScreenEnclosureOnPremises(String flag)
+	protected T setScreenEnclosureOnPremises(String flag)
 	{
 		sh.clickElement(By.id(dwellingConstructionBase + "HasScreenedEnclosure_fli_" +  flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
 	private void setTextToDescription(String text)
 	{
 		sh.waitForElementToAppear(By.name("c2"));
 		sh.setText(By.name("c2"),text);
+	}
+	protected String getFloorUnitIsLocatedOn()
+	{
+		return sh.getValue(by.floorUnitIsLocatedOn);
+	}
+	
+	protected DwellingConstruction setFloorUnitIsLocatedOn(String floorUnitIsLocatedOn)
+	{
+		sh.setText(by.floorUnitIsLocatedOn, floorUnitIsLocatedOn);
+		sh.tab();
+		return this;
 	}
 	public class DwellingConstructionBy
 	{
@@ -404,6 +422,7 @@ public class DwellingConstruction extends CenterPanelBase
 								numberOfUnits = By.id(dwellingConstructionBase + "UnitsNumber-inputEl"),
 								unitsInFireWall = By.id(dwellingConstructionBase + "NumOfUnitsInFirewall_fli-inputEl"),
 								numberOfStories = By.id(dwellingConstructionBase + "NumberOfStories_fli-inputEl"),
+								floorUnitIsLocatedOn = By.id(dwellingConstructionBase + "CondoUnitFloorNumber_fli-inputEl"),
 								squareFootage = By.id(dwellingConstructionBase + "ApproxSquareFootage-inputEl"),
 								foundationType = By.id(dwellingConstructionBase + "Foundation-inputEl"),
 								primaryHeating = By.id(dwellingConstructionBase + "PrimaryHeating-inputEl"),
@@ -428,7 +447,7 @@ public class DwellingConstruction extends CenterPanelBase
 	}
 
 
-	public class WindMitigation extends CenterPanelBase
+	public class WindMitigation<T extends WindMitigation> extends CenterPanelBase
 	{
 		private WindMitigationBy by;
 		public WindMitigation(CenterSeleniumHelper sh, Path path)
@@ -468,6 +487,7 @@ public class DwellingConstruction extends CenterPanelBase
 								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
 								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
 
+
 								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
 								fbcWindSpeed = By.id(windMitigationBase + "FBCWindSpeedType_fli-inputEl"),
 								internalPressure = By.id(windMitigationBase + "InternalPressureType_fli-inputEl"),
@@ -478,21 +498,21 @@ public class DwellingConstruction extends CenterPanelBase
 								policyQualificationWarning = By.className("warning_icon");
 		}
 
-		public DwellingConstruction clickDetails()
+		protected T clickDetailsTab()
 		{
 			sh.clickElement(by.details);
 			sh.waitForNoMask();
-			return new DwellingConstruction(sh, path);
+			return (T)this;
 		}
 
-		public Coverages next()
+		protected T coveragesNext()
 		{
 			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForPageLoad();
-			return new Coverages(sh,path);
+			return (T)this;
 		}
-		public Coverages doubleClickNext()
+		protected T doubleClickCoveragesNext()
 		{
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForPageLoad();
@@ -508,93 +528,93 @@ public class DwellingConstruction extends CenterPanelBase
 //				else
 //					break;
 //			}
-			clickDetails().next();
+			clickDetailsTab().coveragesNext();
 
 //			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 
 			//sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-			return new Coverages(sh,path);
+			return (T)this;
 		}
 
-		public String getRoofShapeType()
+		protected String getRoofShapeType()
 		{
 			return sh.getValue(by.roofShapeType);
 		}
 
-		public WindMitigation setRoofShapeType(String roofShapeType)
+		protected T setRoofShapeType(String roofShapeType)
 		{
 			sh.setText(by.roofShapeType, roofShapeType);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getDiscountType()
+		protected String getDiscountType()
 		{
 			return sh.getValue(by.discountType);
 		}
 
-		public WindMitigation setDiscountType(String discountType)
+		protected T setDiscountType(String discountType)
 		{
 			sh.setText(by.discountType, discountType);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public String getFortifiedHomeType()
+		protected String getFortifiedHomeType()
 		{
 			return sh.getValue(by.fortifiedHomeType);
 		}
 
-		public WindMitigation setFortifiedHomeType(String fortifiedHomeType)
+		protected T setFortifiedHomeType(String fortifiedHomeType)
 		{
 			sh.setText(by.fortifiedHomeType, fortifiedHomeType);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getOpeningProtectionType()
+		protected String getOpeningProtectionType()
 		{
 			return sh.getValue(by.openingProtectionType);
 		}
 
-		public WindMitigation setOpeningProtectionType(String openingProtectionType)
+		protected T setOpeningProtectionType(String openingProtectionType)
 		{
 			sh.setText(by.openingProtectionType, openingProtectionType);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getTerrain()
+		protected String getTerrain()
 		{
 			return sh.getValue(by.terrain);
 		}
 
-		public WindMitigation setTerrain(String terrain)
+		protected T setTerrain(String terrain)
 		{
 			sh.setText(by.terrain, terrain);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getRoofCover()
+		protected String getRoofCover()
 		{
 			return sh.getValue(by.roofCover);
 		}
 
-		public WindMitigation setRoofCover(String roofCover)
+		protected T setRoofCover(String roofCover)
 		{
 			sh.setText(by.roofCover, roofCover);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getRoofDeckAttachment()
+		protected String getRoofDeckAttachment()
 		{
 			return sh.getValue(by.roofDeckAttachment);
 		}
 
-		public WindMitigation setRoofDeckAttachment(String roofDeckAttachment)
+		protected T setRoofDeckAttachment(String roofDeckAttachment)
 		{
 			sh.setText(by.roofDeckAttachment, roofDeckAttachment);
 			// Added because tabbing is occurring too quickly for the value to match
@@ -609,83 +629,83 @@ public class DwellingConstruction extends CenterPanelBase
 			}
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getRoofWallConnection()
+		protected String getRoofWallConnection()
 		{
 			return sh.getValue(by.roofWallConnection);
 		}
 
-		public WindMitigation setRoofWallConnection(String roofWallConnection)
+		protected T setRoofWallConnection(String roofWallConnection)
 		{
 			sh.setText(by.roofWallConnection, roofWallConnection);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public WindMitigation setSecondaryWaterResistance(String flag)
+		protected T setSecondaryWaterResistance(String flag)
 		{
 
 			sh.clickElement(By.id(windMitigationBase + "IsSecondaryWaterResistance_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
+		protected T setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
 		{
 			sh.clickElement(By.id(windMitigationBase + "IsRoofCoverCompliant_" + flag.toLowerCase() + "-inputEl"));
-			return this;
+			return (T)this;
 		}
-		public WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
+		protected T setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
 		{
 			sh.clickElement(By.id(windMitigationBase + "IsRoofDeckCompliant_" + flag.toLowerCase() + "-inputEl"));
-			return this;
+			return (T)this;
 		}
-		public WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
+		protected T setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
 		{
 			sh.clickElement(By.id(windMitigationBase + "IsRoofWallCompliant_" + flag.toLowerCase() + "-inputEl"));
-			return this;
+			return (T)this;
 		}
-		public String getRoofDeck()
+		protected String getRoofDeck()
 		{
 			return sh.getValue(by.roofDeck);
 		}
 
-		public WindMitigation setRoofDeck(String roofDeck)
+		protected T setRoofDeck(String roofDeck)
 		{
 			sh.setText(by.roofDeck, roofDeck);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getFbcWindSpeed()
+		protected String getFbcWindSpeed()
 		{
 			return sh.getValue(by.fbcWindSpeed);
 		}
 
-		public WindMitigation setFbcWindSpeed(String fbcWindSpeed)
+		protected T setFbcWindSpeed(String fbcWindSpeed)
 		{
 			sh.setText(by.fbcWindSpeed, fbcWindSpeed);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getInternalPressure()
+		protected String getInternalPressure()
 		{
 			return sh.getValue(by.internalPressure);
 		}
 
-		public WindMitigation setInternalPressure(String internalPressure)
+		protected T setInternalPressure(String internalPressure)
 		{
 			sh.setText(by.internalPressure, internalPressure);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public WindMitigation setWindBorneDebris(String flag)
+		protected T setWindBorneDebris(String flag)
 		{
 			sh.clickElement(By.id(windMitigationBase + "IsWindBorneDebrisRegion_" + flag.toLowerCase() + "-inputEl"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
 

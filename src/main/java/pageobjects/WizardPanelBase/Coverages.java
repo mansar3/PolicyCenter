@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class Coverages extends CenterPanelBase
+public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 {
 	private CoveragesBy by;
 	public PropertyEndorsements pe;
@@ -41,13 +41,19 @@ public class Coverages extends CenterPanelBase
 	}
 
 
-	public RiskAnalysis next()
+	protected T coveragesNext()
 	{
 		clickNext();
-		return new RiskAnalysis(sh,this.path);
+		return (T)this;
+	}
+	protected String getDwellingLimit()
+	{
+		return sh.getValue(by.dwellingLimit);
+
 	}
 
-	public Coverages setDwellingLimit(String limit)
+
+	protected T setDwellingLimit(String limit)
 	{
 
 		sh.setText(by.dwellingLimit, limit);
@@ -56,182 +62,206 @@ public class Coverages extends CenterPanelBase
 		sh.waitForNoMask();
 		// In place in case mask disappears but value still isn't loaded
 		sh.waitForValue(by.personalPropertyLimit,15);
-		return this;
+		return (T)this;
 	}
 
-	public Coverages setPersonalPropertyLimit(String limit)
+	protected T setPersonalPropertyLimit(String limit)
 	{
 		sh.setText(by.personalPropertyLimit, limit);
-		return this;
+		return (T)this;
 
 	}
-	public String getOtherStructuresPercentage()
+	public String getPersonalPropertyLimit()
+	{
+		return sh.getValue(by.personalPropertyLimit);
+	}
+
+	protected String getOtherStructuresPercentage()
 	{
 		return sh.getValue(by.otherStructuresPercentage);
 	}
 
-	public Coverages setOtherStructuresPercentage(String otherStructuresPercentage)
+	protected T setOtherStructuresPercentage(String otherStructuresPercentage)
 	{
 		sh.setText(by.otherStructuresPercentage, otherStructuresPercentage);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
-	}
-	public String getOtherStructuresLimit()
-	{
-		return sh.getValue(by.otherStructuresLimit);
+		return (T)this;
 	}
 
-	public Coverages setPersonalPropertyExcluded(String flag)
+	protected String getOtherStructuresLimit()
+	{
+		sh.waitForElementToAppear(by.otherStructuresLimit);
+		return sh.getText(by.otherStructuresLimit); // getValue is always returning null since this element is now a div with innerHTML instead of textbox
+	}           									 // you can change this function if you have a better idea */
+
+	/*
+	protected String getUpdatedOtherStructuresLimit()
+	{
+		sh.waitForElementToAppear(by.otherStructuresLimit);
+		sh.waitForValueToBeNotEmpty(by.otherStructuresLimit);
+		return sh.getText(by.otherStructuresLimit);
+	}
+	*/
+	protected T setPersonalPropertyExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getPersonalPropertyValuationMethod()
+	protected String getPersonalPropertyValuationMethod()
 	{
+		sh.waitForNoMask();
 		return sh.getValue(by.personalPropertyValuationMethod);
 	}
 
-	public Coverages setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
+	protected T setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
 	{
+		sh.waitForNoMask();
+		sh.waitForPageLoad();
 		sh.setText(by.personalPropertyValuationMethod, personalPropertyValuationMethod);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getLossOfUseSelection()
+	protected String getLossOfUseSelection()
 	{
 		return sh.getValue(by.lossOfUseSelection);
 	}
 
-	public Coverages setLossOfUseSelection(String lossOfUseSelection)
+	protected T setLossOfUseSelection(String lossOfUseSelection)
 	{
+		sh.waitForNoMask();
 		sh.setText(by.lossOfUseSelection, lossOfUseSelection);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getLossOfUseLimit()
+	protected String getLossOfUseLimit()
 	{
-		return sh.getValue(by.lossOfUseLimit);
+		return sh.getText(by.lossOfUseLimit);
 	}
 
-	public String getHurricane()
+	protected String getHurricane()
 	{
 		return sh.getValue(by.hurricane);
 	}
 
-	public Coverages setHurricane(String hurricane)
+	protected T setHurricane(String hurricane)
 	{
 		sh.setText(by.hurricane, hurricane);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getAllOtherPerils()
+	protected String getAllOtherPerils()
 	{
 		return sh.getValue(by.allOtherPerils);
 	}
 
-	public Coverages setAllOtherPerils(String allOtherPerils)
+	protected T setAllOtherPerils(String allOtherPerils)
 	{
 		sh.setText(by.allOtherPerils, allOtherPerils);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public Coverages setWindExcluded(String flag)
+	protected T setWindExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getPersonalLiabilityLimit()
+	protected String getPersonalLiabilityLimit()
 	{
 		return sh.getValue(by.personalLiabilityLimit);
 	}
 
-	public Coverages setPersonalLiabilityLimit(String personalLiabilityLimit)
+	protected T setPersonalLiabilityLimit(String personalLiabilityLimit)
 	{
 		sh.setText(by.personalLiabilityLimit, personalLiabilityLimit);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getMedicalPaymentsLimit()
+	protected String getMedicalPaymentsLimit()
 	{
-		return sh.getValue(by.medicalPaymentsLimit);
+		return sh.getText(by.medicalPaymentsLimit);
 	}
 
-	public Coverages setMedicalPaymentsLimit(String medicalPaymentsLimit)
+	protected T setMedicalPaymentsLimit(String medicalPaymentsLimit)
 	{
 		sh.setText(by.medicalPaymentsLimit, medicalPaymentsLimit);
 		sh.tab();
 
-		return this;
+		return (T)this;
 	}
 
-	public PropertyEndorsements clickPropertyEndorsements()
+	protected T clickPropertyEndorsementsTab()
 	{
 		sh.clickElement(by.propertyEndorsements);
 		sh.waitForNoMask();
-		return new PropertyEndorsements(sh, path);
+		return (T)this;
 	}
 
-	public Coverages clickCoverages()
+	protected T clickCoverages()
 	{
 		sh.clickElement(by.coverages);
-		return new Coverages(sh, path);
+		return (T)this;
 	}
-	public String getWindDeductibleType()
+	protected String getWindDeductibleType()
 	{
 		return sh.getValue(by.windDeductibleType);
 	}
-	
-	public Coverages setWindDeductibleType(String windDeductibleType)
+
+	public String getWindHailDeductible()
+	{
+		return sh.getText(by.windHailDeductible);
+	}
+
+	protected T setWindDeductibleType(String windDeductibleType)
 	{
 		sh.setText(by.windDeductibleType, windDeductibleType);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
 
-	public String getWindHail()
+	protected String getWindHail()
 	{
 
 		return sh.getValue(by.windHail);
 	}
 
-	public Coverages setWindHail(String windHail)
+	protected T setWindHail(String windHail)
 	{
 		sh.setText(by.windHail, windHail);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public String getNamedStorm()
+	protected String getNamedStorm()
 	{
 		return sh.getValue(by.namedStorm);
 	}
 
-	public Coverages setNamedStorm(String namedStorm)
+	protected T setNamedStorm(String namedStorm)
 	{
 		sh.setText(by.namedStorm, namedStorm);
 		sh.tab();
 		sh.waitForNoMask();
-		return this;
+		return (T)this;
 	}
-	public LiabilityEndorsements clickLiabilityEndorsements()
+	protected T clickLiabilityEndorsementsTab()
 	{
 		sh.clickElement(by.liabilityEndorsements);
 		sh.waitForNoMask();
-		return new LiabilityEndorsements(sh,path);
+		return (T)this;
 	}
 
 
@@ -245,20 +275,19 @@ public class Coverages extends CenterPanelBase
 								personalPropertyLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Limit']/../..//input"),
 								otherStructuresIncreasedCoverage = By.id(coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
-								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div"),
+								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
-								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Limit']/../..//div"),
+								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
-								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Medical Payments']/../..//span[text() = 'Limit']/../..//input"),
-								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Wind Deductible Type']/../..//input"),
-								windHail =By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Wind/Hail']/../..//input"),
-								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() ='Named Storm']/../..//input"),
-
-
-
+								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "sectionIIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:OptionTermInput-inputEl']"),
+								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind Deductible Type']/../..//input"),
+								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
+								windHailDeductible = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:3:CovTermInputSet:DirectTermInput-inputEl']"),
+								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Named Storm']/../..//input"),
+								personalLiabilityLabel = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']"),
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
@@ -270,7 +299,72 @@ public class Coverages extends CenterPanelBase
 
 	}
 
-	public class PropertyEndorsements extends CenterPanelBase
+	protected boolean isPersonalLiabilityLabelRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalLiabilityLimit);
+	}
+
+	protected boolean isPersonalPropertyLabelRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalPropertyLimit);
+	}
+
+	protected boolean isLossOfUseSelectionRequired()
+	{
+		return sh.isFieldMarkedRequired(by.lossOfUseSelection);
+	}
+
+	protected boolean isLossOfUseSelectionEnabled()
+	{
+		return sh.isElementEnabled(by.lossOfUseSelection);
+	}
+
+	protected boolean isAllOtherPerilsRequired()
+	{
+		return sh.isFieldMarkedRequired(by.allOtherPerils);
+	}
+
+	protected boolean isAllOtherPerilsEditable()
+	{
+		return sh.isElementEnabled(by.allOtherPerils);
+	}
+
+	protected boolean isWindHailRequired()
+	{
+		return sh.isFieldMarkedRequired(by.windHail);
+	}
+
+	protected boolean isWindHailEnabled()
+	{
+		return sh.isElementEnabled(by.windHail);
+	}
+
+	protected boolean isPersonalPropertyValuationMethodRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalPropertyValuationMethod);
+	}
+
+	protected boolean isPersonalPropertyLimitEnabled()
+	{
+		return sh.isElementEnabled(by.personalPropertyLimit);
+	}
+
+	protected boolean isPersonalPropertyValuationMethodEnabled()
+	{
+		return sh.isElementEnabled(by.personalPropertyValuationMethod);
+	}
+
+	protected boolean isMedicalPaymentsLimitEditable()
+	{
+		return sh.isElementEditable(by.medicalPaymentsLimit);
+	}
+
+	protected boolean isPersonalLiabilityDropdownEnabled()
+	{
+		return sh.isElementEnabled(by.personalLiabilityLimit);
+	}
+
+	public class PropertyEndorsements<T extends PropertyEndorsements> extends CenterPanelBase
 	{
 		private PropertyEndorsementsBy by;
 		protected String coveragesBase;
@@ -338,6 +432,8 @@ public class Coverages extends CenterPanelBase
 			earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
 			earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Deductible Percentage']/../..//input"),
 
+			specificAdditionalAmountOfCoverageA = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/..//input"),
+			specificAdditionalAmountOfCoverageALimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/../../div//span[text() = 'Limit']/../..//div/div"),
 
 			earthquakeLossAssessment = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
 			earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
@@ -346,7 +442,7 @@ public class Coverages extends CenterPanelBase
 			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
 
 			inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"),
-			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../..//input"),
+			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../../div/div"),
 
 
 			sinkholeLossCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Sinkhole Loss Coverage']/..//input"),
@@ -361,19 +457,34 @@ public class Coverages extends CenterPanelBase
 
 
 		}
-		public String getWaterBackUpLimit()
+		protected T checkSpecificAdditionalAmountOfCoverageA()
+		{
+			sh.clickElement(by.specificAdditionalAmountOfCoverageA);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected boolean isSpecificAdditionalAmountOfCoverageAChecked()
+		{
+			return sh.isDisplayed(by.specificAdditionalAmountOfCoverageALimit);
+		}
+
+		protected String getWaterBackUpLimit()
 		{
 			return sh.getText(by.waterBackUpLimit);
 		}
 
 
-		public PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
+		protected T setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
 			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" + "/../../div//span[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
-			return this;
+			sh.waitForNoMask();
+			return (T)this;
 		}
-
-		public PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String articleType)
+		protected boolean isEarthQuakeLossAssessmentChecked()
+		{
+			return sh.isDisplayed(by.earthquakeLossAssessmentLimit);
+		}
+		protected T setPersonalPropertyArticleType(int itemNumber, String articleType)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
@@ -382,10 +493,10 @@ public class Coverages extends CenterPanelBase
 			sh.setText(By.name("c2"), articleType);
 
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setPersonalPropertyDescription(int itemNumber, String description)
+		protected T setPersonalPropertyDescription(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
@@ -393,10 +504,10 @@ public class Coverages extends CenterPanelBase
 			// Input text here
 			sh.setText(By.name("c3"), description);
 
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setPersonalPropertyValue(int itemNumber, String value)
+		protected T setPersonalPropertyValue(int itemNumber, String value)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[3]//div"));
 
@@ -405,10 +516,10 @@ public class Coverages extends CenterPanelBase
 			sh.setText(By.name("c4"), value);
 
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setOtherStructuresDescription(int itemNumber, String description)
+		protected T setOtherStructuresDescription(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
@@ -416,10 +527,10 @@ public class Coverages extends CenterPanelBase
 			// Input text here
 			sh.setText(By.name("c2"), description);
 
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setOtherStructuresLimit(int itemNumber, String description)
+		protected T setOtherStructuresLimit(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
@@ -427,10 +538,10 @@ public class Coverages extends CenterPanelBase
 			// Input text here
 			sh.setText(By.name("c3"), description);
 
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String description)
+		protected T setSpecificOtherStructuresDescription(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 
@@ -438,10 +549,10 @@ public class Coverages extends CenterPanelBase
 			// Input text here
 			sh.setText(By.name("c2"), description);
 
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String description)
+		protected T setSpecificOtherStructuresLimit(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 
@@ -449,329 +560,348 @@ public class Coverages extends CenterPanelBase
 			// Input text here
 			sh.setText(By.name("c3"), description);
 
-			return this;
+			return (T)this;
 		}
 
-
-		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
+		protected String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
 		{
 			return sh.getValue(by.creditCardFundTransferForgeryCounterfeitMoneyLimit);
 		}
 
-		public PropertyEndorsements checkEarthquakeCoverage()
+		protected T checkEarthquakeCoverage()
 		{
 			sh.clickElement(by.earthquakeCoverage);
-			return this;
+			sh.waitForNoMask();
+			return (T)this;
 		}
-
-		public PropertyEndorsements checkSpecificOtherStructures()
+		protected boolean isEarthquakeCoverageChecked()
 		{
-			sh.clickElement(by.specificOtherStructures);
-			return this;
+			return sh.isDisplayed(by.earthquakeCoverageDeductiblePercentage);
 		}
 
-		public PropertyEndorsements checkEarthquakeLossAssessment()
+		protected T checkSpecificOtherStructures()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.specificOtherStructures);
+			return (T)this;
+		}
+
+		protected T checkEarthquakeLossAssessment()
 		{
 			sh.clickElement(by.earthquakeLossAssessment);
-			return this;
+			sh.waitForNoMask();
+			return (T)this;
 		}
 
-		public String getEarthquakeLossAssessmentLimit()
+		protected String getEarthquakeLossAssessmentLimit()
 		{
 			return sh.getValue(by.earthquakeLossAssessmentLimit);
 		}
 
-		public PropertyEndorsements setEarthquakeLossAssessmentLimit(String earthquakeLossAssessmentLimit)
+		protected T setEarthquakeLossAssessmentLimit(String earthquakeLossAssessmentLimit)
 		{
 			sh.setText(by.earthquakeLossAssessmentLimit, earthquakeLossAssessmentLimit);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public String getEarthquakeCoverageDeductiblePercentage()
+		protected String getEarthquakeCoverageDeductiblePercentage()
 		{
 			return sh.getValue(by.earthquakeCoverageDeductiblePercentage);
 		}
 
-		public PropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String earthquakeCoverageDeductiblePercentage)
+		protected T setEarthquakeCoverageDeductiblePercentage(String earthquakeCoverageDeductiblePercentage)
 		{
 			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
 			sh.tab();
+			sh.waitForNoMask();
 
-			return this;
+			return (T)this;
 		}
 
 
-		public PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String creditCardFundTransferForgeryCounterfeitMoneyLimit)
+		protected T setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String creditCardFundTransferForgeryCounterfeitMoneyLimit)
 		{
 			sh.setText(by.creditCardFundTransferForgeryCounterfeitMoneyLimit, creditCardFundTransferForgeryCounterfeitMoneyLimit);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public LiabilityEndorsements clickLiabilityEndorsements()
+		protected T clickLiabilityEndorsementsTab()
 		{
 			sh.clickElement(by.liabilityEndorsements);
 			sh.waitForNoMask();
-			return new LiabilityEndorsements(sh, path);
+			return (T)this;
 		}
 
-		public Coverages clickCoverages()
+		protected T clickCoveragesTab()
 		{
 			sh.clickElement(by.coverages);
-			return new Coverages(sh, path);
+			return (T)this;
 		}
 
-		public boolean isPermittedIncidentalOccupancyChecked()
+		protected boolean isPermittedIncidentalOccupancyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancy);
 		}
 
-		public PropertyEndorsements checkPermittedIncidentalOccupancy()
+		protected T checkPermittedIncidentalOccupancy()
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancy);
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements unCheckPermittedIncidentalOccupancy()
+		protected T unCheckPermittedIncidentalOccupancy()
 		{
 			sh.checkboxHelper.unCheckElement(by.permittedIncidentalOccupancy);
-			return this;
+			return (T)this;
 		}
 
 
-		public boolean isGuardianEndorsementsChecked()
+		protected boolean isGuardianEndorsementsChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.guardianEndorsements);
 		}
 
-		public PropertyEndorsements checkGuardianEndorsements()
+		protected T checkGuardianEndorsements()
 		{
 			sh.checkboxHelper.checkElement(by.guardianEndorsements);
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements unCheckGuardianEndorsements()
+		protected T unCheckGuardianEndorsements()
 		{
 			sh.checkboxHelper.unCheckElement(by.guardianEndorsements);
-			return this;
+			return (T)this;
 		}
 
-		public String getCreditPercentage()
+		protected String getWhenSafeCreditPercentage()
 		{
 			return sh.getValue(by.creditPercentage);
 		}
 
-		public PropertyEndorsements setWhenSafeCreditPercentage(String creditPercantage)
+		protected T setWhenSafeCreditPercentage(String creditPercantage)
 		{
 			sh.setText(by.creditPercentage, creditPercantage);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements addSpecificOtherStructures()
+		protected T addSpecificOtherStructures()
 		{
 			if(sh.isDisplayed(by.addSpecificStructures))
 				sh.clickElement(by.addSpecificStructures);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'A']"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements removeSpecificOtherStructures()
+		protected T removeSpecificOtherStructures()
 		{
 			if(sh.isDisplayed(by.removeSpecificStructures))
 				sh.clickElement(by.removeSpecificStructures);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'R']"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements clickAddOtherStructures()
+		protected T clickAddOtherStructures()
 		{
 			if(sh.isDisplayed(by.addOtherStructures))
 				sh.clickElement(by.addOtherStructures);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'A']"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements clickRemoveOtherStructures()
+		protected T clickRemoveOtherStructures()
 		{
 			if(sh.isDisplayed(by.removeOtherStructures))
 				sh.clickElement(by.removeOtherStructures);
 			else
 				By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../div//span[text() = 'R']");
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements clickAddScheduledPersonalProperty()
+		protected T clickAddScheduledPersonalProperty()
 		{
 			if(sh.isDisplayed(by.addScheduledPersonalProperty))
 				sh.clickElement(by.addScheduledPersonalProperty);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../div//span[text() = 'Add']"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public PropertyEndorsements clickRemoveScheduledPersonalProperty()
+		protected T clickRemoveScheduledPersonalProperty()
 		{
 			if(sh.isDisplayed(by.removeScheduledPersonalProperty))
 				sh.clickElement(by.removeScheduledPersonalProperty);
 			else
 				sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../div//span[text() = 'Remove']"));
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 
-		public String getOccurrenceAggregateLimit()
+		protected String getOccurrenceAggregateLimit()
 		{
 			return sh.getValue(by.occurrenceAggregateLimit);
 		}
 
-		public PropertyEndorsements setOccurrenceAggregateLimit(String occurenceAggregateLimit)
+		protected T setOccurrenceAggregateLimit(String occurenceAggregateLimit)
 		{
 			sh.setText(by.occurrenceAggregateLimit, occurenceAggregateLimit);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public String getLossAssessmentLimit()
+		protected String getLossAssessmentLimit()
 		{
 			return sh.getValue(by.lossAssessmentLimit);
 		}
 
-		public PropertyEndorsements setLossAssessmentLimit(String lossAssessmentLimit)
+		protected T setLossAssessmentLimit(String lossAssessmentLimit)
 		{
 			sh.setText(by.lossAssessmentLimit, lossAssessmentLimit);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public String getOrdinanceOrLawLimit()
+		protected String getOrdinanceOrLawLimit()
 		{
 			return sh.getValue(by.ordinanceOrLawLimit);
 		}
 
-		public PropertyEndorsements setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
+		protected T setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
 		{
 			sh.setText(by.ordinanceOrLawLimit, ordinanceOrLawLimit);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public String getPercentageOfAnnualIncrease()
+		protected String getPercentageOfAnnualIncrease()
 		{
 			return sh.getValue(by.percentageOfAnnualIncrease);
 		}
 
-		public PropertyEndorsements setPercentageOfAnnualIncrease(String percentageOfAnnualIncrease)
+		protected T setPercentageOfAnnualIncrease(String percentageOfAnnualIncrease)
 		{
 			sh.setText(by.percentageOfAnnualIncrease, percentageOfAnnualIncrease);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public String getSinkholeIndex()
+		protected String getSinkholeIndex()
 		{
 			return sh.getValue(by.sinkholeIndex);
 		}
 
-		public PropertyEndorsements setSinkholeIndex(String sinkholeIndex)
+		protected T setSinkholeIndex(String sinkholeIndex)
 		{
 			sh.setText(by.sinkholeIndex, sinkholeIndex);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 
-		public boolean isCreditCardCheckBoxAvailable()
+		protected boolean isCreditCardCheckBoxAvailable()
 		{
 			if(sh.isDisplayed(by.creditCardFundTransferForgeryCounterfeitMoney))
 				return true;
 			return false;
 		}
 		
-		public String getSinkholeClaimsIndex()
+		protected String getSinkholeClaimsIndex()
 		{
 			return sh.getValue(by.sinkholeClaimsIndex);
 		}
 		
-		public PropertyEndorsements setSinkholeClaimsIndex(String sinkholeClaimsIndex)
+		protected T setSinkholeClaimsIndex(String sinkholeClaimsIndex)
 		{
 			sh.setText(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
-		public String getScreenEnclosureHurricaneCoverageLimit()
+		protected String getScreenEnclosureHurricaneCoverageLimit()
 		{
 			return sh.getValue(by.screenEnclosureHurricaneCoverageLimit);
 		}
 		
-		public PropertyEndorsements setScreenEnclosureHurricaneCoverageLimit(String screenEnclosureHurricaneCoverageLimit)
+		protected T setScreenEnclosureHurricaneCoverageLimit(String screenEnclosureHurricaneCoverageLimit)
 		{
 			sh.setText(by.screenEnclosureHurricaneCoverageLimit, screenEnclosureHurricaneCoverageLimit);
 			sh.tab();
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isWhenSafeChecked()
+		protected boolean isWhenSafeChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.whenSafe);
+			return sh.isDisplayed(by.creditPercentage);
 		}
 		
-		public PropertyEndorsements checkWhenSafe()
+		protected T checkWhenSafe()
 		{
 			sh.checkboxHelper.checkElement(by.whenSafe);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckWhenSafe()
+		protected T unCheckWhenSafe()
 		{
 			sh.checkboxHelper.unCheckElement(by.whenSafe);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isOtherStructuresIncreasedCoverageRentedToOthersChecked()
+		protected boolean isOtherStructuresIncreasedCoverageRentedToOthersChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.otherStructuresIncreasedCoverageRentedToOthers);
 		}
 		
-		public PropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
+		protected T checkOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			sh.checkboxHelper.checkElement(by.otherStructuresIncreasedCoverageRentedToOthers);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckOtherStructuresIncreasedCoverageRentedToOthers()
+		protected T unCheckOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			sh.checkboxHelper.unCheckElement(by.otherStructuresIncreasedCoverageRentedToOthers);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isScheduledPersonalPropertyChecked()
+		protected boolean isScheduledPersonalPropertyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.scheduledPersonalProperty);
 		}
 		
-		public PropertyEndorsements checkScheduledPersonalProperty()
+		protected T checkScheduledPersonalProperty()
 		{
+			sh.waitForNoMask();
+//			for(int i=0;i < 5;i++)
+//			{
+//				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+//				sh.waitForNoMask();
+//				if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+//					break;
+//			}
 			sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
+			sh.waitForNoMask();
+			// Sometimes the checkbox will show up as not clicked.
+			if(sh.isDisplayed(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf("1") + "']/../following-sibling::td[1]//div")))
+				sh.checkboxHelper.checkElement(by.scheduledPersonalProperty);
 			// Added because mask would appear,disappear, then reappear and it would throw error on next method.
 			try
 			{
@@ -782,147 +912,115 @@ public class Coverages extends CenterPanelBase
 				e.printStackTrace();
 			}
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckScheduledPersonalProperty()
+		protected T unCheckScheduledPersonalProperty()
 		{
 			sh.checkboxHelper.unCheckElement(by.scheduledPersonalProperty);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isCreditCardFundTransferForgeryCounterfeitMoneyChecked()
+		protected boolean isCreditCardFundTransferForgeryCounterfeitMoneyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.creditCardFundTransferForgeryCounterfeitMoney);
 		}
 		
-		public PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
+		protected T checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
 			sh.checkboxHelper.checkElement(by.creditCardFundTransferForgeryCounterfeitMoney);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckCreditCardFundTransferForgeryCounterfeitMoney()
+		protected T unCheckCreditCardFundTransferForgeryCounterfeitMoney()
 		{
 			sh.checkboxHelper.unCheckElement(by.creditCardFundTransferForgeryCounterfeitMoney);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isScreenEnclosureHurricaneCoverageChecked()
+		protected boolean isScreenEnclosureHurricaneCoverageChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.screenEnclosureHurricaneCoverage);
 		}
 		
-		public PropertyEndorsements checkScreenEnclosureHurricaneCoverage()
+		protected T checkScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.screenEnclosureHurricaneCoverage);
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckScreenEnclosureHurricaneCoverage()
+		protected T unCheckScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.unCheckElement(by.screenEnclosureHurricaneCoverage);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isWaterBackUpChecked()
+		protected boolean isWaterBackUpChecked()
 		{
 			return sh.isDisplayed(by.waterBackUpLimit);
 		}
+
 		
-		public PropertyEndorsements checkWaterBackUp()
+		protected T checkWaterBackUp()
 		{
 			sh.checkboxHelper.checkElement(by.waterBackUp);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckWaterBackUp()
+		protected T unCheckWaterBackUp()
 		{
 			sh.checkboxHelper.unCheckElement(by.waterBackUp);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isInflationGuardChecked()
+		protected boolean isInflationGuardChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.inflationGuard);
+			return sh.isDisplayed(by.percentageOfAnnualIncrease);
 		}
 		
-		public PropertyEndorsements checkInflationGuard()
+		protected T checkInflationGuard()
 		{
 			sh.checkboxHelper.checkElement(by.inflationGuard);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckInflationGuard()
+		protected T unCheckInflationGuard()
 		{
 			sh.checkboxHelper.unCheckElement(by.inflationGuard);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isSinkholeLossCoverageChecked()
+		protected boolean isSinkholeLossCoverageChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.sinkholeLossCoverage);
 		}
 		
-		public PropertyEndorsements checkSinkholeLossCoverage()
+		protected T checkSinkholeLossCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.sinkholeLossCoverage);
-			return this;
+			return (T)this;
 		}
 		
-		public PropertyEndorsements unCheckSinkholeLossCoverage()
+		protected T unCheckSinkholeLossCoverage()
 		{
 			sh.checkboxHelper.unCheckElement(by.sinkholeLossCoverage);
-			return this;
+			return (T)this;
 		}
-		public RiskAnalysis next()
+		protected T propertyEndorsementsNext()
 		{
 			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-			return new RiskAnalysis(sh,path);
+			return (T)this;
 		}
 
-		public class OtherStructuresIncreasedCoverageRentedToOthers
-		{
-			public final By table = By.xpath("//*[@id='RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//tbody[@id]");
 
-			public void clickAddOtherStructures()
-			{
-				if(sh.isDisplayed(by.addScheduledPersonalProperty))
-					sh.clickElement(by.addOtherStructures);
-				else
-					sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'A']"));
-				sh.waitForNoMask();
-			}
-
-			public void clickRemoveOtherStructures()
-			{
-				sh.clickElement(by.removeOtherStructures);
-				sh.waitForNoMask();
-			}
-
-			public OtherStructuresIncreasedCoverageRentedToOthers addOtherStructures(String description, String limit)
-			{
-				clickAddOtherStructures();
-				return this;
-			}
-
-			public class Row
-			{
-
-				public Row()
-				{
-
-				}
-			}
-		}
 
 	}
 
 
 
-	public class LiabilityEndorsements extends CenterPanelBase
+	public class LiabilityEndorsements<T extends LiabilityEndorsements> extends CenterPanelBase
 	{
 
 		private LiabilityEndorsementsBy by;
@@ -979,156 +1077,156 @@ public class Coverages extends CenterPanelBase
 
 		}
 
-		public PropertyEndorsements clickPropertyEndorsements()
+		protected T clickPropertyEndorsementsTab()
 		{
 			sh.clickElement(by.propertyEndorsements);
-			return new PropertyEndorsements(sh, path);
+			return (T)this;
 		}
-		public Coverages clickCoverages()
+		protected T clickCoveragesTab()
 		{
 			sh.clickElement(by.coverages);
-			return new Coverages(sh, path);
+			return (T)this;
 		}
 
 
-		public String getLocationName()
+		protected String getLocationName()
 		{
 			return sh.getValue(by.locationName);
 		}
 		
-		public LiabilityEndorsements setLocationName(String locationName)
+		protected T setLocationName(String locationName)
 		{
 			sh.setText(by.locationName, locationName);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
-		public String getNumberOfFamilies()
+		protected String getNumberOfFamilies()
 		{
 			return sh.getValue(by.numberOfFamilies);
 		}
 		
-		public LiabilityEndorsements setNumberOfFamilies(String numberOfFamilies)
+		protected T setNumberOfFamilies(String numberOfFamilies)
 		{
 			sh.setText(by.numberOfFamilies, numberOfFamilies);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
-		public String getWatercraftType()
+		protected String getWatercraftType()
 		{
 			return sh.getValue(by.watercraftType);
 		}
 		
-		public LiabilityEndorsements setWatercraftType(String watercraftType)
+		protected T setWatercraftType(String watercraftType)
 		{
 			sh.setText(by.watercraftType, watercraftType);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
 		
-		public String getBusinessActivity()
+		protected String getBusinessActivity()
 		{
 			return sh.getValue(by.businessActivity);
 		}
 		
-		public LiabilityEndorsements setBusinessActivity(String businessActivity)
+		protected T setBusinessActivity(String businessActivity)
 		{
 			sh.setText(by.businessActivity, businessActivity);
 			sh.tab();
 
-			return this;
+			return (T)this;
 		}
-		public boolean isPermittedIncidentalOccupancyLiabilityChecked()
+		protected boolean isPermittedIncidentalOccupancyLiabilityChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancyLiability);
 		}
 		
-		public LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
+		protected T checkPermittedIncidentalOccupancyLiability()
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancyLiability);
 			sh.waitForNoMask();
-			return this;
+			return (T)this;
 		}
 		
-		public LiabilityEndorsements unCheckPermittedIncidentalOccupancyLiability()
+		protected T unCheckPermittedIncidentalOccupancyLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.permittedIncidentalOccupancyLiability);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isAnimalLiabilityChecked()
+		protected boolean isAnimalLiabilityChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.animalLiability);
 		}
 		
-		public LiabilityEndorsements checkAnimalLiability()
+		protected T checkAnimalLiability()
 		{
 			sh.checkboxHelper.checkElement(by.animalLiability);
-			return this;
+			return (T)this;
 		}
 		
-		public LiabilityEndorsements unCheckAnimalLiability()
+		protected T unCheckAnimalLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.animalLiability);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isAdditionalResidenceRentedToOthersChecked()
+		protected boolean isAdditionalResidenceRentedToOthersChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.additionalResidenceRentedToOthers);
 		}
 		
-		public LiabilityEndorsements checkAdditionalResidenceRentedToOthers()
+		protected T checkAdditionalResidenceRentedToOthers()
 		{
 			sh.checkboxHelper.checkElement(by.additionalResidenceRentedToOthers);
-			return this;
+			return (T)this;
 		}
 		
-		public LiabilityEndorsements unCheckAdditionalResidenceRentedToOthers()
+		protected T unCheckAdditionalResidenceRentedToOthers()
 		{
 			sh.checkboxHelper.unCheckElement(by.additionalResidenceRentedToOthers);
-			return this;
+			return (T)this;
 		}
 		
-		public boolean isBusinessPursuitsChecked()
+		protected boolean isBusinessPursuitsChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.businessPursuits);
 		}
 		
-		public LiabilityEndorsements checkBusinessPursuits()
+		protected T checkBusinessPursuits()
 		{
 			sh.checkboxHelper.checkElement(by.businessPursuits);
-			return this;
+			return (T)this;
 		}
 		
-		public LiabilityEndorsements unCheckBusinessPursuits()
+		protected T unCheckBusinessPursuits()
 		{
 			sh.checkboxHelper.unCheckElement(by.businessPursuits);
-			return this;
+			return (T)this;
 		}
-		public boolean isWatercraftLiabilityChecked()
+		protected boolean isWatercraftLiabilityChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.watercraftLiability);
 		}
 		
-		public LiabilityEndorsements checkWatercraftLiability()
+		protected T checkWatercraftLiability()
 		{
 			sh.checkboxHelper.checkElement(by.watercraftLiability);
-			return this;
+			return (T)this;
 		}
 		
-		public LiabilityEndorsements unCheckWatercraftLiability()
+		protected T unCheckWatercraftLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.watercraftLiability);
-			return this;
+			return (T)this;
 		}
-		public RiskAnalysis next()
+		protected T liabilityEndorsementsNext()
 		{
 			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-			return new RiskAnalysis(sh,path);
+			return (T)this;
 		}
 		
 		

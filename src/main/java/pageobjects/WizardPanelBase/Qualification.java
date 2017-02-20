@@ -5,9 +5,9 @@ import Helpers.TableBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Qualification extends CenterPanelBase
+public abstract class Qualification<T extends Qualification> extends CenterPanelBase
 {
-	private QualificationBy by = new QualificationBy();;
+	private QualificationBy by = new QualificationBy();
 	public Questionnaire questionnaire;
 	public Qualification(CenterSeleniumHelper sh,Path path)
 	{
@@ -19,49 +19,49 @@ public class Qualification extends CenterPanelBase
 		questionnaire = new Questionnaire(sh);
 	}
 
-	public String getOfferingSelection()
+	protected String getOfferingSelection()
 	{
 		return sh.getValue(by.offeringSelection);
 	}
 
-	public Qualification setOfferingSelection(String offeringSelection)
+	protected T setOfferingSelection(String offeringSelection)
 	{
 		sh.setText(by.offeringSelection, offeringSelection);
-		return this;
+		return (T)this;
 	}
-	public Qualification setPolicyType(String policyType)
+	protected T setPolicyType(String policyType)
 	{
 		sh.setText(by.policyType, policyType);
 		sh.tab();
-		sh.waitForNoMask(15);
-		return this;
+		sh.waitForNoMask();
+		return (T)this;
 	}
 
-	public String getPolicyType()
+	protected String getPolicyType()
 	{
 		return sh.getValue(by.policyType);
 	}
 
-	public PolicyInfo next()
+	protected T policyInfoNext()
 	{
 		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
-		return new PolicyInfo(sh,path);
+		return (T)this;
 	}
 
-	public static class Questionnaire extends TableBase
+	public static class Questionnaire<T extends Questionnaire> extends TableBase
 	{
-		private Questionnaire(CenterSeleniumHelper sh)
+		protected Questionnaire(CenterSeleniumHelper sh)
 		{
 			super(By.id("SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body"), sh);
 			sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(tableId));
 		}
 
-		public String getQuestionText(int questionNum)
+		protected String getQuestionText(int questionNum)
 		{
 			return getTextTableElement(questionNum, 1);
 		}
 
-		private Questionnaire answerQuestion(int questionNum, Boolean bool)
+		private T answerQuestion(int questionNum, Boolean bool)
 		{
 			By answerBy = By.xpath("//*[@id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body']//table["
 			+ questionNum + "]//table[1]//input[@inputvalue = '" + String.valueOf(bool).toLowerCase() +"']");
@@ -73,16 +73,16 @@ public class Qualification extends CenterPanelBase
 //			}
 			sh.waitForNoMask();
 			sh.clickElement(answerBy);
-			return this;
+			return (T)this;
 		}
 
 
-		public Questionnaire answerYes(int questionNum)
+		protected T answerYes(int questionNum)
 		{
 			return answerQuestion(questionNum, true);
 		}
 
-		public Questionnaire answerNo(int questionNum)
+		protected T answerNo(int questionNum)
 		{
 			return answerQuestion(questionNum, false);
 		}

@@ -3,7 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 
-public class CreateAccount extends CenterPanelBase
+public abstract class CreateAccount<T extends CreateAccount> extends CenterPanelBase
 {
 	private CreateAccountBy by;
 	public String streetAddress, city, state;
@@ -54,16 +54,16 @@ public class CreateAccount extends CenterPanelBase
 		waitForTitle(sh);
 		System.out.println("Navigated to page: "+ expectedPanelTitle);
 	}
-	
+
 	public String getHomePhone()
 	{
 		return sh.getValue(by.homePhone);
 	}
 	
-	public CreateAccount setHomePhone(String homePhone)
+	public T setHomePhone(String homePhone)
 	{
 		sh.setText(by.homePhone, homePhone);
-		return this;
+		return (T)this;
 	}
 	
 	public String getPreferredLanguage()
@@ -71,10 +71,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.preferredLanguage);
 	}
 	
-	public CreateAccount setPreferredLanguage(String preferredLanguage)
+	public T setPreferredLanguage(String preferredLanguage)
 	{
 		sh.setText(by.preferredLanguage, preferredLanguage);
-		return this;
+		return (T)this;
 	}
 	
 	public String getSsn()
@@ -82,10 +82,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.ssn);
 	}
 	
-	public CreateAccount setSsn(String ssn)
+	public T setSsn(String ssn)
 	{
 		sh.setText(by.ssn, ssn);
-		return this;
+		return (T)this;
 	}
 	
 	public String getDescription()
@@ -93,20 +93,20 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.description);
 	}
 	
-	public CreateAccount setDescription(String description)
+	public T setDescription(String description)
 	{
 		sh.setText(by.description, description);
-		return this;
+		return (T)this;
 	}
 	public String getCounty()
 	{
 		return sh.getValue(by.county);
 	}
 	
-	public CreateAccount setCounty(String county)
+	public T setCounty(String county)
 	{
 		sh.setText(by.county, county);
-		return this;
+		return (T)this;
 	}
 	public String getPrimaryPhone()
 	{
@@ -122,21 +122,21 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.secondaryEmail);
 	}
 	
-	public CreateAccount setSecondaryEmail(String secondaryEmail)
+	public T setSecondaryEmail(String secondaryEmail)
 	{
 		sh.setText(by.secondaryEmail, secondaryEmail);
-		return this;
+		return (T)this;
 	}
-	public CreateAccount setPrimaryEmail(String primaryEmail)
+	public T setPrimaryEmail(String primaryEmail)
 	{
 		sh.setText(by.primaryEmail, primaryEmail);
-		return this;
+		return (T)this;
 	}
-	public CreateAccount setPrimaryPhone(String primaryPhone)
+	public T setPrimaryPhone(String primaryPhone)
 	{
 		sh.setText(by.primaryPhone, primaryPhone);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	
 	public String getFaxPhone()
@@ -146,20 +146,20 @@ public class CreateAccount extends CenterPanelBase
 	
 	
 	
-	public CreateAccount setFaxPhone(String faxPhone)
+	public T setFaxPhone(String faxPhone)
 	{
 		sh.setText(by.faxPhone, faxPhone);
-		return this;
+		return (T)this;
 	}
 	public String getMobilePhone()
 	{
 		return sh.getValue(by.mobilePhone);
 	}
 	
-	public CreateAccount setMobilePhone(String mobilePhone)
+	public T setMobilePhone(String mobilePhone)
 	{
 		sh.setText(by.mobilePhone, mobilePhone);
-		return this;
+		return (T)this;
 	}
 	
 	public String getWorkPhone()
@@ -167,10 +167,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.workPhone);
 	}
 	
-	public CreateAccount setWorkPhone(String workPhone)
+	public T setWorkPhone(String workPhone)
 	{
 		sh.setText(by.workPhone, workPhone);
-		return this;
+		return (T)this;
 	}
 	
 	public String getCountry()
@@ -178,10 +178,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.country);
 	}
 
-	public CreateAccount setCountry(String country)
+	public T setCountry(String country)
 	{
 		sh.setText(by.country, country);
-		return this;
+		return (T)this;
 	}
 	
 	public String getAddressLine2()
@@ -189,10 +189,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.address2);
 	}
 	
-	public CreateAccount setAddressLine2(String address2)
+	public T setAddressLine2(String address2)
 	{
 		sh.setText(by.address2, address2);
-		return this;
+		return (T)this;
 	}
 	
 	public String getAddressLine3()
@@ -200,10 +200,10 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.address3);
 	}
 	
-	public CreateAccount setAddressLine3(String address3)
+	public T setAddressLine3(String address3)
 	{
 		sh.setText(by.address3, address3);
-		return this;
+		return (T)this;
 	}
 	
 	public String getDateOfBirth()
@@ -211,42 +211,51 @@ public class CreateAccount extends CenterPanelBase
 		return sh.getValue(by.dateOfBirth);
 	}
 	
-	public CreateAccount setDateOfBirth(String dateOfBirth)
+	public T setDateOfBirth(String dateOfBirth)
 	{
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	
 	
-	public AccountFileSummary clickUpdate()
+	public T update()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.updateBtn);
-		return new AccountFileSummary(sh);
+		return (T)this;
 	}
 
 	//region Contact Input Set
 
-	public CreateAccount setFirstName(String firstName)
+	public T setFirstName(String firstName)
 	{
 		sh.setText(by.firstName, firstName);
-		return this;
+		return (T)this;
+	}
+	public String getFirstName()
+	{
+		return sh.getValue(by.firstName);
 	}
 
-	public CreateAccount setLastName(String lastName)
+
+	public T setLastName(String lastName)
 	{
 		sh.setText(by.lastName, lastName);
-		return this;
+		return (T)this;
+	}
+	public String getLastName()
+	{
+		return sh.getValue(by.lastName);
 	}
 
 	//endregion
 
-	public CreateAccount setAddressLine1(String address)
+	public T setAddressLine1(String address)
 	{
 		sh.setText(by.address1, address);
 //		sh.tab();
-		return this;
+		return (T)this;
 	}
 	public String getAddressLine1()
 	{
@@ -255,18 +264,22 @@ public class CreateAccount extends CenterPanelBase
 
 
 
-	public CreateAccount  setCity(String city)
+	public T  setCity(String city)
 	{
 		sh.setText(by.city, city);
 //		sh.tab();
-		return this;
+		return (T)this;
+	}
+	public String getCity()
+	{
+		return sh.getValue(by.city);
 	}
 
-	public CreateAccount setState(String state)
+	public T setState(String state)
 	{
 		sh.setText(by.state, state);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	public String getState()
 	{
@@ -274,62 +287,90 @@ public class CreateAccount extends CenterPanelBase
 	}
 
 
-	public CreateAccount setZipCode(String zip)
+	public T setZipCode(String zip)
 	{
 		sh.setText(by.zip, zip);
 		sh.tab();
 		sh.waitForNoMask();
 		sh.waitForPageLoad();
-		return this;
+		return (T)this;
+	}
+	public String getZipCode()
+	{
+		return sh.getValue(by.zip);
 	}
 
-	public SelectStandardizedAddress clickVerifyAddress()
+
+	public T verifyAddress()
 	{
+		for(int i = 0;i<5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(!sh.isMaskPresent())
+				break;
+
+		}
 		sh.waitForNoMask();
 		sh.waitForPageLoad();
 		sh.clickElement(by.verifyAddress);
-		return new SelectStandardizedAddress(sh);
+		return (T)this;
 	}
 
-	public CreateAccount setAddressType(String addressType)
+	public T setAddressType(String addressType)
 	{
 		sh.setText(by.addressType, addressType);
 		sh.tab();
-		return this;
+		return (T)this;
 	}
 	public String getAddressType()
 	{
 		return sh.getValue(by.addressType);
 	}
 
-	public CreateAccount setOrganization(String organization)
+	public T setOrganization(String organization)
 	{
 		sh.setText(by.organization, organization);
 		sh.tab();
-		return this;
+		return (T)this;
+	}
+	public String getOrganization()
+	{
+		return sh.getValue(by.organization);
 	}
 
-	public CreateAccount setProducerCode(String producerCode)
+	public T setProducerCode(String producerCode)
 	{
 		sh.setText(by.producerCode, producerCode);
 		sh.tab();
-		return this;
+		return (T)this;
+	}
+	public String getProducerCode()
+	{
+		return sh.getValue(by.producerCode);
 	}
 
-	public CreateAccount clickProducerCode()
+	public T clickProducerCode()
 	{
 		sh.clickElement(By.cssSelector(".x-boundlist-selected"));
-		return this;
+		return (T)this;
 	}
-	public Organizations clickOrganizationSearch()
+	public T organizationSearch()
 	{
 		sh.clickElement(by.organizationSearchButton);
-		return new Organizations(sh);
+		return (T)this;
 	}
 
-	public CreateAccount clickProducerCodeDropdown()
+	public T clickProducerCodeDropdown()
 	{
 		sh.clickElement(by.producerCodeDropdown);
-		return this;
+		return (T)this;
 	}
 }

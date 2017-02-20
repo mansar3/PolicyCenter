@@ -4,10 +4,11 @@ import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 
-public class AccountFileSummary extends CenterPanelBase
+public abstract class AccountFileSummary<T extends AccountFileSummary> extends CenterPanelBase
 {
 	private AccountFileSummaryBy by = new AccountFileSummaryBy();
 	public AccountFileSummaryWestPanel westPanel;
+
 	public AccountFileSummary(CenterSeleniumHelper sh)
 	{
 		this.sh = sh;
@@ -20,11 +21,19 @@ public class AccountFileSummary extends CenterPanelBase
 	public class AccountFileSummaryBy extends CenterPanelBy
 	{
 		private  String	screen = "AccountFile_Summary:AccountFile_SummaryScreen:";
-		public By	accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl");
+		public By	accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl"),
+					transactionNumber = By.id(screen + "AccountFile_Summary_WorkOrdersLV:0:WorkOrderNumber");
 	}
 
-	public String getAccountNumber()
+	protected String getAccountNumber()
 	{
+		sh.waitForNoMask();
 		return sh.getText(by.accountNumber);
+	}
+
+	public <T extends CenterPanelBase> T clickTransactionNumber()
+	{
+		sh.clickElement(by.transactionNumber);
+		return (T)this;
 	}
 }
