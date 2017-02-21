@@ -135,25 +135,36 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] ALHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170217_094130/ALHO3-20170217_094535/");
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_084451/ALHO3-20170221_084727/");
 	}
 
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170217_094130/FLHO3-20170217_094136/");
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_084451/FLHO3-20170221_084501/");
 	}
+	@DataProvider(parallel = true)
+	public static Object[][] FLHO6Data()
+	{
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_084451/FLHO6-20170221_084750/");
+	}
+
 
 	@DataProvider(parallel = true)
 	public static Object[][] NCHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170217_094130/NCHO3-20170217_094318/");
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_084451/NCHO3-20170221_084738/");
 	}
 
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170217_094130/SCHO3-20170217_094215/");
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_084451/SCHO3-20170221_084538/");
+	}
+	@DataProvider(parallel = true)
+	public static Object[][] SCHO6Data()
+	{
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170221_105742/SCHO6-20170221_110756/");
 	}
 
 	public static Object[][] DataCreator(String filePathBase)

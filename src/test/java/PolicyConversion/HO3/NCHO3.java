@@ -18,13 +18,14 @@ import org.testng.annotations.Test;
 import pageobjects.Login;
 import pageobjects.NCHO3.*;
 import pageobjects.WizardPanelBase.AccountFileSummary;
-import pageobjects.WizardPanelBase.CenterPanelBase;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 /**
  * Created by aansari on 2/8/17.
@@ -51,7 +52,7 @@ public class NCHO3 extends BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = "mcoad", pwd = "";
+		String user = userName, pwd = "";
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Login login = new Login(new CenterSeleniumHelper(driver), sessionInfo);
 		login.load();
@@ -1321,72 +1322,5 @@ public class NCHO3 extends BaseTest
 	}
 	
 	
-	private String[] errorReportingInfo(Map<String, String> eai, boolean result)
-	{
-		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
-		String[] info;
-		if(sh.isDisplayed(By.className("error_icon")))
-			info = new String[16 + sh.getElements(By.className("error_icon")).size()];
-		else
-			info = new String[16];
-		//String[] info = new String[25]; //logs = baos.toString().split("\n");
-		if(result)
-			info[0] = "PASS";
-		else
-			info[0] = "FAIL";
-		if(eai.get("Account Number") != null)
-			info[1] = eai.get("Account Number");
-		info[2] = eai.get("Legacy Policy Number");
-		info[3] = eai.get("Effective Date");
-		if(eai.get("Annualized Total Cost") != null)
-			info[4] = String.valueOf(Math.abs(Double.parseDouble(eai.get("Total Cost")) - Double.parseDouble(eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]",""))));
-		info[5] = eai.get("Year Built");
-		info[6] = eai.get("Construction Type");
-		info[7] = eai.get("Dwelling Limit");
-		info[8] = eai.get("Territory Code");
-		info[9] = eai.get("Section I Deductibles - AOP");
-		if(eai.get("Whensafe - %") != null)
-			info[10] = eai.get("Whensafe - %");
-		else
-			info[10] = "NA";
-		if(!result)
-			try
-			{
-				info[11] = sh.getText(CenterPanelBase.CenterPanelBy.title);
-			}
-			catch(Exception e)
-			{
-				info[11] = "Last page cannot be obtained";
-			}
 
-		if(eai.get("Annualized Total Cost") != null)
-			info[12] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
-
-		if(eai.get("Submitted for Approval") != null)
-			info[14] = eai.get("Submitted for Approval");
-		if(sh.isDisplayed(By.className("error_icon")))
-		{
-			String[] warnings = getBannerErrors(sh);
-			for(int i = 0; i < warnings.length ; i++)
-				info[15 + i] = warnings[i];
-		}
-
-		return info;
-
-
-
-
-	}
-	private String[] getBannerErrors(CenterSeleniumHelper sh)
-	{
-		List<WebElement> errors = sh.getElements(By.className("message"));
-		String[] bannerText = new String[errors.size()];
-
-		for(int i = 0; i < errors.size(); i++)
-		{
-			bannerText[i] = errors.get(i).getText();
-		}
-		return bannerText;
-
-	}
 }

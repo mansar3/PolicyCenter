@@ -32,10 +32,6 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 	{
 		return super.getRoofYear();
 	}
-	public SCHO6DwellingConstruction setValuationType(String text)
-	{
-		return super.setValuationType(text);
-	}
 
 	public String getValuationType()
 	{

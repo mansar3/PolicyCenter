@@ -167,8 +167,8 @@ public class AlabamaHO3 extends BaseTest
 
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
-        ALHO3AccountFileSummary afs = sa.setFirstname(firstname)
-                .setLastname(lastname)
+        ALHO3AccountFileSummary afs = sa.setFirstName(firstname)
+                .setLastName(lastname)
                 .clickSearchButton()
                 .clickAccountNumberSearchAccount();
 
@@ -374,8 +374,8 @@ public class AlabamaHO3 extends BaseTest
 
         ALHO3SearchAccounts sa = nb.clickSearchAccount();
         log(itc.getName());
-        sa.setFirstname(firstname)
-                .setLastname(lastname)
+        sa.setFirstName(firstname)
+                .setLastName(lastname)
                 .clickSearchButton()
                 .clickAccountNumberSearchAccount();
         System.out.println(String.format("%s, %s", firstname, lastname));

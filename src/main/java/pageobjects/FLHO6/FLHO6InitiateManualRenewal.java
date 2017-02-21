@@ -84,18 +84,10 @@ public class FLHO6InitiateManualRenewal extends InitiateManualRenewal<FLHO6Initi
 	{
 		return super.getEffectiveDate();
 	}
-	public FLHO6InitiateManualRenewal setLastInspectionCompletionDate(String text)
-	{
-		return super.setLastInspectionCompletionDate(text);
-	}
 
 	public String getLastInspectionCompletionDate()
 	{
 		return super.getLastInspectionCompletionDate();
-	}
-	public FLHO6InitiateManualRenewal setInflationGuard(String text)
-	{
-		return super.setInflationGuard(text);
 	}
 
 	public String getInflationGuard()
@@ -111,11 +103,7 @@ public class FLHO6InitiateManualRenewal extends InitiateManualRenewal<FLHO6Initi
 	{
 		return super.getTheftCoverage();
 	}
-	public FLHO6InitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
-	{
-		return super.clickExcludeLossOfUseCoverage(bool);
 
-	}
 	public FLHO6InitiateManualRenewal nextAndDismiss()
 	{
 		return super.nextANDDismiss();

@@ -69,8 +69,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	{
 		sh.waitForNoMask();
 		sh.setText(by.distanceToFireHydrant, distanceToFireHydrant);
-		sh.waitForNoMask();
 		sh.tab();
+		sh.waitForNoMask();
 //		if(path != Path.POLICYRENEWAL)
 //			sh.waitForValue(by.territoryCode,10);
 

@@ -127,6 +127,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 	protected T  setEffectiveDate(String effectiveDate)
 	{
 		sh.setText(by.effectiveDate, effectiveDate);
+		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
 	}

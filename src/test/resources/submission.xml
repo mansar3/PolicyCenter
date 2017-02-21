@@ -4,7 +4,7 @@
 	<parameter name="environment" value="47" />
 	<parameter name="local" value="false" />
 	<parameter name="threads" value="30" />
-
+	<parameter name="userName" value="mcoad" />
 	<test name="Submission ETL">
         <classes>
             <class name="PolicyConversion.HO3.ALHO3">
@@ -23,6 +23,11 @@
                 </methods>
             </class>
 			<class name="PolicyConversion.HO3.SCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
+			<class name="PolicyConversion.HO6.FLHO6">
                 <methods>
                     <include name="SubmissionLoadTest"></include>
                 </methods>

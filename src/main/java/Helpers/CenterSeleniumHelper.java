@@ -45,14 +45,23 @@ public class CenterSeleniumHelper
 	}
 	public void setTextAndTab(By byLocator, String text)
 	{
+
 		if(text != null)
 		{
+			wait(50).until(ExpectedConditions.refreshed(driver1 ->
+			{
+				driver1.findElement(byLocator).sendKeys("");
+				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
+					return false;
+				return true;
+
+			}));
 			driver.findElement(byLocator).sendKeys("");
 			driver.findElement(byLocator).clear();
 			driver.findElement(byLocator).sendKeys(text);
 			tab();
 			waitForNoMask();
-			Assert.assertSame("Expected value:" +text+ "\t Actual value: " + getValue(byLocator),text, getValue(byLocator));
+			Assert.assertEquals("Expected value: '" +text+ "'\t Actual value: '" + getValue(byLocator) + "'",text, getValue(byLocator));
 
 		}
 	}

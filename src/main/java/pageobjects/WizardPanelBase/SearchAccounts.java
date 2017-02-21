@@ -27,13 +27,13 @@ public class SearchAccounts<T extends SearchAccounts> extends CenterPanelBase
                  accountNumber = By.id("AccountSearch:AccountSearchScreen:AccountSearchResultsLV:0:AccountNumber");
     }
 
-    protected T setFirstname(String firstname)
+    protected T setFirstName(String firstname)
     {
         sh.getElement(by._firstname).sendKeys(firstname);
         return (T)this;
     }
 
-    protected T setLastname(String lastname)
+    protected T setLastName(String lastname)
     {
         sh.getElement(by._lastname).sendKeys(lastname);
         return (T)this;
@@ -46,7 +46,7 @@ public class SearchAccounts<T extends SearchAccounts> extends CenterPanelBase
         return (T)this;
     }
 
-    protected T clickAccountNumber()
+    protected T selectFirstAccountNumber()
     {
         sh.waitForNoMask();
         sh.clickElement(by.accountNumber);

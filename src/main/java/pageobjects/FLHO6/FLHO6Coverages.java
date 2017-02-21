@@ -184,6 +184,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.getWaterBackUpLimit();
 		}
+
+		public boolean isOccurrenceAggregateLimitEditable()
+		{
+			return super.isOccurrenceAggregateLimitEditable();
+		}
 		public FLHO6PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
 			return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
@@ -397,6 +402,16 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.checkSinkholeLossCoverage();
 		}
+		public FLHO6PropertyEndorsements checkUnitOwnersCoverageASpecialCoverage()
+		{
+			return super.checkUnitOwnersCoverageASpecialCoverage();
+
+		}
+		public FLHO6PropertyEndorsements checkUnitOwnersRentedToOthers()
+		{
+			return super.checkUnitOwnersRentedToOthers();
+		}
+
 		public FLHO6RiskAnalysis next()
 		{
 			super.propertyEndorsementsNext();

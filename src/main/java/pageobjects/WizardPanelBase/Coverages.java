@@ -61,7 +61,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		// Used to prevent Stale Element Exception
 		sh.waitForNoMask();
 		// In place in case mask disappears but value still isn't loaded
-		sh.waitForValue(by.personalPropertyLimit,15);
+		//sh.waitForValue(by.personalPropertyLimit,15);
 		return (T)this;
 	}
 
@@ -365,6 +365,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.isElementEnabled(by.personalLiabilityLimit);
 	}
 
+	protected T clickSaveDraftCoverages()
+	{
+		sh.clickElement(by.saveDraft);
+		return (T)this;
+	}
+
 	public class PropertyEndorsements<T extends PropertyEndorsements> extends CenterPanelBase
 	{
 		private PropertyEndorsementsBy by;
@@ -436,6 +442,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			specificAdditionalAmountOfCoverageA = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/..//input"),
 			specificAdditionalAmountOfCoverageALimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/../../div//span[text() = 'Limit']/../..//div/div"),
 
+			unitOwnersCoverageASpecialCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Unit Owners Coverage A - Special Coverage']/..//input"),
+			unitOwnersRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Unit Owners Rented to Others']/..//input"),
+
 			earthquakeLossAssessment = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
 			earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
@@ -454,9 +463,19 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
-			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
+			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
 			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
 
+		}
+		protected T checkUnitOwnersCoverageASpecialCoverage()
+		{
+			sh.clickElement(by.unitOwnersCoverageASpecialCoverage);
+			return (T)this;
+		}
+		protected T checkUnitOwnersRentedToOthers()
+		{
+			sh.clickElement(by.unitOwnersRentedToOthers);
+			return (T)this;
 		}
 		protected T checkSpecificAdditionalAmountOfCoverageA()
 		{
@@ -779,12 +798,14 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setOccurrenceAggregateLimit(String occurenceAggregateLimit)
 		{
-			sh.setText(by.occurrenceAggregateLimit, occurenceAggregateLimit);
-			sh.tab();
+			sh.setTextAndTab(by.occurrenceAggregateLimit, occurenceAggregateLimit);
 
 			return (T)this;
 		}
-
+		protected boolean isOccurenceAggregateLimitEditable()
+		{
+			return sh.isDisplayed(by.occurrenceAggregateLimit);
+		}
 		protected String getLossAssessmentLimit()
 		{
 			return sh.getValue(by.lossAssessmentLimit);
@@ -815,8 +836,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
 		{
-			sh.setText(by.ordinanceOrLawLimit, ordinanceOrLawLimit);
-			sh.tab();
+			sh.waitForNoMask();
+			sh.setTextAndTab(by.ordinanceOrLawLimit, ordinanceOrLawLimit);
+
 
 			return (T)this;
 		}
@@ -855,12 +877,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 				return true;
 			return false;
 		}
-		
+
 		protected String getSinkholeClaimsIndex()
 		{
 			return sh.getValue(by.sinkholeClaimsIndex);
 		}
-		
+
 		protected T setSinkholeClaimsIndex(String sinkholeClaimsIndex)
 		{
 			sh.setText(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
@@ -872,7 +894,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.getValue(by.screenEnclosureHurricaneCoverageLimit);
 		}
-		
+
 		protected T setScreenEnclosureHurricaneCoverageLimit(String screenEnclosureHurricaneCoverageLimit)
 		{
 			sh.setText(by.screenEnclosureHurricaneCoverageLimit, screenEnclosureHurricaneCoverageLimit);
@@ -880,46 +902,46 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForNoMask();
 			return (T)this;
 		}
-		
+
 		protected boolean isWhenSafeChecked()
 		{
 			return sh.isDisplayed(by.creditPercentage);
 		}
-		
+
 		protected T checkWhenSafe()
 		{
 			sh.checkboxHelper.checkElement(by.whenSafe);
 			return (T)this;
 		}
-		
+
 		protected T unCheckWhenSafe()
 		{
 			sh.checkboxHelper.unCheckElement(by.whenSafe);
 			return (T)this;
 		}
-		
+
 		protected boolean isOtherStructuresIncreasedCoverageRentedToOthersChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.otherStructuresIncreasedCoverageRentedToOthers);
 		}
-		
+
 		protected T checkOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			sh.checkboxHelper.checkElement(by.otherStructuresIncreasedCoverageRentedToOthers);
 			return (T)this;
 		}
-		
+
 		protected T unCheckOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			sh.checkboxHelper.unCheckElement(by.otherStructuresIncreasedCoverageRentedToOthers);
 			return (T)this;
 		}
-		
+
 		protected boolean isScheduledPersonalPropertyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.scheduledPersonalProperty);
 		}
-		
+
 		protected T checkScheduledPersonalProperty()
 		{
 			sh.waitForNoMask();
@@ -947,94 +969,94 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForNoMask();
 			return (T)this;
 		}
-		
+
 		protected T unCheckScheduledPersonalProperty()
 		{
 			sh.checkboxHelper.unCheckElement(by.scheduledPersonalProperty);
 			return (T)this;
 		}
-		
+
 		protected boolean isCreditCardFundTransferForgeryCounterfeitMoneyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.creditCardFundTransferForgeryCounterfeitMoney);
 		}
-		
+
 		protected T checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
 			sh.checkboxHelper.checkElement(by.creditCardFundTransferForgeryCounterfeitMoney);
 			return (T)this;
 		}
-		
+
 		protected T unCheckCreditCardFundTransferForgeryCounterfeitMoney()
 		{
 			sh.checkboxHelper.unCheckElement(by.creditCardFundTransferForgeryCounterfeitMoney);
 			return (T)this;
 		}
-		
+
 		protected boolean isScreenEnclosureHurricaneCoverageChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.screenEnclosureHurricaneCoverage);
 		}
-		
+
 		protected T checkScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.screenEnclosureHurricaneCoverage);
 			sh.waitForNoMask();
 			return (T)this;
 		}
-		
+
 		protected T unCheckScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.unCheckElement(by.screenEnclosureHurricaneCoverage);
 			return (T)this;
 		}
-		
+
 		protected boolean isWaterBackUpChecked()
 		{
 			return sh.isDisplayed(by.waterBackUpLimit);
 		}
 
-		
+
 		protected T checkWaterBackUp()
 		{
 			sh.checkboxHelper.checkElement(by.waterBackUp);
 			return (T)this;
 		}
-		
+
 		protected T unCheckWaterBackUp()
 		{
 			sh.checkboxHelper.unCheckElement(by.waterBackUp);
 			return (T)this;
 		}
-		
+
 		protected boolean isInflationGuardChecked()
 		{
 			return sh.isDisplayed(by.percentageOfAnnualIncrease);
 		}
-		
+
 		protected T checkInflationGuard()
 		{
 			sh.checkboxHelper.checkElement(by.inflationGuard);
 			return (T)this;
 		}
-		
+
 		protected T unCheckInflationGuard()
 		{
 			sh.checkboxHelper.unCheckElement(by.inflationGuard);
 			return (T)this;
 		}
-		
+
 		protected boolean isSinkholeLossCoverageChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.sinkholeLossCoverage);
 		}
-		
+
 		protected T checkSinkholeLossCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.sinkholeLossCoverage);
 			return (T)this;
 		}
-		
+
 		protected T unCheckSinkholeLossCoverage()
 		{
 			sh.checkboxHelper.unCheckElement(by.sinkholeLossCoverage);
@@ -1126,7 +1148,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.getValue(by.locationName);
 		}
-		
+
 		protected T setLocationName(String locationName)
 		{
 			sh.setText(by.locationName, locationName);
@@ -1138,7 +1160,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.getValue(by.numberOfFamilies);
 		}
-		
+
 		protected T setNumberOfFamilies(String numberOfFamilies)
 		{
 			sh.setText(by.numberOfFamilies, numberOfFamilies);
@@ -1150,7 +1172,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.getValue(by.watercraftType);
 		}
-		
+
 		protected T setWatercraftType(String watercraftType)
 		{
 			sh.setText(by.watercraftType, watercraftType);
@@ -1158,12 +1180,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			return (T)this;
 		}
-		
+
 		protected String getBusinessActivity()
 		{
 			return sh.getValue(by.businessActivity);
 		}
-		
+
 		protected T setBusinessActivity(String businessActivity)
 		{
 			sh.setText(by.businessActivity, businessActivity);
@@ -1175,65 +1197,65 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancyLiability);
 		}
-		
+
 		protected T checkPermittedIncidentalOccupancyLiability()
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancyLiability);
 			sh.waitForNoMask();
 			return (T)this;
 		}
-		
+
 		protected T unCheckPermittedIncidentalOccupancyLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.permittedIncidentalOccupancyLiability);
 			return (T)this;
 		}
-		
+
 		protected boolean isAnimalLiabilityChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.animalLiability);
 		}
-		
+
 		protected T checkAnimalLiability()
 		{
 			sh.checkboxHelper.checkElement(by.animalLiability);
 			return (T)this;
 		}
-		
+
 		protected T unCheckAnimalLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.animalLiability);
 			return (T)this;
 		}
-		
+
 		protected boolean isAdditionalResidenceRentedToOthersChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.additionalResidenceRentedToOthers);
 		}
-		
+
 		protected T checkAdditionalResidenceRentedToOthers()
 		{
 			sh.checkboxHelper.checkElement(by.additionalResidenceRentedToOthers);
 			return (T)this;
 		}
-		
+
 		protected T unCheckAdditionalResidenceRentedToOthers()
 		{
 			sh.checkboxHelper.unCheckElement(by.additionalResidenceRentedToOthers);
 			return (T)this;
 		}
-		
+
 		protected boolean isBusinessPursuitsChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.businessPursuits);
 		}
-		
+
 		protected T checkBusinessPursuits()
 		{
 			sh.checkboxHelper.checkElement(by.businessPursuits);
 			return (T)this;
 		}
-		
+
 		protected T unCheckBusinessPursuits()
 		{
 			sh.checkboxHelper.unCheckElement(by.businessPursuits);
@@ -1243,13 +1265,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.checkboxHelper.isChecked(by.watercraftLiability);
 		}
-		
+
 		protected T checkWatercraftLiability()
 		{
 			sh.checkboxHelper.checkElement(by.watercraftLiability);
 			return (T)this;
 		}
-		
+
 		protected T unCheckWatercraftLiability()
 		{
 			sh.checkboxHelper.unCheckElement(by.watercraftLiability);
@@ -1261,9 +1283,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return (T)this;
 		}
-		
-		
-		
+
+
+
 
 	}
 }

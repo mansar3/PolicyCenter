@@ -10,14 +10,14 @@ public class ALHO3SearchAccounts extends SearchAccounts<ALHO3SearchAccounts>
         super(sh);
     }
 
-    public ALHO3SearchAccounts setFirstname(String firstname)
+    public ALHO3SearchAccounts setFirstName(String firstname)
     {
-        return super.setFirstname(firstname);
+        return super.setFirstName(firstname);
     }
 
-    public ALHO3SearchAccounts setLastname(String lastname)
+    public ALHO3SearchAccounts setLastName(String lastname)
     {
-        return super.setLastname(lastname);
+        return super.setLastName(lastname);
     }
 
     public ALHO3SearchAccounts clickSearchButton()
@@ -27,7 +27,7 @@ public class ALHO3SearchAccounts extends SearchAccounts<ALHO3SearchAccounts>
 
     public ALHO3AccountFileSummary clickAccountNumberSearchAccount()
     {
-        super.clickAccountNumber();
+        super.selectFirstAccountNumber();
         return new ALHO3AccountFileSummary(sh);
     }
 }
