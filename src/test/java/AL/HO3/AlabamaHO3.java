@@ -155,6 +155,14 @@ public class AlabamaHO3 extends BaseTest
         String windHail, expectedWindHail = "2%",
                 windHailDeductible, expectedWindHailDeductible = "12,000";
         String medicalPaymentsLimit, medicalPaymentsLimitDefault = "1,000";
+        String fungiOccurrenceAggregateLimit,
+                expectedFungiOccurrenceAggregateLimit = "25,000 / 50,000";
+        String lossAssessmentLimit,
+                expectedLossAssessmentLimit = "5,000";
+        String ordinanceOrLawLimit, expectedOrdinanceOrLawLimit = "10%";
+        String waterBackUpLimit, expectedWaterBackUpLimit = "5,000";
+        String inflationGuardAnnualIncrease, expectedInflationGuardAnnualIncrease = "4%";
+
 
 
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
@@ -309,6 +317,51 @@ public class AlabamaHO3 extends BaseTest
                                 ", but it was " + medicalPaymentsLimit);
         ALHO3Coverages.ALHO3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
 
+        /* Fungi Occurrence/Aggregate */
+        Assert.assertTrue(pe.isOccurrenceAggregateLimitRequired(),
+                "Fungi Occurrence/Aggregate Limit was expected to be required but it was not");
+        fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
+        Assert.assertTrue(expectedFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
+                        "Fungi Occurrence/Aggregate Limit was expected to be " + expectedFungiOccurrenceAggregateLimit +
+                                ", but it was " + fungiOccurrenceAggregateLimit);
+         Assert.assertTrue(pe.isOccurrenceAggregateLimitEditable(),
+                 "Fungi Occurrence/Aggregate Limit was expected to be editable bur it was not");
+
+         /* Loss Assessment */
+        Assert.assertTrue(pe.isLossAssessmentLimitRequired(),
+                "Loss Assessment Limit was expected to be required but it was not");
+        lossAssessmentLimit = pe.getLossAssessmentLimit();
+        Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
+                "Loss Assessment Limit was expected to be " + expectedLossAssessmentLimit +
+                        ", but it was " + lossAssessmentLimit);
+        Assert.assertTrue(pe.isLossAssessmentLimitEditable(),
+                "Loss Assessment Limit was expected to be editable bur it was not");
+
+        /* Ordinance or Law */
+        ordinanceOrLawLimit = pe.getOrdinanceOrLawLimit();
+        Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
+                "Ordinance or Law Limit was expected to be " + expectedOrdinanceOrLawLimit +
+                        ", but it was " + ordinanceOrLawLimit);
+        Assert.assertFalse(pe.isOrdinanceOrLawLimitEditable(),
+                "Ordinance or Law Limit was not expected to be editable bur it was");
+
+        /* Water Backup */
+        waterBackUpLimit = pe.getWaterBackUpLimit();
+        Assert.assertTrue(expectedWaterBackUpLimit.equals(waterBackUpLimit),
+                "Water Back Up Limit is expected to be " + expectedWaterBackUpLimit +
+                        ", but it was " + waterBackUpLimit);
+        Assert.assertFalse(pe.isWaterBackUpLimitEditable(),
+                "Water Back Up Limit was not expected to be editable bur it was");
+
+        /* Inflation Guard */
+        pe.isInflationGuardChecked();
+        inflationGuardAnnualIncrease = pe.getPercentageOfAnnualIncrease();
+        Assert.assertTrue(expectedInflationGuardAnnualIncrease.equals(inflationGuardAnnualIncrease),
+                        "Inflation Guard Annual Increase was expected to be " + expectedInflationGuardAnnualIncrease +
+                                ", but it was " + inflationGuardAnnualIncrease);
+
+        ALHO3Coverages.ALHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+        coverages.clickSaveDraftCoverages();
     }
 
     @Test(description = "AL.HO3.ProductModel.More.001")

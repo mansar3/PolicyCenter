@@ -291,7 +291,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
-								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input");
+								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
+								saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
 
 								//creditValue = By.id("")
 
@@ -362,6 +363,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected boolean isPersonalLiabilityDropdownEnabled()
 	{
 		return sh.isElementEnabled(by.personalLiabilityLimit);
+	}
+
+	protected T clickSaveDraftCoverages()
+	{
+		sh.clickElement(by.saveDraft);
+		return (T)this;
 	}
 
 	public class PropertyEndorsements<T extends PropertyEndorsements> extends CenterPanelBase
@@ -453,8 +460,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
-			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input");
-
+			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
+			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
 
 		}
 		protected T checkSpecificAdditionalAmountOfCoverageA()
@@ -756,6 +763,26 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return sh.getValue(by.occurrenceAggregateLimit);
 		}
 
+		protected boolean isOccurrenceAggregateLimitRequired()
+		{
+			return sh.isFieldMarkedRequired(by.occurrenceAggregateLimit);
+		}
+
+		protected boolean isOccurrenceAggregateLimitEditable()
+		{
+			return sh.isElementEditable(by.occurrenceAggregateLimit);
+		}
+
+		protected boolean isOrdinanceOrLawEditable()
+		{
+			return sh.isElementEditable(by.ordinanceOrLawLimit);
+		}
+
+		protected boolean isWaterBackUpLimitEditable()
+		{
+			return sh.isElementEditable(by.waterBackUpLimit);
+		}
+
 		protected T setOccurrenceAggregateLimit(String occurenceAggregateLimit)
 		{
 			sh.setText(by.occurrenceAggregateLimit, occurenceAggregateLimit);
@@ -777,6 +804,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected boolean isLossAssessmentLimitRequired()
+		{
+			return sh.isFieldMarkedRequired(by.lossAssessmentLimit);
+		}
+
+		protected boolean isLossAssessmentLimitEditable()
+		{
+			return sh.isElementEditable(by.lossAssessmentLimit);
+		}
+
 		protected String getOrdinanceOrLawLimit()
 		{
 			return sh.getValue(by.ordinanceOrLawLimit);
@@ -792,7 +829,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getPercentageOfAnnualIncrease()
 		{
-			return sh.getValue(by.percentageOfAnnualIncrease);
+			return sh.getValue(by.percentageOfAnnualIncrease) == null ?
+					sh.getText(by.percentageOfAnnualIncrease) :
+					sh.getValue(by.percentageOfAnnualIncrease);
 		}
 
 		protected T setPercentageOfAnnualIncrease(String percentageOfAnnualIncrease)

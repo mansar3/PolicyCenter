@@ -243,6 +243,11 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return new ALHO3PropertyEndorsements(sh,path);
 	}
 
+	public ALHO3Coverages clickSaveDraftCoverages()
+	{
+		super.clickSaveDraft();
+		return new ALHO3Coverages(sh, path);
+	}
 
 	public class ALHO3PropertyEndorsements extends PropertyEndorsements<ALHO3PropertyEndorsements>
 	{
@@ -389,9 +394,40 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.getOccurrenceAggregateLimit();
 		}
+
+		public boolean isOccurrenceAggregateLimitRequired()
+		{
+			return super.isOccurrenceAggregateLimitRequired();
+		}
+
+		public boolean isOccurrenceAggregateLimitEditable()
+		{
+			return super.isOccurrenceAggregateLimitEditable();
+		}
+
+		public boolean isOrdinanceOrLawLimitEditable()
+		{
+			return super.isOrdinanceOrLawEditable();
+		}
+
+		public boolean isWaterBackUpLimitEditable()
+		{
+			return super.isWaterBackUpLimitEditable();
+		}
+
 		public ALHO3PropertyEndorsements setLossAssessmentLimit(String text)
 		{
 			return super.setLossAssessmentLimit(text);
+		}
+
+		public boolean isLossAssessmentLimitRequired()
+		{
+			return super.isLossAssessmentLimitRequired();
+		}
+
+		public boolean isLossAssessmentLimitEditable()
+		{
+			return super.isLossAssessmentLimitEditable();
 		}
 
 		public String getLossAssessmentLimit()
