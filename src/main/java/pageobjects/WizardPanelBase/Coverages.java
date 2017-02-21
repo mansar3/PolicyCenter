@@ -365,12 +365,6 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.isElementEnabled(by.personalLiabilityLimit);
 	}
 
-	protected T clickSaveDraftCoverages()
-	{
-		sh.clickElement(by.saveDraft);
-		return (T)this;
-	}
-
 	public class PropertyEndorsements<T extends PropertyEndorsements> extends CenterPanelBase
 	{
 		private PropertyEndorsementsBy by;
