@@ -41,12 +41,6 @@ public class AlabamaHO3 extends BaseTest
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        URL url = null;
-        try {
-            url = new URL("http://10.0.4.73:8180/pc/PolicyCenter.do");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         login = new Login(sh, sessionInfo);
         login.load();
         login.isLoaded();
@@ -58,7 +52,7 @@ public class AlabamaHO3 extends BaseTest
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountALHO3(ITestContext itc)
     {
-        firstname = String.format("Ricky%s", dateString);
+        firstname = String.format("ALHO3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
         String user = "Su", password = "";
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);

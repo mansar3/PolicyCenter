@@ -457,7 +457,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
-			ordinanceOrLawLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
+			ordinanceOrLawLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
+			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
 			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
 
 		}
@@ -782,7 +783,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isOrdinanceOrLawEditable()
 		{
-			return sh.isElementEditable(by.ordinanceOrLawLimit);
+			return sh.isElementEditable(by.ordinanceOrLawLimitDiv);
 		}
 
 		protected boolean isWaterBackUpLimitEditable()
@@ -825,15 +826,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getOrdinanceOrLawLimit()
 		{
-			return sh.getValue(by.ordinanceOrLawLimit);
+			return sh.getValue(by.ordinanceOrLawLimitDiv) == null ?
+					sh.getText(by.ordinanceOrLawLimitDiv) :
+					sh.getValue(by.ordinanceOrLawLimitDiv);
 		}
 
 		protected T setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
 		{
 			sh.waitForNoMask();
-			sh.setTextAndTab(by.ordinanceOrLawLimit, ordinanceOrLawLimit);
-
-
+			sh.setTextAndTab(by.ordinanceOrLawLimitInput, ordinanceOrLawLimit);
+			sh.tab();
 			return (T)this;
 		}
 
