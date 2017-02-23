@@ -1,7 +1,10 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
+
+import java.rmi.activation.ActivationGroup_Stub;
 
 /**
  * Created by aansari on 2/2/17.
@@ -45,7 +48,11 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 	{
 		return super.setEstimatedReplacementCost(text);
 	}
-
+	public ALHO3Dwelling back()
+	{
+		super.dwellingBack();
+		return new ALHO3Dwelling(sh,path);
+	}
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();

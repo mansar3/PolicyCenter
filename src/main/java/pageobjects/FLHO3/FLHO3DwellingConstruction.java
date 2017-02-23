@@ -1,6 +1,7 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.ALHO3.ALHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -184,6 +185,11 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 		return super.setElectricalSystemDescribeOther(text);
 	}
 
+	public FLHO3Dwelling back()
+	{
+		super.dwellingBack();
+		return new FLHO3Dwelling(sh,path);
+	}
 	public String getElectricalSystemDescribeOther()
 	{
 		return super.getElectricalSystemDescribeOther();

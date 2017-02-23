@@ -1,6 +1,7 @@
 package pageobjects.SCHO6;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -41,7 +42,11 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 	{
 		return super.setEstimatedReplacementCost(text);
 	}
-
+	public SCHO6Dwelling back()
+	{
+		super.dwellingBack();
+		return new SCHO6Dwelling(sh,path);
+	}
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();

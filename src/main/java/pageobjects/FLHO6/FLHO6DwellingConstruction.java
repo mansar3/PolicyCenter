@@ -1,6 +1,7 @@
 package pageobjects.FLHO6;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -41,7 +42,11 @@ public class FLHO6DwellingConstruction extends DwellingConstruction<FLHO6Dwellin
 	{
 		return super.setEstimatedReplacementCost(text);
 	}
-
+	public FLHO6Dwelling back()
+	{
+		super.dwellingBack();
+		return new FLHO6Dwelling(sh,path);
+	}
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();

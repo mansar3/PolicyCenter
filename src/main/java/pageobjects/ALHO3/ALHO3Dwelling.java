@@ -1,6 +1,7 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
+import org.testng.Assert;
 import pageobjects.WizardPanelBase.Dwelling;
 
 
@@ -22,6 +23,15 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 	public ALHO3Dwelling setYearBuilt(String text)
 	{
 		return super.setYearBuilt(text);
+	}
+
+	public ALHO3Dwelling Enter(){
+		return super.Enter();
+	}
+
+	public boolean expect4DigitYearErrorMessage()
+	{
+		return super.expect4DigitYearErrorMessage();
 	}
 
 	public String getYearBuilt()
@@ -155,6 +165,18 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 	public ALHO3Dwelling setDwellingUsage(String text)
 	{
 		return super.setDwellingUsage(text);
+	}
+
+	public ALHO3Dwelling clickDwellingLeftMenu()
+	{
+		super.clickDwellingLeft();
+		return new ALHO3Dwelling(sh, path);
+	}
+
+	public ALHO3Dwelling clickDwellingBack()
+	{
+		super.clickDwellingLeft();
+		return new ALHO3Dwelling(sh, path);
 	}
 
 	public String getDwellingUsage()

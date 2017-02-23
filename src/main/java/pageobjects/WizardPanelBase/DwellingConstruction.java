@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 public abstract class DwellingConstruction<T extends DwellingConstruction> extends CenterPanelBase
 {
@@ -412,6 +413,11 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 		sh.tab();
 		return this;
 	}
+	protected T dwellingBack()
+	{
+		clickBack();
+		return (T)this;
+	}
 	public class DwellingConstructionBy
 	{
 
@@ -512,6 +518,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 			sh.waitForPageLoad();
 			return (T)this;
 		}
+
 		protected T doubleClickCoveragesNext()
 		{
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
