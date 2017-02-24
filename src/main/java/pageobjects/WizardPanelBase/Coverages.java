@@ -231,6 +231,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T dwellingConstructionBack()
+	{
+		clickBack();
+		return (T)this;
+	}
 
 	protected String getWindHail()
 	{

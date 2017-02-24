@@ -64,6 +64,9 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 	{
 		return super.setPersonalPropertyValuationMethod(text);
 	}
+	public ALHO3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
 
 	public ALHO3Coverages setLossOfUseSelection(String text)
 	{

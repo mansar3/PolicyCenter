@@ -53,6 +53,15 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		super.dwellingBack();
 		return new ALHO3Dwelling(sh,path);
 	}
+
+
+	public boolean dwellingConstructionErrorMessage()
+	{
+		return super.ErrorMessage();
+	}
+
+	public ALHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
+
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();

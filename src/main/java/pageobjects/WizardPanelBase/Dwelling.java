@@ -595,6 +595,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			sh.waitForNoMask(10);
 			return (T)this;
 		}
+
 		protected T setBurglarAlarm(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + flag.toLowerCase() + "-inputEl"));

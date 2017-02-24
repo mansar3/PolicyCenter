@@ -418,6 +418,18 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 		clickBack();
 		return (T)this;
 	}
+
+	protected boolean ErrorMessage() {
+		return sh.isDisplayed(by.ErrorMessage);
+	}
+
+	protected  T dwellingConstructionEnter ()
+	{
+		sh.driver.findElement(By.id("SubmissionWizard:Next-btnInnerEl")).sendKeys(Keys.ENTER);
+		sh.waitForNoMask(10);
+		return (T)this;
+	}
+
 	public class DwellingConstructionBy
 	{
 
@@ -442,7 +454,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 								roofType = By.id(dwellingConstructionBase +"RoofType-inputEl"),
 								roofTypeDescription = By.id(dwellingConstructionBase + "RoofTypeDesc-inputEl"),
 								conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
-
+				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
 								// Wind Mitigation
 								windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");

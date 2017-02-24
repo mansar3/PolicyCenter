@@ -358,6 +358,7 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		{
 			return super.setBurglarBarsOnWindows(flag);
 		}
+		public ALHO3ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
 		public ALHO3ProtectionDetails setCommunityGuarded(String flag)
 		{
 			return super.setCommunityGuarded(flag);
