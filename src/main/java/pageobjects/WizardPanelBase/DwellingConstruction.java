@@ -419,9 +419,15 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 		return (T)this;
 	}
 
-	protected boolean ErrorMessage() {
-		return sh.isDisplayed(by.ErrorMessage);
+
+	protected String dwellingConstructionErrorMessage()
+
+	{
+		sh.waitForNoMask();
+		String Error=  sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div")).getText();
+		return  Error;
 	}
+
 
 	protected  T dwellingConstructionEnter ()
 	{
@@ -454,7 +460,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 								roofType = By.id(dwellingConstructionBase +"RoofType-inputEl"),
 								roofTypeDescription = By.id(dwellingConstructionBase + "RoofTypeDesc-inputEl"),
 								conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
-				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
+				             //   ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
 
 								// Wind Mitigation
 								windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");
@@ -504,6 +510,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 								roofCover = By.id(windMitigationBase + "RoofCoverType_fli-inputEl"),
 								roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
 								roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
+				            	ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
 
 
 								roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
@@ -531,6 +538,13 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 			return (T)this;
 		}
 
+		protected String dwellingConstructionWingMitigationErrorMessage()
+
+		{
+			sh.waitForNoMask();
+			String Error=  sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div")).getText();
+			return  Error;
+		}
 		protected T doubleClickCoveragesNext()
 		{
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));

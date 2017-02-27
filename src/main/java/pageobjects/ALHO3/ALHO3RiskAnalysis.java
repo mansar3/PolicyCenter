@@ -19,6 +19,11 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		return new ALHO3Quote(sh,path);
 	}
 
+	public ALHO3RiskAnalysis back(){
+		return  super.coveragesback();
+	}
+
+
 	public ALHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -30,6 +35,23 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		super.riskAnalysisClickContingencies();
 		return new ALHO3Contingencies(sh, path);
 	}
+
+	public ALHO3UnderwritingQuestions clickUnderWritingQuestions()
+	{
+		super.riskAnalysisClickUnderwritingquestion();
+		return new ALHO3UnderwritingQuestions(sh,path);
+	}
+
+	public ALHO3RiskAnalysis answerYes(int questionNum){
+		return super.answerYes(questionNum);
+	}
+
+	public ALHO3RiskAnalysis answerNo(int questionNum){
+		return super.answerNo(questionNum);
+	}
+
+	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
+
 
 	public ALHO3UWActivity riskAnalysisRequestApproval()
 	{
@@ -57,6 +79,7 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 			return new ALHO3Quote(sh,path);
 		}
+
 
 	}
 	public class ALHO3CreateNewUWIssue extends CreateNewUWIssue<ALHO3CreateNewUWIssue>
@@ -97,6 +120,7 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 			super.setLongDescription(longDescription);
 			return this;
 		}
+
 		public ALHO3CreateNewUWIssue clickOk()
 		{
 			super.riskAnalysisOk();
@@ -115,4 +139,20 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 
 
 	}
+
+
+	public class ALHO3UnderwritingQuestions extends UnderwritingQuestions<ALHO3UnderwritingQuestions>
+	{
+
+		public ALHO3UnderwritingQuestions(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+		public ALHO3Quote quote()
+
+		{
+			super.UnderwritingQuestionsQuote();
+			return new ALHO3Quote(sh, path);
+		}
+
+	}
+
 }

@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 {
@@ -48,6 +49,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	}
 	protected String getDwellingLimit()
 	{
+		sh.waitForNoMask();
 		return sh.getValue(by.dwellingLimit);
 
 	}
@@ -269,7 +271,21 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return (T)this;
 	}
 
+	protected  T coveragesEnter ()
+	{
+		sh.driver.findElement(By.id("SubmissionWizard:Next-btnInnerEl")).sendKeys(Keys.ENTER);
+		sh.waitForNoMask(10);
+		return (T)this;
+	}
 
+	protected String coveragesErrorMessage()
+
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div")).getText();
+		return Error;
+
+	}
 
 
 	public class CoveragesBy
@@ -297,6 +313,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
+				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 								saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
 
 								//creditValue = By.id("")
@@ -462,16 +479,24 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			lossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
+			ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
+
 			ordinanceOrLawLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
 			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
 			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
 
 		}
+
+
 		protected T checkUnitOwnersCoverageASpecialCoverage()
 		{
 			sh.clickElement(by.unitOwnersCoverageASpecialCoverage);
 			return (T)this;
 		}
+
+
+
+
 		protected T checkUnitOwnersRentedToOthers()
 		{
 			sh.clickElement(by.unitOwnersRentedToOthers);
@@ -550,6 +575,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected  T coveragespropertyendorsementsEnter ()
+		{
+			sh.driver.findElement(By.id("SubmissionWizard:Next-btnInnerEl")).sendKeys(Keys.ENTER);
+			sh.waitForNoMask(10);
+			return (T)this;
+		}
+
 		protected T setOtherStructuresLimit(int itemNumber, String description)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
@@ -570,6 +602,15 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.setText(By.name("c2"), description);
 
 			return (T)this;
+		}
+
+		protected String coveragesPropertyEndorsnmentsErrorMessage ()
+
+		{
+			sh.waitForNoMask();
+			String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div")).getText();
+			return Error;
+
 		}
 
 		protected T setSpecificOtherStructuresLimit(int itemNumber, String description)

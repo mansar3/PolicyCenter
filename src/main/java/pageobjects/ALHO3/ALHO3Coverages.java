@@ -60,6 +60,8 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.getPersonalPropertyValuationMethod();
 	}
 
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+
 	public ALHO3Coverages setPersonalPropertyValuationMethod(String text)
 	{
 		return super.setPersonalPropertyValuationMethod(text);
@@ -68,6 +70,7 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.dwellingConstructionBack();
 	}
 
+	public ALHO3Coverages coveragesEnter(){return super.coveragesEnter();}
 	public ALHO3Coverages setLossOfUseSelection(String text)
 	{
 		return super.setLossOfUseSelection(text);
@@ -252,6 +255,7 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return new ALHO3Coverages(sh, path);
 	}
 
+
 	public class ALHO3PropertyEndorsements extends PropertyEndorsements<ALHO3PropertyEndorsements>
 	{
 		public ALHO3PropertyEndorsements(CenterSeleniumHelper sh ,Path path)
@@ -279,6 +283,7 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.setPersonalPropertyDescription(itemNumber, text);
 		}
+
 		public ALHO3PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
 		{
 			return super.setPersonalPropertyValue(itemNumber, text);
@@ -287,6 +292,8 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.setOtherStructuresDescription(itemNumber, text);
 		}
+
+
 		public ALHO3PropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
 		{
 			return super.setOtherStructuresLimit(itemNumber, text);
@@ -295,6 +302,14 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.setSpecificOtherStructuresDescription(itemNumber, text);
 		}
+
+		public ALHO3PropertyEndorsements coveragespropertyendorsementsEnter(){return super.coveragespropertyendorsementsEnter();}
+
+		public String coveragesPropertyEndorsnmentsErrorMessage()
+		{
+			return super.coveragesPropertyEndorsnmentsErrorMessage();
+		}
+
 		public ALHO3PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
 		{
 			return super.setSpecificOtherStructuresLimit(itemNumber, text);

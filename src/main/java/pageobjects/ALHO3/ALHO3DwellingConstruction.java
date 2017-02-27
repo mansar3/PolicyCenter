@@ -55,9 +55,10 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 	}
 
 
-	public boolean dwellingConstructionErrorMessage()
+
+	public String dwellingConstructionErrorMessage()
 	{
-		return super.ErrorMessage();
+		return super.dwellingConstructionErrorMessage();
 	}
 
 	public ALHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
@@ -292,6 +293,11 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		public ALHO3WindMitigation setRoofShapeType(String text)
 		{
 			return super.setRoofShapeType(text);
+		}
+
+		public String dwellingConstructionWindMitigationErrorMessage()
+		{
+			return super.dwellingConstructionWingMitigationErrorMessage();
 		}
 
 		public String getRoofShapeType()

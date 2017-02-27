@@ -29,9 +29,9 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		return super.Enter();
 	}
 
-	public boolean expect4DigitYearErrorMessage()
+	public String getdwellingErrorMessage()
 	{
-		return super.expect4DigitYearErrorMessage();
+		return super.dwellingErrorMessage();
 	}
 
 	public String getYearBuilt()
@@ -85,6 +85,7 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 	{
 		return super.setTerritoryCode(text);
 	}
+
 
 	public String getTerritoryCode()
 	{
@@ -345,6 +346,11 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		{
 			dwellingConstructionNext();
 			return new ALHO3DwellingConstruction(sh, path);
+		}
+
+		public String getProtectiondwellingErrorMessage()
+		{
+			return  super.dwellingProtectionErrorMessage();
 		}
 		public ALHO3ProtectionDetails setBurglarAlarm(String flag)
 		{
