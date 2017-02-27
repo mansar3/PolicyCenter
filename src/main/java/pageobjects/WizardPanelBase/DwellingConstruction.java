@@ -480,6 +480,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 			this.path = path;
 			setID(path);
 			by = new WindMitigationBy();
+			System.out.println("Navigated to page: Wind Mitigation");
 		}
 		public void setID(Path path)
 		{

@@ -398,6 +398,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new PropertyEndorsementsBy();
+			System.out.println("Navigated to page: Property Endorsements");
 		}
 
 		public void setID(Path path)
@@ -559,7 +560,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForElementToAppear(By.name("c4"));
 			// Input text here
 			sh.setText(By.name("c4"), value);
-
+			sh.tab();
 			sh.waitForNoMask();
 			return (T)this;
 		}
@@ -620,6 +621,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForElementToAppear(By.name("c3"));
 			// Input text here
 			sh.setText(By.name("c3"), description);
+			sh.waitForNoMask();
 
 			return (T)this;
 		}
@@ -953,6 +955,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkWhenSafe()
 		{
 			sh.checkboxHelper.checkElement(by.whenSafe);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 
@@ -1128,6 +1131,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new LiabilityEndorsementsBy();
+			System.out.println("Navigated to page: Liability Endorsements");
 
 		}
 		public void setID(Path path)

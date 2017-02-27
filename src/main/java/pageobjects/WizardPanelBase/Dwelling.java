@@ -539,6 +539,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by= new ProtectionDetailsBy();
+			System.out.println("Navigated to page: Protection Details");
 		}
 
 		public void setID(Path path)
@@ -744,6 +745,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new AdditionalInterestsBy();
+			System.out.println("Navigated to page: Additional Interests");
 		}
 	
 		public void setID(Path path)
