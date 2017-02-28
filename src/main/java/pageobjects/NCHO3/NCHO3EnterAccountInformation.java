@@ -28,4 +28,10 @@ public class NCHO3EnterAccountInformation extends EnterAccountInformation<NCHO3E
 		super.searchFromAddressBookAccount();
 		return new NCHO3SearchAddressBook(sh);
 	}
+
+	public NCHO3CreateAccount createNewPersonAccountNCHO3()
+	{
+		super.createNewPersonAccount();
+		return new NCHO3CreateAccount(sh);
+	}
 }

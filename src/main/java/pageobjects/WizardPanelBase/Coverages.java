@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 
 public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 {
@@ -95,6 +96,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.getText(by.otherStructuresLimit); // getValue is always returning null since this element is now a div with innerHTML instead of textbox
 	}           									 // you can change this function if you have a better idea */
 
+	protected boolean isOtherStructuresLimitEditable()
+	{
+		return sh.isElementEditable(by.otherStructuresLimit);
+	}
+
 	/*
 	protected String getUpdatedOtherStructuresLimit()
 	{
@@ -103,12 +109,44 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.getText(by.otherStructuresLimit);
 	}
 	*/
+
 	protected T setPersonalPropertyExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
 		return (T)this;
+	}
+
+	/**
+	 *  Verifies whether Yes or No button is selected, throws error
+	 *  if both or neither are selected
+	 * @return true if 'Yes' is selected, false if 'No' is selected
+	 */
+	protected boolean isPersonalPropertyExcluded()
+	{
+		boolean yesButton, noButton;
+		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
+		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		if (!yesButton && !noButton)
+			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
+		else if (yesButton && noButton)
+			throw new WebDriverException("Both Yes and No radio buttons were selected");
+		else
+			return yesButton;
+	}
+
+	protected boolean isWindExcluded()
+	{
+		boolean yesButton, noButton;
+		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
+		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		if (!yesButton && !noButton)
+			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
+		else if (yesButton && noButton)
+			throw new WebDriverException("Both Yes and No radio buttons were selected");
+		else
+			return yesButton;
 	}
 
 	protected String getPersonalPropertyValuationMethod()
@@ -143,6 +181,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected String getLossOfUseLimit()
 	{
 		return sh.getText(by.lossOfUseLimit);
+	}
+
+	protected boolean isLossOfUseLimitEditable()
+	{
+		return sh.isElementEditable(by.lossOfUseLimit);
 	}
 
 	protected String getHurricane()
@@ -191,7 +234,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getMedicalPaymentsLimit()
 	{
-		return sh.getText(by.medicalPaymentsLimit);
+		return sh.getText(by.medicalPaymentsLimit).isEmpty() ?
+				sh.getValue(by.medicalPaymentsLimit) :
+				sh.getText(by.medicalPaymentsLimit);
 	}
 
 	protected T setMedicalPaymentsLimit(String medicalPaymentsLimit)
@@ -234,7 +279,6 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getWindHail()
 	{
-
 		return sh.getValue(by.windHail);
 	}
 
@@ -706,6 +750,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected String getWhenSafeCreditValue()
+		{
+			return sh.getText(by.creditValue).isEmpty() || sh.getText(by.creditValue) == null ?
+					sh.getValue(by.creditValue) :
+					sh.getText(by.creditValue);
+		}
+
 		protected T addSpecificOtherStructures()
 		{
 			if(sh.isDisplayed(by.addSpecificStructures))
@@ -826,9 +877,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getOrdinanceOrLawLimit()
 		{
-			return sh.getValue(by.ordinanceOrLawLimitDiv) == null ?
+			return sh.getValue(by.ordinanceOrLawLimitInput) == null ?
 					sh.getText(by.ordinanceOrLawLimitDiv) :
-					sh.getValue(by.ordinanceOrLawLimitDiv);
+					sh.getValue(by.ordinanceOrLawLimitInput);
 		}
 
 		protected T setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
@@ -933,6 +984,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected boolean isOtherStructuresIncreasedCoverageChecked()
+		{
+			return sh.isRadioButtonSelected(by.otherStructuresIncreasedCoverageRentedToOthers);
+		}
+
 		protected boolean isScheduledPersonalPropertyChecked()
 		{
 			return sh.checkboxHelper.isChecked(by.scheduledPersonalProperty);
@@ -991,7 +1047,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isScreenEnclosureHurricaneCoverageChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.screenEnclosureHurricaneCoverage);
+//			return sh.checkboxHelper.isChecked(by.screenEnclosureHurricaneCoverage); // This always returns false, regardless of the checkbox being checked
+			return sh.isRadioButtonSelected(by.screenEnclosureHurricaneCoverage);
 		}
 
 		protected T checkScreenEnclosureHurricaneCoverage()
@@ -1044,7 +1101,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isSinkholeLossCoverageChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.sinkholeLossCoverage);
+		    // TODO verify if isRadioButtonSelected should replace sh.checkboxHelper.isChecked
+//			return sh.checkboxHelper.isChecked(by.sinkholeLossCoverage); // this always returns false, if the code below
+//                                                                          this comment works out, this line can be deleted
+            return sh.isRadioButtonSelected(by.sinkholeLossCoverage);
 		}
 
 		protected T checkSinkholeLossCoverage()
@@ -1191,7 +1251,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected boolean isPermittedIncidentalOccupancyLiabilityChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancyLiability);
+            // TODO isChecked will be removed, it always returns false
+//			return sh.checkboxHelper.isChecked(by.permittedIncidentalOccupancyLiability);
+            return sh.isRadioButtonSelected(by.permittedIncidentalOccupancyLiability);
 		}
 
 		protected T checkPermittedIncidentalOccupancyLiability()
@@ -1209,7 +1271,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isAnimalLiabilityChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.animalLiability);
+		    // isChecked will be removed because it always returns false
+//			return sh.checkboxHelper.isChecked(by.animalLiability);
+            return sh.isRadioButtonSelected(by.animalLiability);
 		}
 
 		protected T checkAnimalLiability()
@@ -1226,7 +1290,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isAdditionalResidenceRentedToOthersChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.additionalResidenceRentedToOthers);
+		    // TODO isChecked will be removed, it always returns false
+//			return sh.checkboxHelper.isChecked(by.additionalResidenceRentedToOthers);
+            return sh.isRadioButtonSelected(by.additionalResidenceRentedToOthers);
 		}
 
 		protected T checkAdditionalResidenceRentedToOthers()
@@ -1243,7 +1309,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isBusinessPursuitsChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.businessPursuits);
+            // TODO isChecked will be removed, it always returns false
+//			return sh.checkboxHelper.isChecked(by.businessPursuits);
+            return sh.isRadioButtonSelected(by.businessPursuits);
 		}
 
 		protected T checkBusinessPursuits()
@@ -1259,7 +1327,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected boolean isWatercraftLiabilityChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.watercraftLiability);
+            // TODO isChecked will be removed, it always returns false
+//			return sh.checkboxHelper.isChecked(by.watercraftLiability);
+            return sh.isRadioButtonSelected(by.watercraftLiability);
 		}
 
 		protected T checkWatercraftLiability()
@@ -1279,9 +1349,5 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			return (T)this;
 		}
-
-
-
-
 	}
 }

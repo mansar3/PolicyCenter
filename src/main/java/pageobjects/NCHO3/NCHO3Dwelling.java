@@ -63,6 +63,13 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 	{
 		return super.getProtectionClassCode();
 	}
+
+	public NCHO3Dwelling waitForProtectionClassCode(String val)
+	{
+		super.waitForProtectionClassToUpdate(val);
+		return new NCHO3Dwelling(sh, path);
+	}
+
 	public NCHO3Dwelling setTerritoryCode(String text)
 	{
 		return super.setTerritoryCode(text);
@@ -436,12 +443,5 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 			super.dwellingConstructionNext();
 			return new NCHO3DwellingConstruction(sh, path);
 		}
-
-
-
-
-
-
 	}
-
 }

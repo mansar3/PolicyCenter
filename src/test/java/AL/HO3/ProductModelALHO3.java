@@ -23,7 +23,7 @@ import pageobjects.WizardPanelBase.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AlabamaHO3 extends BaseTest
+public class ProductModelALHO3 extends BaseTest
 {
     private WebDriver driver;
     private Login login;
@@ -54,11 +54,9 @@ public class AlabamaHO3 extends BaseTest
     {
         firstname = String.format("ALHO3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
-        String user = "Su", password = "";
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
         log(itc.getName());
 
         String  country = "United States",

@@ -64,6 +64,13 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 	{
 		return super.getProtectionClassCode();
 	}
+
+	public FLHO3Dwelling waitForProtectionClassCode(String val)
+	{
+		super.waitForProtectionClassToUpdate(val);
+		return new FLHO3Dwelling(sh, path);
+	}
+
 	public FLHO3Dwelling setTerritoryCode(String text)
 	{
 		return super.setTerritoryCode(text);
@@ -437,20 +444,5 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 			super.dwellingConstructionNext();
 			return new FLHO3DwellingConstruction(sh, path);
 		}
-
-
-
-
-
-
 	}
-
-
-
-
-
-
-
-
-
 }

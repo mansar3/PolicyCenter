@@ -12,4 +12,10 @@ public class FLHO3NavigationBar extends NavigationBar<FLHO3NavigationBar>
 	{
 		super(sh);
 	}
+
+	public FLHO3SearchAccounts clickSearchAccount()
+	{
+		super.clickSearchAccountNavBar();
+		return new FLHO3SearchAccounts(sh);
+	}
 }

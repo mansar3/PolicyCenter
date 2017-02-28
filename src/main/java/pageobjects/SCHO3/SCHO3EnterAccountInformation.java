@@ -28,4 +28,10 @@ public class SCHO3EnterAccountInformation extends EnterAccountInformation<SCHO3E
 		super.searchFromAddressBookAccount();
 		return new SCHO3SearchAddressBook(sh);
 	}
+
+	public SCHO3CreateAccount createNewPersonAccountSCHO3()
+	{
+		super.createNewPersonAccount();
+		return new SCHO3CreateAccount(sh);
+	}
 }

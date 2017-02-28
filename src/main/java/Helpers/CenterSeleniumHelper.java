@@ -252,4 +252,9 @@ public class CenterSeleniumHelper
 	{
 		return (driver.findElement(by).getTagName().equals("input") && driver.findElement(by).isEnabled());
 	}
+
+	public boolean isRadioButtonSelected(By by)
+	{
+		return driver.findElement(by).findElement(By.xpath("../../..")).getAttribute("class").contains("x-form-cb-checked");
+	}
 }

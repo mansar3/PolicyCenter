@@ -12,4 +12,10 @@ public class NCHO3NavigationBar extends NavigationBar<NCHO3NavigationBar>
 	{
 		super(sh);
 	}
+
+	public NCHO3SearchAccounts clickSearchAccount()
+	{
+		super.clickSearchAccountNavBar();
+		return new NCHO3SearchAccounts(sh);
+	}
 }

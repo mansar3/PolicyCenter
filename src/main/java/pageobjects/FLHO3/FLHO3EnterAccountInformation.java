@@ -23,6 +23,13 @@ public class FLHO3EnterAccountInformation extends EnterAccountInformation<FLHO3E
 		super.createNewPersonAccount();
 		return new FLHO3CreateAccount(sh);
 	}
+
+	public FLHO3CreateAccount createNewPersonAccountFLHO3()
+	{
+		super.createNewPersonAccount();
+		return new FLHO3CreateAccount(sh);
+	}
+
 	public FLHO3SearchAddressBook createFromAddressBook()
 	{
 		super.searchFromAddressBookAccount();
