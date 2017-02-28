@@ -3,6 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 public class Dwelling<T extends Dwelling> extends CenterPanelBase
 {
@@ -458,9 +459,12 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		return sh.getValue(by.weeksRentedAnnually);
 	}
 
-	protected boolean expect4DigitYearErrorMessage()
+	protected String dwellingErrorMessage()
+
 	{
-		return sh.isDisplayed(by.wrongYearErrorMessage);
+		sh.waitForNoMask();
+	    String Error=  sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div")).getText();
+		return  Error;
 	}
 
 
@@ -506,7 +510,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								weeksRentedAnnually = By.id(dwellingBase + "WeeksRentedAnually_fli-inputEl"),
 								minimumRentalIncrement = By.id(dwellingBase + "RentalIncrementType_fli-inputEl"),
 								dwellingLeftMenu = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']/div/span[text()='Dwelling']"),
-								wrongYearErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
+							//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
 
 								// Protection Details
@@ -535,6 +539,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by= new ProtectionDetailsBy();
+			System.out.println("Navigated to page: Protection Details");
 		}
 
 		public void setID(Path path)
@@ -561,7 +566,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 						fireAlarmType = By.id(protectionDetailsBase + "FireAlarmType_fli-inputEl"),
 						sprinklerSystemType = By.id(protectionDetailsBase + "SprinklerSystemType-inputEl"),
 						additionalInterests = By.id(tabBase + "DwellingAdditionalInterestIdTab-btnInnerEl"),
-						detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
+				     	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
+			            detailsTab = By.id(tabBase + "DwellingDetailsSingleIDTab-btnInnerEl");
 
 		}
 		protected T clickAdditionalInterestsTab()
@@ -569,6 +575,15 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			sh.clickElement(by.additionalInterests);
 			return (T)this;
 		}
+
+		protected String dwellingProtectionErrorMessage()
+
+		{
+			sh.waitForNoMask();
+			String Error=  sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div")).getText();
+			return  Error;
+		}
+
 		protected T clickDetailsTab()
 		{
 			sh.clickElement(by.detailsTab);
@@ -595,6 +610,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			sh.waitForNoMask(10);
 			return (T)this;
 		}
+
 		protected T setBurglarAlarm(String flag)
 		{
 			sh.clickElement(By.id(protectionDetailsBase + "BurglarAlarm_" + flag.toLowerCase() + "-inputEl"));
@@ -729,6 +745,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new AdditionalInterestsBy();
+			System.out.println("Navigated to page: Additional Interests");
 		}
 	
 		public void setID(Path path)

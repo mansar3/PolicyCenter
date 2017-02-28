@@ -53,6 +53,16 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		super.dwellingBack();
 		return new ALHO3Dwelling(sh,path);
 	}
+
+
+
+	public String dwellingConstructionErrorMessage()
+	{
+		return super.dwellingConstructionErrorMessage();
+	}
+
+	public ALHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
+
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();
@@ -283,6 +293,11 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		public ALHO3WindMitigation setRoofShapeType(String text)
 		{
 			return super.setRoofShapeType(text);
+		}
+
+		public String dwellingConstructionWindMitigationErrorMessage()
+		{
+			return super.dwellingConstructionWingMitigationErrorMessage();
 		}
 
 		public String getRoofShapeType()

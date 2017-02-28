@@ -35,6 +35,30 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		}
 	}
 
+	private T answerQuestion(int questionNum, Boolean bool)
+	{
+
+		By answerBy = By.xpath("//*[@id= 'SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body']// table["
+				+ questionNum +"]//table[1]//input[@inputvalue = '" + String.valueOf(bool).toLowerCase() +"']");
+
+		sh.waitForNoMask();
+		sh.clickElement(answerBy);
+		return (T)this;
+	}
+
+
+	protected T answerYes(int questionNum)
+	{
+		return answerQuestion(questionNum, true);
+	}
+
+	protected T answerNo(int questionNum)
+	{
+		return answerQuestion(questionNum, false);
+	}
+
+
+
 	protected T riskAnalysisQuote()
 	{
 		sh.waitForNoMask();
@@ -51,6 +75,13 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 		return (T)this;
 	}
+
+	protected T coveragesback()
+	{
+		clickBack();
+		return (T) this;
+	}
+
 	private void warningQuote()
 	{
 		sh.waitForNoMask();
@@ -92,6 +123,22 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return (T)this;
 	}
 
+	protected String riskAnalysisErrorMessage()
+
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:_msgs']/div")).getText();
+		return Error;
+
+	}
+
+	protected T riskAnalysisClickUnderwritingquestion()
+	{
+		sh.clickElement(by.underwritingquestions);
+		sh.waitForNoMask();
+		return  (T)this;
+	}
+
 	protected T requestApproval()
 	{
 		sh.clickElement(by.requestApproval);
@@ -106,14 +153,17 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 	}
 
+
+
 	protected class RiskAnalysisBy{
 
 		protected final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
 							addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
+				            contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl"),
+				            underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
 
-							contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl");
 	}
 
 	protected class Contingencies<T extends Contingencies> extends CenterPanelBase
@@ -132,6 +182,8 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			protected final By		submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 							renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
+
+
 		}
 		protected T contingenciesQuote()
 		{
@@ -204,6 +256,8 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			//sh.waitForNoMask();
 			return (T)this;
 		}
+
+
 		protected String getLongDescription()
 		{
 			return sh.getValue(by.longDescription);
@@ -234,4 +288,42 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 
 	}
+
+	protected class UnderwritingQuestions<T extends UnderwritingQuestions> extends CenterPanelBase
+	{
+		private UnderwritingQuestionsBy by;
+		protected UnderwritingQuestions(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			setID(path);
+			by = new UnderwritingQuestionsBy();
+		}
+
+		protected class UnderwritingQuestionsBy
+		{
+			protected final By	submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+					renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote"),
+					requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl");
+					//underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
+		}
+		protected T UnderwritingQuestionsQuote()
+		{
+			sh.waitForNoMask();
+			switch(path)
+			{
+				case SUBMISSION:
+					sh.clickElement(by.submissionQuote);
+					break;
+				case POLICYRENEWAL:
+					sh.clickElement(by.renewalQuote);
+					break;
+			}
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return (T)this;
+		}
+
+	}
+
 }
