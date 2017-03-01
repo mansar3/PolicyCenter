@@ -70,9 +70,9 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.setPersonalPropertyExcluded(flag);
 	}
 
-	public boolean isPersonalPropertyExcluded()
+	public boolean isPersonalPropertyExcluded(Integer flag)
 	{
-		return super.isPersonalPropertyExcluded();
+		return super.isPersonalPropertyExcluded(flag);
 	}
 
 	public boolean isWindExcluded()
@@ -80,7 +80,13 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.isWindExcluded();
 	}
 
-	public String getPersonalPropertyValuationMethod()
+    public boolean isWindExcluded(Integer flag)
+    {
+        return super.isWindExcluded(flag);
+    }
+
+
+    public String getPersonalPropertyValuationMethod()
 	{
 		return super.getPersonalPropertyValuationMethod();
 	}
@@ -265,7 +271,6 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 			return super.checkPermittedIncidentalOccupancy();
 		}
 
-
 		public FLDP3PropertyEndorsements setWhenSafeCreditPercentage(String text)
 		{
 			return super.setWhenSafeCreditPercentage(text);
@@ -279,6 +284,12 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		{
 			return super.getWhenSafeCreditPercentage();
 		}
+
+        public String getWhenSafeCreditValue()
+        {
+            return super.getWhenSafeCreditValue();
+        }
+
 		public FLDP3PropertyEndorsements removeSpecificOtherStructures()
 		{
 			return super.removeSpecificOtherStructures();
@@ -365,6 +376,11 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 			return super.checkScreenEnclosureHurricaneCoverage();
 		}
 
+        public boolean isScreenEnclosureHurricaneCoverageChecked()
+        {
+            return super.isScreenEnclosureHurricaneCoverageChecked();
+        }
+
 		public FLDP3PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
@@ -379,6 +395,12 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		{
 			return super.checkSinkholeLossCoverage();
 		}
+
+        public boolean isSinkholeLossCoverageChecked()
+        {
+            return super.isSinkholeLossCoverageChecked();
+        }
+
 		public FLDP3RiskAnalysis next()
 		{
 			super.propertyEndorsementsNext();

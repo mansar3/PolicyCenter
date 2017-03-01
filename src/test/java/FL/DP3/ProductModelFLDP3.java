@@ -123,8 +123,8 @@ public class ProductModelFLDP3 extends BaseTest
 
     }
 
-    @Test(description = "FL.DP3.ProductModel.MoreCoverage003", dependsOnMethods =
-            { "createPersonAccountFLDP3" })
+    @Test(description = "FL.DP3.ProductModel.MoreCoverage003"/*, dependsOnMethods =
+            { "createPersonAccountFLDP3" }*/)
     public void productModelMostCoverageFLDP3(ITestContext itc)
     {
         log(itc.getName());
@@ -132,12 +132,11 @@ public class ProductModelFLDP3 extends BaseTest
         /* Set Variables */
 //        String firstname = "Ricky0209015449";
 //        String lastname = "Bobby0209015449";
-        firstname = "FLDP3Ricky0224102737";
-        lastname = "Bobby0224102737";
+        firstname = "FLDP3Ricky0301100306";
+        lastname = "Bobby0301100306";
 
-        String policyType = "Homeowners (DP3)";
-        String defaultOfferingSelection,
-                expectedOfferingSelection = "Most Popular";
+        String policyType = "Dwelling Fire (DP3)";
+        String offeringSelection = "More Coverage";
         String county = "Mobile";
         String yearBuilt = "2000";
         String distanceToFireHydrant = "200";
@@ -169,8 +168,9 @@ public class ProductModelFLDP3 extends BaseTest
         String allOtherPerils, defaultAllOtherPerils = "1,000";
         String windHail, expectedWindHail = "2%",
                 windHailDeductible, expectedWindHailDeductible = "12,000";
-        String medicalPaymentsLimit, defaultMedicalPaymentsLimit = "3,000";
+        String medicalPaymentsLimit, defaultMedicalPaymentsLimit = "1,000";
         String hurricaneDeductible, defaultHurricaneDeductible = "2%";
+        String whenSafeCreditPercentage, defaultWhenSafeCreditPercentage = "5%";
         String whenSafeCreditValue, defaultWhenSafeCreditValue = "400";
 
         String fungiOccurrenceAggregateLimit,
@@ -193,13 +193,9 @@ public class ProductModelFLDP3 extends BaseTest
         afs.westPanel.actions.clickNewSubmission();
         FLDP3NewSubmission ns = new FLDP3NewSubmission(sh);
         FLDP3Qualification qualification = ns.productTable.selectHomeowners();
-        defaultOfferingSelection = qualification
+        qualification
                 .setPolicyType(policyType)
-                .getOfferingSelection();
-
-        System.out.println(defaultOfferingSelection);
-        Assert.assertTrue(defaultOfferingSelection.equals(expectedOfferingSelection),
-                "Expected Offering Selection was " + expectedOfferingSelection +", but it was " + defaultOfferingSelection);
+                .setOfferingSelection(offeringSelection);
 
         // Answer 'no' to all 8 questions
         for (int i=0; i< 8; i++) {
@@ -214,8 +210,8 @@ public class ProductModelFLDP3 extends BaseTest
                 .clickOk()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
-//                .setTerritoryCode("005")    // This line had to be added because test would not proceed without this value
-//                .setBCEG("05")              // This line had to be added because test would not proceed without this value
+                .setTerritoryCode("005")    // This line had to be added because test would not proceed without this value
+                .setBCEG("05")              // This line had to be added because test would not proceed without this value
                 .setProtectionClassCode(protectionClassCode)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity("false")
                 .setResidenceType(residenceType)
@@ -238,7 +234,7 @@ public class ProductModelFLDP3 extends BaseTest
                         otherStructuresLimit);
 
         /* Personal Property */
-        Assert.assertFalse(coverages.isPersonalPropertyExcluded(),
+        Assert.assertFalse(coverages.isPersonalPropertyExcluded(3),
                 "Personal Property Excluded radio button was expected to be 'No' but it was not");
 //        Assert.assertTrue(coverages.isPersonalPropertyLimitRequired(),
 //                "Personal Property Limit was expected to be a required field but it was not");
@@ -260,7 +256,7 @@ public class ProductModelFLDP3 extends BaseTest
         fairRentalValueLimit = coverages.getFairRentalValueLimit();
 
         /* Section I Deductibles */
-        Assert.assertFalse(coverages.isWindExcluded(),
+        Assert.assertFalse(coverages.isWindExcluded(3),
                 "Deductibles Wind Excluded was expected to be 'No' but it was 'Yes'");
         allOtherPerils = coverages.getAllOtherPerils();
         Assert.assertTrue(defaultAllOtherPerils.equals(allOtherPerils),
@@ -276,104 +272,41 @@ public class ProductModelFLDP3 extends BaseTest
         Assert.assertTrue(defaultPremisesLiabilityLimit.equals(premisesLiabilityLimit),
                         "Premises Liability Limit was expected to be " + defaultPremisesLiabilityLimit +
                                 ", but it was " + premisesLiabilityLimit);
-        /* Loss of Use */
-//        Assert.assertTrue(coverages.isLossOfUseSelectionRequired(),
-//                "Loss of Use Selection is expected to be a required field but it was not");
-//        Assert.assertTrue(coverages.isLossOfUseSelectionEnabled(),
-//                "Loss of Use Selection is expected to be enabled but it was not");
-//        lossOfUseSelection = coverages.getLossOfUseSelection();
-//        Assert.assertTrue(expectedLossOfUseSelection.equals(lossOfUseSelection),
-//                "Expected Loss Of Use Selection was " + expectedLossOfUseSelection +
-//                        ", but it was " + lossOfUseSelection);
-//        lossOfUseLimit = coverages.getLossOfUseLimit();
-//        Assert.assertTrue(expectedLossOfUseLimit.equals(lossOfUseLimit),
-//                "Expected Loss of Use Limit was " + expectedLossOfUseLimit +
-//                        ", but it was " + lossOfUseLimit);
-//        Assert.assertFalse(coverages.isLossOfUseLimitEditable(),
-//                "Loss Of Use Limit was not expected to be editable, but it was");
 
-//
-//        /* Personal Liability */
-//        Assert.assertTrue(coverages.isPersonalLiabilityLimitRequired(),
-//                "Personal Liability Limit was expected to be a required field but it was not");
-//        Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
-//                "Personal Liability Limit dropdown was expected to be enabled but it was not");
-//        personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
-//        Assert.assertTrue(defaultPersonalLiabilityLimit.equals(personalLiabilityLimit),
-//                "Personal Liability limit was " + defaultPersonalLiabilityLimit +
-//                        ", but it was " + personalLiabilityLimit);
-//
-//        /* Medical Payments */
-//        medicalPaymentsLimit = coverages.getMedicalPaymentsLimit();
-//        Assert.assertTrue(defaultMedicalPaymentsLimit.equals(medicalPaymentsLimit),
-//                "Medical Payments Limit expected was " + defaultMedicalPaymentsLimit +
-//                        ", but it was " + medicalPaymentsLimit);
-//        FLDP3Coverages.FLDP3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
-//
-//        /* Property Endorsements */
-//        Assert.assertFalse(pe.isGuardianEndorsementChecked(),
-//                "Guardian Endorsement was not expected to be checked but it was");
-//        Assert.assertTrue(pe.isWhenSafeChecked(),
-//                "When Safe was expected to be checked but it was not");
-//        whenSafeCreditValue = pe.getCreditValue();
-//        Assert.assertTrue(defaultWhenSafeCreditValue.equals(whenSafeCreditValue),
-//                "When Safe Credit Value was expected to be " + defaultWhenSafeCreditValue +
-//                        ", but it was " + whenSafeCreditValue);
-//        Assert.assertFalse(pe.isOtherStructuresIncreasedCoverageChecked(),
-//                "Other Structures Increased Coverage was not expected to be checked but it was");
-//        Assert.assertFalse(pe.isScheduledPersonalPropertyChecked(),
-//                "Scheduled Personal Property was not expected to be checked but it was");
-//        Assert.assertFalse(pe.isCreditCardFundTransferForgeryCounterfeitChecked(),
-//                "Credit Card, Fund Transfer, Forgery, and Counterfeit was expected to be checked but it was not");
-//
-//        /* Limited Fungi, Wet or dry Rot, or Bacteria */
-//        fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
-//        Assert.assertTrue(defaultFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
-//                "Limit Fungi, Wet or Dry Rot... Occurrence/Aggregate Limit " + defaultFungiOccurrenceAggregateLimit +
-//                        ", but it was " + fungiOccurrenceAggregateLimit);
-//
-//        /* Loss Assessment */
-//        lossAssessmentLimit = pe.getLossAssessmentLimit();
-//        Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
-//                "Loss Assessment Limit was expected to be " + expectedLossAssessmentLimit +
-//                        ", but it was " + lossAssessmentLimit);
-//
-//        /* Ordinance or Law */
-//        ordinanceOrLawLimit = pe.getOrdinanceOrLawLimit();
-//        Assert.assertTrue(defaultOrdinanceOrLawLimit.equals(ordinanceOrLawLimit),
-//                "Ordinance or Law Limit was expected to be " + defaultOrdinanceOrLawLimit +
-//                        ", but it was " + ordinanceOrLawLimit);
-//
-//        Assert.assertFalse(pe.isScreenEnclosureHurricaneCoverageChecked(),
-//                "Screen Enclosure Hurricane Coverage was expected to be checked but it was not");
-//
-//        /* Water Back Up */
-//        waterBackUpLimit = pe.getWaterBackUpLimit();
-//        Assert.assertTrue(defaultWaterBackUpLimit.equals(waterBackUpLimit),
-//                "Expected Water Back Up Limit was " + defaultWaterBackUpLimit +
-//                        ", but it was " + waterBackUpLimit);
-//
-//        /* Inflation Guard */
-//        inflationGuardAnnualIncrease = pe.getPercentageOfAnnualIncrease();
-//        Assert.assertTrue(defaultInflationGuardAnnualIncrease.equals(inflationGuardAnnualIncrease),
-//                "Inflation Guard % of Annual Increase was expected to be " + defaultInflationGuardAnnualIncrease +
-//                        ", but it was " + (inflationGuardAnnualIncrease));
-//
-//        Assert.assertFalse(pe.isSinkholeLossCoverageChecked(),
-//                "Sinkhole Loss Coverage was not expected to be checked but it was");
-//
-//        /* Liability Endorsements */
-//        FLDP3Coverages.FLDP3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-//        Assert.assertFalse(le.isPermittedIncidentalOccupancyLiabilityChecked(),
-//                "Permitted Incidental Occupancy was expected to not be checked but it was");
-//        Assert.assertFalse(le.isAnimalLiabilityChecked(),
-//                "Animal Liability was expected to be checked but it was not");
-//        Assert.assertFalse(le.isAdditionalResidenceRentedToOthersChecked(),
-//                "Additional Residence Rented To Others was not expected to be checked but it was");
-//        Assert.assertFalse(le.isBusinessPursuitsChecked(),
-//                "Business Pursiots was not expected to be checked but it was");
-//        Assert.assertFalse(le.isWatercraftLiabilityChecked(),
-//                "Watercraft Liability was not expected to be checked but it was");
+        /* Medical Payments */
+        medicalPaymentsLimit = coverages.getMedicalPaymentsLimit();
+        Assert.assertTrue(defaultMedicalPaymentsLimit.equals(medicalPaymentsLimit),
+                        "Medical Payments Limit was expected to be " + defaultMedicalPaymentsLimit +
+                                ", but it was " + medicalPaymentsLimit);
+
+        FLDP3Coverages.FLDP3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
+
+        /* Property Endorsements */
+        Assert.assertTrue(pe.isWhenSafeChecked(),
+                "When Safe was expected to be checked but it was not");
+        whenSafeCreditPercentage = pe.getWhenSafeCreditPercentage();
+        Assert.assertTrue(defaultWhenSafeCreditPercentage.equals(whenSafeCreditPercentage),
+                "When Safe Credit Percentage was expected to be " + defaultWhenSafeCreditPercentage +
+        ", but it was " + whenSafeCreditPercentage);
+        whenSafeCreditValue = pe.getWhenSafeCreditValue();
+        Assert.assertTrue(defaultWhenSafeCreditValue.equals(whenSafeCreditValue),
+                        "When Safe Credit Value was expected to be " + defaultWhenSafeCreditValue +
+                                ", but it was " + whenSafeCreditValue);
+
+        /* Limited Fungi, Wet or dry Rot, or Bacteria */
+        fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
+        Assert.assertTrue(defaultFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
+                "Limit Fungi, Wet or Dry Rot... Occurrence/Aggregate Limit " + defaultFungiOccurrenceAggregateLimit +
+                        ", but it was " + fungiOccurrenceAggregateLimit);
+
+        Assert.assertFalse(pe.isScreenEnclosureHurricaneCoverageChecked(),
+        "Screen Enclosure Hurricane Coverage was expected to be checked but it was not");
+
+        Assert.assertTrue(pe.isTheftCoverageChecked(),
+                "Theft Coverage was expected to be checked but it was not");
+
+        Assert.assertFalse(pe.isSinkholeLossCoverageChecked(),
+        "Sinkhole Loss Coverage was not expected to be checked but it was");
     }
 
     @AfterMethod(alwaysRun = true)

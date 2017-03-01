@@ -81,7 +81,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected String getOtherStructuresPercentage()
 	{
-		return sh.getValue(by.otherStructuresPercentage);
+		if (sh.isDisplayed(by.otherStructuresPercentage))
+			return sh.getValue(by.otherStructuresPercentage);
+		else
+			return sh.getText(by.otherStructuresPercentageDiv);
+//		return Strings.isNullOrEmpty(sh.getValue(by.otherStructuresPercentage)) ?
+//				sh.getText(by.otherStructuresPercentageDiv) : sh.getValue(by.otherStructuresPercentage);
 	}
 
 	protected T setOtherStructuresPercentage(String otherStructuresPercentage)
@@ -130,7 +135,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return (T)this;
 	}
 
-	/**
+	/** TODO I have to get back to this method later and make it prettier
 	 *  Verifies whether Yes or No button is selected, throws error
 	 *  if both or neither are selected
 	 * @return true if 'Yes' is selected, false if 'No' is selected
@@ -148,11 +153,38 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return yesButton;
 	}
 
+	// TODO I have to get back to this method later and make it prettier
+	protected boolean isPersonalPropertyExcluded(Integer flag)
+	{
+		boolean yesButton, noButton;
+		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
+		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		if (!yesButton && !noButton)
+			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
+		else if (yesButton && noButton)
+			throw new WebDriverException("Both Yes and No radio buttons were selected");
+		else
+			return yesButton;
+	}
+
 	protected boolean isWindExcluded()
 	{
 		boolean yesButton, noButton;
 		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
 		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		if (!yesButton && !noButton)
+			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
+		else if (yesButton && noButton)
+			throw new WebDriverException("Both Yes and No radio buttons were selected");
+		else
+			return yesButton;
+	}
+
+	protected boolean isWindExcluded(Integer flag)
+	{
+		boolean yesButton, noButton;
+		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
+		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
 		if (!yesButton && !noButton)
 			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
 		else if (yesButton && noButton)
@@ -396,6 +428,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								otherStructuresIncreasedCoverage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/..//input"),
 								otherStructuresIncreasedCoverageLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/../..//span[text() = 'Limit']/../..//input"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
+								otherStructuresPercentageDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//div/div"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
 								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
@@ -418,11 +451,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 								saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
-
 								//creditValue = By.id("")
-
-
-
 	}
 
 	protected boolean isPersonalLiabilityLabelRequired()

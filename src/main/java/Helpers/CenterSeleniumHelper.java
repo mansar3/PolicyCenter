@@ -94,12 +94,21 @@ public class CenterSeleniumHelper
 
 	public String getText(By byLocator)
 	{
+
 		return driver.findElement(byLocator).getText();
 	}
 
+    /**
+     * Gets value for locators pointing to an INPUT tag
+     * @param byLocator
+     * @return String contained in byLocator, if byLocator
+     */
 	public String getValue(By byLocator)
 	{
-		return driver.findElement(byLocator).getAttribute("value");
+		if (driver.findElement(byLocator).isDisplayed())
+			return driver.findElement(byLocator).getAttribute("value");
+		else
+			return null;
 	}
 
 	public WebDriverWait wait(int time)

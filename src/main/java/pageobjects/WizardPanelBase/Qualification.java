@@ -27,6 +27,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 	protected T setOfferingSelection(String offeringSelection)
 	{
 		sh.setText(by.offeringSelection, offeringSelection);
+		sh.tab();
 		return (T)this;
 	}
 	protected T setPolicyType(String policyType)

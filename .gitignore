@@ -4,3 +4,5 @@ Thumbs.db
 /src/test/resources/*
 qa-centers.iml
 src/test/resources/ScreenShots/
+src/test/resources/testng.xml
+src/test/java/SC/DP3/
