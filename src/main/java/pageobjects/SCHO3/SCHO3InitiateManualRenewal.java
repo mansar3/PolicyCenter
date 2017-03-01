@@ -102,15 +102,7 @@ public class SCHO3InitiateManualRenewal extends InitiateManualRenewal<SCHO3Initi
 	{
 		return super.getInflationGuard();
 	}
-	public SCHO3InitiateManualRenewal setTheftCoverage(String text)
-	{
-		return super.setTheftCoverage(text);
-	}
 
-	public String getTheftCoverage()
-	{
-		return super.getTheftCoverage();
-	}
 	public SCHO3InitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
 	{
 		return super.clickExcludeLossOfUseCoverage(bool);

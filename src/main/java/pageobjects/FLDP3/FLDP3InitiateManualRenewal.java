@@ -93,15 +93,7 @@ public class FLDP3InitiateManualRenewal extends InitiateManualRenewal<FLDP3Initi
 	{
 		return super.getLastInspectionCompletionDate();
 	}
-	public FLDP3InitiateManualRenewal setInflationGuard(String text)
-	{
-		return super.setInflationGuard(text);
-	}
 
-	public String getInflationGuard()
-	{
-		return super.getInflationGuard();
-	}
 	public FLDP3InitiateManualRenewal setTheftCoverage(String text)
 	{
 		return super.setTheftCoverage(text);

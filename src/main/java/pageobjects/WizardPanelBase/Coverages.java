@@ -169,11 +169,30 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
 	{
-		sh.waitForNoMask();
-		sh.waitForPageLoad();
-		sh.setText(by.personalPropertyValuationMethod, personalPropertyValuationMethod);
-		sh.tab();
-		sh.waitForNoMask();
+		for(int i = 0; i < 5;i++)
+		{
+			sh.waitForNoMask();
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(!sh.isMaskPresent())
+				break;
+
+		}
+
+		sh.clickElement(by.personalPropertyValuationMethod);
+		if(!sh.isDisplayed(By.xpath("//*[text() = '" + personalPropertyValuationMethod + "']")))
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.personalPropertyValuationMethod);
+		}
+		sh.clickElement(By.xpath("//*[text() = '" + personalPropertyValuationMethod + "']"));
+
 		return (T)this;
 	}
 	protected String getLossOfUseSelection()
@@ -184,8 +203,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected T setLossOfUseSelection(String lossOfUseSelection)
 	{
 		sh.waitForNoMask();
-		sh.setText(by.lossOfUseSelection, lossOfUseSelection);
-		sh.tab();
+		sh.selectFromDropDown(by.lossOfUseSelection, lossOfUseSelection);
+		//sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
 	}
@@ -636,6 +655,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForElementToAppear(By.name("c2"));
 			// Input text here
 			sh.setText(By.name("c2"), articleType);
+			// Added to allow autofill to complete the article type;
+			try
+			{
+				Thread.sleep(400);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			sh.tab();
 
 			sh.waitForNoMask();
 			return (T)this;
@@ -643,8 +672,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setPersonalPropertyDescription(int itemNumber, String description)
 		{
-			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
-
+			//sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+			if(!sh.isDisplayed(By.name("c3")))
+				sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
 			sh.waitForElementToAppear(By.name("c3"));
 			// Input text here
 			sh.setText(By.name("c3"), description);
@@ -746,6 +776,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.waitForNoMask();
 			sh.clickElement(by.specificOtherStructures);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 
@@ -1313,6 +1344,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T setLocationName(String locationName)
 		{
 			sh.setText(by.locationName, locationName);
+			// Added thread sleep because we were tabbing out
+			// too fast so the value was not being autofilled.
+			try
+			{
+				Thread.sleep(500);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 			sh.tab();
 
 			return (T)this;
@@ -1324,7 +1365,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setNumberOfFamilies(String numberOfFamilies)
 		{
-			sh.setText(by.numberOfFamilies, numberOfFamilies);
+			if(numberOfFamilies.equals("1"))
+				sh.setText(by.numberOfFamilies, "1 Family Residence");
+			else if(numberOfFamilies.equals("2"))
+				sh.setText(by.numberOfFamilies, "2 Family Residence");
+			else
+				sh.setText(by.numberOfFamilies, numberOfFamilies);
 			sh.tab();
 
 			return (T)this;

@@ -137,6 +137,78 @@ public class FLDP3 extends BaseTest
 		if(driver != null)
 			driver.quit();
 	}
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
+	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
+	{
+		//***********************************************//*
+		//*      Remove hardcoded org and prod code 	   *//*
+		//***********************************************//*
+
+		int i;
+
+
+		WebDriver driver = LocalDriverManager.getDriver();
+		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
+
+		sh.wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1, actionTab.getSize().getHeight() / 2).click().build().perform();
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+		FLDP3EnterAccountInformation enterAccountInfo = new FLDP3EnterAccountInformation(sh);
+
+
+		log("Test new person account creation");
+
+		//String[] insuredName = eai.get("Name Insured").split("\\s+");
+		String firstName = eai.get("Name Insured First Name"), lastName = eai.get("Name Insured Last Name");
+
+		enterAccountInfo.setFirstName(firstName).setCountry("United States").setCity(eai.get("Mailing City")).setState(eai.get("Mailing State")).setZipCode(eai.get("Mailing Zip Code")).setLastName(lastName).clickSearch();
+		FLDP3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
+
+		log("Creating new account: " + dateString);
+
+		createAccount.setAddressLine1(eai.get("Mailing Address")).setCity(eai.get("Mailing City")).setState(eai.get("Mailing State")).setCounty(eai.getOrDefault("Mailing County", null)).setDateOfBirth(eai.get("Date of Birth")).setHomePhone(eai.get("Home Phone")).setWorkPhone(eai.getOrDefault("Work Phone", null)).setPrimaryEmail(eai.getOrDefault("Email Address", null)).setState(eai.getOrDefault("Mailing State", null)).setZipCode(eai.getOrDefault("Mailing Zip Code", null)).clickVerifyAddress().selectSuccessfulVerificationIfPossibleForCreateAccount().setAddressType(eai.getOrDefault("Address Type", "Home"))
+		//.setDescription("Nerd Lair")
+		.setSsn(eai.getOrDefault("SSN", null)).setOrganization("4 CORNERS INSURANCE").setProducerCode("8329736");
+
+		FLDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+		log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() + ", first name: " + firstName + ", last name: " + lastName);
+
+
+		// Policy Renewal
+		log("Test simple homeowners policy renewal");
+		eai.put("Account Number", accountFileSummary.getAccountNumber());
+		String accountNumber = accountFileSummary.getAccountNumber();
+		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+		sh.setText(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem-inputEl"), accountNumber);
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"));
+
+		accountFileSummary = new FLDP3AccountFileSummary(sh);
+		accountFileSummary.westPanel.actions.convertManualPolicy();
+		FLDP3InitiateManualRenewal imr = new FLDP3InitiateManualRenewal(sh);
+		// Initiate Manual Renewal
+		imr//.setOrganization(eai.getOrDefault("Organization", null))
+		//.setProducerCode(eai.getOrDefault("Producer Code", null))
+		.setBaseState(eai.getOrDefault("Base State", null))
+		.setProduct(eai.getOrDefault("Product", null))
+		.setPolicyType(eai.getOrDefault("Policy Type", null))
+		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
+		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
+		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
+		.setTheftCoverage(eai.getOrDefault("Theft Coverage", null));
+		FLDP3Offerings offerings = imr.nextAndAccept();
+
+		// Offerings
+		offerings
+		.setPolicyType(eai.getOrDefault("Policy Type", null))
+		.setOfferingSelection(eai.getOrDefault("Offering Selection","Most Popular"));
+		FLDP3PolicyInfo pi = offerings.next();
+		// Policy Info
+	}
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
 	public void SubmissionLoadTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)

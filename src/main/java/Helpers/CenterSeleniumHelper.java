@@ -45,7 +45,7 @@ public class CenterSeleniumHelper
 	}
 	public void setTextAndTab(By byLocator, String text)
 	{
-
+		waitForNoMask();
 		if(text != null)
 		{
 			wait(50).until(ExpectedConditions.refreshed(driver1 ->
@@ -53,17 +53,38 @@ public class CenterSeleniumHelper
 				driver1.findElement(byLocator).sendKeys("");
 				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
 					return false;
+				driver.findElement(byLocator).clear();
+				driver.findElement(byLocator).sendKeys(text);
 				return true;
 
 			}));
-			driver.findElement(byLocator).sendKeys("");
-			driver.findElement(byLocator).clear();
-			driver.findElement(byLocator).sendKeys(text);
+			//driver.findElement(byLocator).sendKeys("");
+			// Added for those specific fields that throw raise conditions
+			// for the autofill.
+			try
+			{
+				Thread.sleep(5000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 			tab();
 			waitForNoMask();
-			Assert.assertEquals("Expected value: '" +text+ "'\t Actual value: '" + getValue(byLocator) + "'",text, getValue(byLocator));
+			Assert.assertEquals(text, getValue(byLocator) == null ? getText(byLocator) : getValue(byLocator));
 
 		}
+	}
+
+	public void selectFromDropDown(By by, String text)
+	{
+		clickElement(by);
+		if(!isDisplayed(By.xpath("//*[text() = '" + text + "']")))
+		{
+			waitForNoMask();
+			clickElement(by);
+		}
+		clickElement(By.xpath("//*[text() = '" + text + "']"));
 	}
 
 	public void waitForPageLoad()

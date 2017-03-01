@@ -94,15 +94,7 @@ public class FLHO6InitiateManualRenewal extends InitiateManualRenewal<FLHO6Initi
 	{
 		return super.getInflationGuard();
 	}
-	public FLHO6InitiateManualRenewal setTheftCoverage(String text)
-	{
-		return super.setTheftCoverage(text);
-	}
 
-	public String getTheftCoverage()
-	{
-		return super.getTheftCoverage();
-	}
 
 	public FLHO6InitiateManualRenewal nextAndDismiss()
 	{
