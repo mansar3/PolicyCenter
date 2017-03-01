@@ -24,6 +24,14 @@ public class FLHO6Dwelling extends Dwelling<FLHO6Dwelling>
 		return super.setYearBuilt(text);
 	}
 
+	public FLHO6Dwelling Enter(){
+		return super.Enter();
+	}
+	public String getdwellingErrorMessage()
+	{
+		return super.dwellingErrorMessage();
+	}
+
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();
@@ -188,6 +196,13 @@ public class FLHO6Dwelling extends Dwelling<FLHO6Dwelling>
 	{
 		return super.setAtInceptionOfPolicyIsDeedOwnedByEntity(flag);
 	}
+
+	public FLHO6Dwelling clickDwellingBack()
+	{
+		super.clickDwellingLeft();
+		return new FLHO6Dwelling(sh, path);
+	}
+
 	public FLHO6ProtectionDetails clickProtectionDetails()
 	{
 		super.clickProtectionDetailsTab();
@@ -338,6 +353,8 @@ public class FLHO6Dwelling extends Dwelling<FLHO6Dwelling>
 		{
 			return super.setResidenceVisibleToNeighbors(flag);
 		}
+		public FLHO6ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
+
 		public FLHO6ProtectionDetails safetyLatchesPresent(String flag)
 		{
 			return super.safetyLatchesPresent(flag);
