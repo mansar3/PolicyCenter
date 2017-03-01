@@ -50,11 +50,36 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.getOtherStructuresLimit();
 	}
 
+	public boolean isOtherStructuresLimitEditable()
+	{
+		return super.isOtherStructuresLimitEditable();
+	}
+
+	public String getFairRentalValuePercentage()
+	{
+		return super.getFairRentalValuePercentage();
+	}
+
+	public String getFairRentalValueLimit()
+	{
+		return super.getFairRentalValueLimit();
+	}
+
 	public FLDP3Coverages setPersonalPropertyExcluded(String flag)
 	{
 		return super.setPersonalPropertyExcluded(flag);
-
 	}
+
+	public boolean isPersonalPropertyExcluded()
+	{
+		return super.isPersonalPropertyExcluded();
+	}
+
+	public boolean isWindExcluded()
+	{
+		return super.isWindExcluded();
+	}
+
 	public String getPersonalPropertyValuationMethod()
 	{
 		return super.getPersonalPropertyValuationMethod();
@@ -88,6 +113,12 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.setHurricane(text);
 
 	}
+
+	public String getPremisesLiabilityLimit()
+	{
+		return super.getPremisesLiabilityLimit();
+	}
+
 	public String getAllOtherPerils()
 	{
 		return super.getAllOtherPerils();

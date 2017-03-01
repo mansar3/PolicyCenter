@@ -12,4 +12,9 @@ public class FLDP3NavigationBar extends NavigationBar<FLDP3NavigationBar>
 	{
 		super(sh);
 	}
+	public FLDP3SearchAccounts clickSearchAccount()
+	{
+		super.clickSearchAccountNavBar();
+		return new FLDP3SearchAccounts(sh);
+	}
 }

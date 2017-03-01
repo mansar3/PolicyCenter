@@ -23,6 +23,13 @@ public class FLDP3EnterAccountInformation extends EnterAccountInformation<FLDP3E
 		super.createNewPersonAccount();
 		return new FLDP3CreateAccount(sh);
 	}
+
+	public FLDP3CreateAccount createNewPersonAccountFLDP3()
+	{
+		super.createNewPersonAccount();
+		return new FLDP3CreateAccount(sh);
+	}
+
 	public FLDP3SearchAddressBook createFromAddressBook()
 	{
 		super.searchFromAddressBookAccount();

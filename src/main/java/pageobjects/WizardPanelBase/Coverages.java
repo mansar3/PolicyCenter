@@ -111,6 +111,17 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.getText(by.otherStructuresLimit);
 	}
 	*/
+
+	protected String getFairRentalValuePercentage()
+	{
+		return sh.getText(by.fairRentalValuePercentage);
+	}
+
+	protected String getFairRentalValueLimit()
+	{
+		return sh.getText(by.fairRentalValueLimit);
+	}
+
 	protected T setPersonalPropertyExcluded(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
@@ -313,6 +324,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+
+	protected String getPremisesLiabilityLimit()
+	{
+		return sh.getValue(by.premisesLiabilityLimit);
+	}
+
     // TODO review this locator
 	protected  T coveragesEnter ()
 	{
@@ -372,9 +389,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
 								windHailDeductible = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:3:CovTermInputSet:DirectTermInput-inputEl']"),
 								namedStorm = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Named Storm']/../..//input"),
+								fairRentalValuePercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Fair Rental Value']/../..//span[text() = 'Percentage']/../..//div[@role='textbox']"),
+								fairRentalValueLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Fair Rental Value']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalLiabilityLabel = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']"),
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
+								premisesLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Premises Liability']/../..//span[text() = 'Limit']/../..//div/input"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
