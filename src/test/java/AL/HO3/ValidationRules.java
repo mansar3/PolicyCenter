@@ -2,12 +2,15 @@ package AL.HO3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
@@ -151,15 +154,13 @@ public class ValidationRules extends BaseTest {
         String conditionofroof = "Below Average",
                 conditionofroof1="Good";
 
-        String oneFutureYear = "2018";
-        Calendar now = Calendar.getInstance();
-        //Current Year
-        String currentYear = String.valueOf(now.get(Calendar.YEAR));
-        //Future Year
-        now.add(Calendar.YEAR, 1);
-        Date today = now.getTime();
-        now.add(Calendar.YEAR,1);
-        Date FutureYear = now.getTime();
+        String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
+        String effectiveDate = new DateTime().toString("MM/dd/yyyy");
+        String futureYear= new DateTime().plusYears(1).toString("yyyy");
+        String currentYear= new DateTime().toString("yyyy");
+        String plumbingYear = new DateTime().minusYears(18).toString("yyyy");
+        String waterHeaterYear = new DateTime().minusYears(18).toString("yyyy");
+        String roofYear = new DateTime().minusYears(18).toString("yyyy");
 
         String specificotherstructuresdescription=  ", Example";
        // String othersstructurelimit = (1, "66000");
@@ -222,7 +223,7 @@ public class ValidationRules extends BaseTest {
         System.out.println(" Expected Roof Year should be " + expectedroofyear + " and it is " + roofyear);
 
         dwe.clickDwellingLeftMenu()
-                .setYearBuilt(oneFutureYear)
+                .setYearBuilt(futureYear)
                 .Enter();
          yearerrormessage = dwe.getdwellingErrorMessage();
     //       System.out.println(yearerrormessage);
@@ -342,12 +343,12 @@ public class ValidationRules extends BaseTest {
                 .next()
                 .setDwellingLimit(dwellinglimit)
                 .back();
-        ALHO3Coverages coverages = dwellingConstruction.setPlumbingYear(oneFutureYear)
+        ALHO3Coverages coverages = dwellingConstruction.setPlumbingYear(futureYear)
                 .next()
                 .back();
 
         //Going back to the Dwelling construction
-        dwellingConstruction.setWaterHeaterYear(oneFutureYear)
+        dwellingConstruction.setWaterHeaterYear(futureYear)
                 .next()
                 .back();
 
@@ -369,7 +370,7 @@ public class ValidationRules extends BaseTest {
                 .back();
 
         //sets to plus one year for roof year
-//        dwellingConstruction.setRoofYear(oneFutureYear)
+//        dwellingConstruction.setRoofYear(futureYear)
 //                .dwellingConstructionEnter();
       //  Assert.assertTrue(sh.isDisplayed(By.xpath("//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"))," This error message was expected");
 
@@ -482,5 +483,18 @@ public class ValidationRules extends BaseTest {
     }
 
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
 }
+
 

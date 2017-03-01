@@ -25,12 +25,21 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		//super.riskAnalysisClickContingencies().riskAnalysisQuote();
 		return new FLHO3Quote(sh, path);
 	}
+
+	public FLHO3RiskAnalysis back(){
+		return  super.coveragesback();
+	}
+
 	public FLHO3Contingencies clickContingencies()
 	{
 		super.riskAnalysisClickContingencies();
 		return new FLHO3Contingencies(sh, path);
 	}
-
+	public FLHO3UnderwritingQuestions clickUnderWritingQuestions()
+	{
+		super.riskAnalysisClickUnderwritingquestion();
+		return new FLHO3UnderwritingQuestions(sh,path);
+	}
 	public FLHO3UWActivity riskAnalysisRequestApproval()
 	{
 		super.requestApproval();
@@ -41,6 +50,15 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		super.riskAnalysisAddUWIssue();
 		return new FLHO3RiskAnalysis.FLHO3CreateNewUWIssue(sh, path);
 
+	}
+
+	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
+	public FLHO3RiskAnalysis answerYes(int questionNum){
+		return super.answerYes(questionNum);
+	}
+
+	public FLHO3RiskAnalysis answerNo(int questionNum){
+		return super.answerNo(questionNum);
 	}
 	public class FLHO3Contingencies extends Contingencies<FLHO3Contingencies>
 	{
@@ -115,4 +133,20 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 
 
 	}
+
+
+	public class FLHO3UnderwritingQuestions extends UnderwritingQuestions<FLHO3UnderwritingQuestions>
+	{
+
+		public FLHO3UnderwritingQuestions(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+		public FLHO3Quote quote()
+
+		{
+			super.UnderwritingQuestionsQuote();
+			return new FLHO3Quote(sh, path);
+		}
+
+	}
+
 }

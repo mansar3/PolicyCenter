@@ -290,6 +290,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.clickElement(by.coverages);
 		return (T)this;
 	}
+	protected T  PermittedIncidentalOccupalimit(String permittedlimit){
+		sh.setText(by. PermittedIncidentalOccupancylimit, permittedlimit );
+		sh.waitForNoMask();
+		return (T) this;
+	}
+
 	protected String getWindDeductibleType()
 	{
 		return sh.getValue(by.windDeductibleType);
@@ -417,7 +423,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
-								saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
+			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
+				saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
 
 								//creditValue = By.id("")
 
@@ -642,6 +649,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.clickElement(By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']" + "/../../div//span[text() = 'Does Exterior Masonry Veneer Exclusion Apply?']/../..//input[contains(@id,'" + flag.toLowerCase() + "')]"));
 			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected  T coveragesPropertyEnter ()
+		{
+			sh.driver.findElement(By.id("SubmissionWizard:Next-btnInnerEl")).sendKeys(Keys.ENTER);
+			sh.waitForNoMask(10);
 			return (T)this;
 		}
 		protected boolean isEarthQuakeLossAssessmentChecked()
@@ -1327,6 +1340,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T clickPropertyEndorsementsTab()
 		{
 			sh.clickElement(by.propertyEndorsements);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 		protected T clickCoveragesTab()

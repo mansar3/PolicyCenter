@@ -115,6 +115,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		return super.setPersonalLiabilityLimit(text);
 
 	}
+	public NCHO3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
+
 	public String getMedicalPaymentsLimit()
 	{
 		return super.getMedicalPaymentsLimit();
