@@ -40,7 +40,23 @@ public class NCHO3RiskAnalysis extends RiskAnalysis<NCHO3RiskAnalysis>
 	{
 		super.riskAnalysisAddUWIssue();
 		return new NCHO3RiskAnalysis.NCHO3CreateNewUWIssue(sh, path);
+	}
+	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
 
+	public NCHO3UnderwritingQuestions clickUnderWritingQuestions()
+	{
+		super.riskAnalysisClickUnderwritingquestion();
+		return new NCHO3UnderwritingQuestions(sh,path);
+	}
+	public NCHO3RiskAnalysis answerYes(int questionNum){
+		return super.answerYes(questionNum);
+	}
+
+	public NCHO3RiskAnalysis answerNo(int questionNum){
+		return super.answerNo(questionNum);
+	}
+	public NCHO3RiskAnalysis back(){
+		return  super.coveragesback();
 	}
 	public class NCHO3Contingencies extends Contingencies<NCHO3Contingencies>
 	{
@@ -113,6 +129,20 @@ public class NCHO3RiskAnalysis extends RiskAnalysis<NCHO3RiskAnalysis>
 			return new NCHO3CreateNewUWIssue(sh, path);
 		}
 
+
+	}
+
+	public class NCHO3UnderwritingQuestions extends UnderwritingQuestions<NCHO3UnderwritingQuestions>
+	{
+
+		public NCHO3UnderwritingQuestions(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+		public NCHO3Quote quote()
+
+		{
+			super.UnderwritingQuestionsQuote();
+			return new NCHO3Quote(sh, path);
+		}
 
 	}
 }

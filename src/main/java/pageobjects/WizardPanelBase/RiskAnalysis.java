@@ -79,6 +79,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 	protected T coveragesback()
 	{
 		clickBack();
+		sh.waitForNoMask();
 		return (T) this;
 	}
 

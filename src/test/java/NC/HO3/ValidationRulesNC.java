@@ -2,11 +2,14 @@ package NC.HO3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Login;
@@ -131,24 +134,26 @@ public class ValidationRulesNC extends BaseTest{
                 primaryHeatingwoodf = "Wood Furnace",
                 primaryHeatingelectric = "Electric";
         String dwellinglimit = "250,000",
-                dwellinglimit1 = "900",
-                dwellinglimit2 = "160,000";
-        // dwellinglimit3 = "220000";
+                dwellinglimit1 = "140,000",
+                dwellinglimit2 = "210,000",
+                dwellinglimit3 = "220000";
 
-        String personalpropertylimit = "25000",
-                personalpropertylimit1 = "140000",
-                personalpropertylimit2 = "100000";
-        // personalpropertylimit3 = "112000";
+        String personalpropertylimit = "24000",
+                personalpropertylimit1 = "120,000",
+                personalpropertylimit2 = "176000",
+                personalpropertylimit3 = "112000";
         String dwellingfinal,
                 expecteddwellingfinal = "220,000";
         String personalpropertylimitval,
                 expectedpersonalpersonallimit = "112,000";
         String otherstructurepercentage,
-                expectedothersstructurepercentage = "2%";
+                expectedothersstructurepercentage = "10%";
         String electricalsystemFuses = "Fuses",
                 electricalsystemcircuitbreaker = "Circuit Breaker";
         String conditionofroof = "Below Average",
                 conditionofroof1 = "Good";
+        String Tcode = "190",
+                Tcode1 = "110";
 
         String specificotherstructuresdescription = ", Example";
         // String othersstructurelimit = (1, "66000");
@@ -162,7 +167,7 @@ public class ValidationRulesNC extends BaseTest{
         String slideerror, expectedslideerror = "Slides do not meet eligibility guidelines: Dwelling at 128 WAXWING LN, DUCK, NC.";
         String housekeepingerror, expectedhousekeepingwrror = "Below average housekeeping is ineligible for coverage: Dwelling at 128 WAXWING LN, DUCK, NC.";
         String burgularbars, expectedburgularbars = "Burglar bars without safety release latches are ineligible for coverage: Dwelling at 128 WAXWING LN, DUCK, NC.";
-        String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 128 WAXWING LN, DUCK, NC..";
+        String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 128 WAXWING LN, DUCK, NC.";
         String electricsystemfuse, expectedelectricsystemfuse = "Fuse panels do not meet eligibility guidelines: Dwelling at 128 WAXWING LN, DUCK, NC.";
         String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 128 WAXWING LN, DUCK, NC.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
@@ -171,6 +176,7 @@ public class ValidationRulesNC extends BaseTest{
         String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
         String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
+        String territorycodeerror, expectedterritorycodeerrror = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 128 WAXWING LN, DUCK, NC.";
 
         NCHO3NavigationBar nav = new NCHO3NavigationBar(sh);
         NCHO3SearchAccounts sa = nav.clickSearchAccount();
@@ -348,8 +354,186 @@ public class ValidationRulesNC extends BaseTest{
                 .back();
 
 
+        //setting the plumbing year to one future year
+        dwellingConstruction.setPlumbingYear(futureYear)
+                .next()
+                .back();
+        System.out.println("There should be an error message here but there is no error message");
+
+        dwellingConstruction.setPlumbingYear(currentYear)
+                .setWaterHeaterYear(futureYear)
+                .next()
+                .back();
+
+        dwellingConstruction.setWaterHeaterYear(currentYear)
+                .next()
+                .back();
+
+        //now changes in Electrical System in dwelling construction
+        dwellingConstruction.setElectricalSystem(electricalsystemFuses)
+                .dwellingConstructionEnter();
+
+        electricsystemfuse = dwellingConstruction.dwellingConstructionErrorMessage();
+        Assert.assertTrue(expectedelectricsystemfuse.equals(electricsystemfuse));
+        System.out.println(" Expected Error message is " +expectedelectricsystemfuse+ "and it is " + electricsystemfuse);
+
+        dwellingConstruction.setElectricalSystem(electricalsystemcircuitbreaker)
+                .next()
+                .back();
+
+        //setting the roof year to one future year
+
+        dwellingConstruction.setRoofYear(futureYear)
+                .next()
+                .back();
+
+        System.out.println("There should be an error message here but there is no error message");
+
+        dwellingConstruction.setRoofYear(currentYear)
+                .next()
+                .back();
+
+        //entering the condition of the roof
+
+        dwellingConstruction.setConditionOfRoof(conditionofroof)
+                .dwellingConstructionEnter();
+
+        conditionrooferror = dwellingConstruction.dwellingConstructionErrorMessage();
+        Assert.assertTrue(expectedconditionroof.equals(conditionrooferror));
+        System.out.println(" Expected error message is " +expectedconditionroof+ "and it is " +conditionrooferror);
+
+        NCHO3Coverages coverages=  dwellingConstruction
+                .setConditionOfRoof(conditionofroof1)
+                .next();
 
 
+        //goes to the coverages page
+        coverages.setDwellingLimit(dwellinglimit1)
+                .coveragesEnter();
+
+        dwellinglimiterror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
+        System.out.println(" Expected error message is " +expecteddwellinglimiterror+ "  and it is " + dwellinglimiterror);
+
+        coverages.setDwellingLimit(dwellinglimit2)
+                .next()
+                .back();
+
+        //Comes back to the coverages page
+
+        coverages.setDwellingLimit(dwellinglimit2)
+                .setPersonalPropertyLimit(personalpropertylimit)
+                .coveragesEnter();
+
+        //personal property is below
+        personalpropertylimmiterror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
+        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror+ " and it is " + personalpropertylimmiterror);
+
+        coverages.setPersonalPropertyLimit(personalpropertylimit1)
+                .next()
+                .back();
+
+        coverages.setDwellingLimit(dwellinglimit3)
+                .setPersonalPropertyLimit(personalpropertylimit2)
+                .coveragesEnter();
+
+        //error personal property above
+        personalpropertylimitaboveerror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expectedpersonalpropertylimitaboveerror.equals(personalpropertylimitaboveerror));
+        System.out.println("  Expected error message is " +expectedpersonalpropertylimitaboveerror+ " and it is " + personalpropertylimitaboveerror);
+
+        coverages.setPersonalPropertyLimit(personalpropertylimit3)
+                .next()
+                .back();
+
+        //validating the dwelling, personal property  and structure percentage limit
+
+        dwellingfinal = coverages.getDwellingLimit();
+        Assert.assertTrue(expecteddwellingfinal.equals(dwellingfinal));
+        System.out.println("  Expected error message is " +expecteddwellingfinal+ " and it is " + dwellingfinal);
+
+        personalpropertylimitval = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedpersonalpersonallimit.equals(personalpropertylimitval));
+        System.out.println("  Expected error message is " +expectedpersonalpersonallimit+ " and it is " + personalpropertylimitval);
+
+
+        otherstructurepercentage  = coverages.getOtherStructurePercentageGreyedOut();
+        Assert.assertTrue(expectedothersstructurepercentage.equals(otherstructurepercentage));
+        System.out.println("  Expected error message is " +expectedothersstructurepercentage+ " and it is " + otherstructurepercentage);
+
+        coverages.next()
+                .back();
+
+           coverages.clickPropertyEndorsements()
+                .checkSpecificOtherStructures()
+                   .addSpecificOtherStructures()
+                   .setSpecificOtherStructuresDescription(1, "Example")
+                   .setSpecificOtherStructuresLimit(1, "66,000")
+                   .coveragesPropertyEnter();
+
+
+        //error message of structure coverage
+
+        structurecoverage = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expectedstructurecoverage.equals(structurecoverage));
+        System.out.println("  Expected error message is " +expectedstructurecoverage+ " and it is " + structurecoverage);
+
+
+
+        NCHO3RiskAnalysis riskanalysis =  coverages.clickCoverages()
+                .clickPropertyEndorsements()
+                .setSpecificOtherStructuresLimit(1, "5000")
+                .next();
+
+        riskanalysis.clickUnderWritingQuestions();
+
+        for (int j = 9; j<=9; j++){
+            riskanalysis.answerYes(j);
+        }
+        riskanalysis.back();
+
+        convitederror = riskanalysis.getErrorMessage();
+        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        System.out.println("  Expected error message is " +expectedconvitederror+ " and it is " + convitederror );
+
+        for(int z = 9; z<=9; z++){
+            riskanalysis.answerNo(z);
+        }
+
+        //goes to the dwelling page from risk analysis page
+
+        riskanalysis.back()
+                .back()
+                .back()
+                .back();
+
+        dwe.setTerritoryCode(Tcode)
+                .next();
+
+        territorycodeerror = dwe.getdwellingErrorMessage();
+        Assert.assertTrue(expectedterritorycodeerrror.equals(territorycodeerror));
+        System.out.println("  Expected error message is " +expectedterritorycodeerrror+ " and it is " + territorycodeerror );
+
+
+        //setting back the territory to 110
+        dwe.setTerritoryCode(Tcode1)
+                .next();
     }
+
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
+
 
 }

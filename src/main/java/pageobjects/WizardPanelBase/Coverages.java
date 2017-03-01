@@ -91,6 +91,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected String getOtherStructuresLimitGreyedOut()
+	{
+		sh.waitForElementToAppear(by.getOtherStructuresPercentagefedout);
+		return sh.getText(by.getOtherStructuresPercentagefedout);
+	}
 
 	protected String getOtherStructuresLimit()
 	{
@@ -288,6 +293,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected T clickCoverages()
 	{
 		sh.clickElement(by.coverages);
+		sh.waitForNoMask();
 		return (T)this;
 	}
 	protected T  PermittedIncidentalOccupalimit(String permittedlimit){
@@ -402,6 +408,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								otherStructuresIncreasedCoverage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/..//input"),
 								otherStructuresIncreasedCoverageLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/../..//span[text() = 'Limit']/../..//input"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
+		                        getOtherStructuresPercentagefedout= By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:OptionTermInput-inputEl"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
 								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
