@@ -213,6 +213,13 @@ public class ValidationRulesSC extends BaseTest {
                 .clickOk()
                 .Enter();
 
+        //validating the error
+
+        Countyrisk = dwe.getdwellingErrorMessage();
+        Assert.assertTrue(expectedcountyrisk.equals(Countyrisk));
+        System.out.println(" Expected Roof Year should be " + expectedcountyrisk + " and it is " + Countyrisk);
+
+
         //setting back teh county to default
                dwe.editLocation()
                 .setCounty(county1)

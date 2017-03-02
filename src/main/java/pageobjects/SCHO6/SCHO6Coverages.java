@@ -65,7 +65,10 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		return super.setPersonalPropertyValuationMethod(text);
 	}
 	public SCHO6Coverages coveragesEnter(){return super.coveragesEnter();}
+
 	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+	public String coveragesErrorMessage2(){return super.coveragesErrorMessage2();}
+	public String coveragesErrorMessage3(){return super.coveragesErrorMessage3();}
 
 	public SCHO6Coverages setLossOfUseSelection(String text)
 	{

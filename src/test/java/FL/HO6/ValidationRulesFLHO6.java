@@ -151,6 +151,8 @@ public class ValidationRulesFLHO6 extends BaseTest {
         String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
+        String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
+
 
 
 
@@ -400,16 +402,29 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         //one more need to be done
 
-        FLHO6RiskAnalysis riskAnalysis = coverages.setDwellingLimit(dwellinglimit2)
+        FLHO6RiskAnalysis riskanalysis = coverages.setDwellingLimit(dwellinglimit2)
                 .setPersonalPropertyLimit(personalpropertylimit1)
                 .next();
 
-        riskAnalysis.clickUnderWritingQuestions();
+        riskanalysis.clickUnderWritingQuestions();
         for (int i = 0; i < 14; i++) {
-            riskAnalysis.answerNo(i + 1);
+            riskanalysis.answerNo(i + 1);
         }
 
-        riskAnalysis.back()
+        for (int j = 9; j<=9; j++){
+            riskanalysis.answerYes(j);
+        }
+        riskanalysis.back();
+
+        convitederror = riskanalysis.getErrorMessage();
+        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        System.out.println("  Expected error message is " +expectedconvitederror+ " and it is " + convitederror );
+
+        for(int z = 9; z<=9; z++){
+            riskanalysis.answerNo(z);
+        }
+
+        riskanalysis.back()
                 .back();
 
 

@@ -406,8 +406,20 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div")).getText();
 		return Error;
-
 	}
+	protected String coveragesErrorMessage2()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div[2]")).getText();
+		return Error;
+	}
+	protected String coveragesErrorMessage3()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div[3]")).getText();
+		return Error;
+	}
+
 	protected T clickOtherStructuresIncreasedCoverage()
 	{
 		sh.clickElement(by.otherStructuresIncreasedCoverage);
