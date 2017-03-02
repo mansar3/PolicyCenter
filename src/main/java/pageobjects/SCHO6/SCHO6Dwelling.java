@@ -18,6 +18,13 @@ public class SCHO6Dwelling extends Dwelling<SCHO6Dwelling>
 		super.DwellingConstructionNext();
 		return new SCHO6DwellingConstruction(sh, path);
 	}
+	public SCHO6Dwelling Enter(){
+		return super.Enter();
+	}
+	public String getdwellingErrorMessage()
+	{
+		return super.dwellingErrorMessage();
+	}
 	public SCHO6Dwelling setYearBuilt(String text)
 	{
 		return super.setYearBuilt(text);
@@ -337,6 +344,8 @@ public class SCHO6Dwelling extends Dwelling<SCHO6Dwelling>
 		{
 			return super.setResidenceVisibleToNeighbors(flag);
 		}
+		public SCHO6ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
+
 		public SCHO6ProtectionDetails safetyLatchesPresent(String flag)
 		{
 			return super.safetyLatchesPresent(flag);

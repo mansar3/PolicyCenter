@@ -65,6 +65,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		return super.setPersonalPropertyValuationMethod(text);
 	}
 
+	public FLHO6Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+
+
 	public FLHO6Coverages setLossOfUseSelection(String text)
 	{
 		return super.setLossOfUseSelection(text);

@@ -45,8 +45,8 @@ public class ValidationRulesSC extends BaseTest {
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
-    @Test(description = "Creates Account for FLHO3")
-    public void CreatePersonalAccountforFLHO3(ITestContext itc) {
+    @Test(description = "Creates Account for SCHO3")
+    public void CreatePersonalAccountforSCHO3(ITestContext itc) {
         String firstname = "SCHO3";
         String lastname = "Validationrule";
         String date = "03/30/1985";
@@ -90,7 +90,7 @@ public class ValidationRulesSC extends BaseTest {
 
     }
 
-    @Test(description = "Validating the Ho3")
+    @Test(description = "Validating the HO3")
     public void ValidatingSCH03() {
 
         String firstname = "SCHO3";

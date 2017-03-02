@@ -1,4 +1,4 @@
-package FL.HO6;
+package SC.HO6;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
@@ -9,17 +9,13 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.FLHO3.FLHO3CreateAccount;
-import pageobjects.FLHO3.FLHO3EnterAccountInformation;
-import pageobjects.FLHO3.FLHO3NavigationBar;
-import pageobjects.FLHO3.FLHO3Organizations;
-import pageobjects.FLHO6.*;
 import pageobjects.Login;
+import pageobjects.SCHO6.*;
 
 /**
  * Created by ssai on 3/1/2017.
  */
-public class ValidationRulesFLHO6 extends BaseTest {
+public class ValidationRulesSCHO6 extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
@@ -28,8 +24,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
 
     @BeforeMethod
-    public void beforeMethod()
-    {
+    public void beforeMethod() {
         DateTime date = new DateTime();
         dateString = date.toString("MMddhhmmss");
         System.out.println(new DateTime().toString());
@@ -44,29 +39,30 @@ public class ValidationRulesFLHO6 extends BaseTest {
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
-    @Test(description = "Creates Account for FLHO6")
-    public void CreatePersonalAccountforFLHO6(ITestContext itc){
-        String firstname = "FLHO6";
+    @Test(description = "Creates Account for SCHO6")
+    public void CreatePersonalAccountforSCHO6(ITestContext itc) {
+        String firstname = "SCHO6";
         String lastname = "Validationrule";
         String date = "03/30/1985";
         String homephone = "8501112222";
-        String homeaddress = "3546 Egret Dr";
-        String city = "Melbourne";
-        String state = "Florida";
-        String zip = "32901";
+        String homeaddress = "371 Pelican Flight Dr";
+        String city = "Dewees Island";
+        String state = "South Carolina";
+        String zip = "29451";
         String addrestype = "Home";
-        String orgname = "4";
-        FLHO6NavigationBar nb = new FLHO6NavigationBar(sh);
+        String orgname = "C.T";
+        String producercode = "523-23-30007 C.T. Lowndes & Co. - Charleston";
+        SCHO6NavigationBar nb = new SCHO6NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
 
-        FLHO6EnterAccountInformation eai = new FLHO6EnterAccountInformation(sh);
+        SCHO6EnterAccountInformation eai = new SCHO6EnterAccountInformation(sh);
         eai.setFirstName(firstname);
         eai.setLastName(lastname);
         eai.clickSearch();
-        eai.createNewPersonAccountFLHO6();
+        eai.createNewPersonAccountSCHO6();
 
-        FLHO6CreateAccount ca = new FLHO6CreateAccount(sh);
+        SCHO6CreateAccount ca = new SCHO6CreateAccount(sh);
         ca.setDateOfBirth(date);
         ca.setHomePhone(homephone);
         ca.setAddressLine1(homeaddress);
@@ -77,20 +73,21 @@ public class ValidationRulesFLHO6 extends BaseTest {
         driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
         ca.setAddressType(addrestype);
         ca.organizationSearch();
-        FLHO6Organizations org = new FLHO6Organizations(sh);
+        SCHO6Organizations org = new SCHO6Organizations(sh);
 
         org.setOrganizationName(orgname);
         org.clickSearchButton();
         org.selectOrganizationButton();
+        ca.setProducerCode(producercode);
 //after filling the form clicking on the update button in create account page
         ca.update();
 
     }
 
-    @Test(description = "Validating the HO6")
-    public void ValidatingHO6FL() {
+    @Test(description = "Validating the HO3")
+    public void ValidatingSCH06() {
 
-        String firstname = "FLHO6";
+        String firstname = "SCHO6";
         String lastname = "Validationrule";
         String policyType = "Condominium (HO6)";
         String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
@@ -100,73 +97,95 @@ public class ValidationRulesFLHO6 extends BaseTest {
         String plumbingYear = new DateTime().minusYears(18).toString("yyyy");
         String waterHeaterYear = new DateTime().minusYears(18).toString("yyyy");
         String roofYear = new DateTime().minusYears(18).toString("yyyy");
-        String yearBuiltde, yearBuilt = "2001";
-        String distanceToFireHydrant = "200";
+        String yearBuilt1 = new DateTime().minusYears(18).toString("yyyy");
+        String yearBuilt = "2001";
+        String distanceToFireHydrant = "200",
+                territorycode = "01",
+                BECG = "07",
+                protectionclass = "3";
+        String county = "Dell",
+                county1 = "Charleston";
+        String roofshapetype = "Gable";
+        String roofyear;
         String protectionclasscode = "10",
                 protectionclasscode1 = "10W",
                 protectionclasscode2 = "6";
-        String roofshapetype = "Gable",
-                openingprotectiontype= "Hurricane";
+
         String pool = "false",
-                poolTrue= "true";
+                poolTrue = "true";
         String poolLocation = "Above-Ground",
                 poolFensed = "false",
                 poolFenseTrue = "true",
-                fenceType= "Approved Fence",
+                fenceType = "Approved Fence",
                 divingBoard = "false",
-                divingBoardTrue= "true",
+                divingBoardTrue = "true",
                 poolSlide = "false",
-                poolslideTrue= "true",
-                houseKeepingCondBelow= "Below Average",
-                houseKeepingCondGood= "Good";
+                poolslideTrue = "true",
+                houseKeepingCondBelow = "Below Average",
+                houseKeepingCondGood = "Good";
         String burglarbaronwindowstrue = "true",
                 burglarbaronwindowno = "false";
         String safetylatches = "false";
         String primaryHeatingfire = "Fireplace",
-                primaryHeatingspace="Space Heater",
+                primaryHeatingspace = "Space Heater",
                 primaryHeatingwood = "Wood Stove",
                 primaryHeatingwoodf = "Wood Furnace",
-                primaryHeatingelectric= "Electric";
-        String dwellinglimit = "250,000";
+                primaryHeatingelectric = "Electric";
+        String dwellinglimit = "250,000",
+                dwellinglimit1 = "900",
+                dwellinglimit2 = "300000";
+        // dwellinglimit3 = "220000";
+
+        String personalpropertylimit = "900",
+                personalpropertylimit1 = "150000",
+                personalpropertylimit2 = "100000";
+        // personalpropertylimit3 = "112000";
+        String dwellingfinal,
+                expecteddwellingfinal = "220,000";
+        String personalpropertylimitval,
+                expectedpersonalpersonallimit = "112,000";
+        String otherstructurepercentage,
+                expectedothersstructurepercentage = "2%";
         String electricalsystemFuses = "Fuses",
                 electricalsystemcircuitbreaker = "Circuit Breaker";
         String conditionofroof = "Below Average",
-                conditionofroof1="Good";
-        String dwellinglimit1 = "900",
-                dwellinglimit2 = "100,000",
-                dwellinglimit3 = "160,000";
-        String personalpropertylimit = "5000",
-                personalpropertylimit1 = "50,000";
+                conditionofroof1 = "Good";
 
-
+        String specificotherstructuresdescription = ", Example";
+        // String othersstructurelimit = (1, "66000");
+        String yearbuilt, expectedyearbuilt = "Please enter a valid 4 digit year: Year Built.";
+        String Countyrisk, expectedcountyrisk = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String expectederrormessagesafetylatches = " Burglar bars without safety release latches are ineligible for coverage";
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
-        String protectionclasserror, expectedprotectionclasserror = "Property with a protection class of 10 or 10W are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String poolerror1, expectedpoolerror1 = "Pools without approved security do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String divingerror, expecteddivingerror = "Diving Boards do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String slideerror, expectedslideerror = "Slides do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String housekeepingerror, expectedhousekeepingwrror = "Below average housekeeping is ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String burgularbars, expectedburgularbars = "Burglar bars without safety release latches are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String electricsystemfuse, expectedelectricsystemfuse = "Fuse panels do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
+        String protectionclasserror, expectedprotectionclasserror = "Property with a protection class of 10 or 10W are ineligible for coverage: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String poolerror1, expectedpoolerror1 = "Pools without approved security do not meet eligibility guidelines: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String divingerror, expecteddivingerror = "Diving Boards do not meet eligibility guidelines: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String slideerror, expectedslideerror = "Slides do not meet eligibility guidelines: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String housekeepingerror, expectedhousekeepingwrror = "Below average housekeeping is ineligible for coverage: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String burgularbars, expectedburgularbars = "Burglar bars without safety release latches are ineligible for coverage: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String electricsystemfuse, expectedelectricsystemfuse = "Fuse panels do not meet eligibility guidelines: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
+        String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
+        String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
+        String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
+        String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
+        String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
 
-
-
-        FLHO6NavigationBar nav = new FLHO6NavigationBar(sh);
-        FLHO6SearchAccounts sa = nav.clickSearchAccount();
+        SCHO6NavigationBar nav = new SCHO6NavigationBar(sh);
+        SCHO6SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        FLHO6AccountFileSummary afs = new FLHO6AccountFileSummary(sh);
+        SCHO6AccountFileSummary afs = new SCHO6AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
 
-        FLHO6NewSubmission ns = new FLHO6NewSubmission(sh);
-        FLHO6Qualification qua = ns.productTable.selectHomeowners();
+        SCHO6NewSubmission ns = new SCHO6NewSubmission(sh);
+        SCHO6Qualification qua = ns.productTable.selectHomeowners();
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
         // to select no for all the blanks
@@ -174,30 +193,40 @@ public class ValidationRulesFLHO6 extends BaseTest {
             qua.questionnaire.answerNo(i + 1);
         }
 
-        FLHO6Dwelling dwe = qua.next()
-//                .setEffectiveDate(futureEffectiveDate)
-//                .next()
-//                .clickDwellingBack();
-//        System.out.println("Supposed to get a error message");
-
+        SCHO6Dwelling dwe = qua.next()
+                // .setEffectiveDate(futureEffectiveDate)
                 .setEffectiveDate(effectiveDate)
                 .next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
-                .setYearBuilt(futureYear)
+                .setTerritoryCode(territorycode)
+                .setBCEG(BECG)
+                .setProtectionClassCode(protectionclass)
+                .editLocation()
+                .setCounty(county)
+                .clickOk()
                 .Enter();
 
+        //setting back the county to default
+        dwe.editLocation()
+                .setCounty(county1)
+                .clickOk();
 
-        yearerrormessage = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedyearerrormessage.equals(yearerrormessage));
-        System.out.println(" Expected Roof Year should be " + expectedyearerrormessage + " and it is " + yearerrormessage);
+        dwe.setYearBuilt(futureYear)
+                .Enter();
 
-        dwe.setYearBuilt(currentYear)
+        //verify the error message
+
+        yearbuilt = dwe.getdwellingErrorMessage();
+        Assert.assertTrue(expectedyearbuilt.equals(yearbuilt));
+        System.out.println(" Expected Roof Year should be " + expectedyearbuilt + " and it is " + yearbuilt);
+
+        dwe.setYearBuilt(yearBuilt1)
                 .next()
                 .clickWindMitigation()
                 .setRoofShapeType(roofshapetype)
-                .setOpeningProtectionType(openingprotectiontype)
                 .winddwellingback();
+
 
         //setting the protection code to 10 and 10W
         dwe.setProtectionClassCode(protectionclasscode)
@@ -205,21 +234,18 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         protectionclasserror = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedprotectionclasserror.equals(protectionclasserror));
-        System.out.println(" Expected error messsage  "+ expectedprotectionclasserror+ " but it was " + protectionclasserror);
+        System.out.println(" Expected error messsage  " + expectedprotectionclasserror + " but it was " + protectionclasserror);
 
         dwe.setProtectionClassCode(protectionclasscode1)
                 .Enter();
         protectionclasserror = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedprotectionclasserror.equals(protectionclasserror));
-        System.out.println(" Expected error message is "+ expectedprotectionclasserror+ " but it was " + protectionclasserror);
+        System.out.println(" Expected error message is " + expectedprotectionclasserror + " but it was " + protectionclasserror);
 
         //setting the protectionclasscode
         dwe.setProtectionClassCode(protectionclasscode2)
                 .next()
                 .back();
-
-
-        //changing the pool settings
 
         dwe.setSwimmingPool(poolTrue)
                 .setPoolLocation(poolLocation)
@@ -229,7 +255,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .Enter();
         poolerror1 = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedpoolerror1.equals(poolerror1));
-        System.out.println(" Expected error message is "+ expectedpoolerror1+ " but it was " + poolerror1);
+        System.out.println(" Expected error message is " + expectedpoolerror1 + " but it was " + poolerror1);
 
         //changing the pool options again
 
@@ -240,7 +266,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         divingerror = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expecteddivingerror.equals(divingerror));
-        System.out.println(" Expected error message is "+ expecteddivingerror+ " but it was " + divingerror);
+        System.out.println(" Expected error message is " + expecteddivingerror + " but it was " + divingerror);
 
         //changing the slides in dwelling page
         dwe.setDivingBoard(divingBoard)
@@ -249,7 +275,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         slideerror = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedslideerror.equals(slideerror));
-        System.out.println(" Expected error message is "+ expectedslideerror+ " but it was " + slideerror);
+        System.out.println(" Expected error message is " + expectedslideerror + " but it was " + slideerror);
 
         //changing the HOUSEKEEPING CONDITION
 
@@ -259,7 +285,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         housekeepingerror = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedhousekeepingwrror.equals(housekeepingerror));
-        System.out.println(" Expected error message is "+ expectedhousekeepingwrror+ " but it was " + housekeepingerror );
+        System.out.println(" Expected error message is " + expectedhousekeepingwrror + " but it was " + housekeepingerror);
 
         dwe.setSwimmingPool(pool)
                 .setHousekeepingCondition(houseKeepingCondGood)
@@ -274,9 +300,9 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         burgularbars = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedburgularbars.equals(burgularbars));
-        System.out.println(" Expected error message is "+expectedburgularbars + " but it was " +burgularbars  );
+        System.out.println(" Expected error message is " + expectedburgularbars + " but it was " + burgularbars);
 
-        FLHO6DwellingConstruction dwellingConstruction = dwe.clickProtectionDetails()
+        SCHO6DwellingConstruction dwellingConstruction = dwe.clickProtectionDetails()
                 .setBurglarBarsOnWindows(burglarbaronwindowno)
                 .next();
 
@@ -289,25 +315,24 @@ public class ValidationRulesFLHO6 extends BaseTest {
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         System.out.println(primaryheating);
         Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is "+ expectedpprimaryheating+ " but it was " + primaryheating );
-
+        System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
         //changing to space heater
-        dwellingConstruction .setPrimaryHeating(primaryHeatingspace)
+        dwellingConstruction.setPrimaryHeating(primaryHeatingspace)
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is  "+ expectedpprimaryheating + " but it was " + primaryheating );
+        System.out.println(" Expected error message is  " + expectedpprimaryheating + " but it was " + primaryheating);
 
         //changing to woodstove
-        dwellingConstruction .setPrimaryHeating(primaryHeatingwood)
+        dwellingConstruction.setPrimaryHeating(primaryHeatingwood)
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is "+ expectedpprimaryheating+ " but it was " + primaryheating);
+        System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
         //changing to wood furnace
@@ -316,7 +341,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is "+ expectedpprimaryheating + " but it was " + primaryheating);
+        System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
         //changing to electric
         dwellingConstruction.setPrimaryHeating(primaryHeatingelectric)
@@ -344,15 +369,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         electricsystemfuse = dwellingConstruction.dwellingConstructionErrorMessage();
         Assert.assertTrue(expectedelectricsystemfuse.equals(electricsystemfuse));
-        System.out.println(" Expected Error message is " +expectedelectricsystemfuse+ "and it is " + electricsystemfuse);
-
-//        dwellingConstruction.setElectricalSystem(electricalsystemcircuitbreaker)
-//                .next()
-//                .back();
-//
-//        electricsystemfuse = dwellingConstruction.dwellingConstructionErrorMessage();
-//        Assert.assertTrue(expectedelectricsystemfuse.equals(electricsystemfuse));
-//        System.out.println(" Expected Error message is " +expectedelectricsystemfuse+ "and it is " + electricsystemfuse);
+        System.out.println(" Expected Error message is " + expectedelectricsystemfuse + "and it is " + electricsystemfuse);
 
         dwellingConstruction.setElectricalSystem(electricalsystemcircuitbreaker)
                 .next()
@@ -378,17 +395,16 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         conditionrooferror = dwellingConstruction.dwellingConstructionErrorMessage();
         Assert.assertTrue(expectedconditionroof.equals(conditionrooferror));
-        System.out.println(" Expected error message is " +expectedconditionroof+ "and it is " +conditionrooferror);
+        System.out.println(" Expected error message is " + expectedconditionroof + "and it is " + conditionrooferror);
 
-        FLHO6Coverages coverages=  dwellingConstruction
+        SCHO6Coverages coverages = dwellingConstruction
                 .setConditionOfRoof(conditionofroof1)
                 .next();
 
         coverages.setDwellingLimit(dwellinglimit1)
                 .setPersonalPropertyLimit(personalpropertylimit)
                 .coveragesEnter();
-
-        //3 error messages two are initiated and one needs to get the error message from the uI
+        //3 error messages should display
 
         dwellinglimiterror = coverages.coveragesErrorMessage();
         Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
@@ -398,38 +414,27 @@ public class ValidationRulesFLHO6 extends BaseTest {
         Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
         System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror+ " and it is " + personalpropertylimmiterror);
 
-        //one more need to be done
+        //one  more error  need to be done
 
-        FLHO6RiskAnalysis riskAnalysis = coverages.setDwellingLimit(dwellinglimit2)
+       SCHO6RiskAnalysis riskanalysis = coverages.setDwellingLimit(dwellinglimit2)
                 .setPersonalPropertyLimit(personalpropertylimit1)
                 .next();
+        //goes to underwriting questions
 
-        riskAnalysis.clickUnderWritingQuestions();
-        for (int i = 0; i < 14; i++) {
-            riskAnalysis.answerNo(i + 1);
+        for (int j = 9; j<=9; j++){
+            riskanalysis.answerYes(j);
+        }
+        riskanalysis.back();
+
+        convitederror = riskanalysis.getErrorMessage();
+        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        System.out.println("  Expected error message is " +expectedconvitederror+ " and it is " + convitederror );
+
+        for(int z = 9; z<=9; z++){
+            riskanalysis.answerNo(z);
         }
 
-        riskAnalysis.back()
-                .back();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        riskanalysis.back();
 
     }
-
 }

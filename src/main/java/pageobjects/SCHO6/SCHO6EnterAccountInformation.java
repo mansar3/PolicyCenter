@@ -28,4 +28,9 @@ public class SCHO6EnterAccountInformation extends EnterAccountInformation<SCHO6E
 		super.searchFromAddressBookAccount();
 		return new SCHO6SearchAddressBook(sh);
 	}
+	public SCHO6CreateAccount createNewPersonAccountSCHO6()
+	{
+		super.createNewPersonAccount();
+		return new SCHO6CreateAccount(sh);
+	}
 }

@@ -47,6 +47,11 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 		super.dwellingBack();
 		return new SCHO6Dwelling(sh,path);
 	}
+	public String dwellingConstructionErrorMessage()
+	{
+		return super.dwellingConstructionErrorMessage();
+	}
+	public SCHO6DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();
@@ -341,7 +346,11 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 		{
 			return super.setRoofWallConnection(text);
 		}
-
+		public SCHO6Dwelling winddwellingback()
+		{
+			super.WinddwellingBack();
+			return new SCHO6Dwelling(sh,path);
+		}
 		public String getRoofWallConnection()
 		{
 			return super.getRoofWallConnection();

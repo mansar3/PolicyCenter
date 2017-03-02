@@ -30,17 +30,35 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 		super.riskAnalysisClickContingencies();
 		return new FLHO6Contingencies(sh, path);
 	}
+	public FLHO6RiskAnalysis back(){
+		return  super.coveragesback();
+	}
 
 	public FLHO6UWActivity riskAnalysisRequestApproval()
 	{
 		super.requestApproval();
 		return new FLHO6UWActivity(sh, path);
 	}
+
+	public FLHO6UnderwritingQuestions clickUnderWritingQuestions()
+	{
+		super.riskAnalysisClickUnderwritingquestion();
+		return new FLHO6UnderwritingQuestions(sh,path);
+	}
 	public FLHO6RiskAnalysis.FLHO6CreateNewUWIssue addUWIssue()
 	{
 		super.riskAnalysisAddUWIssue();
 		return new FLHO6RiskAnalysis.FLHO6CreateNewUWIssue(sh, path);
 
+	}
+
+	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
+	public FLHO6RiskAnalysis answerYes(int questionNum){
+		return super.answerYes(questionNum);
+	}
+
+	public FLHO6RiskAnalysis answerNo(int questionNum){
+		return super.answerNo(questionNum);
 	}
 	public class FLHO6Contingencies extends Contingencies<FLHO6Contingencies>
 	{
@@ -112,7 +130,19 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 			super.clickReturnToRiskAnalysis();
 			return new FLHO6CreateNewUWIssue(sh, path);
 		}
+	}
 
+	public class FLHO6UnderwritingQuestions extends UnderwritingQuestions<FLHO6UnderwritingQuestions>
+	{
+
+		public FLHO6UnderwritingQuestions(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+		public FLHO6Quote quote()
+
+		{
+			super.UnderwritingQuestionsQuote();
+			return new FLHO6Quote(sh, path);
+		}
 
 	}
 }

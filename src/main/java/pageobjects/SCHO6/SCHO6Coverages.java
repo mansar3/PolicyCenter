@@ -64,6 +64,8 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 	{
 		return super.setPersonalPropertyValuationMethod(text);
 	}
+	public SCHO6Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
 
 	public SCHO6Coverages setLossOfUseSelection(String text)
 	{
@@ -124,6 +126,9 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 	{
 		return super.setMedicalPaymentsLimit(text);
 
+	}
+	public SCHO6Coverages back(){
+		return super.dwellingConstructionBack();
 	}
 
 	public SCHO6Coverages clickCoverages()

@@ -54,6 +54,8 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 	{
 		return super.dwellingConstructionErrorMessage();
 	}
+	public SCHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
+
 
 	public String getEstimatedReplacementCost()
 	{
@@ -68,7 +70,6 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 	{
 		return super.getConstructionType();
 	}
-	public SCHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
 
 	public SCHO3DwellingConstruction setNumberOfUnits(String text)
 	{

@@ -42,6 +42,23 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 		return new SCHO6RiskAnalysis.SCHO6CreateNewUWIssue(sh, path);
 
 	}
+	public SCHO6UnderwritingQuestions clickUnderWritingQuestions()
+	{
+		super.riskAnalysisClickUnderwritingquestion();
+		return new SCHO6UnderwritingQuestions(sh,path);
+	}
+	public SCHO6RiskAnalysis back(){
+		return  super.coveragesback();
+	}
+	public SCHO6RiskAnalysis answerYes(int questionNum){
+		return super.answerYes(questionNum);
+	}
+
+	public SCHO6RiskAnalysis answerNo(int questionNum){
+		return super.answerNo(questionNum);
+	}
+	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
+
 	public class SCHO6Contingencies extends Contingencies<SCHO6Contingencies>
 	{
 
@@ -112,7 +129,19 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 			super.clickReturnToRiskAnalysis();
 			return new SCHO6CreateNewUWIssue(sh, path);
 		}
+	}
 
+	public class SCHO6UnderwritingQuestions extends UnderwritingQuestions<SCHO6UnderwritingQuestions>
+	{
+
+		public SCHO6UnderwritingQuestions(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+		public SCHO6Quote quote()
+
+		{
+			super.UnderwritingQuestionsQuote();
+			return new SCHO6Quote(sh, path);
+		}
 
 	}
 }
