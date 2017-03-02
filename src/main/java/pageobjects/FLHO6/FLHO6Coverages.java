@@ -115,6 +115,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		return super.setPersonalLiabilityLimit(text);
 
 	}
+
+	public FLHO6Coverages back(){
+		return super.dwellingConstructionBack();
+	}
+
 	public String getMedicalPaymentsLimit()
 	{
 		return super.getMedicalPaymentsLimit();

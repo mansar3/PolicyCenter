@@ -23,6 +23,11 @@ public class FLHO6EnterAccountInformation extends EnterAccountInformation<FLHO6E
 		super.createNewPersonAccount();
 		return new FLHO6CreateAccount(sh);
 	}
+	public FLHO6CreateAccount createNewPersonAccountFLHO6()
+	{
+		super.createNewPersonAccount();
+		return new FLHO6CreateAccount(sh);
+	}
 	public FLHO6SearchAddressBook createFromAddressBook()
 	{
 		super.searchFromAddressBookAccount();
