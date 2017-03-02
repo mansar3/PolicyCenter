@@ -90,10 +90,10 @@ public class ValidationRulesSCHO6 extends BaseTest {
         String firstname = "SCHO6";
         String lastname = "Validationrule";
         String policyType = "Condominium (HO6)";
-        String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
+      //  String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
         String effectiveDate = new DateTime().toString("MM/dd/yyyy");
         String futureYear = new DateTime().plusYears(1).toString("yyyy");
-        String currentYear = new DateTime().toString("yyyy");
+     //   String currentYear = new DateTime().toString("yyyy");
         String plumbingYear = new DateTime().minusYears(18).toString("yyyy");
         String waterHeaterYear = new DateTime().minusYears(18).toString("yyyy");
         String roofYear = new DateTime().minusYears(18).toString("yyyy");
@@ -106,7 +106,7 @@ public class ValidationRulesSCHO6 extends BaseTest {
         String county = "Dell",
                 county1 = "Charleston";
         String roofshapetype = "Gable";
-        String roofyear;
+     //   String roofyear;
         String protectionclasscode = "10",
                 protectionclasscode1 = "10W",
                 protectionclasscode2 = "6";
@@ -135,24 +135,13 @@ public class ValidationRulesSCHO6 extends BaseTest {
                 dwellinglimit1 = "900",
                 dwellinglimit2 = "300000";
         // dwellinglimit3 = "220000";
-
         String personalpropertylimit = "900",
                 personalpropertylimit1 = "150000",
                 personalpropertylimit2 = "100000";
-        // personalpropertylimit3 = "112000";
-        String dwellingfinal,
-                expecteddwellingfinal = "220,000";
-        String personalpropertylimitval,
-                expectedpersonalpersonallimit = "112,000";
-        String otherstructurepercentage,
-                expectedothersstructurepercentage = "2%";
         String electricalsystemFuses = "Fuses",
                 electricalsystemcircuitbreaker = "Circuit Breaker";
         String conditionofroof = "Below Average",
                 conditionofroof1 = "Good";
-
-        String specificotherstructuresdescription = ", Example";
-        // String othersstructurelimit = (1, "66000");
         String yearbuilt, expectedyearbuilt = "Please enter a valid 4 digit year: Year Built.";
         String Countyrisk, expectedcountyrisk = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String expectederrormessagesafetylatches = " Burglar bars without safety release latches are ineligible for coverage";
@@ -168,10 +157,10 @@ public class ValidationRulesSCHO6 extends BaseTest {
         String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
-        String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
-        String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
+      //  String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
+       // String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
-        String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
+     //   String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
         String dwellingpersonalerror, expecteddwellingpersonalerror = "The combined dwelling and personal property limits are below the allowable minimum: Dwelling.";
 
         SCHO6NavigationBar nav = new SCHO6NavigationBar(sh);
@@ -417,36 +406,36 @@ public class ValidationRulesSCHO6 extends BaseTest {
 
         personalpropertylimmiterror = coverages.coveragesErrorMessage();
         Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
-        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror+ " and it is " + personalpropertylimmiterror);
+        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror + " and it is " + personalpropertylimmiterror);
 
 
         dwellinglimiterror = coverages.coveragesErrorMessage2();
         Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
-        System.out.println(" Expected error message is " +expecteddwellinglimiterror+ "  and it is " + dwellinglimiterror);
+        System.out.println(" Expected error message is " + expecteddwellinglimiterror + "  and it is " + dwellinglimiterror);
 
         dwellingpersonalerror = coverages.coveragesErrorMessage3();
         Assert.assertTrue(expecteddwellingpersonalerror.equals(dwellingpersonalerror));
-        System.out.println(" Expected error message is " +expecteddwellingpersonalerror+ "  and it is " + dwellingpersonalerror);
+        System.out.println(" Expected error message is " + expecteddwellingpersonalerror + "  and it is " + dwellingpersonalerror);
 
 
         //one  more error  need to be done
 
-       SCHO6RiskAnalysis riskanalysis = coverages.setDwellingLimit(dwellinglimit2)
+        SCHO6RiskAnalysis riskanalysis = coverages.setDwellingLimit(dwellinglimit2)
                 .setPersonalPropertyLimit(personalpropertylimit1)
                 .next();
         //goes to underwriting questions
 
         riskanalysis.clickUnderWritingQuestions();
-        for (int j = 9; j<=9; j++){
+        for (int j = 9; j <= 9; j++) {
             riskanalysis.answerYes(j);
         }
         riskanalysis.back();
 
         convitederror = riskanalysis.getErrorMessage();
         Assert.assertTrue(expectedconvitederror.equals(convitederror));
-        System.out.println("  Expected error message is " +expectedconvitederror+ " and it is " + convitederror );
+        System.out.println("  Expected error message is " + expectedconvitederror + " and it is " + convitederror);
 
-        for(int z = 9; z<=9; z++){
+        for (int z = 9; z <= 9; z++) {
             riskanalysis.answerNo(z);
         }
 

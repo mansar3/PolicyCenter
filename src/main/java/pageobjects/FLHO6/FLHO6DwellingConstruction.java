@@ -59,16 +59,15 @@ public class FLHO6DwellingConstruction extends DwellingConstruction<FLHO6Dwellin
 		return super.setConstructionType(text);
 	}
 	public FLHO6DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
-	public DwellingConstruction setFloorUnitIsLocatedOn(String text)
+	public FLHO6DwellingConstruction setFloorUnitIsLocatedOn(String text)
 	{
-		return super.setFloorUnitIsLocatedOn(text);
+		super.setFloorUnitIsLocatedOn(text);
+		return new FLHO6DwellingConstruction(sh, path);
 	}
 	public String getFloorUnitIsLocatedOn()
 	{
 		return super.getFloorUnitIsLocatedOn();
 	}
-
-
 	public String getConstructionType()
 	{
 		return super.getConstructionType();

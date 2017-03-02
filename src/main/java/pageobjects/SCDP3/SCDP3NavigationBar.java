@@ -12,4 +12,9 @@ public class SCDP3NavigationBar extends NavigationBar<SCDP3NavigationBar>
 	{
 		super(sh);
 	}
+	public SCDP3SearchAccounts clickSearchAccount()
+	{
+		super.clickSearchAccountNavBar();
+		return new SCDP3SearchAccounts(sh);
+	}
 }
