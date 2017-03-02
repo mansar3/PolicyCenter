@@ -168,6 +168,18 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.clickCoverages();
 
 	}
+	public FLDP3Coverages setPremisesLiabilityLimit(String text)
+	{
+		return super.setPremisesLiabilityLimit(text);
+	}
+	public FLDP3Coverages checkPremisesLiability()
+	{
+		return super.checkPremisesLiability();
+	}
+	public FLDP3Coverages checkPersonalLiability()
+	{
+		return super.checkPersonalLiability();
+	}
 	public String getWindDeductibleType()
 	{
 		return super.getWindDeductibleType();
