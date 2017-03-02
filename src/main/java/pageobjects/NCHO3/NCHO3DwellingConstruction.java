@@ -1,7 +1,6 @@
 package pageobjects.NCHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -51,6 +50,12 @@ public class NCHO3DwellingConstruction extends DwellingConstruction<NCHO3Dwellin
 		super.dwellingBack();
 		return new NCHO3Dwelling(sh,path);
 	}
+
+	public String dwellingConstructionErrorMessage()
+	{
+		return super.dwellingConstructionErrorMessage();
+	}
+	public NCHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();
@@ -344,6 +349,12 @@ public class NCHO3DwellingConstruction extends DwellingConstruction<NCHO3Dwellin
 		public NCHO3WindMitigation setRoofWallConnection(String text)
 		{
 			return super.setRoofWallConnection(text);
+		}
+
+		public NCHO3Dwelling winddwellingback()
+		{
+			super.WinddwellingBack();
+			return new NCHO3Dwelling(sh,path);
 		}
 
 		public String getRoofWallConnection()

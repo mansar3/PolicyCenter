@@ -64,6 +64,8 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 	{
 		return super.setPersonalPropertyValuationMethod(text);
 	}
+	public SCHO3Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
 
 	public SCHO3Coverages setLossOfUseSelection(String text)
 	{
@@ -115,6 +117,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		return super.setPersonalLiabilityLimit(text);
 
 	}
+	public SCHO3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
+
 	public String getMedicalPaymentsLimit()
 	{
 		return super.getMedicalPaymentsLimit();
@@ -227,6 +233,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		public SCHO3PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
 		{
 			return super.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(text);
+		}
+
+		public SCHO3PropertyEndorsements coveragesPropertyEnter () {
+			return super.coveragesPropertyEnter();
 		}
 
 		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()

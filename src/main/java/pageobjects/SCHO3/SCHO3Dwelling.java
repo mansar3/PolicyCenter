@@ -22,6 +22,13 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 	{
 		return super.setYearBuilt(text);
 	}
+	public SCHO3Dwelling Enter(){
+		return super.Enter();
+	}
+	public String getdwellingErrorMessage()
+	{
+		return super.dwellingErrorMessage();
+	}
 
 	public String getYearBuilt()
 	{
@@ -337,6 +344,8 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 		{
 			return super.setResidenceVisibleToNeighbors(flag);
 		}
+		public SCHO3ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
+
 		public SCHO3ProtectionDetails safetyLatchesPresent(String flag)
 		{
 			return super.safetyLatchesPresent(flag);

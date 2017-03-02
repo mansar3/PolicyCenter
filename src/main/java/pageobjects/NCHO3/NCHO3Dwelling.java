@@ -18,11 +18,19 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 		super.DwellingConstructionNext();
 		return new NCHO3DwellingConstruction(sh, path);
 	}
+
+	public String getdwellingErrorMessage()
+	{
+		return super.dwellingErrorMessage();
+	}
+
 	public NCHO3Dwelling setYearBuilt(String text)
 	{
 		return super.setYearBuilt(text);
 	}
-
+	public NCHO3Dwelling Enter(){
+		return super.Enter();
+	}
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();
@@ -344,6 +352,7 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 		{
 			return super.setResidenceVisibleToNeighbors(flag);
 		}
+		public NCHO3ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
 		public NCHO3ProtectionDetails safetyLatchesPresent(String flag)
 		{
 			return super.safetyLatchesPresent(flag);

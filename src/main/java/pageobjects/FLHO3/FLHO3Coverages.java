@@ -1,6 +1,7 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
+
 import pageobjects.WizardPanelBase.Coverages;
 
 /**
@@ -60,6 +61,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.setPersonalPropertyExcluded(flag);
 
 	}
+	public FLHO3Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+
+
+
 
 	public boolean isPersonalPropertyExcluded()
 	{
@@ -110,6 +116,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.setHurricane(text);
 
 	}
+	public FLHO3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
+
+
 	public String getAllOtherPerils()
 	{
 		return super.getAllOtherPerils();
@@ -152,6 +163,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 	{
 		return super.clickCoverages();
 
+	}
+	public FLHO3Coverages setPermittedIncidentalOccupalimit(String text)
+	{
+		return super.PermittedIncidentalOccupalimit(text);
 	}
 	public String getWindDeductibleType()
 	{
@@ -347,6 +362,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancy();
 		}
+
+//		public FLHO3PropertyEndorsements setPermittedIncidentalOccupalimit(String text)
+//		{
+//			return super.PermittedIncidentalOccupalimit(text);
+//		}
 
 		public FLHO3PropertyEndorsements checkGuardianEndorsements()
 		{
@@ -595,6 +615,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public FLHO3LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
 		{
 			return super.checkPermittedIncidentalOccupancyLiability();
+		}
+
+		public FLHO3LiabilityEndorsements unCheckPermittedIncidentalOccupancyLiability()
+		{
+			return super.unCheckPermittedIncidentalOccupancyLiability();
 		}
 
 		public FLHO3LiabilityEndorsements checkAnimalLiability()

@@ -40,6 +40,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 	{
 		return super.getOtherStructuresPercentage();
 	}
+	public String getOtherStructurePercentageGreyedOut()
+	{
+		return super.getOtherStructuresLimitGreyedOut();
+	}
 
 	public NCHO3Coverages setOtherStructuresPercentage(String text)
 	{
@@ -64,6 +68,8 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 	{
 		return super.setPersonalPropertyValuationMethod(text);
 	}
+	public NCHO3Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
 
 	public NCHO3Coverages setLossOfUseSelection(String text)
 	{
@@ -115,6 +121,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		return super.setPersonalLiabilityLimit(text);
 
 	}
+	public NCHO3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
+
 	public String getMedicalPaymentsLimit()
 	{
 		return super.getMedicalPaymentsLimit();
@@ -228,6 +238,9 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
 		{
 			return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
+		}
+		public NCHO3PropertyEndorsements coveragesPropertyEnter () {
+			return super.coveragesPropertyEnter();
 		}
 		public NCHO3PropertyEndorsements checkEarthQuakeCoverage()
 		{

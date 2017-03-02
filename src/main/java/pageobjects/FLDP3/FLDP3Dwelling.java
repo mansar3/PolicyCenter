@@ -24,6 +24,7 @@ public class FLDP3Dwelling extends Dwelling<FLDP3Dwelling>
 		return super.setYearBuilt(text);
 	}
 
+
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();

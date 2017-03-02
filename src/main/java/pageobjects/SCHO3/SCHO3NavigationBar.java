@@ -12,4 +12,10 @@ public class SCHO3NavigationBar extends NavigationBar<SCHO3NavigationBar>
 	{
 		super(sh);
 	}
+
+	public SCHO3SearchAccounts clickSearchAccount()
+	{
+		super.clickSearchAccountNavBar();
+		return new SCHO3SearchAccounts(sh);
+	}
 }

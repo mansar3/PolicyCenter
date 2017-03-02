@@ -23,6 +23,14 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 	{
 		return super.setYearBuilt(text);
 	}
+	public FLHO3Dwelling Enter(){
+		return super.Enter();
+	}
+
+	public String getdwellingErrorMessage()
+	{
+		return super.dwellingErrorMessage();
+	}
 
 	public String getYearBuilt()
 	{
@@ -205,6 +213,7 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 		super.clickAdditionalInterestsTab();
 		return new FLHO3AdditionalInterests(sh, path);
 	}
+
 	public FLHO3Dwelling setSwimmingPool(String flag)
 	{
 		return super.setSwimmingPool(flag);
@@ -341,6 +350,8 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 		{
 			return super.setDeadbolts(flag);
 		}
+		public FLHO3ProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
+
 		public FLHO3ProtectionDetails setResidenceVisibleToNeighbors(String flag)
 		{
 			return super.setResidenceVisibleToNeighbors(flag);

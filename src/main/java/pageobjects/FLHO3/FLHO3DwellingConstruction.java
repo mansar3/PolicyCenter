@@ -47,6 +47,11 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 		return super.setEstimatedReplacementCost(text);
 	}
 
+	public String dwellingConstructionErrorMessage()
+	{
+		return super.dwellingConstructionErrorMessage();
+	}
+
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();
@@ -55,6 +60,7 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 	{
 		return super.setConstructionType(text);
 	}
+	public FLHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
 
 	public String getConstructionType()
 	{
@@ -328,6 +334,13 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 		{
 			return super.setRoofCover(text);
 		}
+
+		public FLHO3Dwelling winddwellingback()
+		{
+			super.WinddwellingBack();
+			return new FLHO3Dwelling(sh,path);
+		}
+
 
 		public String getRoofCover()
 		{

@@ -1,7 +1,6 @@
 package pageobjects.SCHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -51,6 +50,11 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 		super.dwellingBack();
 		return new SCHO3Dwelling(sh,path);
 	}
+	public String dwellingConstructionErrorMessage()
+	{
+		return super.dwellingConstructionErrorMessage();
+	}
+
 	public String getEstimatedReplacementCost()
 	{
 		return super.getEstimatedReplacementCost();
@@ -64,6 +68,8 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 	{
 		return super.getConstructionType();
 	}
+	public SCHO3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
+
 	public SCHO3DwellingConstruction setNumberOfUnits(String text)
 	{
 		return super.setNumberOfUnits(text);
@@ -335,6 +341,12 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 		public SCHO3WindMitigation setRoofDeckAttachment(String text)
 		{
 			return super.setRoofDeckAttachment(text);
+		}
+
+		public SCHO3Dwelling winddwellingback()
+		{
+			super.WinddwellingBack();
+			return new SCHO3Dwelling(sh,path);
 		}
 
 		public String getRoofDeckAttachment()
