@@ -282,6 +282,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	}
 	protected T setWindExcluded(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
@@ -329,7 +330,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return (T)this;
 	}
 	protected T  PermittedIncidentalOccupalimit(String permittedlimit){
-		sh.setText(by. PermittedIncidentalOccupancylimit, permittedlimit );
+		sh.setText(by.PermittedIncidentalOccupancylimit, permittedlimit );
 		sh.waitForNoMask();
 		return (T) this;
 	}
@@ -392,6 +393,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	{
 		return sh.getValue(by.premisesLiabilityLimit);
 	}
+	protected T setPremisesLiabilityLimit(String premisesLiabilityLimit)
+	{
+		sh.setText(by.premisesLiabilityLimit, premisesLiabilityLimit);
+		sh.waitForNoMask();
+		return (T)this;
+	}
 
     // TODO review this locator
 	protected  T coveragesEnter ()
@@ -441,6 +448,18 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	{
 		return sh.isDisplayed(by.otherStructuresIncreasedCoverageLimit);
 	}
+	protected T checkPremisesLiability()
+	{
+		sh.checkboxHelper.checkElement(by.premisesLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T checkPersonalLiability()
+	{
+		sh.checkboxHelper.checkElement(by.personalLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
 
 
 	public class CoveragesBy
@@ -461,6 +480,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
+								personalLiabilityCheckBox = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/..//input"),
 								medicalPaymentsLimit =  By.xpath(".//*[@id='" + coveragesBase + "sectionIIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:OptionTermInput-inputEl']"),
 								windDeductibleType = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind Deductible Type']/../..//input"),
 								windHail =By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Wind/Hail']/../..//input"),
@@ -471,6 +491,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalLiabilityLabel = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']"),
 								propertyEndorsements = By.id(coveragesBase + "OptionalPropertyCoveraqesCardTab-btnInnerEl"),
 								liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
+								premisesLiabilityCheckBox = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Premises Liability']/..//input"),
 								premisesLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Premises Liability']/../..//span[text() = 'Limit']/../..//div/input"),
 								creditPercentage = By.xpath(".//*[@id='" + coveragesBase + "lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup']//label[text() = 'Credit Percentage']/../..//input"),
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
@@ -613,7 +634,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			screenEnclosureHurricaneCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Screen Enclosure Hurricane Coverage']/../../div//span[text() = 'Limit']/../..//input"),
 
 			theftCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Theft Coverage']/..//input"),
-			theftCoveageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Theft Coverage']/../../div//span[text() = 'Theft Type']/../..//div"),
+			theftCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Theft Coverage']/../../div//span[text() = 'Theft Type']/../..//div"),
 
 			earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
 			earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Deductible Percentage']/../..//input"),
@@ -665,11 +686,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected boolean isTheftCoverageChecked()
 		{
-			return sh.isDisplayed(by.theftCoveageLimit);
+			return sh.isDisplayed(by.theftCoverageLimit);
 		}
 		protected String getTheftType()
 		{
-			return sh.getText(by.theftCoveageLimit);
+			return sh.getText(by.theftCoverageLimit);
 		}
 
 		protected T checkUnitOwnersRentedToOthers()

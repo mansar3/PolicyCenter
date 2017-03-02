@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30">
+<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20">
 	<parameter name="environment" value="47" />
 	<parameter name="local" value="false" />
 	<parameter name="threads" value="15" />
@@ -33,6 +33,11 @@
                 <!--</methods>-->
             <!--</class>-->
 			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.DP3.SCDP3">-->
 				<!--<methods>-->
 					<!--<include name="SubmissionLoadTest"></include>-->
 				<!--</methods>-->

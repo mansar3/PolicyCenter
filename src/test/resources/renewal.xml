@@ -27,11 +27,11 @@
                     <include name="RenewalLoadTest2"></include>
                 </methods>
             </class>
-			<class name="PolicyConversion.HO6.FLHO6">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
+			<!--<class name="PolicyConversion.HO6.FLHO6">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
         </classes>
 	</test>
 </suite>
