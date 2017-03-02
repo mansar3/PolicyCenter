@@ -2,11 +2,14 @@ package FL.HO6;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO3.FLHO3CreateAccount;
@@ -135,9 +138,10 @@ public class ValidationRulesFLHO6 extends BaseTest {
         String dwellinglimit1 = "900",
                 dwellinglimit2 = "100,000",
                 dwellinglimit3 = "160,000";
-        String personalpropertylimit = "5000",
-                personalpropertylimit1 = "50,000";
-
+        String personalpropertylimit = "125,000",
+                personalpropertylimit1 = "5000",
+                personalpropertylimit2 = "50,000";
+        String floorunits = "15";
 
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
         String protectionclasserror, expectedprotectionclasserror = "Property with a protection class of 10 or 10W are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
@@ -152,6 +156,12 @@ public class ValidationRulesFLHO6 extends BaseTest {
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
+        String dwellingpersonalerror, expecteddwellingpersonalerror = "The combined dwelling and personal property limits are below the allowable minimum: Dwelling.";
+        String floorunitserror, expectedfloorunitserror = "The floor cannot be greater than the number of stories: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
+        String numberofunites, expectednumberofunits = "0-10";
+        String unitsinfirewall, expectedunitesinfirewall = "1";
+        String numberofstories, expectednumberofstories = "1";
+
 
 
 
@@ -324,6 +334,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
         dwellingConstruction.setPrimaryHeating(primaryHeatingelectric)
                 .next()
                 .setDwellingLimit(dwellinglimit)
+                .setPersonalPropertyLimit(personalpropertylimit)
                 .back();
 
         //setting the plumbing year to one future year
@@ -387,23 +398,30 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .next();
 
         coverages.setDwellingLimit(dwellinglimit1)
-                .setPersonalPropertyLimit(personalpropertylimit)
+                .setPersonalPropertyLimit(personalpropertylimit1)
                 .coveragesEnter();
 
         //3 error messages two are initiated and one needs to get the error message from the uI
 
         dwellinglimiterror = coverages.coveragesErrorMessage();
+        System.out.println(dwellinglimiterror);
         Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
         System.out.println(" Expected error message is " +expecteddwellinglimiterror+ "  and it is " + dwellinglimiterror);
 
-        personalpropertylimmiterror = coverages.coveragesErrorMessage();
+        dwellingpersonalerror = coverages.coveragesErrorMessage2();
+        Assert.assertTrue(expecteddwellingpersonalerror.equals(dwellingpersonalerror));
+        System.out.println(" Expected error message is " +expecteddwellingpersonalerror+ "  and it is " + dwellingpersonalerror);
+
+        personalpropertylimmiterror = coverages.coveragesErrorMessage3();
         Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
         System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror+ " and it is " + personalpropertylimmiterror);
+
+
 
         //one more need to be done
 
         FLHO6RiskAnalysis riskanalysis = coverages.setDwellingLimit(dwellinglimit2)
-                .setPersonalPropertyLimit(personalpropertylimit1)
+                .setPersonalPropertyLimit(personalpropertylimit2)
                 .next();
 
         riskanalysis.clickUnderWritingQuestions();
@@ -428,23 +446,46 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .back();
 
 
+        //verifying the units, firewall and stories
 
+       numberofunites = dwellingConstruction.getNumberOfUnits();
+        Assert.assertTrue(expectednumberofunits.equals(numberofunites));
+        System.out.println("  Expected error message is " +expectednumberofunits+ " and it is " + numberofunites );
 
+        unitsinfirewall = dwellingConstruction.getUnitsInFireWall();
+        Assert.assertTrue(expectedunitesinfirewall.equals(unitsinfirewall));
+        System.out.println("  Expected error message is " +expectedunitesinfirewall+ " and it is " + unitsinfirewall );
 
+        numberofstories = dwellingConstruction.getNumberOfStories();
+        Assert.assertTrue(expectednumberofstories.equals(numberofstories));
+        System.out.println("  Expected error message is " +expectednumberofstories+ " and it is " + numberofstories );
 
+        dwellingConstruction.setFloorUnitIsLocatedOn(floorunits);
+        dwellingConstruction.dwellingConstructionEnter();
 
+        //veryfing the error message of units floor
+        floorunitserror = dwellingConstruction.dwellingConstructionErrorMessage();
+        Assert.assertTrue(expectedfloorunitserror.equals(floorunitserror));
+        System.out.println("  Expected error message is " +expectedfloorunitserror+ " and it is " + floorunitserror );
 
+        //clears the text in floor the units located in
 
+        driver.findElement(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:CondoUnitFloorNumber_fli-inputEl")).clear();
 
+        dwellingConstruction.next();
+    }
 
-
-
-
-
-
-
-
-
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
     }
 
 }

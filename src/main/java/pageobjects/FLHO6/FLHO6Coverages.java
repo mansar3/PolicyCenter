@@ -67,6 +67,8 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 
 	public FLHO6Coverages coveragesEnter(){return super.coveragesEnter();}
 	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+	public String coveragesErrorMessage2(){return super.coveragesErrorMessage2();}
+	public String coveragesErrorMessage3(){return super.coveragesErrorMessage3();}
 
 
 	public FLHO6Coverages setLossOfUseSelection(String text)

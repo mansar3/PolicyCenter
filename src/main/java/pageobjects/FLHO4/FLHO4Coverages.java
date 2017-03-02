@@ -62,7 +62,10 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
 
     }
     public FLHO4Coverages coveragesEnter(){return super.coveragesEnter();}
+
     public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+    public String coveragesErrorMessage2(){return super.coveragesErrorMessage2();}
+    public String coveragesErrorMessage3(){return super.coveragesErrorMessage3();}
 
 
 
