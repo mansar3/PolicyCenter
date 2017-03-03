@@ -117,7 +117,6 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 	public FLDP3Coverages setHurricane(String text)
 	{
 		return super.setHurricane(text);
-
 	}
 
 	public String getPremisesLiabilityLimit()
@@ -133,13 +132,11 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 	public FLDP3Coverages setAllOtherPerils(String text)
 	{
 		return super.setAllOtherPerils(text);
-
 	}
 
 	public FLDP3Coverages setWindExcluded(String flag)
 	{
 		return super.setWindExcluded(flag);
-
 	}
 
 	public String getPersonalLiabilityLimit()

@@ -71,6 +71,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected T setPersonalPropertyLimit(String limit)
 	{
 		sh.setText(by.personalPropertyLimit, limit);
+		sh.tab();
 		return (T)this;
 
 	}
@@ -234,7 +235,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	}
 	protected String getLossOfUseSelection()
 	{
-		return sh.getValue(by.lossOfUseSelection);
+		if (sh.isDisplayed(by.lossOfUseSelection))
+			return sh.getValue(by.lossOfUseSelection);
+		return sh.getText(by.lossOfUseSelectionDiv);
 	}
 
 	protected T setLossOfUseSelection(String lossOfUseSelection)
@@ -478,6 +481,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
 								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
+								lossOfUseSelectionDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//div/div"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
@@ -682,6 +686,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 
 
+		protected boolean isUnitOwnersCoverageASpecialCoverage()
+		{
+			return sh.checkboxHelper.isChecked(by.unitOwnersCoverageASpecialCoverage);
+		}
+
+		protected boolean isUnitOwnersRentedToOthers()
+		{
+			return sh.checkboxHelper.isChecked(by.unitOwnersRentedToOthers);
+		}
+
 		protected T clickTheftCoverage()
 		{
 			sh.clickElement(by.theftCoverage);
@@ -877,6 +891,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.clickElement(by.specificOtherStructures);
 			sh.waitForNoMask();
 			return (T)this;
+		}
+
+		protected boolean isSpecificOtherStructuresChecked()
+		{
+			return sh.isRadioButtonSelected(by.specificOtherStructures);
 		}
 
 		protected T checkEarthquakeLossAssessment()
