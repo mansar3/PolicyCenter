@@ -50,11 +50,31 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		return super.getOtherStructuresLimit();
 	}
 
+	public String getFairRentalValuePercentage()
+	{
+		return super.getFairRentalValuePercentage();
+	}
+
+	public String getFairRentalValueLimit()
+	{
+		return super.getFairRentalValueLimit();
+	}
+
 	public FLHO6Coverages setPersonalPropertyExcluded(String flag)
 	{
 		return super.setPersonalPropertyExcluded(flag);
-
 	}
+
+	public boolean isPersonalPropertyExcluded(Integer flag)
+	{
+		return super.isPersonalPropertyExcluded(flag);
+	}
+
+	public boolean isWindExcluded()
+	{
+		return super.isWindExcluded();
+	}
+
 	public String getPersonalPropertyValuationMethod()
 	{
 		return super.getPersonalPropertyValuationMethod();
@@ -92,6 +112,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		return super.setHurricane(text);
 
 	}
+
+	public String getPremisesLiabilityLimit()
+	{
+		return super.getPremisesLiabilityLimit();
+	}
 	public String getAllOtherPerils()
 	{
 		return super.getAllOtherPerils();
@@ -107,6 +132,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 	{
 		return super.setWindExcluded(flag);
 
+	}
+
+	public boolean isWindExcluded(Integer flag)
+	{
+		return super.isWindExcluded(flag);
 	}
 
 	public String getPersonalLiabilityLimit()
@@ -254,6 +284,16 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			return super.checkSpecificOtherStructures();
 		}
 
+		public boolean isSpecificOtherStructuresChecked()
+		{
+			return super.isSpecificOtherStructuresChecked();
+		}
+
+		public boolean isScheduledPersonalPropertyChecked()
+		{
+			return super.isScheduledPersonalPropertyChecked();
+		}
+
 		public FLHO6LiabilityEndorsements clickLiabilityEndorsements()
 		{
 			super.clickLiabilityEndorsementsTab();
@@ -287,6 +327,12 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.getWhenSafeCreditPercentage();
 		}
+
+		public String getWhenSafeCreditValue()
+		{
+			return super.getWhenSafeCreditValue();
+		}
+
 		public FLHO6PropertyEndorsements addSpecificOtherStructures()
 		{
 			return super.addSpecificOtherStructures();
@@ -397,6 +443,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			return super.checkScreenEnclosureHurricaneCoverage();
 		}
 
+		public boolean isScreenEnclosureHurricaneCoverageChecked()
+		{
+			return super.isScreenEnclosureHurricaneCoverageChecked();
+		}
+
 		public FLHO6PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
@@ -411,11 +462,22 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.checkSinkholeLossCoverage();
 		}
+
 		public FLHO6PropertyEndorsements checkUnitOwnersCoverageASpecialCoverage()
 		{
 			return super.checkUnitOwnersCoverageASpecialCoverage();
-
 		}
+
+		public boolean isUnitOwnersCoverageASpecialCoverage()
+		{
+			return super.isUnitOwnersCoverageASpecialCoverage();
+		}
+
+		public boolean isUnitOwnersRentedToOthers()
+		{
+			return super.isUnitOwnersRentedToOthers();
+		}
+
 		public FLHO6PropertyEndorsements checkUnitOwnersRentedToOthers()
 		{
 			return super.checkUnitOwnersRentedToOthers();
@@ -429,6 +491,16 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		public boolean isWaterBackUpChecked()
 		{
 			return super.isWaterBackUpChecked();
+		}
+
+		public boolean isTheftCoverageChecked()
+		{
+			return super.isTheftCoverageChecked();
+		}
+
+		public boolean isSinkholeLossCoverageChecked()
+		{
+			return super.isSinkholeLossCoverageChecked();
 		}
 	}
 
@@ -492,6 +564,26 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			return super.checkPermittedIncidentalOccupancyLiability();
 		}
 
+		public boolean isPermittedIncidentalOccupancyLiabilityChecked()
+		{
+			return super.isPermittedIncidentalOccupancyLiabilityChecked();
+		}
+
+		public boolean isAdditionalResidenceRentedToOthersChecked()
+		{
+			return super.isAdditionalResidenceRentedToOthersChecked();
+		}
+
+		public boolean isBusinessPursuitsChecked()
+		{
+			return super.isBusinessPursuitsChecked();
+		}
+
+		public boolean isWatercraftLiabilityChecked()
+		{
+			return super.isWatercraftLiabilityChecked();
+		}
+
 		public FLHO6LiabilityEndorsements checkAnimalLiability()
 		{
 			return super.checkAnimalLiability();
@@ -516,20 +608,6 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			super.liabilityEndorsementsNext();
 			return new FLHO6RiskAnalysis(sh, path);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 
 }

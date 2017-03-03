@@ -105,7 +105,7 @@ public class CenterSeleniumHelper
      */
 	public String getValue(By byLocator)
 	{
-		if (driver.findElement(byLocator).isDisplayed())
+		if (isDisplayed(byLocator))
 			return driver.findElement(byLocator).getAttribute("value");
 		else
 			return null;
