@@ -355,6 +355,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected T dwellingConstructionBack()
 	{
 		clickBack();
+		sh.waitForNoMask();
 		return (T)this;
 	}
 
@@ -648,6 +649,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			earthquakeLossAssessment = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/..//input"),
 			earthquakeLossAssessmentLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Loss Assessment']/../../div//span[text() = 'Limit']/../..//input"),
 
+			specificotherstructureAddedordetached = By.xpath("//*[@id = '\" + coveragesBase + \"lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[3]/div/div/div/div/input"),
+
 			waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"),
 			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
 
@@ -816,6 +819,19 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.setText(By.name("c2"), description);
 
 			return (T)this;
+		}
+
+		protected  T setSpecificOtherStructuresAttachedDetached (int itemNumber, String text) {
+
+			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[3]/div/div/div/div/input
+			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input
+
+			sh.clickElement(By.xpath("//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input"));
+			sh.waitForElementToAppear(By.name("c2"));
+			sh.setText(By.name("c2"), text);
+			sh.waitForNoMask();
+			return (T) this;
+
 		}
 
 		protected String coveragesPropertyEndorsnmentsErrorMessage ()

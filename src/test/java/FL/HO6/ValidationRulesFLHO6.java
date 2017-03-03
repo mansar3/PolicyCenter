@@ -399,7 +399,6 @@ public class ValidationRulesFLHO6 extends BaseTest {
         //3 error messages two are initiated and one needs to get the error message from the uI
 
         dwellinglimiterror = coverages.coveragesErrorMessage();
-        System.out.println(dwellinglimiterror);
         Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
         System.out.println(" Expected error message is " + expecteddwellinglimiterror + "  and it is " + dwellinglimiterror);
 

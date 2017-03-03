@@ -293,6 +293,15 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		return (T)this;
 	}
 
+	protected String getMobileHomePark() {return sh.getValue(by.mobilehomepark);}
+
+	protected  T setMobileHomePark(String mobileHomePark) {
+		sh.setText(by.mobilehomepark, mobileHomePark );
+		sh.tab();
+		sh.waitForNoMask();
+		return (T)this;
+	}
+
 	protected T setInTheWindpool(String flag)
 	{
 		sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_"+ flag.toLowerCase() + "-inputEl"));
@@ -499,6 +508,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								dwellingUsage = By.id(dwellingBase + "DwellingUsage-inputEl"),
 								dwellingOccupancy = By.id(dwellingBase + "Occupancy-inputEl"),
 								housekeepingCondition = By.id(dwellingBase + "HousekeepingCondition_fli-inputEl"),
+		                        mobilehomepark = By.id(dwellingBase + "ManHomeParkCode_fli-inputEl"),
 								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]"),
 								poolLocation = By.id(dwellingBase + "SwimmingPoolType_fli-inputEl"),
 								fenceType = By.id(dwellingBase + "SwimmingPoolFenceType_fli-inputEl"),

@@ -307,6 +307,8 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
             return super.clickAddScheduledPersonalProperty();
 
         }
+        public FLMH3PropertyEndorsements coveragespropertyendorsementsEnter(){return super.coveragespropertyendorsementsEnter();}
+
         public FLMH3PropertyEndorsements clickRemoveScheduledPersonalProperty()
         {
             return super.clickRemoveScheduledPersonalProperty();
@@ -326,6 +328,9 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         public FLMH3PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
         {
             return super.setSpecificOtherStructuresDescription(itemNumber, text);
+        }
+        public FLMH3PropertyEndorsements setSpecificOtherStructuresAttachedDetached (int itemNumber, String text){
+            return super.setSpecificOtherStructuresAttachedDetached(itemNumber, text);
         }
         public FLMH3PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
         {

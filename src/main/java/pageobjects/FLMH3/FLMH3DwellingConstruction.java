@@ -185,6 +185,13 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.setIsThereASecondaryHeatingSystem(flag);
     }
+    public FLMH3DwellingConstruction setIsTheMobileHomeFullySkirted(String flag){
+        return super.setIsTheMobileHomeFullySkirted(flag);
+    }
+    public FLMH3DwellingConstruction setMobileHomeWidth(String text){
+        return super.setMobileHomeWidth(text);
+    }
+    public String getsetMobileHomeWidth(){return super.getMobileHomeWidth();}
     public FLMH3DwellingConstruction setElectricalSystemDescribeOther(String text)
     {
         return super.setElectricalSystemDescribeOther(text);

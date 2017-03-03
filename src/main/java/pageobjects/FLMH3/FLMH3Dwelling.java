@@ -182,6 +182,9 @@ public class FLMH3Dwelling extends Dwelling<FLMH3Dwelling> {
         return super.setHousekeepingCondition(text);
     }
 
+    public FLMH3Dwelling setMobileHomePark(String text) {return super.setMobileHomePark(text);}
+
+    public String getMobileHomePark() {return super.getMobileHomePark();}
     public String getHousekeepingCondition()
     {
         return super.getHousekeepingCondition();
