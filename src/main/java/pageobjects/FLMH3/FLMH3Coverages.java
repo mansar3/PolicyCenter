@@ -1,30 +1,29 @@
-package pageobjects.FLHO4;
+package pageobjects.FLMH3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.WizardPanelBase.CenterPanelBase;
 import pageobjects.WizardPanelBase.Coverages;
 
 /**
- * Created by ssai on 3/2/2017.
+ * Created by ssai on 3/3/2017.
  */
-public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
+public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
 
-    public FLHO4Coverages(CenterSeleniumHelper sh, CenterPanelBase.Path path)
+    public FLMH3Coverages(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public FLHO4RiskAnalysis next()
+    public FLMH3RiskAnalysis next()
     {
         coveragesNext();
-        return new FLHO4RiskAnalysis(sh, path);
+        return new FLMH3RiskAnalysis(sh, path);
     }
     public String getDwellingLimit()
     {
         return super.getDwellingLimit();
     }
 
-    public FLHO4Coverages setDwellingLimit(String text)
+    public FLMH3Coverages setDwellingLimit(String text)
     {
         return super.setDwellingLimit(text);
     }
@@ -33,7 +32,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getPersonalPropertyLimit();
     }
 
-    public FLHO4Coverages setPersonalPropertyLimit(String text)
+    public FLMH3Coverages setPersonalPropertyLimit(String text)
     {
         return super.setPersonalPropertyLimit(text);
     }
@@ -42,7 +41,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getOtherStructuresPercentage();
     }
 
-    public FLHO4Coverages setOtherStructuresPercentage(String text)
+    public FLMH3Coverages setOtherStructuresPercentage(String text)
     {
         return super.setOtherStructuresPercentage(text);
     }
@@ -56,16 +55,13 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.isOtherStructuresLimitEditable();
     }
 
-    public FLHO4Coverages setPersonalPropertyExcluded(String flag)
+    public FLMH3Coverages setPersonalPropertyExcluded(String flag)
     {
         return super.setPersonalPropertyExcluded(flag);
 
     }
-    public FLHO4Coverages coveragesEnter(){return super.coveragesEnter();}
-
+    public FLMH3Coverages coveragesEnter(){return super.coveragesEnter();}
     public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
-    public String coveragesErrorMessage2(){return super.coveragesErrorMessage2();}
-    public String coveragesErrorMessage3(){return super.coveragesErrorMessage3();}
 
 
 
@@ -85,12 +81,12 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getPersonalPropertyValuationMethod();
     }
 
-    public FLHO4Coverages setPersonalPropertyValuationMethod(String text)
+    public FLMH3Coverages setPersonalPropertyValuationMethod(String text)
     {
         return super.setPersonalPropertyValuationMethod(text);
     }
 
-    public FLHO4Coverages setLossOfUseSelection(String text)
+    public FLMH3Coverages setLossOfUseSelection(String text)
     {
         return super.setLossOfUseSelection(text);
     }
@@ -114,12 +110,12 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getHurricane();
     }
 
-    public FLHO4Coverages setHurricane(String text)
+    public FLMH3Coverages setHurricane(String text)
     {
         return super.setHurricane(text);
 
     }
-    public FLHO4Coverages back(){
+    public FLMH3Coverages back(){
         return super.dwellingConstructionBack();
     }
 
@@ -129,13 +125,13 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getAllOtherPerils();
     }
 
-    public FLHO4Coverages setAllOtherPerils(String text)
+    public FLMH3Coverages setAllOtherPerils(String text)
     {
         return super.setAllOtherPerils(text);
 
     }
 
-    public FLHO4Coverages setWindExcluded(String flag)
+    public FLMH3Coverages setWindExcluded(String flag)
     {
         return super.setWindExcluded(flag);
 
@@ -146,7 +142,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getPersonalLiabilityLimit();
     }
 
-    public FLHO4Coverages setPersonalLiabilityLimit(String text)
+    public FLMH3Coverages setPersonalLiabilityLimit(String text)
     {
         return super.setPersonalLiabilityLimit(text);
 
@@ -156,18 +152,18 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getMedicalPaymentsLimit();
     }
 
-    public FLHO4Coverages setMedicalPaymentsLimit(String text)
+    public FLMH3Coverages setMedicalPaymentsLimit(String text)
     {
         return super.setMedicalPaymentsLimit(text);
 
     }
 
-    public FLHO4Coverages clickCoverages()
+    public FLMH3Coverages clickCoverages()
     {
         return super.clickCoverages();
 
     }
-    public FLHO4Coverages setPermittedIncidentalOccupalimit(String text)
+    public FLMH3Coverages setPermittedIncidentalOccupalimit(String text)
     {
         return super.PermittedIncidentalOccupalimit(text);
     }
@@ -176,7 +172,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getWindDeductibleType();
     }
 
-    public FLHO4Coverages setWindDeductibleType(String text)
+    public FLMH3Coverages setWindDeductibleType(String text)
     {
         return super.setWindDeductibleType(text);
 
@@ -186,7 +182,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getWindHail();
     }
 
-    public FLHO4Coverages setWindHail(String text)
+    public FLMH3Coverages setWindHail(String text)
     {
         return super.setWindHail(text);
 
@@ -196,7 +192,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getNamedStorm();
     }
 
-    public FLHO4Coverages setNamedStorm(String text)
+    public FLMH3Coverages setNamedStorm(String text)
     {
         return super.setNamedStorm(text);
     }
@@ -271,21 +267,21 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.isMedicalPaymentsLimitEditable();
     }
 
-    public FLHO4LiabilityEndorsements clickLiabilityEndorsements()
+    public FLMH3LiabilityEndorsements clickLiabilityEndorsements()
     {
         super.clickLiabilityEndorsementsTab();
-        return new FLHO4LiabilityEndorsements(sh, path);
+        return new FLMH3LiabilityEndorsements(sh, path);
     }
-    public FLHO4PropertyEndorsements clickPropertyEndorsements()
+    public FLMH3PropertyEndorsements clickPropertyEndorsements()
     {
         super.clickPropertyEndorsementsTab();
-        return new FLHO4PropertyEndorsements(sh,path);
+        return new FLMH3PropertyEndorsements(sh,path);
     }
 
 
-    public class FLHO4PropertyEndorsements extends PropertyEndorsements<FLHO4PropertyEndorsements>
+    public class FLMH3PropertyEndorsements extends PropertyEndorsements<FLMH3PropertyEndorsements>
     {
-        public FLHO4PropertyEndorsements(CenterSeleniumHelper sh ,Path path)
+        public FLMH3PropertyEndorsements(CenterSeleniumHelper sh ,Path path)
         {
             super(sh, path);
         }
@@ -294,48 +290,48 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getWaterBackUpLimit();
         }
-        public FLHO4PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
+        public FLMH3PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
         {
             return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
         }
-        public FLHO4PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
         {
             return super.setPersonalPropertyArticleType(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setPersonalPropertyDescription(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setPersonalPropertyDescription(int itemNumber, String text)
         {
             return super.setPersonalPropertyDescription(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements clickAddScheduledPersonalProperty()
+        public FLMH3PropertyEndorsements clickAddScheduledPersonalProperty()
         {
             return super.clickAddScheduledPersonalProperty();
 
         }
-        public FLHO4PropertyEndorsements clickRemoveScheduledPersonalProperty()
+        public FLMH3PropertyEndorsements clickRemoveScheduledPersonalProperty()
         {
             return super.clickRemoveScheduledPersonalProperty();
         }
-        public FLHO4PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
         {
             return super.setPersonalPropertyValue(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setOtherStructuresDescription(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setOtherStructuresDescription(int itemNumber, String text)
         {
             return super.setOtherStructuresDescription(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
         {
             return super.setOtherStructuresLimit(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
         {
             return super.setSpecificOtherStructuresDescription(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
+        public FLMH3PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
         {
             return super.setSpecificOtherStructuresLimit(itemNumber, text);
         }
-        public FLHO4PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
+        public FLMH3PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
         {
             return super.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(text);
         }
@@ -345,37 +341,37 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
         }
 
-        public FLHO4PropertyEndorsements checkSpecificOtherStructures()
+        public FLMH3PropertyEndorsements checkSpecificOtherStructures()
         {
             return super.checkSpecificOtherStructures();
         }
 
-        public FLHO4LiabilityEndorsements clickLiabilityEndorsements()
+        public FLMH3LiabilityEndorsements clickLiabilityEndorsements()
         {
             super.clickLiabilityEndorsementsTab();
-            return new FLHO4LiabilityEndorsements(sh, path);
+            return new FLMH3LiabilityEndorsements(sh, path);
         }
-        public FLHO4Coverages clickCoverages()
+        public FLMH3Coverages clickCoverages()
         {
             super.clickCoveragesTab();
-            return new FLHO4Coverages(sh, path);
+            return new FLMH3Coverages(sh, path);
         }
 
-        public FLHO4PropertyEndorsements checkPermittedIncidentalOccupancy()
+        public FLMH3PropertyEndorsements checkPermittedIncidentalOccupancy()
         {
             return super.checkPermittedIncidentalOccupancy();
         }
 
-//		public FLHO4PropertyEndorsements setPermittedIncidentalOccupalimit(String text)
+//		public FLMH3PropertyEndorsements setPermittedIncidentalOccupalimit(String text)
 //		{
 //			return super.PermittedIncidentalOccupalimit(text);
 //		}
 
-        public FLHO4PropertyEndorsements checkGuardianEndorsements()
+        public FLMH3PropertyEndorsements checkGuardianEndorsements()
         {
             return super.checkGuardianEndorsements();
         }
-        public FLHO4PropertyEndorsements setWhenSafeCreditPercentage(String text)
+        public FLMH3PropertyEndorsements setWhenSafeCreditPercentage(String text)
         {
             return super.setWhenSafeCreditPercentage(text);
         }
@@ -394,23 +390,23 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.getWhenSafeCreditValue();
         }
 
-        public FLHO4PropertyEndorsements addSpecificOtherStructures()
+        public FLMH3PropertyEndorsements addSpecificOtherStructures()
         {
             return super.addSpecificOtherStructures();
         }
-        public FLHO4PropertyEndorsements removeSpecificOtherStructures()
+        public FLMH3PropertyEndorsements removeSpecificOtherStructures()
         {
             return super.removeSpecificOtherStructures();
         }
-        public FLHO4PropertyEndorsements addOtherStructures()
+        public FLMH3PropertyEndorsements addOtherStructures()
         {
             return super.clickAddOtherStructures();
         }
-        public FLHO4PropertyEndorsements removeOtherStructures()
+        public FLMH3PropertyEndorsements removeOtherStructures()
         {
             return super.clickRemoveOtherStructures();
         }
-        public FLHO4PropertyEndorsements setOccurrenceAggregateLimit(String text)
+        public FLMH3PropertyEndorsements setOccurrenceAggregateLimit(String text)
         {
             return super.setOccurrenceAggregateLimit(text);
         }
@@ -419,7 +415,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getOccurrenceAggregateLimit();
         }
-        public FLHO4PropertyEndorsements setLossAssessmentLimit(String text)
+        public FLMH3PropertyEndorsements setLossAssessmentLimit(String text)
         {
             return super.setLossAssessmentLimit(text);
         }
@@ -428,7 +424,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getLossAssessmentLimit();
         }
-        public FLHO4PropertyEndorsements setOrdinanceOrLawLimit(String text)
+        public FLMH3PropertyEndorsements setOrdinanceOrLawLimit(String text)
         {
             return super.setOrdinanceOrLawLimit(text);
         }
@@ -437,7 +433,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getOrdinanceOrLawLimit();
         }
-        public FLHO4PropertyEndorsements setPercentageOfAnnualIncrease(String text)
+        public FLMH3PropertyEndorsements setPercentageOfAnnualIncrease(String text)
         {
             return super.setPercentageOfAnnualIncrease(text);
         }
@@ -446,7 +442,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getPercentageOfAnnualIncrease();
         }
-        public FLHO4PropertyEndorsements setSinkholeIndex(String text)
+        public FLMH3PropertyEndorsements setSinkholeIndex(String text)
         {
             return super.setSinkholeIndex(text);
         }
@@ -460,7 +456,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isCreditCardCheckBoxAvailable();
         }
 
-        public FLHO4PropertyEndorsements setSinkholeClaimsIndex(String text)
+        public FLMH3PropertyEndorsements setSinkholeClaimsIndex(String text)
         {
             return super.setSinkholeClaimsIndex(text);
         }
@@ -469,7 +465,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getSinkholeClaimsIndex();
         }
-        public FLHO4PropertyEndorsements setScreenEnclosureHurricaneCoverageLimit(String text)
+        public FLMH3PropertyEndorsements setScreenEnclosureHurricaneCoverageLimit(String text)
         {
             return super.setScreenEnclosureHurricaneCoverageLimit(text);
         }
@@ -479,12 +475,12 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.getScreenEnclosureHurricaneCoverageLimit();
         }
 
-        public FLHO4PropertyEndorsements checkWhenSafe()
+        public FLMH3PropertyEndorsements checkWhenSafe()
         {
             return super.checkWhenSafe();
         }
 
-        public FLHO4PropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
+        public FLMH3PropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
         {
             return super.checkOtherStructuresIncreasedCoverageRentedToOthers();
         }
@@ -494,7 +490,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isOtherStructuresIncreasedCoverageChecked();
         }
 
-        public FLHO4PropertyEndorsements checkScheduledPersonalProperty()
+        public FLMH3PropertyEndorsements checkScheduledPersonalProperty()
         {
             return super.checkScheduledPersonalProperty();
         }
@@ -504,7 +500,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isScheduledPersonalPropertyChecked();
         }
 
-        public FLHO4PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
+        public FLMH3PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
         {
             return super.checkCreditCardFundTransferForgeryCounterfeitMoney();
         }
@@ -514,7 +510,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isCreditCardFundTransferForgeryCounterfeitMoneyChecked();
         }
 
-        public FLHO4PropertyEndorsements checkScreenEnclosureHurricaneCoverage()
+        public FLMH3PropertyEndorsements checkScreenEnclosureHurricaneCoverage()
         {
             return super.checkScreenEnclosureHurricaneCoverage();
         }
@@ -524,17 +520,17 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isScreenEnclosureHurricaneCoverageChecked();
         }
 
-        public FLHO4PropertyEndorsements checkWaterBackUp()
+        public FLMH3PropertyEndorsements checkWaterBackUp()
         {
             return super.checkWaterBackUp();
         }
 
-        public FLHO4PropertyEndorsements checkInflationGuard()
+        public FLMH3PropertyEndorsements checkInflationGuard()
         {
             return super.checkInflationGuard();
         }
 
-        public FLHO4PropertyEndorsements checkSinkholeLossCoverage()
+        public FLMH3PropertyEndorsements checkSinkholeLossCoverage()
         {
             return super.checkSinkholeLossCoverage();
         }
@@ -544,10 +540,10 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.isSinkholeLossCoverageChecked();
         }
 
-        public FLHO4RiskAnalysis next()
+        public FLMH3RiskAnalysis next()
         {
             super.propertyEndorsementsNext();
-            return new FLHO4RiskAnalysis(sh, path);
+            return new FLMH3RiskAnalysis(sh, path);
         }
         public boolean isWaterBackUpChecked()
         {
@@ -561,24 +557,24 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
     }
 
 
-    public class FLHO4LiabilityEndorsements extends LiabilityEndorsements<FLHO4LiabilityEndorsements>
+    public class FLMH3LiabilityEndorsements extends LiabilityEndorsements<FLMH3LiabilityEndorsements>
     {
-        public FLHO4LiabilityEndorsements(CenterSeleniumHelper sh, Path path)
+        public FLMH3LiabilityEndorsements(CenterSeleniumHelper sh, Path path)
         {
             super(sh,path);
         }
 
-        public FLHO4PropertyEndorsements clickPropertyEndorsements()
+        public FLMH3PropertyEndorsements clickPropertyEndorsements()
         {
             super.clickPropertyEndorsementsTab();
-            return new FLHO4PropertyEndorsements(sh, path);
+            return new FLMH3PropertyEndorsements(sh, path);
         }
-        public FLHO4Coverages clickCoverages()
+        public FLMH3Coverages clickCoverages()
         {
             super.clickCoveragesTab();
-            return new FLHO4Coverages(sh, path);
+            return new FLMH3Coverages(sh, path);
         }
-        public FLHO4LiabilityEndorsements setLocationName(String text)
+        public FLMH3LiabilityEndorsements setLocationName(String text)
         {
             return super.setLocationName(text);
         }
@@ -587,7 +583,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getLocationName();
         }
-        public FLHO4LiabilityEndorsements setNumberOfFamilies(String text)
+        public FLMH3LiabilityEndorsements setNumberOfFamilies(String text)
         {
             return super.setNumberOfFamilies(text);
         }
@@ -596,7 +592,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getNumberOfFamilies();
         }
-        public FLHO4LiabilityEndorsements setWatercraftType(String text)
+        public FLMH3LiabilityEndorsements setWatercraftType(String text)
         {
             return super.setWatercraftType(text);
         }
@@ -605,7 +601,7 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.getWatercraftType();
         }
-        public FLHO4LiabilityEndorsements setBusinessActivity(String text)
+        public FLMH3LiabilityEndorsements setBusinessActivity(String text)
         {
             return super.setBusinessActivity(text);
         }
@@ -615,39 +611,39 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.getBusinessActivity();
         }
 
-        public FLHO4LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
+        public FLMH3LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
         {
             return super.checkPermittedIncidentalOccupancyLiability();
         }
 
-        public FLHO4LiabilityEndorsements unCheckPermittedIncidentalOccupancyLiability()
+        public FLMH3LiabilityEndorsements unCheckPermittedIncidentalOccupancyLiability()
         {
             return super.unCheckPermittedIncidentalOccupancyLiability();
         }
 
-        public FLHO4LiabilityEndorsements checkAnimalLiability()
+        public FLMH3LiabilityEndorsements checkAnimalLiability()
         {
             return super.checkAnimalLiability();
         }
 
-        public FLHO4LiabilityEndorsements checkAdditionalResidenceRentedToOthers()
+        public FLMH3LiabilityEndorsements checkAdditionalResidenceRentedToOthers()
         {
             return super.checkAdditionalResidenceRentedToOthers();
         }
 
-        public FLHO4LiabilityEndorsements checkBusinessPursuits()
+        public FLMH3LiabilityEndorsements checkBusinessPursuits()
         {
             return super.checkBusinessPursuits();
         }
 
-        public FLHO4LiabilityEndorsements checkWatercraftLiability()
+        public FLMH3LiabilityEndorsements checkWatercraftLiability()
         {
             return super.checkWatercraftLiability();
         }
-        public FLHO4RiskAnalysis next()
+        public FLMH3RiskAnalysis next()
         {
             super.liabilityEndorsementsNext();
-            return new FLHO4RiskAnalysis(sh, path);
+            return new FLMH3RiskAnalysis(sh, path);
         }
 
         public boolean isPermittedIncidentalOccupancyLiabilityChecked()

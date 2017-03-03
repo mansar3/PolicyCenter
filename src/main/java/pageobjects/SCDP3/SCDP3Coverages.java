@@ -64,7 +64,8 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 	{
 		return super.setPersonalPropertyValuationMethod(text);
 	}
-
+	public SCDP3Coverages coveragesEnter(){return super.coveragesEnter();}
+	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
 	public SCDP3Coverages setLossOfUseSelection(String text)
 	{
 		return super.setLossOfUseSelection(text);
@@ -119,7 +120,9 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 		return super.setPersonalLiabilityLimit(text);
 
 	}
-
+	public SCDP3Coverages back(){
+		return super.dwellingConstructionBack();
+	}
 	public String getPersonalLiabilityLimit()
 	{
 		return super.getPersonalLiabilityLimit();

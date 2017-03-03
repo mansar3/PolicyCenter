@@ -2,11 +2,14 @@ package FL.HO4;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO4.*;
@@ -25,8 +28,7 @@ public class ValidationRulesFLHO4 extends BaseTest {
 
 
     @BeforeMethod
-    public void beforeMethod()
-    {
+    public void beforeMethod() {
         DateTime date = new DateTime();
         dateString = date.toString("MMddhhmmss");
         System.out.println(new DateTime().toString());
@@ -42,7 +44,7 @@ public class ValidationRulesFLHO4 extends BaseTest {
     }
 
     @Test(description = "Creates Account for FLHO4")
-    public void CreatePersonalAccountforFLHO4(ITestContext itc){
+    public void CreatePersonalAccountforFLHO4(ITestContext itc) {
         String firstname = "FLHO4";
         String lastname = "Validationrule";
         String date = "03/30/1985";
@@ -90,14 +92,14 @@ public class ValidationRulesFLHO4 extends BaseTest {
         String firstname = "FLHO4";
         String lastname = "Validationrule";
         String policyType = "Renters (HO4)";
-        String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
+     //   String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
         String effectiveDate = new DateTime().toString("MM/dd/yyyy");
         String futureYear = new DateTime().plusYears(1).toString("yyyy");
         String currentYear = new DateTime().toString("yyyy");
         String plumbingYear = new DateTime().minusYears(18).toString("yyyy");
         String waterHeaterYear = new DateTime().minusYears(18).toString("yyyy");
         String roofYear = new DateTime().minusYears(18).toString("yyyy");
-        String yearBuiltde, yearBuilt = "2001";
+        String yearBuilt = "2001";
         String distanceToFireHydrant = "200";
         String protectionclasscode = "10",
                 protectionclasscode1 = "10W",
@@ -124,16 +126,13 @@ public class ValidationRulesFLHO4 extends BaseTest {
                 primaryHeatingwood = "Wood Stove",
                 primaryHeatingwoodf = "Wood Furnace",
                 primaryHeatingelectric = "Electric";
-        String dwellinglimit = "250,000";
         String electricalsystemFuses = "Fuses",
                 electricalsystemcircuitbreaker = "Circuit Breaker";
         String conditionofroof = "Below Average",
                 conditionofroof1 = "Good";
-//        String dwellinglimit1 = "900",
-//                dwellinglimit2 = "100,000",
-//                dwellinglimit3 = "160,000";
-        String personalpropertylimit = "24,500",
-                personalpropertylimit1 = "26,000";
+        String personalpropertylimit = "250,000",
+                personalpropertylimit1 = "24,500",
+                personalpropertylimit2 = "26,000";
 
 
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
@@ -146,8 +145,9 @@ public class ValidationRulesFLHO4 extends BaseTest {
         String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String electricsystemfuse, expectedelectricsystemfuse = "Fuse panels do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
+//        String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
+        String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
 
 
         FLHO4NavigationBar nav = new FLHO4NavigationBar(sh);
@@ -316,7 +316,7 @@ public class ValidationRulesFLHO4 extends BaseTest {
         //changing to electric
         dwellingConstruction.setPrimaryHeating(primaryHeatingelectric)
                 .next()
-                .setDwellingLimit(dwellinglimit)
+                .setPersonalPropertyLimit(personalpropertylimit)
                 .back();
 
         //setting the plumbing year to one future year
@@ -382,37 +382,49 @@ public class ValidationRulesFLHO4 extends BaseTest {
 
         //goes to coverages and changes in dwelling limit and personal property limit.
 
-        coverages.setPersonalPropertyLimit(personalpropertylimit)
+        coverages.setPersonalPropertyLimit(personalpropertylimit1)
                 .coveragesEnter();
 
         //gets error for personal property limit
         personalpropertylimmiterror = coverages.coveragesErrorMessage();
         Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
-        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror+ " and it is " + personalpropertylimmiterror);
+        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror + " and it is " + personalpropertylimmiterror);
 
-        FLHO4RiskAnalysis riskanalysis = coverages.setPersonalPropertyLimit(personalpropertylimit1)
+        FLHO4RiskAnalysis riskanalysis = coverages.setPersonalPropertyLimit(personalpropertylimit2)
                 .next();
 
         //goes to underwriting questions
-                riskanalysis.clickUnderWritingQuestions();
+        riskanalysis.clickUnderWritingQuestions();
 
-                //sets everything to no
+        //sets everything to no
         for (int i = 0; i < 14; i++) {
             riskanalysis.answerNo(i + 1);
         }
 
-        //selects an option
-
-        for (int i = 0; i < 14; i++) {
-            riskanalysis.answerNo(i + 1);
+        for (int j = 9; j <= 9; j++) {
+            riskanalysis.answerYes(j);
         }
+        riskanalysis.back();
 
+        convitederror = riskanalysis.getErrorMessage();
+        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        System.out.println("  Expected error message is " + expectedconvitederror + " and it is " + convitederror);
 
+        for (int z = 9; z <= 9; z++) {
+            riskanalysis.answerNo(z);
+        }
+        riskanalysis.back();
 
+    }
 
-        //18
-
-
-
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if (driver != null)
+            driver.quit();
     }
 }

@@ -1,7 +1,6 @@
 package pageobjects.FLHO6;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -60,7 +59,15 @@ public class FLHO6DwellingConstruction extends DwellingConstruction<FLHO6Dwellin
 		return super.setConstructionType(text);
 	}
 	public FLHO6DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
-
+	public FLHO6DwellingConstruction setFloorUnitIsLocatedOn(String text)
+	{
+		super.setFloorUnitIsLocatedOn(text);
+		return new FLHO6DwellingConstruction(sh, path);
+	}
+	public String getFloorUnitIsLocatedOn()
+	{
+		return super.getFloorUnitIsLocatedOn();
+	}
 	public String getConstructionType()
 	{
 		return super.getConstructionType();
