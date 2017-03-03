@@ -2,11 +2,14 @@ package SC.DP3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Login;
@@ -15,7 +18,7 @@ import pageobjects.SCDP3.*;
 /**
  * Created by ssai on 3/2/2017.
  */
-public class ValidationRulesSCDP3 extends BaseTest{
+public class ValidationRulesSCDP3 extends BaseTest {
     private String dateString;
     private WebDriver driver;
     private Login login;
@@ -132,17 +135,18 @@ public class ValidationRulesSCDP3 extends BaseTest{
                 primaryHeatingwoodf = "Wood Furnace",
                 primaryHeatingelectric = "Electric";
         String dwellinglimit = "250,000",
-                dwellinglimit1 = "900",
-                dwellinglimit2 = "300000";
+                dwellinglimit1 = "140,000",
+                dwellinglimit2 = "160,000";
         // dwellinglimit3 = "220000";
-        String personalpropertylimit = "250,000",
-                personalpropertylimit1 = "19,000",
-                personalpropertylimit2 = "60,000";
+        String personalpropertylimit = "4,000",
+                personalpropertylimit1 = "140,000",
+                personalpropertylimit2 = "100,000";
         String electricalsystemFuses = "Fuses",
                 electricalsystemcircuitbreaker = "Circuit Breaker";
         String conditionofroof = "Below Average",
                 conditionofroof1 = "Good";
         String yearbuilt, expectedyearbuilt = "Please enter a valid 4 digit year: Year Built.";
+        String risknotlocated, expectedrisknotlocated = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String Countyrisk, expectedcountyrisk = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String expectederrormessagesafetylatches = " Burglar bars without safety release latches are ineligible for coverage";
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
@@ -157,7 +161,7 @@ public class ValidationRulesSCDP3 extends BaseTest{
         String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 371 PELICAN FLIGHT DR, DEWEES ISLAND, SC.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
-        //  String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
+        String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
         // String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
         //   String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
@@ -188,19 +192,23 @@ public class ValidationRulesSCDP3 extends BaseTest{
                 .setEffectiveDate(effectiveDate)
                 .next();
 
-           dwe.setYearBuilt(yearBuilt)
-                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inception)
+        dwe.setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inception)
                 .setTerritoryCode(territorycode)
                 .setBCEG(BECG)
-                .setProtectionClassCode(protectionclass)  //its not clicking the  protection class
+                .setProtectionClassCode(protectionclass)
                 .editLocation()
                 .setCounty(county)
                 .clickOk()
                 .Enter();
 
-        //validating the error
+        risknotlocated = dwe.getdwellingErrorMessage();
+        Assert.assertTrue(expectedrisknotlocated.equals(risknotlocated));
+        System.out.println(" Expected error messsage  " + expectedrisknotlocated + " but it was " + risknotlocated);
 
+
+        //validating the message for "The Risk is not located within the approved----// "
         Countyrisk = dwe.getdwellingErrorMessage();
         Assert.assertTrue(expectedcountyrisk.equals(Countyrisk));
         System.out.println(" Expected Error should be  " + expectedcountyrisk + " and it was  " + Countyrisk);
@@ -347,7 +355,7 @@ public class ValidationRulesSCDP3 extends BaseTest{
         //changing to electric
         dwellingConstruction.setPrimaryHeating(primaryHeatingelectric)
                 .next()
-                .setPersonalPropertyLimit(personalpropertylimit)
+                .setDwellingLimit(dwellinglimit)
                 .back();
 
         //setting the plumbing year to one future year
@@ -410,8 +418,75 @@ public class ValidationRulesSCDP3 extends BaseTest{
         SCDP3Coverages coverages = dwellingConstruction
                 .setConditionOfRoof(conditionofroof1)
                 .next();
+        //GOES TO THE COVERAGES PAGE AND SETS THE
 
-        //GOES TO THE COVERAGES PAGE ANDSETS THE \
+        coverages.setDwellingLimit(dwellinglimit1)
+                .coveragesEnter();
+
+        //verifying the dwelling coverage limit is below the acceptable mim limit
+
+        dwellinglimiterror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
+        System.out.println(" Expected error message is " + expecteddwellinglimiterror + "  and it is " + dwellinglimiterror);
+
+        coverages.setDwellingLimit(dwellinglimit2)
+                .setPersonalPropertyLimit(personalpropertylimit)
+                .coveragesEnter();
+
+        //verifying the personal property limit is below
+
+        personalpropertylimmiterror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
+        System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror + " and it is " + personalpropertylimmiterror);
+
+        coverages.setPersonalPropertyLimit(personalpropertylimit1)
+                .coveragesEnter();
+
+        //verifying the personal property limit is above
+
+        personalpropertylimitaboveerror = coverages.coveragesErrorMessage();
+        Assert.assertTrue(expectedpersonalpropertylimitaboveerror.equals(personalpropertylimitaboveerror));
+        System.out.println("  Expected error message is " + expectedpersonalpropertylimitaboveerror + " and it is " + personalpropertylimitaboveerror);
+
+
+        SCDP3RiskAnalysis riskanalysis = coverages.setPersonalPropertyLimit(personalpropertylimit2)
+                .next();
+
+        riskanalysis.clickUnderWritingQuestions();
+
+        //sets everything to no
+        for (int i = 0; i < 14; i++) {
+            riskanalysis.answerNo(i + 1);
+        }
+
+        for (int j = 9; j <= 9; j++) {
+            riskanalysis.answerYes(j);
+        }
+        riskanalysis.back();
+
+        convitederror = riskanalysis.getErrorMessage();
+        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        System.out.println("  Expected error message is " + expectedconvitederror + " and it is " + convitederror);
+
+        for (int z = 9; z <= 9; z++) {
+            riskanalysis.answerNo(z);
+        }
+        riskanalysis.back();
+
 
     }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if (driver != null)
+            driver.quit();
+    }
+
+
 }
+
