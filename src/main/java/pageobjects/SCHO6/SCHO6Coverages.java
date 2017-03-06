@@ -83,6 +83,12 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
+
+	public String getLossOfUseLimit(Integer flag)
+	{
+		return super.getLossOfUseLimit(flag);
+	}
+
 	public String getHurricane()
 	{
 		return super.getHurricane();
@@ -108,6 +114,11 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 	{
 		return super.setWindExcluded(flag);
 
+	}
+
+	public boolean isWindExcluded(Integer flag)
+	{
+		return super.isWindExcluded(flag);
 	}
 
 	public String getPersonalLiabilityLimit()
@@ -249,6 +260,16 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		public SCHO6PropertyEndorsements checkSpecificOtherStructures()
 		{
 			return super.checkSpecificOtherStructures();
+		}
+
+		public boolean isSpecificOtherStructuresChecked()
+		{
+			return super.isSpecificOtherStructuresChecked();
+		}
+
+		public boolean isScheduledPersonalPropertyChecked()
+		{
+			return super.isScheduledPersonalPropertyChecked();
 		}
 
 		public SCHO6PropertyEndorsements checkEarthquakeLossAssessment()
@@ -424,6 +445,11 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 			return super.clickRemoveScheduledPersonalProperty();
 		}
 
+		public boolean isScreenEnclosureHurricaneCoverageChecked()
+		{
+			return super.isScreenEnclosureHurricaneCoverageChecked();
+		}
+
 		public SCHO6PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
@@ -463,7 +489,18 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkUnitOwnersCoverageASpecialCoverage();
 		}
+
+		public boolean isUnitOwnersCoverageASpecialCoverage()
+		{
+			return super.isUnitOwnersCoverageASpecialCoverage();
+		}
+
+		public boolean isUnitOwnersRentedToOthers()
+		{
+			return super.isUnitOwnersRentedToOthers();
+		}
 	}
+
 
 
 	public class SCHO6LiabilityEndorsements extends LiabilityEndorsements<SCHO6LiabilityEndorsements>
@@ -523,6 +560,26 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		public SCHO6LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
 		{
 			return super.checkPermittedIncidentalOccupancyLiability();
+		}
+
+		public boolean isPermittedIncidentalOccupancyLiabilityChecked()
+		{
+			return super.isPermittedIncidentalOccupancyLiabilityChecked();
+		}
+
+		public boolean isAdditionalResidenceRentedToOthersChecked()
+		{
+			return super.isAdditionalResidenceRentedToOthersChecked();
+		}
+
+		public boolean isBusinessPursuitsChecked()
+		{
+			return super.isBusinessPursuitsChecked();
+		}
+
+		public boolean isWatercraftLiabilityChecked()
+		{
+			return super.isWatercraftLiabilityChecked();
 		}
 
 		public SCHO6LiabilityEndorsements checkAnimalLiability()
