@@ -91,6 +91,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			switch(path)
 			{
 				case SUBMISSION:
+					sh.waitForNoMask();
 					sh.clickElement(by.submissionQuote);
 					break;
 				case POLICYRENEWAL:

@@ -198,6 +198,11 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
         }
+        public NCWindOnlyPropertyEndorsements clickCoveragespropertyendorsementsQuote()
+        {
+            return super.clickCoveragespropertyendorsementsQuote();
+        }
+
         public boolean isEarthQuakeLossAssessment()
         {
             return super.isEarthQuakeLossAssessmentChecked();

@@ -60,8 +60,23 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 
 			bindOptions = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions-btnInnerEl"),
 			bindOptionsRenew = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:SendToRenewal-itemEl"),
+		    issuePolicy = By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:JobWizardToolbarButtonSet:BindAndIssue-btnInnerEl"),
+		    editpolicytransaction = By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 			bindOptionsIssueNow = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:IssueNow-itemEl");
 
+
+	}
+
+	public T clickissuePolicy(){
+		sh.waitForNoMask();
+		sh.clickElement(by.issuePolicy);
+		return (T) this;
+	}
+
+	public T clickEditPolicyTransaction(){
+		sh.waitForNoMask();
+		sh.clickElement(by.editpolicytransaction);
+		return (T) this;
 
 	}
 	public T clickRenew()
@@ -74,20 +89,22 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 	}
 	public T clickIssueNow()
 	{
-		sh.clickElement(by.bindOptions);
-		sh.clickElement(by.bindOptionsIssueNow);
-		accept();
-		return(T)this;
-	}
+	sh.clickElement(by.bindOptions);
+	sh.clickElement(by.bindOptionsIssueNow);
+	accept();
+	return(T)this;
+}
 	private T  dismiss()
 	{
 		sh.clickElement(By.xpath(".//*[text()= 'Cancel']"));
 		return (T)this;
 	}
-	private void accept()
+	protected T accept()
 	{
 		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
 		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
 	}
 
 	protected int getTotalPremium()

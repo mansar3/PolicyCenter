@@ -76,8 +76,8 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 
 	protected T dwellingNext()
 	{
-		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		sh.waitForNoMask();
+		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 		return (T)this;
 	}
 	protected T setDoesInsuredOwnOtherResidenceWithFrontline(String flag)

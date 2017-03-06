@@ -18,4 +18,16 @@ public class NCWindOnlyNavigationBar extends NavigationBar<NCWindOnlyNavigationB
         super.clickSearchAccountNavBar();
         return new NCWindOnlySearchAccounts(sh);
     }
+
+    public NCWindOnlyNavigationBar clickInternalToolTab()
+    {
+      return   super.clickInternalToolTab();
+    }
+    public NCWindOnlyNavigationBar clickTestingTimeClock()
+    {
+        return super.clickTestingTimeClock();
+    }
+
+    public NCWindOnlyNavigationBar clickSettings(){return  super.clickSettings();}
+    public NCWindOnlyNavigationBar clickReturntoPolicyCenter() {return  super.clickReturntoPolicyCenter();}
 }

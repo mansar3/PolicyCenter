@@ -609,6 +609,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			public final By coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"),
 			liabilityEndorsements = By.id(coveragesBase + "OptionaLiabilityCoveraqesCardTab-btnInnerEl"),
 
+			CoveragespropertyendorsementsQuote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 
 			guardianEndorsements = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Guardian Endorsement']/..//input"),
 
@@ -686,6 +687,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected T clickCoveragespropertyendorsementsQuote(){
+			sh.waitForNoMask();
+			sh.clickElement(by.CoveragespropertyendorsementsQuote);
+			return (T) this;
+		}
 
 		protected boolean isUnitOwnersCoverageASpecialCoverage()
 		{

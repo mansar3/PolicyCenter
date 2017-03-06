@@ -12,11 +12,26 @@ public class NCWindOnlyQuote extends Quote<NCWindOnlyQuote> {
         super(sh, path);
     }
 
+    public NCWindOnlyQuote clickissuePolicy()
+    {
+        return super.clickissuePolicy();
+    }
+
+    public NCWindOnlyQuote acceptyes()
+    {
+        return super.accept();
+    }
+
+    public NCWindOnlyQuote clickEditPolicyTransaction(){
+        return super.clickEditPolicyTransaction();
+    }
     public NCWindOnlyRiskAnalysis backToRiskAnalysis()
     {
         super.backRiskAnalysis();
         return new NCWindOnlyRiskAnalysis(sh,path);
     }
+
+
     public NCWindOnlyPolicyReview backToPoliycReview()
     {
         super.backPolicyReview();
