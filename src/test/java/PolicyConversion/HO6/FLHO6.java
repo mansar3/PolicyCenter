@@ -632,8 +632,11 @@ public class FLHO6 extends BaseTest
 		if(eai.get("Unit Owners Coverage A - Special Coverage (Limit)") != null)
 			pe.checkUnitOwnersCoverageASpecialCoverage();
 
-		if(!eai.get("Unit Owners Rented to Others").toLowerCase().equals("false"))
-			pe.checkUnitOwnersRentedToOthers();
+		if(!eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
+		{
+			if(!eai.get("Unit Owners Rented to Others").toLowerCase().equals("false"))
+				pe.checkUnitOwnersRentedToOthers();
+		}
 
 		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
 			if(pe.isCreditCardCheckBoxAvailable())

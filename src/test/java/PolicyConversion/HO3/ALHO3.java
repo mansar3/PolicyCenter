@@ -678,8 +678,8 @@ public class ALHO3 extends BaseTest
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
 
-		if(eai.get("Inflation Guard - Percent") != null)
-			if(!pe.isInflationGuardChecked())
+		if(eai.get("Inflation Guard - Percent") == null)
+			if(pe.isInflationGuardChecked())
 				pe.checkInflationGuard();
 
 
@@ -1270,8 +1270,8 @@ public class ALHO3 extends BaseTest
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
 
-		if(eai.get("Inflation Guard - Percent") != null)
-			if(!pe.isInflationGuardChecked())
+		if(eai.get("Inflation Guard - Percent") == null)
+			if(pe.isInflationGuardChecked())
 				pe.checkInflationGuard();
 
 

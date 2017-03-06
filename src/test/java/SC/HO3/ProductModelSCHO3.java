@@ -108,7 +108,7 @@ public class ProductModelSCHO3 extends BaseTest
             String expectedAddress = createAccount.getAddressLine1();
             Assert.assertTrue(expectedAddress.toUpperCase().equals(address.toUpperCase()),
                     "Address expected was " + address + " but it was " + expectedAddress);
-            Assert.assertTrue(createAccount.getZipCode().equals(zipcode),
+            Assert.assertTrue(createAccount.getZipCode().contains(zipcode),
                     "Zipcode expected was " + createAccount.getZipCode() +
                             ", but it was " + zipcode);
 

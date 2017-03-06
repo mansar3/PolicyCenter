@@ -27,6 +27,11 @@
                     <!--<include name="SubmissionLoadTest"></include>-->
                 <!--</methods>-->
             <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.SCHO6">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
 			<!--<class name="PolicyConversion.HO6.FLHO6">-->
                 <!--<methods>-->
                     <!--<include name="SubmissionLoadTest"></include>-->

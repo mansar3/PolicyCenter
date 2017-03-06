@@ -108,7 +108,7 @@ public class CenterSeleniumHelper
 		if (isDisplayed(byLocator))
 			return driver.findElement(byLocator).getAttribute("value");
 		else
-			return null;
+			return "";
 	}
 
 	public WebDriverWait wait(int time)

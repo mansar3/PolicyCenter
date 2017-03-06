@@ -1065,7 +1065,7 @@ public class FLHO3 extends BaseTest
 		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
 		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
+		.setElectricalSystem(eai.getOrDefault("Electrical System","<None>"))
 		.setRoofType(eai.get("Roof Type"));
 		if(eai.get("Roof Type").toLowerCase().equals("other"))
 			dc.setRoofTypeDescription("Other");
@@ -1239,7 +1239,7 @@ public class FLHO3 extends BaseTest
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
 			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName("1:")
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"))
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le

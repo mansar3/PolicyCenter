@@ -254,6 +254,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.getText(by.lossOfUseLimit);
 	}
 
+	protected String getLossOfUseLimit(Integer flag)
+	{
+		return sh.getText(By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"));
+	}
+
 	protected boolean isLossOfUseLimitEditable()
 	{
 		return sh.isElementEditable(by.lossOfUseLimit);
