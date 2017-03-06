@@ -1065,7 +1065,7 @@ public class FLHO3 extends BaseTest
 		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
 		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
+		.setElectricalSystem(eai.getOrDefault("Electrical System","<None>"))
 		.setRoofType(eai.get("Roof Type"));
 		if(eai.get("Roof Type").toLowerCase().equals("other"))
 			dc.setRoofTypeDescription("Other");
