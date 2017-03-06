@@ -1239,7 +1239,7 @@ public class FLHO3 extends BaseTest
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
 			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName("1:")
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"))
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le

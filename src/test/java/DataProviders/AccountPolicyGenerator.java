@@ -147,9 +147,9 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/");
+		return DataCreator("/Users/aansari/Downloads/Rating/");
 	}
-
+	// /Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO6Data()
 	{
@@ -162,7 +162,7 @@ public class AccountPolicyGenerator
 	{
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/NCHO3-20170301_134852/");
 	}
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] SCDP3Data()
 	{
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/SCDP3-20170301_134936/");
@@ -176,7 +176,7 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO6Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170223_090859/SCHO6-20170221_110756/");
+		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170303_094246/SCHO6-20170303_094531/");
 	}
 
 	public static Object[][] DataCreator(String filePathBase)

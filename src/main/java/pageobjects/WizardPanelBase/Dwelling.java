@@ -3,7 +3,6 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 
 public class Dwelling<T extends Dwelling> extends CenterPanelBase
 {
@@ -262,8 +261,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setDwellingUsage(String dwellingUsage)
 	{
-		sh.setText(by.dwellingUsage, dwellingUsage);
-		sh.tab();
+		sh.setTextAndTab(by.dwellingUsage, dwellingUsage);
+		//sh.tab();
 		return (T)this;
 	}
 

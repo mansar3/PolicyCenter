@@ -196,12 +196,14 @@ public abstract class BaseTest
 	}
 	public boolean isInArray(String[] arr, String flag)
 	{
-		for(String a : arr)
-		{
-			if(a.equals(flag))
-				return true;
-		}
-		return false;
+		return Arrays.stream(arr).anyMatch(t->t.equals(flag));
+//		for(String a : arr)
+//		{
+//
+//			if(a.equals(flag))
+//				return true;
+//		}
+//		return false;
 	}
 	public String[] errorReportingInfo(Map<String, String> eai, boolean result)
 	{
