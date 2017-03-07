@@ -852,7 +852,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[3]/div/div/div/div/input
 			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input
 
-			sh.clickElement(By.xpath("//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input"));
+		//	sh.clickElement(By.xpath("//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input"));
 			sh.clickElement(By.xpath("html/body/div[4]/table/tbody/tr/td/div/table/tbody/tr[4]/td/div/div[2]/div/table/tbody/tr[1]/td/div/table/tbody/tr/td/div/table/tbody/tr[1]/td/fieldset/div/div/div/div/table/tbody/tr/td/div/div[3]/div[1]/div[1]/table/tbody/tr/td[3]/div"));
 			sh.waitForElementToAppear(By.name("c2"));
 			sh.setText(By.name("c2"), text);

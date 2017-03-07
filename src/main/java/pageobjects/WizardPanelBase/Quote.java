@@ -79,6 +79,32 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		return (T) this;
 
 	}
+
+	protected String quoteErrorMessage()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='WebMessageWorksheet:WebMessageWorksheetScreen:grpMsgs']/div[1]")).getText();
+		return Error;
+	}
+	protected String quoteErrorMessage2()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='WebMessageWorksheet:WebMessageWorksheetScreen:grpMsgs']/div[2]")).getText();
+		return Error;
+	}
+	protected String quoteErrorMessage3()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='WebMessageWorksheet:WebMessageWorksheetScreen:grpMsgs']/div[3]")).getText();
+		return Error;
+	}
+	protected String quoteErrorMessage4()
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.xpath(".//*[@id='WebMessageWorksheet:WebMessageWorksheetScreen:grpMsgs']/div[4]")).getText();
+		return Error;
+	}
+
 	public T clickRenew()
 	{
 		sh.clickElement(by.bindOptions);

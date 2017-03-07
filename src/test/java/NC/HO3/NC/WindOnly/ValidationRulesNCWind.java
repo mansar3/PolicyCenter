@@ -2,12 +2,15 @@
 //
 //import Helpers.CenterSeleniumHelper;
 //import base.BaseTest;
+//import base.LocalDriverManager;
 //import org.joda.time.DateTime;
 //import org.joda.time.format.DateTimeFormat;
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.WebDriver;
 //import org.testng.Assert;
 //import org.testng.ITestContext;
+//import org.testng.ITestResult;
+//import org.testng.annotations.AfterMethod;
 //import org.testng.annotations.BeforeMethod;
 //import org.testng.annotations.Test;
 //import pageobjects.Login;
@@ -100,10 +103,10 @@
 //        String firstname = "NCWindOnly";
 //        String lastname = "Validationrule";
 //        String policyType = "Wind Only";
-//        String futureEffectiveDate = new DateTime().plusDays(120).toString("MM/dd/yyyy");
-//        // String effectiveDate = new DateTime().toString("MM/dd/yyyy");
-//        String futureYear = new DateTime().plusYears(5).toString("yyyy");
-//        String yearBuilt = new DateTime().minusYears(17).toString("yyyy");
+////        String futureEffectiveDate = new DateTime().plusDays(120).toString("MM/dd/yyyy");
+////        // String effectiveDate = new DateTime().toString("MM/dd/yyyy");
+////        String futureYear = new DateTime().plusYears(5).toString("yyyy");
+////        String yearBuilt = new DateTime().minusYears(17).toString("yyyy");
 //        String roofshapetype = "Gable";
 //        String windhail = "1000";
 //        String dwellinglimit = "140,000",
@@ -123,29 +126,25 @@
 //        String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
 //        String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
 //        String territorycodeerror, expectedterritorycodeerrror = "This risk is not located within the approved binding territory for your agency. Please contact your Sales Representative should you have any questions.: Dwelling at 128 WAXWING LN, DUCK, NC.";
+//        String Aplusreport, expectedAplusreport = "A+ plus report must be ordered before binding: Unassigned, 11/20/2021, 11/20/2022, 0033210282.";
+//        String quotedwellingcon, expectedquotedwellingcon = "The following Dwelling Construction fields are required prior to bind: [Square Footage, Roof Type].";
+//        String quotedwellling, expectedquotedwellling = "The following Dwelling fields are required prior to bind: [Distance to Coast (ft)].";
+//        String quoteresidenceheld, expectedquoteresidenceheld = "In order to select the coverage Residence Held in Trust a trust must be added to the additional interest page: Residence Held in Trust.";
+//        String errormessage, errormessage1, errormessage2, errormessage3;
 //
 //        NCWindOnlyNavigationBar nav = new NCWindOnlyNavigationBar(sh);
 //        nav.clickInternalToolTab()
 //                .clickTestingTimeClock();
 //
 //        NCWindOnlyTestingSystemClock tsc = new NCWindOnlyTestingSystemClock(sh);
-////        String currentDate = tsc.getCurrentDate();
-////        System.out.println(tsc.getCurrentDate())
-//
-//
-////        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 //        String currentdate = tsc.getCurrentDate();
 //        System.out.println(tsc.getCurrentDate());
 //
 //        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
-//
 //        String effectiveDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-//
-////        String effectiveDate  = (String)currentdate.subSequence(0,10);
-//        System.out.println(effectiveDate);//gets the effective date
-//
-//        String effectiveDatePlusOneYear = dateTime.plusYears(1).format(DateTimeFormatter.ofPattern("yyyy"));//gets the plus one year of the time travel date
-//
+//        //String effectiveDate  = (String)currentdate.subSequence(0,10);
+//        String futureYear = dateTime.plusYears(1).format(DateTimeFormatter.ofPattern("yyyy"));//gets the plus one year of the time travel date
+//        String yearBuilt = dateTime.minusYears(21).format(DateTimeFormatter.ofPattern("yyyy"));
 //        nav.clickSettings()
 //                .clickReturntoPolicyCenter();
 //        sh.waitForNoMask();
@@ -279,7 +278,7 @@
 //        //verify messages comes in
 //        territorycodeerror = dwe.getdwellingErrorMessage();
 //        Assert.assertTrue(expectedterritorycodeerrror.equals(territorycodeerror));
-//        System.out.println("Theh expected message is " + expectedterritorycodeerrror + " and it is " + territorycodeerror);
+//        System.out.println("Then expected message is " + expectedterritorycodeerrror + " and it is " + territorycodeerror);
 //
 //        dwe.setTerritoryCode(territorycode2)
 //                .next()
@@ -296,7 +295,33 @@
 //                .acceptyes();
 //
 //        //verifies the error messages
+////        Aplusreport = quote.quoteErrorMessage();
+////        Assert.assertTrue(expectedAplusreport.equals(Aplusreport));
+////        System.out.println("Then expected message is " + expectedAplusreport + " and it is " + Aplusreport);
 //
+////        quotedwellingcon = quote.quoteErrorMessage();
+////        Assert.assertTrue(expectedquotedwellingcon.equals(quotedwellingcon));
+////        System.out.println("Then expected message is " + expectedquotedwellingcon + " and it is " + quotedwellingcon);
+////
+////        quotedwellling = quote.quoteErrorMessage();
+////        Assert.assertTrue(expectedquotedwellling.equals(quotedwellling));
+////        System.out.println("Then expected message is " + expectedquotedwellling + " and it is " + quotedwellling);
+////
+////        quoteresidenceheld = quote.quoteErrorMessage();
+////        Assert.assertTrue(expectedquoteresidenceheld.equals(quoteresidenceheld));
+////        System.out.println("Then expected message is " + expectedquoteresidenceheld + " and it is " + quoteresidenceheld);
+//
+//        errormessage = quote.quoteErrorMessage();
+//        System.out.println(errormessage);
+//
+//        errormessage = quote.quoteErrorMessage2();
+//        System.out.println(errormessage);
+//
+//        errormessage = quote.quoteErrorMessage3();
+//        System.out.println(errormessage);
+//
+//        errormessage = quote.quoteErrorMessage4();
+//        System.out.println(errormessage);
 //
 //        //edit the policy transaction
 //
@@ -312,6 +337,16 @@
 //                .checkResidenceHeldinTrust()
 //                .next();
 //
+//    }
 //
+//    @AfterMethod(alwaysRun = true)
+//    public void afterMethod(ITestResult testResult, ITestContext itc) {
+//        WebDriver driver = LocalDriverManager.getDriver();
+//        if (testResult.getStatus() != ITestResult.SUCCESS) {
+//            takeScreenShot(driver);
+//            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+//        }
+//        if (driver != null)
+//            driver.quit();
 //    }
 //}

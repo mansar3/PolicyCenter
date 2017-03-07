@@ -30,6 +30,10 @@ public class NCWindOnlyQuote extends Quote<NCWindOnlyQuote> {
         super.backRiskAnalysis();
         return new NCWindOnlyRiskAnalysis(sh,path);
     }
+    public String quoteErrorMessage(){return super.quoteErrorMessage();}
+    public String quoteErrorMessage2(){return super.quoteErrorMessage2();}
+    public String quoteErrorMessage3(){return super.quoteErrorMessage3();}
+    public String quoteErrorMessage4(){return super.quoteErrorMessage4();}
 
 
     public NCWindOnlyPolicyReview backToPoliycReview()

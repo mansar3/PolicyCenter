@@ -398,15 +398,15 @@
 //        riskanalysis.back();
 //
 //    }
-//
-//    @AfterMethod(alwaysRun = true)
-//    public void afterMethod(ITestResult testResult, ITestContext itc) {
-//        WebDriver driver = LocalDriverManager.getDriver();
-//        if (testResult.getStatus() != ITestResult.SUCCESS) {
-//            takeScreenShot(driver);
-//            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-//        }
-//        if (driver != null)
-//            driver.quit();
-//    }
+////
+////    @AfterMethod(alwaysRun = true)
+////    public void afterMethod(ITestResult testResult, ITestContext itc) {
+////        WebDriver driver = LocalDriverManager.getDriver();
+////        if (testResult.getStatus() != ITestResult.SUCCESS) {
+////            takeScreenShot(driver);
+////            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+////        }
+////        if (driver != null)
+////            driver.quit();
+////    }
 //}
