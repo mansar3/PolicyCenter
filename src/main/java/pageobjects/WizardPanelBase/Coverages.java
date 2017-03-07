@@ -692,7 +692,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
-		protected T clickCoveragespropertyendorsementsQuote(){
+		protected T clickCoveragesPropertyEndorsementsQuote(){
 			sh.waitForNoMask();
 			sh.clickElement(by.CoveragespropertyendorsementsQuote);
 			return (T) this;
@@ -906,7 +906,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
-		protected T checkResidenceHeldinTrust()
+		protected T checkResidenceHeldInTrust()
 		{
 			sh.waitForNoMask();
 			sh.clickElement(by.residenceHeldinTrust);

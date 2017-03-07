@@ -32,10 +32,7 @@ public class NCHOWPolicyInfo extends PolicyInfo<NCHOWPolicyInfo> {
         super.dwellingNext();
         return new NCHOWDwelling(sh,path);
     }
-    public NCHOWPolicyInfo setSeniorCitizenDiscount(String flag)
-    {
-        return super.setSeniorCitizenDiscount(flag);
-    }
+
     public NCHOWPolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
     {
         return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);

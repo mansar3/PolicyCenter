@@ -285,9 +285,9 @@
 //                .next();
 //
 //        coverages.clickPropertyEndorsements()
-//                .checkResidenceHeldinTrust()
+//                .checkResidenceHeldInTrust()
 //                .next();
-//        //  .clickCoveragespropertyendorsementsQuote();
+//        //  .clickCoveragesPropertyEndorsementsQuote();
 //
 //
 //        NCHOWQuote quote = ra.quote()
@@ -334,7 +334,7 @@
 //                .next()
 //                .next()
 //                .clickPropertyEndorsements()
-//                .checkResidenceHeldinTrust()
+//                .checkResidenceHeldInTrust()
 //                .next();
 //
 //    }
