@@ -2,11 +2,13 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.NorthPanel;
 
 public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
 	protected String riskAnalysisBase;
+	public NorthPanel np;
 	public RiskAnalysis(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -14,6 +16,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		expectedPanelTitle = "Risk Analysis";
 		waitForTitle(sh);
 		setID(path);
+		np = new NorthPanel(sh);
 		by = new RiskAnalysisBy();
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
