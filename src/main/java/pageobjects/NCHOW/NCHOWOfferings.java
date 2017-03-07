@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.Offerings;
@@ -6,13 +6,13 @@ import pageobjects.WizardPanelBase.Offerings;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyOfferings extends Offerings<NCWindOnlyOfferings> {
-    public NCWindOnlyOfferings(CenterSeleniumHelper sh , Path path)
+public class NCHOWOfferings extends Offerings<NCHOWOfferings> {
+    public NCHOWOfferings(CenterSeleniumHelper sh , Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyOfferings setOfferingSelection(String text)
+    public NCHOWOfferings setOfferingSelection(String text)
     {
         return super.setOfferingSelection(text);
     }
@@ -21,7 +21,7 @@ public class NCWindOnlyOfferings extends Offerings<NCWindOnlyOfferings> {
     {
         return super.getOfferingSelection();
     }
-    public NCWindOnlyOfferings setPolicyType(String text)
+    public NCHOWOfferings setPolicyType(String text)
     {
         return super.setPolicyType(text);
     }
@@ -30,10 +30,10 @@ public class NCWindOnlyOfferings extends Offerings<NCWindOnlyOfferings> {
     {
         return super.getPolicyType();
     }
-    public NCWindOnlyPolicyInfo next()
+    public NCHOWPolicyInfo next()
     {
         super.policyInfoNext();
-        return new NCWindOnlyPolicyInfo(sh,path);
+        return new NCHOWPolicyInfo(sh,path);
     }
 }
 

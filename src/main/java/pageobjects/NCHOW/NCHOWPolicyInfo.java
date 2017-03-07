@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.PolicyInfo;
@@ -6,49 +6,46 @@ import pageobjects.WizardPanelBase.PolicyInfo;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
-    public NCWindOnlyPolicyInfo(CenterSeleniumHelper sh, Path path)
+public class NCHOWPolicyInfo extends PolicyInfo<NCHOWPolicyInfo> {
+    public NCHOWPolicyInfo(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyNewAdditionalNamedInsured clickAddNewCompany()
+    public NCHOWNewAdditionalNamedInsured clickAddNewCompany()
     {
         super.addNewCompany();
-        return new NCWindOnlyNewAdditionalNamedInsured(sh, path);
+        return new NCHOWNewAdditionalNamedInsured(sh, path);
     }
-    public NCWindOnlyNewAdditionalNamedInsured clickAddNewPerson()
+    public NCHOWNewAdditionalNamedInsured clickAddNewPerson()
     {
         super.addNewPerson();
-        return new NCWindOnlyNewAdditionalNamedInsured(sh,path);
+        return new NCHOWNewAdditionalNamedInsured(sh,path);
     }
-    public NCWindOnlySearchAddressBook searchFromAddressBook()
+    public NCHOWSearchAddressBook searchFromAddressBook()
     {
         super.addFromAddressBook();
-        return new NCWindOnlySearchAddressBook(sh,path);
+        return new NCHOWSearchAddressBook(sh,path);
     }
-    public NCWindOnlyDwelling next()
+    public NCHOWDwelling next()
     {
         super.dwellingNext();
-        return new NCWindOnlyDwelling(sh,path);
+        return new NCHOWDwelling(sh,path);
     }
-    public NCWindOnlyPolicyInfo setSeniorCitizenDiscount(String flag)
-    {
-        return super.setSeniorCitizenDiscount(flag);
-    }
-    public NCWindOnlyPolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
+
+    public NCHOWPolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
     {
         return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);
     }
-    public NCWindOnlyPolicyInfo setNoPriorInsuranceSurcharge(String flag)
+    public NCHOWPolicyInfo setNoPriorInsuranceSurcharge(String flag)
     {
         return super.setNoPriorInsuranceSurcharge(flag);
     }
-    public NCWindOnlyPolicyInfo clickRemoveAdditionalNameInsureds()
+    public NCHOWPolicyInfo clickRemoveAdditionalNameInsureds()
     {
         return super.clickRemoveAdditionalNameInsureds();
     }
-    public NCWindOnlyPolicyInfo setTermType(String text)
+    public NCHOWPolicyInfo setTermType(String text)
     {
         return super.setTermType(text);
     }
@@ -57,7 +54,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
     {
         return super.getTermType();
     }
-    public NCWindOnlyPolicyInfo setEffectiveDate(String text)
+    public NCHOWPolicyInfo setEffectiveDate(String text)
     {
         return super.setEffectiveDate(text);
     }
@@ -66,7 +63,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
     {
         return super.getEffectiveDate();
     }
-    public NCWindOnlyPolicyInfo setOrganization(String text)
+    public NCHOWPolicyInfo setOrganization(String text)
     {
         return super.setOrganization(text);
     }
@@ -75,7 +72,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
     {
         return super.getOrganization();
     }
-    public NCWindOnlyPolicyInfo setProducerCode(String text)
+    public NCHOWPolicyInfo setProducerCode(String text)
     {
         return super.setProducerCode(text);
     }
@@ -84,7 +81,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
     {
         return super.getProducerCode();
     }
-    public NCWindOnlyPolicyInfo setPolicyWriter(String text)
+    public NCHOWPolicyInfo setPolicyWriter(String text)
     {
         return super.setPolicyWriter(text);
     }
@@ -93,7 +90,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
     {
         return super.getPolicyWriter();
     }
-    public NCWindOnlyPolicyInfo setUnderwritingCompanies(String text)
+    public NCHOWPolicyInfo setUnderwritingCompanies(String text)
     {
         return super.setUnderwritingCompanies(text);
     }
@@ -103,7 +100,7 @@ public class NCWindOnlyPolicyInfo extends PolicyInfo<NCWindOnlyPolicyInfo> {
         return super.getUnderwritingCompanies();
     }
 
-    public NCWindOnlyPolicyInfo setOccupation(String text)
+    public NCHOWPolicyInfo setOccupation(String text)
     {
         return super.setOccupation(text);
     }

@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.TestingSystemClock;
@@ -6,9 +6,9 @@ import pageobjects.WizardPanelBase.TestingSystemClock;
 /**
  * Created by ssai on 3/6/2017.
  */
-public class NCWindOnlyTestingSystemClock extends TestingSystemClock<NCWindOnlyTestingSystemClock>{
+public class NCHOWTestingSystemClock extends TestingSystemClock<NCHOWTestingSystemClock>{
 
-    public NCWindOnlyTestingSystemClock(CenterSeleniumHelper sh)
+    public NCHOWTestingSystemClock(CenterSeleniumHelper sh)
     {
         super(sh);
     }

@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.Qualification;
@@ -6,19 +6,19 @@ import pageobjects.WizardPanelBase.Qualification;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyQualification extends Qualification<NCWindOnlyQualification> {
-    public NCWindOnlyQuestionnaire questionnaire = new NCWindOnlyQuestionnaire(sh);
-    public NCWindOnlyQualification(CenterSeleniumHelper sh, Path path)
+public class NCHOWQualification extends Qualification<NCHOWQualification> {
+    public NCHOWQuestionnaire questionnaire = new NCHOWQuestionnaire(sh);
+    public NCHOWQualification(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyPolicyInfo next()
+    public NCHOWPolicyInfo next()
     {
         super.policyInfoNext();
-        return new NCWindOnlyPolicyInfo(sh, path);
+        return new NCHOWPolicyInfo(sh, path);
     }
-    public NCWindOnlyQualification setOfferingSelection(String text)
+    public NCHOWQualification setOfferingSelection(String text)
     {
         return super.setOfferingSelection(text);
     }
@@ -27,7 +27,7 @@ public class NCWindOnlyQualification extends Qualification<NCWindOnlyQualificati
     {
         return super.getOfferingSelection();
     }
-    public NCWindOnlyQualification setPolicyType(String text)
+    public NCHOWQualification setPolicyType(String text)
     {
         return super.setPolicyType(text);
     }
@@ -37,9 +37,9 @@ public class NCWindOnlyQualification extends Qualification<NCWindOnlyQualificati
         return super.getPolicyType();
     }
 
-    public class NCWindOnlyQuestionnaire extends Questionnaire<NCWindOnlyQuestionnaire>
+    public class NCHOWQuestionnaire extends Questionnaire<NCHOWQuestionnaire>
     {
-        public NCWindOnlyQuestionnaire(CenterSeleniumHelper sh)
+        public NCHOWQuestionnaire(CenterSeleniumHelper sh)
         {
             super(sh);
         }
@@ -49,12 +49,12 @@ public class NCWindOnlyQualification extends Qualification<NCWindOnlyQualificati
             return super.getQuestionText(questionNum);
         }
 
-        public NCWindOnlyQuestionnaire answerYes(int questionNum)
+        public NCHOWQuestionnaire answerYes(int questionNum)
         {
             return super.answerYes(questionNum);
         }
 
-        public NCWindOnlyQuestionnaire answerNo(int questionNum)
+        public NCHOWQuestionnaire answerNo(int questionNum)
         {
             return super.answerNo(questionNum);
         }
