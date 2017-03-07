@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.Quote;
@@ -6,29 +6,29 @@ import pageobjects.WizardPanelBase.Quote;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyQuote extends Quote<NCWindOnlyQuote> {
-    public NCWindOnlyQuote(CenterSeleniumHelper sh, Path path)
+public class NCHOWQuote extends Quote<NCHOWQuote> {
+    public NCHOWQuote(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyQuote clickissuePolicy()
+    public NCHOWQuote clickissuePolicy()
     {
         return super.clickissuePolicy();
     }
 
-    public NCWindOnlyQuote acceptyes()
+    public NCHOWQuote acceptyes()
     {
         return super.accept();
     }
 
-    public NCWindOnlyQuote clickEditPolicyTransaction(){
+    public NCHOWQuote clickEditPolicyTransaction(){
         return super.clickEditPolicyTransaction();
     }
-    public NCWindOnlyRiskAnalysis backToRiskAnalysis()
+    public NCHOWRiskAnalysis backToRiskAnalysis()
     {
         super.backRiskAnalysis();
-        return new NCWindOnlyRiskAnalysis(sh,path);
+        return new NCHOWRiskAnalysis(sh,path);
     }
     public String quoteErrorMessage(){return super.quoteErrorMessage();}
     public String quoteErrorMessage2(){return super.quoteErrorMessage2();}
@@ -36,20 +36,20 @@ public class NCWindOnlyQuote extends Quote<NCWindOnlyQuote> {
     public String quoteErrorMessage4(){return super.quoteErrorMessage4();}
 
 
-    public NCWindOnlyPolicyReview backToPoliycReview()
+    public NCHOWPolicyReview backToPoliycReview()
     {
         super.backPolicyReview();
-        return new NCWindOnlyPolicyReview(sh,path);
+        return new NCHOWPolicyReview(sh,path);
     }
-    public NCWindOnlyRenewalBound renew()
+    public NCHOWRenewalBound renew()
     {
         super.clickRenew();
-        return new NCWindOnlyRenewalBound(sh, path);
+        return new NCHOWRenewalBound(sh, path);
     }
-    public NCWindOnlyRenewalBound issueNow()
+    public NCHOWRenewalBound issueNow()
     {
         super.clickIssueNow();
-        return new NCWindOnlyRenewalBound(sh, path);
+        return new NCHOWRenewalBound(sh, path);
     }
     public boolean isUnderWritingApprovalNeeded()
     {
@@ -70,27 +70,27 @@ public class NCWindOnlyQuote extends Quote<NCWindOnlyQuote> {
         return super.getAnnualizedTotalCostIncludingWhenSafe();
     }
 
-    public NCWindOnlyRatingOverrides clickOverrideRating()
+    public NCHOWRatingOverrides clickOverrideRating()
     {
         super.overrideRating();
-        return new NCWindOnlyRatingOverrides(sh, path);
+        return new NCHOWRatingOverrides(sh, path);
     }
 
-    public class NCWindOnlyRatingOverrides extends RatingOverrides<NCWindOnlyRatingOverrides>
+    public class NCHOWRatingOverrides extends RatingOverrides<NCHOWRatingOverrides>
     {
-        public NCWindOnlyRatingOverrides(CenterSeleniumHelper sh, Path path)
+        public NCHOWRatingOverrides(CenterSeleniumHelper sh, Path path)
         {
             super(sh,path);
         }
-        public NCWindOnlyQuote clickRerate()
+        public NCHOWQuote clickRerate()
         {
             super.rerate();
-            return new NCWindOnlyQuote(sh,path);
+            return new NCHOWQuote(sh,path);
         }
-        public NCWindOnlyQuote clickCancel()
+        public NCHOWQuote clickCancel()
         {
             super.cancel();
-            return new NCWindOnlyQuote(sh, path);
+            return new NCHOWQuote(sh, path);
         }
     }
 }

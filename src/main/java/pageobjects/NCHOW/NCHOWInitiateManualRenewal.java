@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.InitiateManualRenewal;
@@ -6,12 +6,12 @@ import pageobjects.WizardPanelBase.InitiateManualRenewal;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWindOnlyInitiateManualRenewal> {
-    public NCWindOnlyInitiateManualRenewal(CenterSeleniumHelper sh)
+public class NCHOWInitiateManualRenewal extends InitiateManualRenewal<NCHOWInitiateManualRenewal> {
+    public NCHOWInitiateManualRenewal(CenterSeleniumHelper sh)
     {
         super(sh);
     }
-    public NCWindOnlyInitiateManualRenewal setOrganization(String text)
+    public NCHOWInitiateManualRenewal setOrganization(String text)
     {
         return super.setOrganization(text);
     }
@@ -20,7 +20,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getOrganization();
     }
-    public NCWindOnlyInitiateManualRenewal setProducerCode(String text)
+    public NCHOWInitiateManualRenewal setProducerCode(String text)
     {
         return super.setProducerCode(text);
     }
@@ -29,7 +29,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getProducerCode();
     }
-    public NCWindOnlyInitiateManualRenewal setBaseState(String text)
+    public NCHOWInitiateManualRenewal setBaseState(String text)
     {
         return super.setBaseState(text);
     }
@@ -38,7 +38,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getBaseState();
     }
-    public NCWindOnlyInitiateManualRenewal setProduct(String text)
+    public NCHOWInitiateManualRenewal setProduct(String text)
     {
         return super.setProduct(text);
     }
@@ -47,7 +47,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getProduct();
     }
-    public NCWindOnlyInitiateManualRenewal setPolicyType(String text)
+    public NCHOWInitiateManualRenewal setPolicyType(String text)
     {
         return super.setPolicyType(text);
     }
@@ -56,7 +56,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getPolicyType();
     }
-    public NCWindOnlyInitiateManualRenewal setLegacyPolicyNumber(String text)
+    public NCHOWInitiateManualRenewal setLegacyPolicyNumber(String text)
     {
         return super.setLegacyPolicyNumber(text);
     }
@@ -65,7 +65,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getLegacyPolicyNumber();
     }
-    public NCWindOnlyInitiateManualRenewal setOriginalEffectiveDate(String text)
+    public NCHOWInitiateManualRenewal setOriginalEffectiveDate(String text)
     {
         return super.setOriginalEffectiveDate(text);
     }
@@ -74,7 +74,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getOriginalEffectiveDate();
     }
-    public NCWindOnlyInitiateManualRenewal setEffectiveDate(String text)
+    public NCHOWInitiateManualRenewal setEffectiveDate(String text)
     {
         return super.setEffectiveDate(text);
     }
@@ -83,7 +83,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getEffectiveDate();
     }
-    public NCWindOnlyInitiateManualRenewal setLastInspectionCompletionDate(String text)
+    public NCHOWInitiateManualRenewal setLastInspectionCompletionDate(String text)
     {
         return super.setLastInspectionCompletionDate(text);
     }
@@ -92,7 +92,7 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
     {
         return super.getLastInspectionCompletionDate();
     }
-    public NCWindOnlyInitiateManualRenewal setInflationGuard(String text)
+    public NCHOWInitiateManualRenewal setInflationGuard(String text)
     {
         return super.setInflationGuard(text);
     }
@@ -102,20 +102,20 @@ public class NCWindOnlyInitiateManualRenewal extends InitiateManualRenewal<NCWin
         return super.getInflationGuard();
     }
 
-    public NCWindOnlyInitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
+    public NCHOWInitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
     {
         return super.clickExcludeLossOfUseCoverage(bool);
 
     }
-    public NCWindOnlyInitiateManualRenewal nextAndDismiss()
+    public NCHOWInitiateManualRenewal nextAndDismiss()
     {
         return super.nextANDDismiss();
 
     }
-    public NCWindOnlyOfferings nextAndAccept()
+    public NCHOWOfferings nextAndAccept()
     {
         super.nextANDAccept();
-        return new NCWindOnlyOfferings(sh,path);
+        return new NCHOWOfferings(sh,path);
     }
 
 }

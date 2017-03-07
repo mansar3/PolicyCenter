@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.Coverages;
@@ -6,24 +6,24 @@ import pageobjects.WizardPanelBase.Coverages;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
+public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
 
-    public NCWindOnlyCoverages(CenterSeleniumHelper sh, Path path)
+    public NCHOWCoverages(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyRiskAnalysis next()
+    public NCHOWRiskAnalysis next()
     {
         coveragesNext();
-        return new NCWindOnlyRiskAnalysis(sh, path);
+        return new NCHOWRiskAnalysis(sh, path);
     }
     public String getDwellingLimit()
     {
         return super.getDwellingLimit();
     }
 
-    public NCWindOnlyCoverages setDwellingLimit(String text)
+    public NCHOWCoverages setDwellingLimit(String text)
     {
         return super.setDwellingLimit(text);
     }
@@ -32,7 +32,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getPersonalPropertyLimit();
     }
 
-    public NCWindOnlyCoverages setPersonalPropertyLimit(String text)
+    public NCHOWCoverages setPersonalPropertyLimit(String text)
     {
         return super.setPersonalPropertyLimit(text);
     }
@@ -45,7 +45,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getOtherStructuresLimitGreyedOut();
     }
 
-    public NCWindOnlyCoverages setOtherStructuresPercentage(String text)
+    public NCHOWCoverages setOtherStructuresPercentage(String text)
     {
         return super.setOtherStructuresPercentage(text);
     }
@@ -54,7 +54,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getOtherStructuresLimit();
     }
 
-    public NCWindOnlyCoverages setPersonalPropertyExcluded(String flag)
+    public NCHOWCoverages setPersonalPropertyExcluded(String flag)
     {
         return super.setPersonalPropertyExcluded(flag);
 
@@ -64,14 +64,14 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getPersonalPropertyValuationMethod();
     }
 
-    public NCWindOnlyCoverages setPersonalPropertyValuationMethod(String text)
+    public NCHOWCoverages setPersonalPropertyValuationMethod(String text)
     {
         return super.setPersonalPropertyValuationMethod(text);
     }
-    public NCWindOnlyCoverages coveragesEnter(){return super.coveragesEnter();}
+    public NCHOWCoverages coveragesEnter(){return super.coveragesEnter();}
     public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
 
-    public NCWindOnlyCoverages setLossOfUseSelection(String text)
+    public NCHOWCoverages setLossOfUseSelection(String text)
     {
         return super.setLossOfUseSelection(text);
     }
@@ -89,7 +89,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getHurricane();
     }
 
-    public NCWindOnlyCoverages setHurricane(String text)
+    public NCHOWCoverages setHurricane(String text)
     {
         return super.setHurricane(text);
 
@@ -99,13 +99,13 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getAllOtherPerils();
     }
 
-    public NCWindOnlyCoverages setAllOtherPerils(String text)
+    public NCHOWCoverages setAllOtherPerils(String text)
     {
         return super.setAllOtherPerils(text);
 
     }
 
-    public NCWindOnlyCoverages setWindExcluded(String flag)
+    public NCHOWCoverages setWindExcluded(String flag)
     {
         return super.setWindExcluded(flag);
 
@@ -116,12 +116,12 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getPersonalLiabilityLimit();
     }
 
-    public NCWindOnlyCoverages setPersonalLiabilityLimit(String text)
+    public NCHOWCoverages setPersonalLiabilityLimit(String text)
     {
         return super.setPersonalLiabilityLimit(text);
 
     }
-    public NCWindOnlyCoverages back(){
+    public NCHOWCoverages back(){
         return super.dwellingConstructionBack();
     }
 
@@ -130,13 +130,13 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getMedicalPaymentsLimit();
     }
 
-    public NCWindOnlyCoverages setMedicalPaymentsLimit(String text)
+    public NCHOWCoverages setMedicalPaymentsLimit(String text)
     {
         return super.setMedicalPaymentsLimit(text);
 
     }
 
-    public NCWindOnlyCoverages clickCoverages()
+    public NCHOWCoverages clickCoverages()
     {
         return super.clickCoverages();
 
@@ -146,7 +146,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getWindDeductibleType();
     }
 
-    public NCWindOnlyCoverages setWindDeductibleType(String text)
+    public NCHOWCoverages setWindDeductibleType(String text)
     {
         return super.setWindDeductibleType(text);
 
@@ -156,7 +156,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getWindHail();
     }
 
-    public NCWindOnlyCoverages setWindHail(String text)
+    public NCHOWCoverages setWindHail(String text)
     {
         return super.setWindHail(text);
 
@@ -166,26 +166,26 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         return super.getNamedStorm();
     }
 
-    public NCWindOnlyCoverages setNamedStorm(String text)
+    public NCHOWCoverages setNamedStorm(String text)
     {
         return super.setNamedStorm(text);
 
     }
-    public NCWindOnlyLiabilityEndorsements clickLiabilityEndorsements()
+    public NCHOWLiabilityEndorsements clickLiabilityEndorsements()
     {
         super.clickLiabilityEndorsementsTab();
-        return new NCWindOnlyLiabilityEndorsements(sh, path);
+        return new NCHOWLiabilityEndorsements(sh, path);
     }
-    public NCWindOnlyPropertyEndorsements clickPropertyEndorsements()
+    public NCHOWPropertyEndorsements clickPropertyEndorsements()
     {
         super.clickPropertyEndorsementsTab();
-        return new NCWindOnlyPropertyEndorsements(sh,path);
+        return new NCHOWPropertyEndorsements(sh,path);
     }
 
 
-    public class NCWindOnlyPropertyEndorsements extends PropertyEndorsements<NCWindOnlyPropertyEndorsements>
+    public class NCHOWPropertyEndorsements extends PropertyEndorsements<NCHOWPropertyEndorsements>
     {
-        public NCWindOnlyPropertyEndorsements(CenterSeleniumHelper sh ,Path path)
+        public NCHOWPropertyEndorsements(CenterSeleniumHelper sh ,Path path)
         {
             super(sh, path);
         }
@@ -194,11 +194,11 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getWaterBackUpLimit();
         }
-        public NCWindOnlyPropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
+        public NCHOWPropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
         {
             return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
         }
-        public NCWindOnlyPropertyEndorsements clickCoveragespropertyendorsementsQuote()
+        public NCHOWPropertyEndorsements clickCoveragespropertyendorsementsQuote()
         {
             return super.clickCoveragespropertyendorsementsQuote();
         }
@@ -207,35 +207,35 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.isEarthQuakeLossAssessmentChecked();
         }
-        public NCWindOnlyPropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
         {
             return super.setPersonalPropertyArticleType(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setPersonalPropertyDescription(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setPersonalPropertyDescription(int itemNumber, String text)
         {
             return super.setPersonalPropertyDescription(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
         {
             return super.setPersonalPropertyValue(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setOtherStructuresDescription(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setOtherStructuresDescription(int itemNumber, String text)
         {
             return super.setOtherStructuresDescription(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
         {
             return super.setOtherStructuresLimit(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
         {
             return super.setSpecificOtherStructuresDescription(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
+        public NCHOWPropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
         {
             return super.setSpecificOtherStructuresLimit(itemNumber, text);
         }
-        public NCWindOnlyPropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
+        public NCHOWPropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
         {
             return super.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(text);
         }
@@ -244,10 +244,10 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
         }
-        public NCWindOnlyPropertyEndorsements coveragesPropertyEnter () {
+        public NCHOWPropertyEndorsements coveragesPropertyEnter () {
             return super.coveragesPropertyEnter();
         }
-        public NCWindOnlyPropertyEndorsements checkEarthQuakeCoverage()
+        public NCHOWPropertyEndorsements checkEarthQuakeCoverage()
         {
             return super.checkEarthquakeCoverage();
         }
@@ -255,19 +255,19 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.isEarthquakeCoverageChecked();
         }
-        public NCWindOnlyPropertyEndorsements checkSpecificOtherStructures()
+        public NCHOWPropertyEndorsements checkSpecificOtherStructures()
         {
             return super.checkSpecificOtherStructures();
         }
-        public NCWindOnlyPropertyEndorsements checkResidenceHeldinTrust()
+        public NCHOWPropertyEndorsements checkResidenceHeldinTrust()
         {
             return super.checkResidenceHeldinTrust();
         }
-        public NCWindOnlyPropertyEndorsements checkEarthquakeLossAssessmentChecked()
+        public NCHOWPropertyEndorsements checkEarthquakeLossAssessmentChecked()
         {
             return super.checkEarthquakeLossAssessment();
         }
-        public NCWindOnlyPropertyEndorsements setEarthquakeLossAssessmentLimit(String text)
+        public NCHOWPropertyEndorsements setEarthquakeLossAssessmentLimit(String text)
         {
             return super.setEarthquakeLossAssessmentLimit(text);
         }
@@ -276,7 +276,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getEarthquakeLossAssessmentLimit();
         }
-        public NCWindOnlyPropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String text)
+        public NCHOWPropertyEndorsements setEarthquakeCoverageDeductiblePercentage(String text)
         {
             return super.setEarthquakeCoverageDeductiblePercentage(text);
         }
@@ -285,27 +285,27 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getEarthquakeCoverageDeductiblePercentage();
         }
-        public NCWindOnlyLiabilityEndorsements clickLiabilityEndorsements()
+        public NCHOWLiabilityEndorsements clickLiabilityEndorsements()
         {
             super.clickLiabilityEndorsementsTab();
-            return new NCWindOnlyLiabilityEndorsements(sh, path);
+            return new NCHOWLiabilityEndorsements(sh, path);
         }
-        public NCWindOnlyCoverages clickCoverages()
+        public NCHOWCoverages clickCoverages()
         {
             super.clickCoveragesTab();
-            return new NCWindOnlyCoverages(sh, path);
+            return new NCHOWCoverages(sh, path);
         }
 
-        public NCWindOnlyPropertyEndorsements checkPermittedIncidentalOccupancy()
+        public NCHOWPropertyEndorsements checkPermittedIncidentalOccupancy()
         {
             return super.checkPermittedIncidentalOccupancy();
         }
 
-        public NCWindOnlyPropertyEndorsements checkGuardianEndorsements()
+        public NCHOWPropertyEndorsements checkGuardianEndorsements()
         {
             return super.checkGuardianEndorsements();
         }
-        public NCWindOnlyPropertyEndorsements setWhenSafeCreditPercentage(String text)
+        public NCHOWPropertyEndorsements setWhenSafeCreditPercentage(String text)
         {
             return super.setWhenSafeCreditPercentage(text);
         }
@@ -314,23 +314,23 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getWhenSafeCreditPercentage();
         }
-        public NCWindOnlyPropertyEndorsements addSpecificOtherStructures()
+        public NCHOWPropertyEndorsements addSpecificOtherStructures()
         {
             return super.addSpecificOtherStructures();
         }
-        public NCWindOnlyPropertyEndorsements removeSpecificOtherStructures()
+        public NCHOWPropertyEndorsements removeSpecificOtherStructures()
         {
             return super.removeSpecificOtherStructures();
         }
-        public NCWindOnlyPropertyEndorsements addOtherStructures()
+        public NCHOWPropertyEndorsements addOtherStructures()
         {
             return super.clickAddOtherStructures();
         }
-        public NCWindOnlyPropertyEndorsements removeOtherStructures()
+        public NCHOWPropertyEndorsements removeOtherStructures()
         {
             return super.clickRemoveOtherStructures();
         }
-        public NCWindOnlyPropertyEndorsements setOccurrenceAggregateLimit(String text)
+        public NCHOWPropertyEndorsements setOccurrenceAggregateLimit(String text)
         {
             return super.setOccurrenceAggregateLimit(text);
         }
@@ -339,7 +339,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getOccurrenceAggregateLimit();
         }
-        public NCWindOnlyPropertyEndorsements setLossAssessmentLimit(String text)
+        public NCHOWPropertyEndorsements setLossAssessmentLimit(String text)
         {
             return super.setLossAssessmentLimit(text);
         }
@@ -348,7 +348,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getLossAssessmentLimit();
         }
-        public NCWindOnlyPropertyEndorsements setOrdinanceOrLawLimit(String text)
+        public NCHOWPropertyEndorsements setOrdinanceOrLawLimit(String text)
         {
             return super.setOrdinanceOrLawLimit(text);
         }
@@ -357,7 +357,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getOrdinanceOrLawLimit();
         }
-        public NCWindOnlyPropertyEndorsements setPercentageOfAnnualIncrease(String text)
+        public NCHOWPropertyEndorsements setPercentageOfAnnualIncrease(String text)
         {
             return super.setPercentageOfAnnualIncrease(text);
         }
@@ -366,7 +366,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getPercentageOfAnnualIncrease();
         }
-        public NCWindOnlyPropertyEndorsements setSinkholeIndex(String text)
+        public NCHOWPropertyEndorsements setSinkholeIndex(String text)
         {
             return super.setSinkholeIndex(text);
         }
@@ -380,7 +380,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
             return super.isCreditCardCheckBoxAvailable();
         }
 
-        public NCWindOnlyPropertyEndorsements setSinkholeClaimsIndex(String text)
+        public NCHOWPropertyEndorsements setSinkholeClaimsIndex(String text)
         {
             return super.setSinkholeClaimsIndex(text);
         }
@@ -389,7 +389,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getSinkholeClaimsIndex();
         }
-        public NCWindOnlyPropertyEndorsements setScreenEnclosureHurricaneCoverageLimit(String text)
+        public NCHOWPropertyEndorsements setScreenEnclosureHurricaneCoverageLimit(String text)
         {
             return super.setScreenEnclosureHurricaneCoverageLimit(text);
         }
@@ -399,7 +399,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
             return super.getScreenEnclosureHurricaneCoverageLimit();
         }
 
-        public NCWindOnlyPropertyEndorsements checkWhenSafe()
+        public NCHOWPropertyEndorsements checkWhenSafe()
         {
             return super.checkWhenSafe();
         }
@@ -407,53 +407,53 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.isWhenSafeChecked();
         }
-        public NCWindOnlyPropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
+        public NCHOWPropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
         {
             return super.checkOtherStructuresIncreasedCoverageRentedToOthers();
         }
 
-        public NCWindOnlyPropertyEndorsements checkScheduledPersonalProperty()
+        public NCHOWPropertyEndorsements checkScheduledPersonalProperty()
         {
             return super.checkScheduledPersonalProperty();
         }
 
-        public NCWindOnlyPropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
+        public NCHOWPropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
         {
             return super.checkCreditCardFundTransferForgeryCounterfeitMoney();
         }
 
-        public NCWindOnlyPropertyEndorsements checkScreenEnclosureHurricaneCoverage()
+        public NCHOWPropertyEndorsements checkScreenEnclosureHurricaneCoverage()
         {
             return super.checkScreenEnclosureHurricaneCoverage();
         }
-        public NCWindOnlyPropertyEndorsements clickAddScheduledPersonalProperty()
+        public NCHOWPropertyEndorsements clickAddScheduledPersonalProperty()
         {
             return super.clickAddScheduledPersonalProperty();
 
         }
-        public NCWindOnlyPropertyEndorsements clickRemoveScheduledPersonalProperty()
+        public NCHOWPropertyEndorsements clickRemoveScheduledPersonalProperty()
         {
             return super.clickRemoveScheduledPersonalProperty();
         }
 
-        public NCWindOnlyPropertyEndorsements checkWaterBackUp()
+        public NCHOWPropertyEndorsements checkWaterBackUp()
         {
             return super.checkWaterBackUp();
         }
 
-        public NCWindOnlyPropertyEndorsements checkInflationGuard()
+        public NCHOWPropertyEndorsements checkInflationGuard()
         {
             return super.checkInflationGuard();
         }
 
-        public NCWindOnlyPropertyEndorsements checkSinkholeLossCoverage()
+        public NCHOWPropertyEndorsements checkSinkholeLossCoverage()
         {
             return super.checkSinkholeLossCoverage();
         }
-        public NCWindOnlyRiskAnalysis next()
+        public NCHOWRiskAnalysis next()
         {
             super.propertyEndorsementsNext();
-            return new NCWindOnlyRiskAnalysis(sh, path);
+            return new NCHOWRiskAnalysis(sh, path);
         }
         public boolean isWaterBackUpChecked()
         {
@@ -463,31 +463,31 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.isSpecificAdditionalAmountOfCoverageAChecked();
         }
-        public NCWindOnlyPropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
+        public NCHOWPropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
         {
             return super.checkSpecificAdditionalAmountOfCoverageA();
         }
     }
 
 
-    public class NCWindOnlyLiabilityEndorsements extends LiabilityEndorsements<NCWindOnlyLiabilityEndorsements>
+    public class NCHOWLiabilityEndorsements extends LiabilityEndorsements<NCHOWLiabilityEndorsements>
     {
-        public NCWindOnlyLiabilityEndorsements(CenterSeleniumHelper sh, Path path)
+        public NCHOWLiabilityEndorsements(CenterSeleniumHelper sh, Path path)
         {
             super(sh,path);
         }
 
-        public NCWindOnlyPropertyEndorsements clickPropertyEndorsements()
+        public NCHOWPropertyEndorsements clickPropertyEndorsements()
         {
             super.clickPropertyEndorsementsTab();
-            return new NCWindOnlyPropertyEndorsements(sh, path);
+            return new NCHOWPropertyEndorsements(sh, path);
         }
-        public NCWindOnlyCoverages clickCoverages()
+        public NCHOWCoverages clickCoverages()
         {
             super.clickCoveragesTab();
-            return new NCWindOnlyCoverages(sh, path);
+            return new NCHOWCoverages(sh, path);
         }
-        public NCWindOnlyLiabilityEndorsements setLocationName(String text)
+        public NCHOWLiabilityEndorsements setLocationName(String text)
         {
             return super.setLocationName(text);
         }
@@ -496,7 +496,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getLocationName();
         }
-        public NCWindOnlyLiabilityEndorsements setNumberOfFamilies(String text)
+        public NCHOWLiabilityEndorsements setNumberOfFamilies(String text)
         {
             return super.setNumberOfFamilies(text);
         }
@@ -505,7 +505,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getNumberOfFamilies();
         }
-        public NCWindOnlyLiabilityEndorsements setWatercraftType(String text)
+        public NCHOWLiabilityEndorsements setWatercraftType(String text)
         {
             return super.setWatercraftType(text);
         }
@@ -514,7 +514,7 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
         {
             return super.getWatercraftType();
         }
-        public NCWindOnlyLiabilityEndorsements setBusinessActivity(String text)
+        public NCHOWLiabilityEndorsements setBusinessActivity(String text)
         {
             return super.setBusinessActivity(text);
         }
@@ -524,34 +524,34 @@ public class NCWindOnlyCoverages extends Coverages<NCWindOnlyCoverages> {
             return super.getBusinessActivity();
         }
 
-        public NCWindOnlyLiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
+        public NCHOWLiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
         {
             return super.checkPermittedIncidentalOccupancyLiability();
         }
 
-        public NCWindOnlyLiabilityEndorsements checkAnimalLiability()
+        public NCHOWLiabilityEndorsements checkAnimalLiability()
         {
             return super.checkAnimalLiability();
         }
 
-        public NCWindOnlyLiabilityEndorsements checkAdditionalResidenceRentedToOthers()
+        public NCHOWLiabilityEndorsements checkAdditionalResidenceRentedToOthers()
         {
             return super.checkAdditionalResidenceRentedToOthers();
         }
 
-        public NCWindOnlyLiabilityEndorsements checkBusinessPursuits()
+        public NCHOWLiabilityEndorsements checkBusinessPursuits()
         {
             return super.checkBusinessPursuits();
         }
 
-        public NCWindOnlyLiabilityEndorsements checkWatercraftLiability()
+        public NCHOWLiabilityEndorsements checkWatercraftLiability()
         {
             return super.checkWatercraftLiability();
         }
-        public NCWindOnlyRiskAnalysis next()
+        public NCHOWRiskAnalysis next()
         {
             super.liabilityEndorsementsNext();
-            return new NCWindOnlyRiskAnalysis(sh, path);
+            return new NCHOWRiskAnalysis(sh, path);
         }
 
 

@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.Dwelling;
@@ -6,16 +6,16 @@ import pageobjects.WizardPanelBase.Dwelling;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
-    public NCWindOnlyDwelling(CenterSeleniumHelper sh, Path path)
+public class NCHOWDwelling extends Dwelling<NCHOWDwelling> {
+    public NCHOWDwelling(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public NCWindOnlyDwellingConstruction next()
+    public NCHOWDwellingConstruction next()
     {
         super.DwellingConstructionNext();
-        return new NCWindOnlyDwellingConstruction(sh, path);
+        return new NCHOWDwellingConstruction(sh, path);
     }
 
     public String getdwellingErrorMessage()
@@ -23,18 +23,18 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
         return super.dwellingErrorMessage();
     }
 
-    public NCWindOnlyDwelling setYearBuilt(String text)
+    public NCHOWDwelling setYearBuilt(String text)
     {
         return super.setYearBuilt(text);
     }
-    public NCWindOnlyDwelling Enter(){
+    public NCHOWDwelling Enter(){
         return super.Enter();
     }
     public String getYearBuilt()
     {
         return super.getYearBuilt();
     }
-    public NCWindOnlyDwelling setDistanceToFireHydrant(String text)
+    public NCHOWDwelling setDistanceToFireHydrant(String text)
     {
         return super.setDistanceToFireHydrant(text);
     }
@@ -43,7 +43,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getDistanceToFireHydrant();
     }
-    public NCWindOnlyDwelling setDistanceToFireStation(String text)
+    public NCHOWDwelling setDistanceToFireStation(String text)
     {
         return super.setDistanceToFireStation(text);
     }
@@ -52,7 +52,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getDistanceToFireStation();
     }
-    public NCWindOnlyDwelling setBCEG(String text)
+    public NCHOWDwelling setBCEG(String text)
     {
         return super.setBCEG(text);
     }
@@ -61,7 +61,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getBCEG();
     }
-    public NCWindOnlyDwelling setProtectionClassCode(String text)
+    public NCHOWDwelling setProtectionClassCode(String text)
     {
         return super.setProtectionClassCode(text);
     }
@@ -71,13 +71,13 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
         return super.getProtectionClassCode();
     }
 
-    public NCWindOnlyDwelling waitForProtectionClassCode(String val)
+    public NCHOWDwelling waitForProtectionClassCode(String val)
     {
         super.waitForProtectionClassToUpdate(val);
-        return new NCWindOnlyDwelling(sh, path);
+        return new NCHOWDwelling(sh, path);
     }
 
-    public NCWindOnlyDwelling setTerritoryCode(String text)
+    public NCHOWDwelling setTerritoryCode(String text)
     {
         return super.setTerritoryCode(text);
     }
@@ -86,7 +86,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getTerritoryCode();
     }
-    public NCWindOnlyDwelling setLocationName(String text)
+    public NCHOWDwelling setLocationName(String text)
     {
         return super.setLocationName(text);
     }
@@ -95,7 +95,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getLocationName();
     }
-    public NCWindOnlyDwelling setLocalTaxJurisdiction(String text)
+    public NCHOWDwelling setLocalTaxJurisdiction(String text)
     {
         return super.setLocalTaxJurisdiction(text);
     }
@@ -104,7 +104,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getLocalTaxJurisdiction();
     }
-    public NCWindOnlyDwelling setLocationType(String text)
+    public NCHOWDwelling setLocationType(String text)
     {
         return super.setLocationType(text);
     }
@@ -113,7 +113,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getLocationType();
     }
-    public NCWindOnlyDwelling setDistanceToCoast(String text)
+    public NCHOWDwelling setDistanceToCoast(String text)
     {
         return super.setDistanceToCoast(text);
     }
@@ -122,7 +122,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getDistanceToCoast();
     }
-    public NCWindOnlyDwelling setPurchaseDate(String text)
+    public NCHOWDwelling setPurchaseDate(String text)
     {
         return super.setPurchaseDate(text);
     }
@@ -131,7 +131,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getPurchaseDate();
     }
-    public NCWindOnlyDwelling setPurchasePrice(String text)
+    public NCHOWDwelling setPurchasePrice(String text)
     {
         return super.setPurchasePrice(text);
     }
@@ -140,7 +140,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getPurchasePrice();
     }
-    public NCWindOnlyDwelling setMarketValue(String text)
+    public NCHOWDwelling setMarketValue(String text)
     {
         return super.setMarketValue(text);
     }
@@ -149,7 +149,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getMarketValue();
     }
-    public NCWindOnlyDwelling setResidenceType(String text)
+    public NCHOWDwelling setResidenceType(String text)
     {
         return super.setResidenceType(text);
     }
@@ -158,7 +158,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getResidenceType();
     }
-    public NCWindOnlyDwelling setDwellingUsage(String text)
+    public NCHOWDwelling setDwellingUsage(String text)
     {
         return super.setDwellingUsage(text);
     }
@@ -167,7 +167,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getDwellingUsage();
     }
-    public NCWindOnlyDwelling setDwellingOccupancy(String text)
+    public NCHOWDwelling setDwellingOccupancy(String text)
     {
         return super.setDwellingOccupancy(text);
     }
@@ -176,7 +176,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getDwellingOccupancy();
     }
-    public NCWindOnlyDwelling setHousekeepingCondition(String text)
+    public NCHOWDwelling setHousekeepingCondition(String text)
     {
         return super.setHousekeepingCondition(text);
     }
@@ -185,69 +185,69 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getHousekeepingCondition();
     }
-    public NCWindOnlyDwelling setInTheWindpool(String flag)
+    public NCHOWDwelling setInTheWindpool(String flag)
     {
         return super.setInTheWindpool(flag);
     }
-    public NCWindOnlyDwelling setOwnedByOther(String flag)
+    public NCHOWDwelling setOwnedByOther(String flag)
     {
         return super.setOwnedByOther(flag);
     }
-    public NCWindOnlyDwelling setOccupiedDaily(String flag)
+    public NCHOWDwelling setOccupiedDaily(String flag)
     {
         return super.setOccupiedDaily(flag);
     }
-    public NCWindOnlyDwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
+    public NCHOWDwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
     {
         return super.setAtInceptionOfPolicyIsDeedOwnedByEntity(flag);
     }
-    public NCWindOnlyProtectionDetails clickProtectionDetails()
+    public NCHOWProtectionDetails clickProtectionDetails()
     {
         super.clickProtectionDetailsTab();
-        return new NCWindOnlyProtectionDetails(sh, path);
+        return new NCHOWProtectionDetails(sh, path);
     }
-    public NCWindOnlyAdditionalInterests clickAdditionalInterests()
+    public NCHOWAdditionalInterests clickAdditionalInterests()
     {
         super.clickAdditionalInterestsTab();
-        return new NCWindOnlyAdditionalInterests(sh, path);
+        return new NCHOWAdditionalInterests(sh, path);
     }
-    public NCWindOnlyDwelling setSwimmingPool(String flag)
+    public NCHOWDwelling setSwimmingPool(String flag)
     {
         return super.setSwimmingPool(flag);
     }
-    public NCWindOnlyDwelling setTrampolineOnPremises(String flag)
+    public NCHOWDwelling setTrampolineOnPremises(String flag)
     {
         return super.setTrampolineOnPremises(flag);
     }
-    public NCWindOnlyDwelling setSkateboardBicycleRampOnPremises(String flag)
+    public NCHOWDwelling setSkateboardBicycleRampOnPremises(String flag)
     {
         return super.setSkateboardBicycleRampOnPremises(flag);
     }
-    public NCWindOnlyDwelling setAnimalsOrExoticPets(String flag)
+    public NCHOWDwelling setAnimalsOrExoticPets(String flag)
     {
         return super.setAnimalsOrExoticPets(flag);
     }
-    public NCWindOnlyDwelling setGolfCarts(String flag)
+    public NCHOWDwelling setGolfCarts(String flag)
     {
         return super.setGolfCarts(flag);
     }
-    public NCWindOnlyDwelling setRecreationalVehiclesOwned(String flag)
+    public NCHOWDwelling setRecreationalVehiclesOwned(String flag)
     {
         return super.setRecreationalVehiclesOwned(flag);
     }
-    public NCWindOnlyDwelling setPoolFenced(String flag)
+    public NCHOWDwelling setPoolFenced(String flag)
     {
         return super.setPoolFenced(flag);
     }
-    public NCWindOnlyDwelling setDivingBoard(String flag)
+    public NCHOWDwelling setDivingBoard(String flag)
     {
         return super.setDivingBoard(flag);
     }
-    public NCWindOnlyDwelling setPoolSlide(String flag)
+    public NCHOWDwelling setPoolSlide(String flag)
     {
         return super.setPoolSlide(flag);
     }
-    public NCWindOnlyDwelling setPoolLocation(String text)
+    public NCHOWDwelling setPoolLocation(String text)
     {
         return super.setPoolLocation(text);
     }
@@ -256,7 +256,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getPoolLocation();
     }
-    public NCWindOnlyDwelling setFenceType(String text)
+    public NCHOWDwelling setFenceType(String text)
     {
         return super.setFenceType(text);
     }
@@ -265,7 +265,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getFenceType();
     }
-    public NCWindOnlyDwelling setWindpoolZone(String text)
+    public NCHOWDwelling setWindpoolZone(String text)
     {
         return super.setWindpoolZone(text);
     }
@@ -274,89 +274,89 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
     {
         return super.getWindpoolZone();
     }
-    public NCWindOnlyLocationInformation addNewLocation()
+    public NCHOWLocationInformation addNewLocation()
     {
         super.addNewDwellingLocation();
-        return new NCWindOnlyLocationInformation(sh, path);
+        return new NCHOWLocationInformation(sh, path);
     }
-    public NCWindOnlyLocationInformation editLocation()
+    public NCHOWLocationInformation editLocation()
     {
         super.editDwellingLocation();
-        return new NCWindOnlyLocationInformation(sh, path);
+        return new NCHOWLocationInformation(sh, path);
     }
 
-    public class NCWindOnlyProtectionDetails extends ProtectionDetails<NCWindOnlyProtectionDetails>
+    public class NCHOWProtectionDetails extends ProtectionDetails<NCHOWProtectionDetails>
     {
-        public NCWindOnlyProtectionDetails(CenterSeleniumHelper sh, Path path)
+        public NCHOWProtectionDetails(CenterSeleniumHelper sh, Path path)
         {
             super(sh, path);
         }
-        public NCWindOnlyAdditionalInterests clickAdditionalInterests()
+        public NCHOWAdditionalInterests clickAdditionalInterests()
         {
             super.clickAdditionalInterestsTab();
-            return new NCWindOnlyAdditionalInterests(sh, path);
+            return new NCHOWAdditionalInterests(sh, path);
 
         }
-        public NCWindOnlyDwelling clickDetails()
+        public NCHOWDwelling clickDetails()
         {
             super.clickDetailsTab();
-            return new NCWindOnlyDwelling(sh, path);
+            return new NCHOWDwelling(sh, path);
         }
-        public NCWindOnlyDwellingConstruction next()
+        public NCHOWDwellingConstruction next()
         {
             dwellingConstructionNext();
-            return new NCWindOnlyDwellingConstruction(sh, path);
+            return new NCHOWDwellingConstruction(sh, path);
         }
-        public NCWindOnlyProtectionDetails setBurglarAlarm(String flag)
+        public NCHOWProtectionDetails setBurglarAlarm(String flag)
         {
             return super.setBurglarAlarm(flag);
         }
-        public NCWindOnlyProtectionDetails setLockedPrivacyFence(String flag)
+        public NCHOWProtectionDetails setLockedPrivacyFence(String flag)
         {
             return super.setLockedPrivacyFence(flag);
         }
-        public NCWindOnlyProtectionDetails setBurglarBarsOnWindows(String flag)
+        public NCHOWProtectionDetails setBurglarBarsOnWindows(String flag)
         {
             return super.setBurglarBarsOnWindows(flag);
         }
-        public NCWindOnlyProtectionDetails setCommunityGuarded(String flag)
+        public NCHOWProtectionDetails setCommunityGuarded(String flag)
         {
             return super.setCommunityGuarded(flag);
         }
-        public NCWindOnlyProtectionDetails setGatedCommunity(String flag)
+        public NCHOWProtectionDetails setGatedCommunity(String flag)
         {
             return super.setGatedCommunity(flag);
         }
-        public NCWindOnlyProtectionDetails setFireAlarm(String flag)
+        public NCHOWProtectionDetails setFireAlarm(String flag)
         {
             return super.setFireAlarm(flag);
         }
-        public NCWindOnlyProtectionDetails setSmokeAlarm(String flag)
+        public NCHOWProtectionDetails setSmokeAlarm(String flag)
         {
             return super.setSmokeAlarm(flag);
         }
-        public NCWindOnlyProtectionDetails setFireExtinguishers(String flag)
+        public NCHOWProtectionDetails setFireExtinguishers(String flag)
         {
             return super.setFireExtinguishers(flag);
         }
-        public NCWindOnlyProtectionDetails setSprinklerSystem(String flag)
+        public NCHOWProtectionDetails setSprinklerSystem(String flag)
         {
             return super.setSprinklerSystem(flag);
         }
-        public NCWindOnlyProtectionDetails setDeadbolts(String flag)
+        public NCHOWProtectionDetails setDeadbolts(String flag)
         {
             return super.setDeadbolts(flag);
         }
-        public NCWindOnlyProtectionDetails setResidenceVisibleToNeighbors(String flag)
+        public NCHOWProtectionDetails setResidenceVisibleToNeighbors(String flag)
         {
             return super.setResidenceVisibleToNeighbors(flag);
         }
-        public NCWindOnlyProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
-        public NCWindOnlyProtectionDetails safetyLatchesPresent(String flag)
+        public NCHOWProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
+        public NCHOWProtectionDetails safetyLatchesPresent(String flag)
         {
             return super.safetyLatchesPresent(flag);
         }
-        public NCWindOnlyProtectionDetails setBurglarAlarmType(String text)
+        public NCHOWProtectionDetails setBurglarAlarmType(String text)
         {
             return super.setBurglarAlarmType(text);
         }
@@ -365,7 +365,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
         {
             return super.getBurglarAlarmType();
         }
-        public NCWindOnlyProtectionDetails setFireAlarmType(String text)
+        public NCHOWProtectionDetails setFireAlarmType(String text)
         {
             return super.setFireAlarmType(text);
         }
@@ -375,7 +375,7 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
             return super.getFireAlarmType();
         }
 
-        public NCWindOnlyProtectionDetails setSprinklerSystemType(String text)
+        public NCHOWProtectionDetails setSprinklerSystemType(String text)
         {
             return super.setSprinklerSystemType(text);
         }
@@ -387,69 +387,69 @@ public class NCWindOnlyDwelling  extends Dwelling<NCWindOnlyDwelling> {
 
     }
 
-    public class NCWindOnlyAdditionalInterests extends AdditionalInterests<NCWindOnlyAdditionalInterests>
+    public class NCHOWAdditionalInterests extends AdditionalInterests<NCHOWAdditionalInterests>
     {
-        public NCWindOnlyAdditionalInterests(CenterSeleniumHelper sh, Path path)
+        public NCHOWAdditionalInterests(CenterSeleniumHelper sh, Path path)
         {
             super(sh, path);
         }
 
 
-        public NCWindOnlyProtectionDetails clickProtectionDetails()
+        public NCHOWProtectionDetails clickProtectionDetails()
         {
             super.clickProtectionDetailsTab();
-            return new NCWindOnlyProtectionDetails(sh, path);
+            return new NCHOWProtectionDetails(sh, path);
         }
 
-        public NCWindOnlyDwelling clickDetails()
+        public NCHOWDwelling clickDetails()
         {
             super.clickDetailsTab();
-            return new NCWindOnlyDwelling(sh, path);
+            return new NCHOWDwelling(sh, path);
         }
-        public NCWindOnlyAdditionalInterests clickRemove()
+        public NCHOWAdditionalInterests clickRemove()
         {
             super.clickRemove();
             return this;
         }
-        public NCWindOnlyNewAdditionalInterest clickAddNewPerson()
+        public NCHOWNewAdditionalInterest clickAddNewPerson()
         {
             addNewPerson();
-            return new NCWindOnlyNewAdditionalInterest(sh,path);
+            return new NCHOWNewAdditionalInterest(sh,path);
         }
-        public NCWindOnlyNewAdditionalInterest clickAddNewCompany()
+        public NCHOWNewAdditionalInterest clickAddNewCompany()
         {
             addNewCompany();
-            return new NCWindOnlyNewAdditionalInterest(sh,path);
+            return new NCHOWNewAdditionalInterest(sh,path);
         }
-        public NCWindOnlySearchAddressBook clickFromAddressBook()
+        public NCHOWSearchAddressBook clickFromAddressBook()
         {
             fromAddressBook();
-            return new NCWindOnlySearchAddressBook(sh,path);
+            return new NCHOWSearchAddressBook(sh,path);
         }
-        public NCWindOnlyAdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
+        public NCHOWAdditionalInterests selectRowInAdditionalInterest(String typeEffectiveDateLoanNumber)
         {
             return super.selectRowInAdditionalInterest(typeEffectiveDateLoanNumber);
         }
-        public NCWindOnlyAdditionalInterests selectRowInAdditionalInterestByName(String name)
+        public NCHOWAdditionalInterests selectRowInAdditionalInterestByName(String name)
         {
             return super.selectRowInAdditionalInterestByName(name);
         }
-        public NCWindOnlyAdditionalInterests setType(int row, String type)
+        public NCHOWAdditionalInterests setType(int row, String type)
         {
             return super.setType(row,type);
         }
-        public NCWindOnlyAdditionalInterests setEffectiveDate(int row, String effectiveDate)
+        public NCHOWAdditionalInterests setEffectiveDate(int row, String effectiveDate)
         {
             return super.setEffectiveDate(row,effectiveDate);
         }
-        public NCWindOnlyAdditionalInterests setLoanNumber(int row, String loanNumber)
+        public NCHOWAdditionalInterests setLoanNumber(int row, String loanNumber)
         {
             return super.setLoanNumber(row,loanNumber);
         }
-        public NCWindOnlyDwellingConstruction next()
+        public NCHOWDwellingConstruction next()
         {
             super.dwellingConstructionNext();
-            return new NCWindOnlyDwellingConstruction(sh, path);
+            return new NCHOWDwellingConstruction(sh, path);
         }
     }
 }

@@ -1,4 +1,4 @@
-package pageobjects.NCWindOnly;
+package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.SearchAddressBook;
@@ -6,25 +6,25 @@ import pageobjects.WizardPanelBase.SearchAddressBook;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySearchAddressBook> {
-    public NCWindOnlySearchAddressBook(CenterSeleniumHelper sh, Path path)
+public class NCHOWSearchAddressBook extends SearchAddressBook<NCHOWSearchAddressBook> {
+    public NCHOWSearchAddressBook(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
-    public NCWindOnlySearchAddressBook(CenterSeleniumHelper sh)
+    public NCHOWSearchAddressBook(CenterSeleniumHelper sh)
     {
         super(sh);
     }
 
-    public NCWindOnlyPolicyInfo selectFirstSearchResultPolicyInfo()
+    public NCHOWPolicyInfo selectFirstSearchResultPolicyInfo()
     {
         super.clickFirstSearchResultPolicyInfo();
-        return new NCWindOnlyPolicyInfo(sh, path);
+        return new NCHOWPolicyInfo(sh, path);
     }
-    public NCWindOnlyDwelling.NCWindOnlyAdditionalInterests selectFirstSearchResultAdditionalInterests()
+    public NCHOWDwelling.NCHOWAdditionalInterests selectFirstSearchResultAdditionalInterests()
     {
         super.clickFirstSearchResultAdditionalInterest();
-        return new NCWindOnlyDwelling(sh, path).new NCWindOnlyAdditionalInterests(sh, path);
+        return new NCHOWDwelling(sh, path).new NCHOWAdditionalInterests(sh, path);
     }
     public boolean areThereSearchResults()
     {
@@ -34,27 +34,27 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
     {
         return super.areThereMoreThanOneSearchResult();
     }
-    public NCWindOnlyPolicyInfo clickReturnToPolicyInfo()
+    public NCHOWPolicyInfo clickReturnToPolicyInfo()
     {
         super.returnToPolicyInfo();
-        return new NCWindOnlyPolicyInfo(sh, path);
+        return new NCHOWPolicyInfo(sh, path);
     }
-    public NCWindOnlyDwelling.NCWindOnlyAdditionalInterests clickReturnToDwelling()
+    public NCHOWDwelling.NCHOWAdditionalInterests clickReturnToDwelling()
     {
         super.returnToDwelling();
-        return new NCWindOnlyDwelling(sh, path).new NCWindOnlyAdditionalInterests(sh, path);
+        return new NCHOWDwelling(sh, path).new NCHOWAdditionalInterests(sh, path);
     }
 
-    public NCWindOnlySearchAddressBook clickSearch()
+    public NCHOWSearchAddressBook clickSearch()
     {
         return super.clickSearch();
         //return this;
     }
-    public NCWindOnlySearchAddressBook clickReset()
+    public NCHOWSearchAddressBook clickReset()
     {
         return super.clickReset();
     }
-    public NCWindOnlySearchAddressBook clickPrintExport()
+    public NCHOWSearchAddressBook clickPrintExport()
     {
         return super.clickPrintExport();
     }
@@ -66,22 +66,22 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getWorkPhone();
     }
 
-    public NCWindOnlySearchAddressBook setWorkPhone(String workPhone)
+    public NCHOWSearchAddressBook setWorkPhone(String workPhone)
     {
         return super.setWorkPhone(workPhone);
     }
 
-    public NCWindOnlySearchAddressBook clickFirstNameExactMatch()
+    public NCHOWSearchAddressBook clickFirstNameExactMatch()
     {
         return super.clickFirstNameExactMatch();
     }
 
-    public NCWindOnlySearchAddressBook clickLastNameExactMatch()
+    public NCHOWSearchAddressBook clickLastNameExactMatch()
     {
         return super.clickLastNameExactMatch();
     }
 
-    public NCWindOnlySearchAddressBook clickCompanyNameExactMatch()
+    public NCHOWSearchAddressBook clickCompanyNameExactMatch()
     {
         return super.clickCompanyNameExactMatch();
     }
@@ -91,7 +91,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getType();
     }
 
-    public NCWindOnlySearchAddressBook setType(String type)
+    public NCHOWSearchAddressBook setType(String type)
     {
         return super.setType(type);
     }
@@ -100,7 +100,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getCompanyName();
     }
 
-    public NCWindOnlySearchAddressBook setCompanyName(String companyName)
+    public NCHOWSearchAddressBook setCompanyName(String companyName)
     {
         return super.setCompanyName(companyName);
     }
@@ -109,7 +109,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getFirstName();
     }
 
-    public NCWindOnlySearchAddressBook setFirstName(String firstName)
+    public NCHOWSearchAddressBook setFirstName(String firstName)
     {
         return super.setFirstName(firstName);
     }
@@ -119,7 +119,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getLastName();
     }
 
-    public NCWindOnlySearchAddressBook setLastName(String lastName)
+    public NCHOWSearchAddressBook setLastName(String lastName)
     {
         return super.setLastName(lastName);
     }
@@ -129,7 +129,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getCountry();
     }
 
-    public NCWindOnlySearchAddressBook setCountry(String country)
+    public NCHOWSearchAddressBook setCountry(String country)
     {
         return super.setCountry(country);
     }
@@ -139,7 +139,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getCity();
     }
 
-    public NCWindOnlySearchAddressBook setCity(String city)
+    public NCHOWSearchAddressBook setCity(String city)
     {
         return super.setCity(city);
     }
@@ -148,7 +148,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getState();
     }
 
-    public NCWindOnlySearchAddressBook setState(String state)
+    public NCHOWSearchAddressBook setState(String state)
     {
         return super.setState(state);
     }
@@ -157,7 +157,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getCounty();
     }
 
-    public NCWindOnlySearchAddressBook setCounty(String county)
+    public NCHOWSearchAddressBook setCounty(String county)
     {
         return super.setCounty(county);
     }
@@ -166,7 +166,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getZipCode();
     }
 
-    public NCWindOnlySearchAddressBook setZipCode(String zipCode)
+    public NCHOWSearchAddressBook setZipCode(String zipCode)
     {
         return super.setZipCode(zipCode);
     }
@@ -175,7 +175,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getTaxID();
     }
 
-    public NCWindOnlySearchAddressBook setTaxID(String taxID)
+    public NCHOWSearchAddressBook setTaxID(String taxID)
     {
         return super.setTaxID(taxID);
     }
@@ -184,7 +184,7 @@ public class NCWindOnlySearchAddressBook  extends SearchAddressBook<NCWindOnlySe
         return super.getPhone();
     }
 
-    public NCWindOnlySearchAddressBook setPhone(String phone)
+    public NCHOWSearchAddressBook setPhone(String phone)
     {
         return super.setPhone(phone);
     }

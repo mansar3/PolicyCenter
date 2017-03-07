@@ -17,7 +17,7 @@
 //import pageobjects.NCHO3.NCHO3Coverages;
 //import pageobjects.NCHO3.NCHO3Dwelling;
 //import pageobjects.NCHO3.NCHO3DwellingConstruction;
-//import pageobjects.NCWindOnly.*;
+//import pageobjects.NCHOW.*;
 //
 //import java.text.SimpleDateFormat;
 //import java.time.LocalDate;
@@ -52,8 +52,8 @@
 //    }
 //
 //    @Test(description = "Creates Account for NC WindOnly")
-//    public void CreatePersonalAccountforNCWindOnly(ITestContext itc) {
-//        String firstname = "NCWindOnly";
+//    public void CreatePersonalAccountforNCHOW(ITestContext itc) {
+//        String firstname = "NCHOW";
 //        String lastname = "Validationrule";
 //        String date = "03/30/1985";
 //        String homephone = "8501112222";
@@ -64,17 +64,17 @@
 //        String addrestype = "Home";
 //        String orgname = "SFI";
 //        String producercode = "523-23-30007 C.T. Lowndes & Co. - Charleston";
-//        NCWindOnlyNavigationBar nb = new NCWindOnlyNavigationBar(sh);
+//        NCHOWNavigationBar nb = new NCHOWNavigationBar(sh);
 //        nb.clickAccountTab();
 //        nb.clickNewAccountDropdown();
 //
-//        NCWindOnlyEnterAccountInformation eai = new NCWindOnlyEnterAccountInformation(sh);
+//        NCHOWEnterAccountInformation eai = new NCHOWEnterAccountInformation(sh);
 //        eai.setFirstName(firstname);
 //        eai.setLastName(lastname);
 //        eai.clickSearch();
-//        eai.createNewPersonAccountNCWindOnly();
+//        eai.createNewPersonAccountNCHOW();
 //
-//        NCWindOnlyCreateAccount ca = new NCWindOnlyCreateAccount(sh);
+//        NCHOWCreateAccount ca = new NCHOWCreateAccount(sh);
 //        ca.setDateOfBirth(date);
 //        ca.setHomePhone(homephone);
 //        ca.setAddressLine1(homeaddress);
@@ -85,7 +85,7 @@
 //        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
 //        ca.setAddressType(addrestype);
 //        ca.organizationSearch();
-//        NCWindOnlyOrganizations org = new NCWindOnlyOrganizations(sh);
+//        NCHOWOrganizations org = new NCHOWOrganizations(sh);
 //
 //        org.setOrganizationName(orgname);
 //        org.clickSearchButton();
@@ -97,10 +97,10 @@
 //    }
 //
 //    @Test(description = "Validating the WindOnly")
-//    public void ValidatingNCWindOnly() {
+//    public void ValidatingNCHOW() {
 //
 //
-//        String firstname = "NCWindOnly";
+//        String firstname = "NCHOW";
 //        String lastname = "Validationrule";
 //        String policyType = "Wind Only";
 ////        String futureEffectiveDate = new DateTime().plusDays(120).toString("MM/dd/yyyy");
@@ -132,11 +132,11 @@
 //        String quoteresidenceheld, expectedquoteresidenceheld = "In order to select the coverage Residence Held in Trust a trust must be added to the additional interest page: Residence Held in Trust.";
 //        String errormessage, errormessage1, errormessage2, errormessage3;
 //
-//        NCWindOnlyNavigationBar nav = new NCWindOnlyNavigationBar(sh);
+//        NCHOWNavigationBar nav = new NCHOWNavigationBar(sh);
 //        nav.clickInternalToolTab()
 //                .clickTestingTimeClock();
 //
-//        NCWindOnlyTestingSystemClock tsc = new NCWindOnlyTestingSystemClock(sh);
+//        NCHOWTestingSystemClock tsc = new NCHOWTestingSystemClock(sh);
 //        String currentdate = tsc.getCurrentDate();
 //        System.out.println(tsc.getCurrentDate());
 //
@@ -166,18 +166,18 @@
 ////        String yearBuilt = date.minusYears(17).toString("yyyy");
 //
 //
-//        NCWindOnlySearchAccounts sa = nav.clickSearchAccount();
+//        NCHOWSearchAccounts sa = nav.clickSearchAccount();
 //        sa.setFirstName(firstname);
 //        sa.setLastName(lastname);
 //        sa.clickSearchButton();
 //        sa.clickAccountNumberSearchAccount();
 //
-//        NCWindOnlyAccountFileSummary afs = new NCWindOnlyAccountFileSummary(sh);
+//        NCHOWAccountFileSummary afs = new NCHOWAccountFileSummary(sh);
 //        afs.westPanel.actions.clickActions();
 //        afs.westPanel.actions.clickNewSubmission();
 //
-//        NCWindOnlyNewSubmission ns = new NCWindOnlyNewSubmission(sh);
-//        NCWindOnlyQualification qua = ns.productTable.selectHomeowners();
+//        NCHOWNewSubmission ns = new NCHOWNewSubmission(sh);
+//        NCHOWQualification qua = ns.productTable.selectHomeowners();
 //        qua.setPolicyType(policyType);
 //        qua.getOfferingSelection();
 //        // to select no for all the blanks
@@ -186,13 +186,13 @@
 //        }
 //
 //
-//        NCWindOnlyPolicyInfo pi = qua.next();
+//        NCHOWPolicyInfo pi = qua.next();
 //
-//        NCWindOnlyDwelling dwe = pi.setEffectiveDate(effectiveDate)
+//        NCHOWDwelling dwe = pi.setEffectiveDate(effectiveDate)
 //                .next()
 //                .setYearBuilt(futureYear)
 //                .Enter();
-////        NCWindOnlyDwelling dwe = qua.next()
+////        NCHOWDwelling dwe = qua.next()
 ////                //  .setEffectiveDate(futureEffectiveDate)
 ////                .setEffectiveDate(effectiveDate)
 ////                .next();
@@ -207,7 +207,7 @@
 //        Assert.assertTrue(expectedyearbuilt.equals(yearbuilt));
 //        System.out.println(" Expected Roof Year should be " + expectedyearbuilt + " and it is " + yearbuilt);
 //
-//        NCWindOnlyCoverages coverages = dwe.setYearBuilt(yearBuilt)
+//        NCHOWCoverages coverages = dwe.setYearBuilt(yearBuilt)
 //                .next()
 //                .clickWindMitigation()
 //                .setRoofShapeType(roofshapetype)
@@ -265,7 +265,7 @@
 //        Assert.assertTrue(expectedotherstructureserror.equals(otherstructureserror));
 //        System.out.println("The expected Message is " + expectedotherstructureserror + " and it is " + otherstructureserror);
 //
-//        NCWindOnlyRiskAnalysis ra = coverages.clickCoverages()
+//        NCHOWRiskAnalysis ra = coverages.clickCoverages()
 //                .clickPropertyEndorsements()
 //                .setSpecificOtherStructuresLimit(1, "5000")
 //                .next()
@@ -290,7 +290,7 @@
 //        //  .clickCoveragespropertyendorsementsQuote();
 //
 //
-//        NCWindOnlyQuote quote = ra.quote()
+//        NCHOWQuote quote = ra.quote()
 //                .clickissuePolicy()
 //                .acceptyes();
 //
