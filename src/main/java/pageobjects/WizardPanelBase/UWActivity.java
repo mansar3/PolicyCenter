@@ -18,15 +18,27 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
+
 	static class UWActivityBy
 	{
-		final static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl");
+		final static  By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
+				        getAssignTo = By.id("UWActivityPopup:NewActivityDV:SelectFromList-inputEl"),
+		                Cancel = By.id("UWActivityPopup:Cancel-btnInnerEl");
+	}
+
+	protected String getAssignTo(){
+		return sh.getValue(by.getAssignTo);
 	}
 
 	protected T clickSendRequest()
 	{
 		sh.clickElement(by.sendRequest);
 		return (T)this;
+	}
+	protected  T clickCancel()
+	{
+		sh.clickElement(by.Cancel);
+		return (T) this;
 	}
 
 }

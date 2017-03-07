@@ -76,6 +76,24 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return (T)this;
 	}
 
+	protected String getusIssueblockingbind1(){
+		sh.waitForNoMask();
+       return 	sh.getText(by.usissuebind1);
+
+	}
+
+	protected String getusIssueblockingbind2(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind2);
+
+	}
+
+	protected String getusIssueblockingbind3(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind3);
+
+	}
+
 	protected T coveragesback()
 	{
 		clickBack();
@@ -164,7 +182,10 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
 							addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
 				            contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl"),
-				            underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
+				            usissuebind1 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:1:UWIssueRowSet:ShortDescription"),
+		                    uwissuebind2 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:2:UWIssueRowSet:ShortDescription"),
+		                    uwissuebind3 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:3:UWIssueRowSet:ShortDescription"),
+	                     	underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
 
 	}
 

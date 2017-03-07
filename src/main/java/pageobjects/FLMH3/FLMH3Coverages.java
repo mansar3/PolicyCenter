@@ -327,14 +327,14 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         }
         public FLMH3PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
         {
-            return super.setSpecificOtherStructuresDescription(itemNumber, text);
+            return super.setSpecificOtherStructuresDescriptionMH3(itemNumber, text);
         }
         public FLMH3PropertyEndorsements setSpecificOtherStructuresAttachedDetached (int itemNumber, String text){
             return super.setSpecificOtherStructuresAttachedDetached(itemNumber, text);
         }
         public FLMH3PropertyEndorsements setSpecificOtherStructuresLimit(int itemNumber, String text)
         {
-            return super.setSpecificOtherStructuresLimit(itemNumber, text);
+            return super.setSpecificOtherStructuresLimitMH3(itemNumber, text);
         }
         public FLMH3PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
         {
