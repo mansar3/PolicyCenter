@@ -132,7 +132,7 @@ public class AccountPolicyGenerator
 		System.out.println("databuffer.leg = '" + dataBuffer.length + "'");
 		return dataBuffer;
 	}
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] ALHO3Data()
 	{
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/ALHO3-20170301_135258/");
@@ -147,10 +147,10 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170306_093012/FLHO3-20170306_093021/");
+		return DataCreator("/Users/aansari/Downloads/Rating/");
 	}
 	// /Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] FLHO6Data()
 	{
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO6-20170301_134909/");
@@ -163,11 +163,6 @@ public class AccountPolicyGenerator
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/NCHO3-20170301_134852/");
 	}
 	@DataProvider(parallel = false)
-	public static Object[][] NCHOWData()
-	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170306_093012/NCHOW-20170306_093336/");
-	}
-	@DataProvider(parallel = true)
 	public static Object[][] SCDP3Data()
 	{
 		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170301_134457/SCDP3-20170301_134936/");

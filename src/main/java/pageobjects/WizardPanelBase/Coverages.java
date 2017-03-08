@@ -847,19 +847,41 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
-		protected  T setSpecificOtherStructuresAttachedDetached (int itemNumber, String text) {
+		protected T setSpecificOtherStructuresLimitMH3(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[3]//div"));
+
+			sh.waitForElementToAppear(By.name("c4"));
+			// Input text here
+			sh.setText(By.name("c4"), description);
+			sh.waitForNoMask();
+
+			return (T)this;
+		}
+		protected T setSpecificOtherStructuresDescriptionMH3(int itemNumber, String description)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]//div"));
+
+			sh.waitForElementToAppear(By.name("c3"));
+			// Input text here
+			sh.setText(By.name("c3"), description);
+
+			return (T)this;
+		}
+
+		protected  T setSpecificOtherStructuresAttachedDetached(int itemNumber, String text) {
 
 			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[3]/div/div/div/div/input
 			//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input
 
 		//	sh.clickElement(By.xpath("//*[@id = 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[2]/div/div/div/div/input"));
-			sh.clickElement(By.xpath("html/body/div[4]/table/tbody/tr/td/div/table/tbody/tr[4]/td/div/div[2]/div/table/tbody/tr[1]/td/div/table/tbody/tr/td/div/table/tbody/tr[1]/td/fieldset/div/div/div/div/table/tbody/tr/td/div/div[3]/div[1]/div[1]/table/tbody/tr/td[3]/div"));
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Specific Other Structures']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
 			sh.waitForElementToAppear(By.name("c2"));
 			sh.setText(By.name("c2"), text);
 			sh.waitForNoMask();
 			return (T) this;
 
-		}
+	}
 
 		protected String coveragesPropertyEndorsnmentsErrorMessage ()
 

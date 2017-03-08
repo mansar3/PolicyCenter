@@ -2,11 +2,13 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.NorthPanel;
 
 public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBase
 {
 	private RiskAnalysisBy by;
 	protected String riskAnalysisBase;
+	public NorthPanel np;
 	public RiskAnalysis(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
@@ -14,6 +16,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		expectedPanelTitle = "Risk Analysis";
 		waitForTitle(sh);
 		setID(path);
+		np = new NorthPanel(sh);
 		by = new RiskAnalysisBy();
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
@@ -74,6 +77,24 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		//sh.clickElement(by.submissionQuote);
 		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 		return (T)this;
+	}
+
+	protected String getusIssueblockingbind1(){
+		sh.waitForNoMask();
+       return 	sh.getText(by.usissuebind1);
+
+	}
+
+	protected String getusIssueblockingbind2(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind2);
+
+	}
+
+	protected String getusIssueblockingbind3(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind3);
+
 	}
 
 	protected T coveragesback()
@@ -164,7 +185,10 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 							requestApproval = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:RequestApproval-btnInnerEl"),
 							addUWIssue = By.id(riskAnalysisBase + "RiskAnalysisCV_tb:AddManualIssue-btnInnerEl"),
 				            contingencies = By.id(riskAnalysisBase + "RiskAnalysisCV:ContingenciesCardTab-btnInnerEl"),
-				            underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
+				            usissuebind1 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:1:UWIssueRowSet:ShortDescription"),
+		                    uwissuebind2 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:2:UWIssueRowSet:ShortDescription"),
+		                    uwissuebind3 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:3:UWIssueRowSet:ShortDescription"),
+	                     	underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
 
 	}
 

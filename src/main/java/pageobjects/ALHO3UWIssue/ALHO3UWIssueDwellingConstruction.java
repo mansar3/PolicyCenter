@@ -1,29 +1,29 @@
-package pageobjects.FLMH3;
+package pageobjects.ALHO3UWIssue;
 
 import Helpers.CenterSeleniumHelper;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
- * Created by ssai on 3/3/2017.
+ * Created by ssai on 3/7/2017.
  */
-public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3DwellingConstruction> {
+public class ALHO3UWIssueDwellingConstruction extends DwellingConstruction<ALHO3UWIssueDwellingConstruction> {
 
-    public FLMH3DwellingConstruction(CenterSeleniumHelper sh, Path path)
+    public ALHO3UWIssueDwellingConstruction(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
     }
 
-    public FLMH3Coverages next()
+    public ALHO3UWIssueCoverages next()
     {
         super.coveragesNext();
-        return new FLMH3Coverages(sh, path);
+        return new ALHO3UWIssueCoverages(sh, path);
     }
-    public FLMH3WindMitigation clickWindMitigation()
+    public ALHO3WindMitigation clickWindMitigation()
     {
         super.windMitigation();
-        return new FLMH3WindMitigation(sh,path);
+        return new ALHO3WindMitigation(sh,path);
     }
-    public FLMH3DwellingConstruction setRoofYear(String text)
+    public ALHO3UWIssueDwellingConstruction setRoofYear(String text)
     {
         return super.setRoofYear(text);
     }
@@ -32,7 +32,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getRoofYear();
     }
-    public FLMH3DwellingConstruction setValuationType(String text)
+    public ALHO3UWIssueDwellingConstruction setValuationType(String text)
     {
         return super.setValuationType(text);
     }
@@ -41,31 +41,39 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getValuationType();
     }
-    public FLMH3DwellingConstruction setEstimatedReplacementCost(String text)
+    public ALHO3UWIssueDwellingConstruction setEstimatedReplacementCost(String text)
     {
         return super.setEstimatedReplacementCost(text);
     }
+    public ALHO3UWIssueDwelling back()
+    {
+        super.dwellingBack();
+        return new ALHO3UWIssueDwelling(sh,path);
+    }
+
+
 
     public String dwellingConstructionErrorMessage()
     {
         return super.dwellingConstructionErrorMessage();
     }
 
+    public ALHO3UWIssueDwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
+
     public String getEstimatedReplacementCost()
     {
         return super.getEstimatedReplacementCost();
     }
-    public FLMH3DwellingConstruction setConstructionType(String text)
+    public ALHO3UWIssueDwellingConstruction setConstructionType(String text)
     {
         return super.setConstructionType(text);
     }
-    public FLMH3DwellingConstruction dwellingConstructionEnter(){return super.dwellingConstructionEnter();}
 
     public String getConstructionType()
     {
         return super.getConstructionType();
     }
-    public FLMH3DwellingConstruction setNumberOfUnits(String text)
+    public ALHO3UWIssueDwellingConstruction setNumberOfUnits(String text)
     {
         return super.setNumberOfUnits(text);
     }
@@ -73,7 +81,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getNumberOfUnits();
     }
-    public FLMH3DwellingConstruction setUnitsInFireWall(String text)
+    public ALHO3UWIssueDwellingConstruction setUnitsInFireWall(String text)
     {
         return super.setUnitsInFireWall(text);
     }
@@ -82,7 +90,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getUnitsInFireWall();
     }
-    public FLMH3DwellingConstruction setNumberOfStories(String text)
+    public ALHO3UWIssueDwellingConstruction setNumberOfStories(String text)
     {
         return super.setNumberOfStories(text);
     }
@@ -91,7 +99,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getNumberOfStories();
     }
-    public FLMH3DwellingConstruction setSquareFootage(String text)
+    public ALHO3UWIssueDwellingConstruction setSquareFootage(String text)
     {
         return super.setSquareFootage(text);
     }
@@ -100,7 +108,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getSquareFootage();
     }
-    public FLMH3DwellingConstruction setFoundationType(String text)
+    public ALHO3UWIssueDwellingConstruction setFoundationType(String text)
     {
         return super.setFoundationType(text);
     }
@@ -109,7 +117,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getFoundationType();
     }
-    public FLMH3DwellingConstruction setPrimaryHeating(String text)
+    public ALHO3UWIssueDwellingConstruction setPrimaryHeating(String text)
     {
         return super.setPrimaryHeating(text);
     }
@@ -118,7 +126,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getPrimaryHeating();
     }
-    public FLMH3DwellingConstruction setPlumbing(String text)
+    public ALHO3UWIssueDwellingConstruction setPlumbing(String text)
     {
         return super.setPlumbing(text);
     }
@@ -127,7 +135,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getPlumbing();
     }
-    public FLMH3DwellingConstruction setPlumbingYear(String text)
+    public ALHO3UWIssueDwellingConstruction setPlumbingYear(String text)
     {
         return super.setPlumbingYear(text);
     }
@@ -136,7 +144,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getPlumbingYear();
     }
-    public FLMH3DwellingConstruction setWaterHeaterYear(String text)
+    public ALHO3UWIssueDwellingConstruction setWaterHeaterYear(String text)
     {
         return super.setWaterHeaterYear(text);
     }
@@ -145,7 +153,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getWaterHeaterYear();
     }
-    public FLMH3DwellingConstruction setWiring(String text)
+    public ALHO3UWIssueDwellingConstruction setWiring(String text)
     {
         return super.setWiring(text);
     }
@@ -154,7 +162,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getWiring();
     }
-    public FLMH3DwellingConstruction setElectricalSystem(String text)
+    public ALHO3UWIssueDwellingConstruction setElectricalSystem(String text)
     {
         return super.setElectricalSystem(text);
     }
@@ -163,7 +171,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getElectricalSystem();
     }
-    public FLMH3DwellingConstruction setRoofType(String text)
+    public ALHO3UWIssueDwellingConstruction setRoofType(String text)
     {
         return super.setRoofType(text);
     }
@@ -172,7 +180,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getRoofType();
     }
-    public FLMH3DwellingConstruction setConditionOfRoof(String text)
+    public ALHO3UWIssueDwellingConstruction setConditionOfRoof(String text)
     {
         return super.setConditionOfRoof(text);
     }
@@ -181,32 +189,20 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getConditionOfRoof();
     }
-    public FLMH3DwellingConstruction setIsThereASecondaryHeatingSystem(String flag)
+    public ALHO3UWIssueDwellingConstruction setIsThereASecondaryHeatingSystem(String flag)
     {
         return super.setIsThereASecondaryHeatingSystem(flag);
     }
-    public FLMH3DwellingConstruction setIsTheMobileHomeFullySkirted(String flag){
-        return super.setIsTheMobileHomeFullySkirted(flag);
-    }
-    public FLMH3DwellingConstruction setMobileHomeWidth(String text){
-        return super.setMobileHomeWidth(text);
-    }
-    public String getsetMobileHomeWidth(){return super.getMobileHomeWidth();}
-    public FLMH3DwellingConstruction setElectricalSystemDescribeOther(String text)
+    public ALHO3UWIssueDwellingConstruction setElectricalSystemDescribeOther(String text)
     {
         return super.setElectricalSystemDescribeOther(text);
     }
 
-    public FLMH3Dwelling back()
-    {
-        super.dwellingBack();
-        return new FLMH3Dwelling(sh,path);
-    }
     public String getElectricalSystemDescribeOther()
     {
         return super.getElectricalSystemDescribeOther();
     }
-    public FLMH3DwellingConstruction setRoofTypeDescription(String text)
+    public ALHO3UWIssueDwellingConstruction setRoofTypeDescription(String text)
     {
         return super.setRoofTypeDescription(text);
     }
@@ -215,7 +211,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getRoofTypeDescription();
     }
-    public FLMH3DwellingConstruction setPlumbingDescribeOther(String text)
+    public ALHO3UWIssueDwellingConstruction setPlumbingDescribeOther(String text)
     {
         return super.setPlumbingDescribeOther(text);
     }
@@ -224,88 +220,88 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.getPlumbingDescribeOther();
     }
-    public FLMH3DwellingConstruction setPlumbingSystemHaveKnownLeaks(String flag)
+    public ALHO3UWIssueDwellingConstruction setPlumbingSystemHaveKnownLeaks(String flag)
     {
         return super.setPlumbingSystemHaveKnownLeaks(flag);
     }
-    public FLMH3DwellingConstruction setBuildingRetrofittedForEarthquakes(String flag)
+    public ALHO3UWIssueDwellingConstruction setBuildingRetrofittedForEarthquakes(String flag)
     {
         return super.setBuildingRetrofittedForEarthquakes(flag);
     }
-    public FLMH3DwellingConstruction setUncorrectedFireOrBuildingCodeViolations(String flag)
+    public ALHO3UWIssueDwellingConstruction setUncorrectedFireOrBuildingCodeViolations(String flag)
     {
         return super.setUncorrectedFireOrBuildingCodeViolations(flag);
     }
-    public FLMH3DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag)
+    public ALHO3UWIssueDwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag)
     {
         return super.setStructureOriginallyBuiltForOtherThanPrivateResidence(flag);
     }
-    public FLMH3DwellingConstruction setLeadPaintHazard(String flag)
+    public ALHO3UWIssueDwellingConstruction setLeadPaintHazard(String flag)
     {
         return super.setLeadPaintHazard(flag);
     }
-    public FLMH3DwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
+    public ALHO3UWIssueDwellingConstruction setAnyPortionOfAnyStructureAtThisPropertyLocation(String flag)
     {
         return super.setAnyPortionOfAnyStructureAtThisPropertyLocation(flag);
     }
-    public FLMH3DwellingConstruction setBuildingRetrofittedForEarthquakesDescription(String flag)
+    public ALHO3UWIssueDwellingConstruction setBuildingRetrofittedForEarthquakesDescription(String flag)
     {
         return super.setBuildingRetrofittedForEarthquakesDescription(flag);
     }
-    public FLMH3DwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String flag)
+    public ALHO3UWIssueDwellingConstruction setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(String flag)
     {
         return super.setStructureOriginallyBuiltForOtherThanPrivateResidenceDescription(flag);
     }
-    public FLMH3DwellingConstruction setUncorrectedFireOrBuildingCodeViolationsDescription(String flag)
+    public ALHO3UWIssueDwellingConstruction setUncorrectedFireOrBuildingCodeViolationsDescription(String flag)
     {
         return super.setUncorrectedFireOrBuildingCodeViolationsDescription(flag);
     }
-    public FLMH3DwellingConstruction setLeadPaintHazardDescription(String flag)
+    public ALHO3UWIssueDwellingConstruction setLeadPaintHazardDescription(String flag)
     {
         return super.setLeadPaintHazardDescription(flag);
     }
-    public FLMH3DwellingConstruction setScreenEnclosureOnPremises(String flag)
+    public ALHO3UWIssueDwellingConstruction setScreenEnclosureOnPremises(String flag)
     {
         return super.setScreenEnclosureOnPremises(flag);
     }
 
-    public boolean isMobileHomeTiedDown()
+    public class ALHO3WindMitigation extends WindMitigation<ALHO3WindMitigation>
     {
-        return super.isMobileHomeTiedDown();
-    }
-
-    public class FLMH3WindMitigation extends WindMitigation<FLMH3WindMitigation>
-    {
-        public FLMH3WindMitigation(CenterSeleniumHelper sh, Path path)
+        public ALHO3WindMitigation(CenterSeleniumHelper sh, Path path)
         {
             super(sh, path);
         }
 
-        public FLMH3DwellingConstruction clickDetails()
+        public ALHO3UWIssueDwellingConstruction clickDetails()
         {
             super.clickDetailsTab();
-            return new FLMH3DwellingConstruction(sh, path);
+            return new ALHO3UWIssueDwellingConstruction(sh, path);
         }
-        public FLMH3Coverages next()
+        public ALHO3UWIssueCoverages next()
         {
             super.coveragesNext();
-            return new FLMH3Coverages(sh,path);
+            return new ALHO3UWIssueCoverages(sh,path);
         }
-        public FLMH3Coverages doubleClickNext()
+        public ALHO3UWIssueCoverages doubleClickNext()
         {
             super.doubleClickCoveragesNext();
-            return new FLMH3Coverages(sh, path);
+            return new ALHO3UWIssueCoverages(sh, path);
         }
-        public FLMH3WindMitigation setRoofShapeType(String text)
+        public ALHO3WindMitigation setRoofShapeType(String text)
         {
             return super.setRoofShapeType(text);
+        }
+
+        public String dwellingConstructionWindMitigationErrorMessage()
+        {
+            return super.dwellingConstructionWingMitigationErrorMessage();
         }
 
         public String getRoofShapeType()
         {
             return super.getRoofShapeType();
         }
-        public FLMH3WindMitigation setDiscountType(String text)
+        public ALHO3WindMitigation setDiscountType(String text)
         {
             return super.setDiscountType(text);
         }
@@ -314,7 +310,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getDiscountType();
         }
-        public FLMH3WindMitigation setFortifiedHomeType(String text)
+        public ALHO3WindMitigation setFortifiedHomeType(String text)
         {
             return super.setFortifiedHomeType(text);
         }
@@ -323,7 +319,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getFortifiedHomeType();
         }
-        public FLMH3WindMitigation setOpeningProtectionType(String text)
+        public ALHO3WindMitigation setOpeningProtectionType(String text)
         {
             return super.setOpeningProtectionType(text);
         }
@@ -332,7 +328,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getOpeningProtectionType();
         }
-        public FLMH3WindMitigation setTerrain(String text)
+        public ALHO3WindMitigation setTerrain(String text)
         {
             return super.setTerrain(text);
         }
@@ -341,23 +337,16 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getTerrain();
         }
-        public FLMH3WindMitigation setRoofCover(String text)
+        public ALHO3WindMitigation setRoofCover(String text)
         {
             return super.setRoofCover(text);
         }
-
-        public FLMH3Dwelling winddwellingback()
-        {
-            super.WinddwellingBack();
-            return new FLMH3Dwelling(sh,path);
-        }
-
 
         public String getRoofCover()
         {
             return super.getRoofCover();
         }
-        public FLMH3WindMitigation setRoofDeckAttachment(String text)
+        public ALHO3WindMitigation setRoofDeckAttachment(String text)
         {
             return super.setRoofDeckAttachment(text);
         }
@@ -366,7 +355,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getRoofDeckAttachment();
         }
-        public FLMH3WindMitigation setRoofWallConnection(String text)
+        public ALHO3WindMitigation setRoofWallConnection(String text)
         {
             return super.setRoofWallConnection(text);
         }
@@ -375,23 +364,23 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getRoofWallConnection();
         }
-        public FLMH3WindMitigation setSecondaryWaterResistance(String flag)
+        public ALHO3WindMitigation setSecondaryWaterResistance(String flag)
         {
             return super.setSecondaryWaterResistance(flag);
         }
-        public FLMH3WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
+        public ALHO3WindMitigation setIsTheRoofCoverConstructionBuildingCodeCompliant(String flag)
         {
             return super.setIsTheRoofCoverConstructionBuildingCodeCompliant(flag);
         }
-        public FLMH3WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
+        public ALHO3WindMitigation setIsTheRoofDeckAttachmentBuildingCodeCompliant(String flag)
         {
             return super.setIsTheRoofDeckAttachmentBuildingCodeCompliant(flag);
         }
-        public FLMH3WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
+        public ALHO3WindMitigation setIsTheRoofWallconnectionBuildingCodeCompliant(String flag)
         {
             return super.setIsTheRoofWallconnectionBuildingCodeCompliant(flag);
         }
-        public FLMH3WindMitigation setRoofDeck(String text)
+        public ALHO3WindMitigation setRoofDeck(String text)
         {
             return super.setRoofDeck(text);
         }
@@ -400,7 +389,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getRoofDeck();
         }
-        public FLMH3WindMitigation setFbcWindSpeed(String text)
+        public ALHO3WindMitigation setFbcWindSpeed(String text)
         {
             return super.setFbcWindSpeed(text);
         }
@@ -409,7 +398,7 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.getFbcWindSpeed();
         }
-        public FLMH3WindMitigation setInternalPressure(String text)
+        public ALHO3WindMitigation setInternalPressure(String text)
         {
             return super.setInternalPressure(text);
         }
@@ -419,9 +408,25 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
             return super.getInternalPressure();
         }
 
-        public FLMH3WindMitigation setWindBorneDebris(String flag)
+        public ALHO3WindMitigation setWindBorneDebris(String flag)
         {
             return super.setWindBorneDebris(flag);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

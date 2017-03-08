@@ -174,11 +174,12 @@ public class ProductModel extends BaseTest
 
         /* Begin Test */
         FLHO3NavigationBar nb = new FLHO3NavigationBar(sh);
-        FLHO3SearchAccounts sa = nb.clickSearchAccount();
-        FLHO3AccountFileSummary afs = sa.setFirstName(firstname)
+        enterAccountInformation = new FLHO3EnterAccountInformation(sh);
+        FLHO3AccountFileSummary afs = enterAccountInformation
+                .setFirstName(firstname)
                 .setLastName(lastname)
-                .clickSearchButton()
-                .clickAccountNumberSearchAccount();
+                .clickSearch()
+                .clickAccountNumberFLHO3();
 
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();

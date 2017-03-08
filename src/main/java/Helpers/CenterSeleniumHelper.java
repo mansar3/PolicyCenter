@@ -25,6 +25,10 @@ public class CenterSeleniumHelper
 		driver.findElement(byLocator).click();
 	}
 
+	public void waitForTitle(String expectedPanelTitle)
+	{
+		wait(90).until(ExpectedConditions.textToBe(By.cssSelector("#centerPanel .g-title"), expectedPanelTitle));
+	}
 	public WebDriver getDriver()
 	{
 		return this.driver;
