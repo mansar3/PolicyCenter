@@ -33,4 +33,9 @@ public class SCHO6EnterAccountInformation extends EnterAccountInformation<SCHO6E
 		super.createNewPersonAccount();
 		return new SCHO6CreateAccount(sh);
 	}
+	public SCHO6AccountFileSummary clickAccountNumberSCHO6()
+	{
+		super.clickAccountNumber();
+		return new SCHO6AccountFileSummary(sh);
+	}
 }

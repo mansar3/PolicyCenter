@@ -269,6 +269,11 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         return super.setScreenEnclosureOnPremises(flag);
     }
 
+    public boolean isMobileHomeTiedDown()
+    {
+        return super.isMobileHomeTiedDown();
+    }
+
     public class FLMH3WindMitigation extends WindMitigation<FLMH3WindMitigation>
     {
         public FLMH3WindMitigation(CenterSeleniumHelper sh, Path path)
@@ -418,21 +423,5 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         {
             return super.setWindBorneDebris(flag);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

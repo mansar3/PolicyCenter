@@ -3,6 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 
 public abstract class DwellingConstruction<T extends DwellingConstruction> extends CenterPanelBase {
     private DwellingConstructionBy by;
@@ -402,6 +403,24 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         return (T) this;
     }
 
+    /**
+     * @return true if answer is 'yes', false if 'no'
+     */
+    protected boolean isMobileHomeTiedDown()
+    {
+        System.out.println(String.valueOf(sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownLabel)));
+        boolean yesButton = sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownYes);
+        boolean noButton = sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownNo);
+        System.out.println("yesButton = " + String.valueOf(yesButton));
+        System.out.println("noButton = " + String.valueOf(noButton));
+
+        if (!yesButton && !noButton)
+            throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
+        else if (yesButton && noButton)
+            throw new WebDriverException("Both Yes and No radio buttons were selected");
+        return yesButton;
+    }
+
     public class DwellingConstructionBy {
 
         final By roofYear = By.id(dwellingConstructionBase + "RoofYear_fli-inputEl"),
@@ -426,10 +445,13 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                 roofType = By.id(dwellingConstructionBase + "RoofType-inputEl"),
                 roofTypeDescription = By.id(dwellingConstructionBase + "RoofTypeDesc-inputEl"),
                 conditionOfRoof = By.id(dwellingConstructionBase + "RoofCondition_fli-inputEl"),
-        //   ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
+                isTheMobileHomeTiedDownLabel = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']"),
+                isTheMobileHomeTiedDownYes = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']/../../div/div/table/tbody/tr/td/div/div/div//label[text()='Yes']/../input"),
+                isTheMobileHomeTiedDownNo = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']/../../div/div/table/tbody/tr/td/div/div/div//label[text()='No']/../input"),
+            //  ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
 
-        // Wind Mitigation
-        windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");
+            //  Wind Mitigation
+                windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");
 
 
     }

@@ -10,7 +10,8 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 
 	public class EnterAccountInformationBy extends CenterPanelBase.CenterPanelBy{
 		private String 	base_id = "NewAccount:NewAccountScreen:NewAccountSearchDV:",
-						addressBase = base_id +"AddressOwnerAddressInputSet:globalAddressContainer:GlobalAddressInputSet:";
+						addressBase = base_id +"AddressOwnerAddressInputSet:globalAddressContainer:GlobalAddressInputSet:",
+						search_results = "NewAccount:NewAccountScreen:NewAccountSearchResultsLV:";
 
 		final public By companyName = By.id(base_id + "GlobalContactNameInputSet:Name-inputEl"),
 						companyExactMatch = By.id(base_id + "CompanyNameExact-inputEl"),
@@ -25,7 +26,8 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 						zipCode = By.id(addressBase + "PostalCode-inputEl"),
 						searchBtn = By.id(base_id + "SearchAndResetInputSet:SearchLinksInputSet:Search"),
 						resetBtn = By.id(base_id + "SearchAndResetInputSet:SearchLinksInputSet:Reset"),
-						createNewAcctBtn = By.id("NewAccount:NewAccountScreen:NewAccountButton");
+						createNewAcctBtn = By.id("NewAccount:NewAccountScreen:NewAccountButton"),
+						accountNumber = By.id(search_results + "0:AccountNumber");
 
 	}
 	public EnterAccountInformation(CenterSeleniumHelper sh)
@@ -184,5 +186,11 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 	protected E searchFromAddressBookAccount()
 	{
 		return newAccount("FromAB");
+	}
+
+	protected E clickAccountNumber()
+	{
+		sh.clickElement(by.accountNumber);
+		return (E)this;
 	}
 }

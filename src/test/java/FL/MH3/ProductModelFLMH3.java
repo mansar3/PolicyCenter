@@ -1,4 +1,4 @@
-package SC.HO6;
+package FL.MH3;
 
 
 import Helpers.CenterSeleniumHelper;
@@ -14,15 +14,18 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.SCHO6.*;
+import pageobjects.FLMH3.*;
 import pageobjects.Login;
 import pageobjects.WizardPanelBase.*;
 
-public class ProductModelSCHO6 extends BaseTest
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ProductModelFLMH3 extends BaseTest
 {
     private WebDriver driver;
     private Login login;
-    private SCHO6EnterAccountInformation enterAccountInformation;
+    private FLMH3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
     private String firstname, lastname;
@@ -50,34 +53,33 @@ public class ProductModelSCHO6 extends BaseTest
         sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
     }
 
-    @Test(description = "Creates account for South Carolina HO6 product")
-    public void createPersonAccountSCHO6(ITestContext itc)
+    @Test(description = "Creates account for Florida MH3 product")
+    public void createPersonAccountFLMH3(ITestContext itc)
     {
         log(itc.getName());
-        firstname = String.format("SCHO6Ricky%s", dateString);
+        firstname = String.format("FLMH3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
-        String  country = "United States",
+        String country = "United States",
                 dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
-                phoneNumber = "2561234567",
-                address = "3222 Sand Marsh Ln",
-                city = "Mount Pleasant",
-                state = "South Carolina",
-                county = "Charlestone",
-                zipcode = "29466",
+                phoneNumber = "4071234567",
+                address = "234 Walnut St",
+                city = "Daytona Beach",
+                state = "Florida",
+                zipcode = "32114",
                 addressType = "Home",
                 ssn = "777-12-3456",
-                organizationName = "We Insure",
+                organizationName = "4 Corners",
                 organizationType = Organizations.OrganizationTypes.AGENCY.value,
-                producerCode = "523-23-21531 We Insure(Jacksonville)";
+                producerCode = "523-23-20770 4 Corners Insurance";
 
-        enterAccountInformation = new SCHO6EnterAccountInformation(sh);
+        enterAccountInformation = new FLMH3EnterAccountInformation(sh);
         System.out.println(dob);
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        SCHO6CreateAccount createAccount = enterAccountInformation.createNewPersonAccountSCHO6();
+        FLMH3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLMH3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -106,7 +108,7 @@ public class ProductModelSCHO6 extends BaseTest
                     "Zipcode expected was " + createAccount.getZipCode() +
                             ", but it was " + zipcode);
 
-            SCHO6AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            FLMH3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
 
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
@@ -119,29 +121,29 @@ public class ProductModelSCHO6 extends BaseTest
     }
 
     @Test
-    public void productModelSCHO6LessCoverage(ITestContext itc)
+    public void productModelFLMH3LessCoverage(ITestContext itc)
     {
 
     }
 
-    @Test(description = "FL.HO6.ProductModel.MoreCoverage003"/*, dependsOnMethods =
-            { "createPersonAccountSCHO3" }*/)
-    public void productModelMoreCoverageSCHO6(ITestContext itc)
+    @Test(description = "FL.MH3.ProductModel.MoreCoverage003"/*, dependsOnMethods =
+            { "createPersonAccountFLMH3" }*/)
+    public void productModelMoreCoverageFLMH3(ITestContext itc)
     {
         log(itc.getName());
 
         /* Set Variables */
 //        String firstname = "Ricky0209015449";
 //        String lastname = "Bobby0209015449";
-        firstname = "SCHO6Ricky0303041330";
-        lastname = "Bobby0303041330";
+        firstname = "FLMH3Ricky0307120907";
+        lastname = "Bobby0307120907";
 
-        String policyType = "Condominium (HO6)";
-        String offeringSelection = "More Coverage";
-        String county = "Mobile";
+        String policyType = "Mobile Home (MH3)";
+        String offeringSelection = "Most Popular";
+        String county = "Volusia";
         String yearBuilt = "2000";
-        String distanceToFireHydrant = "200";
-        String protectionClassCode = "1X";
+        String distanceToFireHydrant = "70";
+        String mobileHomePark = "1 - Aberdeen at Ormond Beach";
         String residenceType = "Condominium";
         String dwellingUsage = "Primary";
         String dwellingOccupance = "Owner Occupied";
@@ -165,19 +167,19 @@ public class ProductModelSCHO6 extends BaseTest
         String waterBackUpLimit, defaultWaterBackUpLimit = "5,000";
 
         /* Begin Test */
-        SCHO6NavigationBar nb = new SCHO6NavigationBar(sh);
+        FLMH3NavigationBar nb = new FLMH3NavigationBar(sh);
 
-        enterAccountInformation = new SCHO6EnterAccountInformation(sh);
-        SCHO6AccountFileSummary afs = enterAccountInformation
+        enterAccountInformation = new FLMH3EnterAccountInformation(sh);
+        FLMH3AccountFileSummary afs = enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .clickSearch()
-                .clickAccountNumberSCHO6();
+                .clickAccountNumberFLMH3();
 
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        SCHO6NewSubmission ns = new SCHO6NewSubmission(sh);
-        SCHO6Qualification qualification = ns.productTable.selectHomeowners();
+        FLMH3NewSubmission ns = new FLMH3NewSubmission(sh);
+        FLMH3Qualification qualification = ns.productTable.selectHomeowners();
         qualification
                 .setPolicyType(policyType)
                 .setOfferingSelection(offeringSelection);
@@ -187,7 +189,7 @@ public class ProductModelSCHO6 extends BaseTest
             qualification.questionnaire.answerNo(i+1);
         }
 
-        SCHO6Dwelling dwelling = qualification
+        FLMH3DwellingConstruction dwellingConstruction = qualification
                 .next()
                 .next()
                 .editLocation()
@@ -195,15 +197,17 @@ public class ProductModelSCHO6 extends BaseTest
                 .clickOk()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
-                .setTerritoryCode("005")    // This line had to be added because test would not proceed without this value
-                .setBCEG("05")              // This line had to be added because test would not proceed without this value
-                .setProtectionClassCode(protectionClassCode)
-                .setAtInceptionOfPolicyIsDeedOwnedByEntity("false")
+                .setMobileHomePark(mobileHomePark)
+                .next();
+                /*.setAtInceptionOfPolicyIsDeedOwnedByEntity("false")
                 .setResidenceType(residenceType)
                 .setDwellingUsage(dwellingUsage)
-                .setDwellingOccupancy(dwellingOccupance);
+                .setDwellingOccupancy(dwellingOccupance);*/
 
-        SCHO6Coverages coverages = dwelling.next()
+        Assert.assertFalse(dwellingConstruction.isMobileHomeTiedDown(),
+                "Is Mobile Home Tied Down was expected to be 'No' but it was 'Yes");
+
+        /*FLMH3Coverages coverages = dwellingConstruction.next()
                 .clickWindMitigation()
                 .setRoofShapeType(roofShapeType)
                 .next()
@@ -228,14 +232,14 @@ public class ProductModelSCHO6 extends BaseTest
         lossOfUsePercentage = coverages.getLossOfUseSelection();
         Assert.assertTrue(expectedLossOfUsePercentage.equals(lossOfUsePercentage),
                 "Loss Of Use Percentage was expected to be " + expectedLossOfUsePercentage +
-                        ", but it was " + lossOfUsePercentage);
-        lossOfUseLimit = coverages.getLossOfUseLimit(3);
+                        ", but it was " + lossOfUsePercentage);*/
+        /*lossOfUseLimit = coverages.getLossOfUseLimit(3);
         Assert.assertTrue(defaultLossOfUseLimit.equals(lossOfUseLimit),
-                        "Loss Of Use Limit was expected to be " + defaultLossOfUseLimit +
-                                ", but it was " + lossOfUseLimit);
+                "Loss Of Use Limit was expected to be " + defaultLossOfUseLimit +
+                        ", but it was " + lossOfUseLimit);
 
 
-        /* Section I Deductibles */
+        *//* Section I Deductibles *//*
         Assert.assertFalse(coverages.isWindExcluded(4),
                 "Deductibles Wind Excluded was expected to be 'No' but it was 'Yes'");
         allOtherPerils = coverages.getAllOtherPerils();
@@ -247,15 +251,15 @@ public class ProductModelSCHO6 extends BaseTest
                 "" + defaultHurricaneDeductible +
                         ", but it was " + hurricaneDeductible);
 
-        /* Medical Payments */
+        *//* Medical Payments *//*
         medicalPaymentsLimit = coverages.getMedicalPaymentsLimit();
         Assert.assertTrue(defaultMedicalPaymentsLimit.equals(medicalPaymentsLimit),
                 "Medical Payments Limit was expected to be " + defaultMedicalPaymentsLimit +
                         ", but it was " + medicalPaymentsLimit);
 
-        SCHO6Coverages.SCHO6PropertyEndorsements pe = coverages.clickPropertyEndorsements();
+        FLMH3Coverages.FLMH3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
 
-        /* Property Endorsements */
+        *//* Property Endorsements *//*
         Assert.assertFalse(pe.isSpecificOtherStructuresChecked(),
                 "Specific Other Structures was not expected to be checked but it was");
         Assert.assertFalse(pe.isScheduledPersonalPropertyChecked(),
@@ -265,7 +269,7 @@ public class ProductModelSCHO6 extends BaseTest
                 "Credit Card was expected to be " + defaultCreditCard +
                         ", but it was " + creditCard);
 
-        /* Limited Fungi, Wet or dry Rot, or Bacteria */
+        *//* Limited Fungi, Wet or dry Rot, or Bacteria *//*
         fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
         Assert.assertTrue(defaultFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
                 "Limit Fungi, Wet or Dry Rot... Occurrence/Aggregate Limit " + defaultFungiOccurrenceAggregateLimit +
@@ -301,9 +305,9 @@ public class ProductModelSCHO6 extends BaseTest
                 "Water Back Up Limit was expected to be " + defaultWaterBackUpLimit +
                         ", but it was " + waterBackUpLimit);
 
-        SCHO6Coverages.SCHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+        FLMH3Coverages.FLMH3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
 
-        /* Liability Endorsements */
+        *//* Liability Endorsements *//*
         Assert.assertFalse(le.isPermittedIncidentalOccupancyLiabilityChecked(),
                 "Permitted Incidental Occupancy Liability was not expected to be checked but it was");
         Assert.assertFalse(le.isAdditionalResidenceRentedToOthersChecked(),
@@ -311,7 +315,7 @@ public class ProductModelSCHO6 extends BaseTest
         Assert.assertFalse(le.isBusinessPursuitsChecked(),
                 "Business Pursuits was not expected to be checked but it was");
         Assert.assertFalse(le.isWatercraftLiabilityChecked(),
-                "Watercraft Liability was not expected to be checked but it was");
+                "Watercraft Liability was not expected to be checked but it was");*/
     }
 
     @AfterMethod(alwaysRun = true)
