@@ -483,6 +483,11 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T DwellingQuote(){
+		sh.waitForNoMask();
+		sh.clickElement(by.Quote);
+		return (T) this;
+	}
 
 	public class DwellingBy{
 
@@ -518,8 +523,10 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								editLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:EditDwellingLocation-itemEl"),
 								weeksRentedAnnually = By.id(dwellingBase + "WeeksRentedAnually_fli-inputEl"),
 								minimumRentalIncrement = By.id(dwellingBase + "RentalIncrementType_fli-inputEl"),
-								dwellingLeftMenu = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']/div/span[text()='Dwelling']"),
-							//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
+								dwellingLeftMenu = By.id("SubmissionWizard:Prev-btnInnerEl"),
+                 				Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+
+		//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
 
 								// Protection Details

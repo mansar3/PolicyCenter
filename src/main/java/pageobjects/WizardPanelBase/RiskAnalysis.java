@@ -97,10 +97,24 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 	}
 
+	protected T editPolicyTransaction(){
+		sh.waitForNoMask();
+		sh.clickElement(by.editPolicyTransaction);
+		return (T) this;
+	}
+
+	protected T accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
+	}
+
 	protected T coveragesback()
 	{
-		clickBack();
 		sh.waitForNoMask();
+		clickBack();
 		return (T) this;
 	}
 
@@ -188,7 +202,8 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 				            usissuebind1 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:1:UWIssueRowSet:ShortDescription"),
 		                    uwissuebind2 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:2:UWIssueRowSet:ShortDescription"),
 		                    uwissuebind3 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:3:UWIssueRowSet:ShortDescription"),
-	                     	underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']");
+	                     	underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']"),
+		                    editPolicyTransaction= By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 
 	}
 

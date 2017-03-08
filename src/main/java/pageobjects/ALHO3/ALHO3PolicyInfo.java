@@ -111,6 +111,17 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 	 	return super.getMailingAddress();
 	 }
 
+	public ALHO3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new ALHO3Quote(sh, path);
+	}
+
+	public ALHO3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new ALHO3PreQuoteIssues(sh, path);
+	}
 	 public String getVerificationStatus()
 	 {
 	 	return super.getVerificationStatus();

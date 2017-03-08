@@ -23,6 +23,17 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.getDwellingLimit();
 	}
 
+	public ALHO3Quote coveragesQuote(){
+		super.CoverageQuote();
+		return new ALHO3Quote(sh, path );
+	}
+
+	public ALHO3PreQuoteIssues  coveragesquoteWithIssues()
+	{
+		super.CoverageQuote();
+		return new ALHO3PreQuoteIssues(sh, path);
+	}
+
 	public ALHO3Coverages setDwellingLimit(String text)
 	{
 		return super.setDwellingLimit(text);

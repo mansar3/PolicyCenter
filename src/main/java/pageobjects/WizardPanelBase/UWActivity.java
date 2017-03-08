@@ -21,23 +21,25 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 
 	static class UWActivityBy
 	{
-		final static  By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
+		final  static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
 				        getAssignTo = By.id("UWActivityPopup:NewActivityDV:SelectFromList-inputEl"),
-		                Cancel = By.id("UWActivityPopup:Cancel-btnInnerEl");
+		                Cancel = By.id("UWActivityPopup:Cancel-btnInnerEl"),
+		                description = By.id("UWActivityPopup:NewActivityDV:Description-inputEl");
 	}
 
-	protected String getAssignTo(){
+	public String getAssignTo(){
 		return sh.getValue(by.getAssignTo);
 	}
+	public String getDescription() { return sh.getText(by.description);}
 
-	protected T clickSendRequest()
+	public T clickSendRequest()
 	{
-		sh.clickElement(by.sendRequest);
+		sh.getValue(by.sendRequest);
 		return (T)this;
 	}
-	protected  T clickCancel()
+	public  T clickCancel()
 	{
-		sh.clickElement(by.Cancel);
+		sh.getValue(by.Cancel);
 		return (T) this;
 	}
 
