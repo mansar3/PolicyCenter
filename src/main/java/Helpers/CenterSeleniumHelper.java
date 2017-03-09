@@ -274,7 +274,8 @@ public class CenterSeleniumHelper
 
 	public boolean isFieldMarkedRequired(By by)
 	{
-		return driver.findElement(by).findElement(By.xpath("../../../..")).getAttribute("class").contains("g-required");
+		return driver.findElement(by).findElement(By.xpath("../../../..")).getAttribute("class").contains("g-required")
+				|| driver.findElement(by).findElement(By.xpath("../..")).getAttribute("class").contains("g-required");
 	}
 
 	public boolean isElementEnabled(By by)

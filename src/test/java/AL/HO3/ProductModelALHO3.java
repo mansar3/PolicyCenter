@@ -364,7 +364,8 @@ public class ProductModelALHO3 extends BaseTest
     @Test(description = "AL.HO3.ProductModel.More.001")
     public void productModelMoreCoverageALHO3(ITestContext itc)
     {
-        /* Declare Variables */
+
+    /* Declare Variables */
         String firstname = "ALHO3Ricky0308042946";
         String lastname = "Bobby0308042946";
 //        firstname = String.format("Ricky%s", dateString);
@@ -384,9 +385,9 @@ public class ProductModelALHO3 extends BaseTest
         String personalPropertyLimit,
                 expectedPersonalPropertyLimit = "420,000";
         String personalPropertyValuationMethod,
-                defaultPersonalPropertyValuationMethod = "Replacement Cost";
+                defaultPersonalPropertyValuationMethod = "Replacement Cost Value";
         String lossOfUseSelection, expectedLossOfUseSelection = "20%";
-        String  personalLiabilityLimit,
+        String personalLiabilityLimit,
                 expectedPersonalLiabilityLimit = "300,000";
         String creditCardLimit, defaultCreditCardLimit = "5,000";
         String fungiOccurrenceAggregateLimit,
@@ -397,7 +398,7 @@ public class ProductModelALHO3 extends BaseTest
         String waterBackUpLimit, expectedWaterBackUpLimit = "5,000";
         String inflationGuardAnnualIncrease, expectedInflationGuardAnnualIncrease = "4%";
 
-        /* Begin Test */
+    /* Begin Test */
         log(itc.getName());
 
         enterAccountInformation = new ALHO3EnterAccountInformation(sh);
@@ -420,14 +421,14 @@ public class ProductModelALHO3 extends BaseTest
 
         System.out.println(expectedOfferingSelection);
         Assert.assertTrue(expectedOfferingSelection.equals(offeringSelection),
-                "Expected Offering Selection was " + offeringSelection +", but it was " + expectedOfferingSelection);
+                "Expected Offering Selection was " + offeringSelection + ", but it was " + expectedOfferingSelection);
 
         ALHO3Coverages coverages = afs.clickCoveragesALHO3();
 
         // Answer 'no' to all 8 questions
-        /*for (int i=0; i< 8; i++) {
-            qualification.questionnaire.answerNo(i+1);
-        }*/
+    /*for (int i=0; i< 8; i++) {
+        qualification.questionnaire.answerNo(i+1);
+    }*/
 
         coverages.setDwellingLimit(dwellingLimit);
 
@@ -438,10 +439,14 @@ public class ProductModelALHO3 extends BaseTest
 
 
         Assert.assertTrue(coverages.isPersonalPropertyExcludedRequired(),
-        "Personal Property Excluded was expected to be a required field but it was not");
+                "Personal Property Excluded was expected to be a required field but it was not");
         coverages.setPersonalPropertyExcluded("false");
 
-        /* Personal Property Limit */
+    /* Personal Property Limit */
+        personalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                        "Personal Property Limit was expected to be " + expectedPersonalPropertyLimit +
+                                ", but it was " + personalPropertyLimit);
         Assert.assertTrue(coverages.isPersonalPropertyLimitRequired(),
                 "Personal Property Limit was expected to be a required field but it was not");
         Assert.assertTrue(coverages.isPersonalPropertyLimitEnabled(),
@@ -451,17 +456,17 @@ public class ProductModelALHO3 extends BaseTest
                 "Personal Property limit was expected to be " + expectedPersonalPropertyLimit +
                         ", but it was " + personalPropertyLimit);
 
-        /* Personal Property Valuation */
+    /* Personal Property Valuation */
         Assert.assertTrue(coverages.isPersonalPropertyValuationMethodRequired(),
                 "Personal Property Valuation Method is expected to be a required field but it was not");
         Assert.assertTrue(coverages.isPersonalPropertyValuationMethodEnabled(),
                 "Personal Property Valuation Method is expected to be enabled but it is not");
         personalPropertyValuationMethod = coverages.getPersonalPropertyValuationMethod();
         Assert.assertTrue(defaultPersonalPropertyValuationMethod.equals(personalPropertyValuationMethod),
-                "Personal Property " + defaultPersonalPropertyValuationMethod +
-                        ", but it was " + personalPropertyLimit);
+                "Personal Property Valuation Method was expected to be " + defaultPersonalPropertyValuationMethod +
+                        ", but it was " + personalPropertyValuationMethod);
 
-        /* Loss of Use */
+    /* Loss of Use */
         Assert.assertTrue(coverages.isLossOfUseSelectionRequired(),
                 "Loss of Use Selection is expected to be a required field but it was not");
         Assert.assertTrue(coverages.isLossOfUseSelectionEnabled(),
@@ -471,32 +476,32 @@ public class ProductModelALHO3 extends BaseTest
                 "Expected Loss Of Use Selection was " + expectedLossOfUseSelection +
                         ", but it was " + lossOfUseSelection);
 
-        /* Personal Liability */
+    /* Personal Liability */
         personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
         Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
                 "Personal Liability limit was " + expectedPersonalLiabilityLimit +
                         ", but it was " + personalLiabilityLimit);
 
-        /* Property Endorsements */
+    /* Property Endorsements */
         ALHO3Coverages.ALHO3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
         creditCardLimit = pe.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
         Assert.assertTrue(defaultCreditCardLimit.equals(creditCardLimit),
-                        "Credit Card, Fund Transfer Card... was expected to be " + defaultCreditCardLimit +
-                                ", but it was " + creditCardLimit);
+                "Credit Card, Fund Transfer Card... was expected to be " + defaultCreditCardLimit +
+                        ", but it was " + creditCardLimit);
 
-        /* Fungi Occurrence/Aggregate */
+    /* Fungi Occurrence/Aggregate */
         fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
         Assert.assertTrue(expectedFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
                 "Fungi Occurrence/Aggregate Limit was expected to be " + expectedFungiOccurrenceAggregateLimit +
                         ", but it was " + fungiOccurrenceAggregateLimit);
 
-        /* Loss Assessment */
+    /* Loss Assessment */
         lossAssessmentLimit = pe.getLossAssessmentLimit();
         Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
                 "Loss Assessment Limit was expected to be " + expectedLossAssessmentLimit +
                         ", but it was " + lossAssessmentLimit);
 
-        /* Ordinance or Law */
+    /* Ordinance or Law */
         ordinanceOrLawLimit = pe.getOrdinanceOrLawLimit();
         Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
                 "Ordinance or Law Limit was expected to be " + expectedOrdinanceOrLawLimit +
@@ -504,7 +509,7 @@ public class ProductModelALHO3 extends BaseTest
         Assert.assertFalse(pe.isOrdinanceOrLawLimitEditable(),
                 "Ordinance or Law Limit was not expected to be editable bur it was");
 
-        /* Water Backup */
+    /* Water Backup */
         waterBackUpLimit = pe.getWaterBackUpLimit();
         Assert.assertTrue(expectedWaterBackUpLimit.equals(waterBackUpLimit),
                 "Water Back Up Limit is expected to be " + expectedWaterBackUpLimit +
@@ -512,7 +517,7 @@ public class ProductModelALHO3 extends BaseTest
         Assert.assertFalse(pe.isWaterBackUpLimitEditable(),
                 "Water Back Up Limit was not expected to be editable bur it was");
 
-        /* Inflation Guard */
+    /* Inflation Guard */
         pe.isInflationGuardChecked();
         inflationGuardAnnualIncrease = pe.getPercentageOfAnnualIncrease();
         Assert.assertTrue(expectedInflationGuardAnnualIncrease.equals(inflationGuardAnnualIncrease),

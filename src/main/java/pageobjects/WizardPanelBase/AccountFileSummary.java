@@ -40,6 +40,7 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 
 	protected T clickCoverages()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.coverages);
 		return (T)this;
 	}
