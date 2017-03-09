@@ -129,23 +129,36 @@ public class NCHOWDwelling extends Dwelling<NCHOWDwelling> {
             return new NCHOWDwellingConstruction(sh, path);
         }
 
-		public NCHOWProtectionDetails setGatedCommunity(String flag)
-		{
-			return super.setGatedCommunity(flag);
-		}
+        public NCHOWProtectionDetails setLockedPrivacyFence(String flag)
+        {
+            return super.setLockedPrivacyFence(flag);
+        }
 
         public NCHOWProtectionDetails setCommunityGuarded(String flag)
         {
             return super.setCommunityGuarded(flag);
         }
-        public NCHOWProtectionDetails setLockedPrivacyFence(String flag)
+
+
+      	public NCHOWProtectionDetails setGatedCommunity(String flag)
 		{
-			return super.setLockedPrivacyFence(flag);
+			return super.setGatedCommunity(flag);
 		}
+
+
+
 
         public NCHOWProtectionDetails clickProtectionDetailsenter(){return super.clickProtectionDetailsEnter();}
 
+        public NCHOWProtectionDetails setFireAlarmType(String text)
+        {
+            return super.setFireAlarmType(text);
+        }
 
+        public String getFireAlarmType()
+        {
+            return super.getFireAlarmType();
+        }
 
 
 

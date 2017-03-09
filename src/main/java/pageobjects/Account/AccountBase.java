@@ -30,12 +30,18 @@ abstract class AccountBase
         }
         public class WestPanelBy
         {
-            By  clickContacts = By.xpath(".//*[@id='AccountFile:MenuLinks:AccountFile_AccountFile_Contacts']/div/span");
+            By  clickContacts = By.xpath(".//*[@id='AccountFile:MenuLinks:AccountFile_AccountFile_Contacts']/div/span"),
+                clickPolicyTransaction = By.xpath(".//*[@id='AccountFile:MenuLinks:AccountFile_AccountFile_WorkOrders']/div/span");
         }
         public AccountFileContacts clickContacts()
         {
             sh.clickElement(by.clickContacts);
             return new AccountFileContacts(sh);
+        }
+        public AccountFilePolicyTransactions clickPolicyTransaction()
+        {
+            sh.clickElement(by.clickPolicyTransaction);
+            return new AccountFilePolicyTransactions(sh);
         }
     }
 }

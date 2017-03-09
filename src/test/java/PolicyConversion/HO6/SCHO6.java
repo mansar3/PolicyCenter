@@ -655,7 +655,7 @@ public class SCHO6 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
 				pe.checkWaterBackUp();
 
 

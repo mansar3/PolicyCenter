@@ -52,6 +52,31 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 
 	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
 
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public ALHO3RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public ALHO3RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
+	}
+
+
 
 	public ALHO3UWActivity riskAnalysisRequestApproval()
 	{

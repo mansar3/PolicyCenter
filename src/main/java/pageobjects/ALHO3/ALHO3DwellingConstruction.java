@@ -345,6 +345,13 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 			return super.setRoofCover(text);
 		}
 
+		public ALHO3Dwelling winddwellingback()
+		{
+			super.WinddwellingBack();
+			return new ALHO3Dwelling(sh,path);
+		}
+
+
 		public String getRoofCover()
 		{
 			return super.getRoofCover();
