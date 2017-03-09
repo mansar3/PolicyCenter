@@ -16,7 +16,6 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		waitForTitle(sh);
 		setID(path);
 		by = new PolicyInfoBy();
-
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 	}
 
@@ -67,11 +66,18 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 						policyType = By.id(policyBase + "PolicyInfoInputSet:HOPolicyType-inputEl"),
 						expirationDate = By.id(policyBase + "PolicyInfoInputSet:ExpirationDate-inputEl"),
 						writtenDate = By.id(policyBase + "PolicyInfoInputSet:WrittenDate-inputEl"),
-						baseState = By.id(policyBase + "PolicyInfoInputSet:BaseState-inputEl");
+						baseState = By.id(policyBase + "PolicyInfoInputSet:BaseState-inputEl"),
+		                quote = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
 
 
 
 
+	}
+	protected T PolicyInfoQuote()
+	{
+		sh.waitForNoMask();
+		sh.clickElement(by.quote);
+		return (T) this;
 	}
 
 	protected T dwellingNext()

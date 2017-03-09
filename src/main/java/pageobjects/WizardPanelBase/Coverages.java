@@ -362,8 +362,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	}
 	protected T dwellingConstructionBack()
 	{
-		clickBack();
 		sh.waitForNoMask();
+		clickBack();
 		return (T)this;
 	}
 
@@ -469,6 +469,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T CoverageQuote(){
+		sh.waitForNoMask();
+		sh.clickElement(by.Quote);
+		return (T) this;
+	}
 
 
 	public class CoveragesBy
@@ -507,9 +512,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
-				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
+				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
+				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
 
-								//creditValue = By.id("")
+
+		//creditValue = By.id("")
 	}
 
 	protected boolean isPersonalLiabilityLabelRequired()

@@ -34,6 +34,19 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		return super.dwellingErrorMessage();
 	}
 
+	public ALHO3Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new ALHO3Quote(sh, path);
+	}
+
+	public ALHO3PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new ALHO3PreQuoteIssues(sh, path);
+	}
+
+
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();
