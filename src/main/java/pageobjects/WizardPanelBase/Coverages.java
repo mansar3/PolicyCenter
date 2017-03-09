@@ -4,6 +4,7 @@ import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.Keys;
+import org.testng.util.Strings;
 
 public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 {
@@ -207,7 +208,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected String getPersonalPropertyValuationMethod()
 	{
 		sh.waitForNoMask();
-		return sh.getValue(by.personalPropertyValuationMethod);
+		return Strings.isNullOrEmpty(sh.getValue(by.personalPropertyValuationMethod)) ?
+				sh.getText(by.personalPropertyValuationMethod) :
+				sh.getValue(by.personalPropertyValuationMethod);
 	}
 
 	protected T setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
@@ -517,7 +520,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
-								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']///div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
+								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
 
