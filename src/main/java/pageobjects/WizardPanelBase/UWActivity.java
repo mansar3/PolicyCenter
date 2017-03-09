@@ -30,14 +30,14 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 	public String getAssignTo(){
 		return sh.getValue(by.getAssignTo);
 	}
-	public String getDescription() { return sh.getText(by.description);}
+	public String getDescription() { return sh.getValue(by.description);}
 
 	public T clickSendRequest()
 	{
 		sh.getValue(by.sendRequest);
 		return (T)this;
 	}
-	public  T clickCancel()
+	public  T clickcancel()
 	{
 		sh.getValue(by.Cancel);
 		return (T) this;

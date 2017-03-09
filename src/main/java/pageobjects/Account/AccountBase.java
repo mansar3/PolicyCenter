@@ -40,6 +40,7 @@ abstract class AccountBase
         }
         public AccountFilePolicyTransactions clickPolicyTransaction()
         {
+            sh.waitForNoMask();
             sh.clickElement(by.clickPolicyTransaction);
             return new AccountFilePolicyTransactions(sh);
         }

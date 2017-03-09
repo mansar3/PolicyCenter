@@ -280,6 +280,16 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 	{
 		return super.setAnimalsOrExoticPets(flag);
 	}
+	public ALHO3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public ALHO3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public ALHO3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public ALHO3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public ALHO3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public ALHO3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public ALHO3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
+
+
+
 	public ALHO3Dwelling setGolfCarts(String flag)
 	{
 		return super.setGolfCarts(flag);
