@@ -488,6 +488,55 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		sh.clickElement(by.Quote);
 		return (T) this;
 	}
+	protected T addExoticAnimal()
+	{
+		sh.clickElement(by.exoticAnimalTableAdd);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T removeExoticAnimal()
+	{
+		sh.clickElement(by.exoticAnimalTableRemove);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T checkExoticAnimalRow(int rowNumber)
+	{
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[1]//img)[1]"));
+		return (T)this;
+	}
+
+	protected T setExoticAnimalType(int rowNumber, String type)
+	{
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[2]//div)[1]"));
+		sh.waitForElementToAppear(By.name("AnimalType"));
+		sh.setText(By.name("AnimalType"), type);
+		return (T)this;
+	}
+
+	protected T setExoticAnimalBreed(int rowNumber, String breed)
+	{
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[3]//div)[1]"));
+		sh.waitForElementToAppear(By.name("AnimalBreed"));
+		sh.setText(By.name("AnimalBreed"), breed);
+		return (T)this;
+	}
+
+	protected T setExoticAnimalDescription(int rowNumber, String description)
+	{
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[2]//div)[1]"));
+		// Description field will not change to an input field.
+		return (T)this;
+	}
+
+	protected T setExoticAnimalBiteHistory(int rowNumber, String flag)
+	{
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag + " '])[1]"));
+		return (T)this;
+	}
+
+
+
 
 	public class DwellingBy{
 
@@ -516,7 +565,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								allCheckBoxesYes = By.xpath(".//input[contains(@id, 'true')]"),
 								poolLocation = By.id(dwellingBase + "SwimmingPoolType_fli-inputEl"),
 								fenceType = By.id(dwellingBase + "SwimmingPoolFenceType_fli-inputEl"),
-								exoticAnimalTableID = By.id(dwellingBase + "1"),
+								exoticAnimalTableAdd = By.xpath("//*[@id ='" + dwellingBase + "AnimalListViewInput-tbody']//span[text() = 'A']"),
+								exoticAnimalTableRemove = By.xpath("//*[@id ='" + dwellingBase + "AnimalListViewInput-tbody']//span[text() = 'R']"),
 								windpoolZone = By.id(dwellingBase + "WindpoolType_fli-inputEl"),
 								locationDropDown = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:HODwellingLocationInputMenuIcon"),
 								newLocation = By.id(dwellingBase + "HODwellingLocationHOEInputSet:HODwellingLocationInput:NewGarageLocation-itemEl"),
