@@ -9,6 +9,15 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 {
 	private QualificationBy by = new QualificationBy();
 	public Questionnaire questionnaire;
+
+	public Qualification(CenterSeleniumHelper sh)
+	{
+		this.sh = sh;
+		expectedPanelTitle = "Qualification";
+		waitForTitle(sh);
+		System.out.println("Navigated to page: " + expectedPanelTitle);
+		questionnaire = new Questionnaire(sh);
+	}
 	public Qualification(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;

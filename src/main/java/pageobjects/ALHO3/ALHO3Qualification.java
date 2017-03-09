@@ -5,6 +5,10 @@ import pageobjects.WizardPanelBase.Qualification;
 
 public class ALHO3Qualification extends Qualification<ALHO3Qualification>
 {
+	public ALHO3Qualification(CenterSeleniumHelper sh)
+	{
+		super(sh);
+	}
 	public ALHO3Qualification(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);

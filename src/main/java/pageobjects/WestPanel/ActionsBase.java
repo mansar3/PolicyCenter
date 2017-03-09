@@ -7,9 +7,11 @@ abstract public class ActionsBase
 {
 	protected CenterSeleniumHelper sh;
 	private ActionsBaseBy by;
-	abstract static class ActionsBaseBy{
+	abstract static class ActionsBaseBy
+	{
 		public static final By actions = By.cssSelector("#westPanel .x-btn-button"),
-							   newSubmission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl");
+				               newSubmission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl"),
+				               copySubmission = By.id("SubmissionWizard:WizardMenuActions:WizardMenuActions_Create:WizardMenuActions_CopySubmission-itemEl");
 	}
 
 	public void clickActions()
@@ -21,5 +23,10 @@ abstract public class ActionsBase
 	public void clickNewSubmission()
 	{
 		sh.clickElement(by.newSubmission);
+	}
+
+	public void clickCopySubmission()
+	{
+		sh.clickElement(by.copySubmission);
 	}
 }

@@ -7,6 +7,7 @@ import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -47,6 +48,12 @@ public class ProductModelALHO3 extends BaseTest
         String user = "Su", password = "";
         login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
+
+        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+        Actions build = new Actions(driver);
+        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
+        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
     }
 
     @Test(description = "Creates account for Alabama HO3 product")
@@ -111,12 +118,12 @@ public class ProductModelALHO3 extends BaseTest
 
     @Test(description = "AL.HO3.ProductModel.Most.001"/*, dependsOnMethods =
             { "createPersonAccountALHO3" }*/)
-    public void productModelMostPopular(ITestContext itc)
+    public void productModelMostPopularALHO3(ITestContext itc)
     {
         log(itc.getName());
 
-        String firstname = "Ricky0209015449";
-        String lastname = "Bobby0209015449";
+/*        String firstname = "Ricky0209015449";
+        String lastname = "Bobby0209015449";*/
 //        firstname = String.format("Ricky%s", dateString);
 //        lastname = String.format("Bobby%s", dateString);
 
@@ -155,14 +162,12 @@ public class ProductModelALHO3 extends BaseTest
         String waterBackUpLimit, expectedWaterBackUpLimit = "5,000";
         String inflationGuardAnnualIncrease, expectedInflationGuardAnnualIncrease = "4%";
 
-
-
-        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
-        ALHO3SearchAccounts sa = nb.clickSearchAccount();
-        ALHO3AccountFileSummary afs = sa.setFirstName(firstname)
+        enterAccountInformation = new ALHO3EnterAccountInformation(sh);
+        ALHO3AccountFileSummary afs = enterAccountInformation
+                .setFirstName(firstname)
                 .setLastName(lastname)
-                .clickSearchButton()
-                .clickAccountNumberSearchAccount();
+                .clickSearch()
+                .clickAccountNumberALHO3();
 
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
@@ -357,25 +362,164 @@ public class ProductModelALHO3 extends BaseTest
     }
 
     @Test(description = "AL.HO3.ProductModel.More.001")
-    public void productModelMoreCoverage(ITestContext itc)
+    public void productModelMoreCoverageALHO3(ITestContext itc)
     {
-        String firstname = "Ricky";
-        String lastname = "Bobby";
+        /* Declare Variables */
+        String firstname = "ALHO3Ricky0308042946";
+        String lastname = "Bobby0308042946";
+//        firstname = String.format("Ricky%s", dateString);
+//        lastname = String.format("Bobby%s", dateString);
 
-        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
+        String policyType = "Homeowners (HO3)";
+        String expectedOfferingSelection, offeringSelection = "More Coverage";
+        String county = "Mobile";
+        String yearBuilt = "2000";
+        String distanceToFireHydrant = "60";
+        String protectionClassCode,
+                expectedProtectionClassCode = "5";
+        String roofShapeType = "Gable";
+        String dwellingLimit = "600000";
+        String otherStructuresPercentage,
+                expectedOtherStructuresPercentage = "2%";
+        String personalPropertyLimit,
+                expectedPersonalPropertyLimit = "420,000";
+        String personalPropertyValuationMethod,
+                defaultPersonalPropertyValuationMethod = "Replacement Cost";
+        String lossOfUseSelection, expectedLossOfUseSelection = "20%";
+        String  personalLiabilityLimit,
+                expectedPersonalLiabilityLimit = "300,000";
+        String creditCardLimit, defaultCreditCardLimit = "5,000";
+        String fungiOccurrenceAggregateLimit,
+                expectedFungiOccurrenceAggregateLimit = "50,000 / 50,000";
+        String lossAssessmentLimit,
+                expectedLossAssessmentLimit = "10,000";
+        String ordinanceOrLawLimit, expectedOrdinanceOrLawLimit = "10%";
+        String waterBackUpLimit, expectedWaterBackUpLimit = "5,000";
+        String inflationGuardAnnualIncrease, expectedInflationGuardAnnualIncrease = "4%";
 
-        ALHO3SearchAccounts sa = nb.clickSearchAccount();
+        /* Begin Test */
         log(itc.getName());
-        sa.setFirstName(firstname)
+
+        enterAccountInformation = new ALHO3EnterAccountInformation(sh);
+        ALHO3AccountFileSummary afs = enterAccountInformation
+                .setFirstName(firstname)
                 .setLastName(lastname)
-                .clickSearchButton()
-                .clickAccountNumberSearchAccount();
+                .clickSearch()
+                .clickAccountNumberALHO3()
+                .clickTransactionNumber();
         System.out.println(String.format("%s, %s", firstname, lastname));
 
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+        afs.westPanel.actions.clickActions();
+        afs.westPanel.actions.clickCopySubmission();
+        ALHO3Qualification qualification = new ALHO3Qualification(sh);
+
+        expectedOfferingSelection = qualification
+                .setPolicyType(policyType)
+                .setOfferingSelection(offeringSelection)
+                .getOfferingSelection();
+
+        System.out.println(expectedOfferingSelection);
+        Assert.assertTrue(expectedOfferingSelection.equals(offeringSelection),
+                "Expected Offering Selection was " + offeringSelection +", but it was " + expectedOfferingSelection);
+
+        ALHO3Coverages coverages = afs.clickCoveragesALHO3();
+
+        // Answer 'no' to all 8 questions
+        /*for (int i=0; i< 8; i++) {
+            qualification.questionnaire.answerNo(i+1);
+        }*/
+
+        coverages.setDwellingLimit(dwellingLimit);
+
+        otherStructuresPercentage = coverages.getOtherStructuresPercentage();
+        Assert.assertTrue(expectedOtherStructuresPercentage.equals(otherStructuresPercentage),
+                "Expected Other Structures Percentage was " + expectedOtherStructuresPercentage +
+                        ", but it was " + otherStructuresPercentage);
+
+
+        Assert.assertTrue(coverages.isPersonalPropertyExcludedRequired(),
+        "Personal Property Excluded was expected to be a required field but it was not");
+        coverages.setPersonalPropertyExcluded("false");
+
+        /* Personal Property Limit */
+        Assert.assertTrue(coverages.isPersonalPropertyLimitRequired(),
+                "Personal Property Limit was expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isPersonalPropertyLimitEnabled(),
+                "Personal Property Limit was expected to be enabled but it was not");
+        personalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                "Personal Property limit was expected to be " + expectedPersonalPropertyLimit +
+                        ", but it was " + personalPropertyLimit);
+
+        /* Personal Property Valuation */
+        Assert.assertTrue(coverages.isPersonalPropertyValuationMethodRequired(),
+                "Personal Property Valuation Method is expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isPersonalPropertyValuationMethodEnabled(),
+                "Personal Property Valuation Method is expected to be enabled but it is not");
+        personalPropertyValuationMethod = coverages.getPersonalPropertyValuationMethod();
+        Assert.assertTrue(defaultPersonalPropertyValuationMethod.equals(personalPropertyValuationMethod),
+                "Personal Property " + defaultPersonalPropertyValuationMethod +
+                        ", but it was " + personalPropertyLimit);
+
+        /* Loss of Use */
+        Assert.assertTrue(coverages.isLossOfUseSelectionRequired(),
+                "Loss of Use Selection is expected to be a required field but it was not");
+        Assert.assertTrue(coverages.isLossOfUseSelectionEnabled(),
+                "Loss of Use Selection is expected to be enabled but it was not");
+        lossOfUseSelection = coverages.getLossOfUseSelection();
+        Assert.assertTrue(expectedLossOfUseSelection.equals(lossOfUseSelection),
+                "Expected Loss Of Use Selection was " + expectedLossOfUseSelection +
+                        ", but it was " + lossOfUseSelection);
+
+        /* Personal Liability */
+        personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
+        Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
+                "Personal Liability limit was " + expectedPersonalLiabilityLimit +
+                        ", but it was " + personalLiabilityLimit);
+
+        /* Property Endorsements */
+        ALHO3Coverages.ALHO3PropertyEndorsements pe = coverages.clickPropertyEndorsements();
+        creditCardLimit = pe.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
+        Assert.assertTrue(defaultCreditCardLimit.equals(creditCardLimit),
+                        "Credit Card, Fund Transfer Card... was expected to be " + defaultCreditCardLimit +
+                                ", but it was " + creditCardLimit);
+
+        /* Fungi Occurrence/Aggregate */
+        fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
+        Assert.assertTrue(expectedFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
+                "Fungi Occurrence/Aggregate Limit was expected to be " + expectedFungiOccurrenceAggregateLimit +
+                        ", but it was " + fungiOccurrenceAggregateLimit);
+
+        /* Loss Assessment */
+        lossAssessmentLimit = pe.getLossAssessmentLimit();
+        Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
+                "Loss Assessment Limit was expected to be " + expectedLossAssessmentLimit +
+                        ", but it was " + lossAssessmentLimit);
+
+        /* Ordinance or Law */
+        ordinanceOrLawLimit = pe.getOrdinanceOrLawLimit();
+        Assert.assertTrue(expectedLossAssessmentLimit.equals(lossAssessmentLimit),
+                "Ordinance or Law Limit was expected to be " + expectedOrdinanceOrLawLimit +
+                        ", but it was " + ordinanceOrLawLimit);
+        Assert.assertFalse(pe.isOrdinanceOrLawLimitEditable(),
+                "Ordinance or Law Limit was not expected to be editable bur it was");
+
+        /* Water Backup */
+        waterBackUpLimit = pe.getWaterBackUpLimit();
+        Assert.assertTrue(expectedWaterBackUpLimit.equals(waterBackUpLimit),
+                "Water Back Up Limit is expected to be " + expectedWaterBackUpLimit +
+                        ", but it was " + waterBackUpLimit);
+        Assert.assertFalse(pe.isWaterBackUpLimitEditable(),
+                "Water Back Up Limit was not expected to be editable bur it was");
+
+        /* Inflation Guard */
+        pe.isInflationGuardChecked();
+        inflationGuardAnnualIncrease = pe.getPercentageOfAnnualIncrease();
+        Assert.assertTrue(expectedInflationGuardAnnualIncrease.equals(inflationGuardAnnualIncrease),
+                "Inflation Guard Annual Increase was expected to be " + expectedInflationGuardAnnualIncrease +
+                        ", but it was " + inflationGuardAnnualIncrease);
+
+        coverages.clickSaveDraftCoverages();
     }
 
     @AfterMethod(alwaysRun = true)

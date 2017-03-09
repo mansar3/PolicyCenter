@@ -34,6 +34,7 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
 
     public T clickAccountTab()
     {
+        sh.waitForNoMask();
         sh.clickElement(by.accountTab);
         return (T)this;
     }

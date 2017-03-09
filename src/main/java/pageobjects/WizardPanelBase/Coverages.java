@@ -141,6 +141,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return (T)this;
 	}
 
+	protected boolean isPersonalPropertyExcludedRequired()
+	{
+		return sh.isFieldMarkedRequired(by.personalPropertyExcluded);
+	}
+
 	/** TODO I have to get back to this method later and make it prettier
 	 *  Verifies whether Yes or No button is selected, throws error
 	 *  if both or neither are selected
@@ -484,7 +489,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								otherStructuresPercentageDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//div/div"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
-								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:4:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:1:CovTermInputSet:DirectTermInput-inputEl']"),
+								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text()='Loss Of Use']/../..//*[@role='textbox']"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
 								lossOfUseSelectionDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//div/div"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
@@ -507,6 +512,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								occurrenceAggregateLimit = By.xpath(".//*[@id'" + coveragesBase + "dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup-innerCt']//label[text() = 'Occurrence/Aggregate Limit']/../..//input"),
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
+								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']///div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl");
 
 								//creditValue = By.id("")

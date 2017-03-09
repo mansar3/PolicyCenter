@@ -16,4 +16,10 @@ public class ALHO3AccountFileSummary extends AccountFileSummary<ALHO3AccountFile
 	{
 		return super.getAccountNumber();
 	}
+
+	public ALHO3Coverages clickCoveragesALHO3()
+	{
+		super.clickCoverages();
+		return new ALHO3Coverages(sh, path);
+	}
 }

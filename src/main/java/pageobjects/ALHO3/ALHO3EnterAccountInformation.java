@@ -29,6 +29,12 @@ public class ALHO3EnterAccountInformation extends EnterAccountInformation<ALHO3E
 		super.createNewPersonAccount();
 		return new ALHO3CreateAccount(sh);
 	}
+
+	public ALHO3AccountFileSummary clickAccountNumberALHO3()
+	{
+		super.clickAccountNumber();
+		return new ALHO3AccountFileSummary(sh);
+	}
 //	public ALHO3SearchAddressBook createFromAddressBook()
 //	{
 //		super.searchFromAddressBookAccount();

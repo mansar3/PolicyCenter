@@ -168,6 +168,11 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 
 	}
 
+	public boolean isPersonalPropertyExcludedRequired()
+	{
+		return super.isPersonalPropertyExcludedRequired();
+	}
+
 	public boolean isPersonalLiabilityLimitRequired()
 	{
 		return super.isPersonalLiabilityLabelRequired();
@@ -660,20 +665,6 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			super.liabilityEndorsementsNext();
 			return new ALHO3RiskAnalysis(sh, path);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 	
 }
