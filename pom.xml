@@ -6,7 +6,7 @@
 
     <groupId>com.frontlineinsurance</groupId>
     <artifactId>qa-centers</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <profiles>
 		<profile>
 			<id>PolicySubmission</id>
@@ -87,6 +87,17 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>test-jar</goal>
+                    </goals>
+                </execution>
+            </executions>
 			</plugin>
 		</plugins>
 	</build>
