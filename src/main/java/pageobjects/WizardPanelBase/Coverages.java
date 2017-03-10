@@ -713,6 +713,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T) this;
 		}
 
+
 		protected boolean isUnitOwnersCoverageASpecialCoverage()
 		{
 			return sh.checkboxHelper.isChecked(by.unitOwnersCoverageASpecialCoverage);
@@ -1118,6 +1119,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForNoMask();
 			return (T)this;
 		}
+
 
 		protected T clickRemoveScheduledPersonalProperty()
 		{

@@ -385,6 +385,12 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return new ALHO3Coverages(sh, path);
 		}
 
+		public ALHO3Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new ALHO3Quote(sh, path);
+			
+		}
 		public ALHO3PropertyEndorsements checkPermittedIncidentalOccupancy()
 		{
 			return super.checkPermittedIncidentalOccupancy();
@@ -555,6 +561,8 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.clickRemoveScheduledPersonalProperty();
 		}
+
+
 
 		public ALHO3PropertyEndorsements checkWaterBackUp()
 		{

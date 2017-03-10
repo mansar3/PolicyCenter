@@ -230,6 +230,7 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 	{
 		return super.setAnimalsOrExoticPets(flag);
 	}
+
 	public FLHO3Dwelling setGolfCarts(String flag)
 	{
 		return super.setGolfCarts(flag);

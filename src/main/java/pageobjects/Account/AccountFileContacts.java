@@ -58,6 +58,7 @@ public class AccountFileContacts extends AccountBase
 
         public T setSsn(String ssn)
         {
+            sh.waitForNoMask();
             sh.setText(by.ssn, ssn);
             return (T)this;
         }

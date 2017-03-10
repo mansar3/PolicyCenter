@@ -362,6 +362,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 	protected T setAnimalsOrExoticPets(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return (T)this;
@@ -508,6 +509,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setExoticAnimalType(int rowNumber, String type)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[2]//div)[1]"));
 		sh.waitForElementToAppear(By.name("AnimalType"));
 		sh.setText(By.name("AnimalType"), type);
@@ -516,6 +518,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setExoticAnimalBreed(int rowNumber, String breed)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[3]//div)[1]"));
 		sh.waitForElementToAppear(By.name("AnimalBreed"));
 		sh.setText(By.name("AnimalBreed"), breed);
@@ -524,6 +527,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setExoticAnimalDescription(int rowNumber, String description)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[2]//div)[1]"));
 		// Description field will not change to an input field.
 		return (T)this;
@@ -531,6 +535,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setExoticAnimalBiteHistory(int rowNumber, String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag + " '])[1]"));
 		return (T)this;
 	}

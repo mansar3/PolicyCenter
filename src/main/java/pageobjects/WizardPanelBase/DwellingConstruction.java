@@ -403,6 +403,13 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         return (T) this;
     }
 
+    protected T DwellingconstructionQuote(){
+        sh.waitForNoMask();
+        sh.clickElement(by.quote);
+        return (T) this;
+    }
+
+
     /**
      * @return true if answer is 'yes', false if 'no'
      */
@@ -469,7 +476,8 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
             //  ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
 
             //  Wind Mitigation
-                windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl");
+                windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl"),
+                quote= By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
 
 
     }

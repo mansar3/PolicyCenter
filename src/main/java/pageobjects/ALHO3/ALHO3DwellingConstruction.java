@@ -201,6 +201,10 @@ public class ALHO3DwellingConstruction extends DwellingConstruction<ALHO3Dwellin
 		return super.setElectricalSystemDescribeOther(text);
 	}
 
+	public ALHO3Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new ALHO3Quote(sh,path);
+	}
 	public String getElectricalSystemDescribeOther()
 	{
 		return super.getElectricalSystemDescribeOther();

@@ -22,10 +22,10 @@ public class ALHO3UWActivity extends UWActivity<ALHO3UWActivity>
 		super.clickSendRequest();
 		return new ALHO3RiskAnalysis(sh,path);
 	}
-	public ALHO3UWActivity clickCancel()
+	public ALHO3RiskAnalysis clickCancel()
 	{
-		super.clickCancel();
-		return new ALHO3UWActivity(sh,path);
+		super.clickcancel();
+		return new ALHO3RiskAnalysis(sh,path);
 	}
 	
 }
