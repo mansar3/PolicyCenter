@@ -408,17 +408,34 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
      */
     protected boolean isMobileHomeTiedDown()
     {
-        System.out.println(String.valueOf(sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownLabel)));
         boolean yesButton = sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownYes);
         boolean noButton = sh.isRadioButtonSelected(by.isTheMobileHomeTiedDownNo);
-        System.out.println("yesButton = " + String.valueOf(yesButton));
-        System.out.println("noButton = " + String.valueOf(noButton));
 
         if (!yesButton && !noButton)
             throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
         else if (yesButton && noButton)
             throw new WebDriverException("Both Yes and No radio buttons were selected");
         return yesButton;
+    }
+
+    protected boolean isConstructionTypeRequired()
+    {
+        return sh.isFieldMarkedRequired(by.constructionType);
+    }
+
+    protected boolean isFoundationTypeRequired()
+    {
+        return sh.isFieldMarkedRequired(by.foundationType);
+    }
+
+    protected boolean isMobileHomeFullySkirtedRequired()
+    {
+        return sh.isFieldMarkedRequired(by.isTheMobileHomeFullySkirted);
+    }
+
+    protected boolean isMobileHomeFullySkirted()
+    {
+        return sh.yesOrNoSelected(by.isTheMobileHomeFullySkirted);
     }
 
     public class DwellingConstructionBy {
@@ -448,6 +465,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                 isTheMobileHomeTiedDownLabel = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']"),
                 isTheMobileHomeTiedDownYes = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']/../../div/div/table/tbody/tr/td/div/div/div//label[text()='Yes']/../input"),
                 isTheMobileHomeTiedDownNo = By.xpath("//*[@id='" + dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']/../../div/div/table/tbody/tr/td/div/div/div//label[text()='No']/../input"),
+                isTheMobileHomeFullySkirted = By.xpath("//*[@id='" + dwellingConstructionBase +"MHConstructionDetail:IsMHTiedDown_fli-labelEl']//span[text()='Is the mobile home tied down?']"),
             //  ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
 
             //  Wind Mitigation
