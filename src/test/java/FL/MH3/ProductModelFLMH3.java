@@ -124,17 +124,17 @@ public class ProductModelFLMH3 extends BaseTest
 
     }
 
-    @Test(description = "FL.MH3.ProductModel.MoreCoverage003"/*, dependsOnMethods =
+    @Test(description = "FL.MH3.ProductModel.MostPopular001"/*, dependsOnMethods =
             { "createPersonAccountFLMH3" }*/)
-    public void productModelMoreCoverageFLMH3(ITestContext itc)
+    public void productModelMostPopularFLMH3(ITestContext itc)
     {
         log(itc.getName());
 
         /* Set Variables */
-//        String firstname = "Ricky0209015449";
-//        String lastname = "Bobby0209015449";
-        firstname = "FLMH3Ricky0307120907";
-        lastname = "Bobby0307120907";
+/*        String firstname = "Ricky0209015449";
+        String lastname = "Bobby0209015449";*/
+        firstname = "FLMH3Ricky0309031829";
+        lastname = "Bobby0309031829";
 
         String policyType = "Mobile Home (MH3)";
         String offeringSelection = "Most Popular";
@@ -142,16 +142,21 @@ public class ProductModelFLMH3 extends BaseTest
         String yearBuilt = "2000";
         String distanceToFireHydrant = "70";
         String mobileHomePark = "1 - Aberdeen at Ormond Beach";
-        String residenceType = "Condominium";
-        String dwellingUsage = "Primary";
-        String dwellingOccupance = "Owner Occupied";
-        String roofShapeType = "Gable";
-        String dwellingLimit = "340000";
+        String constructionType, defaultConstructionType = "Vinyl";
+        String foundationType, defaultFoundationType = "Continuous Masonry";
+        String dwellingLimit = "80000";
         String personalPropertyLimit,
                 expectedPersonalPropertyLimit = "50,000",
                 personalPropertyValuationMethod,
                 defaultPersonalPropertyValuationMethod = "Replacement Cost Value";
         String lossOfUsePercentage, expectedLossOfUsePercentage = "40%";
+
+        String residenceType = "Condominium";
+        String dwellingUsage = "Primary";
+        String dwellingOccupance = "Owner Occupied";
+        String roofShapeType = "Gable";
+
+
         String lossOfUseLimit, defaultLossOfUseLimit = "20,000";
         String allOtherPerils, defaultAllOtherPerils = "1,000";
         String hurricaneDeductible, defaultHurricaneDeductible = "2%";
@@ -204,6 +209,39 @@ public class ProductModelFLMH3 extends BaseTest
 
         Assert.assertFalse(dwellingConstruction.isMobileHomeTiedDown(),
                 "Is Mobile Home Tied Down was expected to be 'No' but it was 'Yes");
+
+        Assert.assertTrue(dwellingConstruction.isConstructionTypeRequired(),
+                "Construction Type was expected to be a required field but it was not");
+        constructionType = dwellingConstruction.getConstructionType();
+        Assert.assertTrue(defaultConstructionType.equals(constructionType),
+                        "Construction Type expected was " + defaultConstructionType +
+                                ", but it was " + constructionType);
+
+        Assert.assertTrue(dwellingConstruction.isFoundationTypeRequired(),
+                "Foundation Type was expected to be a required field but it was not");
+        foundationType = dwellingConstruction.getFoundationType();
+        Assert.assertTrue(defaultFoundationType.equals(foundationType),
+                        "Foundation Type expected was " + defaultFoundationType +
+                                ", but it was " + foundationType);
+
+        Assert.assertTrue(dwellingConstruction.isMobileHomeFullySkirtedRequired(),
+                "Is Mobile Home Fully Skirted expected to be a required field but it was not");
+        Assert.assertFalse(dwellingConstruction.isMobileHomeFullySkirted(),
+                "Is Mobile Home Fully Skirted expected to be 'No' but it was 'Yes'");
+        dwellingConstruction.setIsTheMobileHomeFullySkirted("true");
+
+        FLMH3Coverages coverages = dwellingConstruction.next();
+        dwellingLimit = coverages.getDwellingLimit();
+        Assert.assertTrue(dwellingLimit.equals(""),
+                "Dwelling Limit was expected to be blank but it was " + dwellingLimit);
+        coverages.setDwellingLimit(dwellingLimit);
+
+        /* Personal Property */
+        coverages.isPersonalPropertyLimitRequired();
+        personalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                        "Personal Property Limit was expected to be " + expectedPersonalPropertyLimit +
+                                ", but it was " + personalPropertyLimit);
 
         /*FLMH3Coverages coverages = dwellingConstruction.next()
                 .clickWindMitigation()

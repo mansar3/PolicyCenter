@@ -274,6 +274,26 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
         return super.isMobileHomeTiedDown();
     }
 
+    public boolean isConstructionTypeRequired()
+    {
+        return super.isConstructionTypeRequired();
+    }
+
+    public boolean isFoundationTypeRequired()
+    {
+        return super.isFoundationTypeRequired();
+    }
+
+    public boolean isMobileHomeFullySkirtedRequired()
+    {
+        return super.isMobileHomeFullySkirtedRequired();
+    }
+
+    public boolean isMobileHomeFullySkirted()
+    {
+        return super.isMobileHomeFullySkirted();
+    }
+
     public class FLMH3WindMitigation extends WindMitigation<FLMH3WindMitigation>
     {
         public FLMH3WindMitigation(CenterSeleniumHelper sh, Path path)

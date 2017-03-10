@@ -278,6 +278,17 @@ public class CenterSeleniumHelper
 				|| driver.findElement(by).findElement(By.xpath("../..")).getAttribute("class").contains("g-required");
 	}
 
+	public boolean yesOrNoSelected(By by)
+	{
+		boolean yesButton = driver.findElement(by).findElement(By.xpath("../..//label[text()='Yes']")).findElement(By.xpath("../../..")).getAttribute("class").contains("x-form-cb-checked");
+		boolean noButton = driver.findElement(by).findElement(By.xpath("../..//label[text()='No']")).findElement(By.xpath("../../..")).getAttribute("class").contains("x-form-cb-checked");
+		if (yesButton && noButton)
+			throw new WebDriverException("Both 'Yes' and 'No' button were selected");
+		else if (!yesButton && !noButton)
+			throw new WebDriverException("Neither 'Yes' or 'No' button were selected");
+		return yesButton;
+	}
+
 	public boolean isElementEnabled(By by)
 	{
 		return driver.findElement(by).isEnabled();
