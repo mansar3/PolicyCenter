@@ -5,7 +5,7 @@ import Helpers.SessionInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class Login
+public class Logon
 {
 	String loginURL;
 	protected String user,pwd;
@@ -16,7 +16,7 @@ public class Login
 				byRememberMe = By.cssSelector("[id*=remember] input"),
 				bySubmit	 = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnEl");
 
-	public Login(CenterSeleniumHelper sh, SessionInfo sessionInfo)
+	public Logon(CenterSeleniumHelper sh, SessionInfo sessionInfo)
 	{
 		this.sh = sh;
 
@@ -38,7 +38,7 @@ public class Login
 		sh.waitForURLToContain(loginURL, 5);
 	}
 
-	public Login setUsername(String username)
+	public Logon setUsername(String username)
 	{
 		sh.setText(byUsername, username);
 		return this;
@@ -49,7 +49,7 @@ public class Login
 		return sh.getValue(byUsername);
 	}
 
-	public Login setPassword(String password)
+	public Logon setPassword(String password)
 	{
 		sh.setText(byPassword, password);
 		return this;
@@ -60,7 +60,7 @@ public class Login
 		return sh.getValue(byPassword);
 	}
 
-	public Login clickRememberMe(Boolean expectedCheckedState)
+	public Logon clickRememberMe(Boolean expectedCheckedState)
 	{
 		assert getRememberMe() != expectedCheckedState;
 		sh.clickElement(byRememberMe);
@@ -72,7 +72,7 @@ public class Login
 		return sh.getValue(byRememberMe).equals("true");
 	}
 
-	public Login clickLogin()
+	public Logon clickLogin()
 	{
 		sh.clickElement(bySubmit);
 		return this;

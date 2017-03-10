@@ -11,10 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
 import pageobjects.Account.AccountFileSummary;
-import pageobjects.Login;
-import pageobjects.NorthPanel;
-import pageobjects.WizardPanelBase.AccountFileContacts;
-import pageobjects.WizardPanelBase.PreQuoteIssues;
+import pageobjects.Logon;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +24,7 @@ public class UWIssueALHO3 extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private CenterSeleniumHelper sh;
 
 
@@ -39,11 +36,11 @@ public class UWIssueALHO3 extends BaseTest {
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
         String user = "user1baldwin", password = "";
-        login.login(user, password);
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 

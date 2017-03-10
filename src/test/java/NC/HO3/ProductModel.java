@@ -4,19 +4,16 @@ import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.joda.time.DateTime;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.Logon;
 import pageobjects.NCHO3.*;
-import pageobjects.Login;
 import pageobjects.WizardPanelBase.MyActivities;
 import pageobjects.WizardPanelBase.Organizations;
 
@@ -27,7 +24,7 @@ import pageobjects.WizardPanelBase.Organizations;
 public class ProductModel extends BaseTest
 {
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private NCHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString, firstname, lastname;
@@ -42,11 +39,11 @@ public class ProductModel extends BaseTest
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
         String user = "Su", password = "";
-        login.login(user, password);
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 

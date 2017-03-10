@@ -13,16 +13,13 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.FLMH3.*;
-import pageobjects.Login;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class ProductModelFLMH3 extends BaseTest
 {
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private FLMH3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
@@ -38,10 +35,10 @@ public class ProductModelFLMH3 extends BaseTest
         String user = "Su", password = "";
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
-        login.login(user, password);
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
 
         sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));

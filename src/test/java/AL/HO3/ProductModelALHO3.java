@@ -18,16 +18,13 @@ import org.testng.annotations.Test;
 //import pageobjects.ALHO3.ALHO3CreateAccount;
 //import pageobjects.ALHO3.ALHO3EnterAccountInformation;
 import pageobjects.ALHO3.*;
-import pageobjects.Login;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ProductModelALHO3 extends BaseTest
 {
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private ALHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString, firstname, lastname;
@@ -42,11 +39,11 @@ public class ProductModelALHO3 extends BaseTest
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
         String user = "Su", password = "";
-        login.login(user, password);
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
 
         sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));

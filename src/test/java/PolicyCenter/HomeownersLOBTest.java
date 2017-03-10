@@ -17,7 +17,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO3.*;
-import pageobjects.Login;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
 
 import java.io.File;
@@ -51,10 +51,10 @@ public class HomeownersLOBTest extends BaseTest
 		// users: conversion2,mcoad
 		String user = "mcoad", pwd = "";
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-		Login login = new Login(new CenterSeleniumHelper(driver), sessionInfo);
-		login.load();
-		login.isLoaded();
-		login.login(user, pwd);
+		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
+		logon.load();
+		logon.isLoaded();
+		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
 	@AfterMethod(alwaysRun = true)

@@ -15,13 +15,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO6.*;
-import pageobjects.Login;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
 
 public class ProductModelFLHO6 extends BaseTest
 {
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private FLHO6EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
@@ -37,10 +37,10 @@ public class ProductModelFLHO6 extends BaseTest
         String user = "Su", password = "";
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
-        login.login(user, password);
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
 
         sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));

@@ -12,11 +12,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.Login;
+import pageobjects.Logon;
 import pageobjects.SCHO3.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by ssai on 2/28/2017.
@@ -25,7 +22,7 @@ public class ValidationRulesSC extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private CenterSeleniumHelper sh;
 
 
@@ -37,11 +34,11 @@ public class ValidationRulesSC extends BaseTest {
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
         String user = "Su", password = "";
-        login.login(user, password);
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 

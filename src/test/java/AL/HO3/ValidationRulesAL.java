@@ -3,7 +3,6 @@ package AL.HO3;
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
-import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,12 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
-import pageobjects.Login;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import pageobjects.Logon;
 
 /**
  * Created by ssai on 2/22/2017.
@@ -30,7 +24,7 @@ import java.util.Date;
 public class ValidationRulesAL extends BaseTest {
     private String dateString;
     private WebDriver driver;
-    private Login login;
+    private Logon logon;
     private CenterSeleniumHelper sh;
 
 
@@ -42,11 +36,11 @@ public class ValidationRulesAL extends BaseTest {
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        login = new Login(sh, sessionInfo);
-        login.load();
-        login.isLoaded();
+        logon = new Logon(sh, sessionInfo);
+        logon.load();
+        logon.isLoaded();
         String user = "Su", password = "";
-        login.login(user, password);
+        logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 

@@ -16,13 +16,13 @@
 //import pageobjects.WizardPanelBase.AccountFileSummary;
 //import pageobjects.WizardPanelBase.CreateAccount;
 //import pageobjects.WizardPanelBase.EnterAccountInformation;
-//import pageobjects.Login;
+//import pageobjects.Logon;
 //
 //
 //public class AccountTest extends BaseTest
 //{
 //	private WebDriver driver;
-//	private Login login;
+//	private Logon login;
 //	private EnterAccountInformation enterAccountInfo;
 //	private CenterSeleniumHelper sh;
 //	private String dateString;
@@ -37,7 +37,7 @@
 //		String user = "mcoad", pwd = "";
 //		driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 //		sh = new CenterSeleniumHelper(driver);
-//		login = new Login(sh, sessionInfo);
+//		login = new Logon(sh, sessionInfo);
 //		login.load();
 //		login.isLoaded();
 //		login.login(user, pwd);
