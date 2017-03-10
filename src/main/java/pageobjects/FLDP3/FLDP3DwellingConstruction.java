@@ -28,6 +28,13 @@ public class FLDP3DwellingConstruction extends DwellingConstruction<FLDP3Dwellin
 		return super.setRoofYear(text);
 	}
 
+	public FLDP3DwellingConstruction clickeditpolicytransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public FLDP3DwellingConstruction acceptYes(){
+		return super.accept();
+	}
 	public String getRoofYear()
 	{
 		return super.getRoofYear();
@@ -197,7 +204,10 @@ public class FLDP3DwellingConstruction extends DwellingConstruction<FLDP3Dwellin
 	{
 		return super.setRoofTypeDescription(text);
 	}
-
+	public FLDP3Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new FLDP3Quote(sh,path);
+	}
 	public String getRoofTypeDescription()
 	{
 		return super.getRoofTypeDescription();
@@ -301,6 +311,10 @@ public class FLDP3DwellingConstruction extends DwellingConstruction<FLDP3Dwellin
 			return super.setFortifiedHomeType(text);
 		}
 
+		public FLDP3Quote clickdwellingconstructionwindmitiQuote(){
+			super.DwellingConstructionWindMitiQuote();
+			return new FLDP3Quote(sh,path);
+		}
 		public String getFortifiedHomeType()
 		{
 			return super.getFortifiedHomeType();

@@ -60,6 +60,31 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 	public FLHO3RiskAnalysis answerNo(int questionNum){
 		return super.answerNo(questionNum);
 	}
+
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public FLHO3RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public FLHO3RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
+	}
+
 	public class FLHO3Contingencies extends Contingencies<FLHO3Contingencies>
 	{
 

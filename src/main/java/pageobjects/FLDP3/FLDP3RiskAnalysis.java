@@ -19,6 +19,16 @@ public class FLDP3RiskAnalysis extends RiskAnalysis<FLDP3RiskAnalysis>
 		return new FLDP3Quote(sh,path);
 	}
 
+	public FLDP3PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new FLDP3PreQuoteIssues(sh,path);
+	}
+
+	public FLDP3RiskAnalysis back(){
+		return  super.coveragesback();
+	}
+
 	public FLDP3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -42,6 +52,32 @@ public class FLDP3RiskAnalysis extends RiskAnalysis<FLDP3RiskAnalysis>
 		return new FLDP3RiskAnalysis.FLDP3CreateNewUWIssue(sh, path);
 
 	}
+
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public FLDP3RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public FLDP3RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
+	}
+
+
 	public class FLDP3Contingencies extends Contingencies<FLDP3Contingencies>
 	{
 

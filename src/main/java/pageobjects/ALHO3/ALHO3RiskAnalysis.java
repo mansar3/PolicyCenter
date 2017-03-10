@@ -19,6 +19,12 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		return new ALHO3Quote(sh,path);
 	}
 
+	public ALHO3PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new ALHO3PreQuoteIssues(sh,path);
+	}
+
 	public ALHO3RiskAnalysis back(){
 		return  super.coveragesback();
 	}
@@ -83,6 +89,7 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		super.requestApproval();
 		return new ALHO3UWActivity(sh, path);
 	}
+
 	public ALHO3RiskAnalysis.ALHO3CreateNewUWIssue addUWIssue()
 	{
 		super.riskAnalysisAddUWIssue();

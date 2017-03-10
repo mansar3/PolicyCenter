@@ -42,6 +42,14 @@ public class FLDP3PolicyInfo extends PolicyInfo<FLDP3PolicyInfo>
 	{
 		return super.clickRemoveAdditionalNameInsureds();
 	}
+	public FLDP3PolicyInfo clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+	public FLDP3PolicyInfo acceptYes()
+	{
+		return super.accept();
+	}
+
 	public FLDP3PolicyInfo setTermType(String text)
 	{
 		return super.setTermType(text);
@@ -120,6 +128,17 @@ public class FLDP3PolicyInfo extends PolicyInfo<FLDP3PolicyInfo>
 	 {
 	 	return super.getPolicyType();
 	 }
+	public FLDP3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new FLDP3Quote(sh, path);
+	}
+
+	public FLDP3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new FLDP3PreQuoteIssues(sh, path);
+	}
 
 	 public String getExpirationDate()
 	 {

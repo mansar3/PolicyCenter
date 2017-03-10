@@ -24,6 +24,19 @@ public class FLDP3Dwelling extends Dwelling<FLDP3Dwelling>
 		return super.setYearBuilt(text);
 	}
 
+	public FLDP3Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new FLDP3Quote(sh, path);
+	}
+
+	public FLDP3PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new FLDP3PreQuoteIssues(sh, path);
+	}
+
+
 
 	public String getYearBuilt()
 	{
@@ -215,6 +228,14 @@ public class FLDP3Dwelling extends Dwelling<FLDP3Dwelling>
 	{
 		return super.setAnimalsOrExoticPets(flag);
 	}
+	public FLDP3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public FLDP3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public FLDP3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public FLDP3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public FLDP3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public FLDP3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public FLDP3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
+
 	public FLDP3Dwelling setGolfCarts(String flag)
 	{
 		return super.setGolfCarts(flag);

@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 
 import Helpers.CenterSeleniumHelper;
+import org.eclipse.jetty.util.ByteArrayISO8859Writer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -20,7 +21,9 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
                          internalTools = By.id("InternalToolsTabBar:UnsupportedToolsTab-btnWrap"),
                          testingTimeClock = By.id("InternalToolsTabBar:UnsupportedToolsTab:UnsupportedTools_SystemClock-textEl"),
                          settings = By.id(":TabLinkMenuButton-btnIconEl"),
-                         returnpolicycenter = By.id("InternalToolsTabBar:ReturnTabBarLink-itemEl");
+                         returnpolicycenter = By.id("InternalToolsTabBar:ReturnTabBarLink-itemEl"),
+                         policytab = By.id("TabBar:PolicyTab"),
+                         policylatestacc = By.id("TabBar:PolicyTab:0:PolicyMenuPolicy-textEl");
 
 
     }
@@ -47,6 +50,21 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
         return (T)this;
     }
 
+    public T clickPolicyTab()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.policytab);
+        return (T) this;
+    }
+
+    public T clickLatestTran()
+    {
+        sh.waitForNoMask();
+        sh.clickRightOfElement(by.policytab);
+        sh.waitForNoMask();
+        sh.clickElement(by.policylatestacc);
+        return (T) this;
+    }
     public T clickSearchAccountNavBar()
     {
         sh.clickRightOfElement(by.accountTab);

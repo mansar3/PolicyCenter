@@ -18,4 +18,9 @@ public class FLDP3UWActivity extends UWActivity<FLDP3UWActivity>
 		super.clickSendRequest();
 		return new FLDP3RiskAnalysis(sh,path);
 	}
+	public FLDP3RiskAnalysis clickCancel()
+	{
+		super.clickcancel();
+		return new FLDP3RiskAnalysis(sh,path);
+	}
 }

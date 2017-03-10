@@ -1,7 +1,7 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.ALHO3.ALHO3Dwelling;
+import pageobjects.FLHO3.FLHO3Dwelling;
 import pageobjects.WizardPanelBase.DwellingConstruction;
 
 /**
@@ -203,6 +203,11 @@ public class FLHO3DwellingConstruction extends DwellingConstruction<FLHO3Dwellin
 	public FLHO3DwellingConstruction setRoofTypeDescription(String text)
 	{
 		return super.setRoofTypeDescription(text);
+	}
+
+	public FLHO3Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new FLHO3Quote(sh,path);
 	}
 
 	public String getRoofTypeDescription()

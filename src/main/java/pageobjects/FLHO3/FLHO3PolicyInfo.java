@@ -102,6 +102,19 @@ public class FLHO3PolicyInfo extends PolicyInfo<FLHO3PolicyInfo>
 	 	return super.setOccupation(text);
 	 }
 
+
+	public FLHO3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new FLHO3Quote(sh, path);
+	}
+
+	public FLHO3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new FLHO3PreQuoteIssues(sh, path);
+	}
+
 	 public String getOccupation()
 	 {
 	 	return super.getOccupation();

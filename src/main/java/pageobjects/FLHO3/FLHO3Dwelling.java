@@ -32,6 +32,19 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 		return super.dwellingErrorMessage();
 	}
 
+	public FLHO3Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new FLHO3Quote(sh, path);
+	}
+
+	public FLHO3PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new FLHO3PreQuoteIssues(sh, path);
+	}
+
+
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();
@@ -191,6 +204,12 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 	{
 		return super.setInTheWindpool(flag);
 	}
+
+	public FLHO3Dwelling clickDwellingBack()
+	{
+		super.clickDwellingLeft();
+		return new FLHO3Dwelling(sh, path);
+	}
 	public FLHO3Dwelling setOwnedByOther(String flag)
 	{
 		return super.setOwnedByOther(flag);
@@ -264,6 +283,14 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 	{
 		return super.setFenceType(text);
 	}
+
+	public FLHO3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public FLHO3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public FLHO3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public FLHO3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public FLHO3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public FLHO3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public FLHO3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 
 	public String getFenceType()
 	{

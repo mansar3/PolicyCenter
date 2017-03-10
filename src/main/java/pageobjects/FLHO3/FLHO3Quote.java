@@ -12,6 +12,15 @@ public class FLHO3Quote extends Quote<FLHO3Quote>
 	{
 		super(sh, path);
 	}
+
+	public FLHO3Quote acceptyes()
+	{
+		return super.accept();
+	}
+
+	public FLHO3Quote clickEditPolicyTransaction(){
+		return super.clickEditPolicyTransaction();
+	}
 	
 	public FLHO3RiskAnalysis backToRiskAnalysis()
 	{

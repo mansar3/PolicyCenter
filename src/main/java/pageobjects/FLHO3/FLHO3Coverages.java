@@ -24,6 +24,18 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.getDwellingLimit();
 	}
 
+	public FLHO3Quote coveragesQuote(){
+		super.CoverageQuote();
+		return new FLHO3Quote(sh, path );
+	}
+
+	public FLHO3PreQuoteIssues  coveragesquoteWithIssues()
+	{
+		super.CoverageQuote();
+		return new FLHO3PreQuoteIssues(sh, path);
+	}
+
+
 	public FLHO3Coverages setDwellingLimit(String text)
 	{
 		return super.setDwellingLimit(text);
@@ -371,6 +383,13 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public FLHO3PropertyEndorsements checkGuardianEndorsements()
 		{
 			return super.checkGuardianEndorsements();
+		}
+
+		public FLHO3Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new FLHO3Quote(sh, path);
+
 		}
 		public FLHO3PropertyEndorsements setWhenSafeCreditPercentage(String text)
 		{

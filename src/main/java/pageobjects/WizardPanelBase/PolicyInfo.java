@@ -67,18 +67,35 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 						expirationDate = By.id(policyBase + "PolicyInfoInputSet:ExpirationDate-inputEl"),
 						writtenDate = By.id(policyBase + "PolicyInfoInputSet:WrittenDate-inputEl"),
 						baseState = By.id(policyBase + "PolicyInfoInputSet:BaseState-inputEl"),
-		                quote = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
+		                quote = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+			        	editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 
 
 
 
 	}
+
+	protected T editPolicyTransaction(){
+		sh.waitForNoMask();
+		sh.clickElement(by.editPolicyTransaction);
+		return (T) this;
+	}
+	protected T accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
+	}
+
+
 	protected T PolicyInfoQuote()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.quote);
 		return (T) this;
 	}
+
 
 	protected T dwellingNext()
 	{

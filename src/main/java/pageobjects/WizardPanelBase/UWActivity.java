@@ -39,7 +39,8 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 	}
 	public  T clickcancel()
 	{
-		sh.getValue(by.Cancel);
+		sh.waitForNoMask();
+		sh.clickElement(by.Cancel);
 		return (T) this;
 	}
 

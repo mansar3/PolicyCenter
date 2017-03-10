@@ -79,6 +79,22 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return (T)this;
 	}
 
+	protected T riskAnalysisIssueQuote()
+	{
+		sh.waitForNoMask();
+		switch(path)
+		{
+			case SUBMISSION:
+				sh.clickElement(by.submissionQuote);
+				break;
+			case POLICYRENEWAL:
+				sh.clickElement(by.renewalQuote);
+				break;
+		}
+		//sh.clickElement(by.submissionQuote);
+		//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+		return (T)this;
+	}
 	protected String getusIssueblockingbind1(){
 		sh.waitForNoMask();
        return 	sh.getText(by.usissuebind1);

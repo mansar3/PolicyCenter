@@ -362,6 +362,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 	protected T setAnimalsOrExoticPets(String flag)
 	{
+		//I am clicking here twice because this radio button is not clicking in one time.
+		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		sh.clickElement(By.id(dwellingBase + "AnimalsInDwelling_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
@@ -536,6 +538,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	protected T setExoticAnimalBiteHistory(int rowNumber, String flag)
 	{
 		sh.waitForNoMask();
+
 		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag.toLowerCase() + " '])[1]"));
 		return (T)this;
 	}

@@ -60,6 +60,19 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         return (T) this;
     }
 
+    protected T editPolicyTransaction(){
+        sh.waitForNoMask();
+        sh.clickElement(by.editPolicyTransaction);
+        return (T) this;
+    }
+
+    protected T accept()
+    {
+        sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+        sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+        return (T) this;
+
+    }
     protected String getValuationType() {
         return sh.getValue(by.valuationType);
     }
@@ -477,7 +490,8 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
             //  Wind Mitigation
                 windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl"),
-                quote= By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
+                quote= By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+                    editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 
 
     }
@@ -521,6 +535,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                     roofDeckAttachment = By.id(windMitigationBase + "RoofDeckAttachType_fli-inputEl"),
                     roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
                     ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
+                    windmitiquote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 
 
             roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
@@ -532,6 +547,13 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
             policyQualificationWarning = By.className("warning_icon");
         }
+
+        protected T DwellingConstructionWindMitiQuote() {
+            sh.clickElement(by.windmitiquote);
+            sh.waitForNoMask();
+            return (T) this;
+        }
+
 
         protected T clickDetailsTab() {
             sh.clickElement(by.details);

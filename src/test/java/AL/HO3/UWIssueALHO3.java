@@ -2,11 +2,14 @@ package AL.HO3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
@@ -16,6 +19,7 @@ import pageobjects.Logon;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  * Created by ssai on 3/7/2017.
@@ -24,7 +28,7 @@ public class UWIssueALHO3 extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
-    private Logon logon;
+    private Logon login;
     private CenterSeleniumHelper sh;
 
 
@@ -36,19 +40,24 @@ public class UWIssueALHO3 extends BaseTest {
 
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
+        login = new Logon(sh, sessionInfo);
+        login.load();
+        login.isLoaded();
         String user = "user1baldwin", password = "";
-        logon.login(user, password);
+        login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
     @Test(description = "Creates Account for NCUWIssue")
-    public void CreatePersonalAccountforNCUWIssue(ITestContext itc) {
+    public void CreateAccountsandValidatesforNCUWIssue(ITestContext itc) {
         String firstname = "ALHO3UWIssue";
         // String lastname = "Validationrule";
-        String lastname = "Validationrule01Test06";
+
+        Random rand = new Random();
+        int num  = rand.nextInt(99 - 10 + 1)+10;
+        String lastname = "ValidationruleTest"+num;
+
+        //String lastname = "Validationrule01Test11";
         //  String date = "03/30/1985";
         String homeaddress = "2000 River Forest Rd";
         String city = "Mobile";
@@ -56,46 +65,7 @@ public class UWIssueALHO3 extends BaseTest {
         String county = "MOBILE";
         String zip = "36005";
         String addrestype = "Home";
-        //String orgname = "SFI";
         String producercode = "523-23-40004 First Baldwin Insurance, LLC";
-       ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
-        nb.clickAccountTab();
-        nb.clickNewAccountDropdown();
-
-       ALHO3EnterAccountInformation eai = new ALHO3EnterAccountInformation(sh);
-        eai.setFirstName(firstname);
-        eai.setLastName(lastname);
-        eai.clickSearch();
-        eai.createNewPersonAccountALHO3();
-
-       ALHO3CreateAccount ca = new ALHO3CreateAccount(sh);
-        //  ca.setDateOfBirth(date);
-        ca.setAddressLine1(homeaddress);
-        ca.setCity(city);
-        ca.setCounty(county);
-        ca.setState(state);
-        ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
-        ca.setAddressType(addrestype);
-        //    ca.organizationSearch();
-        //ALHO3UWIssueOrganizations org = newALHO3UWIssueUWIssueOrganizations(sh);
-
-        //  org.setOrganizationName(orgname);
-        // org.clickSearchButton();
-        // org.selectOrganizationButton();
-        ca.setProducerCode(producercode);
-//after filling the form clicking on the update button in create account page
-        ca.update();
-
-
-    }
-
-    @Test(description = "Validating the Ho3")
-    public void ValidatingALHO3UWIssues() {
-
-        String firstname = "ALHO3UWIssue";
-        String lastname = "Validationrule01Test06";
         String policyType = "Homeowners (HO3)";
         String distanceToFireHydrant = "79";
         String rooftype = "Flat";
@@ -110,7 +80,6 @@ public class UWIssueALHO3 extends BaseTest {
                 constructiontype1 = "Frame";
         String wateryear = "1999",
                 wateryear1 = "2010";
-        //    String priorDate = new DateTime().minusDays(7).toString("MM/dd/yyyy");
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
         String uwissueblobkingbind3, expecteduwissueblobkingbind3 = "Flat roofs must be reviewed by Underwriting";
@@ -131,11 +100,34 @@ public class UWIssueALHO3 extends BaseTest {
         String uwissueblockingsuperior, expecteduwissueblockingsuperior = "Dwelling Construction Type Superior";
         String uwissueblockingwater, expecteduwissueblockingwater = "Water Heater Age";
         String uwissueblockingspp, expecteduwissueblockingspp = "Scheduled Personal Property";
+
        ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
+        nav.clickAccountTab();
+        nav.clickNewAccountDropdown();
+
+       ALHO3EnterAccountInformation eai = new ALHO3EnterAccountInformation(sh);
+        eai.setFirstName(firstname);
+        eai.setLastName(lastname);
+        eai.clickSearch();
+        eai.createNewPersonAccountALHO3();
+
+       ALHO3CreateAccount ca = new ALHO3CreateAccount(sh);
+        //  ca.setDateOfBirth(date);
+        ca.setAddressLine1(homeaddress);
+        ca.setCity(city);
+        ca.setCounty(county);
+        ca.setState(state);
+        ca.setZipCode(zip);
+        ca.clickVerifyAddress();
+        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.setAddressType(addrestype);
+        ca.setProducerCode(producercode);
+        ca.update();
+
 
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
-       ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
+        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
         String currentdate = tsc.getCurrentDate();
         LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
         String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
@@ -148,18 +140,18 @@ public class UWIssueALHO3 extends BaseTest {
                 .clickReturntoPolicyCenter();
         sh.waitForNoMask();
 
-       ALHO3SearchAccounts sa = nav.clickSearchAccount();
+        ALHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
 
-       ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
+        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-       ALHO3NewSubmission ns = new ALHO3NewSubmission(sh);
-       ALHO3Qualification qua = ns.productTable.selectHomeowners();
+        ALHO3NewSubmission ns = new ALHO3NewSubmission(sh);
+        ALHO3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -167,30 +159,27 @@ public class UWIssueALHO3 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-       ALHO3PolicyInfo pi = qua.next();
-       ALHO3Dwelling dwe = pi.next()
+        ALHO3PolicyInfo pi = qua.next();
+        ALHO3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant);
 
-       ALHO3DwellingConstruction dwellingConstruction = dwe.next();
+        ALHO3DwellingConstruction dwellingConstruction = dwe.next();
 
 
-       ALHO3Coverages coverages = dwellingConstruction.clickWindMitigation()
+        ALHO3Coverages coverages = dwellingConstruction.clickWindMitigation()
                 .setRoofShapeType(rooftype)
                 .next()
                 .setDwellingLimit(dwellinglimit);
 
-       ALHO3RiskAnalysis ra = coverages.next();
+        ALHO3RiskAnalysis ra = coverages.next();
 
-       ALHO3Quote quote = ra.quote();
+        ALHO3Quote quote = ra.quote();
 
         quote.backToRiskAnalysis();
 
         //validating the UWIssues in Blocking Bind
 
-        System.out.println(ra.getusIssueblockingbind1());
-//        System.out.println(ra.getusIssueblockingbind2());
-//        System.out.println(ra.getusIssueblockingbind3());
         uwissueblobkingbind1 = ra.getusIssueblockingbind1();
         Assert.assertTrue(expecteduwissueblobkingbind1.equals(uwissueblobkingbind1));
         System.out.println("The expected is " + expecteduwissueblobkingbind1 + " and it is " + uwissueblobkingbind1);
@@ -204,7 +193,7 @@ public class UWIssueALHO3 extends BaseTest {
         System.out.println("The expected is " + expecteduwissueblobkingbind3 + " and it is " + uwissueblobkingbind3);
 
         //clicks the request approval
-       ALHO3UWActivity uwa = ra.riskAnalysisRequestApproval();
+        ALHO3UWActivity uwa = ra.riskAnalysisRequestApproval();
 
         //verifies the Assign to
         Verifyto = uwa.getAssignTo();
@@ -229,7 +218,7 @@ public class UWIssueALHO3 extends BaseTest {
         dwellingConstruction.clickWindMitigation()
                 .setRoofShapeType(rooftype1)
                 .winddwellingback()
-               .clickDwellingBack();
+                .clickDwellingBack();
 
         //sets the effective date to +7 days
 
@@ -358,14 +347,10 @@ public class UWIssueALHO3 extends BaseTest {
         //setting the year to prior to 51 years
 
         dwe.setYearBuilt(yearBuilt2)
-           .setAnimalsOrExoticPets(animaltrue)
+                .setAnimalsOrExoticPets(animaltrue)
                 .setexoticAnimalType(1, "Exotic")
                 .setexoticAnimalBreed(1, "Other")
                 .setexoticAnimalBiteHistory(1, "false");
-
-
-        //nneed to put the type breed and bite history of the animal
-//*[@id= 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:AnimalListViewInput-tbody']/tr/td/div/div[3]/div/div/table/tbody/tr/td[2]/div//*[@id= 'SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:AnimalListViewInput']/table/tbody/tr/td/div/div[3]/div[1]/div[1]/table/tbody/tr/td[2]/div
 
         dwe.clickDwellingquote();
 
@@ -495,7 +480,7 @@ public class UWIssueALHO3 extends BaseTest {
                 .clickAddScheduledPersonalProperty()
                 .setPersonalPropertyArticleType(1, "Antiques")
                 .setPersonalPropertyDescription(1, "Test")
-                .setPersonalPropertyValue(1, "52,5000")
+                .setPersonalPropertyValue(1, "52,500")
                 .clickcoveragesPropertyEndorsementsQuote()
                 .backToRiskAnalysis();
 
@@ -575,32 +560,16 @@ public class UWIssueALHO3 extends BaseTest {
         uwa.clickCancel();
 
 
+    }
 
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
-//
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if (driver != null)
+            driver.quit();
     }
 }
