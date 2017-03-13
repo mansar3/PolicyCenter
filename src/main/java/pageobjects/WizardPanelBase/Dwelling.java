@@ -538,8 +538,9 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	protected T setExoticAnimalBiteHistory(int rowNumber, String flag)
 	{
 		sh.waitForNoMask();
-
-		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag.toLowerCase() + " '])[1]"));
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag.toLowerCase() + "'])[1]"));
+		sh.waitForNoMask();
+		sh.clickElement(By.xpath("(//*[@id = '" + dwellingBase + "AnimalListViewInput-tbody']//table[" + String.valueOf(rowNumber) + "]//td[5]//input[@inputvalue = '" + flag.toLowerCase() + "'])[1]"));
 		return (T)this;
 	}
 
