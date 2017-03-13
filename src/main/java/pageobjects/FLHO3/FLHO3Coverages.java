@@ -651,6 +651,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.checkAdditionalResidenceRentedToOthers();
 		}
 
+		public FLHO3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new FLHO3LocationInformation(sh,path);
+		}
 		public FLHO3LiabilityEndorsements checkBusinessPursuits()
 		{
 			return super.checkBusinessPursuits();

@@ -333,10 +333,10 @@ public class ProductModelFLMH3 extends BaseTest
 
         Assert.assertTrue(pe.isWaterBackUpChecked(),
                 "Water Back Up was expected to be checked but it was not");
-        waterBackUpLimit = pe.getWaterBackUpLimit();
-        Assert.assertTrue(defaultWaterBackUpLimit.equals(waterBackUpLimit),
+        waterBackUpLimitDiv = pe.getWaterBackUpLimit();
+        Assert.assertTrue(defaultWaterBackUpLimit.equals(waterBackUpLimitDiv),
                 "Water Back Up Limit was expected to be " + defaultWaterBackUpLimit +
-                        ", but it was " + waterBackUpLimit);
+                        ", but it was " + waterBackUpLimitDiv);
 
         FLMH3Coverages.FLMH3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
 

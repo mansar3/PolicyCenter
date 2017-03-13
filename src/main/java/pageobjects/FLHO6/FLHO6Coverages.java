@@ -575,6 +575,11 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.isAdditionalResidenceRentedToOthersChecked();
 		}
+		public FLHO6LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new FLHO6LocationInformation(sh,path);
+		}
 
 		public boolean isBusinessPursuitsChecked()
 		{

@@ -28,4 +28,14 @@ public class FLHO3LocationInformation extends LocationInformation<FLHO3LocationI
 		super.cancel();
 		return new FLHO3Dwelling(sh,path);
 	}
+	public FLHO3Coverages.FLHO3LiabilityEndorsements clickLiabilityOk()
+	{
+		super.ok();
+		return new FLHO3Coverages(sh,path).new FLHO3LiabilityEndorsements(sh,path);
+	}
+	public FLHO3Dwelling clickLiabilityCancel()
+	{
+		super.cancel();
+		return new FLHO3Dwelling(sh,path);
+	}
 }

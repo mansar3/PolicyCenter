@@ -519,6 +519,11 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 		{
 			return super.checkAdditionalResidenceRentedToOthers();
 		}
+		public SCDP3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new SCDP3LocationInformation(sh,path);
+		}
 
 		public SCDP3LiabilityEndorsements checkBusinessPursuits()
 		{

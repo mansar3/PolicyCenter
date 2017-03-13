@@ -419,7 +419,7 @@ public class HomeownersLOBTest extends BaseTest
 //		// Dwelling
 //
 //		if(dwelling.getLocationName().equals("1: FL") || !eai.getOrDefault("Mailing Address","").equals(eai.get("Location Address")))
-//			dwelling = dwelling.addNewLocation()
+//			dwelling = dwelling.addNewResidentLocation()
 //			.setAddress1(eai.get("Location Address"))
 //			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
 //			.setCity(eai.get("Location Address - City"))

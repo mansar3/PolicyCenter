@@ -1263,6 +1263,10 @@ public class NCHO3 extends BaseTest
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
+		else
+		{
+			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
+		}
 
 
 

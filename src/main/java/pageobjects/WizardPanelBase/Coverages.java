@@ -678,7 +678,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			specificotherstructureAddedordetached = By.xpath("//*[@id = '\" + coveragesBase + \"lineOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:ScheduleInputSet:ScheduledItemsLV-body']/div/div[3]/div/div/div/div/input"),
 
 			waterBackUp = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/..//input"),
-			waterBackUpLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
+			waterBackUpLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//div/div"),
+			waterBackUpLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Water Back Up']/../../div//span[text() = 'Limit']/../..//input"),
 
 			inflationGuard = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/..//input"),
 			percentageOfAnnualIncrease = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Inflation Guard']/../../div//span[text() = 'Percentage Of Annual Increase']/../../div/div"),
@@ -698,6 +699,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
 			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
 
+		}
+
+		protected T setWaterBackUpLimit(String text)
+		{
+			sh.setTextAndTab(by.waterBackUpLimitInput, text);
+			return (T)this;
 		}
 
 
@@ -756,7 +763,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getWaterBackUpLimit()
 		{
-			return sh.getText(by.waterBackUpLimit);
+			return sh.getText(by.waterBackUpLimitDiv);
 		}
 
 
@@ -1153,7 +1160,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isWaterBackUpLimitEditable()
 		{
-			return sh.isElementEditable(by.waterBackUpLimit);
+			return sh.isElementEditable(by.waterBackUpLimitDiv);
 		}
 
 		protected T setOccurrenceAggregateLimit(String occurenceAggregateLimit)
@@ -1381,7 +1388,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isWaterBackUpChecked()
 		{
-			return sh.isDisplayed(by.waterBackUpLimit);
+			return sh.isDisplayed(by.waterBackUpLimitDiv);
 		}
 
 
@@ -1490,6 +1497,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 						additionalResidenceRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Additional Residence Rented to Others']/..//input"),
 						locationName = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Additional Residence Rented to Others']/../../div//span[text() = 'Location Name']/../..//input"),
+						locationNameDropDown = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Additional Residence Rented to Others']/../../div//span[text() = 'Location Name']/../..//img"),
+						newLocation = By.xpath("//*[text()='New Location']"),
+						addExistingLocation = By.xpath("//*[text()='Add Existing Location']"),
 						numberOfFamilies = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Additional Residence Rented to Others']/../../div//span[text() = 'Number of Families']/../..//input"),
 
 
@@ -1512,6 +1522,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T clickCoveragesTab()
 		{
 			sh.clickElement(by.coverages);
+			return (T)this;
+		}
+		protected T addNewResidentLocation()
+		{
+			sh.clickElement(by.locationNameDropDown);
+			sh.clickElement(by.newLocation);
 			return (T)this;
 		}
 

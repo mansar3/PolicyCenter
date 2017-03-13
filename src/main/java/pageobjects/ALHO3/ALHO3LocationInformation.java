@@ -35,4 +35,14 @@ public class ALHO3LocationInformation extends LocationInformation<ALHO3LocationI
 		super.cancel();
 		return new ALHO3Dwelling(sh,path);
 	}
+	public ALHO3Coverages.ALHO3LiabilityEndorsements clickLiabilityOk()
+	{
+		super.ok();
+		return new ALHO3Coverages(sh,path).new ALHO3LiabilityEndorsements(sh,path);
+	}
+	public ALHO3Dwelling clickLiabilityCancel()
+	{
+		super.cancel();
+		return new ALHO3Dwelling(sh,path);
+	}
 }

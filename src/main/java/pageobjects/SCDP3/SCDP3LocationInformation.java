@@ -28,4 +28,14 @@ public class SCDP3LocationInformation extends LocationInformation<SCDP3LocationI
 		super.cancel();
 		return new SCDP3Dwelling(sh,path);
 	}
+	public SCDP3Coverages.SCDP3LiabilityEndorsements clickLiabilityOk()
+	{
+		super.ok();
+		return new SCDP3Coverages(sh,path).new SCDP3LiabilityEndorsements(sh,path);
+	}
+	public SCDP3Dwelling clickLiabilityCancel()
+	{
+		super.cancel();
+		return new SCDP3Dwelling(sh,path);
+	}
 }

@@ -42,9 +42,9 @@ public class ProductModelALHO3 extends BaseTest
         logon = new Logon(sh, sessionInfo);
         logon.load();
         logon.isLoaded();
-        String user = "Su", password = "";
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
+        String userName = "SU", passWord = "";
+        logon.login(userName, passWord);
+        log(String.format("Logged in as: %s\nPassword: %s", userName, passWord));
 
         sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
         WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));

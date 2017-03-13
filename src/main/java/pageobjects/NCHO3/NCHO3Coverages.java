@@ -210,6 +210,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.setPersonalPropertyDescription(itemNumber, text);
 		}
+		public NCHO3PropertyEndorsements setWaterBackupLimit(String text)
+		{
+			return super.setWaterBackUpLimit(text);
+		}
 		public NCHO3PropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
 		{
 			return super.setPersonalPropertyValue(itemNumber, text);
@@ -521,6 +525,11 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 			return super.checkPermittedIncidentalOccupancyLiability();
 		}
 
+		public NCHO3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new NCHO3LocationInformation(sh,path);
+		}
 		public NCHO3LiabilityEndorsements checkAnimalLiability()
 		{
 			return super.checkAnimalLiability();

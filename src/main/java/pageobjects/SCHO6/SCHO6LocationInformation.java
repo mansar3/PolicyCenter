@@ -28,4 +28,14 @@ public class SCHO6LocationInformation extends LocationInformation<SCHO6LocationI
 		super.cancel();
 		return new SCHO6Dwelling(sh,path);
 	}
+	public SCHO6Coverages.SCHO6LiabilityEndorsements clickLiabilityOk()
+	{
+		super.ok();
+		return new SCHO6Coverages(sh,path).new SCHO6LiabilityEndorsements(sh,path);
+	}
+	public SCHO6Dwelling clickLiabilityCancel()
+	{
+		super.cancel();
+		return new SCHO6Dwelling(sh,path);
+	}
 }

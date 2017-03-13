@@ -2,6 +2,7 @@ package base;
 
 import Helpers.CenterSeleniumHelper;
 import Helpers.SessionInfo;
+import com.beust.jcommander.internal.Nullable;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -32,7 +33,7 @@ public abstract class BaseTest
 			System.getenv("SCREENSHOTS_HOME") == null
 					? "src/test/resources/ScreenShots/"
 					: System.getenv("SCREENSHOTS_HOME"),
-			accountNumber, userName;
+			accountNumber, userName,passWord;
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected static SessionInfo sessionInfo;
 	private static Boolean local;
@@ -40,9 +41,9 @@ public abstract class BaseTest
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 
-	@Parameters({"environment", "local", "threads","userName"})
+	@Parameters({"environment", "local", "threads","userName","passWord"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName, @Optional("") String passWord)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -50,12 +51,34 @@ public abstract class BaseTest
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
 		this.local = local;
 		this.userName = userName;
+		this.passWord = passWord;
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
 		if(SystemUtils.IS_OS_MAC)
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
+	}
+	public void beforeSuite(@Nullable() String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName,@Optional("") String passWord)
+	{
+		FileUtils.deleteQuietly(screenShotFolder);
+		screenShotFolder.mkdir();
+		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
+		this.local = local;
+		this.userName = userName;
+		this.passWord = passWord;
+		assert sessionInfo.capabilities != null;
+		assert sessionInfo.gridHub != null;
+		if(SystemUtils.IS_OS_MAC)
+			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
+		else
+			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
+	}
+	public void afterMethod()
+	{
+		WebDriver driver = LocalDriverManager.getDriver();
+        if(driver != null)
+            driver.quit();
 	}
 
 	protected URL setGridHub()
@@ -64,9 +87,9 @@ public abstract class BaseTest
 		try
 		{
 			// Dockers URL
-			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
-			gridHub = new URL("http://172.16.31.94:4444/wd/hub");
+			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");
 		}
