@@ -32,6 +32,19 @@ public class FLHO4Dwelling extends Dwelling<FLHO4Dwelling> {
         return super.dwellingErrorMessage();
     }
 
+    public FLHO4Quote clickDwellingquote()
+    {
+        super.DwellingQuote();
+        return new FLHO4Quote(sh, path);
+    }
+
+    public FLHO4PreQuoteIssues clickDwellingquoteissue()
+    {
+        super.DwellingQuote();
+        return new FLHO4PreQuoteIssues(sh, path);
+    }
+
+
     public String getYearBuilt()
     {
         return super.getYearBuilt();
@@ -40,6 +53,16 @@ public class FLHO4Dwelling extends Dwelling<FLHO4Dwelling> {
     {
         return super.setDistanceToFireHydrant(text);
     }
+
+    public FLHO4Dwelling clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public FLHO4Dwelling acceptYes()
+    {
+        return super.accept();
+    }
+
 
     public String getDistanceToFireHydrant()
     {
@@ -208,6 +231,11 @@ public class FLHO4Dwelling extends Dwelling<FLHO4Dwelling> {
         super.clickProtectionDetailsTab();
         return new FLHO4ProtectionDetails(sh, path);
     }
+    public FLHO4Dwelling clickDwellingBack()
+    {
+        super.clickDwellingLeft();
+        return new FLHO4Dwelling(sh, path);
+    }
     public FLHO4AdditionalInterests clickAdditionalInterests()
     {
         super.clickAdditionalInterestsTab();
@@ -263,6 +291,14 @@ public class FLHO4Dwelling extends Dwelling<FLHO4Dwelling> {
     {
         return super.setFenceType(text);
     }
+
+    public FLHO4Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+    public FLHO4Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+    public FLHO4Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+    public FLHO4Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+    public FLHO4Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+    public FLHO4Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+    public FLHO4Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 
     public String getFenceType()
     {

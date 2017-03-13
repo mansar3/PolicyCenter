@@ -41,6 +41,13 @@ public class FLHO4PolicyInfo extends PolicyInfo<FLHO4PolicyInfo> {
     {
         return super.setNoPriorInsuranceSurcharge(flag);
     }
+    public FLHO4PolicyInfo clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+    public FLHO4PolicyInfo acceptYes()
+    {
+        return super.accept();
+    }
     public FLHO4PolicyInfo clickRemoveAdditionalNameInsureds()
     {
         return super.clickRemoveAdditionalNameInsureds();
@@ -103,6 +110,18 @@ public class FLHO4PolicyInfo extends PolicyInfo<FLHO4PolicyInfo> {
     public FLHO4PolicyInfo setOccupation(String text)
     {
         return super.setOccupation(text);
+    }
+
+    public FLHO4Quote  quote()
+    {
+        super.PolicyInfoQuote();
+        return new FLHO4Quote(sh, path);
+    }
+
+    public FLHO4PreQuoteIssues  quoteWithIssues()
+    {
+        super.PolicyInfoQuote();
+        return new FLHO4PreQuoteIssues(sh, path);
     }
 
     public String getOccupation()

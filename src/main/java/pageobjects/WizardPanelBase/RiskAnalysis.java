@@ -112,6 +112,31 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return 	sh.getText(by.uwissuebind3);
 
 	}
+	protected String getusIssueblockingbind4(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind4);
+
+	}
+	protected String getusIssueblockingbind5(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind5);
+
+	}
+	protected String getusIssueblockingbind6(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind6);
+
+	}
+	protected String getusIssueblockingbind7(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind7);
+
+	}
+	protected String getusIssueblockingbind8(){
+		sh.waitForNoMask();
+		return 	sh.getText(by.uwissuebind8);
+
+	}
 
 	protected T editPolicyTransaction(){
 		sh.waitForNoMask();
@@ -218,7 +243,12 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 				            usissuebind1 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:1:UWIssueRowSet:ShortDescription"),
 		                    uwissuebind2 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:2:UWIssueRowSet:ShortDescription"),
 		                    uwissuebind3 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:3:UWIssueRowSet:ShortDescription"),
-	                     	underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']"),
+			            	uwissuebind4 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:4:UWIssueRowSet:ShortDescription"),
+			            	uwissuebind5 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:5:UWIssueRowSet:ShortDescription"),
+			            	uwissuebind6 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:6:UWIssueRowSet:ShortDescription"),
+			            	uwissuebind7 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:7:UWIssueRowSet:ShortDescription"),
+			            	uwissuebind8 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:8:UWIssueRowSet:ShortDescription"),
+				            underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']"),
 		                    editPolicyTransaction= By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 
 	}

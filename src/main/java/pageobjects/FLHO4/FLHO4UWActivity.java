@@ -18,4 +18,10 @@ public class FLHO4UWActivity extends UWActivity<FLHO4UWActivity> {
         super.clickSendRequest();
         return new FLHO4RiskAnalysis(sh,path);
     }
+
+    public FLHO4RiskAnalysis clickCancel()
+    {
+        super.clickcancel();
+        return new FLHO4RiskAnalysis(sh,path);
+    }
 }

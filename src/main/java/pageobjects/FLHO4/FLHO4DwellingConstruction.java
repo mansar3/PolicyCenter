@@ -208,6 +208,10 @@ public class FLHO4DwellingConstruction  extends DwellingConstruction<FLHO4Dwelli
     {
         return super.getRoofTypeDescription();
     }
+    public FLHO4Quote clickDwellingconstructionQuote(){
+        super.DwellingconstructionQuote();
+        return new FLHO4Quote(sh,path);
+    }
     public FLHO4DwellingConstruction setPlumbingDescribeOther(String text)
     {
         return super.setPlumbingDescribeOther(text);
@@ -307,6 +311,7 @@ public class FLHO4DwellingConstruction  extends DwellingConstruction<FLHO4Dwelli
             return super.setFortifiedHomeType(text);
         }
 
+        public FLHO4WindMitigation clickwindmitigationsaveDraft(){return super.clickWindMitigationSaveDraft();}
         public String getFortifiedHomeType()
         {
             return super.getFortifiedHomeType();

@@ -483,6 +483,19 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return (T) this;
 	}
 
+	protected T editPolicyTransaction(){
+		sh.waitForNoMask();
+		sh.clickElement(by.editPolicyTransaction);
+		return (T) this;
+	}
+
+	protected T accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
+	}
 
 	public class CoveragesBy
 	{
@@ -522,7 +535,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
 								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
-				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
+				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 
 								//creditValue = By.id("")
 	}

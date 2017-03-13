@@ -20,6 +20,13 @@ public class FLHO4RiskAnalysis extends RiskAnalysis<FLHO4RiskAnalysis> {
         return new FLHO4Quote(sh,path);
     }
 
+    public FLHO4PreQuoteIssues Issuequote()
+    {
+        super.riskAnalysisQuote();
+        //sh.clickElement(by.submissionQuote);
+        //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+        return new FLHO4PreQuoteIssues(sh,path);
+    }
     public FLHO4Quote qualifiesForAdditionalProtectionQuote()
     {
         super.raQualifiesForAdditionalProtectionQuote();
@@ -61,6 +68,50 @@ public class FLHO4RiskAnalysis extends RiskAnalysis<FLHO4RiskAnalysis> {
     public FLHO4RiskAnalysis answerNo(int questionNum){
         return super.answerNo(questionNum);
     }
+
+    public String getusIssueblockingbind1()
+    {
+        return super.getusIssueblockingbind1();
+    }
+
+    public FLHO4RiskAnalysis clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public FLHO4RiskAnalysis acceptYes()
+    {
+        return super.accept();
+    }
+
+    public String getusIssueblockingbind2()
+    {
+        return super.getusIssueblockingbind2();
+    }
+
+    public String getusIssueblockingbind3()
+    {
+        return super.getusIssueblockingbind3();
+    }
+    public String getusIssueblockingbind4()
+    {
+        return super.getusIssueblockingbind4();
+    }
+    public String getusIssueblockingbind5()
+    {
+        return super.getusIssueblockingbind5();
+    }
+    public String getusIssueblockingbind6()
+    {
+        return super.getusIssueblockingbind6();
+    }
+    public String getusIssueblockingbind7()
+    {
+        return super.getusIssueblockingbind7();
+    }
+    public String getusIssueblockingbind8()
+    {
+        return super.getusIssueblockingbind8();
+    }
     public class FLHO4Contingencies extends Contingencies<FLHO4Contingencies>
     {
 
@@ -76,6 +127,7 @@ public class FLHO4RiskAnalysis extends RiskAnalysis<FLHO4RiskAnalysis> {
             //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
             return new FLHO4Quote(sh,path);
         }
+
 
     }
     public class FLHO4CreateNewUWIssue extends CreateNewUWIssue<FLHO4CreateNewUWIssue>

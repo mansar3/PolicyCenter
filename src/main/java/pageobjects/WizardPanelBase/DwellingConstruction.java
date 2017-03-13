@@ -536,6 +536,8 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                     roofWallConnection = By.id(windMitigationBase + "RoofWallConnectType_fli-inputEl"),
                     ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:_msgs']/div"),
                     windmitiquote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+                    saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
+
 
 
             roofDeck = By.id(windMitigationBase + "RoofDeckType_fli-inputEl"),
@@ -554,6 +556,13 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
             return (T) this;
         }
 
+        protected  T clickWindMitigationSaveDraft()
+        {
+            sh.clickElement(by.saveDraft);
+            sh.waitForNoMask();
+            return (T) this;
+
+        }
 
         protected T clickDetailsTab() {
             sh.clickElement(by.details);

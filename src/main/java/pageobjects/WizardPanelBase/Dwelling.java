@@ -544,6 +544,19 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		return (T)this;
 	}
 
+	protected T editPolicyTransaction(){
+		sh.waitForNoMask();
+		sh.clickElement(by.editPolicyTransaction);
+		return (T) this;
+	}
+
+	protected T accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
+	}
 
 
 
@@ -584,6 +597,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								minimumRentalIncrement = By.id(dwellingBase + "RentalIncrementType_fli-inputEl"),
 								dwellingLeftMenu = By.id("SubmissionWizard:Prev-btnInnerEl"),
                  				Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 
 		//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
