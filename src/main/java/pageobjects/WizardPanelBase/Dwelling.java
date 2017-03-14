@@ -99,6 +99,15 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	return (T)this;
 }
 
+
+	protected  T clickDwellingSaveDraft()
+	{
+		sh.clickElement(by.saveDraft);
+		sh.waitForNoMask();
+		return (T) this;
+
+	}
+
 	protected T setDistanceToFireStation(String distanceToFireStation)
 	{
 		sh.waitForNoMask();
@@ -598,7 +607,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 								dwellingLeftMenu = By.id("SubmissionWizard:Prev-btnInnerEl"),
                  				Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
-
+                                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 		//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
 

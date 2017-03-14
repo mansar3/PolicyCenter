@@ -20,6 +20,25 @@ public class FLHO6PolicyInfo extends PolicyInfo<FLHO6PolicyInfo>
 		super.addNewPerson();
 		return new FLHO6NewAdditionalNamedInsured(sh,path);
 	}
+	public FLHO6Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new FLHO6Quote(sh, path);
+	}
+
+	public FLHO6PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new FLHO6PreQuoteIssues(sh, path);
+	}
+
+	public FLHO6PolicyInfo clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+	public FLHO6PolicyInfo acceptYes()
+	{
+		return super.accept();
+	}
 	public FLHO6SearchAddressBook searchFromAddressBook()
 	{
 		super.addFromAddressBook();

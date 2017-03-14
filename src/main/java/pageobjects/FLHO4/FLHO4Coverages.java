@@ -319,6 +319,10 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         {
             return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
         }
+        public FLHO4PropertyEndorsements clickpersonalPropertyRow(int itemNumber)
+        {
+            return super.chechPersonalPropertyrow(itemNumber);
+        }
         public FLHO4PropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
         {
             return super.setPersonalPropertyArticleType(itemNumber, text);
@@ -526,6 +530,10 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
             return super.checkScheduledPersonalProperty();
         }
 
+        public FLHO4PropertyEndorsements uncheckScheduledPersonalProperty()
+        {
+            return super.unCheckScheduledPersonalProperty();
+        }
         public boolean isScheduledPersonalPropertyChecked()
         {
             return super.isScheduledPersonalPropertyChecked();

@@ -64,6 +64,13 @@ public class FLHO6DwellingConstruction extends DwellingConstruction<FLHO6Dwellin
 		super.setFloorUnitIsLocatedOn(text);
 		return new FLHO6DwellingConstruction(sh, path);
 	}
+	public FLHO6DwellingConstruction clickeditpolicytransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public FLHO6DwellingConstruction acceptYes(){
+		return super.accept();
+	}
 	public String getFloorUnitIsLocatedOn()
 	{
 		return super.getFloorUnitIsLocatedOn();
@@ -71,6 +78,10 @@ public class FLHO6DwellingConstruction extends DwellingConstruction<FLHO6Dwellin
 	public String getConstructionType()
 	{
 		return super.getConstructionType();
+	}
+	public FLHO6Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new FLHO6Quote(sh,path);
 	}
 	public FLHO6DwellingConstruction setNumberOfUnits(String text)
 	{

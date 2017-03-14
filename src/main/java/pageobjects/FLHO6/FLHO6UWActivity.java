@@ -18,4 +18,9 @@ public class FLHO6UWActivity extends UWActivity<FLHO6UWActivity>
 		super.clickSendRequest();
 		return new FLHO6RiskAnalysis(sh,path);
 	}
+	public FLHO6RiskAnalysis clickCancel()
+	{
+		super.clickcancel();
+		return new FLHO6RiskAnalysis(sh,path);
+	}
 }

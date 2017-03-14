@@ -18,6 +18,12 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new FLHO6Quote(sh,path);
 	}
+	public FLHO6PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new FLHO6PreQuoteIssues(sh,path);
+	}
+
 
 	public FLHO6Quote qualifiesForAdditionalProtectionQuote()
 	{
@@ -60,6 +66,30 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 	public FLHO6RiskAnalysis answerNo(int questionNum){
 		return super.answerNo(questionNum);
 	}
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public FLHO6RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public FLHO6RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
+	}
+	
 	public class FLHO6Contingencies extends Contingencies<FLHO6Contingencies>
 	{
 

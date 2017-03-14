@@ -73,6 +73,14 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         return (T) this;
 
     }
+    protected  T clickDwellingConstructionSaveDraft()
+    {
+        sh.clickElement(by.saveDraft);
+        sh.waitForNoMask();
+        return (T) this;
+
+    }
+
     protected String getValuationType() {
         return sh.getValue(by.valuationType);
     }
@@ -490,6 +498,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
             //  Wind Mitigation
                 windMitigation = By.id(tabBase + "WindMitTab-btnInnerEl"),
+                    saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
                 quote= By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
                     editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
 

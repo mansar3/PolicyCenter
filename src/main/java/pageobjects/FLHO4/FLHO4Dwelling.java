@@ -63,6 +63,7 @@ public class FLHO4Dwelling extends Dwelling<FLHO4Dwelling> {
         return super.accept();
     }
 
+    public FLHO4Dwelling clickdwellingSaveDraft() {return super.clickDwellingSaveDraft();}
 
     public String getDistanceToFireHydrant()
     {

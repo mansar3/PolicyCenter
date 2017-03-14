@@ -383,6 +383,12 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			return super.setPercentageOfAnnualIncrease(text);
 		}
 
+		public FLHO6Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new FLHO6Quote(sh, path);
+
+		}
 		public String getPercentageOfAnnualIncrease()
 		{
 			return super.getPercentageOfAnnualIncrease();
@@ -433,6 +439,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		public FLHO6PropertyEndorsements checkScheduledPersonalProperty()
 		{
 			return super.checkScheduledPersonalProperty();
+		}
+		public FLHO6PropertyEndorsements uncheckScheduledPersonalProperty()
+		{
+			return super.unCheckScheduledPersonalProperty();
 		}
 
 		public FLHO6PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
@@ -524,6 +534,7 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			super.clickCoveragesTab();
 			return new FLHO6Coverages(sh, path);
 		}
+
 		public FLHO6LiabilityEndorsements setLocationName(String text)
 		{
 			return super.setLocationName(text);

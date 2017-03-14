@@ -23,6 +23,7 @@ public class FLHO4DwellingConstruction  extends DwellingConstruction<FLHO4Dwelli
         super.windMitigation();
         return new FLHO4WindMitigation(sh,path);
     }
+    public FLHO4DwellingConstruction clickdwellingConSaveDraft(){return super.clickDwellingConstructionSaveDraft();}
     public FLHO4DwellingConstruction setRoofYear(String text)
     {
         return super.setRoofYear(text);

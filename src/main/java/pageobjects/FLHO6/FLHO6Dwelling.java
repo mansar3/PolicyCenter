@@ -31,6 +31,18 @@ public class FLHO6Dwelling extends Dwelling<FLHO6Dwelling>
 	{
 		return super.dwellingErrorMessage();
 	}
+	public FLHO6Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new FLHO6Quote(sh, path);
+	}
+
+	public FLHO6PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new FLHO6PreQuoteIssues(sh, path);
+	}
+
 
 	public String getYearBuilt()
 	{
@@ -229,6 +241,13 @@ public class FLHO6Dwelling extends Dwelling<FLHO6Dwelling>
 	{
 		return super.setAnimalsOrExoticPets(flag);
 	}
+	public FLHO6Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public FLHO6Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public FLHO6Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public FLHO6Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public FLHO6Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public FLHO6Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public FLHO6Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 	public FLHO6Dwelling setGolfCarts(String flag)
 	{
 		return super.setGolfCarts(flag);

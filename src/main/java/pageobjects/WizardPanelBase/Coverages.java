@@ -814,6 +814,14 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.isDisplayed(by.earthquakeLossAssessmentLimit);
 		}
+
+		protected T chechPersonalPropertyrow(int itemNumber)
+		{
+			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
+			sh.waitForNoMask();
+			return (T)this;
+		}
+
 		protected T setPersonalPropertyArticleType(int itemNumber, String articleType)
 		{
 			sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "OptionalPropertyCoveraqesCardTab:panelId']" + "//div[text() = 'Scheduled Personal Property']/../../../..//div[text() = '" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]//div"));
@@ -870,6 +878,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			return (T)this;
 		}
+
 
 		// TODO review this locator
 		protected  T coveragespropertyendorsementsEnter ()

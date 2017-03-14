@@ -2,11 +2,14 @@ package FL.HO4;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Account.AccountFileSummary;
@@ -49,14 +52,10 @@ public class UWIssueFLHO4 extends BaseTest {
     @Test(description = "Creates Account for FLUWIssue")
     public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
         String firstname = "FLHO4UWIssue";
-        // String lastname = "Validationrule";
-
         Random rand = new Random();
         int num  = rand.nextInt(99 - 10 + 1)+10;
         String lastname = "ValidationruleTest"+num;
 
-        //String lastname = "Validationrule01Test11";
-        //  String date = "03/30/1985";
         String homeaddress = "475 Oakwood Ct";
         String city = "Merritt Island";
         String county = "Brevard";
@@ -67,45 +66,23 @@ public class UWIssueFLHO4 extends BaseTest {
         String producercode = "523-23-20770 4 Corners Insurance";
         String policyType = "Renters (HO4)";
         String distanceToFireHydrant = "200";
-        String rooftype = "Flat";
-        String rooftype1 = "Hip";
+        String rooftype = "Hip";
         String openprotectiontype = "Hurricane";
-        String personalpropertylimit = "130,000",
-                dwellinglimit1 = "1,000,000";
+        String personalpropertylimit = "130,000";
         String DateofBirth = "01/01/1970";
         String ssn = "111-22-3333";
         String animaltrue = "true";
         String animalfalse = "false";
-        String constructiontype= "Superior",
-                constructiontype1 = "Frame";
-        String Medicalpayments = "10,000",
-                medicalPayments1 = "3,000";
         String allotherPerils = "500";
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
-        String uwissueblobkingbind3, expecteduwissueblobkingbind3 = "Flat roofs must be reviewed by Underwriting";
-        String Verifyto, expectedVerifyto = "UW Approval - PL Team 2";
         String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
-        String descriptionssndob, expecteddescriptionssndob = "SSN required for all Named Insureds, DOB required for all Named Insureds, Flat roofs must be reviewed by Underwriting";
-        String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
-        String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
-        String descriptionyear, expecteddescriptionyear = "Dwelling Year Built";
-        String descriptionhomeanimal, expecteddescriptionhomeanimal = "Home with Exotic Animals";
-        String descriptionconstruction, expecteddescriptionconstruction = "Dwelling Construction Type Superior";
-        String descriptionwaterheater, expecteddescriptionwaterheater = "Water Heater Age";
-        String descriptionmedical, expecteddescriptionmedical = "HO Medical Pay";
         String descriptionspp, expecteddescriptionspp = "Scheduled Personal Property";
-        String descriptionsinkhole, expecteddescriptionsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingquotemessage, expecteduwissueblockingquotemessage = "Transaction Effective Date earlier than Written Date";
         String uwissueblobkingbindtran, expecteduwissueblobkingbindtran = "Transaction Effective Date 5 days earlier than System Date";
-        String usissueblobkingquoteissue, expectedusissueblobkingquoteissue = "Maximum Dwelling Limit Exceeded";
         String uwissueblockingyear, expecteduwissueblockingyear = "Dwelling Year Built";
         String usissueblobkinghomeanimal, expectedusissueblobkinghomeanimal = "Home with Exotic Animals";
-        String uwissueblockingsuperior, expecteduwissueblockingsuperior = "Dwelling Construction Type Superior";
         String uwissueblockingwater, expecteduwissueblockingwater = "Water Heater Age";
-        String usissueblockingmedical, expectedusissueblockingmedical = "HO Medical Pay";
-        String uwissueblockingspp, expecteduwissueblockingspp = "Scheduled Personal Property";
-        String usissueblockingsinkhole, expectedusissueblockingsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
         String uwissueblockingrisk, expecteduwissueblockingrisk = "This risk will require underwriting approval";
 
@@ -222,10 +199,6 @@ public class UWIssueFLHO4 extends BaseTest {
         Assert.assertTrue(expecteduwissueblobkingbind2.equals(uwissueblobkingbind2));
         System.out.println("The expected is " + expecteduwissueblobkingbind2 + " and it is " + uwissueblobkingbind2);
 
-        uwissueblobkingbind3 = ra.getusIssueblockingbind8();
-        Assert.assertTrue(expecteduwissueblobkingbind3.equals(uwissueblobkingbind3));
-        System.out.println("The expected is " + expecteduwissueblobkingbind3 + " and it is " + uwissueblobkingbind3);
-
         //goes back to the policy info
 
         ra.back().back().back().back();
@@ -242,9 +215,8 @@ public class UWIssueFLHO4 extends BaseTest {
                 .setexoticAnimalBiteHistory(1, "false")
                 .next()
                 .setWaterHeaterYear(wateryear1)
-                .clickWindMitigation()
-                .setRoofShapeType(rooftype1)
-                .clickwindmitigationsaveDraft();
+                .clickdwellingConSaveDraft();
+
 
         //clicks on account number
 
@@ -313,29 +285,32 @@ public class UWIssueFLHO4 extends BaseTest {
         Assert.assertTrue(expecteddescriptionspp.equals(descriptionspp));
         System.out.println("The expected is " +expecteddescriptionspp+ " and it is " + descriptionspp);
 
-        ra.back();
+        //ra.back();
 
-        //edit policy in coverages
-        coverages.clickEditPolicyTransaction()
-                .acceptYes()
-                .clickPropertyEndorsements()
-                .checkScheduledPersonalProperty()
-                .checkScheduledPersonalProperty()
-                .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyValue(1, "40,000")
-                .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(2, "Antiques")
-                .setPersonalPropertyDescription(2, "Test")
-                .setPersonalPropertyValue(2, "40,000")
-                .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(3, "Antiques")
-                .setPersonalPropertyDescription(3, "Test")
-                .setPersonalPropertyValue(3, "40,000")
-                .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(4, "Antiques")
-                .setPersonalPropertyDescription(4, "Test")
-                .setPersonalPropertyValue(4, "40,000");
+        //clicks on edit policy transaction
 
+        ra.clickEditPolicyTransaction()
+                .back();
+
+
+//        coverages.clickPropertyEndorsements()
+//                .clickEditPolicyTransaction()
+//                .acceptYes();
+
+              coverages.clickPropertyEndorsements()
+                      .setPersonalPropertyValue(1, "40,000")
+                      .clickAddScheduledPersonalProperty()
+                      .setPersonalPropertyArticleType(2, "Antiques")
+                      .setPersonalPropertyDescription(2, "Test")
+                      .setPersonalPropertyValue(2, "40,000")
+                      .clickAddScheduledPersonalProperty()
+                      .setPersonalPropertyArticleType(3, "Antiques")
+                      .setPersonalPropertyDescription(3, "Test")
+                      .setPersonalPropertyValue(3, "40,000")
+                      .clickAddScheduledPersonalProperty()
+                      .setPersonalPropertyArticleType(4, "Antiques")
+                      .setPersonalPropertyDescription(4, "Test")
+                      .setPersonalPropertyValue(4, "40,000");
         //goes back to the dwelling
         coverages.back()
                 .back();
@@ -360,10 +335,8 @@ public class UWIssueFLHO4 extends BaseTest {
 
 
         //goes back
-        ra.back()
-                .clickEditPolicyTransaction()
-                .acceptYes();
-
+        ra.clickEditPolicyTransaction()
+                .back();
         //unchecks the scheduled property
 
         coverages.clickPropertyEndorsements()
@@ -381,7 +354,16 @@ public class UWIssueFLHO4 extends BaseTest {
         uwissueblockingperils = ra.getusIssueblockingbind1();
         Assert.assertTrue(expecteduwissueblockingperils.equals(uwissueblockingperils));
         System.out.println("The expected is " + expecteduwissueblockingperils + " and it is " + uwissueblockingperils);
+    }
 
-
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if (driver != null)
+            driver.quit();
     }
 }
