@@ -518,6 +518,11 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancyLiability();
 		}
+		public SCHO3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new SCHO3LocationInformation(sh,path);
+		}
 
 		public SCHO3LiabilityEndorsements checkAnimalLiability()
 		{

@@ -591,6 +591,11 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkAdditionalResidenceRentedToOthers();
 		}
+		public SCHO6LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new SCHO6LocationInformation(sh,path);
+		}
 
 		public SCHO6LiabilityEndorsements checkBusinessPursuits()
 		{

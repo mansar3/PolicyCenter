@@ -6,7 +6,7 @@
 
     <groupId>com.frontlineinsurance</groupId>
     <artifactId>qa-centers</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.7</version>
     <profiles>
 		<profile>
 			<id>PolicySubmission</id>
@@ -68,6 +68,17 @@
 			<url>http://172.16.33.35:8081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>releases</id>
+			<url>http://172.16.33.35:8081/nexus/content/repositories/releases</url>
+		</repository>
+
+		<repository>
+			<id>snapshots</id>
+			<url>http://172.16.33.35:8081/nexus/content/repositories/snapshots</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -103,6 +114,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.frontlineinsurance</groupId>
+			<artifactId>gw-gpa</artifactId>
+			<version>1.0.0</version>
+		</dependency>
         <dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>

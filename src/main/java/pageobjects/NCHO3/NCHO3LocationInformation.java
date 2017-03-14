@@ -28,4 +28,14 @@ public class NCHO3LocationInformation extends LocationInformation<NCHO3LocationI
 		super.cancel();
 		return new NCHO3Dwelling(sh,path);
 	}
+	public NCHO3Coverages.NCHO3LiabilityEndorsements clickLiabilityOk()
+	{
+		super.ok();
+		return new NCHO3Coverages(sh,path).new NCHO3LiabilityEndorsements(sh,path);
+	}
+	public NCHO3Dwelling clickLiabilityCancel()
+	{
+		super.cancel();
+		return new NCHO3Dwelling(sh,path);
+	}
 }

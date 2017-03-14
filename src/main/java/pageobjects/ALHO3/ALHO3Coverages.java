@@ -655,6 +655,11 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.getBusinessActivity();
 		}
 
+		public ALHO3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new ALHO3LocationInformation(sh,path);
+		}
 		public ALHO3LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
 		{
 			return super.checkPermittedIncidentalOccupancyLiability();

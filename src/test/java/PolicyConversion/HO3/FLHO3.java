@@ -1244,10 +1244,20 @@ public class FLHO3 extends BaseTest
 //			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"))
-			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		{
+			le.checkAdditionalResidenceRentedToOthers()
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			le.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickLiabilityOk();
+		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()

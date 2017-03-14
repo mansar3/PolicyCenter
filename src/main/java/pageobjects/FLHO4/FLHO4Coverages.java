@@ -24,6 +24,18 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
         return super.getDwellingLimit();
     }
 
+    public FLHO4Quote coveragesQuote(){
+        super.CoverageQuote();
+        return new FLHO4Quote(sh, path );
+    }
+
+    public FLHO4PreQuoteIssues  coveragesquoteWithIssues()
+    {
+        super.CoverageQuote();
+        return new FLHO4PreQuoteIssues(sh, path);
+    }
+
+
     public FLHO4Coverages setDwellingLimit(String text)
     {
         return super.setDwellingLimit(text);
@@ -84,6 +96,15 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
     {
         return super.getPersonalPropertyValuationMethod();
     }
+    public FLHO4Coverages clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public FLHO4Coverages acceptYes()
+    {
+        return super.accept();
+    }
+
 
     public FLHO4Coverages setPersonalPropertyValuationMethod(String text)
     {
@@ -371,6 +392,12 @@ public class FLHO4Coverages extends Coverages<FLHO4Coverages> {
 //			return super.PermittedIncidentalOccupalimit(text);
 //		}
 
+        public FLHO4Quote clickcoveragesPropertyEndorsementsQuote()
+        {
+            super.clickCoveragesPropertyEndorsementsQuote();
+            return new FLHO4Quote(sh, path);
+
+        }
         public FLHO4PropertyEndorsements checkGuardianEndorsements()
         {
             return super.checkGuardianEndorsements();
