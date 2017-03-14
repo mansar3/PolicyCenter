@@ -155,8 +155,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected boolean isPersonalPropertyExcluded()
 	{
 		boolean yesButton, noButton;
-		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
-		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:2:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		yesButton = sh.isRadioButtonSelected(by.personalPropertyExcludedYes);
+		noButton = sh.isRadioButtonSelected(by.personalPropertyExcludedNo);
 		if (!yesButton && !noButton)
 			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
 		else if (yesButton && noButton)
@@ -208,9 +208,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected String getPersonalPropertyValuationMethod()
 	{
 		sh.waitForNoMask();
-		return Strings.isNullOrEmpty(sh.getValue(by.personalPropertyValuationMethod)) ?
+		if (sh.isDisplayed(by.personalPropertyValuationMethod))
+			return sh.getValue(by.personalPropertyValuationMethod);
+		return sh.getText(by.personalPropertyValuationMethodDiv);
+		/*return Strings.isNullOrEmpty(sh.getValue(by.personalPropertyValuationMethod)) ?
 				sh.getText(by.personalPropertyValuationMethod) :
-				sh.getValue(by.personalPropertyValuationMethod);
+				sh.getValue(by.personalPropertyValuationMethod);*/
 	}
 
 	protected T setPersonalPropertyValuationMethod(String personalPropertyValuationMethod)
@@ -296,6 +299,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+
+	protected String getSectionIDeductibles()
+	{
+		return sh.getText(by.sectionIDeductibles);
+	}
+
 	protected T setWindExcluded(String flag)
 	{
 		sh.waitForNoMask();
@@ -497,10 +506,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								otherStructuresPercentageDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//div/div"),
 								otherStructuresLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalPropertyValuationMethod = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//input"),
-								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text()='Loss Of Use']/../..//*[@role='textbox']"),
+								personalPropertyValuationMethodDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Valuation Method']/../..//*[@role='textbox']"),
+								lossOfUseLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text()='Loss Of Use']/../..//*[text()='Limit']/../..//*[@role='textbox']"),
 								lossOfUseSelection = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//input"),
 								lossOfUseSelectionDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Loss Of Use']/../..//span[text() = 'Selection']/../..//div/div"),
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
+								sectionIDeductibles = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//*[@role='textbox']"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
 								personalLiabilityCheckBox = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/..//input"),
@@ -521,6 +532,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 				                ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 			                 	PermittedIncidentalOccupancylimit = By.id(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:DirectTermInput-inputEl']"),
 								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
+								personalPropertyExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='Yes']"),
+								personalPropertyExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl");
 
@@ -918,6 +931,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForNoMask();
 
 			return (T)this;
+		}
+
+		protected String getScheduledPersonalPropertyClassArticleType(int itemNumber)
+		{
+			return sh.getText(By.xpath("//div[text() = 'Scheduled Personal Property Class']/../..//div[text()='" + String.valueOf(itemNumber) + "']/../following-sibling::td[1]/div"));
+		}
+
+		protected String getScheduledPersonalPropertyClassValue(int itemNumber)
+		{
+			return sh.getText(By.xpath("//div[text() = 'Scheduled Personal Property Class']/../..//div[text()='" + String.valueOf(itemNumber) + "']/../following-sibling::td[2]/div"));
 		}
 
 		protected String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()

@@ -131,6 +131,11 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
 
     }
 
+    public String getSectionIDeductibles()
+    {
+        return super.getSectionIDeductibles();
+    }
+
     public FLMH3Coverages setWindExcluded(String flag)
     {
         return super.setWindExcluded(flag);
@@ -336,6 +341,17 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         {
             return super.setSpecificOtherStructuresLimitMH3(itemNumber, text);
         }
+
+        public String getScheduledPersonalPropertyClassArticleType(int itemNumber)
+        {
+            return super.getScheduledPersonalPropertyClassArticleType(itemNumber);
+        }
+
+        public String getScheduledPersonalPropertyClassValue(int itemNumber)
+        {
+            return super.getScheduledPersonalPropertyClassValue(itemNumber);
+        }
+
         public FLMH3PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
         {
             return super.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(text);
