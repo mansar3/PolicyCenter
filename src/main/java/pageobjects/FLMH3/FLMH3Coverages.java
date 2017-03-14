@@ -591,6 +591,11 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
             return super.isSinkholeLossCoverageChecked();
         }
 
+        @Override
+        public void clickSaveDraft() {
+            super.clickSaveDraft();
+        }
+
         public FLMH3RiskAnalysis next()
         {
             super.propertyEndorsementsNext();

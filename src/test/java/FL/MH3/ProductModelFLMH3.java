@@ -331,6 +331,8 @@ public class ProductModelFLMH3 extends BaseTest
         Assert.assertTrue(defaultJewelryTheftIncreasedLimit.equals(jewelryTheftIncreasedLimit),
                         "Jewelry Theft Increased Limit was expected to be " + defaultJewelryTheftIncreasedLimit +
                                 ", but it was " + jewelryTheftIncreasedLimit);
+
+        pe.clickSaveDraft();
     }
 
     @AfterMethod(alwaysRun = true)
