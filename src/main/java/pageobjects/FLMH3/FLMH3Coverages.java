@@ -526,6 +526,36 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
             return super.checkCreditCardFundTransferForgeryCounterfeitMoney();
         }
 
+        public FLMH3PropertyEndorsements checkGolfCartCoverage()
+        {
+            return super.checkGolfCartCoverage();
+        }
+
+        public String getGolfCartCoveragePropertyLimit()
+        {
+            return super.getGolfCartCoveragePropertyLimit();
+        }
+
+        public String getGolfCartCoverageMedPayLimit()
+        {
+            return super.getGolfCartCoverageMedPayLimit();
+        }
+
+        public String getGolfCartCoverageLiabilityLimit()
+        {
+            return super.getGolfCartCoverageLiabilityLimit();
+        }
+
+        public FLMH3PropertyEndorsements checkJewelryTheftIncreasedLimit()
+        {
+            return super.checkJewelryTheftIncreasedLimit();
+        }
+
+        public String getJewelryTheftIncreasedLimit()
+        {
+            return super.getJewelryTheftIncreasedLimit();
+        }
+
         public boolean isCreditCardFundTransferForgeryCounterfeitChecked()
         {
             return super.isCreditCardFundTransferForgeryCounterfeitMoneyChecked();

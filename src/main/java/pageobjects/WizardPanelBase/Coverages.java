@@ -4,7 +4,6 @@ import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.Keys;
-import org.testng.util.Strings;
 
 public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 {
@@ -666,6 +665,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Value']/../..//div"),
 
 			specificOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
+			golfCartCoverageCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/..//input"),
+			jewelryTheftIncreasedLimitCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Jewelry Theft Increased Limit']/..//input"),
+			jewelryTheftIncreasedLimitLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Jewelry Theft Increased Limit']/../../div//span[text() = 'Limit']/../..//*[@role='textbox']"),
 			addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"),
 			removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
 
@@ -724,7 +726,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			ordinanceOrLawLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
 			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
-			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox");
+			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
+			golfCartCoveragePropertyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Property Limit']/../..//*[@role='textbox']"),
+			golfCartCoverageMedPayLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Med Pay Limit']/../..//*[@role='textbox']"),
+			golfCartCoverageLiabilityLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Liability Limit']/../..//*[@role='textbox']");
 
 		}
 
@@ -792,7 +797,6 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.getText(by.waterBackUpLimitDiv);
 		}
-
 
 		protected T setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
@@ -995,6 +999,42 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			sh.waitForNoMask();
 			return  (T) this;
 
+		}
+
+		protected T checkGolfCartCoverage()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.golfCartCoverageCheckbox);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+
+		protected T checkJewelryTheftIncreasedLimit()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.jewelryTheftIncreasedLimitCheckbox);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+
+		protected String getJewelryTheftIncreasedLimit()
+		{
+			return sh.getText(by.jewelryTheftIncreasedLimitLimit);
+		}
+
+		protected String getGolfCartCoveragePropertyLimit()
+		{
+			return sh.getText(by.golfCartCoveragePropertyLimit);
+		}
+
+		protected String getGolfCartCoverageMedPayLimit()
+		{
+			return sh.getText(by.golfCartCoverageMedPayLimit);
+		}
+
+		protected String getGolfCartCoverageLiabilityLimit()
+		{
+			return sh.getText(by.golfCartCoverageLiabilityLimit);
 		}
 
 		protected boolean isSpecificOtherStructuresChecked()

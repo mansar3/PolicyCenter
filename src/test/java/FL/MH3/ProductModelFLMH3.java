@@ -154,6 +154,14 @@ public class ProductModelFLMH3 extends BaseTest
         String articleType = "Jewelry",
                 propertyDescription = "Personal",
                 personalPropertyValue = "2500";
+        String defaultGccPropertyLimit = "5,000",
+                defaultGccmMedPayLimit = "500",
+                defaultGccLiabilityLimit = "50,000",
+                gccPropertyLimit,
+                gccmMedPayLimit,
+                gccLiabilityLimit;
+        String occurrenceAggregateLimit, defaultOccurrenceAggregateLimit = "10,000 / 50,000";
+        String jewelryTheftIncreasedLimit, defaultJewelryTheftIncreasedLimit = "2,000";
 
         /* Begin Test */
         FLMH3NavigationBar nb = new FLMH3NavigationBar(sh);
@@ -297,6 +305,32 @@ public class ProductModelFLMH3 extends BaseTest
         Assert.assertTrue(scheduledPersonalPropertyClassValue.equals(personalPropertyValue),
                         "Personal Property Value was expected to be " + personalPropertyValue +
                                 ", but it was " + scheduledPersonalPropertyClassValue);
+
+        /* Golf Cart Coverage */
+        pe.checkGolfCartCoverage();
+        gccPropertyLimit = pe.getGolfCartCoveragePropertyLimit();
+        gccmMedPayLimit = pe.getGolfCartCoverageMedPayLimit();
+        gccLiabilityLimit = pe.getGolfCartCoverageLiabilityLimit();
+
+        Assert.assertTrue(defaultGccPropertyLimit.equals(gccPropertyLimit),
+                        "Golf Cart Coverage Property Limit was expected to be " + defaultGccPropertyLimit +
+                                ", but it was " + gccPropertyLimit);
+        Assert.assertTrue(defaultGccmMedPayLimit.equals(gccmMedPayLimit),
+                        "Golf Cart Coverage Med Pay Limit was expected to be " + defaultGccmMedPayLimit +
+                                ", but it was " + gccmMedPayLimit);
+        Assert.assertTrue(defaultGccLiabilityLimit.equals(gccLiabilityLimit),
+                        "Golf Cart Coverage Liability Limit was expected to be " + defaultGccLiabilityLimit +
+                                ", but it was " + gccLiabilityLimit);
+
+        occurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
+        Assert.assertTrue(defaultOccurrenceAggregateLimit.equals(occurrenceAggregateLimit),
+                        "Occurrence/Aggregate Limit was expected to be " + defaultOccurrenceAggregateLimit +
+                                ", but it was " + occurrenceAggregateLimit);
+
+        jewelryTheftIncreasedLimit = pe.checkJewelryTheftIncreasedLimit().getJewelryTheftIncreasedLimit();
+        Assert.assertTrue(defaultJewelryTheftIncreasedLimit.equals(jewelryTheftIncreasedLimit),
+                        "Jewelry Theft Increased Limit was expected to be " + defaultJewelryTheftIncreasedLimit +
+                                ", but it was " + jewelryTheftIncreasedLimit);
     }
 
     @AfterMethod(alwaysRun = true)
