@@ -35,4 +35,9 @@ public class FLDP3EnterAccountInformation extends EnterAccountInformation<FLDP3E
 		super.searchFromAddressBookAccount();
 		return new FLDP3SearchAddressBook(sh);
 	}
+	public FLDP3AccountFileSummary clickAccountNumberFLDP3()
+	{
+		super.clickAccountNumber();
+		return new FLDP3AccountFileSummary(sh);
+	}
 }

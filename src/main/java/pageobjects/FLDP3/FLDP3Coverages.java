@@ -70,6 +70,11 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.setPersonalPropertyExcluded(flag);
 	}
 
+	public boolean isPersonalPropertyExcluded()
+	{
+		return super.isPersonalPropertyExcluded();
+	}
+
 	public boolean isPersonalPropertyExcluded(Integer flag)
 	{
 		return super.isPersonalPropertyExcluded(flag);
@@ -79,12 +84,6 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 	{
 		return super.isWindExcluded();
 	}
-
-    public boolean isWindExcluded(Integer flag)
-    {
-        return super.isWindExcluded(flag);
-    }
-
 
     public String getPersonalPropertyValuationMethod()
 	{

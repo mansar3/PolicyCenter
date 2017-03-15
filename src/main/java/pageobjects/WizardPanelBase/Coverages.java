@@ -181,21 +181,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected boolean isWindExcluded()
 	{
 		boolean yesButton, noButton;
-		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
-		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:5:Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
-		if (!yesButton && !noButton)
-			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
-		else if (yesButton && noButton)
-			throw new WebDriverException("Both Yes and No radio buttons were selected");
-		else
-			return yesButton;
-	}
-
-	protected boolean isWindExcluded(Integer flag)
-	{
-		boolean yesButton, noButton;
-		yesButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_true-inputEl"));
-		noButton = sh.isRadioButtonSelected(By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:sectionIRequiredClauses:ClausesInCategories_fliPanelSet:coveragesDV:" + String.valueOf(flag) + ":Coverage_fliInputSet:CovPatternInputGroup:CovTermIterator:0:CovTermInputSet:BooleanTermInput_false-inputEl"));
+		yesButton = sh.isRadioButtonSelected(by.isWindExcludedYes);
+		noButton = sh.isRadioButtonSelected(by.isWindExcludedNo);
 		if (!yesButton && !noButton)
 			throw new WebDriverException("Yes or No was expected to be selected, but none of they were");
 		else if (yesButton && noButton)
@@ -546,6 +533,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalPropertyExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']"),
 								personalPropertyExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='Yes']"),
 								personalPropertyExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
+                                isWindExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Is Wind Excluded']/../..//span[text()='Excluded?']"),
+                                isWindExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='Yes']"),
+                                isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
