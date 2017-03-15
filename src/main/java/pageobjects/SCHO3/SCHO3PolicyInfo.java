@@ -104,8 +104,20 @@ public class SCHO3PolicyInfo extends PolicyInfo<SCHO3PolicyInfo>
 	 {
 	 	return super.setOccupation(text);
 	 }
+	public SCHO3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new SCHO3Quote(sh, path);
+	}
 
-	 public String getOccupation()
+	public SCHO3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new SCHO3PreQuoteIssues(sh, path);
+	}
+
+
+	public String getOccupation()
 	 {
 	 	return super.getOccupation();
 	 }

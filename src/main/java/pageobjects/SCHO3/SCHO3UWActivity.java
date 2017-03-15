@@ -18,4 +18,9 @@ public class SCHO3UWActivity extends UWActivity<SCHO3UWActivity>
 		super.clickSendRequest();
 		return new SCHO3RiskAnalysis(sh,path);
 	}
+	public SCHO3RiskAnalysis clickCancel()
+	{
+		super.clickcancel();
+		return new SCHO3RiskAnalysis(sh,path);
+	}
 }

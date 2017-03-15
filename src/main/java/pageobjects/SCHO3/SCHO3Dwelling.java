@@ -30,6 +30,17 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 		return super.dwellingErrorMessage();
 	}
 
+	public SCHO3Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new SCHO3Quote(sh, path);
+	}
+
+	public SCHO3PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new SCHO3PreQuoteIssues(sh, path);
+	}
 	public String getYearBuilt()
 	{
 		return super.getYearBuilt();
@@ -182,6 +193,11 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 	{
 		return super.setInTheWindpool(flag);
 	}
+	public SCHO3Dwelling clickDwellingBack()
+	{
+		super.clickDwellingLeft();
+		return new SCHO3Dwelling(sh, path);
+	}
 	public SCHO3Dwelling setOwnedByOther(String flag)
 	{
 		return super.setOwnedByOther(flag);
@@ -204,6 +220,7 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 		super.clickAdditionalInterestsTab();
 		return new SCHO3AdditionalInterests(sh, path);
 	}
+
 	public SCHO3Dwelling setSwimmingPool(String flag)
 	{
 		return super.setSwimmingPool(flag);
@@ -216,6 +233,7 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 	{
 		return super.setSkateboardBicycleRampOnPremises(flag);
 	}
+
 	public SCHO3Dwelling setAnimalsOrExoticPets(String flag)
 	{
 		return super.setAnimalsOrExoticPets(flag);
@@ -263,6 +281,13 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 		return super.setWindpoolZone(text);
 	}
 
+	public SCHO3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public SCHO3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public SCHO3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public SCHO3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public SCHO3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public SCHO3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public SCHO3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 	public String getWindpoolZone()
 	{
 		return super.getWindpoolZone();

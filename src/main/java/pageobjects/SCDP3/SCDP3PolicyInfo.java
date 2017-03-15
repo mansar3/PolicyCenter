@@ -37,6 +37,15 @@ public class SCDP3PolicyInfo extends PolicyInfo<SCDP3PolicyInfo>
 	{
 		return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);
 	}
+
+	public SCDP3PolicyInfo clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+	public SCDP3PolicyInfo acceptYes()
+	{
+		return super.accept();
+	}
+
 	public SCDP3PolicyInfo setNoPriorInsuranceSurcharge(String flag)
 	{
 		return super.setNoPriorInsuranceSurcharge(flag);
@@ -124,7 +133,20 @@ public class SCDP3PolicyInfo extends PolicyInfo<SCDP3PolicyInfo>
 	 	return super.getPolicyType();
 	 }
 
-	 public String getExpirationDate()
+	public SCDP3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new SCDP3Quote(sh, path);
+	}
+
+	public SCDP3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new SCDP3PreQuoteIssues(sh, path);
+	}
+
+
+	public String getExpirationDate()
 	 {
 	 	return super.getExpirationDate();
 	 }

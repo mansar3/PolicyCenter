@@ -19,6 +19,7 @@ public class SCHO3RiskAnalysis extends RiskAnalysis<SCHO3RiskAnalysis>
 		return new SCHO3Quote(sh,path);
 	}
 
+
 	public SCHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -58,6 +59,30 @@ public class SCHO3RiskAnalysis extends RiskAnalysis<SCHO3RiskAnalysis>
 
 	public SCHO3RiskAnalysis answerNo(int questionNum){
 		return super.answerNo(questionNum);
+	}
+
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public SCHO3RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public SCHO3RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
 	}
 	public class SCHO3Contingencies extends Contingencies<SCHO3Contingencies>
 	{

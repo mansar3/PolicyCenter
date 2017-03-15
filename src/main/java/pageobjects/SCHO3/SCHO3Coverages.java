@@ -23,6 +23,17 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		return super.getDwellingLimit();
 	}
 
+	public SCHO3Quote coveragesQuote(){
+		super.CoverageQuote();
+		return new SCHO3Quote(sh, path );
+	}
+
+	public SCHO3PreQuoteIssues  coveragesquoteWithIssues()
+	{
+		super.CoverageQuote();
+		return new SCHO3PreQuoteIssues(sh, path);
+	}
+
 	public SCHO3Coverages setDwellingLimit(String text)
 	{
 		return super.setDwellingLimit(text);
@@ -375,6 +386,12 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 			return super.setSinkholeClaimsIndex(text);
 		}
 
+		public SCHO3Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new SCHO3Quote(sh, path);
+
+		}
 		public String getSinkholeClaimsIndex()
 		{
 			return super.getSinkholeClaimsIndex();
@@ -406,6 +423,12 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkScheduledPersonalProperty();
 		}
+		public SCHO3PropertyEndorsements uncheckScheduledPersonalProperty()
+		{
+			return super.unCheckScheduledPersonalProperty();
+		}
+
+
 
 		public SCHO3PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{

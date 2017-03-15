@@ -19,6 +19,11 @@ public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 		return new SCDP3Quote(sh,path);
 	}
 
+	public SCDP3PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new SCDP3PreQuoteIssues(sh,path);
+	}
 	public SCDP3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -58,6 +63,30 @@ public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 
 	public SCDP3RiskAnalysis answerNo(int questionNum){
 		return super.answerNo(questionNum);
+	}
+
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public SCDP3RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public SCDP3RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
 	}
 	public class SCDP3Contingencies extends Contingencies<SCDP3Contingencies>
 	{

@@ -56,7 +56,16 @@ public class SCHO4Dwelling extends Dwelling<SCHO4Dwelling> {
     {
         return super.setBCEG(text);
     }
+    public SCHO4Dwelling clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
 
+    public SCHO4Dwelling acceptYes()
+    {
+        return super.accept();
+    }
+
+    public SCHO4Dwelling clickdwellingSaveDraft() {return super.clickDwellingSaveDraft();}
     public String getBCEG()
     {
         return super.getBCEG();
@@ -220,6 +229,14 @@ public class SCHO4Dwelling extends Dwelling<SCHO4Dwelling> {
     {
         return super.setAnimalsOrExoticPets(flag);
     }
+    public SCHO4Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+    public SCHO4Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+    public SCHO4Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+    public SCHO4Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+    public SCHO4Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+    public SCHO4Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+    public SCHO4Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
+
     public SCHO4Dwelling setGolfCarts(String flag)
     {
         return super.setGolfCarts(flag);

@@ -205,6 +205,10 @@ public class SCHO3DwellingConstruction extends DwellingConstruction<SCHO3Dwellin
 		return super.setRoofTypeDescription(text);
 	}
 
+	public SCHO3Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new SCHO3Quote(sh,path);
+	}
 	public String getRoofTypeDescription()
 	{
 		return super.getRoofTypeDescription();

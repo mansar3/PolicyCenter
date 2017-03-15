@@ -28,6 +28,18 @@ public class SCDP3Dwelling extends Dwelling<SCDP3Dwelling> {
         return super.dwellingErrorMessage();
     }
 
+    public SCDP3Quote clickDwellingquote()
+    {
+        super.DwellingQuote();
+        return new SCDP3Quote(sh, path);
+    }
+
+    public SCDP3PreQuoteIssues clickDwellingquoteissue()
+    {
+        super.DwellingQuote();
+        return new SCDP3PreQuoteIssues(sh, path);
+    }
+
     public String getYearBuilt() {
         return super.getYearBuilt();
     }
@@ -229,6 +241,14 @@ public class SCDP3Dwelling extends Dwelling<SCDP3Dwelling> {
     public String getPoolLocation() {
         return super.getPoolLocation();
     }
+
+    public SCDP3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+    public SCDP3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+    public SCDP3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+    public SCDP3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+    public SCDP3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+    public SCDP3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+    public SCDP3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 
     public SCDP3Dwelling setFenceType(String text) {
         return super.setFenceType(text);

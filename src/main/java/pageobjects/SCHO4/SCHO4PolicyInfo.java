@@ -41,6 +41,13 @@ public class SCHO4PolicyInfo extends PolicyInfo<SCHO4PolicyInfo> {
     {
         return super.setNoPriorInsuranceSurcharge(flag);
     }
+    public SCHO4PolicyInfo clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+    public SCHO4PolicyInfo acceptYes()
+    {
+        return super.accept();
+    }
     public SCHO4PolicyInfo clickRemoveAdditionalNameInsureds()
     {
         return super.clickRemoveAdditionalNameInsureds();

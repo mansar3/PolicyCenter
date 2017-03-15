@@ -1,4 +1,4 @@
-package FL.HO4;
+package SC.HO4;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
@@ -13,8 +13,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Account.AccountFileSummary;
-import pageobjects.FLHO4.*;
 import pageobjects.Logon;
+import pageobjects.SCHO4.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,10 +22,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 /**
- * Created by ssai on 3/13/2017.
+ * Created by ssai on 3/15/2017.
  */
-public class UWIssueFLHO4 extends BaseTest {
-
+public class UWIssueSCHO4 extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
@@ -44,27 +43,27 @@ public class UWIssueFLHO4 extends BaseTest {
         login = new Logon(sh, sessionInfo);
         login.load();
         login.isLoaded();
-        String user = "user1fcorners", password = "";
+        String user = "user1lowndes", password = "";
         login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
     @Test(description = "Creates Account for FLUWIssue")
     public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
-        String firstname = "FLHO4UWIssue";
+        String firstname = "SCHO4UWIssue";
         Random rand = new Random();
-        int num  = rand.nextInt(99 - 10 + 1)+10;
-        String lastname = "ValidationruleTest"+num;
+        int num = rand.nextInt(99 - 10 + 1) + 10;
+        String lastname = "ValidationruleTest" + num;
 
-        String homeaddress = "475 Oakwood Ct";
-        String city = "Merritt Island";
-        String county = "Brevard";
-        String state = "Florida";
-        String zip = "32953";
+        String homeaddress = "371 Pelican Flight Dr";
+        String city = "Dewees Island";
+        String county = "Charleston";
+        String state = "South Carolina";
+        String zip = "29451";
         String addrestype = "Home";
-        String producercode = "523-23-20770 4 Corners Insurance";
+        String producercode = "523-23-30007 C.T. Lowndes & Co. - Charleston";
         String policyType = "Renters (HO4)";
-        String distanceToFireHydrant = "200";
+        String distanceToFireHydrant = "79";
         String rooftype = "Hip";
         String openprotectiontype = "Hurricane";
         String personalpropertylimit = "130,000";
@@ -86,17 +85,17 @@ public class UWIssueFLHO4 extends BaseTest {
         String uwissueblockingrisk, expecteduwissueblockingrisk = "This risk will require underwriting approval";
 
 
-        FLHO4NavigationBar nav = new FLHO4NavigationBar(sh);
+        SCHO4NavigationBar nav = new SCHO4NavigationBar(sh);
         nav.clickAccountTab();
         nav.clickNewAccountDropdown();
 
-        FLHO4EnterAccountInformation eai = new FLHO4EnterAccountInformation(sh);
+        SCHO4EnterAccountInformation eai = new SCHO4EnterAccountInformation(sh);
         eai.setFirstName(firstname);
         eai.setLastName(lastname);
         eai.clickSearch();
-        eai.createNewPersonAccountFLHO4();
+        eai.createNewPersonAccountSCHO4();
 
-        FLHO4CreateAccount ca = new FLHO4CreateAccount(sh);
+        SCHO4CreateAccount ca = new SCHO4CreateAccount(sh);
         ca.setAddressLine1(homeaddress);
         ca.setCity(city);
         ca.setCounty(county);
@@ -111,7 +110,7 @@ public class UWIssueFLHO4 extends BaseTest {
 
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
-        FLHO4TestingSystemClock tsc = new FLHO4TestingSystemClock(sh);
+        SCHO4TestingSystemClock tsc = new SCHO4TestingSystemClock(sh);
 
 
         String currentdate = tsc.getCurrentDate();
@@ -123,22 +122,23 @@ public class UWIssueFLHO4 extends BaseTest {
         String yearBuilt2 = "2003";
         String wateryear1 = "2010";
 
+
         nav.clickSettings()
                 .clickReturntoPolicyCenter();
         sh.waitForNoMask();
 
-        FLHO4SearchAccounts sa = nav.clickSearchAccount();
+        SCHO4SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
 
-        FLHO4AccountFileSummary afs = new FLHO4AccountFileSummary(sh);
+        SCHO4AccountFileSummary afs = new SCHO4AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        FLHO4NewSubmission ns = new FLHO4NewSubmission(sh);
-        FLHO4Qualification qua = ns.productTable.selectHomeowners();
+        SCHO4NewSubmission ns = new SCHO4NewSubmission(sh);
+        SCHO4Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -146,24 +146,24 @@ public class UWIssueFLHO4 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        FLHO4PolicyInfo pi = qua.next();
-        FLHO4Dwelling dwe = pi.setEffectiveDate(priorDate)
+        SCHO4PolicyInfo pi = qua.next();
+        SCHO4Dwelling dwe = pi.setEffectiveDate(priorDate)
                 .next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant);
 
-        FLHO4DwellingConstruction dwellingConstruction = dwe.next();
+        SCHO4DwellingConstruction dwellingConstruction = dwe.next();
 
 
-        FLHO4Coverages coverages = dwellingConstruction.clickWindMitigation()
+        SCHO4Coverages coverages = dwellingConstruction.clickWindMitigation()
                 .setRoofShapeType(rooftype)
                 .setOpeningProtectionType(openprotectiontype)
                 .next()
                 .setPersonalPropertyLimit(personalpropertylimit);
 
-        FLHO4RiskAnalysis ra = coverages.next();
+        SCHO4RiskAnalysis ra = coverages.next();
 
-         ra.Issuequote()
+        ra.Issuequote()
                 .clickDetailsTab();
 
 
@@ -234,14 +234,14 @@ public class UWIssueFLHO4 extends BaseTest {
         //verify the blobking quote release
         usissueblobkinghomeanimal = ra.getusIssueblockingbind3();
         Assert.assertTrue(expectedusissueblobkinghomeanimal.equals(usissueblobkinghomeanimal));
-        System.out.println("The expected is " +expectedusissueblobkinghomeanimal+ " and it is " + usissueblobkinghomeanimal);
+        System.out.println("The expected is " + expectedusissueblobkinghomeanimal + " and it is " + usissueblobkinghomeanimal);
 
-        FLHO4UWActivity uwa =   ra.riskAnalysisRequestApproval();
+        SCHO4UWActivity uwa = ra.riskAnalysisRequestApproval();
 
         //verifies the assign to
         Verifytoexception = uwa.getAssignTo();
         Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
-        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
+        System.out.println("The expected is " + expectedVerifytoexception + " and it is " + Verifytoexception);
 
         //goes back to the dwelling
         uwa.clickCancel()
@@ -274,11 +274,11 @@ public class UWIssueFLHO4 extends BaseTest {
         //verify the blobking quote release
         uwissueblockingyear = ra.getusIssueblockingbind1();
         Assert.assertTrue(expecteduwissueblockingyear.equals(uwissueblockingyear));
-        System.out.println("The expected is " +expecteduwissueblockingyear+ " and it is " + uwissueblockingyear);
+        System.out.println("The expected is " + expecteduwissueblockingyear + " and it is " + uwissueblockingyear);
 
-        descriptionspp =  ra.getusIssueblockingbind4();
+        descriptionspp = ra.getusIssueblockingbind4();
         Assert.assertTrue(expecteddescriptionspp.equals(descriptionspp));
-        System.out.println("The expected is " +expecteddescriptionspp+ " and it is " + descriptionspp);
+        System.out.println("The expected is " + expecteddescriptionspp + " and it is " + descriptionspp);
 
         //ra.back();
 
@@ -292,20 +292,20 @@ public class UWIssueFLHO4 extends BaseTest {
 //                .clickEditPolicyTransaction()
 //                .acceptYes();
 
-              coverages.clickPropertyEndorsements()
-                      .setPersonalPropertyValue(1, "40,000")
-                      .clickAddScheduledPersonalProperty()
-                      .setPersonalPropertyArticleType(2, "Antiques")
-                      .setPersonalPropertyDescription(2, "Test")
-                      .setPersonalPropertyValue(2, "40,000")
-                      .clickAddScheduledPersonalProperty()
-                      .setPersonalPropertyArticleType(3, "Antiques")
-                      .setPersonalPropertyDescription(3, "Test")
-                      .setPersonalPropertyValue(3, "40,000")
-                      .clickAddScheduledPersonalProperty()
-                      .setPersonalPropertyArticleType(4, "Antiques")
-                      .setPersonalPropertyDescription(4, "Test")
-                      .setPersonalPropertyValue(4, "40,000");
+        coverages.clickPropertyEndorsements()
+                .setPersonalPropertyValue(1, "40,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(2, "Antiques")
+                .setPersonalPropertyDescription(2, "Test")
+                .setPersonalPropertyValue(2, "40,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(3, "Antiques")
+                .setPersonalPropertyDescription(3, "Test")
+                .setPersonalPropertyValue(3, "40,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(4, "Antiques")
+                .setPersonalPropertyDescription(4, "Test")
+                .setPersonalPropertyValue(4, "40,000");
         //goes back to the dwelling
         coverages.back()
                 .back();

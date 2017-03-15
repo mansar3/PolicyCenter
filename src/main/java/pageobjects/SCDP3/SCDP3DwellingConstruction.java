@@ -29,6 +29,13 @@ public class SCDP3DwellingConstruction extends DwellingConstruction<SCDP3Dwellin
         return super.getRoofYear();
     }
 
+    public SCDP3DwellingConstruction clickeditpolicytransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public SCDP3DwellingConstruction acceptYes(){
+        return super.accept();
+    }
     public SCDP3DwellingConstruction setValuationType(String text) {
         return super.setValuationType(text);
     }
@@ -199,6 +206,10 @@ public class SCDP3DwellingConstruction extends DwellingConstruction<SCDP3Dwellin
     public SCDP3DwellingConstruction setPlumbingSystemHaveKnownLeaks(String flag) {
         return super.setPlumbingSystemHaveKnownLeaks(flag);
     }
+    public SCDP3Quote clickDwellingconstructionQuote(){
+        super.DwellingconstructionQuote();
+        return new SCDP3Quote(sh,path);
+    }
 
     public SCDP3DwellingConstruction setBuildingRetrofittedForEarthquakes(String flag) {
         return super.setBuildingRetrofittedForEarthquakes(flag);
@@ -300,6 +311,10 @@ public class SCDP3DwellingConstruction extends DwellingConstruction<SCDP3Dwellin
             return super.getTerrain();
         }
 
+        public SCDP3Quote clickdwellingconstructionwindmitiQuote(){
+            super.DwellingConstructionWindMitiQuote();
+            return new SCDP3Quote(sh,path);
+        }
         public SCDP3WindMitigation setRoofCover(String text) {
             return super.setRoofCover(text);
         }

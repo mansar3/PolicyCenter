@@ -18,4 +18,9 @@ public class SCDP3UWActivity extends UWActivity<SCDP3UWActivity>
 		super.clickSendRequest();
 		return new SCDP3RiskAnalysis(sh,path);
 	}
+	public SCDP3RiskAnalysis clickCancel()
+	{
+		super.clickcancel();
+		return new SCDP3RiskAnalysis(sh,path);
+	}
 }

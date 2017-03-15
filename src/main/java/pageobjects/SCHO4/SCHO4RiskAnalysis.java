@@ -25,6 +25,13 @@ public class SCHO4RiskAnalysis extends RiskAnalysis<SCHO4RiskAnalysis> {
         //super.riskAnalysisClickContingencies().riskAnalysisQuote();
         return new SCHO4Quote(sh, path);
     }
+    public SCHO4PreQuoteIssues Issuequote()
+    {
+        super.riskAnalysisQuote();
+        //sh.clickElement(by.submissionQuote);
+        //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+        return new SCHO4PreQuoteIssues(sh,path);
+    }
     public SCHO4Contingencies clickContingencies()
     {
         super.riskAnalysisClickContingencies();
@@ -58,6 +65,50 @@ public class SCHO4RiskAnalysis extends RiskAnalysis<SCHO4RiskAnalysis> {
 
     public SCHO4RiskAnalysis answerNo(int questionNum){
         return super.answerNo(questionNum);
+    }
+
+    public String getusIssueblockingbind1()
+    {
+        return super.getusIssueblockingbind1();
+    }
+
+    public SCHO4RiskAnalysis clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public SCHO4RiskAnalysis acceptYes()
+    {
+        return super.accept();
+    }
+
+    public String getusIssueblockingbind2()
+    {
+        return super.getusIssueblockingbind2();
+    }
+
+    public String getusIssueblockingbind3()
+    {
+        return super.getusIssueblockingbind3();
+    }
+    public String getusIssueblockingbind4()
+    {
+        return super.getusIssueblockingbind4();
+    }
+    public String getusIssueblockingbind5()
+    {
+        return super.getusIssueblockingbind5();
+    }
+    public String getusIssueblockingbind6()
+    {
+        return super.getusIssueblockingbind6();
+    }
+    public String getusIssueblockingbind7()
+    {
+        return super.getusIssueblockingbind7();
+    }
+    public String getusIssueblockingbind8()
+    {
+        return super.getusIssueblockingbind8();
     }
     public class SCHO4Contingencies extends Contingencies<SCHO4Contingencies>
     {

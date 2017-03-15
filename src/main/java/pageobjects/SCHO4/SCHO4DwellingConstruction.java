@@ -23,6 +23,8 @@ public class SCHO4DwellingConstruction extends DwellingConstruction<SCHO4Dwellin
         super.windMitigation();
         return new SCHO4WindMitigation(sh,path);
     }
+    public SCHO4DwellingConstruction clickdwellingConSaveDraft(){return super.clickDwellingConstructionSaveDraft();}
+
     public SCHO4DwellingConstruction setRoofYear(String text)
     {
         return super.setRoofYear(text);
