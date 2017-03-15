@@ -50,6 +50,13 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         return super.dwellingConstructionErrorMessage();
     }
+    public FLMH3DwellingConstruction clickeditpolicytransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public FLMH3DwellingConstruction acceptYes(){
+        return super.accept();
+    }
 
     public String getEstimatedReplacementCost()
     {
@@ -201,6 +208,10 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     {
         super.dwellingBack();
         return new FLMH3Dwelling(sh,path);
+    }
+    public FLMH3Quote clickDwellingconstructionQuote(){
+        super.DwellingconstructionQuote();
+        return new FLMH3Quote(sh,path);
     }
     public String getElectricalSystemDescribeOther()
     {

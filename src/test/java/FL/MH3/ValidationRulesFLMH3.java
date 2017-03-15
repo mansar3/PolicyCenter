@@ -91,13 +91,8 @@ public class ValidationRulesFLMH3 extends BaseTest {
         String firstname = "FLMH3";
         String lastname = "Validationrule";
         String policyType = "Mobile Home (MH3)";
-        String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
         String effectiveDate = new DateTime().toString("MM/dd/yyyy");
         String futureYear = new DateTime().plusYears(1).toString("yyyy");
-        String currentYear = new DateTime().toString("yyyy");
-        String plumbingYear = new DateTime().minusYears(18).toString("yyyy");
-        String waterHeaterYear = new DateTime().minusYears(18).toString("yyyy");
-        String roofYear = new DateTime().minusYears(18).toString("yyyy");
         String yearBuilt = new DateTime().minusYears(16).toString("yyyy");
         String yearBuilt1 = new DateTime().minusYears(17).toString("yyyy");
 
@@ -119,9 +114,6 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 poolslideTrue = "true",
                 houseKeepingCondBelow = "Below Average",
                 houseKeepingCondGood = "Good";
-        String burglarbaronwindowstrue = "true",
-                burglarbaronwindowno = "false";
-        String safetylatches = "false";
         String primaryHeatingfire = "Fireplace",
                 primaryHeatingspace = "Space Heater",
                 primaryHeatingwood = "Wood Stove",
@@ -134,31 +126,19 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 personalpropertylimit1 = "10,000",
                 personalpropertylimit2 = "52,000",
                 personalpropertylimit3 = "48,000";
-        String SOSattached = "Attached";
 
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
         String mobilehomewidth, expectedmobilehomewidth = "Mobile home cannot be less than 8 feet wide: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String protectionclasserror, expectedprotectionclasserror = "Property with a protection class of 10 or 10W are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String poolerror1, expectedpoolerror1 = "Pools without approved security do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String divingerror, expecteddivingerror = "Diving Boards do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String slideerror, expectedslideerror = "Slides do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String housekeepingerror, expectedhousekeepingwrror = "Below average housekeeping is ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String burgularbars, expectedburgularbars = "Burglar bars without safety release latches are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String primaryheating, expectedpprimaryheating = "Fireplaces, Space Heaters, Wood Stoves, and Wood Furnaces do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String electricsystemfuse, expectedelectricsystemfuse = "Fuse panels do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
-        String conditionrooferror, expectedconditionroof = "Below Average roofs do not meet eligibility guidelines.: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
         String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
         String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
-        String dwellingpersonalerror, expecteddwellingpersonalerror = "The combined dwelling and personal property limits are below the allowable minimum: Dwelling.";
-        String floorunitserror, expectedfloorunitserror = "The floor cannot be greater than the number of stories: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String combinedlimit, expectedcombinedlimit = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
-
-        String numberofunites, expectednumberofunits = "0-10";
-        String unitsinfirewall, expectedunitesinfirewall = "1";
-        String numberofstories, expectednumberofstories = "1";
-
 
         FLMH3NavigationBar nav = new FLMH3NavigationBar(sh);
         FLMH3SearchAccounts sa = nav.clickSearchAccount();
@@ -181,11 +161,6 @@ public class ValidationRulesFLMH3 extends BaseTest {
         }
 
         FLMH3Dwelling dwe = qua.next()
-//                .setEffectiveDate(futureEffectiveDate)
-//                .next()
-//                .clickDwellingBack();
-//        System.out.println("Supposed to get a error message");
-
                 .setEffectiveDate(effectiveDate)
                 .next()
                 .setYearBuilt(yearBuilt)
@@ -198,8 +173,6 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .Enter();
 
         yearerrormessage = dwe.getdwellingErrorMessage();
-//        Assert.assertTrue(expectedyearerrormessage.equals(yearerrormessage));
-//        System.out.println(" Expected Roof Year should be " + expectedyearerrormessage + " and it is " + yearerrormessage);
 
         if (expectedyearerrormessage.equals(yearerrormessage)) {
             System.out.println(" Expected Roof Year should be " + expectedyearerrormessage + " and it is " + yearerrormessage);

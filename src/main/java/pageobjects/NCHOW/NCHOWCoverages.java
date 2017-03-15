@@ -23,6 +23,17 @@ public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
         return super.getDwellingLimit();
     }
 
+    public NCHOWQuote coveragesQuote(){
+        super.CoverageQuote();
+        return new NCHOWQuote(sh, path );
+    }
+
+    public NCHOWPreQuoteIssues  coveragesquoteWithIssues()
+    {
+        super.CoverageQuote();
+        return new NCHOWPreQuoteIssues(sh, path);
+    }
+
     public NCHOWCoverages setDwellingLimit(String text)
     {
         return super.setDwellingLimit(text);
@@ -167,6 +178,56 @@ public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
         }
 
 
+        public NCHOWPropertyEndorsements checkScheduledPersonalProperty()
+        {
+            return super.checkScheduledPersonalProperty();
+        }
+
+        public NCHOWPropertyEndorsements uncheckScheduledPersonalProperty()
+        {
+            return super.unCheckScheduledPersonalProperty();
+        }
+
+        public NCHOWPropertyEndorsements clickAddScheduledPersonalProperty()
+        {
+            return super.clickAddScheduledPersonalProperty();
+
+        }
+        public NCHOWPropertyEndorsements clickRemoveScheduledPersonalProperty()
+        {
+            return super.clickRemoveScheduledPersonalProperty();
+        }
+
+
+        public NCHOWPropertyEndorsements setPersonalPropertyArticleType(int itemNumber, String text)
+        {
+            return super.setPersonalPropertyArticleType(itemNumber, text);
+        }
+        public NCHOWPropertyEndorsements setPersonalPropertyDescription(int itemNumber, String text)
+        {
+            return super.setPersonalPropertyDescription(itemNumber, text);
+        }
+        public NCHOWPropertyEndorsements setWaterBackupLimit(String text)
+        {
+            return super.setWaterBackUpLimit(text);
+        }
+        public NCHOWPropertyEndorsements setPersonalPropertyValue(int itemNumber, String text)
+        {
+            return super.setPersonalPropertyValue(itemNumber, text);
+        }
+
+        public NCHOWQuote clickcoveragesPropertyEndorsementsQuote()
+        {
+            super.clickCoveragesPropertyEndorsementsQuote();
+            return new NCHOWQuote(sh, path);
+
+        }
+        
+        
+        
+        
+        
+        
         public NCHOWPropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
         {
             return super.checkOtherStructuresIncreasedCoverageRentedToOthers();

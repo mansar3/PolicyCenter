@@ -103,6 +103,17 @@ public class NCHO3PolicyInfo extends PolicyInfo<NCHO3PolicyInfo>
 	 {
 	 	return super.getUnderwritingCompanies();
 	 }
+	public NCHO3Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new NCHO3Quote(sh, path);
+	}
+
+	public NCHO3PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new NCHO3PreQuoteIssues(sh, path);
+	}
 
 	 public NCHO3PolicyInfo setOccupation(String text)
 	 {

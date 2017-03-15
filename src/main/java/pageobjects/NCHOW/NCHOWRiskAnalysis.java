@@ -57,6 +57,29 @@ public class NCHOWRiskAnalysis extends RiskAnalysis<NCHOWRiskAnalysis> {
     public NCHOWRiskAnalysis back(){
         return  super.coveragesback();
     }
+    public String getusIssueblockingbind1()
+    {
+        return super.getusIssueblockingbind1();
+    }
+
+    public NCHOWRiskAnalysis clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+
+    public NCHOWRiskAnalysis acceptYes()
+    {
+        return super.accept();
+    }
+
+    public String getusIssueblockingbind2()
+    {
+        return super.getusIssueblockingbind2();
+    }
+
+    public String getusIssueblockingbind3()
+    {
+        return super.getusIssueblockingbind3();
+    }
     public class NCHOWContingencies extends Contingencies<NCHOWContingencies>
     {
 

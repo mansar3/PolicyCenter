@@ -1,6 +1,7 @@
 package pageobjects.FLMH3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.FLMH3.FLMH3Dwelling;
 import pageobjects.WizardPanelBase.Dwelling;
 
 /**
@@ -30,6 +31,18 @@ public class FLMH3Dwelling extends Dwelling<FLMH3Dwelling> {
     {
         return super.dwellingErrorMessage();
     }
+    public FLMH3Quote clickDwellingquote()
+    {
+        super.DwellingQuote();
+        return new FLMH3Quote(sh, path);
+    }
+
+    public FLMH3PreQuoteIssues clickDwellingquoteissue()
+    {
+        super.DwellingQuote();
+        return new FLMH3PreQuoteIssues(sh, path);
+    }
+
 
     public String getYearBuilt()
     {
@@ -232,6 +245,13 @@ public class FLMH3Dwelling extends Dwelling<FLMH3Dwelling> {
     {
         return super.setAnimalsOrExoticPets(flag);
     }
+    public FLMH3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+    public FLMH3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+    public FLMH3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+    public FLMH3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+    public FLMH3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+    public FLMH3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+    public FLMH3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
     public FLMH3Dwelling setGolfCarts(String flag)
     {
         return super.setGolfCarts(flag);

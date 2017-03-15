@@ -17,4 +17,9 @@ public class NCHOWUWActivity extends UWActivity<NCHOWUWActivity> {
         super.clickSendRequest();
         return new NCHOWRiskAnalysis(sh,path);
     }
+    public NCHOWRiskAnalysis clickCancel()
+    {
+        super.clickcancel();
+        return new NCHOWRiskAnalysis(sh,path);
+    }
 }

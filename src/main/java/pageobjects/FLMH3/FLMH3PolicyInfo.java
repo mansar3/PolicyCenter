@@ -41,6 +41,13 @@ public class FLMH3PolicyInfo extends PolicyInfo<FLMH3PolicyInfo> {
     {
         return super.setNoPriorInsuranceSurcharge(flag);
     }
+    public FLMH3PolicyInfo clickEditPolicyTransaction(){
+        return super.editPolicyTransaction();
+    }
+    public FLMH3PolicyInfo acceptYes()
+    {
+        return super.accept();
+    }
     public FLMH3PolicyInfo clickRemoveAdditionalNameInsureds()
     {
         return super.clickRemoveAdditionalNameInsureds();
@@ -99,6 +106,18 @@ public class FLMH3PolicyInfo extends PolicyInfo<FLMH3PolicyInfo> {
     {
         return super.getUnderwritingCompanies();
     }
+    public FLMH3Quote  quote()
+    {
+        super.PolicyInfoQuote();
+        return new FLMH3Quote(sh, path);
+    }
+
+    public FLMH3PreQuoteIssues  quoteWithIssues()
+    {
+        super.PolicyInfoQuote();
+        return new FLMH3PreQuoteIssues(sh, path);
+    }
+
 
     public FLMH3PolicyInfo setOccupation(String text)
     {

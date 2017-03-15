@@ -19,6 +19,18 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 		return new NCHO3DwellingConstruction(sh, path);
 	}
 
+	public NCHO3Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new NCHO3Quote(sh, path);
+	}
+
+	public NCHO3PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new NCHO3PreQuoteIssues(sh, path);
+	}
+
 	public String getdwellingErrorMessage()
 	{
 		return super.dwellingErrorMessage();
@@ -190,6 +202,12 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 	{
 		return super.setInTheWindpool(flag);
 	}
+
+	public NCHO3Dwelling clickDwellingBack()
+	{
+		super.clickDwellingLeft();
+		return new NCHO3Dwelling(sh, path);
+	}
 	public NCHO3Dwelling setOwnedByOther(String flag)
 	{
 		return super.setOwnedByOther(flag);
@@ -252,6 +270,13 @@ public class NCHO3Dwelling extends Dwelling<NCHO3Dwelling>
 	{
 		return super.setPoolLocation(text);
 	}
+	public NCHO3Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public NCHO3Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public NCHO3Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public NCHO3Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public NCHO3Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public NCHO3Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public NCHO3Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
 
 	public String getPoolLocation()
 	{

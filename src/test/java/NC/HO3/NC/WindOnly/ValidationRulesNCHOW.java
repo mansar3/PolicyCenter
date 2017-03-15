@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by ssai on 3/4/2017.
  */
-public class ValidationRulesNCWind extends BaseTest {
+public class ValidationRulesNCHOW extends BaseTest {
     private String dateString;
     private WebDriver driver;
     private Logon logon;
@@ -114,10 +114,10 @@ public class ValidationRulesNCWind extends BaseTest {
                 personalpropertylimit1 = "135000",
                 personalpropertylimit2 = "80000";
         String namedstorm, expectednamedstorm = "2%";
-        String yearbuilt, expectedyearbuilt = "Please enter a valid 4 digit year: Year Built.";
-        String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling.";
-        String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property.";
-        String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property.";
+        String yearbuilt, expectedyearbuilt = "Please enter a valid 4 digit year: Year Built. [HO_Dwelling_08]";
+        String dwellinglimiterror, expecteddwellinglimiterror = "Dwelling coverage limit is below the acceptable minimum limit: Dwelling. [HO_Dwell_01]";
+        String personalpropertylimmiterror, expectedpersonalpropertylimmiterror = "Personal Property limit is below the allowable minimum: Personal Property. [HO_PersProp_02]";
+        String personalpropertylimitaboveerror, expectedpersonalpropertylimitaboveerror = "Personal Property limit is above the allowable maximum: Personal Property. [HO_PersProp_03]";
         String otherstructureserror, expectedotherstructureserror = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";
         String convitederror, expectedconvitederror = "Applicants convicted of arson are ineligible for coverage.";
         String structurecoverage, expectedstructurecoverage = "The combined limit of all Other Structure Coverages is above the allowable maximum limit: Dwelling.";

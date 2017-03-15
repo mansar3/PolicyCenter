@@ -1,6 +1,7 @@
 package pageobjects.FLMH3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.FLMH3.FLMH3Coverages;
 import pageobjects.WizardPanelBase.Coverages;
 
 /**
@@ -22,6 +23,18 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
     {
         return super.getDwellingLimit();
     }
+
+    public FLMH3Quote coveragesQuote(){
+        super.CoverageQuote();
+        return new FLMH3Quote(sh, path );
+    }
+
+    public FLMH3PreQuoteIssues  coveragesquoteWithIssues()
+    {
+        super.CoverageQuote();
+        return new FLMH3PreQuoteIssues(sh, path);
+    }
+
 
     public FLMH3Coverages setDwellingLimit(String text)
     {
@@ -400,6 +413,12 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         {
             return super.isWhenSafeChecked();
         }
+        public FLMH3Quote clickcoveragesPropertyEndorsementsQuote()
+        {
+            super.clickCoveragesPropertyEndorsementsQuote();
+            return new FLMH3Quote(sh, path);
+
+        }
 
         public String getWhenSafeCreditPercentage()
         {
@@ -435,6 +454,10 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         public String getOccurrenceAggregateLimit()
         {
             return super.getOccurrenceAggregateLimit();
+        }
+        public FLMH3Coverages.FLMH3PropertyEndorsements uncheckScheduledPersonalProperty()
+        {
+            return super.unCheckScheduledPersonalProperty();
         }
         public FLMH3PropertyEndorsements setLossAssessmentLimit(String text)
         {

@@ -23,6 +23,16 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		return super.getDwellingLimit();
 	}
 
+	public NCHO3Quote coveragesQuote(){
+		super.CoverageQuote();
+		return new NCHO3Quote(sh, path );
+	}
+
+	public NCHO3PreQuoteIssues  coveragesquoteWithIssues()
+	{
+		super.CoverageQuote();
+		return new NCHO3PreQuoteIssues(sh, path);
+	}
 	public NCHO3Coverages setDwellingLimit(String text)
 	{
 		return super.setDwellingLimit(text);
@@ -376,6 +386,12 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 			return super.isCreditCardCheckBoxAvailable();
 		}
 
+		public NCHO3Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new NCHO3Quote(sh, path);
+
+		}
 		public NCHO3PropertyEndorsements setSinkholeClaimsIndex(String text)
 		{
 			return super.setSinkholeClaimsIndex(text);
@@ -412,6 +428,12 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.checkScheduledPersonalProperty();
 		}
+
+		public NCHO3PropertyEndorsements uncheckScheduledPersonalProperty()
+		{
+			return super.unCheckScheduledPersonalProperty();
+		}
+
 
 		public NCHO3PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{

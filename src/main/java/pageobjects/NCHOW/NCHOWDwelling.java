@@ -17,6 +17,17 @@ public class NCHOWDwelling extends Dwelling<NCHOWDwelling> {
         super.DwellingConstructionNext();
         return new NCHOWDwellingConstruction(sh, path);
     }
+    public NCHOWQuote clickDwellingquote()
+    {
+        super.DwellingQuote();
+        return new NCHOWQuote(sh, path);
+    }
+
+    public NCHOWPreQuoteIssues clickDwellingquoteissue()
+    {
+        super.DwellingQuote();
+        return new NCHOWPreQuoteIssues(sh, path);
+    }
 
     public String getdwellingErrorMessage()
     {
@@ -45,6 +56,11 @@ public class NCHOWDwelling extends Dwelling<NCHOWDwelling> {
     public NCHOWDwelling setTerritoryCode(String text)
     {
         return super.setTerritoryCode(text);
+    }
+
+    public NCHOWDwelling setDistanceToFireHydrant(String text)
+    {
+        return super.setDistanceToFireHydrant(text);
     }
 
     public String getTerritoryCode()
@@ -79,6 +95,43 @@ public class NCHOWDwelling extends Dwelling<NCHOWDwelling> {
     {
         return super.getDistanceToCoast();
     }
+
+    public NCHOWDwelling setAnimalsOrExoticPets(String flag)
+    {
+        return super.setAnimalsOrExoticPets(flag);
+    }
+    public NCHOWDwelling setGolfCarts(String flag)
+    {
+        return super.setGolfCarts(flag);
+    }
+    public NCHOWDwelling setRecreationalVehiclesOwned(String flag)
+    {
+        return super.setRecreationalVehiclesOwned(flag);
+    }
+    public NCHOWDwelling setPoolFenced(String flag)
+    {
+        return super.setPoolFenced(flag);
+    }
+    public NCHOWDwelling setDivingBoard(String flag)
+    {
+        return super.setDivingBoard(flag);
+    }
+    public NCHOWDwelling setPoolSlide(String flag)
+    {
+        return super.setPoolSlide(flag);
+    }
+    public NCHOWDwelling setPoolLocation(String text)
+    {
+        return super.setPoolLocation(text);
+    }
+    public NCHOWDwelling addexocticAnimal(){return super.addExoticAnimal();}
+    public NCHOWDwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+    public NCHOWDwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+    public NCHOWDwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+    public NCHOWDwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+    public NCHOWDwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+    public NCHOWDwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
+
 
 
 

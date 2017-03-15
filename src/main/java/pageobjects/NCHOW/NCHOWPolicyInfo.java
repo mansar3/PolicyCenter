@@ -104,6 +104,18 @@ public class NCHOWPolicyInfo extends PolicyInfo<NCHOWPolicyInfo> {
     {
         return super.setOccupation(text);
     }
+    public NCHOWQuote  quote()
+    {
+        super.PolicyInfoQuote();
+        return new NCHOWQuote(sh, path);
+    }
+
+    public NCHOWPreQuoteIssues  quoteWithIssues()
+    {
+        super.PolicyInfoQuote();
+        return new NCHOWPreQuoteIssues(sh, path);
+    }
+
 
     public String getOccupation()
     {

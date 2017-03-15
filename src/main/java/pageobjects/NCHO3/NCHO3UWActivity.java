@@ -18,4 +18,9 @@ public class NCHO3UWActivity extends UWActivity<NCHO3UWActivity>
 		super.clickSendRequest();
 		return new NCHO3RiskAnalysis(sh,path);
 	}
+	public NCHO3RiskAnalysis clickCancel()
+	{
+		super.clickcancel();
+		return new NCHO3RiskAnalysis(sh,path);
+	}
 }

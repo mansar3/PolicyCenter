@@ -111,6 +111,15 @@ public class NCHOWDwellingConstruction extends DwellingConstruction<NCHOWDwellin
 	{
 		return super.getRoofTypeDescription();
 	}
+	public NCHOWDwellingConstruction setWaterHeaterYear(String text)
+	{
+		return super.setWaterHeaterYear(text);
+	}
+
+	public String getWaterHeaterYear()
+	{
+		return super.getWaterHeaterYear();
+	}
 	public NCHOWDwellingConstruction setUncorrectedFireOrBuildingCodeViolations(String flag)
 	{
 		return super.setUncorrectedFireOrBuildingCodeViolations(flag);
@@ -121,6 +130,11 @@ public class NCHOWDwellingConstruction extends DwellingConstruction<NCHOWDwellin
     {
         return super.setUncorrectedFireOrBuildingCodeViolationsDescription(flag);
     }
+
+	public NCHOWQuote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new NCHOWQuote(sh,path);
+	}
 
 
     public class NCHOWWindMitigation extends WindMitigation<NCHOWWindMitigation>

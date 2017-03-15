@@ -1,4 +1,5 @@
-package FL.HO6;
+package FL.MH3;
+
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
@@ -13,7 +14,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Account.AccountFileSummary;
-import pageobjects.FLHO6.*;
+import pageobjects.FLMH3.*;
 import pageobjects.Logon;
 
 import java.time.LocalDate;
@@ -21,10 +22,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
+
 /**
  * Created by ssai on 3/14/2017.
  */
-public class UWIssueFLHO6 extends BaseTest {
+public class UWIssueFLMH3 extends BaseTest {
 
     private String dateString;
     private WebDriver driver;
@@ -43,58 +45,88 @@ public class UWIssueFLHO6 extends BaseTest {
         login = new Logon(sh, sessionInfo);
         login.load();
         login.isLoaded();
-        String user = "user1brown", password = "";
+        String user = "userAcomm", password = "";
         login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
     @Test(description = "Creates Account for FLUWIssue")
     public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
-        String firstname = "FLHO6UWIssue";
+        String firstname = "FLMH3UWIssue";
+        // String lastname = "Validationrule";
+
         Random rand = new Random();
         int num  = rand.nextInt(99 - 10 + 1)+10;
         String lastname = "ValidationruleTest"+num;
+
+        //String lastname = "Validationrule01Test11";
+        //  String date = "03/30/1985";
         String homeaddress = "104 Grand Oaks Cir";
         String city = "Daytona Beach";
         String state = "Florida";
         String county = "Volusia";
         String zip = "32114";
         String addrestype = "Home";
-        String producercode = "523-23-21498";
-        String policyType = "Condominium (HO6)";
+        String producercode = "523-23-21358";
+        String policyType = "Mobile Home (MH3)";
         String distanceToFireHydrant = "200";
+        String mobilehomepark = "1 - Aberdeen at Ormond Beach";
+        String skirtedYes= "true";
         String rooftype = "Hip";
-        String dwellinglimit = "350,000";
+        String rooftype1 = "Hip";
+        String dwellinglimit = "124,000",
+                dwellinglimit1 = "130,000",
+                dwellinglimit2 = "125,000";
         String personalpropertylimit = "100,000";
         String openprotectiontype = "Hurricane";
         String DateofBirth = "06/14/1970";
         String ssn = "111-11-1111";
         String animaltrue = "true";
         String animalfalse = "false";
+        String constructiontype= "Superior",
+                constructiontype1 = "Frame";
+        String Medicalpayments = "10,000",
+                medicalPayments1 = "3,000";
         String allotherPerils = "500";
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
-        String Verifyto, expectedVerifyto = "UW Approval - PL Team 2";
+        String uwissueblobkingbind3, expecteduwissueblobkingbind3 = "Flat roofs must be reviewed by Underwriting";
+        String Verifyto, expectedVerifyto = "UW Approval - PL Team 5";
         String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
+        String descriptionssndob, expecteddescriptionssndob = "SSN required for all Named Insureds, DOB required for all Named Insureds, Flat roofs must be reviewed by Underwriting";
+        String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
+        String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
+        String descriptionyear, expecteddescriptionyear = "Dwelling Year Built";
+        String descriptionhomeanimal, expecteddescriptionhomeanimal = "Home with Exotic Animals";
+        String descriptionconstruction, expecteddescriptionconstruction = "Dwelling Construction Type Superior";
+        String descriptionwaterheater, expecteddescriptionwaterheater = "Water Heater Age";
+        String descriptionmedical, expecteddescriptionmedical = "HO Medical Pay";
+        String descriptionspp, expecteddescriptionspp = "Scheduled Personal Property";
+        String descriptionsinkhole, expecteddescriptionsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingquotemessage, expecteduwissueblockingquotemessage = "Transaction Effective Date earlier than Written Date";
+        String uwissueblobkingbindtran, expecteduwissueblobkingbindtran = "Transaction Effective Date 5 days earlier than System Date";
+        String usissueblobkingquoteissue, expectedusissueblobkingquoteissue = "Maximum Dwelling Limit Exceeded";
         String uwissueblockingyear, expecteduwissueblockingyear = "Dwelling Year Built";
         String usissueblobkinghomeanimal, expectedusissueblobkinghomeanimal = "Home with Exotic Animals";
+        String uwissueblockingsuperior, expecteduwissueblockingsuperior = "Dwelling Construction Type Superior";
         String uwissueblockingwater, expecteduwissueblockingwater = "Water Heater Age";
+        String usissueblockingmedical, expectedusissueblockingmedical = "HO Medical Pay";
         String uwissueblockingspp, expecteduwissueblockingspp = "Scheduled Personal Property";
+        String usissueblockingsinkhole, expectedusissueblockingsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
 
 
-       FLHO6NavigationBar nav = new FLHO6NavigationBar(sh);
+        FLMH3NavigationBar nav = new FLMH3NavigationBar(sh);
         nav.clickAccountTab();
         nav.clickNewAccountDropdown();
 
-       FLHO6EnterAccountInformation eai = new FLHO6EnterAccountInformation(sh);
+        FLMH3EnterAccountInformation eai = new FLMH3EnterAccountInformation(sh);
         eai.setFirstName(firstname);
         eai.setLastName(lastname);
         eai.clickSearch();
-        eai.createNewPersonAccountFLHO6();
+        eai.createNewPersonAccountFLMH3();
 
-       FLHO6CreateAccount ca = new FLHO6CreateAccount(sh);
+        FLMH3CreateAccount ca = new FLMH3CreateAccount(sh);
         //  ca.setDateOfBirth(date);
         ca.setAddressLine1(homeaddress);
         ca.setCity(city);
@@ -103,7 +135,7 @@ public class UWIssueFLHO6 extends BaseTest {
         ca.setCounty(county);
         ca.setZipCode(zip);
         ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:0:_Select")).click();
         ca.setAddressType(addrestype);
         ca.setProducerCode(producercode);
         ca.update();
@@ -111,7 +143,7 @@ public class UWIssueFLHO6 extends BaseTest {
 
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
-       FLHO6TestingSystemClock tsc = new FLHO6TestingSystemClock(sh);
+        FLMH3TestingSystemClock tsc = new FLMH3TestingSystemClock(sh);
         String currentdate = tsc.getCurrentDate();
         LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
         String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
@@ -122,7 +154,7 @@ public class UWIssueFLHO6 extends BaseTest {
         // String yearBuilt2 = dateTime.minusYears(14).format(DateTimeFormatter.ofPattern("yyyy"));
         String yearBuilt1 = "2003";
         String yearBuilt3 = "2010";
-       // String yearBuilt2 = "2000";
+        // String yearBuilt2 = "2000";
         //  String wateryear = "1999",
         String wateryear1 = "2010";
         String wateryear = dateTime.minusYears(16).format(DateTimeFormatter.ofPattern("yyyy"));
@@ -131,18 +163,18 @@ public class UWIssueFLHO6 extends BaseTest {
                 .clickReturntoPolicyCenter();
         sh.waitForNoMask();
 
-       FLHO6SearchAccounts sa = nav.clickSearchAccount();
+        FLMH3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
 
-       FLHO6AccountFileSummary afs = new FLHO6AccountFileSummary(sh);
+        FLMH3AccountFileSummary afs = new FLMH3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-       FLHO6NewSubmission ns = new FLHO6NewSubmission(sh);
-       FLHO6Qualification qua = ns.productTable.selectHomeowners();
+        FLMH3NewSubmission ns = new FLMH3NewSubmission(sh);
+        FLMH3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -150,29 +182,27 @@ public class UWIssueFLHO6 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-       FLHO6PolicyInfo pi = qua.next();
-       FLHO6Dwelling dwe = pi.setEffectiveDate(priorDate)
-               .next()
-                .setYearBuilt(yearBuilt)
-                .setDistanceToFireHydrant(distanceToFireHydrant);
-
-       FLHO6DwellingConstruction dwellingConstruction = dwe.next();
-
-
-       FLHO6Coverages coverages = dwellingConstruction.clickWindMitigation()
-                .setRoofShapeType(rooftype)
-                .setOpeningProtectionType(openprotectiontype)
+        FLMH3PolicyInfo pi = qua.next();
+        FLMH3Dwelling dwe = pi.setEffectiveDate(priorDate)
                 .next()
-                .setDwellingLimit(dwellinglimit)
-               .setPersonalPropertyLimit(personalpropertylimit);
+                .setYearBuilt(yearBuilt)
+                .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setMobileHomePark(mobilehomepark);
 
-       FLHO6RiskAnalysis ra = coverages.next();
-
-       ra.Issuequote()
-               .clickDetailsTab();
+        FLMH3DwellingConstruction dwellingConstruction = dwe.next();
 
 
-               //verify only one on blocking quote.
+        FLMH3Coverages coverages = dwellingConstruction.setIsTheMobileHomeFullySkirted(skirtedYes)
+                .next()
+                .setDwellingLimit(dwellinglimit);
+
+        FLMH3RiskAnalysis ra = coverages.next();
+
+        ra.Issuequote()
+                .clickDetailsTab();
+
+
+        //verify only one on blocking quote.
 
         uwissueblockingquotemessage = ra.getusIssueblockingbind1();
         Assert.assertTrue(expecteduwissueblockingquotemessage.equals(uwissueblockingquotemessage));
@@ -180,7 +210,7 @@ public class UWIssueFLHO6 extends BaseTest {
 
         //clicks on request approval
 
-        FLHO6UWActivity uwa =  ra.riskAnalysisRequestApproval();
+        FLMH3UWActivity uwa =  ra.riskAnalysisRequestApproval();
 
         //verifies the assign to
 
@@ -193,51 +223,56 @@ public class UWIssueFLHO6 extends BaseTest {
         ra.back()
                 .back().back().back();
 
-              pi.clickEditPolicyTransaction()
+        pi.clickEditPolicyTransaction()
                 .acceptYes();
 
         //sets to the current date
 
         pi.setEffectiveDate(currentDate)
-                .quote()
-                .backToRiskAnalysis();
+                .next()
+                .next()
+                .next();
 
-        //verify the blocking Quote
+        //changes the dwelling limit
+        coverages.setDwellingLimit(dwellinglimit1)
+                .coveragesquoteWithIssues()
+                .clickDetailsTab();
 
-        uwissueblockingwater = ra.getusIssueblockingbind1();
-        Assert.assertTrue(expecteduwissueblockingwater.equals(uwissueblockingwater));
-        System.out.println("The expected is " +expecteduwissueblockingwater+ " and it is " + uwissueblockingwater);
+        //verifies the dwelling exceeded description and Assign to
+
+        description1 = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteddescription1.equals(description1));
+        System.out.println("The expected is " +expecteddescription1+ " and it is " + description1);
 
         ra.riskAnalysisRequestApproval();
 
         //verifies the assign to
 
-        Verifyto = uwa.getAssignTo();
-        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
-        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
-
+        Verifytoexception = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
+        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
 
         uwa.clickCancel();
 
-        //goes to the dwelling construction
+        ra.clickEditPolicyTransaction()
+                .acceptYes();
 
-        ra.back().back();
+        //goes back to the coverages
 
-        //sets the water heater year
+        ra.back();
 
-        dwellingConstruction.clickeditpolicytransaction()
-                .acceptYes()
-                .setWaterHeaterYear(wateryear1)
-                .clickDwellingconstructionQuote()
+        //sets teh dwelling limit
+        coverages.setDwellingLimit(dwellinglimit2)
+                .next()
+                .quote()
                 .backToRiskAnalysis();
 
-        //verify the blocking Quote
+        //verifies the SSN message
+
         uwissueblobkingbind1 = ra.getusIssueblockingbind1();
         Assert.assertTrue(expecteduwissueblobkingbind1.equals(uwissueblobkingbind1));
         System.out.println("The expected is " + expecteduwissueblobkingbind1 + " and it is " + uwissueblobkingbind1);
 
-        //clicks on request approval
-
         ra.riskAnalysisRequestApproval();
 
         //verifies the assign to
@@ -246,8 +281,9 @@ public class UWIssueFLHO6 extends BaseTest {
         Assert.assertTrue(expectedVerifyto.equals(Verifyto));
         System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
 
-        uwa.clickCancel()
-                .clickEditPolicyTransaction()
+        uwa.clickCancel();
+
+        ra.clickEditPolicyTransaction()
                 .acceptYes();
 
         //clicks the account number
@@ -287,7 +323,6 @@ public class UWIssueFLHO6 extends BaseTest {
         af.westPanel.clickContacts().clickNameAccountFileContacts().setDateOfBirth(DateofBirth).clickupdate();
         af.westPanel.clickPolicyTransaction().clickTransactionNumber();
 
-        //goes to dwelling
         qua.next().next();
 
         dwe.setYearBuilt(yearBuilt1)
@@ -325,6 +360,13 @@ public class UWIssueFLHO6 extends BaseTest {
                 .clickDwellingquoteissue()
                 .clickDetailsTab();
 
+
+        //verify the blobking quote release
+        uwissueblockingyear = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingyear.equals(uwissueblockingyear));
+        System.out.println("The expected is " +expecteduwissueblockingyear+ " and it is " + uwissueblockingyear);
+
+
         //clicks on request approval
         ra.riskAnalysisRequestApproval();
 
@@ -333,11 +375,6 @@ public class UWIssueFLHO6 extends BaseTest {
         System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
 
         uwa.clickCancel();
-
-        //verify the blobking quote release
-        uwissueblockingyear = ra.getusIssueblockingbind1();
-        Assert.assertTrue(expecteduwissueblockingyear.equals(uwissueblockingyear));
-        System.out.println("The expected is " +expecteduwissueblockingyear+ " and it is " + uwissueblockingyear);
 
 
         ra.clickEditPolicyTransaction()
@@ -381,21 +418,22 @@ public class UWIssueFLHO6 extends BaseTest {
         ra.clickEditPolicyTransaction()
                 .acceptYes();
 
+
         ra.back();
         coverages.clickPropertyEndorsements()
-                .setPersonalPropertyArticleType(1, "Coins")
+                .setPersonalPropertyArticleType(1, "Guns")
                 .setPersonalPropertyDescription(1, "Test")
                 .setPersonalPropertyValue(1, "40,000")
                 .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(2, "Coins")
+                .setPersonalPropertyArticleType(2, "Guns")
                 .setPersonalPropertyDescription(2, "Test")
                 .setPersonalPropertyValue(2, "40,000")
                 .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(3, "Coins")
+                .setPersonalPropertyArticleType(3, "Guns")
                 .setPersonalPropertyDescription(3, "Test")
                 .setPersonalPropertyValue(3, "40,000")
                 .clickAddScheduledPersonalProperty()
-                .setPersonalPropertyArticleType(4, "Coins")
+                .setPersonalPropertyArticleType(4, "Guns")
                 .setPersonalPropertyDescription(4, "Test")
                 .setPersonalPropertyValue(4, "40,000")
                 .clickcoveragesPropertyEndorsementsQuote()
@@ -446,6 +484,17 @@ public class UWIssueFLHO6 extends BaseTest {
         Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
         System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
 
+        //clicks on request approval
+        ra.riskAnalysisRequestApproval();
+
+
+        //verifies the assign to
+
+        Verifyto = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
+        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
+
+        uwa.clickCancel();
     }
 
     @AfterMethod(alwaysRun = true)

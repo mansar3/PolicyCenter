@@ -203,6 +203,11 @@ public class NCHO3DwellingConstruction extends DwellingConstruction<NCHO3Dwellin
 		return super.setRoofTypeDescription(text);
 	}
 
+	public NCHO3Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new NCHO3Quote(sh,path);
+	}
+
 	public String getRoofTypeDescription()
 	{
 		return super.getRoofTypeDescription();
