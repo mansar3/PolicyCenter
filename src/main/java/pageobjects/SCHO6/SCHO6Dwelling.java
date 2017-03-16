@@ -21,6 +21,17 @@ public class SCHO6Dwelling extends Dwelling<SCHO6Dwelling>
 	public SCHO6Dwelling Enter(){
 		return super.Enter();
 	}
+	public SCHO6Quote clickDwellingquote()
+	{
+		super.DwellingQuote();
+		return new SCHO6Quote(sh, path);
+	}
+
+	public SCHO6PreQuoteIssues clickDwellingquoteissue()
+	{
+		super.DwellingQuote();
+		return new SCHO6PreQuoteIssues(sh, path);
+	}
 	public String getdwellingErrorMessage()
 	{
 		return super.dwellingErrorMessage();
@@ -220,6 +231,16 @@ public class SCHO6Dwelling extends Dwelling<SCHO6Dwelling>
 	{
 		return super.setAnimalsOrExoticPets(flag);
 	}
+	public SCHO6Dwelling addexocticAnimal(){return super.addExoticAnimal();}
+	public SCHO6Dwelling removeexoticAnimal(){return super.removeExoticAnimal();}
+	public SCHO6Dwelling checkexoticAnimalRow(int rowNumber){return super.checkExoticAnimalRow(rowNumber);}
+	public SCHO6Dwelling setexoticAnimalType(int rowNumber, String type ){return super.setExoticAnimalType(rowNumber, type);}
+	public SCHO6Dwelling setexoticAnimalBreed(int rowNumber, String breed ){return super.setExoticAnimalBreed(rowNumber, breed);}
+	public SCHO6Dwelling setexoticAnimalDescription(int rowNumber, String description ){return super.setExoticAnimalDescription(rowNumber, description);}
+	public SCHO6Dwelling setexoticAnimalBiteHistory(int rowNumber, String flag ){return super.setExoticAnimalBiteHistory(rowNumber, flag);}
+	
+	
+	
 	public SCHO6Dwelling setGolfCarts(String flag)
 	{
 		return super.setGolfCarts(flag);

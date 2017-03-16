@@ -138,7 +138,7 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 
 	public boolean isWindExcluded(Integer flag)
 	{
-		return super.isWindExcluded(flag);
+		return super.isWindExcluded();
 	}
 
 	public String getPersonalLiabilityLimit()

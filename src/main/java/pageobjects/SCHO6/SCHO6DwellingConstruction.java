@@ -60,7 +60,17 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 	{
 		return super.setConstructionType(text);
 	}
+	public SCHO6DwellingConstruction clickeditpolicytransaction(){
+		return super.editPolicyTransaction();
+	}
 
+	public SCHO6DwellingConstruction acceptYes(){
+		return super.accept();
+	}
+	public SCHO6Quote clickDwellingconstructionQuote(){
+		super.DwellingconstructionQuote();
+		return new SCHO6Quote(sh,path);
+	}
 	public String getConstructionType()
 	{
 		return super.getConstructionType();

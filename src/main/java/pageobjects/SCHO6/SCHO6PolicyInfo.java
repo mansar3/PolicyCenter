@@ -22,6 +22,25 @@ public class SCHO6PolicyInfo extends PolicyInfo<SCHO6PolicyInfo>
 	{
 		super.addNewPerson();
 		return new SCHO6NewAdditionalNamedInsured(sh,path);
+}
+	public SCHO6Quote  quote()
+	{
+		super.PolicyInfoQuote();
+		return new SCHO6Quote(sh, path);
+	}
+
+	public SCHO6PreQuoteIssues  quoteWithIssues()
+	{
+		super.PolicyInfoQuote();
+		return new SCHO6PreQuoteIssues(sh, path);
+	}
+
+	public SCHO6PolicyInfo clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+	public SCHO6PolicyInfo acceptYes()
+	{
+		return super.accept();
 	}
 	public SCHO6SearchAddressBook searchFromAddressBook()
 	{
