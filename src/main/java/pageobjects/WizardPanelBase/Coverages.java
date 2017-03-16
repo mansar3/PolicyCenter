@@ -661,7 +661,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"),
 			removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
 
-			residenceHeldinTrust = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:0:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
+			residenceHeldinTrust = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
 			otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
 			addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
 			removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../div//span[text() = 'Remove']"),
@@ -1422,6 +1422,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T unCheckScheduledPersonalProperty()
 		{
+			sh.waitForNoMask();
 			sh.checkboxHelper.unCheckElement(by.scheduledPersonalProperty);
 			return (T)this;
 		}

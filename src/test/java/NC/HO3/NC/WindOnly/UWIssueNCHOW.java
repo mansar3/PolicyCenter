@@ -71,7 +71,7 @@ public class UWIssueNCHOW  extends BaseTest {
         String constructiontype= "Superior";
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
-        String Verifyto, expectedVerifyto = "UW Approval - PL North Carolina  Team";
+        String Verifyto, expectedVerifyto = "UW Approval - PL North Carolina Team";
         String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
         String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
         String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
@@ -109,7 +109,7 @@ public class UWIssueNCHOW  extends BaseTest {
         ca.setState(state);
         ca.setZipCode(zip);
         ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:0:_Select")).click();
+        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
         ca.setAddressType(addrestype);
         ca.setProducerCode(producercode);
         ca.update();
@@ -200,14 +200,12 @@ public class UWIssueNCHOW  extends BaseTest {
         af.westPanel.clickPolicyTransaction().clickTransactionNumber();
 
 
-
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-
-        qua.next();
-
-//        //goes to policy info
-//        ra.back().back().back().back();
+        ra.clickEditPolicyTransaction()
+                .acceptYes()
+                .back()
+                .back()
+                .back()
+                .back();
 
 
         pi.setEffectiveDate(priorDate)
@@ -335,257 +333,6 @@ public class UWIssueNCHOW  extends BaseTest {
                 .clickDwellingquote();
 
 
-//                .setAnimalsOrExoticPets(animaltrue)
-//                .setexoticAnimalType(1, "Exotic")
-//                .setexoticAnimalBreed(1, "Other")
-//                .setexoticAnimalBiteHistory(1, "false");
-//
-//        dwe.clickDwellingquote();
-//
-//        //goes back to the risk analysis pagge
-//
-//        quote.backToRiskAnalysis();
-//
-//        //verifies the blocking bind.
-//
-//        //verify the blobking quote release
-//        usissueblobkinghomeanimal = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expectedusissueblobkinghomeanimal.equals(usissueblobkinghomeanimal));
-//        System.out.println("The expected is " +expectedusissueblobkinghomeanimal+ " and it is " + usissueblobkinghomeanimal);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//        //verifies the dwelling exceeded description and Assign to
-//
-//        descriptionhomeanimal = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionhomeanimal.equals(descriptionhomeanimal));
-//        System.out.println("The expected is " +expecteddescriptionhomeanimal+ " and it is " + descriptionhomeanimal);
-//
-//        Verifyto = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
-//        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
-//
-//        uwa.clickCancel();
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-//
-//        //goes back to the dwelling
-//
-//        ra.back().back().back();
-//
-//
-//
-//        //change the animal to no and sets the construction type
-//
-//        dwe.setAnimalsOrExoticPets(animalfalse)
-//                .next()
-//                .setWaterHeaterYear(wateryear)
-//                .clickDwellingconstructionQuote()
-//                .backToRiskAnalysis();
-//
-//        //verify the blocking Bind
-//
-//        uwissueblockingwater = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expecteduwissueblockingwater.equals(uwissueblockingwater));
-//        System.out.println("The expected is " +expecteduwissueblockingwater+ " and it is " + uwissueblockingwater);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//
-//        descriptionwaterheater = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionwaterheater.equals(descriptionwaterheater));
-//        System.out.println("The expected is " +expecteddescriptionwaterheater+ " and it is " + descriptionwaterheater);
-//
-//        Verifyto = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
-//        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
-//
-//
-//        uwa.clickCancel();
-//
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-//
-//        //goes back to the dwelling
-//
-//        ra.back().back();
-//
-//
-//        //sets the water heater year
-//
-//        dwellingConstruction.setWaterHeaterYear(wateryear1)
-//                .next()
-//                .clickPropertyEndorsements()
-//                .checkScheduledPersonalProperty()
-//                .clickAddScheduledPersonalProperty()
-//                .setPersonalPropertyArticleType(1, "Stamps")
-//                .setPersonalPropertyDescription(1, "Test")
-//                .setPersonalPropertyValue(1, "52,500")
-//                .clickcoveragesPropertyEndorsementsQuote()
-//                .backToRiskAnalysis();
-//
-//
-//        //verify the blocking Bind
-//
-//        uwissueblockingspp = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expecteduwissueblockingspp.equals(uwissueblockingspp));
-//        System.out.println("The expected is " +expecteduwissueblockingspp+ " and it is " + uwissueblockingspp);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//        //verifies the dwelling exceeded description and Assign to
-//
-//        descriptionspp = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionspp.equals(descriptionspp));
-//        System.out.println("The expected is " +expecteddescriptionspp+ " and it is " + descriptionspp);
-//
-//
-//        Verifytoexception = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
-//        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
-//
-//
-//        uwa.clickCancel();
-//
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-//
-//        //goes back to the property endorsements
-//        ra.back();
-//        coverages.clickPropertyEndorsements()
-//                .setPersonalPropertyValue(1, "40,000")
-//                .clickAddScheduledPersonalProperty()
-//                .setPersonalPropertyArticleType(2, "Stamps")
-//                .setPersonalPropertyDescription(2, "Test")
-//                .setPersonalPropertyValue(2, "40,000")
-//                .clickAddScheduledPersonalProperty()
-//                .setPersonalPropertyArticleType(3, "Stamps")
-//                .setPersonalPropertyDescription(3, "Test")
-//                .setPersonalPropertyValue(3, "40,000")
-//                .clickAddScheduledPersonalProperty()
-//                .setPersonalPropertyArticleType(4, "Stamps")
-//                .setPersonalPropertyDescription(4, "Test")
-//                .setPersonalPropertyValue(4, "40,000")
-//                .clickcoveragesPropertyEndorsementsQuote()
-//                .backToRiskAnalysis();
-//
-//
-//        //verify the blocking Bind
-//
-//        uwissueblockingspp = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expecteduwissueblockingspp.equals(uwissueblockingspp));
-//        System.out.println("The expected is " +expecteduwissueblockingspp+ " and it is " + uwissueblockingspp);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//        //verifies the dwelling exceeded description and Assign to
-//
-//        descriptionspp = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionspp.equals(descriptionspp));
-//        System.out.println("The expected is " +expecteddescriptionspp+ " and it is " + descriptionspp);
-//
-//
-//        Verifytoexception = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
-//        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
-//
-//
-//        uwa.clickCancel();
-//
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-//
-//        //goes to the coverages
-//
-//        ra.back();
-//        coverages.clickPropertyEndorsements()
-//                .uncheckScheduledPersonalProperty()
-//                .clickCoverages()
-//                .back();
-//
-//        dwellingConstruction.setConstructionType(constructiontype)
-//                .clickDwellingconstructionQuote()
-//                .backToRiskAnalysis();
-//
-//
-//        //verify the blocking Bind
-//
-//        //verify the blocking Bind
-//
-//        uwissueblockingsuperior = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expecteduwissueblockingsuperior.equals(uwissueblockingsuperior));
-//        System.out.println("The expected is " +expecteduwissueblockingsuperior+ " and it is " + uwissueblockingsuperior);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//        //verifies the dwelling exceeded description and Assign to
-//
-//        descriptionconstruction = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionconstruction.equals(descriptionconstruction));
-//        System.out.println("The expected is " +expecteddescriptionconstruction+ " and it is " + descriptionconstruction);
-//
-//        Verifyto = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
-//        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
-//
-//        uwa.clickCancel();
-//
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();   //verify the blocking Bind
-//
-//        uwissueblockingsuperior = ra.getusIssueblockingbind1();
-//        Assert.assertTrue(expecteduwissueblockingsuperior.equals(uwissueblockingsuperior));
-//        System.out.println("The expected is " +expecteduwissueblockingsuperior+ " and it is " + uwissueblockingsuperior);
-//
-//
-//        //clicks on request approval
-//        ra.riskAnalysisRequestApproval();
-//
-//        //verifies the dwelling exceeded description and Assign to
-//
-//        descriptionconstruction = uwa.getDescription();
-//        Assert.assertTrue(expecteddescriptionconstruction.equals(descriptionconstruction));
-//        System.out.println("The expected is " +expecteddescriptionconstruction+ " and it is " + descriptionconstruction);
-//
-//        Verifyto = uwa.getAssignTo();
-//        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
-//        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
-//
-//        uwa.clickCancel();
-//
-//
-//        //clicks on edit policy transaction
-//
-//        ra.clickEditPolicyTransaction()
-//                .acceptYes();
-
-
-
     }
 
     @AfterMethod(alwaysRun = true)
@@ -598,5 +345,5 @@ public class UWIssueNCHOW  extends BaseTest {
         if (driver != null)
             driver.quit();
     }
-    
+
 }
