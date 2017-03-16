@@ -30,6 +30,11 @@ public class UWIssueFLHO3 extends BaseTest {
     private Logon login;
     private CenterSeleniumHelper sh;
 
+    String firstname = "FLHO3UWIssue";
+    Random rand = new Random();
+    int num  = rand.nextInt(99 - 10 + 1)+10;
+    String lastname = "ValidationruleTest"+num;
+
 
     @BeforeMethod
     public void beforeMethod() {
@@ -45,19 +50,12 @@ public class UWIssueFLHO3 extends BaseTest {
         String user = "user1fcorners", password = "";
         login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
+
     }
 
     @Test(description = "Creates Account for FLUWIssue")
     public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
-        String firstname = "FLHO3UWIssue";
-        // String lastname = "Validationrule";
 
-        Random rand = new Random();
-        int num  = rand.nextInt(99 - 10 + 1)+10;
-        String lastname = "ValidationruleTest"+num;
-
-        //String lastname = "Validationrule01Test11";
-        //  String date = "03/30/1985";
         String homeaddress = "500 International Parkway";
         String city = "Lake Mary";
         String state = "Florida";
@@ -108,7 +106,7 @@ public class UWIssueFLHO3 extends BaseTest {
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
 
 
-        FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
+          FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
         nav.clickAccountTab();
         nav.clickNewAccountDropdown();
 
@@ -688,6 +686,328 @@ public class UWIssueFLHO3 extends BaseTest {
         uwa.clickCancel();
 
 
+    }
+
+    @Test
+    public void UWIssueIssue002() {
+
+        String homeaddress = "500 International Parkway";
+        String city = "Lake Mary";
+        String state = "Florida";
+        //   String county = "MOBILE";
+        String zip = "32746",
+                dateofbirth = "12/16/1970",
+                ssnnumber = "111-22-3333";
+        String addrestype = "Home";
+        String producercode = "523-23-20770 4 Corners Insurance";
+        String policyType = "Homeowners (HO3)";
+        String distanceToFireHydrant = "200";
+        String yearBuilt = "2010";
+        String windpoolno = "false",
+                inceptionno = "false";
+        String distancetoCoast = "2000";
+        String replacementCost = "400,000",
+                squareFootage = "2000",
+                primaryHeating = "Gas",
+                plumbing = "PVC",
+                electricalSystem = "Circuit Breaker",
+                roofType = "Asphalt Shingle",
+                conditionRoof = "Good",
+                screenenclosure = "false";
+        String rooftype = "Hip";
+        String dwellinglimit = "174,999",
+                dwellinglimit1 = "1,000,000",
+                dwellinglimit2 = "400,000";
+        String Medicalpayments = "10,000",
+                medicalPayments1 = "1,000";
+
+
+
+        String uwissueblockingdescquotemessage, expecteduwissueblockingdescquotemessage = "Dwelling limit below minimum";
+        String Verifyto, expectedVerifyto = "UW Approval - PL Team 2";
+        String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
+        String uwissueblockingdescquotemaxmessage, expecteduwissueblockingdescquotemaxmessage = "Maximum Dwelling Limit Exceeded";
+        String usissueblockingdesmedical, expectedusissueblockingdesmedical = "HO Medical Pay";
+        String uwissueblockingdesspp, expecteduwissueblockingdesspp = "Scheduled Personal Property";
+        String usissueblockingdecsinkhole, expectedusissueblockingdecsinkhole = "Sinkhole Loss Coverage";
+
+
+        FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
+        nav.clickAccountTab();
+        nav.clickNewAccountDropdown();
+
+        FLHO3EnterAccountInformation eai = new FLHO3EnterAccountInformation(sh);
+        eai.setFirstName(firstname);
+        eai.setLastName(lastname);
+        eai.clickSearch();
+        eai.createNewPersonAccountFLHO3();
+
+        FLHO3CreateAccount ca = new FLHO3CreateAccount(sh);
+         ca.setDateOfBirth(dateofbirth);
+        ca.setAddressLine1(homeaddress);
+        ca.setCity(city);
+        ca.setState(state);
+        ca.setZipCode(zip);
+        ca.clickVerifyAddress();
+        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.setAddressType(addrestype);
+        ca.setSsn(ssnnumber);
+        ca.setProducerCode(producercode);
+        ca.update();
+
+        FLHO3AccountFileSummary afs = new FLHO3AccountFileSummary(sh);
+        afs.westPanel.actions.clickActions();
+        afs.westPanel.actions.clickNewSubmission();
+        FLHO3NewSubmission ns = new FLHO3NewSubmission(sh);
+        FLHO3Qualification qua = ns.productTable.selectHomeowners();
+
+        qua.setPolicyType(policyType);
+        qua.getOfferingSelection();
+        // to select no for all the blanks
+        for (int i = 0; i < 8; i++) {
+            qua.questionnaire.answerNo(i + 1);
+        }
+        FLHO3PolicyInfo pi = qua.next();
+        FLHO3Dwelling dwe = pi.next()
+                .setYearBuilt(yearBuilt)
+                .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setInTheWindpool(windpoolno)
+                .setDistanceToCoast(distancetoCoast)
+                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno);
+
+        FLHO3DwellingConstruction dwellingConstruction = dwe.next();
+
+
+        FLHO3Coverages coverages = dwellingConstruction.setEstimatedReplacementCost(replacementCost)
+                .setSquareFootage(squareFootage)
+                .setPrimaryHeating(primaryHeating)
+                .setPlumbing(plumbing)
+                .setElectricalSystem(electricalSystem)
+                .setRoofType(roofType)
+                .setConditionOfRoof(conditionRoof)
+                .setScreenEnclosureOnPremises(screenenclosure)
+                .clickWindMitigation()
+                .setRoofShapeType(rooftype)
+                .next()
+                .setDwellingLimit(dwellinglimit);
+
+        FLHO3RiskAnalysis ra = coverages.next();
+
+        ra.Issuequote()
+                .clickDetailsTab();
+
+        //verifies the blocking quote
+        uwissueblockingdescquotemessage = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdescquotemessage.equals(uwissueblockingdescquotemessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemessage+ " and it is " + uwissueblockingdescquotemessage);
+
+        //clicks the request approval
+        FLHO3UWActivity uwa = ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        uwissueblockingdescquotemessage = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdescquotemessage.equals(uwissueblockingdescquotemessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemessage+ " and it is " + uwissueblockingdescquotemessage);
+
+
+        //verifies the Assign to
+        Verifyto = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
+        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
+
+        uwa.clickCancel();
+
+        ra.clickEditPolicyTransaction();
+
+        //goes back to coverages
+
+        ra.back();
+
+        coverages.setDwellingLimit(dwellinglimit1)
+                .next()
+                .Issuequote()
+                .clickDetailsTab();
+
+        //verifies the blocking quote
+        uwissueblockingdescquotemaxmessage = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdescquotemaxmessage.equals(uwissueblockingdescquotemaxmessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemaxmessage+ " and it is " + uwissueblockingdescquotemaxmessage);
+
+        //clicks the request approval
+        ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        uwissueblockingdescquotemaxmessage = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdescquotemaxmessage.equals(uwissueblockingdescquotemaxmessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemaxmessage+ " and it is " + uwissueblockingdescquotemaxmessage);
+
+        //verifies the Assign to
+        Verifytoexception = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
+        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
+
+        uwa.clickCancel();
+
+        ra.clickEditPolicyTransaction();
+
+        //goes back to coverages
+
+        ra.back();
+
+        coverages.setDwellingLimit(dwellinglimit2)
+                .setMedicalPaymentsLimit(Medicalpayments)
+                .coveragesQuote()
+                .backToRiskAnalysis();
+
+
+        //verifies the blocking quote
+        usissueblockingdesmedical = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expectedusissueblockingdesmedical.equals(usissueblockingdesmedical));
+        System.out.println("The expected is " +expectedusissueblockingdesmedical+ " and it is " + usissueblockingdesmedical);
+
+        //clicks the request approval
+        ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        usissueblockingdesmedical = uwa.getDescription();
+        Assert.assertTrue(expectedusissueblockingdesmedical.equals(usissueblockingdesmedical));
+        System.out.println("The expected is " +expectedusissueblockingdesmedical+ " and it is " + usissueblockingdesmedical);
+
+        //verifies the Assign to
+        Verifyto = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
+        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
+
+        uwa.clickCancel();
+        ra.clickEditPolicyTransaction()
+                .acceptYes();
+
+        //goes back to coverages
+
+        ra.back();
+
+        coverages.setMedicalPaymentsLimit(medicalPayments1)
+                .clickPropertyEndorsements()
+                .checkScheduledPersonalProperty()
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(1, "Antiques")
+                .setPersonalPropertyDescription(1, "Test")
+                .setPersonalPropertyValue(1, "60,000")
+                .next()
+                .quote()
+                .backToRiskAnalysis();
+
+
+        //verify the blocking Bind
+
+        uwissueblockingdesspp = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdesspp.equals(uwissueblockingdesspp));
+        System.out.println("The expected is " +expecteduwissueblockingdesspp+ " and it is " + uwissueblockingdesspp);
+
+
+        //clicks on request approval
+        ra.riskAnalysisRequestApproval();
+
+        uwissueblockingdesspp = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdesspp.equals(uwissueblockingdesspp));
+        System.out.println("The expected is " +expecteduwissueblockingdesspp+ " and it is " + uwissueblockingdesspp);
+
+        Verifytoexception = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
+        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
+
+        uwa.clickCancel();
+        ra.clickEditPolicyTransaction()
+                .acceptYes();
+
+
+
+        ra.back();
+        coverages.clickPropertyEndorsements()
+                .setPersonalPropertyArticleType(1, "Antiques")
+                .setPersonalPropertyDescription(1, "Test")
+                .setPersonalPropertyValue(1, "50,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(2, "Antiques")
+                .setPersonalPropertyDescription(2, "Test")
+                .setPersonalPropertyValue(2, "50,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(3, "Antiques")
+                .setPersonalPropertyDescription(3, "Test")
+                .setPersonalPropertyValue(3, "50,000")
+                .clickAddScheduledPersonalProperty()
+                .setPersonalPropertyArticleType(4, "Antiques")
+                .setPersonalPropertyDescription(4, "Test")
+                .setPersonalPropertyValue(4, "50,000")
+                .clickcoveragesPropertyEndorsementsQuote()
+                .backToRiskAnalysis();
+
+        //verify the blocking Bind
+
+        uwissueblockingdesspp = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdesspp.equals(uwissueblockingdesspp));
+        System.out.println("The expected is " +expecteduwissueblockingdesspp+ " and it is " + uwissueblockingdesspp);
+
+
+        //clicks on request approval
+        ra.riskAnalysisRequestApproval();
+
+        uwissueblockingdesspp = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdesspp.equals(uwissueblockingdesspp));
+        System.out.println("The expected is " +expecteduwissueblockingdesspp+ " and it is " + uwissueblockingdesspp);
+
+        Verifytoexception = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
+        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
+
+        uwa.clickCancel();
+        ra.clickEditPolicyTransaction()
+                .acceptYes();
+
+        ra.back();
+
+        coverages.clickPropertyEndorsements()
+                .checkScheduledPersonalProperty()
+                .checkSinkholeLossCoverage()
+                .next()
+                .quote()
+                .backToRiskAnalysis();
+
+        //verifies the blocking quote
+        usissueblockingdecsinkhole = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expectedusissueblockingdecsinkhole.equals(usissueblockingdecsinkhole));
+        System.out.println("The expected is " +expectedusissueblockingdesmedical+ " and it is " + expectedusissueblockingdecsinkhole);
+
+        //clicks the request approval
+        ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        usissueblockingdecsinkhole = uwa.getDescription();
+        Assert.assertTrue(expectedusissueblockingdecsinkhole.equals(usissueblockingdecsinkhole));
+        System.out.println("The expected is " +expectedusissueblockingdesmedical+ " and it is " + expectedusissueblockingdecsinkhole);
+
+        //verifies the Assign to
+        Verifyto = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
+        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
+
+        uwa.clickCancel();
+        ra.clickEditPolicyTransaction()
+                .acceptYes();
+
+        //goes back to coverages
+
+        ra.back();
+
+        coverages.clickPropertyEndorsements()
+                .checkSinkholeLossCoverage()
+                .clickcoveragesPropertyEndorsementsQuote()
+                .clickissuePolicy()
+                .acceptyes();
     }
 
     @AfterMethod(alwaysRun = true)

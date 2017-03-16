@@ -31,9 +31,14 @@ public class UWIssueFLDP3  extends BaseTest {
     private Logon login;
     private CenterSeleniumHelper sh;
 
+    String firstname = "FLDP3UWIssue";
+    Random rand = new Random();
+    int num = rand.nextInt(99 - 10 + 1) + 10;
+    String lastname = "ValidationruleTest" + num;
 
     @BeforeMethod
     public void beforeMethod() {
+
         DateTime date = new DateTime();
         dateString = date.toString("MMddhhmmss");
         System.out.println(new DateTime().toString());
@@ -46,16 +51,8 @@ public class UWIssueFLDP3  extends BaseTest {
         String user = "user1fcorners", password = "";
         login.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
-    }
 
-    @Test(description = "Creates Account for FLDP3UWIssue")
-    public void CreatesandValidatesFLDP3UWIssue(ITestContext itc) {
-        String firstname = "FLDP3UWIssue";
-
-        Random rand = new Random();
-        int num = rand.nextInt(99 - 10 + 1) + 10;
-        String lastname = "ValidationruleTest" + num;
-
+        //
         String homeaddress = "241 Bayshore Dr";
         String city = "Pensacola";
         String state = "Florida";
@@ -63,6 +60,47 @@ public class UWIssueFLDP3  extends BaseTest {
         String zip = "32507";
         String addrestype = "Home";
         String producercode = "523-23-20770";
+
+        FLDP3NavigationBar nav = new FLDP3NavigationBar(sh);
+        nav.clickAccountTab();
+        nav.clickNewAccountDropdown();
+
+        FLDP3EnterAccountInformation eai = new FLDP3EnterAccountInformation(sh);
+        eai.setFirstName(firstname);
+        eai.setLastName(lastname);
+        eai.clickSearch();
+        eai.createNewPersonAccountFLDP3();
+
+        FLDP3CreateAccount ca = new FLDP3CreateAccount(sh);
+        //  ca.setDateOfBirth(date);
+        ca.setAddressLine1(homeaddress);
+        ca.setCity(city);
+        ca.setCounty(county);
+        ca.setState(state);
+        ca.setZipCode(zip);
+        ca.clickVerifyAddress();
+        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.setAddressType(addrestype);
+        ca.setProducerCode(producercode);
+        ca.update();
+
+    }
+
+    @Test(description = "Creates Account for FLDP3UWIssue")
+    public void CreatesandValidatesFLDP3UWIssue(ITestContext itc) {
+//        String firstname = "FLDP3UWIssue";
+//
+//        Random rand = new Random();
+//        int num = rand.nextInt(99 - 10 + 1) + 10;
+//        String lastname = "ValidationruleTest" + num;
+
+//        String homeaddress = "241 Bayshore Dr";
+//        String city = "Pensacola";
+//        String state = "Florida";
+//        String county = "Escambia";
+//        String zip = "32507";
+//        String addrestype = "Home";
+//        String producercode = "523-23-20770";
         String policyType = "Dwelling Fire (DP3)";
         String distanceToFireHydrant = "200";
         String inceptionno = "false";
@@ -88,29 +126,27 @@ public class UWIssueFLDP3  extends BaseTest {
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
 
         FLDP3NavigationBar nav = new FLDP3NavigationBar(sh);
-        nav.clickAccountTab();
-        nav.clickNewAccountDropdown();
-
-        FLDP3EnterAccountInformation eai = new FLDP3EnterAccountInformation(sh);
-        eai.setFirstName(firstname);
-        eai.setLastName(lastname);
-        eai.clickSearch();
-        eai.createNewPersonAccountFLDP3();
-
-        FLDP3CreateAccount ca = new FLDP3CreateAccount(sh);
-        //  ca.setDateOfBirth(date);
-        ca.setAddressLine1(homeaddress);
-        ca.setCity(city);
-        ca.setCounty(county);
-        ca.setState(state);
-        ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
-        ca.setAddressType(addrestype);
-        ca.setProducerCode(producercode);
-        ca.update();
-
-
+//        nav.clickAccountTab();
+//        nav.clickNewAccountDropdown();
+//
+//        FLDP3EnterAccountInformation eai = new FLDP3EnterAccountInformation(sh);
+//        eai.setFirstName(firstname);
+//        eai.setLastName(lastname);
+//        eai.clickSearch();
+//        eai.createNewPersonAccountFLDP3();
+//
+//        FLDP3CreateAccount ca = new FLDP3CreateAccount(sh);
+//        //  ca.setDateOfBirth(date);
+//        ca.setAddressLine1(homeaddress);
+//        ca.setCity(city);
+//        ca.setCounty(county);
+//        ca.setState(state);
+//        ca.setZipCode(zip);
+//        ca.clickVerifyAddress();
+//        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+//        ca.setAddressType(addrestype);
+//        ca.setProducerCode(producercode);
+//        ca.update();
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
         FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
@@ -392,6 +428,110 @@ public class UWIssueFLDP3  extends BaseTest {
         Assert.assertTrue(expectedVerifyto.equals(Verifyto));
         System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
 
+
+    }
+
+    @Test
+    public void UWIssueIssue002(){
+
+        String policyType = "Dwelling Fire (DP3)";
+        String yearBuilt = "1999";
+        String distanceToFireHydrant = "200";
+        String dwellinglimit = "190,000",
+                dwellinglimit1 = "1,000,000";
+        String inceptionno = "false";
+        String rooftype = "Hip";
+        String uwissueblockingdescquotemessage, expecteduwissueblockingdescquotemessage = "Dwelling limit below minimum";
+        String uwissueblockingdescquotemaxmessage, expecteduwissueblockingdescquotemaxmessage = "Maximum Dwelling Limit Exceeded";
+        String Verifyto, expectedVerifyto = "UW Approval - PL Team 2";
+        String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
+
+
+        FLDP3AccountFileSummary afs = new FLDP3AccountFileSummary(sh);
+
+
+        afs.westPanel.actions.clickActions();
+        afs.westPanel.actions.clickNewSubmission();
+
+        FLDP3NewSubmission ns = new FLDP3NewSubmission(sh);
+        FLDP3Qualification qua = ns.productTable.selectHomeowners();
+        qua.setPolicyType(policyType);
+        qua.getOfferingSelection();
+        // to select no for all the blanks
+        for (int i = 0; i < 8; i++) {
+            qua.questionnaire.answerNo(i + 1);
+        }
+
+        FLDP3PolicyInfo pi = qua.next();
+        FLDP3Dwelling dwe = pi.next()
+                .setYearBuilt(yearBuilt)
+                .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno);
+
+        FLDP3DwellingConstruction dwellingConstruction = dwe.next();
+
+
+        FLDP3Coverages coverages = dwellingConstruction.clickWindMitigation()
+                .setRoofShapeType(rooftype)
+                .next()
+                .setDwellingLimit(dwellinglimit);
+
+        FLDP3RiskAnalysis ra = coverages.next();
+
+        ra.Issuequote()
+                .clickDetailsTab();
+
+        //verifies the blocking quote
+        uwissueblockingdescquotemessage = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdescquotemessage.equals(uwissueblockingdescquotemessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemessage+ " and it is " + uwissueblockingdescquotemessage);
+
+        //clicks the request approval
+        FLDP3UWActivity uwa = ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        uwissueblockingdescquotemessage = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdescquotemessage.equals(uwissueblockingdescquotemessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemessage+ " and it is " + uwissueblockingdescquotemessage);
+
+
+        //verifies the Assign to
+        Verifyto = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifyto.equals(Verifyto));
+        System.out.println("The expected is " + expectedVerifyto + " and it is " + Verifyto);
+
+        uwa.clickCancel();
+
+        ra.clickEditPolicyTransaction();
+
+        //goes back to coverages
+
+        ra.back();
+
+        coverages.setDwellingLimit(dwellinglimit1)
+                .next()
+                .Issuequote()
+                .clickDetailsTab();
+
+        //verifies the blocking quote
+        uwissueblockingdescquotemaxmessage = ra.getusIssueblockingbind1();
+        Assert.assertTrue(expecteduwissueblockingdescquotemaxmessage.equals(uwissueblockingdescquotemaxmessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemaxmessage+ " and it is " + uwissueblockingdescquotemaxmessage);
+
+        //clicks the request approval
+        ra.riskAnalysisRequestApproval();
+
+        //verifies  the description
+
+        uwissueblockingdescquotemaxmessage = uwa.getDescription();
+        Assert.assertTrue(expecteduwissueblockingdescquotemaxmessage.equals(uwissueblockingdescquotemaxmessage));
+        System.out.println("The expected is " +expecteduwissueblockingdescquotemaxmessage+ " and it is " + uwissueblockingdescquotemaxmessage);
+
+        //verifies the Assign to
+        Verifytoexception = uwa.getAssignTo();
+        Assert.assertTrue(expectedVerifytoexception.equals(Verifytoexception));
+        System.out.println("The expected is " +expectedVerifytoexception+ " and it is " + Verifytoexception);
 
     }
 

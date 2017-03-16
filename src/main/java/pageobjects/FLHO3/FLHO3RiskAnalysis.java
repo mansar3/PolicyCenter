@@ -18,7 +18,11 @@ public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new FLHO3Quote(sh,path);
 	}
-
+	public FLHO3PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new FLHO3PreQuoteIssues(sh,path);
+	}
 	public FLHO3Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
