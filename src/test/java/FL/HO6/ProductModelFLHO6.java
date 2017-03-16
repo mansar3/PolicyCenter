@@ -227,7 +227,7 @@ public class ProductModelFLHO6 extends BaseTest
                                 ", but it was " + lossOfUsePercentage);
 
         /* Section I Deductibles */
-        Assert.assertFalse(coverages.isWindExcluded(4),
+        Assert.assertFalse(coverages.isWindExcluded(),
                 "Deductibles Wind Excluded was expected to be 'No' but it was 'Yes'");
         allOtherPerils = coverages.getAllOtherPerils();
         Assert.assertTrue(defaultAllOtherPerils.equals(allOtherPerils),

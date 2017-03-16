@@ -55,6 +55,12 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		return super.setPersonalPropertyExcluded(flag);
 
 	}
+
+	public boolean isWindExcluded()
+	{
+		return super.isWindExcluded();
+	}
+
 	public String getPersonalPropertyValuationMethod()
 	{
 		return super.getPersonalPropertyValuationMethod();
@@ -114,11 +120,6 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 	{
 		return super.setWindExcluded(flag);
 
-	}
-
-	public boolean isWindExcluded(Integer flag)
-	{
-		return super.isWindExcluded(flag);
 	}
 
 	public String getPersonalLiabilityLimit()
@@ -611,20 +612,6 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 			super.liabilityEndorsementsNext();
 			return new SCHO6RiskAnalysis(sh, path);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 	
 }
