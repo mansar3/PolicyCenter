@@ -622,5 +622,4 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 			return new FLHO6RiskAnalysis(sh, path);
 		}
 	}
-
 }

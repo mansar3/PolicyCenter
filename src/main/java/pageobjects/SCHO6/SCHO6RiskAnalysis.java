@@ -18,7 +18,11 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new SCHO6Quote(sh,path);
 	}
-
+	public SCHO6PreQuoteIssues Issuequote()
+	{
+		super.riskAnalysisIssueQuote();
+		return new SCHO6PreQuoteIssues(sh,path);
+	}
 	public SCHO6Quote qualifiesForAdditionalProtectionQuote()
 	{
 		super.raQualifiesForAdditionalProtectionQuote();
@@ -58,6 +62,29 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 		return super.answerNo(questionNum);
 	}
 	public String getErrorMessage(){return super.riskAnalysisErrorMessage();}
+	public String getusIssueblockingbind1()
+	{
+		return super.getusIssueblockingbind1();
+	}
+
+	public SCHO6RiskAnalysis clickEditPolicyTransaction(){
+		return super.editPolicyTransaction();
+	}
+
+	public SCHO6RiskAnalysis acceptYes()
+	{
+		return super.accept();
+	}
+
+	public String getusIssueblockingbind2()
+	{
+		return super.getusIssueblockingbind2();
+	}
+
+	public String getusIssueblockingbind3()
+	{
+		return super.getusIssueblockingbind3();
+	}
 
 	public class SCHO6Contingencies extends Contingencies<SCHO6Contingencies>
 	{

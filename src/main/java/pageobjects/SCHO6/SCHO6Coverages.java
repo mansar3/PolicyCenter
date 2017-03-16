@@ -380,6 +380,12 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.setSinkholeIndex(text);
 		}
+		public SCHO6Quote clickcoveragesPropertyEndorsementsQuote()
+		{
+			super.clickCoveragesPropertyEndorsementsQuote();
+			return new SCHO6Quote(sh, path);
+
+		}
 
 		public String getSinkholeIndex()
 		{
@@ -426,6 +432,12 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkScheduledPersonalProperty();
 		}
+
+		public SCHO6PropertyEndorsements uncheckScheduledPersonalProperty()
+		{
+			return super.unCheckScheduledPersonalProperty();
+		}
+
 
 		public SCHO6PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
