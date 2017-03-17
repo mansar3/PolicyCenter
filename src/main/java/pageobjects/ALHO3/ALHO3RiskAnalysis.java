@@ -42,6 +42,19 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		return new ALHO3Contingencies(sh, path);
 	}
 
+	public ALHO3PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new ALHO3PriorLosses(sh, path);
+	}
+
+	public ALHO3PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new ALHO3PriorLosses(sh, path);
+	}
+
+
 	public ALHO3UnderwritingQuestions clickUnderWritingQuestions()
 	{
 		super.riskAnalysisClickUnderwritingquestion();
@@ -111,9 +124,32 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
 			return new ALHO3Quote(sh,path);
 		}
-
-
 	}
+
+	public class ALHO3PriorLosses extends PriorLosses<ALHO3PriorLosses>
+	{
+
+		public ALHO3PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public ALHO3Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new ALHO3Quote(sh,path);
+		}
+
+		protected ALHO3RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new ALHO3RiskAnalysis(sh, path);
+		}
+}
+
+
 	public class ALHO3CreateNewUWIssue extends CreateNewUWIssue<ALHO3CreateNewUWIssue>
 	{
 

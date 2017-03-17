@@ -33,6 +33,12 @@ public class ALHO3Quote extends Quote<ALHO3Quote>
 		super.clickIssueNow();
 		return new ALHO3RenewalBound(sh, path);
 	}
+
+	public ALHO3Quote acceptyes()
+	{
+		return super.accept();
+	}
+
 	public boolean isUnderWritingApprovalNeeded()
 	{
 		return super.isUnderWritingApprovalNeeded();

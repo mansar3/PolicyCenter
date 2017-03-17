@@ -101,6 +101,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 	}
 
+
 	protected String getusIssueblockingbind2(){
 		sh.waitForNoMask();
 		return 	sh.getText(by.uwissuebind2);
@@ -201,6 +202,19 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return (T)this;
 	}
 
+	protected  T riskAnalysisClickPriorLosses()
+	{
+		sh.clickElement(by.priorlosses);
+		return (T) this;
+	}
+
+	protected T orderAReport1()
+	{
+
+		sh.clickElement(by.orderAreport);
+		sh.waitForNoMask();
+		return (T) this;
+	}
 	protected String riskAnalysisErrorMessage()
 
 	{
@@ -249,7 +263,9 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 			            	uwissuebind7 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:7:UWIssueRowSet:ShortDescription"),
 			            	uwissuebind8 = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:RiskEvaluationPanelSet:8:UWIssueRowSet:ShortDescription"),
 				            underwritingquestions= By.xpath(".//*[@id='SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:UWQuestionsTab-btnInnerEl']"),
-		                    editPolicyTransaction= By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
+		                    editPolicyTransaction= By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
+				            priorlosses= By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:LossHistoryCardTab-btnInnerEl"),
+				orderAreport = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl");
 
 	}
 
@@ -413,4 +429,49 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 
 	}
 
+	protected class PriorLosses<T extends PriorLosses> extends CenterPanelBase
+	{
+		private PriorLossesBy by;
+		protected PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			setID(path);
+			by = new PriorLossesBy();
+		}
+
+		protected class PriorLossesBy
+		{
+			protected final By	orderAreport = By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl"),
+					submissionQuote = By.id("SubmissionWizard:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+					renewalQuote = By.id("RenewalWizard:LOBWizardStepGroup:Job_RiskAnalysisScreen:JobWizardToolbarButtonSet:RenewalQuote");
+
+		}
+		protected T PriorLossesQuote()
+		{
+			sh.waitForNoMask();
+			switch(path)
+			{
+				case SUBMISSION:
+					sh.clickElement(by.submissionQuote);
+					break;
+				case POLICYRENEWAL:
+					sh.clickElement(by.renewalQuote);
+					break;
+			}
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return (T)this;
+		}
+
+
+		protected T orderAReport()
+		{
+
+			sh.clickElement(by.orderAreport);
+			sh.waitForNoMask();
+			return (T) this;
+		}
+
+	}
 }
