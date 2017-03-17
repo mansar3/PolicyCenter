@@ -48,8 +48,8 @@ public class UWIssueSCHO6 extends BaseTest {
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
-    @Test(description = "Creates Account for FLUWIssue")
-    public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
+    @Test(description = "Creates Account for SCUWIssue")
+    public void CreatesAccountandValdatingSCUWIssue(ITestContext itc) {
         String firstname = "SCHO6UWIssue";
         Random rand = new Random();
         int num  = rand.nextInt(99 - 10 + 1)+10;

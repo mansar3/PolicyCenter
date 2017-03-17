@@ -53,14 +53,9 @@ public class UWIssueFLMH3 extends BaseTest {
     @Test(description = "Creates Account for FLUWIssue")
     public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
         String firstname = "FLMH3UWIssue";
-        // String lastname = "Validationrule";
-
         Random rand = new Random();
         int num  = rand.nextInt(99 - 10 + 1)+10;
         String lastname = "ValidationruleTest"+num;
-
-        //String lastname = "Validationrule01Test11";
-        //  String date = "03/30/1985";
         String homeaddress = "104 Grand Oaks Cir";
         String city = "Daytona Beach";
         String state = "Florida";
@@ -77,42 +72,20 @@ public class UWIssueFLMH3 extends BaseTest {
         String dwellinglimit = "124,000",
                 dwellinglimit1 = "130,000",
                 dwellinglimit2 = "125,000";
-        String personalpropertylimit = "100,000";
-        String openprotectiontype = "Hurricane";
         String DateofBirth = "06/14/1970";
         String ssn = "111-11-1111";
         String animaltrue = "true";
         String animalfalse = "false";
-        String constructiontype= "Superior",
-                constructiontype1 = "Frame";
-        String Medicalpayments = "10,000",
-                medicalPayments1 = "3,000";
         String allotherPerils = "500";
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
-        String uwissueblobkingbind3, expecteduwissueblobkingbind3 = "Flat roofs must be reviewed by Underwriting";
         String Verifyto, expectedVerifyto = "UW Approval - PL Team 5";
         String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
-        String descriptionssndob, expecteddescriptionssndob = "SSN required for all Named Insureds, DOB required for all Named Insureds, Flat roofs must be reviewed by Underwriting";
-        String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
         String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
-        String descriptionyear, expecteddescriptionyear = "Dwelling Year Built";
-        String descriptionhomeanimal, expecteddescriptionhomeanimal = "Home with Exotic Animals";
-        String descriptionconstruction, expecteddescriptionconstruction = "Dwelling Construction Type Superior";
-        String descriptionwaterheater, expecteddescriptionwaterheater = "Water Heater Age";
-        String descriptionmedical, expecteddescriptionmedical = "HO Medical Pay";
-        String descriptionspp, expecteddescriptionspp = "Scheduled Personal Property";
-        String descriptionsinkhole, expecteddescriptionsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingquotemessage, expecteduwissueblockingquotemessage = "Transaction Effective Date earlier than Written Date";
-        String uwissueblobkingbindtran, expecteduwissueblobkingbindtran = "Transaction Effective Date 5 days earlier than System Date";
-        String usissueblobkingquoteissue, expectedusissueblobkingquoteissue = "Maximum Dwelling Limit Exceeded";
         String uwissueblockingyear, expecteduwissueblockingyear = "Dwelling Year Built";
         String usissueblobkinghomeanimal, expectedusissueblobkinghomeanimal = "Home with Exotic Animals";
-        String uwissueblockingsuperior, expecteduwissueblockingsuperior = "Dwelling Construction Type Superior";
-        String uwissueblockingwater, expecteduwissueblockingwater = "Water Heater Age";
-        String usissueblockingmedical, expectedusissueblockingmedical = "HO Medical Pay";
         String uwissueblockingspp, expecteduwissueblockingspp = "Scheduled Personal Property";
-        String usissueblockingsinkhole, expectedusissueblockingsinkhole = "Sinkhole Loss Coverage";
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
 
 
@@ -461,7 +434,7 @@ public class UWIssueFLMH3 extends BaseTest {
         ra.back();
 
         coverages.clickPropertyEndorsements()
-                .uncheckScheduledPersonalProperty()
+                .checkScheduledPersonalProperty()
                 .clickCoverages()
                 .setAllOtherPerils(allotherPerils)
                 .next();

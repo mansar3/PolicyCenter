@@ -83,7 +83,7 @@ public class UWIssueFLHO3 extends BaseTest {
         String uwissueblobkingbind3, expecteduwissueblobkingbind3 = "Flat roofs must be reviewed by Underwriting";
         String Verifyto, expectedVerifyto = "UW Approval - PL Team 2";
         String Verifytoexception, expectedVerifytoexception = "Exception Quotes - PL Exceptions Team";
-        String descriptionssndob, expecteddescriptionssndob = "SSN required for all Named Insureds, DOB required for all Named Insureds, Flat roofs must be reviewed by Underwriting";
+        String descriptionssndob, expecteddescriptionssndob = "DOB required for all Named Insureds, SSN required for all Named Insureds";
         String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
         String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
         String descriptionyear, expecteddescriptionyear = "Dwelling Year Built";
@@ -198,17 +198,13 @@ public class UWIssueFLHO3 extends BaseTest {
         Assert.assertTrue(expecteduwissueblobkingbind2.equals(uwissueblobkingbind2));
         System.out.println("The expected is " + expecteduwissueblobkingbind2 + " and it is " + uwissueblobkingbind2);
 
-        uwissueblobkingbind3 = ra.getusIssueblockingbind3();
-        Assert.assertTrue(expecteduwissueblobkingbind3.equals(uwissueblobkingbind3));
-        System.out.println("The expected is " + expecteduwissueblobkingbind3 + " and it is " + uwissueblobkingbind3);
-
         //clicks the request approval
         FLHO3UWActivity uwa = ra.riskAnalysisRequestApproval();
 
         //verifies the description
         descriptionssndob = uwa.getDescription();
-        System.out.println(descriptionssndob);
-//        Assert.assertTrue(expecteddescriptionssndob.equals(descriptionssndob));
+        System.out.println("The UWActivity description is " + descriptionssndob);
+//              Assert.assertTrue(expecteddescriptionssndob.equals(descriptionssndob));
 //        System.out.println("The expected is " +expecteddescriptionssndob+ " and it is " + descriptionssndob);
 
 
@@ -628,6 +624,7 @@ public class UWIssueFLHO3 extends BaseTest {
 
         ra.back();
         coverages.clickPropertyEndorsements()
+                .checkScheduledPersonalProperty()
                 .checkSinkholeLossCoverage()
                 .clickcoveragesPropertyEndorsementsQuote()
                 .backToRiskAnalysis();

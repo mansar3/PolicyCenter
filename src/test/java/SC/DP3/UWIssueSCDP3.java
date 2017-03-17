@@ -2,11 +2,14 @@ package SC.DP3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Account.AccountFileSummary;
@@ -356,11 +359,17 @@ public class UWIssueSCDP3 extends BaseTest {
 
         dwellingConstruction.clickWindMitigation()
                 .setRoofShapeType(rooftype);
+    }
 
-
-
-
-
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if (driver != null)
+            driver.quit();
     }
 
 }

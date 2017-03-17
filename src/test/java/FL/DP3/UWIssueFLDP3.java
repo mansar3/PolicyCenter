@@ -88,19 +88,7 @@ public class UWIssueFLDP3  extends BaseTest {
 
     @Test(description = "Creates Account for FLDP3UWIssue")
     public void CreatesandValidatesFLDP3UWIssue(ITestContext itc) {
-//        String firstname = "FLDP3UWIssue";
-//
-//        Random rand = new Random();
-//        int num = rand.nextInt(99 - 10 + 1) + 10;
-//        String lastname = "ValidationruleTest" + num;
 
-//        String homeaddress = "241 Bayshore Dr";
-//        String city = "Pensacola";
-//        String state = "Florida";
-//        String county = "Escambia";
-//        String zip = "32507";
-//        String addrestype = "Home";
-//        String producercode = "523-23-20770";
         String policyType = "Dwelling Fire (DP3)";
         String distanceToFireHydrant = "200";
         String inceptionno = "false";
@@ -126,27 +114,6 @@ public class UWIssueFLDP3  extends BaseTest {
         String uwissueblockingperils, expecteduwissueblockingperils = "$500 AOP deductible requires UW approval";
 
         FLDP3NavigationBar nav = new FLDP3NavigationBar(sh);
-//        nav.clickAccountTab();
-//        nav.clickNewAccountDropdown();
-//
-//        FLDP3EnterAccountInformation eai = new FLDP3EnterAccountInformation(sh);
-//        eai.setFirstName(firstname);
-//        eai.setLastName(lastname);
-//        eai.clickSearch();
-//        eai.createNewPersonAccountFLDP3();
-//
-//        FLDP3CreateAccount ca = new FLDP3CreateAccount(sh);
-//        //  ca.setDateOfBirth(date);
-//        ca.setAddressLine1(homeaddress);
-//        ca.setCity(city);
-//        ca.setCounty(county);
-//        ca.setState(state);
-//        ca.setZipCode(zip);
-//        ca.clickVerifyAddress();
-//        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
-//        ca.setAddressType(addrestype);
-//        ca.setProducerCode(producercode);
-//        ca.update();
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
         FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
@@ -376,17 +343,8 @@ public class UWIssueFLDP3  extends BaseTest {
         ra.back().back().back();
         //change the yyear built date
         dwe.setYearBuilt(yearBuilt2)
-                .next()
-                .clickWindMitigation()
-                .setRoofShapeType(rooftype1)
-                .clickdwellingconstructionwindmitiQuote()
+                .clickDwellingquote()
                 .backToRiskAnalysis();
-
-        //verify the blobking quote release
-        uwissueblobkingflatroofs = ra.getusIssueblockingbind1();
-        Assert.assertTrue(expecteduwissueblobkingflatroofs.equals(uwissueblobkingflatroofs));
-        System.out.println("The expected is " +expecteduwissueblobkingflatroofs+ " and it is " + uwissueblobkingflatroofs);
-
 
         //clicks on request approval
         ra.riskAnalysisRequestApproval();
@@ -405,8 +363,7 @@ public class UWIssueFLDP3  extends BaseTest {
 
         ra.back().back();
 
-        dwellingConstruction.clickWindMitigation()
-                .setRoofShapeType(rooftype)
+        dwellingConstruction
                 .next()
                 .setAllOtherPerils(allotherPerils)
                 .next()

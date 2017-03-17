@@ -48,8 +48,8 @@ public class UWIssueSCHO3 extends BaseTest {
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
     }
 
-    @Test(description = "Creates Account for FLUWIssue")
-    public void CreatesAccountandValdatingFLUWIssue(ITestContext itc) {
+    @Test(description = "Creates Account for SCUWIssue")
+    public void CreatesAccountandValdatingSCUWIssue(ITestContext itc) {
         String firstname = "SCHO3UWIssue";
         // String lastname = "Validationrule";
 

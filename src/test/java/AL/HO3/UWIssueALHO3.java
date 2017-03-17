@@ -51,14 +51,9 @@ public class UWIssueALHO3 extends BaseTest {
     @Test(description = "Creates Account for NCUWIssue")
     public void CreateAccountsandValidatesforNCUWIssue(ITestContext itc) {
         String firstname = "ALHO3UWIssue";
-        // String lastname = "Validationrule";
-
         Random rand = new Random();
         int num  = rand.nextInt(99 - 10 + 1)+10;
         String lastname = "ValidationruleTest"+num;
-
-        //String lastname = "Validationrule01Test11";
-        //  String date = "03/30/1985";
         String homeaddress = "2000 River Forest Rd";
         String city = "Mobile";
         String state = "Alabama";
