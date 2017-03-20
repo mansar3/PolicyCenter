@@ -73,7 +73,7 @@ public class PolicyChange1 extends BaseTest {
     public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc)
     {
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test111", dateString);
+        lastname = String.format("Test1111", dateString);
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
@@ -235,7 +235,7 @@ public class PolicyChange1 extends BaseTest {
 
 
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test111", dateString);
+        lastname = String.format("Test1111", dateString);
 
 
         ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
@@ -245,6 +245,7 @@ public class PolicyChange1 extends BaseTest {
         String currentdate = tsc.getCurrentDate();
         LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();
         String futureDate = dateTime.plusDays(55).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String futureDate1 = dateTime.plusDays(30).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         nav.clickSettings()
                 .clickReturntoPolicyCenter();
         sh.waitForNoMask();
@@ -321,7 +322,7 @@ public class PolicyChange1 extends BaseTest {
 
         //select the effective date and reason
 
-        spc.setEffectiveDate(futureDate)
+        spc.setEffectiveDate(futureDate1)
                 .setReason(reason1)
                 .next();
 

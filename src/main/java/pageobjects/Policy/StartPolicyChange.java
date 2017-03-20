@@ -51,7 +51,11 @@ public class StartPolicyChange extends PolicyBase {
 
     }
 
-
+    protected void accept()
+    {
+        sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+        sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+    }
 
     public List<String> getTextInReasonList()
     {

@@ -24,7 +24,8 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 		public By coverages = By.xpath(".//*[@id='westPanel']//span[text()='Coverages']"),
 				accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl"),
 				transactionNumber = By.id(screen + "AccountFile_Summary_WorkOrdersLV:0:WorkOrderNumber"),
-				dwelling = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']");
+				dwelling = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']"),
+		        inforceAccountnumber = By.xpath(".//*[@id='AccountFile_Summary:AccountFile_SummaryScreen:AccountFile_Summary_PolicyTermsLV-body']//div[text() = 'In Force']/../preceding-sibling::td[2]//a");
 	}
 
 	protected String getAccountNumber()
@@ -44,5 +45,12 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 		sh.waitForNoMask();
 		sh.clickElement(by.coverages);
 		return (T)this;
+	}
+
+	public T clickInforceAccountNumber()
+	{
+		sh.waitForNoMask();
+		sh.clickElement(by.inforceAccountnumber);
+		return (T) this;
 	}
 }
