@@ -43,6 +43,8 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 				break;
 			case POLICYCHANGE:
 				dwellingBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingDetailsHOEDV:";
+				tabBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:";
+				protectionDetailsBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:HODwellingSingleHOEPanelSet:HODwellingProtectionDetailsHOEDV:";
 				break;
 
 		}
@@ -337,6 +339,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 	protected T clickProtectionDetailsTab()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.protectionDetails);
 		sh.waitForNoMask();
 		return (T)this;

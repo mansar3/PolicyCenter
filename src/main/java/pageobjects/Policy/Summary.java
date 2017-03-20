@@ -14,7 +14,7 @@ public class Summary extends PolicyBase {
     public Summary(CenterSeleniumHelper sh)
     {
       this.sh = sh;
-        westPanel = new WestPanel(sh);
+        westPanel = new WestPanel(sh, path);
         northPanel = new NorthPanel(sh);
         actions = new Actions(sh);
         by = new SummaryBy();

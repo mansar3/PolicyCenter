@@ -3,6 +3,7 @@ package pageobjects.Policy;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import pageobjects.NorthPanel;
+import pageobjects.WizardPanelBase.CenterPanelBase;
 
 
 /**
@@ -15,14 +16,16 @@ abstract class PolicyBase {
     public NorthPanel northPanel;
     public Actions actions;
     protected String expectedPanelTitle = "Policy Base";
+    protected CenterPanelBase.Path path = CenterPanelBase.Path.POLICYCHANGE;
 
     public class WestPanel extends PolicyBase
     {
         public Actions actions;
         private WestPanelBy by;
-        public WestPanel(CenterSeleniumHelper sh)
+        public WestPanel(CenterSeleniumHelper sh, CenterPanelBase.Path path)
         {
             this.sh = sh;
+            this.path = path;
             by = new WestPanelBy();
         }
         public class WestPanelBy

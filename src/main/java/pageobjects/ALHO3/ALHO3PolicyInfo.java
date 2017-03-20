@@ -20,6 +20,10 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 		super.addNewPerson();
 		return new ALHO3NewAdditionalNamedInsured(sh,path);
 	}
+	public String getPolicyInfoErrorMessage()
+	{
+		return super.getErrorMessage();
+	}
 	public ALHO3SearchAddressBook searchFromAddressBook()
 	{
 		super.addFromAddressBook();

@@ -30,4 +30,18 @@ public class ALHO3PolicyReview extends PolicyReview<ALHO3PolicyReview>
 		 super.getPolicyReviewChange();
 		 return new ALHO3PolicyReview(sh, path);
 	}
+
+	public ALHO3ChangeConflits clickChangeConflits()
+	{
+		super.clickChangeConflicts();
+		return new ALHO3ChangeConflits(sh,path);
+	}
+
+	public class ALHO3ChangeConflits extends ChangeConflits<ALHO3ChangeConflits>
+	{
+
+		public ALHO3ChangeConflits(CenterSeleniumHelper sh, Path path) { super(sh, path);}
+
+
+	}
 }

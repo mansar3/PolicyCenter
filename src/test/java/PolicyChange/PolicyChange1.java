@@ -73,7 +73,7 @@ public class PolicyChange1 extends BaseTest {
     public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc)
     {
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test1111", dateString);
+        lastname = String.format("Test11111", dateString);
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
@@ -235,7 +235,7 @@ public class PolicyChange1 extends BaseTest {
 
 
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test1111", dateString);
+        lastname = String.format("Test11111", dateString);
 
 
         ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
@@ -323,13 +323,26 @@ public class PolicyChange1 extends BaseTest {
         //select the effective date and reason
 
         spc.setEffectiveDate(futureDate1)
-                .setReason(reason1)
-                .next();
+                .setReason(reason1);
+
+        spc.next();
+
+        ALHO3StartPolicyChange startpc = new ALHO3StartPolicyChange(sh, CenterPanelBase.Path.POLICYCHANGE);
+        startpc.clickYes();
+
+
+        //capture the error messgae
+
+        System.out.println(pi.getPolicyInfoErrorMessage());
 
 
         //goes to dwelling sets the burgular and clicks the policy review
-        pi.next()
-                .clickProtectionDetails()
+        pi.next();
+
+        //clicks on protection details
+        ALHO3Dwelling dwe = new ALHO3Dwelling(sh, CenterPanelBase.Path.POLICYCHANGE);
+
+            dwe .clickProtectionDetails()
                 .setBurglarAlarm(burgular)
                 .setBurglarAlarmType(burgulartype)
                 .next()
@@ -340,6 +353,13 @@ public class PolicyChange1 extends BaseTest {
         ALHO3PolicyReview  pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
 
         System.out.println(pr.checkPolicyReview());
+
+        pr.quote()
+                .backToPoliycReview();
+
+        pr.clickChangeConflits();
+
+
 
 
 

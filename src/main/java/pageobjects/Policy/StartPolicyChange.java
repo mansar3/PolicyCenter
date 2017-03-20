@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pageobjects.NorthPanel;
+import pageobjects.WizardPanelBase.CenterPanelBase;
 import pageobjects.WizardPanelBase.PolicyInfo;
 
 import java.util.List;
@@ -14,13 +15,13 @@ import java.util.stream.Collectors;
 /**
  * Created by ssai on 3/20/2017.
  */
-public class StartPolicyChange extends PolicyBase {
+public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase {
 
     private StartPolicyChangeBy by;
 
     public StartPolicyChange(CenterSeleniumHelper sh) {
         this.sh = sh;
-        westPanel = new WestPanel(sh);
+        westPanel = new WestPanel(sh, path);
         northPanel = new NorthPanel(sh);
         actions = new Actions(sh);
         by = new StartPolicyChangeBy();
@@ -51,10 +52,11 @@ public class StartPolicyChange extends PolicyBase {
 
     }
 
-    protected void accept()
+    protected T accept()
     {
         sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
         sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+        return (T) this;
     }
 
     public List<String> getTextInReasonList()

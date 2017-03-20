@@ -69,10 +69,19 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 						baseState = By.id(policyBase + "PolicyInfoInputSet:BaseState-inputEl"),
 		                quote = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 			        	editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
+		               // errormessage = By.id("PolicyChangeWizard:LOBWizardStepGroup:PolicyChangeWizard_PolicyInfoScreen:OOSEPanelSet:WarningsPanelSet:0:PanelSet:Warning");
 
 
 
 
+	}
+
+	protected String getErrorMessage()
+
+	{
+		sh.waitForNoMask();
+		String Error = sh.driver.findElement(By.id("PolicyChangeWizard:LOBWizardStepGroup:PolicyChangeWizard_PolicyInfoScreen:OOSEPanelSet:WarningsPanelSet:0:PanelSet:Warning")).getText();
+		return Error;
 	}
 
 	protected T editPolicyTransaction(){
