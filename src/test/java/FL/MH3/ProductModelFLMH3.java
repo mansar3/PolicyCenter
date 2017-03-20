@@ -116,8 +116,8 @@ public class ProductModelFLMH3 extends BaseTest
 
     }
 
-    @Test(description = "FL.MH3.ProductModel.MostPopular001"/*, dependsOnMethods =
-            { "createPersonAccountFLMH3" }*/)
+    @Test(description = "FL.MH3.ProductModel.MostPopular001", dependsOnMethods =
+            { "createPersonAccountFLMH3" })
     public void productModelMostPopularFLMH3(ITestContext itc)
     {
         log(itc.getName());
@@ -125,8 +125,8 @@ public class ProductModelFLMH3 extends BaseTest
         /* Set Variables */
 /*        String firstname = "Ricky0209015449";
         String lastname = "Bobby0209015449";*/
-        firstname = "FLMH3Ricky0310021911";
-        lastname = "Bobby0310021911";
+//        firstname = "FLMH3Ricky0310021911";
+//        lastname = "Bobby0310021911";
 
         String policyType = "Mobile Home (MH3)";
         String offeringSelection = "Most Popular";

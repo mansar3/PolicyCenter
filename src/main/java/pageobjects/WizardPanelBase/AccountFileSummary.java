@@ -23,7 +23,8 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 		private  String	screen = "AccountFile_Summary:AccountFile_SummaryScreen:";
 		public By coverages = By.xpath(".//*[@id='westPanel']//span[text()='Coverages']"),
 				accountNumber = By.id(screen + "AccountFile_Summary_BasicInfoDV:AccountNumber-inputEl"),
-				transactionNumber = By.id(screen + "AccountFile_Summary_WorkOrdersLV:0:WorkOrderNumber");
+				transactionNumber = By.id(screen + "AccountFile_Summary_WorkOrdersLV:0:WorkOrderNumber"),
+				dwelling = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']");
 	}
 
 	protected String getAccountNumber()

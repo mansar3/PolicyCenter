@@ -98,7 +98,7 @@ public class CenterSeleniumHelper
 
 	public String getText(By byLocator)
 	{
-
+		wait(20).until(ExpectedConditions.presenceOfElementLocated(byLocator));
 		return driver.findElement(byLocator).getText();
 	}
 
@@ -109,10 +109,12 @@ public class CenterSeleniumHelper
      */
 	public String getValue(By byLocator)
 	{
-		if (isDisplayed(byLocator))
-			return driver.findElement(byLocator).getAttribute("value");
-		else
-			return "";
+		wait(20).until(ExpectedConditions.presenceOfElementLocated(byLocator));
+		return driver.findElement(byLocator).getAttribute("value");
+//		if (isDisplayed(byLocator))
+//			return driver.findElement(byLocator).getAttribute("value");
+//		else
+//			return "";
 	}
 
 	public WebDriverWait wait(int time)

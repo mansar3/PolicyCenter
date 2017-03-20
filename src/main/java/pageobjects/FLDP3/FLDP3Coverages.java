@@ -218,6 +218,16 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.setOtherStructuresIncreasedCoverageLimit(text);
 	}
 
+	public String getAdditionalLivingExpensesPercent()
+	{
+		return super.getAdditionalLivingExpensesPercent();
+	}
+
+	public String getAdditionalLivingExpensesLimit()
+	{
+		return super.getAdditionalLivingExpensesLimit();
+	}
+
 	public String getOtherStructuresIncreasedCoverageLimit()
 	{
 		return super.getOtherStructuresIncreasedCoverageLimit();
@@ -231,7 +241,15 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		return super.isOtherStructruesIncreasedCoverageChecked();
 	}
 
+	public boolean isPremiseLiabilityPresent()
+	{
+		return super.isPremiseLiabilityPresent();
+	}
 
+	public boolean isPersonalLiabilityPresent()
+	{
+		return super.isPersonalLiabilityPresent();
+	}
 
 	public class FLDP3PropertyEndorsements extends PropertyEndorsements<FLDP3PropertyEndorsements>
 	{
@@ -426,12 +444,15 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		{
 			return super.isTheftCoverageChecked();
 		}
+
 		public String getTheftType()
 		{
 			return super.getTheftType();
 		}
+
+		public boolean isTheftCoveragePresent()
+		{
+			return super.isTheftCoveragePresent();
+		}
 	}
-
-
-
 }

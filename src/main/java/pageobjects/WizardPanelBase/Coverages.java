@@ -138,6 +138,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
+		sh.tab();
 		return (T)this;
 	}
 
@@ -456,10 +457,32 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		return (T)this;
 	}
+
+	protected String getAdditionalLivingExpensesPercent()
+	{
+		return sh.getText(by.additionalLivingExpensesPercent);
+	}
+
+	protected String getAdditionalLivingExpensesLimit()
+	{
+		return sh.getText(by.additionalLivingExpensesLimit);
+	}
+
 	protected boolean isOtherStructruesIncreasedCoverageChecked()
 	{
 		return sh.isDisplayed(by.otherStructuresIncreasedCoverageLimit);
 	}
+
+	protected boolean isPremiseLiabilityPresent()
+	{
+		return sh.isDisplayed(by.premisesLiabilityLimit);
+	}
+
+	protected boolean isPersonalLiabilityPresent()
+	{
+		return sh.isDisplayed(by.personalLiabilityLimit);
+	}
+
 	protected T checkPremisesLiability()
 	{
 		sh.checkboxHelper.checkElement(by.premisesLiabilityCheckBox);
@@ -538,7 +561,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
                                 isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
-		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl");
+		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
+								additionalLivingExpensesPercent = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Percent']/../..//div[@role='textbox']"),
+								additionalLivingExpensesLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Limit']/../..//div[@role='textbox']");
 
 								//creditValue = By.id("")
 	}
@@ -652,6 +677,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			whenSafe = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/..//input"),
 			creditPercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Percentage']/../..//input"),
+			creditPercentageDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Percentage']/../..//div[@role='textbox']"),
 			creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Value']/../..//div"),
 
 			specificOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
@@ -756,15 +782,23 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T clickTheftCoverage()
 		{
 			sh.clickElement(by.theftCoverage);
+			sh.tab();
 			return (T)this;
 		}
+
 		protected boolean isTheftCoverageChecked()
 		{
 			return sh.isDisplayed(by.theftCoverageLimit);
 		}
+
 		protected String getTheftType()
 		{
 			return sh.getText(by.theftCoverageLimit);
+		}
+
+		protected boolean isTheftCoveragePresent()
+		{
+			return sh.isDisplayed(by.theftCoverage);
 		}
 
 		protected T checkUnitOwnersRentedToOthers()
@@ -785,7 +819,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getWaterBackUpLimit()
 		{
-			return sh.getText(by.waterBackUpLimitDiv);
+			if (sh.isDisplayed(by.waterBackUpLimitDiv))
+				return sh.getText(by.waterBackUpLimitDiv);
+			return sh.getValue(by.waterBackUpLimitInput);
 		}
 
 		protected T setDoesExteriorMasonryVeneerExclusionApply(String flag)
@@ -1135,7 +1171,9 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected String getWhenSafeCreditPercentage()
 		{
-			return sh.getValue(by.creditPercentage);
+			if (sh.isDisplayed(by.creditPercentage))
+				return sh.getValue(by.creditPercentage);
+			return sh.getText(by.creditPercentageDiv);
 		}
 
 		protected T setWhenSafeCreditPercentage(String creditPercantage)
@@ -1349,7 +1387,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isWhenSafeChecked()
 		{
-			return sh.isDisplayed(by.creditPercentage);
+			return sh.isRadioButtonSelected(by.whenSafe);
 		}
 
 		protected T checkWhenSafe()
@@ -1472,6 +1510,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkWaterBackUp()
 		{
 			sh.checkboxHelper.checkElement(by.waterBackUp);
+			sh.tab();
 			return (T)this;
 		}
 
