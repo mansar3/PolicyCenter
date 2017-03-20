@@ -145,6 +145,14 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		return (T) this;
 	}
 
+	protected T riskAnalysispolicyReviewNext()
+	{
+		sh.waitForNoMask(15);
+		sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+		return (T)this;
+	}
+
+
 	protected T accept()
 	{
 		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));

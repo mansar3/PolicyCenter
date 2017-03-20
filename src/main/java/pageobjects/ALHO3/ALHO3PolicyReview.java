@@ -18,4 +18,16 @@ public class ALHO3PolicyReview extends PolicyReview<ALHO3PolicyReview>
 		super.riskAnalysisBack();
 		return new ALHO3RiskAnalysis(sh,path);
 	}
+
+	public  ALHO3Quote quote()
+	{
+		super.policyreviewpolicyChangeQuote();
+				return new ALHO3Quote(sh, path);
+	}
+
+	public ALHO3PolicyReview checkPolicyReview()
+	{
+		 super.getPolicyReviewChange();
+		 return new ALHO3PolicyReview(sh, path);
+	}
 }

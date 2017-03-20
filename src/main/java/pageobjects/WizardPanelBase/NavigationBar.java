@@ -67,6 +67,7 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
     }
     public T clickSearchAccountNavBar()
     {
+        sh.waitForNoMask();
         sh.clickRightOfElement(by.accountTab);
         sh.clickElement(by.searchButton);
         return (T)this;

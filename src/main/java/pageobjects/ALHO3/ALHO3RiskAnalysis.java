@@ -25,6 +25,12 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		return new ALHO3PreQuoteIssues(sh,path);
 	}
 
+	public ALHO3PolicyReview next()
+	{
+		super.riskAnalysispolicyReviewNext();
+		return new ALHO3PolicyReview(sh, path);
+	}
+
 	public ALHO3RiskAnalysis back(){
 		return  super.coveragesback();
 	}

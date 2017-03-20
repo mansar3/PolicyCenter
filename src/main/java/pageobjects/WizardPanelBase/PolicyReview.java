@@ -36,7 +36,9 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 	}
 	public class PolicyReviewBy
 	{
-		By	back = By.id(buttonBase + "Prev-btnInnerEl");
+		By	back = By.id(buttonBase + "Prev-btnInnerEl"),
+		    quote = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		    policychangereview = By.xpath(".//*[@id = 'PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:DifferencesPanelSet:DiffTreePanelSet:DiffTreePanelLV-body']//div[text() = 'No']/../following-sibling::td[1]");
 	}
 
 	protected T riskAnalysisBack()
@@ -44,5 +46,17 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 		sh.clickElement(by.back);
 		return (T)this;
 	}
+
+	public T policyreviewpolicyChangeQuote()
+	{
+		sh.clickElement(by.quote);
+		return (T) this;
+	}
+
+	public String getPolicyReviewChange()
+	{
+		return sh.getText(by.policychangereview);
+	}
+
 
 }

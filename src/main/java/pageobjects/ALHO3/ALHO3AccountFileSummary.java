@@ -1,6 +1,7 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
 /**
@@ -21,5 +22,13 @@ public class ALHO3AccountFileSummary extends AccountFileSummary<ALHO3AccountFile
 	{
 		super.clickCoverages();
 		return new ALHO3Coverages(sh, path);
+	}
+
+    public Summary clickInforcedAccountNumber()
+	{
+		sh.waitForNoMask();
+    		super.clickInforceAccountNumber();
+    		return new Summary(sh);
+
 	}
 }

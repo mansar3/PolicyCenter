@@ -34,6 +34,15 @@ public class ALHO3Quote extends Quote<ALHO3Quote>
 		return new ALHO3RenewalBound(sh, path);
 	}
 
+	public ALHO3Quote clickPolicyChangeIssuePolicy()
+	{
+		return super.clickPolicyChangeIssuePolicy();
+	}
+
+	public ALHO3Quote clickPolicyChangePrint()
+	{
+	  return  super.clickPolicyIssuePolicyPrint();
+	}
 	public ALHO3Quote acceptyes()
 	{
 		return super.accept();

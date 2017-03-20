@@ -62,7 +62,10 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 			bindOptionsRenew = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:SendToRenewal-itemEl"),
 		    issuePolicy = By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:JobWizardToolbarButtonSet:BindAndIssue-btnInnerEl"),
 		    editpolicytransaction = By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
-			bindOptionsIssueNow = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:IssueNow-itemEl");
+			bindOptionsIssueNow = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:IssueNow-itemEl"),
+		    policychangeIssuePolicy = By.id("PolicyChangeWizard:PolicyChangeWizard_QuoteScreen:JobWizardToolbarButtonSet:Issuance-btnInnerEl"),
+		    policychangeIssuePolicyPrint = By.id("PolicyChangeWizard:PolicyChangeWizard_QuoteScreen:JobWizardToolbarButtonSet:Issuance:issuancePrint-textEl");
+
 
 
 	}
@@ -72,6 +75,19 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		sh.clickElement(by.issuePolicy);
 		return (T) this;
 	}
+
+	public T clickPolicyChangeIssuePolicy(){
+		sh.waitForNoMask();
+		sh.clickElement(by.policychangeIssuePolicy);
+		return (T) this;
+	}
+
+	public T clickPolicyIssuePolicyPrint(){
+		sh.waitForNoMask();
+		sh.clickElement(by.policychangeIssuePolicyPrint);
+		return (T) this;
+	}
+
 
 	public T clickEditPolicyTransaction(){
 		sh.waitForNoMask();
