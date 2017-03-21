@@ -35,7 +35,6 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return new FLHO3PreQuoteIssues(sh, path);
 	}
 
-
 	public FLHO3Coverages setDwellingLimit(String text)
 	{
 		return super.setDwellingLimit(text);
@@ -68,6 +67,16 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.isOtherStructuresLimitEditable();
 	}
 
+	public String getFairRentalValuePercentage()
+	{
+		return super.getFairRentalValuePercentage();
+	}
+
+	public String getFairRentalValueLimit()
+	{
+		return super.getFairRentalValueLimit();
+	}
+
 	public FLHO3Coverages setPersonalPropertyExcluded(String flag)
 	{
 		return super.setPersonalPropertyExcluded(flag);
@@ -75,9 +84,6 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 	}
 	public FLHO3Coverages coveragesEnter(){return super.coveragesEnter();}
 	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
-
-
-
 
 	public boolean isPersonalPropertyExcluded()
 	{
@@ -128,6 +134,12 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.setHurricane(text);
 
 	}
+
+	public String getPremisesLiabilityLimit()
+	{
+		return super.getPremisesLiabilityLimit();
+	}
+
 	public FLHO3Coverages back(){
 		return super.dwellingConstructionBack();
 	}
@@ -208,6 +220,39 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 	public FLHO3Coverages setNamedStorm(String text)
 	{
 		return super.setNamedStorm(text);
+	}
+
+	public String getAdditionalLivingExpensesPercent()
+	{
+		return super.getAdditionalLivingExpensesPercent();
+	}
+
+	public String getAdditionalLivingExpensesLimit()
+	{
+		return super.getAdditionalLivingExpensesLimit();
+	}
+
+	public String getOtherStructuresIncreasedCoverageLimit()
+	{
+		return super.getOtherStructuresIncreasedCoverageLimit();
+	}
+	public FLHO3Coverages clickOtherStructuresIncreasedCoverage()
+	{
+		return super.clickOtherStructuresIncreasedCoverage();
+	}
+	public boolean isOtherStructuresIncreasedCoverageChecked()
+	{
+		return super.isOtherStructruesIncreasedCoverageChecked();
+	}
+
+	public boolean isPremiseLiabilityPresent()
+	{
+		return super.isPremiseLiabilityPresent();
+	}
+
+	public boolean isPersonalLiabilityPresent()
+	{
+		return super.isPersonalLiabilityPresent();
 	}
 
 	public boolean isPersonalLiabilityLimitRequired()
@@ -405,6 +450,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.getWhenSafeCreditPercentage();
 		}
 
+		public String getWhenSafeCreditValue()
+		{
+			return super.getWhenSafeCreditValue();
+		}
+
 		public String getCreditValue()
 		{
 			return super.getWhenSafeCreditValue();
@@ -568,6 +618,26 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public boolean isWaterBackUpChecked()
 		{
 			return super.isWaterBackUpChecked();
+		}
+
+		public boolean isTheftCoverageChecked()
+		{
+			return super.isTheftCoverageChecked();
+		}
+
+		public String getTheftType()
+		{
+			return super.getTheftType();
+		}
+
+		public boolean isTheftCoveragePresent()
+		{
+			return super.isTheftCoveragePresent();
+		}
+
+		public FLHO3PropertyEndorsements clickTheftCoverage()
+		{
+			return super.clickTheftCoverage();
 		}
 
 		public boolean isGuardianEndorsementChecked()
