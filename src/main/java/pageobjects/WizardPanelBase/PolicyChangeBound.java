@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.ALHO3.ALHO3PolicyInfo;
 import pageobjects.Policy.Summary;
 
 /**
@@ -18,7 +19,8 @@ public class PolicyChangeBound extends CenterPanelBase {
     }
 
     static class PolicyChangeBoundBy {
-        final static By viewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl");
+        final static By viewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl"),
+        viewlaterboundperios = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ResolveWithFutureBoundPeriods-inputEl");
     }
 
     public Summary clickViewYourPolicy()
@@ -26,6 +28,13 @@ public class PolicyChangeBound extends CenterPanelBase {
         sh.waitForNoMask();
         sh.clickElement(by.viewyourpolicy);
         return new Summary(sh);
+    }
+
+    public ALHO3PolicyInfo clickViewLaterBound()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.viewlaterboundperios);
+        return new ALHO3PolicyInfo(sh, path);
     }
 
 }

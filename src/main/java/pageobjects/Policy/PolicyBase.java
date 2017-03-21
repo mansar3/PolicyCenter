@@ -75,12 +75,11 @@ abstract class PolicyBase {
 
         }
 
-        private void clickRenewPolicy()
+        public void clickRenewPolicy()
         {
             sh.waitForNoMask();
             clickActions();
             sh.clickElement(by.renewpolicy);
-
         }
 
 
