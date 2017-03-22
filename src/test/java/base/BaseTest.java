@@ -43,7 +43,7 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local", "threads","userName","passWord"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName, @Optional("") String passWord)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads , @Optional("mcoad") String userName, @Optional("") String passWord)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -59,6 +59,7 @@ public abstract class BaseTest
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
 	}
+	// For other test Suites to access.
 	public void beforeSuite(@Nullable() String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName,@Optional("") String passWord)
 	{
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -233,9 +234,9 @@ public abstract class BaseTest
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
 		String[] info;
 		if(sh.isDisplayed(By.className("error_icon")))
-			info = new String[16 + sh.getElements(By.className("error_icon")).size()];
+			info = new String[20 + sh.getElements(By.className("error_icon")).size()];
 		else
-			info = new String[16];
+			info = new String[20];
 		//String[] info = new String[25]; //logs = baos.toString().split("\n");
 		if(result)
 			info[0] = "PASS";
@@ -245,37 +246,39 @@ public abstract class BaseTest
 			info[1] = eai.get("Account Number");
 		info[2] = eai.get("Legacy Policy Number");
 		info[3] = eai.get("Effective Date");
+		info[4] = eai.get("Policy Type");
+		info[5] = eai.get("Base State");
 		if(eai.get("Annualized Total Cost") != null)
-			info[4] = String.valueOf(Math.abs(Double.parseDouble(eai.getOrDefault("Total Cost","0")) - Double.parseDouble(eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]",""))));
-		info[5] = eai.get("Year Built");
-		info[6] = eai.get("Construction Type");
-		info[7] = eai.get("Dwelling Limit");
-		info[8] = eai.get("Territory Code");
-		info[9] = eai.get("Section I Deductibles - AOP");
+			info[6] = String.valueOf(Math.abs(Double.parseDouble(eai.getOrDefault("Total Cost","0")) - Double.parseDouble(eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]",""))));
+		info[7] = eai.get("Year Built");
+		info[8] = eai.get("Construction Type");
+		info[9] = eai.get("Dwelling Limit");
+		info[10] = eai.get("Territory Code");
+		info[11] = eai.get("Section I Deductibles - AOP");
 		if(eai.get("Whensafe - %") != null)
-			info[10] = eai.get("Whensafe - %");
+			info[12] = eai.get("Whensafe - %");
 		else
-			info[10] = "NA";
+			info[12] = "NA";
 		if(!result)
 			try
 			{
-				info[11] = sh.getText(CenterPanelBase.CenterPanelBy.title);
+				info[13] = sh.getText(CenterPanelBase.CenterPanelBy.title);
 			}
 			catch(Exception e)
 			{
-				info[11] = "Last page cannot be obtained";
+				info[13] = "Last page cannot be obtained";
 			}
 
 		if(eai.get("Annualized Total Cost") != null)
-			info[12] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
+			info[14] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
 
 		if(eai.get("Submitted for Approval") != null)
-			info[14] = eai.get("Submitted for Approval");
+			info[16] = eai.get("Submitted for Approval");
 		if(sh.isDisplayed(By.className("error_icon")))
 		{
 			String[] warnings = getBannerErrors(sh);
 			for(int i = 0; i < warnings.length ; i++)
-				info[15 + i] = warnings[i];
+				info[17 + i] = warnings[i];
 		}
 
 		return info;

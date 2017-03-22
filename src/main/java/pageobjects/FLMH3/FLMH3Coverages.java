@@ -1,7 +1,6 @@
 package pageobjects.FLMH3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLMH3.FLMH3Coverages;
 import pageobjects.WizardPanelBase.Coverages;
 
 /**
@@ -709,6 +708,11 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         {
             return super.checkAdditionalResidenceRentedToOthers();
         }
+        public FLMH3LocationInformation addNewLocation()
+		{
+			super.addNewResidentLocation();
+			return new FLMH3LocationInformation(sh,path);
+		}
 
         public FLMH3LiabilityEndorsements checkBusinessPursuits()
         {

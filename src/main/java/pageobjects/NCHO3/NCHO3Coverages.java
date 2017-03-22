@@ -232,6 +232,20 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.setOtherStructuresDescription(itemNumber, text);
 		}
+		public NCHO3PropertyEndorsements setEarthquakeCoverageZone(String text)
+		{
+			return super.setEarthquakeCoverageZone(text);
+		}
+
+		public String getEarthquakeCoverageZone()
+		{
+			return super.getEarthquakeCoverageZone();
+		}
+		public NCHO3PropertyEndorsements checkRefrigeratedPersonalProperty()
+		{
+			return super.checkRefrigeratedPersonalPropertyLimit();
+		}
+
 		public NCHO3PropertyEndorsements setOtherStructuresLimit(int itemNumber, String text)
 		{
 			return super.setOtherStructuresLimit(itemNumber, text);

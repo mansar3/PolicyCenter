@@ -5,7 +5,10 @@ import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.joda.time.DateTime;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -16,7 +19,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO3.*;
 import pageobjects.Logon;
-import pageobjects.WizardPanelBase.*;
+import pageobjects.WizardPanelBase.CenterPanelBase;
 
 public class ProductModel extends BaseTest
 {

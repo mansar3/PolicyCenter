@@ -61,7 +61,7 @@ public class FLDP3 extends BaseTest
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
@@ -70,7 +70,7 @@ public class FLDP3 extends BaseTest
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
-			csvInput[13] = screenshotName;
+			csvInput[15] = screenshotName;
 
 			CSVWriter writer;
 			try
@@ -718,7 +718,8 @@ public class FLDP3 extends BaseTest
 		FLDP3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
+		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 

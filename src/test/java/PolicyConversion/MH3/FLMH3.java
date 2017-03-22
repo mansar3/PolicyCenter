@@ -1,4 +1,4 @@
-package PolicyConversion.HO6;
+package PolicyConversion.MH3;
 
 import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
@@ -15,9 +15,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.FLMH3.*;
 import pageobjects.Logon;
-import pageobjects.SCHO6.*;
-import pageobjects.WizardPanelBase.AccountFileSummary;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,14 +27,13 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
- * Created by aansari on 2/15/17.
+ * Created by aansari on 3/14/17.
  */
-public class SCHO6 extends BaseTest
+public class FLMH3 extends BaseTest
 {
 	private String dateString;
 	private String errorOutput;
 
-	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
 	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -64,7 +62,7 @@ public class SCHO6 extends BaseTest
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
@@ -141,7 +139,7 @@ public class SCHO6 extends BaseTest
 			driver.quit();
 	}
 	
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCHO6Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLMH3Data")
 	public void SubmissionLoadTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		//***********************************************//*
@@ -160,7 +158,7 @@ public class SCHO6 extends BaseTest
 		Actions build = new Actions(driver);
 		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-		SCHO6EnterAccountInformation enterAccountInfo = new SCHO6EnterAccountInformation(sh);
+		FLMH3EnterAccountInformation enterAccountInfo = new FLMH3EnterAccountInformation(sh);
 
 
 		log("Test new person account creation");
@@ -176,7 +174,7 @@ public class SCHO6 extends BaseTest
 			.setZipCode(eai.get("Mailing Zip Code"))
 			.setLastName(lastName)
 			.clickSearch();
-		SCHO6CreateAccount createAccount = enterAccountInfo.createPersonAccount();
+		FLMH3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
 		log("Creating new account: " + dateString);
 
@@ -196,11 +194,10 @@ public class SCHO6 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
-			//.setProducerCode("012-13-12345 ");
+			.setOrganization("4 CORNERS INSURANCE")
+			.setProducerCode("8329736");
 
-			SCHO6AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLMH3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -217,16 +214,16 @@ public class SCHO6 extends BaseTest
 
 
 		accountFileSummary.westPanel.actions.newSubmission();
-		SCHO6NewSubmission submission = new SCHO6NewSubmission(sh);
+		FLMH3NewSubmission submission = new FLMH3NewSubmission(sh);
 
 		submission.setBaseState(eai.get("Base State"));
-		SCHO6Qualification qualification = submission.productTable.selectHomeowners();
+		FLMH3Qualification qualification = submission.productTable.selectHomeowners();
 
 		qualification.setPolicyType(eai.get("Policy Type"));
 		System.out.println(qualification.questionnaire.getQuestionText(1));
 		for(i = 1; i<9; i++)
 			qualification.questionnaire.answerNo(i);
-		SCHO6PolicyInfo pi = qualification.next();
+		FLMH3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
 		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
@@ -237,7 +234,7 @@ public class SCHO6 extends BaseTest
 		if(keyContainsValue(eai,"Additional Name Insured Last Name" ) || keyContainsValue(eai,"Additional Name Insured Company Name" ))
 		{
 			boolean person = false;
-			SCHO6SearchAddressBook sab = pi.searchFromAddressBook();
+			FLMH3SearchAddressBook sab = pi.searchFromAddressBook();
 			// See if value is for a person or company
 			if(keyContainsValue(eai,"Additional Name Insured First Name" ))
 			{
@@ -265,7 +262,7 @@ public class SCHO6 extends BaseTest
 				// Add a person
 				if(person)
 				{
-					SCHO6NewAdditionalNamedInsured ani = pi.clickAddNewPerson();
+					FLMH3NewAdditionalNamedInsured ani = pi.clickAddNewPerson();
 					ani
 
 					.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
@@ -279,7 +276,7 @@ public class SCHO6 extends BaseTest
 				else if (eai.getOrDefault("Additional Name Insured Company Name", null) != null)
 				{
 					System.out.println("COMPANY NAME IS: " + eai.get("Additional Name Insured Company Name"));
-					SCHO6NewAdditionalNamedInsured ani = pi.clickAddNewCompany();
+					FLMH3NewAdditionalNamedInsured ani = pi.clickAddNewCompany();
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
@@ -292,7 +289,7 @@ public class SCHO6 extends BaseTest
 		}
 
 
-		SCHO6Dwelling dwelling = pi.next();
+		FLMH3Dwelling dwelling = pi.next();
 
 		// Dwelling
 
@@ -312,21 +309,23 @@ public class SCHO6 extends BaseTest
 		.setYearBuilt(eai.getOrDefault("Year Built", null))
 		.setDistanceToFireHydrant(eai.getOrDefault("Distance to Fire Hydrant", null))
 		.setDistanceToFireStation(eai.getOrDefault("Distance to Fire Station", null))
-		.setTerritoryCode(eai.getOrDefault("Territory Code", null));
+		.setMobileHomePark(eai.get("Mobile Home Park"));
 
-		if(Integer.parseInt(eai.get("Year Built")) >1994)
-		{
-			dwelling.setBCEG(eai.getOrDefault("BCEG", null));
-		}
+
+//		if(Integer.parseInt(eai.get("Year Built")) >1994)
+//		{
+//			dwelling.setBCEG(eai.getOrDefault("BCEG", null));
+//		}
 		dwelling
-		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
-		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"))
-		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
+		.setPurchasedNew(eai.get("Purchased New"))
+		//.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
+		//.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
+		//.setInTheWindpool(eai.getOrDefault("In the Windpool?", null))
+		//.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
 		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
 		.setMarketValue(eai.getOrDefault("Market Value", null))
-		.setOwnedByOther(eai.getOrDefault("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?", "false"))
+		//.setOwnedByOther(eai.getOrDefault("At the inception of this policy, will this property be deeded in the name of corporation, business, LLC or any other entity?", "false"))
 		.setOccupiedDaily(eai.getOrDefault("Occupied Daily","true"))
 		.setResidenceType(eai.getOrDefault("Residence Type", null))
 		.setDwellingUsage(eai.getOrDefault("How is the dwelling customarily Used", null))
@@ -357,30 +356,31 @@ public class SCHO6 extends BaseTest
 
 
 		// Protection Details
-		SCHO6Dwelling.SCHO6ProtectionDetails pd = dwelling.clickProtectionDetails();
+		FLMH3Dwelling.FLMH3ProtectionDetails pd = dwelling.clickProtectionDetails();
 
 
 
-		if(!eai.getOrDefault("Burglar Alarm Type","none").toLowerCase().equals("none"))
-			pd.
-			setBurglarAlarm("true")
-			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
+//		if(!eai.getOrDefault("Burglar Alarm Type","none").toLowerCase().equals("none"))
+//			pd.
+//			setBurglarAlarm("true")
+//			.setBurglarAlarmType(eai.get("Burglar Alarm Type"));
 
 		pd
-		.setLockedPrivacyFence(eai.getOrDefault("Is there a locked privacy fence","false"))
-		.setBurglarBarsOnWindows(eai.getOrDefault("are there any burglar bars on the windows/doors?","false"));
-
-		if(eai.getOrDefault("are there any burglar bars on the windows/doors?", "false").toLowerCase().equals("true"))
-			pd.safetyLatchesPresent("true");
+		.setLockedPrivacyFence(eai.getOrDefault("Is there a locked privacy fence","false"));
+		//.setBurglarBarsOnWindows(eai.getOrDefault("are there any burglar bars on the windows/doors?","false"));
+//
+//		if(eai.getOrDefault("are there any burglar bars on the windows/doors?", "false").toLowerCase().equals("true"))
+//			pd.safetyLatchesPresent("true");
 		pd
 		.setCommunityGuarded(eai.getOrDefault("Is the community Guarded?", "false"))
 		.setGatedCommunity(eai.getOrDefault("Is the community Gated?", "false"));
 
-		if(!eai.getOrDefault("Fire Alarm type", "none").toLowerCase().equals("none"))
-			pd.setFireAlarm("true")
-				.setFireAlarmType(eai.get("Fire Alarm type"));
+//		if(!eai.getOrDefault("Fire Alarm type", "none").toLowerCase().equals("none"))
+//			pd.setFireAlarm("true")
+//				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
+		.setFireExtinguishers(eai.get("One or more fire extinguishers in the home?"))
 		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
@@ -389,7 +389,7 @@ public class SCHO6 extends BaseTest
 			setSprinklerSystem("true")
 			.setSprinklerSystemType(eai.get("Sprinkler System"));
 		pd
-		.setDeadbolts(eai.get("Deadbolts"))
+		//.setDeadbolts(eai.get("Deadbolts"))
 		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
 
 
@@ -398,11 +398,11 @@ public class SCHO6 extends BaseTest
 
 
 		// Additional Interests
-		SCHO6Dwelling.SCHO6AdditionalInterests ai = pd.clickAdditionalInterests();
+		FLMH3Dwelling.FLMH3AdditionalInterests ai = pd.clickAdditionalInterests();
 		for(i= 0; i <= addInts.size() -1;i++)
 		{
 
-			SCHO6SearchAddressBook sab = ai.clickFromAddressBook();
+			FLMH3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
 			String fName =  name[0], lName = getLastName(name);
 			sab
@@ -427,7 +427,7 @@ public class SCHO6 extends BaseTest
 			{
 
 				ai = sab.clickReturnToDwelling();
-				SCHO6NewAdditionalInterest nai =  ai.clickAddNewPerson();
+				FLMH3NewAdditionalInterest nai =  ai.clickAddNewPerson();
 				nai
 				.setType(addInts.get(i).get("Type"))
 				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
@@ -458,11 +458,11 @@ public class SCHO6 extends BaseTest
 
 		}
 
-		SCHO6DwellingConstruction dc = ai.next();
+		FLMH3DwellingConstruction dc = ai.next();
 
 		// Dwelling Construction
 		dc
-		//.setValuationType(eai.getOrDefault("Valuation Type","<none>"))
+		.setValuationType(eai.getOrDefault("Valuation Type","<none>"))
 		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
 		.setConstructionType(eai.get("Construction Type"))
 		.setNumberOfUnits(eai.get("Number of Units"))
@@ -479,7 +479,7 @@ public class SCHO6 extends BaseTest
 		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
 		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
+		.setElectricalSystem(eai.getOrDefault("Electrical System","<None>"))
 		.setRoofType(eai.get("Roof Type"));
 		if(eai.get("Roof Type").toLowerCase().equals("other"))
 			dc.setRoofTypeDescription("Other");
@@ -500,37 +500,36 @@ public class SCHO6 extends BaseTest
 
 
 		// Wind Mitigation
-		SCHO6DwellingConstruction.SCHO6WindMitigation wm = dc.clickWindMitigation();
+		FLMH3DwellingConstruction.FLMH3WindMitigation wm = dc.clickWindMitigation();
 		wm
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"))
-		//.setTerrain(eai.get("Terrain"))
+		.setTerrain(eai.get("Terrain"))
 		.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
 
-		SCHO6Coverages co;
+		FLMH3Coverages co;
 
-//		if(Integer.parseInt(eai.get("Year Built")) >= 2002)
-//		{
-//			wm
-//			.setRoofDeck(eai.getOrDefault("Roof Deck","<none>"))
-//			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
-//			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
-//			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-//			co = wm.next();
-//		}
-//		else
-//		{
-//			wm.setRoofCover(eai.get("Roof Cover"));
-//			if(eai.get("Roof Deck Attachment") != null)
-//				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
-//			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
-//			co = wm.next();
-//		}
-		wm
-		.setIsTheRoofCoverConstructionBuildingCodeCompliant(eai.get("Is the roof cover construction building code compliant?"))
-		.setIsTheRoofDeckAttachmentBuildingCodeCompliant(eai.get("Is the roof deck attachment buiding code compliant?"))
-		.setIsTheRoofWallconnectionBuildingCodeCompliant(eai.get("Is the roof wall connection building code compliant?"));
-		co = wm.next();
+		if(Integer.parseInt(eai.get("Year Built")) >= 2002)
+		{
+			wm
+			.setRoofDeck(eai.getOrDefault("Roof Deck","<none>"))
+			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
+			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
+			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
+			if(qualifiesForHurricaneProtection(eai))
+				co = wm.doubleClickNext();
+			else
+				co = wm.next();
+		}
+		else
+		{
+			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
+			if(eai.get("Roof Deck Attachment") != null)
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
+			co = wm.next();
+		}
+
 
 
 		// Coverages
@@ -538,33 +537,32 @@ public class SCHO6 extends BaseTest
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
 		if(eai.get("Personal Property - Limit") != null)
-			co //.setPersonalPropertyExcluded("false")
+			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
-//		else
-//			co.setPersonalPropertyExcluded("true");
-
+		else
+			co.setPersonalPropertyExcluded("true");
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
-
-//		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
-//			co
-//			.setLossOfUseSelection(eai.get("Loss of Use - %"));
 		co
-		//.setWindExcluded(eai.get("Wind Excluded"))
+		.setLossOfUseSelection(eai.get("Loss of Use - %"))
+		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
-		//.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+
+		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
+			co
+			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 
 		co
-		.setPersonalLiabilityLimit(eai.get("Personal Liability"));
-		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
+		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
+		.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
 
 
 
 
 		// Property Endorsements
-		SCHO6Coverages.SCHO6PropertyEndorsements pe = co.clickPropertyEndorsements();
+		FLMH3Coverages.FLMH3PropertyEndorsements pe = co.clickPropertyEndorsements();
 
 		if(eai.get("Guardian Endorsement") != null)
 			pe
@@ -620,43 +618,18 @@ public class SCHO6 extends BaseTest
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
-		if(eai.get("Earthquake Coverage Deductible") != null)
-		{
-			if(!pe.isEarthquakeCoverageChecked())
-				pe
-				.checkEarthQuakeCoverage();
-			pe
-			.setEarthquakeCoverageDeductiblePercentage(eai.get("Earthquake Coverage Deductible"))
-			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"));
-			
-			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
-			{
-				if(!pe.isEarthQuakeLossAssessmentChecked())
-					pe.checkEarthquakeLossAssessment();
-				pe.setEarthquakeLossAssessmentLimit(eai.get("Earthquake Loss Assessment Coverage (Limit)"));
-			}
-		}
-
 		if(eai.getOrDefault("Screen Enclosure Hurricane Coverage (Limit)",null) != null)
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-		
-		if(eai.get("Unit Owners Coverage A - Special Coverage (Limit)") != null)
-			pe.checkUnitOwnersCoverageASpecialCoverage();
 
-		if(!eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
-		{
-			if(!eai.get("Unit Owners Rented to Others").toLowerCase().equals("false"))
-				pe.checkUnitOwnersRentedToOthers();
-		}
 		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
 			if(pe.isCreditCardCheckBoxAvailable())
 				pe
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
 
 
@@ -669,13 +642,13 @@ public class SCHO6 extends BaseTest
 			.setSinkholeIndex("330");
 
 		// Liability Endorsements
-		SCHO6Coverages.SCHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+		FLMH3Coverages.FLMH3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
 		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-		if(eai.get("Animal Liability") != null)
-			le.checkAnimalLiability();
+//		if(!eai.get("Animal Liability").equals(""))
+//			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
@@ -690,8 +663,7 @@ public class SCHO6 extends BaseTest
 			.setCounty(eai.get("Location Address - County"))
 			.clickVerifyAddress()
 			.selectSuccessfulVerificationIfPossibleForLocationInformation()
-			.clickLiabilityOk()
-			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			.clickLiabilityOk();
 		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
@@ -702,11 +674,19 @@ public class SCHO6 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		SCHO6RiskAnalysis ra = le.next();
-		SCHO6Quote quote;
-
-		quote = ra.quote();
+		FLMH3RiskAnalysis ra = le.next();
+		FLMH3Quote quote;
+		if(qualifiesForHurricaneProtection(eai))
+			quote = ra.qualifiesForAdditionalProtectionQuote();
+		else
+			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		if(eai.get("Consent to Rate") != null)
+			quote
+			.clickOverrideRating()
+			.setTermAmount(eai.get("Consent to Rate"))
+			.clickRerate();
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -716,14 +696,59 @@ public class SCHO6 extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
-		if(eai.get("Consent to Rate") != null)
-			quote
-			.clickOverrideRating()
-			.setTermAmount(eai.get("Consent to Rate"))
-			.clickRerate();
 
 
 
 
 	}
+
+	private boolean qualifiesForHurricaneProtection(LinkedHashMap<String, String> eai)
+	{
+		String[] territoryList = new String[] {"043", "193", "393", "593", "596", "601", "603", "604", "605",
+		"606", "607", "608", "609", "693", "721", "722", "723", "724", "725", "726", "737", "793", "931", "932",
+		"934", "993"};
+
+		if(eai.get("Location Address - State").toLowerCase().equals("florida")
+		&& eai.get("Wind Borne Debris Region").toLowerCase().equals("true")
+		&& !eai.getOrDefault("Opening Protection Type", "<none>").toLowerCase().equals("hurricane")
+		&&
+		(
+			(Integer.parseInt(eai.get("Year Built")) >= 2002
+			&&
+				(
+					(
+					eai.get("Territory Code") == "602"
+        			&& eai.get("Mailing City").toLowerCase() == "pensacola"
+					)
+					||
+					(
+					eai.get("Territory Code") != "602"
+					&& !isInArray(territoryList,eai.get("Territory Code"))
+					)
+
+				)
+			)
+			||
+			(Integer.parseInt(eai.get("Year Built")) >= 2007
+			&&
+				(
+					(
+					eai.get("Territory Code") == "602"
+        			&& eai.get("Mailing City").toLowerCase() != "pensacola"
+					)
+					||
+					(
+					isInArray(territoryList, eai.get("Territory Code"))
+					)
+
+				)
+
+			)
+		))
+			return true;
+		return false;
+
+	}
+
+
 }
