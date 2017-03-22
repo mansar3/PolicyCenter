@@ -31,7 +31,8 @@ public class Summary extends PolicyBase {
                          comment= By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_TransactionsLV-body']//div[text() = 'Policy Change']/../following-sibling::td[3]"),
                          pendingeffedate = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Policy Change']/../preceding-sibling::td[2]"),
                          pendingstatus = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Policy Change']/../preceding-sibling::td[1]"),
-                         pendingtype = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Quoted']/../following-sibling::td[1]");
+                         pendingtype = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Quoted']/../following-sibling::td[1]"),
+                         policyeffectivedate = By.id("PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_DatesDV:PolicyPerEffDate-inputEl");
     }
 
     public String getTransEffDate()
@@ -47,6 +48,10 @@ public class Summary extends PolicyBase {
     public String getCompletedPolicyTranPremium()
     {
         return sh.getText(by.premium);
+    }
+    public String getpolicyEffectiveDate()
+    {
+        return sh.getText(by.policyeffectivedate);
     }
 
     public String getCompletedPolicyTranComment()

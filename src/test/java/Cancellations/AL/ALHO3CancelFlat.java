@@ -1,4 +1,4 @@
-package PolicyChange;
+package Cancellations.AL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
@@ -13,26 +13,24 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.FLHO3.*;
+import pageobjects.ALHO3.*;
 import pageobjects.Logon;
+import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.StartPolicyChange;
 import pageobjects.Policy.Summary;
-import pageobjects.WizardPanelBase.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
+import pageobjects.WizardPanelBase.CenterPanelBase;
+import pageobjects.WizardPanelBase.MyActivities;
+import pageobjects.WizardPanelBase.Organizations;
+import pageobjects.WizardPanelBase.SubmissionBound;
 
 /**
- * Created by ssai on 3/21/2017.
+ * Created by ssai on 3/22/2017.
  */
-public class PolicyChange3 extends BaseTest {
+public class ALHO3CancelFlat extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
-    private FLHO3EnterAccountInformation enterAccountInformation;
+    private ALHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString, firstname, lastname;
     private MyActivities ma;
@@ -48,7 +46,7 @@ public class PolicyChange3 extends BaseTest {
         logon = new Logon(sh, sessionInfo);
         logon.load();
         logon.isLoaded();
-        String userName = "kguy", passWord = "";
+        String userName = "su", passWord = "";
         logon.login(userName, passWord);
         log(String.format("Logged in as: %s\nPassword: %s", userName, passWord));
 
@@ -59,25 +57,27 @@ public class PolicyChange3 extends BaseTest {
         sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
     }
 
-    @Test(description = "Creates account for Florida HO3 product")
-    public void createPersonAccountAndIssueQuoteFLHO3(ITestContext itc) {
-        firstname = String.format("FLHO3PolicyChange3", dateString);
-        lastname = String.format("Test1111", dateString);
-        FLHO3NavigationBar nb = new FLHO3NavigationBar(sh);
+
+    @Test(description = "Creates account for Alabama HO3 product")
+    public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc) {
+        firstname = String.format("ALHO3", dateString);
+        lastname = String.format("CancelletionTest1", dateString);
+        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(itc.getName());
 
         String country = "United States",
-                dob = new DateTime().minusYears(31).toString("01/dd/yyyy"),
-                phoneNumber = "4801234567",
-                address = "3546 Egret Dr",
-                city = "Melbourne",
-                state = "Florida",
+                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                phoneNumber = "2561234567",
+                address = "5264 Willard Dr N",
+                city = "Theodore",
+                state = "Alabama",
                 addressType = "Home",
-                ssn = "887-12-3456",
-                organizationName = "4",
-                organizationType = Organizations.OrganizationTypes.AGENCY.value;
+                ssn = "777-12-3456",
+                organizationName = "We Insure",
+                organizationType = Organizations.OrganizationTypes.AGENCY.value,
+                producerCode = "523-23-21531 We Insure(Jacksonville)";
 
 
         String policyType = "Homeowners (HO3)",
@@ -105,14 +105,14 @@ public class PolicyChange3 extends BaseTest {
                 screenenclosure = "false",
                 dwellingLimit = "350,000";
 
-        enterAccountInformation = new FLHO3EnterAccountInformation(sh);
+        enterAccountInformation = new ALHO3EnterAccountInformation(sh);
         //new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        FLHO3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLHO3();
+        ALHO3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountALHO3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -131,19 +131,20 @@ public class PolicyChange3 extends BaseTest {
                     .setOrganizationName(organizationName)
                     .setOrganizationType(organizationType)
                     .clickSearchButton()
-                    .clickSelectOrganizationButton();
-            FLHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+                    .clickSelectOrganizationButton()
+                    .setProducerCode(producerCode);
+            ALHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
         } catch (Exception e) {
             throw new WebDriverException(e);
         }
 
-        FLHO3AccountFileSummary afs = new FLHO3AccountFileSummary(sh);
+        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        FLHO3NewSubmission ns = new FLHO3NewSubmission(sh);
-        FLHO3Qualification qua = ns.productTable.selectHomeowners();
+        ALHO3NewSubmission ns = new ALHO3NewSubmission(sh);
+        ALHO3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -151,17 +152,17 @@ public class PolicyChange3 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        FLHO3PolicyInfo pi = qua.next();
-        FLHO3Dwelling dwe = pi.next()
-//                .editLocation()
-//                .setCounty(county)
-//                .clickOk()
+        ALHO3PolicyInfo pi = qua.next();
+        ALHO3Dwelling dwe = pi.next()
+                .editLocation()
+                .setCounty(county)
+                .clickOk()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setInTheWindpool(windpoolfalse)
                 .setDistanceToCoast(distancetocoast);
 
-        FLHO3Coverages coverages = dwe.next()
+        ALHO3Coverages coverages = dwe.next()
                 .setValuationType(valuation)
                 .setEstimatedReplacementCost(replacementcost)
                 .setConstructionType(constructiontype)
@@ -183,7 +184,7 @@ public class PolicyChange3 extends BaseTest {
                 .next()
                 .setDwellingLimit(dwellingLimit);
 
-        FLHO3RiskAnalysis ra = coverages.next();
+        ALHO3RiskAnalysis ra = coverages.next();
         ra.clickPriorLosses();
 
         ra.clickOrderAreport();
@@ -193,7 +194,7 @@ public class PolicyChange3 extends BaseTest {
 //        sh.waitForNoMask();
 //        driver.findElement(By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl'")).click();
 
-        FLHO3Quote quote = ra.quote();
+        ALHO3Quote quote = ra.quote();
 
         //issue the policy
         quote.clickissuePolicy()
@@ -204,152 +205,70 @@ public class PolicyChange3 extends BaseTest {
         SubmissionBound sb = new SubmissionBound(sh, CenterPanelBase.Path.SUBMISSION);
         sb.clickViewYourPolicy();
 
-
     }
 
     @Test
-    public void PolicyChange003() {
+    public void CancelFlat()
+    {
 
-        String expectedreason, reason = "Amend Coverage",
-                reason1 = "Amend Alarm Credits";
-        String occuranceaggregateLimit = "25,000 / 50,000";
-        String burgular = "true",
-                burgulartype = "Central Station";
-        String expectedPolicyType, PolicyType = "Policy Change";
-        String expectedstatus, status= "Quoted";
-        String valuationmethod = "Actual Cash Value";
-        String allotherperils= "2,000";
-        String dwellinglimit = "400,000";
-
-        firstname = String.format("FLHO3PolicyChange", dateString);
-        lastname = String.format("Test211", dateString);
+        String source = "Insured",
+                reason = "Applicant has not obtained ownership of the insured location",
+                reasondescription = "Test";
+        String refundMethod, expectedrefundMethod = "Flat";
+        String cancellationeffdate;
+        String policyeffectiveDate;
 
 
-        FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
-        nav.clickInternalToolTab()
-                .clickTestingTimeClock();
-        FLHO3TestingSystemClock tsc = new FLHO3TestingSystemClock(sh);
-        String currentdate = tsc.getCurrentDate();
-        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();
-        String futureDate = dateTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        String futureDate1 = dateTime.plusDays(5).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        nav.clickSettings()
-                .clickReturntoPolicyCenter();
-        sh.waitForNoMask();
-
-
-        FLHO3SearchAccounts sa = nav.clickSearchAccount();
+        ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
+        ALHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        FLHO3AccountFileSummary afs = new FLHO3AccountFileSummary(sh);
-        StartPolicyChange spc = afs.clickInforcedAccountNumber().actions.clickChangePolicy();
-
-        spc.setEffectiveDate(futureDate);
-
-        String[] expectedreasonlist = {"<none>", "Additional Insured/Interest Change", "Amend Alarm Credits", "Amend Coverage", "Amend Deductible", "Amend Named Insured", "Amend Occupancy",
-                "Amend Payor", "Amend Wind Mit Credits", "Mailing Address Change", "Mortgage Change", "Other"};
-        List<String> expectedlist = Arrays.asList(expectedreasonlist);
-
-
-        List<String> list = spc.getTextInReasonList();
-
-//        System.out.println(list);
-//        try {
-//            Assert.assertEquals(expectedlist, list);
-//            System.out.println("The expected and actual are equal in the reason drop down list");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-
-        spc.setReason(reason)
-                .next();
-
-        FLHO3PolicyInfo pi = new FLHO3PolicyInfo(sh, CenterPanelBase.Path.POLICYCHANGE);
-        pi.next()
-                .next()
-                .next();
-
-        FLHO3Coverages cov = new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYCHANGE);
-        cov.setPersonalPropertyValuationMethod(valuationmethod)
-                .coveragesQuote()
-                .clicktopPolicyNumber();
+        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
+        afs.clickInforcedAccountNumber();
 
         Summary sum = new Summary(sh);
 
-
-        log("Verifies the Pending Policy Transaction");
-
-        expectedstatus = sum.getPendingPolicyTranStatus();
-        Assert.assertEquals(expectedstatus, status);
-        System.out.println("The Pending Policy Transaction status is " + expectedstatus);
-
-        expectedPolicyType = sum.getPendingPolicyTranType();
-        Assert.assertEquals(expectedPolicyType, PolicyType);
-        System.out.println("The Pending Policy Transaction status is " + expectedPolicyType);
+        //gets the policy effective date
+        policyeffectiveDate = sum.getpolicyEffectiveDate();
 
 
-        System.out.println("The Pending Policy Transaction of Effective Date  is: " + sum.getPendingPolicyTranEffecDate());
+        //clicks on cancel policy
+        sum.actions.clickCancelPolicy();
 
-        //change tge policy again
+        log("Lands in Start Policy Change Page ");
 
-        sum.actions.clickChangePolicy()
-                .setEffectiveDate(futureDate1)
+        StartCancellationForPolicy  scfp = new StartCancellationForPolicy(sh);
+
+        scfp.setSource(source)
                 .setReason(reason)
-                .next();
+                .setReasonDescription(reasondescription);
 
-        //goes to coverages
+        refundMethod = scfp.getRefundMethod();
 
-        pi.next()
-                .next()
-                .next();
+        try {
+            Assert.assertEquals(expectedrefundMethod, refundMethod);
+            System.out.println("The expected and actual are equal and the value is : " + refundMethod);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-        cov.setAllOtherPerils(allotherperils)
-                .coveragesQuote()
-                .clickPolicyChangeIssuePolicy()
-                .clickPolicyChangePrint();
+        scfp.isCancellaltionEffectiveDateEditable();
 
+        cancellationeffdate = scfp.getCancellationEffectiveDate();
 
-
-        // to to time travel step number 22 to 27
-
-        sum.actions.clickChangePolicy()
-           //     .setEffectiveDate()
-                .setReason(reason)
-                .next();
-
-        pi.next()
-                .next()
-                .next()
-                .setDwellingLimit(dwellinglimit)
-                .coveragesQuote()
-                .clickPolicyChangeIssuePolicy()
-                .clickPolicyChangePrint();
+        try {
+            Assert.assertEquals(cancellationeffdate, policyeffectiveDate);
+            System.out.println("The Cancellation and Policy effective date both are equal and the date is" + cancellationeffdate);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
 
-        PolicyChangeBound pcb = new PolicyChangeBound(sh);
 
-        //lands in Offering
-
-
-        pcb.clickViewLaterBound();
-
-      FLHO3Offerings off = new FLHO3Offerings(sh, CenterPanelBase.Path.POLICYCHANGE);
-
-      //goes to coverages
-
-      off.next()
-              .next()
-              .next()
-              .next();
-
-      //needs to bind
-      cov.coveragesQuote();
 
 
     }
-
-
 }

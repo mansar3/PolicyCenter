@@ -65,7 +65,7 @@ public class PolicyChange1 extends BaseTest {
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc) {
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test41111", dateString);
+        lastname = String.format("Test5", dateString);
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
