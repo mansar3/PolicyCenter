@@ -279,6 +279,30 @@ public class FLDP3Dwelling extends Dwelling<FLDP3Dwelling>
 		return super.setWindpoolZone(text);
 	}
 
+
+	public FLDP3Dwelling setMinimumRentalIncrement(String text)
+	{
+		return super.setMinimumRentalIncrement(text);
+	}
+
+	public String getMinimumRentalIncrement()
+	{
+		return super.getMinimumRentalIncrement();
+	}
+	public FLDP3Dwelling underContractWithRentalManagementCompany(String flag)
+	{
+		return super.underContractWithRentalManagementCompany(flag);
+	}
+	public FLDP3Dwelling setWeeksRentedAnnually(String text)
+	{
+		return super.setWeeksRentedAnnually(text);
+	}
+
+	public String getWeeksRentedAnnually()
+	{
+		return super.getWeeksRentedAnnually();
+	}
+
 	public String getWindpoolZone()
 	{
 		return super.getWindpoolZone();

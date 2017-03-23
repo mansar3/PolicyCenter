@@ -267,17 +267,12 @@ public class PolicyChange1 extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        log("Verifies the labels in Start Policy Change");
 
-        reasonlabel = spc.getReasonLabel();
-        Assert.assertEquals(reasonlabel, expectedreasonlabel);
-        System.out.println("The expected label is " + expectedreasonlabel + " and it was " + reasonlabel);
+        //verifies the required label on both of them
 
+        Assert.assertTrue(spc.isEffectiveDateRequired(), "The Effective Date was expected to be a required feild but it was not ");
 
-
-        effectivedatelabel = spc.getEffectiveDateLabel();
-        Assert.assertEquals(effectivedatelabel, expectedeffectivedatelabel);
-        System.out.println("The expected label is " + expectedeffectivedatelabel + " and it was " + effectivedatelabel);
+        Assert.assertTrue(spc.isReasonRequired(), "The Reason was expected to be a required feild but it was not ");
 
 
 //        List<String> differences = Arrays.stream(expectedreasonlist).filter(o -> !list.contains(o)).collect(Collectors.toList());
@@ -402,10 +397,7 @@ public class PolicyChange1 extends BaseTest {
         String expectedreason, reason = "Amend Coverage",
                 reason1 = "Amend Alarm Credits";
         String dwellinglimit = "450,000";
-        String occuranceaggregateLimit = "25,000 / 50,000";
-        String burgular = "true",
-                burgulartype = "Central Station";
-        String expectedPolicyType, PolicyType = "Policy Change";
+
 
         firstname = String.format("ALHO3PolicyChange", dateString);
         lastname = String.format("Test21111", dateString);

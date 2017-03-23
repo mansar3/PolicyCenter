@@ -210,11 +210,7 @@ public class PolicyChange3 extends BaseTest {
     @Test
     public void PolicyChange003() {
 
-        String expectedreason, reason = "Amend Coverage",
-                reason1 = "Amend Alarm Credits";
-        String occuranceaggregateLimit = "25,000 / 50,000";
-        String burgular = "true",
-                burgulartype = "Central Station";
+        String reason = "Amend Coverage";
         String expectedPolicyType, PolicyType = "Policy Change";
         String expectedstatus, status= "Quoted";
         String valuationmethod = "Actual Cash Value";

@@ -1,4 +1,4 @@
-package Cancellations.AL;
+package Cancellations.FL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
@@ -13,7 +13,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.ALHO3.*;
+import pageobjects.FLDP3.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.Summary;
@@ -24,20 +24,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by spotnuru on 3/23/2017.
  */
-public class ALHO3CancelProrata extends BaseTest {
+public class FLDP3CancelProrata extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
-    private ALHO3EnterAccountInformation enterAccountInformation;
+    private FLDP3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
     private MyActivities ma;
 
-    String firstname = "ALHO3";
+    String firstname = "FLDP3";
     Random rand = new Random();
     int num = rand.nextInt(99 - 10 + 1) + 10;
     String lastname = "CancelletionProRataTest" + num;
@@ -65,10 +66,10 @@ public class ALHO3CancelProrata extends BaseTest {
     }
 
 
-    @Test(description = "Creates account for Alabama HO3 product")
-    public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc) {
+    @Test(description = "Creates account for Florida DP3 product")
+    public void createPersonAccountAndIssueQuoteFLDP3(ITestContext itc) {
 
-        ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
+        FLDP3NavigationBar nb = new FLDP3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(itc.getName());
@@ -76,18 +77,22 @@ public class ALHO3CancelProrata extends BaseTest {
         String country = "United States",
                 dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
                 phoneNumber = "2561234567",
-                address = "5264 Willard Dr N",
-                city = "Theodore",
-                state = "Alabama",
+                address = "3546 Egret Dr",
+                city = "Melbourne",
+                state = "Florida",
                 addressType = "Home",
-                ssn = "777-12-3456",
-                organizationName = "We Insure",
-                organizationType = Organizations.OrganizationTypes.AGENCY.value,
-                producerCode = "523-23-21531 We Insure(Jacksonville)";
+                ssn = "777-12-7456",
+                organizationName = "4",
+                organizationType = Organizations.OrganizationTypes.AGENCY.value;
 
 
-        String policyType = "Homeowners (HO3)",
+
+        String policyType = "Dwelling Fire (DP3)",
                 distanceToFireHydrant = "79",
+                weeksrented = "10",
+                minrentalincre = "Monthly",
+                undercontract = "false",
+                inceptionno = "false",
                 windpoolfalse = "false",
                 distancetocoast = "200",
                 yearBuilt = "2000",
@@ -111,14 +116,14 @@ public class ALHO3CancelProrata extends BaseTest {
                 screenenclosure = "false",
                 dwellingLimit = "350,000";
 
-        enterAccountInformation = new ALHO3EnterAccountInformation(sh);
+        enterAccountInformation = new FLDP3EnterAccountInformation(sh);
         //new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        ALHO3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountALHO3();
+        FLDP3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLDP3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -137,20 +142,20 @@ public class ALHO3CancelProrata extends BaseTest {
                     .setOrganizationName(organizationName)
                     .setOrganizationType(organizationType)
                     .clickSearchButton()
-                    .clickSelectOrganizationButton()
-                    .setProducerCode(producerCode);
-            ALHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+                    .clickSelectOrganizationButton();
+
+            FLDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
         } catch (Exception e) {
             throw new WebDriverException(e);
         }
 
-        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
+        FLDP3AccountFileSummary afs = new FLDP3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        ALHO3NewSubmission ns = new ALHO3NewSubmission(sh);
-        ALHO3Qualification qua = ns.productTable.selectHomeowners();
+        FLDP3NewSubmission ns = new FLDP3NewSubmission(sh);
+        FLDP3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -158,17 +163,21 @@ public class ALHO3CancelProrata extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        ALHO3PolicyInfo pi = qua.next();
-        ALHO3Dwelling dwe = pi.next()
-                .editLocation()
-                .setCounty(county)
-                .clickOk()
+        FLDP3PolicyInfo pi = qua.next();
+        FLDP3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast);
+                .setDistanceToCoast(distancetocoast)
+                .setWeeksRentedAnnually(weeksrented)
+                .setMinimumRentalIncrement(minrentalincre)
+                .underContractWithRentalManagementCompany(undercontract);
 
-        ALHO3Coverages coverages = dwe.next()
+
+
+
+        FLDP3Coverages coverages = dwe.next()
                 .setValuationType(valuation)
                 .setEstimatedReplacementCost(replacementcost)
                 .setConstructionType(constructiontype)
@@ -190,7 +199,7 @@ public class ALHO3CancelProrata extends BaseTest {
                 .next()
                 .setDwellingLimit(dwellingLimit);
 
-        ALHO3RiskAnalysis ra = coverages.next();
+        FLDP3RiskAnalysis ra = coverages.next();
         ra.clickPriorLosses();
 
         ra.clickOrderAreport();
@@ -200,7 +209,7 @@ public class ALHO3CancelProrata extends BaseTest {
 //        sh.waitForNoMask();
 //        driver.findElement(By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl'")).click();
 
-        ALHO3Quote quote = ra.quote();
+        FLDP3Quote quote = ra.quote();
 
         //issue the policy
         quote.clickissuePolicy()
@@ -213,10 +222,11 @@ public class ALHO3CancelProrata extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods =
-            {"createPersonAccountAndIssueQuoteALHO3"})
+    @Test   // (dependsOnMethods =  {"createPersonAccountAndIssueQuoteFLDP3"})
     public void CancelProrata() throws ParseException {
 
+        firstname = "FLDP3";
+        lastname = "CancelletionProRataTest65";
         String source = "Insured",
                 source1 = "Insurer",
                 reason = "Applicant has not obtained ownership of the insured location",
@@ -240,17 +250,18 @@ public class ALHO3CancelProrata extends BaseTest {
         String cancellationeffdate;
         String policyeffectiveDate;
         String Insurercancellationeffdate;
+        String Insurercancellationeffdate1;
         String systemdate = new DateTime().toString("MM/dd/yyyy");
         String canceldescription, expectedcanceldescription = "Notice of Cancellation";
 
-        ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
-        ALHO3SearchAccounts sa = nav.clickSearchAccount();
+        FLDP3NavigationBar nav = new FLDP3NavigationBar(sh);
+        FLDP3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
+        FLDP3AccountFileSummary afs = new FLDP3AccountFileSummary(sh);
         afs.clickInforcedAccountNumber();
 
         Summary sum = new Summary(sh);
@@ -580,7 +591,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verify the diffrence between the policy eff date and can effective date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -616,7 +627,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -650,7 +661,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -683,7 +694,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -716,7 +727,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -751,9 +762,29 @@ public class ALHO3CancelProrata extends BaseTest {
         Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
 
 
+        Insurercancellationeffdate1 = scfp.getCancellationEffectiveDateEdi();
+
+
+        //verifies the dates between the current and eff
+
+        String format1 = "MM/dd/yyyy";
+        SimpleDateFormat sdf1 = new SimpleDateFormat(format1);
+        Date dateobject11 = sdf1.parse(Insurercancellationeffdate1);
+        Date dateobject22 = sdf1.parse(policyeffectiveDate);
+
+        DecimalFormat formater = new DecimalFormat("###,###");
+
+        long difff = Math.abs(dateobject11.getTime() - dateobject22.getTime());
+
+        long difffDays = (difff / (24 * 60 * 60 * 1000));
+
+        String insuredCanEffectiveDate1 = String.valueOf(difffDays);
+        String insuredDiffEffectiveDate1 = "125";
+
+
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate1, insuredDiffEffectiveDate1, "The Cancellation effective date diffrence should be 125 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -769,17 +800,17 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //Hit the start button start button
 
-        scfp.clickStartCancellation()
-                .clickScheduleCancellation()
-                .accept();
-
-        CancellationBound cb = new CancellationBound(sh);
-        cb.clickViewYourPolicy();
+//        scfp.clickStartCancellation()
+//                .clickScheduleCancellation()
+//                .accept();
+//
+//        CancellationBound cb = new CancellationBound(sh);
+//        cb.clickViewYourPolicy();
 
 
 //        nav.clickInternalToolTab()
 //                .clickTestingTimeClock();
-//        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
+//        FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
 //
 //
 //        tsc.setDate(cancellationeffdate)
@@ -793,7 +824,7 @@ public class ALHO3CancelProrata extends BaseTest {
 //
 //        //clicks on run workflow
 //
-//        ALHO3BatchProcessInfo bpi = new ALHO3BatchProcessInfo(sh);
+//        FLDP3BatchProcessInfo bpi = new FLDP3BatchProcessInfo(sh);
 //        bpi.clickrunworkflow();
 //
 //        //goes back to policy center

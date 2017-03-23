@@ -42,9 +42,9 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
                 reason = By.id(policyChangeBase_id + "StartPolicyChangeDV:reason-inputEl"),
                 cancel = By.id(policyChangeBase_id + "Cancel-btnInnerEl"),
                 dropdownlist = By.xpath("//li"),
-                reasonlabel = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:reason-labelEl']/span"),
+                reasonRequired = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:reason-labelEl']//span[text() ='Reason']/../..//input"),
                 date = By.id("StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:EffectiveDate_date-inputEl"),
-                effectivedatelabel = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:EffectiveDate_date-labelEl']/span");
+                effectiveDateRequired = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:EffectiveDate_date-labelEl']//span[text() ='Effective Date']/../..//input");
 
 
     }
@@ -97,21 +97,18 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
         return this;
     }
 
-     public String getReasonLabel(){
-        sh.waitForNoMask();
-     return  sh.getText(by.reasonlabel);
-
-     }
-
-    public String getEffectiveDateLabel(){
-        sh.waitForNoMask();
-        return  sh.getText(by.effectivedatelabel);
-
-    }
-
-     public String getSPCDate(){
+    public String getSPCDate(){
          sh.waitForNoMask();
          return sh.getValue(by.date);
      }
 
+    public boolean isEffectiveDateRequired()
+    {
+        return sh.isFieldMarkedRequired(by.effectiveDateRequired);
+    }
+
+    public boolean isReasonRequired()
+    {
+        return sh.isFieldMarkedRequired(by.reasonRequired);
+    }
 }
