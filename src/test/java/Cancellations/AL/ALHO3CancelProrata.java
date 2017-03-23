@@ -2,7 +2,6 @@ package Cancellations.AL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
-import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,8 +11,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
@@ -29,9 +26,9 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Created by ssai on 3/22/2017.
+ * Created by spotnuru on 3/23/2017.
  */
-public class ALHO3CancelFlat extends BaseTest {
+public class ALHO3CancelProrata extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
@@ -42,8 +39,8 @@ public class ALHO3CancelFlat extends BaseTest {
 
     String firstname = "ALHO3";
     Random rand = new Random();
-    int num  = rand.nextInt(99 - 10 + 1)+10;
-    String lastname = "CancelletionTest"+num;
+    int num = rand.nextInt(99 - 10 + 1) + 10;
+    String lastname = "CancelletionProRataTest" + num;
 
     @BeforeMethod
     public void beforeMethod() {
@@ -217,8 +214,8 @@ public class ALHO3CancelFlat extends BaseTest {
     }
 
     @Test(dependsOnMethods =
-            { "createPersonAccountAndIssueQuoteALHO3" })
-    public void CancelFlat() throws ParseException {
+            {"createPersonAccountAndIssueQuoteALHO3"})
+    public void CancelProrata() throws ParseException {
 
         String source = "Insured",
                 source1 = "Insurer",
@@ -231,7 +228,7 @@ public class ALHO3CancelFlat extends BaseTest {
                 reasondescription = "Test";
         String insurerreason = "Excessive Liability Exposure",
                 insurerreason1 = "Loss History",
-                insurerreason2  = "Material Misrepresentation",
+                insurerreason2 = "Material Misrepresentation",
                 insurerreason3 = "Risk Does Not Meet Company Guidelines",
                 insurerreason4 = "Risk does not meet Occupancy Requirements",
                 insurerreason5 = "Substantial change in risk";
@@ -267,7 +264,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         log("Lands in Start Cancellation for Policy ");
 
-        StartCancellationForPolicy  scfp = new StartCancellationForPolicy(sh);
+        StartCancellationForPolicy scfp = new StartCancellationForPolicy(sh);
 
         scfp.setSource(source)
                 .setReason(reason)
@@ -281,7 +278,6 @@ public class ALHO3CancelFlat extends BaseTest {
 //                "Reason Description was not expected to be a required field");
 
         Assert.assertTrue(scfp.isSourceLabelRequired(), "Source was expected to be a required field but it was not");
-
 
 
         refundMethod = scfp.getRefundMethod();
@@ -299,7 +295,6 @@ public class ALHO3CancelFlat extends BaseTest {
 
         Assert.assertFalse(scfp.isCancellationEffectiveDateEditable(),
                 "Effective date was not expected to be editable but it was");
-
 
 
         //verifies the policy date and cancel effec date
@@ -347,7 +342,6 @@ public class ALHO3CancelFlat extends BaseTest {
         }
 
 
-
         //now change the effective date to 2 days ahead of the system date
 
         scfp.setCancellationEffectiveDate(futureCanEffecDate);
@@ -358,12 +352,12 @@ public class ALHO3CancelFlat extends BaseTest {
 
         try {
             Assert.assertEquals(refundMethod1, expectedrefundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-         //now change the reason to insured request
+        //now change the reason to insured request
 
         scfp.setReason(reason4)
                 .setReasonDescription(reasondescription);
@@ -402,7 +396,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -429,7 +423,7 @@ public class ALHO3CancelFlat extends BaseTest {
         Assert.assertFalse(scfp.isCancellationEffectiveDateEditable(), "Effective date was  expected to be editable but it was not");
 
 
-         // Policy and can eff dates are same
+        // Policy and can eff dates are same
 
         cancellationeffdate = scfp.getCancellationEffectiveDate();
 
@@ -441,14 +435,13 @@ public class ALHO3CancelFlat extends BaseTest {
         }
 
 
-
         //change the reason to policy rewritten
 
         scfp.setReason(reason3)
                 .setReasonDescription(reasondescription);
 
 
-       log("Verifies the Refund Method");
+        log("Verifies the Refund Method");
 
         try {
             Assert.assertEquals(expectedrefundMethod, refundMethod);
@@ -486,7 +479,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -535,11 +528,10 @@ public class ALHO3CancelFlat extends BaseTest {
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
 
 
         log("Now changes in Source from insured to Insurer");
@@ -562,7 +554,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         log("Verifies whether Refund Method is Editable or not");
 
-       Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+        Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
 
         Insurercancellationeffdate = scfp.getCancellationEffectiveDateEdi();
 
@@ -571,8 +563,8 @@ public class ALHO3CancelFlat extends BaseTest {
 
         String format = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        Date dateobject1 = sdf.parse(Insurercancellationeffdate );
-        Date dateobject2 = sdf.parse(policyeffectiveDate );
+        Date dateobject1 = sdf.parse(Insurercancellationeffdate);
+        Date dateobject2 = sdf.parse(policyeffectiveDate);
 
         DecimalFormat formatter = new DecimalFormat("###,###");
 
@@ -586,11 +578,9 @@ public class ALHO3CancelFlat extends BaseTest {
         String insuredDiffEffectiveDate = "35";
 
 
-
         //verify the diffrence between the policy eff date and can effective date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
-
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -619,7 +609,6 @@ public class ALHO3CancelFlat extends BaseTest {
         }
 
 
-
         //Verifies whether Refund Method is Editable or not
 
         Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
@@ -627,7 +616,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -638,7 +627,6 @@ public class ALHO3CancelFlat extends BaseTest {
         //verifies the required label
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
-
 
 
         scfp.setReason(insurerreason2)
@@ -662,7 +650,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -695,7 +683,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -728,7 +716,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -739,9 +727,6 @@ public class ALHO3CancelFlat extends BaseTest {
         //verifies the required label
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
-
-
-
 
 
         scfp.setReason(insurerreason5)
@@ -761,7 +746,6 @@ public class ALHO3CancelFlat extends BaseTest {
         }
 
 
-
         //Verifies whether Refund Method is Editable or not
 
         Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
@@ -769,7 +753,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -782,43 +766,6 @@ public class ALHO3CancelFlat extends BaseTest {
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-        //now source will be changed to Insured
-
-        scfp.setSource(source)
-                .setReason(reason)
-                .setReasonDescription(reasondescription);
-
-
-        refundMethod = scfp.getRefundMethod();
-
-        //validates the refund method
-
-        try {
-            Assert.assertEquals(expectedrefundMethod, refundMethod);
-            System.out.println("The expected and actual are equal and the Refund method  is : " + refundMethod);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        //verify the cancellation eff date is editable or not
-
-        Assert.assertFalse(scfp.isCancellationEffectiveDateEditable(),
-                "Effective date was not expected to be editable but it was");
-
-
-
-        //verifies the policy date and cancel effec date
-
-        cancellationeffdate = scfp.getCancellationEffectiveDate();
-
-        try {
-            Assert.assertEquals(cancellationeffdate, policyeffectiveDate);
-            System.out.println("The Cancellation and Policy effective date both are equal and the date is: " + cancellationeffdate);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
 
         //Hit the start button start button
 
@@ -829,36 +776,55 @@ public class ALHO3CancelFlat extends BaseTest {
         CancellationBound cb = new CancellationBound(sh);
         cb.clickViewYourPolicy();
 
-        sum.actions.clickForms();
 
-        Forms forms = new Forms(sh);
-
-
-               String cancelDescription =  forms.getnoticeofcancellationdescription();
-
-
-        //verifies the notice of cancellation decription
-
-        try {
-            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-            System.out.println("There is a " + cancellationeffdate + " in the Description");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
+//        nav.clickInternalToolTab()
+//                .clickTestingTimeClock();
+//        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
+//
+//
+//        tsc.setDate(cancellationeffdate)
+//                .clickchangedate();
+//
+//        //goes to server tools and clicks on batch process info
+//
+//        nav.clickServerTools()
+//                .clickBatchProcessInfo();
+//
+//
+//        //clicks on run workflow
+//
+//        ALHO3BatchProcessInfo bpi = new ALHO3BatchProcessInfo(sh);
+//        bpi.clickrunworkflow();
+//
+//        //goes back to policy center
+//
+//        nav.clickSettings()
+//                .clickReturntoPolicyCenter();
+//
+//
+//        sa.setFirstName(firstname);
+//        sa.setLastName(lastname);
+//        sa.clickSearchButton();
+//        sa.clickAccountNumberSearchAccount();
+//
+//        afs.clickInforcedAccountNumber();
+//
+//        sum.actions.clickForms();
+//
+//        Forms forms = new Forms(sh);
+//
+//
+//        String cancelDescription =  forms.getnoticeofcancellationdescription();
+//
+//
+//        //verifies the notice of cancellation decription
+//
+//        try {
+//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
+//            System.out.println("There is a " + cancellationeffdate + " in the Description");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
 

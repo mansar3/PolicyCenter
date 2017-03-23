@@ -533,6 +533,15 @@ public class PolicyChange1 extends BaseTest {
                 .clickPolicyChangeIssuePolicy()
                 .clickPolicyChangePrint();
 
+        //clicks on view your policy
+
+        CancellationBound cb = new CancellationBound(sh);
+
+        cb.clickViewYourPolicy();
+
+
+        //click on forms tab
+
     }
 
 

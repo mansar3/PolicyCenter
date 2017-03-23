@@ -17,4 +17,15 @@ public class ALHO3TestingSystemClock extends TestingSystemClock<ALHO3TestingSyst
     {
         return super.getCurrentDate();
     }
+
+    public ALHO3TestingSystemClock setDate(String date)
+    {
+     return   super.setDate(date);
+    }
+
+    public ALHO3TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
+
 }

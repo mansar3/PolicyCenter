@@ -19,7 +19,9 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
                          searchButton = By.id("TabBar:AccountTab:AccountTab_AccountNumberSearchItem_Button"),
                     //     internalTools = By.id("InternalToolsTabBar:UnsupportedToolsTab-btnInnerEl"),
                          internalTools = By.id("InternalToolsTabBar:UnsupportedToolsTab-btnWrap"),
+                         servertools = By.id("InternalToolsTabBar:ServerToolsTab-btnWrap"),
                          testingTimeClock = By.id("InternalToolsTabBar:UnsupportedToolsTab:UnsupportedTools_SystemClock-textEl"),
+                         batchprocesstools = By.id("InternalToolsTabBar:ServerToolsTab:ServerTools_BatchProcessInfo-textEl"),
                          settings = By.id(":TabLinkMenuButton-btnIconEl"),
                          returnpolicycenter = By.id("InternalToolsTabBar:ReturnTabBarLink-itemEl"),
                          policytab = By.id("TabBar:PolicyTab"),
@@ -87,6 +89,20 @@ public abstract class NavigationBar<T extends NavigationBar> extends CenterPanel
         sh.waitForNoMask();
         sh.clickRightOfElement(by.internalTools);
         sh.clickElement(by.testingTimeClock);
+        return (T) this;
+    }
+
+    public T clickServerTools()
+    {
+        sh.clickElement(by.servertools);
+        return (T)this;
+    }
+
+    public T clickBatchProcessInfo()
+    {
+        sh.waitForNoMask();
+        sh.clickRightOfElement(by.servertools);
+        sh.clickElement(by.batchprocesstools);
         return (T) this;
     }
 
