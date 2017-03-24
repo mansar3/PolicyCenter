@@ -45,7 +45,16 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 		super.requestApproval();
 		return new FLHO6UWActivity(sh, path);
 	}
-
+	public FLHO6PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new FLHO6PriorLosses(sh, path);
+	}
+	public FLHO6PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new FLHO6PriorLosses(sh, path);
+	}
 	public FLHO6UnderwritingQuestions clickUnderWritingQuestions()
 	{
 		super.riskAnalysisClickUnderwritingquestion();
@@ -106,6 +115,28 @@ public class FLHO6RiskAnalysis extends RiskAnalysis<FLHO6RiskAnalysis>
 			return new FLHO6Quote(sh,path);
 		}
 
+	}
+	public class FLHO6PriorLosses extends PriorLosses<FLHO6PriorLosses>
+	{
+
+		public FLHO6PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public FLHO6Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new FLHO6Quote(sh,path);
+		}
+
+		protected FLHO6RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new FLHO6RiskAnalysis(sh, path);
+		}
 	}
 	public class FLHO6CreateNewUWIssue extends CreateNewUWIssue<FLHO6CreateNewUWIssue>
 	{

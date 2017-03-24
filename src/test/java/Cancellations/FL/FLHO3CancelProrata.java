@@ -13,7 +13,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.FLDP3.*;
+import pageobjects.FLHO3.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.Summary;
@@ -24,21 +24,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
- * Created by spotnuru on 3/23/2017.
+ * Created by spotnuru on 3/24/2017.
  */
-public class FLDP3CancelProrata extends BaseTest {
+public class FLHO3CancelProrata extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
-    private FLDP3EnterAccountInformation enterAccountInformation;
+    private FLHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
     private MyActivities ma;
 
-    String firstname = "FLDP3";
+    String firstname = "FLHO3";
     Random rand = new Random();
     int num = rand.nextInt(99 - 10 + 1) + 10;
     String lastname = "CancelletionProRataTest" + num;
@@ -66,10 +65,10 @@ public class FLDP3CancelProrata extends BaseTest {
     }
 
 
-    @Test(description = "Creates account for Florida DP3 product")
-    public void createPersonAccountAndIssueQuoteFLDP3(ITestContext itc) {
+    @Test(description = "Creates account for Florida HO3 product")
+    public void createPersonAccountAndIssueQuoteFLHO3(ITestContext itc) {
 
-        FLDP3NavigationBar nb = new FLDP3NavigationBar(sh);
+        FLHO3NavigationBar nb = new FLHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(itc.getName());
@@ -81,13 +80,13 @@ public class FLDP3CancelProrata extends BaseTest {
                 city = "Melbourne",
                 state = "Florida",
                 addressType = "Home",
-                ssn = "777-12-7456",
+                ssn = "777-12-7457",
                 organizationName = "4",
                 organizationType = Organizations.OrganizationTypes.AGENCY.value;
 
 
 
-        String policyType = "Dwelling Fire (DP3)",
+        String policyType = "Homeowners (HO3)",
                 distanceToFireHydrant = "79",
                 weeksrented = "10",
                 minrentalincre = "Monthly",
@@ -116,14 +115,14 @@ public class FLDP3CancelProrata extends BaseTest {
                 screenenclosure = "false",
                 dwellingLimit = "350,000";
 
-        enterAccountInformation = new FLDP3EnterAccountInformation(sh);
+        enterAccountInformation = new FLHO3EnterAccountInformation(sh);
         //new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        FLDP3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLDP3();
+        FLHO3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLHO3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -144,18 +143,18 @@ public class FLDP3CancelProrata extends BaseTest {
                     .clickSearchButton()
                     .clickSelectOrganizationButton();
 
-            FLDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            FLHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
         } catch (Exception e) {
             throw new WebDriverException(e);
         }
 
-        FLDP3AccountFileSummary afs = new FLDP3AccountFileSummary(sh);
+        FLHO3AccountFileSummary afs = new FLHO3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        FLDP3NewSubmission ns = new FLDP3NewSubmission(sh);
-        FLDP3Qualification qua = ns.productTable.selectHomeowners();
+        FLHO3NewSubmission ns = new FLHO3NewSubmission(sh);
+        FLHO3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -163,21 +162,21 @@ public class FLDP3CancelProrata extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        FLDP3PolicyInfo pi = qua.next();
-        FLDP3Dwelling dwe = pi.next()
+        FLHO3PolicyInfo pi = qua.next();
+        FLHO3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast)
-                .setWeeksRentedAnnually(weeksrented)
-                .setMinimumRentalIncrement(minrentalincre)
-                .underContractWithRentalManagementCompany(undercontract);
+                .setDistanceToCoast(distancetocoast);
+//                .setWeeksRentedAnnually(weeksrented)
+//                .setMinimumRentalIncrement(minrentalincre)
+//                .underContractWithRentalManagementCompany(undercontract);
 
 
 
 
-        FLDP3Coverages coverages = dwe.next()
+        FLHO3Coverages coverages = dwe.next()
                 .setValuationType(valuation)
                 .setEstimatedReplacementCost(replacementcost)
                 .setConstructionType(constructiontype)
@@ -199,7 +198,7 @@ public class FLDP3CancelProrata extends BaseTest {
                 .next()
                 .setDwellingLimit(dwellingLimit);
 
-        FLDP3RiskAnalysis ra = coverages.next();
+        FLHO3RiskAnalysis ra = coverages.next();
         ra.clickPriorLosses();
 
         ra.clickOrderAreport();
@@ -209,7 +208,7 @@ public class FLDP3CancelProrata extends BaseTest {
 //        sh.waitForNoMask();
 //        driver.findElement(By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl'")).click();
 
-        FLDP3Quote quote = ra.quote();
+        FLHO3Quote quote = ra.quote();
 
         //issue the policy
         quote.clickissuePolicy()
@@ -222,10 +221,10 @@ public class FLDP3CancelProrata extends BaseTest {
 
     }
 
-    @Test   // (dependsOnMethods =  {"createPersonAccountAndIssueQuoteFLDP3"})
+    @Test    (dependsOnMethods =  {"createPersonAccountAndIssueQuoteFLHO3"})
     public void CancelProrata() throws ParseException {
 
-//        firstname = "FLDP3";
+//        firstname = "FLHO3";
 //        lastname = "CancelletionProRataTest30";
         String source = "Insured",
                 source1 = "Insurer",
@@ -255,15 +254,14 @@ public class FLDP3CancelProrata extends BaseTest {
         String canceldescription, expectedcanceldescription = "Notice of Cancellation";
         String whensafescheducan, expectedwhensafescheducan = "The Policy is Pending Cancellation";
 
-
-        FLDP3NavigationBar nav = new FLDP3NavigationBar(sh);
-        FLDP3SearchAccounts sa = nav.clickSearchAccount();
+        FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
+        FLHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        FLDP3AccountFileSummary afs = new FLDP3AccountFileSummary(sh);
+        FLHO3AccountFileSummary afs = new FLHO3AccountFileSummary(sh);
         afs.clickInforcedAccountNumber();
 
         Summary sum = new Summary(sh);
@@ -815,7 +813,7 @@ public class FLDP3CancelProrata extends BaseTest {
 
 //        nav.clickInternalToolTab()
 //                .clickTestingTimeClock();
-//        FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
+//        FLHO3TestingSystemClock tsc = new FLHO3TestingSystemClock(sh);
 //
 //
 //        tsc.setDate(cancellationeffdate)
@@ -829,7 +827,7 @@ public class FLDP3CancelProrata extends BaseTest {
 //
 //        //clicks on run workflow
 //
-//        FLDP3BatchProcessInfo bpi = new FLDP3BatchProcessInfo(sh);
+//        FLHO3BatchProcessInfo bpi = new FLHO3BatchProcessInfo(sh);
 //        bpi.clickrunworkflow();
 //
 //        //goes back to policy center
@@ -848,23 +846,21 @@ public class FLDP3CancelProrata extends BaseTest {
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
-//
+
 //
 //        String cancelDescription =  forms.getnoticeofcancellationdescription();
 
         forms.clickSummary();
-
-
-        //click on when safe policy
-
-        //verifies the notice of cancellation decription
-
+//
+//        //verifies the notice of cancellation decription
+//
 //        try {
 //            Assert.assertEquals(cancelDescription, expectedcanceldescription);
 //            System.out.println("There is a " + cancellationeffdate + " in the Description");
 //        } catch (Exception e) {
 //            System.out.println(e.getMessage());
 //        }
+
 
         //click on when safe policy
 
@@ -877,11 +873,6 @@ public class FLDP3CancelProrata extends BaseTest {
         Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
 
         sum.actions.clickForms();
-
-
-
-
     }
-
 
 }

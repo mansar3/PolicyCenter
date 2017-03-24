@@ -136,6 +136,7 @@ public class ALHO3CancelFlat extends BaseTest {
                     .selectSuccessfulVerificationIfPossibleForCreateAccount()
                     .setAddressType(addressType)
                     .setSsnUmasked(ssn)
+                  //  .setSsn(ssn)
                     .clickOrganizationSearch()
                     .setOrganizationName(organizationName)
                     .setOrganizationType(organizationType)
@@ -839,13 +840,7 @@ public class ALHO3CancelFlat extends BaseTest {
 
         //verifies the notice of cancellation decription
 
-        try {
-            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-            System.out.println("There is a " + cancellationeffdate + " in the Description");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
+        Assert.assertTrue(cancelDescription.equals(expectedcanceldescription), "In the Description Form# FIM-CXB and Edition 01/14 (Notice Of Cancellation) should be present but it is not");
     }
 
     @AfterMethod(alwaysRun = true)

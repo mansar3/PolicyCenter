@@ -57,6 +57,12 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     public FLMH3DwellingConstruction acceptYes(){
         return super.accept();
     }
+    public FLMH3DwellingConstruction setFloorUnitIsLocatedOn(String text)
+    {
+        super.setFloorUnitIsLocatedOn(text);
+        return new FLMH3DwellingConstruction(sh, path);
+    }
+
 
     public String getEstimatedReplacementCost()
     {
@@ -195,10 +201,35 @@ public class FLMH3DwellingConstruction extends DwellingConstruction<FLMH3Dwellin
     public FLMH3DwellingConstruction setIsTheMobileHomeFullySkirted(String flag){
         return super.setIsTheMobileHomeFullySkirted(flag);
     }
+
+    public FLMH3DwellingConstruction setIsTheMobileHomeTiedDown(String flag){
+        return super.setIsTheMobileHomeTiedDown(flag);
+    }
     public FLMH3DwellingConstruction setMobileHomeWidth(String text){
         return super.setMobileHomeWidth(text);
     }
     public String getsetMobileHomeWidth(){return super.getMobileHomeWidth();}
+
+    public FLMH3DwellingConstruction setMobileHomeLength(String text){
+        return super.setMobileHomeLength(text);
+    }
+    public String getsetMobileHomeLength(){return super.getMobileHomeWidth();}
+
+    public FLMH3DwellingConstruction setMobileHomeMake(String text){
+        return super.setMobileHomeMake(text);
+    }
+    public String getsetMobileHomeMake(){return super.getMobileHomeWidth();}
+
+    public FLMH3DwellingConstruction setMobileHomeModel(String text){
+        return super.setMobileHomeModel(text);
+    }
+    public String getsetMobileHomeModel(){return super.getMobileHomeWidth();}
+
+    public FLMH3DwellingConstruction setMobileHomeId(String text){
+        return super.setMobileHomeId(text);
+    }
+    public String getsetMobileHomeId(){return super.getMobileHomeWidth();}
+
     public FLMH3DwellingConstruction setElectricalSystemDescribeOther(String text)
     {
         return super.setElectricalSystemDescribeOther(text);

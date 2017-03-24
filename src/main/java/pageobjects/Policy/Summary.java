@@ -32,7 +32,9 @@ public class Summary extends PolicyBase {
                          pendingeffedate = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Policy Change']/../preceding-sibling::td[2]"),
                          pendingstatus = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Policy Change']/../preceding-sibling::td[1]"),
                          pendingtype = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Quoted']/../following-sibling::td[1]"),
-                         policyeffectivedate = By.id("PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_DatesDV:PolicyPerEffDate-inputEl");
+                         policyeffectivedate = By.id("PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_DatesDV:PolicyPerEffDate-inputEl"),
+                         whensafepolicynumber = By.id("PolicyFile_Summary:Policy_SummaryScreen:WhenSafePolicyNumber-inputEl"),
+                         message = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:_msgs']/div[1]");
     }
 
     public String getTransEffDate()
@@ -79,4 +81,18 @@ public class Summary extends PolicyBase {
     {
         return sh.getText(by.pendingtype);
     }
+
+    public Summary clickwhensafepolicynumber()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.whensafepolicynumber);
+        return this;
+    }
+
+    public String getSummaryMessage()
+    {
+        return sh.getText(by.message);
+    }
 }
+
+

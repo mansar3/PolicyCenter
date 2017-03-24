@@ -47,6 +47,16 @@ public class FLMH3RiskAnalysis extends RiskAnalysis<FLMH3RiskAnalysis> {
         super.riskAnalysisClickUnderwritingquestion();
         return new FLMH3UnderwritingQuestions(sh,path);
     }
+    public FLMH3PriorLosses clickPriorLosses()
+    {
+        super.riskAnalysisClickPriorLosses();
+        return new FLMH3PriorLosses(sh, path);
+    }
+    public FLMH3PriorLosses clickOrderAreport()
+    {
+        super.orderAReport1();
+        return new FLMH3PriorLosses(sh, path);
+    }
     public FLMH3UWActivity riskAnalysisRequestApproval()
     {
         super.requestApproval();
@@ -127,6 +137,29 @@ public class FLMH3RiskAnalysis extends RiskAnalysis<FLMH3RiskAnalysis> {
             return new FLMH3Quote(sh,path);
         }
 
+    }
+
+    public class FLMH3PriorLosses extends PriorLosses<FLMH3PriorLosses>
+    {
+
+        public FLMH3PriorLosses(CenterSeleniumHelper sh, Path path)
+        {
+            super(sh, path);
+        }
+
+        public FLMH3Quote quote()
+        {
+            super.PriorLossesQuote();
+            //sh.clickElement(by.submissionQuote);
+            //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+            return new FLMH3Quote(sh,path);
+        }
+
+        protected FLMH3RiskAnalysis clickOrderAReport()
+        {
+            super.orderAReport();
+            return new FLMH3RiskAnalysis(sh, path);
+        }
     }
     public class FLMH3CreateNewUWIssue extends CreateNewUWIssue<FLMH3CreateNewUWIssue>
     {

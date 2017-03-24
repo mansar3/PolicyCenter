@@ -53,6 +53,16 @@ public class FLHO4RiskAnalysis extends RiskAnalysis<FLHO4RiskAnalysis> {
         super.requestApproval();
         return new FLHO4UWActivity(sh, path);
     }
+    public FLHO4PriorLosses clickPriorLosses()
+    {
+        super.riskAnalysisClickPriorLosses();
+        return new FLHO4PriorLosses(sh, path);
+    }
+    public FLHO4PriorLosses clickOrderAreport()
+    {
+        super.orderAReport1();
+        return new FLHO4PriorLosses(sh, path);
+    }
     public FLHO4RiskAnalysis.FLHO4CreateNewUWIssue addUWIssue()
     {
         super.riskAnalysisAddUWIssue();
@@ -129,6 +139,28 @@ public class FLHO4RiskAnalysis extends RiskAnalysis<FLHO4RiskAnalysis> {
         }
 
 
+    }
+    public class FLHO4PriorLosses extends PriorLosses<FLHO4PriorLosses>
+    {
+
+        public FLHO4PriorLosses(CenterSeleniumHelper sh, Path path)
+        {
+            super(sh, path);
+        }
+
+        public FLHO4Quote quote()
+        {
+            super.PriorLossesQuote();
+            //sh.clickElement(by.submissionQuote);
+            //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+            return new FLHO4Quote(sh,path);
+        }
+
+        protected FLHO4RiskAnalysis clickOrderAReport()
+        {
+            super.orderAReport();
+            return new FLHO4RiskAnalysis(sh, path);
+        }
     }
     public class FLHO4CreateNewUWIssue extends CreateNewUWIssue<FLHO4CreateNewUWIssue>
     {

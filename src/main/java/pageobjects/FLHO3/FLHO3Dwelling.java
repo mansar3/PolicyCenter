@@ -301,6 +301,30 @@ public class FLHO3Dwelling extends Dwelling<FLHO3Dwelling>
 		return super.setWindpoolZone(text);
 	}
 
+	public FLHO3Dwelling setWeeksRentedAnnually(String text)
+	{
+		return super.setWeeksRentedAnnually(text);
+	}
+
+	public String getWeeksRentedAnnually()
+	{
+		return super.getWeeksRentedAnnually();
+	}
+
+	public FLHO3Dwelling setMinimumRentalIncrement(String text)
+	{
+		return super.setMinimumRentalIncrement(text);
+	}
+
+	public String getMinimumRentalIncrement()
+	{
+		return super.getMinimumRentalIncrement();
+	}
+	public FLHO3Dwelling underContractWithRentalManagementCompany(String flag)
+	{
+		return super.underContractWithRentalManagementCompany(flag);
+	}
+
 	public String getWindpoolZone()
 	{
 		return super.getWindpoolZone();

@@ -42,6 +42,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 						secondaryEmail = By.id(accountInputSet + "EmailAddress2-inputEl"),
 						description = By.id(createAccountDiv + "AddressDescription-inputEl"),
 						ssn = By.id(createAccountDiv + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+		               // ssn = By.xpath("//span[text()='SSN']/../..//input[@role='textbox']"),
 				        ssnunmasked = By.id(createAccountDiv + "OfficialIDInputSet:UmaskedOfficialIDDV_Input-inputEl"),
 						preferredLanguage = By.id(createAccountDiv + "PrimaryLanguage-inputEl"),
 						organizationSearchButton = By.id(baseProducerId + "Producer:SelectOrganization"),
