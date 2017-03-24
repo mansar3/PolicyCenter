@@ -1,6 +1,7 @@
 package pageobjects.NCHO3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -18,6 +19,20 @@ public class NCHO3AccountFileSummary extends AccountFileSummary<NCHO3AccountFile
 	public String getAccountNumber()
 	{
 		return super.getAccountNumber();
+	}
+
+	public NCHO3Quote clickTransactionNumber()
+	{
+		super.clickTransactionNumber();
+		return new NCHO3Quote(sh, path);
+	}
+
+	public Summary clickInforcedAccountNumber()
+	{
+		sh.waitForNoMask();
+		super.clickInforceAccountNumber();
+		return new Summary(sh);
+
 	}
 
 }
