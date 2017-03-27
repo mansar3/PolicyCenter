@@ -1,8 +1,7 @@
-package Cancellations.FL;
+package Cancellations.SC;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
-import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,14 +11,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.FLHO4.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.Summary;
+import pageobjects.SCDP3.*;
 import pageobjects.WizardPanelBase.*;
 
 import java.text.DecimalFormat;
@@ -29,18 +26,18 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Created by spotnuru on 3/24/2017.
+ * Created by spotnuru on 3/27/2017.
  */
-public class FLHO4CancelFlat extends BaseTest{
+public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
-    private FLHO4EnterAccountInformation enterAccountInformation;
+    private SCDP3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
     private MyActivities ma;
 
-    String firstname = "FLHO4";
+    String firstname = "SCDP3";
     Random rand = new Random();
     int num = rand.nextInt(99 - 10 + 1) + 10;
     String lastname = "CancelletionProRataTest" + num;
@@ -68,28 +65,29 @@ public class FLHO4CancelFlat extends BaseTest{
     }
 
 
-    @Test(description = "Creates account for Florida HO3 product")
-    public void createPersonAccountAndIssueQuoteFLHO4(ITestContext itc) {
+    @Test(description = "Creates account for Florida DP3 product")
+    public void createPersonAccountAndIssueQuoteSCDP3(ITestContext itc) {
 
-        FLHO4NavigationBar nb = new FLHO4NavigationBar(sh);
+        SCDP3NavigationBar nb = new SCDP3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(itc.getName());
 
         String country = "United States",
                 dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
-                phoneNumber = "2561234567",
-                address = "3546 Egret Dr",
-                city = "Melbourne",
-                state = "Florida",
+                phoneNumber = "3561234567",
+                address = "371 Pelican Flight Dr",
+                city = "Dewees Island",
+                state = "South Carolina",
                 addressType = "Home",
-                ssn = "777-12-7457",
-                organizationName = "4",
-                organizationType = Organizations.OrganizationTypes.AGENCY.value;
+                ssn = "777-12-7456",
+                organizationName = "C.T",
+                organizationType = Organizations.OrganizationTypes.AGENCY.value,
+                producercode = "523-23-30007 C.T. Lowndes & Co. - Charleston";
 
 
 
-        String policyType = "Renters (HO4)",
+        String policyType = "Dwelling Fire (DP3)",
                 distanceToFireHydrant = "79",
                 weeksrented = "10",
                 minrentalincre = "Monthly",
@@ -116,16 +114,16 @@ public class FLHO4CancelFlat extends BaseTest{
                 roofyear = "2010",
                 conditionofroof = "Good",
                 screenenclosure = "false",
-                personalpropertylimit = "350,000";
+                dwellingLimit = "350,000";
 
-        enterAccountInformation = new FLHO4EnterAccountInformation(sh);
-        //new FLHO4Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
+        enterAccountInformation = new SCDP3EnterAccountInformation(sh);
+        //new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        FLHO4CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLHO4();
+        SCDP3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountSCDP3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -144,20 +142,21 @@ public class FLHO4CancelFlat extends BaseTest{
                     .setOrganizationName(organizationName)
                     .setOrganizationType(organizationType)
                     .clickSearchButton()
-                    .clickSelectOrganizationButton();
+                    .clickSelectOrganizationButton()
+                    .setProducerCode(producercode);
 
-            FLHO4AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            SCDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
         } catch (Exception e) {
             throw new WebDriverException(e);
         }
 
-        FLHO4AccountFileSummary afs = new FLHO4AccountFileSummary(sh);
+        SCDP3AccountFileSummary afs = new SCDP3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        FLHO4NewSubmission ns = new FLHO4NewSubmission(sh);
-        FLHO4Qualification qua = ns.productTable.selectHomeowners();
+        SCDP3NewSubmission ns = new SCDP3NewSubmission(sh);
+        SCDP3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -165,18 +164,23 @@ public class FLHO4CancelFlat extends BaseTest{
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        FLHO4PolicyInfo pi = qua.next();
-        FLHO4Dwelling dwe = pi.next()
+        SCDP3PolicyInfo pi = qua.next();
+        SCDP3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast);
+                .setDistanceToCoast(distancetocoast)
+                .setWeeksRentedAnnually(weeksrented)
+                .setMinimumRentalIncrement(minrentalincre)
+                .underContractWithRentalManagementCompany(undercontract);
 
 
 
 
-        FLHO4Coverages coverages = dwe.next()
+        SCDP3Coverages coverages = dwe.next()
+                .setValuationType(valuation)
+                .setEstimatedReplacementCost(replacementcost)
                 .setConstructionType(constructiontype)
                 .setSquareFootage(squarefootage)
                 .setFoundationType(foundationtype)
@@ -194,14 +198,19 @@ public class FLHO4CancelFlat extends BaseTest{
                 .clickWindMitigation()
                 .setRoofShapeType(roofShapeType)
                 .next()
-                .setPersonalPropertyLimit(personalpropertylimit);
+                .setDwellingLimit(dwellingLimit);
 
-        FLHO4RiskAnalysis ra = coverages.next();
+        SCDP3RiskAnalysis ra = coverages.next();
         ra.clickPriorLosses();
 
         ra.clickOrderAreport();
 
-        FLHO4Quote quote = ra.quote();
+        //creates a A report
+
+//        sh.waitForNoMask();
+//        driver.findElement(By.id("SubmissionWizard:Job_RiskAnalysisScreen:RiskAnalysisCV:APlusReport_fliLV_tb:OrderAPlusRpt-btnInnerEl'")).click();
+
+        SCDP3Quote quote = ra.quote();
 
         //issue the policy
         quote.clickissuePolicy()
@@ -214,10 +223,11 @@ public class FLHO4CancelFlat extends BaseTest{
 
     }
 
-    @Test(dependsOnMethods =
-            { "createPersonAccountAndIssueQuoteFLHO4" })
-    public void CancelFlat() throws ParseException {
+    @Test   // (dependsOnMethods =  {"createPersonAccountAndIssueQuoteSCDP3"})
+    public void CancelProrata() throws ParseException {
 
+//        firstname = "SCDP3";
+//        lastname = "CancelletionProRataTest30";
         String source = "Insured",
                 source1 = "Insurer",
                 reason = "Applicant has not obtained ownership of the insured location",
@@ -229,7 +239,7 @@ public class FLHO4CancelFlat extends BaseTest{
                 reasondescription = "Test";
         String insurerreason = "Excessive Liability Exposure",
                 insurerreason1 = "Loss History",
-                insurerreason2  = "Material Misrepresentation",
+                insurerreason2 = "Material Misrepresentation",
                 insurerreason3 = "Risk Does Not Meet Company Guidelines",
                 insurerreason4 = "Risk does not meet Occupancy Requirements",
                 insurerreason5 = "Substantial change in risk",
@@ -242,18 +252,20 @@ public class FLHO4CancelFlat extends BaseTest{
         String cancellationeffdate;
         String policyeffectiveDate;
         String Insurercancellationeffdate;
+        String Insurercancellationeffdate1;
         String systemdate = new DateTime().toString("MM/dd/yyyy");
         String canceldescription, expectedcanceldescription = "Notice of Cancellation";
-        String Insurercancellationeffdate1;
+        String whensafescheducan, expectedwhensafescheducan = "The Policy is Pending Cancellation";
 
-        FLHO4NavigationBar nav = new FLHO4NavigationBar(sh);
-        FLHO4SearchAccounts sa = nav.clickSearchAccount();
+
+        SCDP3NavigationBar nav = new SCDP3NavigationBar(sh);
+        SCDP3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        FLHO4AccountFileSummary afs = new FLHO4AccountFileSummary(sh);
+        SCDP3AccountFileSummary afs = new SCDP3AccountFileSummary(sh);
         afs.clickInforcedAccountNumber();
 
         Summary sum = new Summary(sh);
@@ -283,7 +295,6 @@ public class FLHO4CancelFlat extends BaseTest{
         Assert.assertTrue(scfp.isSourceLabelRequired(), "Source was expected to be a required field but it was not");
 
 
-
         refundMethod = scfp.getRefundMethod();
 
         //validates the refund method
@@ -299,7 +310,6 @@ public class FLHO4CancelFlat extends BaseTest{
 
         Assert.assertFalse(scfp.isCancellationEffectiveDateEditable(),
                 "Effective date was not expected to be editable but it was");
-
 
 
         //verifies the policy date and cancel effec date
@@ -347,7 +357,6 @@ public class FLHO4CancelFlat extends BaseTest{
         }
 
 
-
         //now change the effective date to 2 days ahead of the system date
 
         scfp.setCancellationEffectiveDate(futureCanEffecDate);
@@ -358,7 +367,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         try {
             Assert.assertEquals(refundMethod1, expectedrefundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -402,7 +411,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -439,7 +448,6 @@ public class FLHO4CancelFlat extends BaseTest{
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
 
 
         //change the reason to policy rewritten
@@ -486,7 +494,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -535,11 +543,10 @@ public class FLHO4CancelFlat extends BaseTest{
 
         try {
             Assert.assertEquals(expectedrefundMethod1, refundMethod1);
-            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1 );
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1 + " . The Refund Method got changed from " + refundMethod + " to " + refundMethod1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
 
 
         log("Now changes in Source from insured to Insurer");
@@ -571,26 +578,24 @@ public class FLHO4CancelFlat extends BaseTest{
 
         String format = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        Date dateobject1 = sdf.parse(Insurercancellationeffdate );
-        Date dateobject2 = sdf.parse(policyeffectiveDate );
+        Date dateobject1 = sdf.parse(Insurercancellationeffdate);
+        Date dateobject2 = sdf.parse(policyeffectiveDate);
 
         DecimalFormat formatter = new DecimalFormat("###,###");
 
-        long diff = dateobject1.getTime() - dateobject2.getTime();
+        long diff = Math.abs(dateobject1.getTime() - dateobject2.getTime());
 
-        int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+        long diffDays = (diff / (24 * 60 * 60 * 1000));
 
         System.out.println("diffrence between days: " + diffDays);
 
         String insuredCanEffectiveDate = String.valueOf(diffDays);
-        String insuredDiffEffectiveDate = "25";
-
+        String insuredDiffEffectiveDate = "35";
 
 
         //verify the diffrence between the policy eff date and can effective date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
-
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -619,7 +624,6 @@ public class FLHO4CancelFlat extends BaseTest{
         }
 
 
-
         //Verifies whether Refund Method is Editable or not
 
         Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
@@ -627,7 +631,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -638,7 +642,6 @@ public class FLHO4CancelFlat extends BaseTest{
         //verifies the required label
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
-
 
 
         scfp.setReason(insurerreason2)
@@ -662,7 +665,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -695,7 +698,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -728,7 +731,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -739,9 +742,6 @@ public class FLHO4CancelFlat extends BaseTest{
         //verifies the required label
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
-
-
-
 
 
         scfp.setReason(insurerreason5)
@@ -761,14 +761,15 @@ public class FLHO4CancelFlat extends BaseTest{
         }
 
 
-
         //Verifies whether Refund Method is Editable or not
 
         Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
 
-        //verifies the dates between the current and eff
 
         Insurercancellationeffdate1 = scfp.getCancellationEffectiveDateEdi();
+
+
+        //verifies the dates between the current and eff
 
         String format1 = "MM/dd/yyyy";
         SimpleDateFormat sdf1 = new SimpleDateFormat(format1);
@@ -782,13 +783,13 @@ public class FLHO4CancelFlat extends BaseTest{
         long difffDays = (difff / (24 * 60 * 60 * 1000));
 
 
-
-
         String insuredCanEffectiveDate1 = String.valueOf(difffDays);
-        String insuredDiffEffectiveDate1 = "125";
+        String insuredDiffEffectiveDate1 = "95";
+
+
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate1 , insuredDiffEffectiveDate1, "The Cancellation effective date diffrence should be 125 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate1, insuredDiffEffectiveDate1, "The Cancellation effective date diffrence should be 95 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -801,15 +802,8 @@ public class FLHO4CancelFlat extends BaseTest{
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-
-
-
         scfp.setReason(insurerreason6)
                 .setReasonDescription(reasondescription);
-
-        //verifies the required label
-        Assert.assertTrue(scfp.isReasonDescriptionLabelRequired(), "The Reason Description was expected to be required but it was not");
-
 
         refundMethod1 = scfp.getRefundMethod();
 
@@ -822,11 +816,12 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //Verifies whether Refund Method is Editable or not
 
-        Assert.assertTrue(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+        Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+
 
         //verifies the diffrence between the date
 
-        Assert.assertEquals(insuredCanEffectiveDate , insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 35 days and it is not");
 
 
         //verify the cancellation is manditory or not
@@ -839,43 +834,6 @@ public class FLHO4CancelFlat extends BaseTest{
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-        //now source will be changed to Insured
-
-        scfp.setSource(source)
-                .setReason(reason)
-                .setReasonDescription(reasondescription);
-
-
-        refundMethod = scfp.getRefundMethod();
-
-        //validates the refund method
-
-        try {
-            Assert.assertEquals(expectedrefundMethod, refundMethod);
-            System.out.println("The expected and actual are equal and the Refund method  is : " + refundMethod);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        //verify the cancellation eff date is editable or not
-
-        Assert.assertFalse(scfp.isCancellationEffectiveDateEditable(),
-                "Effective date was not expected to be editable but it was");
-
-
-
-        //verifies the policy date and cancel effec date
-
-        cancellationeffdate = scfp.getCancellationEffectiveDate();
-
-        try {
-            Assert.assertEquals(cancellationeffdate, policyeffectiveDate);
-            System.out.println("The Cancellation and Policy effective date both are equal and the date is: " + cancellationeffdate);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
 
         //Hit the start button start button
 
@@ -886,30 +844,72 @@ public class FLHO4CancelFlat extends BaseTest{
         CancellationBound cb = new CancellationBound(sh);
         cb.clickViewYourPolicy();
 
+
+//        nav.clickInternalToolTab()
+//                .clickTestingTimeClock();
+//        FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
+//
+//
+//        tsc.setDate(cancellationeffdate)
+//                .clickchangedate();
+//
+//        //goes to server tools and clicks on batch process info
+//
+//        nav.clickServerTools()
+//                .clickBatchProcessInfo();
+//
+//
+//        //clicks on run workflow
+//
+//        FLDP3BatchProcessInfo bpi = new FLDP3BatchProcessInfo(sh);
+//        bpi.clickrunworkflow();
+//
+//        //goes back to policy center
+//
+//        nav.clickSettings()
+//                .clickReturntoPolicyCenter();
+//
+//
+//        sa.setFirstName(firstname);
+//        sa.setLastName(lastname);
+//        sa.clickSearchButton();
+//        sa.clickAccountNumberSearchAccount();
+//
+//        afs.clickInforcedAccountNumber();
+//
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
+//
+//
+//        String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+        forms.clickSummary();
 
 
-        String cancelDescription =  forms.getnoticeofcancellationdescription();
-
+        //click on when safe policy
 
         //verifies the notice of cancellation decription
-        Assert.assertTrue(cancelDescription.equals(expectedcanceldescription), "In the Description Form# FIM-CXB and Edition 06/14 (Notice Of Cancellation) should be present but it is not");
+
+//        try {
+//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
+//            System.out.println("There is a " + cancellationeffdate + " in the Description");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
+        //click on when safe policy
+
+        sum.clickwhensafepolicynumber();
+
+        whensafescheducan = sum.getSummaryMessage();
+
+        //verifies the pending scheduled transaction
+
+        Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
+
+        sum.actions.clickForms();
+
 
     }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
-    }
-    
 }

@@ -47,6 +47,16 @@ public class NCHOWRiskAnalysis extends RiskAnalysis<NCHOWRiskAnalysis> {
         super.riskAnalysisClickUnderwritingquestion();
         return new NCHOWUnderwritingQuestions(sh,path);
     }
+    public NCHOWPriorLosses clickPriorLosses()
+    {
+        super.riskAnalysisClickPriorLosses();
+        return new NCHOWPriorLosses(sh, path);
+    }
+    public NCHOWPriorLosses clickOrderAreport()
+    {
+        super.orderAReport1();
+        return new NCHOWPriorLosses(sh, path);
+    }
     public NCHOWRiskAnalysis answerYes(int questionNum){
         return super.answerYes(questionNum);
     }
@@ -154,6 +164,28 @@ public class NCHOWRiskAnalysis extends RiskAnalysis<NCHOWRiskAnalysis> {
 
     }
 
+    public class NCHOWPriorLosses extends PriorLosses<NCHOWPriorLosses>
+    {
+
+        public NCHOWPriorLosses(CenterSeleniumHelper sh, Path path)
+        {
+            super(sh, path);
+        }
+
+        public NCHOWQuote quote()
+        {
+            super.PriorLossesQuote();
+            //sh.clickElement(by.submissionQuote);
+            //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+            return new NCHOWQuote(sh,path);
+        }
+
+        protected NCHOWRiskAnalysis clickOrderAReport()
+        {
+            super.orderAReport();
+            return new NCHOWRiskAnalysis(sh, path);
+        }
+    }
     public class NCHOWUnderwritingQuestions extends UnderwritingQuestions<NCHOWUnderwritingQuestions>
     {
 

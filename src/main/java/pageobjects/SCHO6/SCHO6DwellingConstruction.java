@@ -71,6 +71,12 @@ public class SCHO6DwellingConstruction extends DwellingConstruction<SCHO6Dwellin
 		super.DwellingconstructionQuote();
 		return new SCHO6Quote(sh,path);
 	}
+
+	public SCHO6DwellingConstruction setFloorUnitIsLocatedOn(String text)
+	{
+		super.setFloorUnitIsLocatedOn(text);
+		return new SCHO6DwellingConstruction(sh, path);
+	}
 	public String getConstructionType()
 	{
 		return super.getConstructionType();

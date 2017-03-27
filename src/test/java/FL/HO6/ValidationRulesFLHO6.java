@@ -71,8 +71,8 @@ public class ValidationRulesFLHO6 extends BaseTest {
         ca.setCity(city);
         ca.setState(state);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.clickVerifyAddress()
+                .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.organizationSearch();
         FLHO6Organizations org = new FLHO6Organizations(sh);

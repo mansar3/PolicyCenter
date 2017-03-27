@@ -52,6 +52,18 @@ public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 		super.riskAnalysisClickUnderwritingquestion();
 		return new SCDP3UnderwritingQuestions(sh,path);
 	}
+
+	public SCDP3PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new SCDP3PriorLosses(sh, path);
+	}
+
+	public SCDP3PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new SCDP3PriorLosses(sh, path);
+	}
 	public SCDP3RiskAnalysis back(){
 		return  super.coveragesback();
 	}
@@ -104,6 +116,29 @@ public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 			return new SCDP3Quote(sh,path);
 		}
 
+	}
+
+	public class SCDP3PriorLosses extends PriorLosses<SCDP3PriorLosses>
+	{
+
+		public SCDP3PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public SCDP3Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new SCDP3Quote(sh,path);
+		}
+
+		protected SCDP3RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new SCDP3RiskAnalysis(sh, path);
+		}
 	}
 	public class SCDP3CreateNewUWIssue extends CreateNewUWIssue<SCDP3CreateNewUWIssue>
 	{

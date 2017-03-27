@@ -18,6 +18,11 @@ public class SCHO6Quote extends Quote<SCHO6Quote>
 		super.backRiskAnalysis();
 		return new SCHO6RiskAnalysis(sh,path);
 	}
+	public SCHO6Quote acceptyes()
+	{
+		return super.accept();
+	}
+
 	public SCHO6PolicyReview backToPoliycReview()
 	{
 		super.backPolicyReview();

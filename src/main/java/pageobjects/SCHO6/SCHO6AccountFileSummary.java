@@ -1,6 +1,7 @@
 package pageobjects.SCHO6;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -19,5 +20,11 @@ public class SCHO6AccountFileSummary extends AccountFileSummary<SCHO6AccountFile
 	{
 		return super.getAccountNumber();
 	}
+	public Summary clickInforcedAccountNumber()
+	{
+		sh.waitForNoMask();
+		super.clickInforceAccountNumber();
+		return new Summary(sh);
 
+	}
 }

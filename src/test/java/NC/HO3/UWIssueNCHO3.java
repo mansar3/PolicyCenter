@@ -108,8 +108,8 @@ public class UWIssueNCHO3 extends BaseTest {
         ca.setCounty(county);
         ca.setState(state);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.clickVerifyAddress()
+                .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.setProducerCode(producercode);
         ca.update();

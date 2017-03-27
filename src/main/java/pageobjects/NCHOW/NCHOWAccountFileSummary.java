@@ -1,6 +1,7 @@
 package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -17,5 +18,12 @@ public class NCHOWAccountFileSummary extends AccountFileSummary<NCHOWAccountFile
     public String getAccountNumber()
     {
         return super.getAccountNumber();
+    }
+    public Summary clickInforcedAccountNumber()
+    {
+        sh.waitForNoMask();
+        super.clickInforceAccountNumber();
+        return new Summary(sh);
+
     }
 }

@@ -49,6 +49,17 @@ public class SCHO4RiskAnalysis extends RiskAnalysis<SCHO4RiskAnalysis> {
         return new SCHO4RiskAnalysis.SCHO4CreateNewUWIssue(sh, path);
 
     }
+    public SCHO4PriorLosses clickPriorLosses()
+    {
+        super.riskAnalysisClickPriorLosses();
+        return new SCHO4PriorLosses(sh, path);
+    }
+
+    public SCHO4PriorLosses clickOrderAreport()
+    {
+        super.orderAReport1();
+        return new SCHO4PriorLosses(sh, path);
+    }
     public SCHO4UnderwritingQuestions clickUnderWritingQuestions()
     {
         super.riskAnalysisClickUnderwritingquestion();
@@ -126,6 +137,28 @@ public class SCHO4RiskAnalysis extends RiskAnalysis<SCHO4RiskAnalysis> {
             return new SCHO4Quote(sh,path);
         }
 
+    }
+    public class SCHO4PriorLosses extends PriorLosses<SCHO4PriorLosses>
+    {
+
+        public SCHO4PriorLosses(CenterSeleniumHelper sh, Path path)
+        {
+            super(sh, path);
+        }
+
+        public SCHO4Quote quote()
+        {
+            super.PriorLossesQuote();
+            //sh.clickElement(by.submissionQuote);
+            //sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+            return new SCHO4Quote(sh,path);
+        }
+
+        protected SCHO4RiskAnalysis clickOrderAReport()
+        {
+            super.orderAReport();
+            return new SCHO4RiskAnalysis(sh, path);
+        }
     }
     public class SCHO4CreateNewUWIssue extends CreateNewUWIssue<SCHO4CreateNewUWIssue>
     {

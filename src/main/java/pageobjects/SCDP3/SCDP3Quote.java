@@ -37,6 +37,11 @@ public class SCDP3Quote extends Quote<SCDP3Quote>
 	{
 		return super.isUnderWritingApprovalNeeded();
 	}
+
+	public SCDP3Quote acceptyes()
+	{
+		return super.accept();
+	}
 	
 	public int getTotalPremium()
 	{

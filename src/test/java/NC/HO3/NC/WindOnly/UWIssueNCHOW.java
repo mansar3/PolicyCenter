@@ -60,15 +60,11 @@ public class UWIssueNCHOW  extends BaseTest {
         String addrestype = "Home";
         String producercode = "523-23-50026 Bankers Insurance";
         String policyType = "Wind Only";
-        String distanceToFireHydrant = "79";
         String rooftype = "Hip";
         String dwellinglimit = "400,000",
                 dwellinglimit1 = "1,000,000";
-        String animaltrue = "true";
-        String animalfalse = "false";
         String DateofBirth = "06/14/1970";
         String ssn = "111-11-1111";
-        String constructiontype= "Superior";
         String uwissueblobkingbind1, expecteduwissueblobkingbind1 = "SSN required for all Named Insureds";
         String uwissueblobkingbind2, expecteduwissueblobkingbind2 = "DOB required for all Named Insureds";
         String Verifyto, expectedVerifyto = "UW Approval - PL North Carolina Team";
@@ -76,18 +72,10 @@ public class UWIssueNCHOW  extends BaseTest {
         String descriptioneff, expecteddescriptioneff = "Transaction Effective Date earlier than Written Date";
         String description1, expecteddescription1 = "Maximum Dwelling Limit Exceeded";
         String descriptionyear, expecteddescriptionyear = "Dwelling Year Built";
-        String descriptionhomeanimal, expecteddescriptionhomeanimal = "Home with Exotic Animals";
-        String descriptionconstruction, expecteddescriptionconstruction = "Dwelling Construction Type Superior";
-        String descriptionwaterheater, expecteddescriptionwaterheater = "Water Heater Age";
-        String descriptionspp, expecteddescriptionspp = "Scheduled Personal Property";
         String uwissueblockingquotemessage, expecteduwissueblockingquotemessage = "Transaction Effective Date earlier than Written Date";
         String uwissueblobkingbindtran, expecteduwissueblobkingbindtran = "Transaction Effective Date 5 days earlier than System Date";
         String usissueblobkingquoteissue, expectedusissueblobkingquoteissue = "Maximum Dwelling Limit Exceeded";
         String uwissueblockingyear, expecteduwissueblockingyear = "Dwelling Year Built";
-        String usissueblobkinghomeanimal, expectedusissueblobkinghomeanimal = "Home with Exotic Animals";
-        String uwissueblockingsuperior, expecteduwissueblockingsuperior = "Dwelling Construction Type Superior";
-        String uwissueblockingwater, expecteduwissueblockingwater = "Water Heater Age";
-        String uwissueblockingspp, expecteduwissueblockingspp = "Scheduled Personal Property";
 
 
 
@@ -108,8 +96,8 @@ public class UWIssueNCHOW  extends BaseTest {
         ca.setCounty(county);
         ca.setState(state);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.clickVerifyAddress()
+                    .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.setProducerCode(producercode);
         ca.update();

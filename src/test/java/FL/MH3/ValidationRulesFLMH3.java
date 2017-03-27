@@ -70,8 +70,8 @@ public class ValidationRulesFLMH3 extends BaseTest {
         ca.setCity(city);
         ca.setState(state);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.clickVerifyAddress()
+                .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.organizationSearch();
         FLMH3Organizations org = new FLMH3Organizations(sh);
