@@ -258,9 +258,29 @@ public class SCDP3Dwelling extends Dwelling<SCDP3Dwelling> {
         return super.getFenceType();
     }
 
+    public SCDP3Dwelling underContractWithRentalManagementCompany(String flag)
+    {
+        return super.underContractWithRentalManagementCompany(flag);
+    }
+    public SCDP3Dwelling setWeeksRentedAnnually(String text)
+    {
+        return super.setWeeksRentedAnnually(text);
+    }
+
+    public String getWeeksRentedAnnually()
+    {
+        return super.getWeeksRentedAnnually();
+    }
+
+    public SCDP3Dwelling setMinimumRentalIncrement(String text)
+    {
+        return super.setMinimumRentalIncrement(text);
+    }
+
     public SCDP3Dwelling setWindpoolZone(String text) {
         return super.setWindpoolZone(text);
     }
+
 
     public String getWindpoolZone() {
         return super.getWindpoolZone();

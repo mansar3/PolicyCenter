@@ -107,8 +107,8 @@ public class UWIssueFLMH3 extends BaseTest {
         ca.setState(state);
         ca.setCounty(county);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:0:_Select")).click();
+        ca.clickVerifyAddress()
+                .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.setProducerCode(producercode);
         ca.update();

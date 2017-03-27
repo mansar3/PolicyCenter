@@ -72,8 +72,8 @@ public class ValidationRulesNC extends BaseTest {
         ca.setCity(city);
         ca.setState(state);
         ca.setZipCode(zip);
-        ca.clickVerifyAddress();
-        driver.findElement(By.id("FP_VerifiedAddressSelectionPopup:1:_Select")).click();
+        ca.clickVerifyAddress()
+                .selectSuccessfulVerificationIfPossibleForCreateAccount();
         ca.setAddressType(addrestype);
         ca.organizationSearch();
         NCHO3Organizations org = new NCHO3Organizations(sh);

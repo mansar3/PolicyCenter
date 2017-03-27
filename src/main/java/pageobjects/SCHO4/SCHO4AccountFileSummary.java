@@ -1,6 +1,7 @@
 package pageobjects.SCHO4;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -18,5 +19,12 @@ public class SCHO4AccountFileSummary extends AccountFileSummary<SCHO4AccountFile
     public String getAccountNumber()
     {
         return super.getAccountNumber();
+    }
+    public Summary clickInforcedAccountNumber()
+    {
+        sh.waitForNoMask();
+        super.clickInforceAccountNumber();
+        return new Summary(sh);
+
     }
 }

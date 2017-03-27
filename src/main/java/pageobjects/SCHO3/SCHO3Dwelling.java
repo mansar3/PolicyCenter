@@ -272,6 +272,25 @@ public class SCHO3Dwelling extends Dwelling<SCHO3Dwelling>
 		return super.setFenceType(text);
 	}
 
+	public SCHO3Dwelling underContractWithRentalManagementCompany(String flag)
+	{
+		return super.underContractWithRentalManagementCompany(flag);
+	}
+	public SCHO3Dwelling setWeeksRentedAnnually(String text)
+	{
+		return super.setWeeksRentedAnnually(text);
+	}
+
+	public String getWeeksRentedAnnually()
+	{
+		return super.getWeeksRentedAnnually();
+	}
+
+	public SCHO3Dwelling setMinimumRentalIncrement(String text)
+	{
+		return super.setMinimumRentalIncrement(text);
+	}
+
 	public String getFenceType()
 	{
 		return super.getFenceType();

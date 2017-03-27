@@ -46,6 +46,16 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 		return new SCHO6RiskAnalysis.SCHO6CreateNewUWIssue(sh, path);
 
 	}
+	public SCHO6PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new SCHO6PriorLosses(sh, path);
+	}
+	public SCHO6PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new SCHO6PriorLosses(sh, path);
+	}
 	public SCHO6UnderwritingQuestions clickUnderWritingQuestions()
 	{
 		super.riskAnalysisClickUnderwritingquestion();
@@ -102,6 +112,28 @@ public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 			return new SCHO6Quote(sh,path);
 		}
 
+	}
+	public class SCHO6PriorLosses extends PriorLosses<SCHO6PriorLosses>
+	{
+
+		public SCHO6PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public SCHO6Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new SCHO6Quote(sh,path);
+		}
+
+		protected SCHO6RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new SCHO6RiskAnalysis(sh, path);
+		}
 	}
 	public class SCHO6CreateNewUWIssue extends CreateNewUWIssue<SCHO6CreateNewUWIssue>
 	{

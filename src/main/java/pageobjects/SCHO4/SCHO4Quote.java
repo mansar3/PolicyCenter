@@ -46,7 +46,10 @@ public class SCHO4Quote extends Quote<SCHO4Quote> {
     {
         return super.getAnnualizedTotalCost();
     }
-
+    public SCHO4Quote acceptyes()
+    {
+        return super.accept();
+    }
     public String getAnnualizedTotalCostIncludingWhenSafe()
     {
         return super.getAnnualizedTotalCostIncludingWhenSafe();

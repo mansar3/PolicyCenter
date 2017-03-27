@@ -241,7 +241,8 @@ public class FLDP3CancelProrata extends BaseTest {
                 insurerreason2 = "Material Misrepresentation",
                 insurerreason3 = "Risk Does Not Meet Company Guidelines",
                 insurerreason4 = "Risk does not meet Occupancy Requirements",
-                insurerreason5 = "Substantial change in risk";
+                insurerreason5 = "Substantial change in risk",
+                insurerreason6 = "Unable to Conduct a Favorable Company Inspection";
 
 
         String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
@@ -790,6 +791,39 @@ public class FLDP3CancelProrata extends BaseTest {
         //verifies the diffrence between the date
 
         Assert.assertEquals(insuredCanEffectiveDate1, insuredDiffEffectiveDate1, "The Cancellation effective date diffrence should be 125 days and it is not");
+
+
+        //verify the cancellation is manditory or not
+
+
+        Assert.assertTrue(scfp.isCancellationEffectiveDateEditable(), "The Cancellation effective date is supposed to be editable but it was not ");
+
+        //verifies the required label
+
+        Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
+
+
+
+        scfp.setReason(insurerreason6)
+                .setReasonDescription(reasondescription);
+
+        refundMethod1 = scfp.getRefundMethod();
+
+        try {
+            Assert.assertEquals(expectedrefundMethod1, refundMethod1);
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //Verifies whether Refund Method is Editable or not
+
+        Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+
+
+        //verifies the diffrence between the date
+
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
 
 
         //verify the cancellation is manditory or not
