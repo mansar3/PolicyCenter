@@ -3,6 +3,7 @@ package pageobjects.Policy;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import pageobjects.NorthPanel;
 import pageobjects.WizardPanelBase.CenterPanelBase;
@@ -39,7 +40,11 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
         public By next = By.id(policyChangeBase_id + "NewPolicyChange-btnInnerEl"),
                 effectivedate = By.id(policyChangeBase_id + "StartPolicyChangeDV:EffectiveDate_date-inputEl"),
                 reason = By.id(policyChangeBase_id + "StartPolicyChangeDV:reason-inputEl"),
-                cancel = By.id(policyChangeBase_id + "Cancel-btnInnerEl");
+                cancel = By.id(policyChangeBase_id + "Cancel-btnInnerEl"),
+                dropdownlist = By.xpath("//li"),
+                reasonRequired = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:reason-labelEl']//span[text() ='Reason']/../..//input"),
+                date = By.id("StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:EffectiveDate_date-inputEl"),
+                effectiveDateRequired = By.xpath(".//*[@id='StartPolicyChange:StartPolicyChangeScreen:StartPolicyChangeDV:EffectiveDate_date-labelEl']//span[text() ='Effective Date']/../..//input");
 
 
     }
@@ -61,10 +66,16 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
 
     public List<String> getTextInReasonList()
     {
+
         sh.clickElement(by.reason);
+        sh.waitForNoMask();
+//        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(by.reason));
+
 //        Select select = new Select(sh.getElement(By.xpath("//ul")));
 //        List<WebElement> list = select.getOptions();
+        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(by.dropdownlist));
         List<WebElement> list = sh.getElements(By.xpath("//li"));
+        sh.waitForNoMask();
         List<String> listText = null;
         return  list.stream().map(WebElement::getText).collect(Collectors.toList());
 
@@ -84,5 +95,20 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
         sh.waitForNoMask();
         sh.setText(by.reason, reason);
         return this;
+    }
+
+    public String getSPCDate(){
+         sh.waitForNoMask();
+         return sh.getValue(by.date);
+     }
+
+    public boolean isEffectiveDateRequired()
+    {
+        return sh.isFieldMarkedRequired(by.effectiveDateRequired);
+    }
+
+    public boolean isReasonRequired()
+    {
+        return sh.isFieldMarkedRequired(by.reasonRequired);
     }
 }

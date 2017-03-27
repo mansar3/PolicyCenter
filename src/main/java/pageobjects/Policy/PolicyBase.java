@@ -4,6 +4,7 @@ import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import pageobjects.NorthPanel;
 import pageobjects.WizardPanelBase.CenterPanelBase;
+import pageobjects.WizardPanelBase.Forms;
 
 
 /**
@@ -49,7 +50,8 @@ abstract class PolicyBase {
             public  By  actions = By.id("PolicyFile:PolicyFileMenuActions-btnInnerEl"),
                     changepolicy = By.id("PolicyFile:PolicyFileMenuActions:PolicyFileMenuActions_NewWorkOrder:PolicyFileMenuActions_ChangePolicy-textEl"),
                     cancelpolicy = By.id("PolicyFile:PolicyFileMenuActions:PolicyFileMenuActions_NewWorkOrder:PolicyFileMenuActions_CancelPolicy-textEl"),
-                    renewpolicy = By.id("PolicyFile:PolicyFileMenuActions:PolicyFileMenuActions_NewWorkOrder:PolicyFileMenuActions_RenewPolicy-textEl");
+                    renewpolicy = By.id("PolicyFile:PolicyFileMenuActions:PolicyFileMenuActions_NewWorkOrder:PolicyFileMenuActions_RenewPolicy-textEl"),
+                    clickforms = By.xpath(".//*[@id='PolicyFile:PolicyFileAcceleratedMenuActions:PolicyMenuItemSet:PolicyMenuItemSet_Endorsements']/div/span");
 
         }
         // Setters and getters
@@ -75,14 +77,19 @@ abstract class PolicyBase {
 
         }
 
-        private void clickRenewPolicy()
+        public void clickRenewPolicy()
         {
             sh.waitForNoMask();
             clickActions();
             sh.clickElement(by.renewpolicy);
-
         }
 
+        public Forms clickForms()
+        {
+            sh.waitForNoMask();
+            sh.clickElement(by.clickforms);
+            return new Forms(sh);
+        }
 
     }
 }

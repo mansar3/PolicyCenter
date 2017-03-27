@@ -33,6 +33,10 @@ public class ALHO3CreateAccount extends CreateAccount<ALHO3CreateAccount>
 		return super.setSsn(text);
 	}
 
+	public ALHO3CreateAccount setSsnUmasked(String text)
+	{
+		return super.setSsnUmasked(text);
+	}
 	public String getSsn()
 	{
 		return super.getSsn();

@@ -1,6 +1,7 @@
 package pageobjects.FLHO3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WizardPanelBase.Quote;
 
 /**
@@ -21,7 +22,21 @@ public class FLHO3Quote extends Quote<FLHO3Quote>
 	public FLHO3Quote clickEditPolicyTransaction(){
 		return super.clickEditPolicyTransaction();
 	}
-	
+
+	public Summary clicktopPolicyNumber()
+	{
+		super.clickTopPolicyNumber();
+		return new Summary(sh);
+	}
+	public FLHO3Quote clickPolicyChangeIssuePolicy()
+	{
+		return super.clickPolicyChangeIssuePolicy();
+	}
+
+	public FLHO3Quote clickPolicyChangePrint()
+	{
+		return  super.clickPolicyIssuePolicyPrint();
+	}
 	public FLHO3RiskAnalysis backToRiskAnalysis()
 	{
 		super.backRiskAnalysis();

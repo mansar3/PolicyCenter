@@ -64,7 +64,7 @@ public class ALHO3 extends BaseTest
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
@@ -73,7 +73,7 @@ public class ALHO3 extends BaseTest
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
-			csvInput[13] = screenshotName;
+			csvInput[15] = screenshotName;
 
 			CSVWriter writer;
 			try
@@ -397,8 +397,8 @@ public class ALHO3 extends BaseTest
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
 			pd.
-			setSprinklerSystem("true")
-			.setSprinklerSystemType(eai.get("Sprinkler System"));
+			setSprinklerSystem("true");
+			//.setSprinklerSystemType(eai.get("Sprinkler System"));
 		pd
 		.setDeadbolts(eai.get("Deadbolts"))
 		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
@@ -834,7 +834,8 @@ public class ALHO3 extends BaseTest
 		ALHO3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
+		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 
@@ -989,8 +990,8 @@ public class ALHO3 extends BaseTest
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
 			pd.
-			setSprinklerSystem("true")
-			.setSprinklerSystemType(eai.get("Sprinkler System"));
+			setSprinklerSystem("true");
+			//.setSprinklerSystemType(eai.get("Sprinkler System"));
 		pd
 		.setDeadbolts(eai.get("Deadbolts"))
 		.setResidenceVisibleToNeighbors(eai.getOrDefault("Residence Visible to neighbors","true"));
@@ -1292,10 +1293,21 @@ public class ALHO3 extends BaseTest
 //			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName("1:")
+		{
+			le.checkAdditionalResidenceRentedToOthers()
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			le.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickLiabilityOk()
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()

@@ -64,10 +64,18 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		    editpolicytransaction = By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 			bindOptionsIssueNow = By.id(errorBase + "JobWizardToolbarButtonSet:BindOptions:IssueNow-itemEl"),
 		    policychangeIssuePolicy = By.id("PolicyChangeWizard:PolicyChangeWizard_QuoteScreen:JobWizardToolbarButtonSet:Issuance-btnInnerEl"),
-		    policychangeIssuePolicyPrint = By.id("PolicyChangeWizard:PolicyChangeWizard_QuoteScreen:JobWizardToolbarButtonSet:Issuance:issuancePrint-textEl");
+		    policychangeIssuePolicyPrint = By.id("PolicyChangeWizard:PolicyChangeWizard_QuoteScreen:JobWizardToolbarButtonSet:Issuance:issuancePrint-textEl"),
+		    clickpolicynumber = By.xpath(".//*[@id='PolicyChangeWizard:JobWizardInfoBar:PolicyNumber-btnInnerEl']/span[2]");
 
 
 
+	}
+
+	public T clickTopPolicyNumber()
+	{
+		sh.waitForNoMask();
+		sh.clickElement(by.clickpolicynumber);
+		return (T) this;
 	}
 
 	public T clickissuePolicy(){

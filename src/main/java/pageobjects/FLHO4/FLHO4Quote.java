@@ -13,6 +13,11 @@ public class FLHO4Quote extends Quote<FLHO4Quote> {
         super(sh, path);
     }
 
+    public FLHO4Quote acceptyes()
+    {
+        return super.accept();
+    }
+
     public FLHO4RiskAnalysis backToRiskAnalysis()
     {
         super.backRiskAnalysis();

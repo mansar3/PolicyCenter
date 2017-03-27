@@ -58,18 +58,11 @@ public class FLHO3 extends BaseTest
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
-	@AfterMethod
-	public void afterMethod()
-	{
-		WebDriver driver = LocalDriverManager.getDriver();
-		if(driver != null)
-			driver.quit();
-	}
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date","Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
@@ -78,7 +71,7 @@ public class FLHO3 extends BaseTest
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
-			csvInput[13] = screenshotName;
+			csvInput[15] = screenshotName;
 
 			CSVWriter writer;
 			try
@@ -823,7 +816,8 @@ public class FLHO3 extends BaseTest
 		FLHO3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
+		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 
@@ -1256,7 +1250,8 @@ public class FLHO3 extends BaseTest
 			.setCounty(eai.get("Location Address - County"))
 			.clickVerifyAddress()
 			.selectSuccessfulVerificationIfPossibleForLocationInformation()
-			.clickLiabilityOk();
+			.clickLiabilityOk()
+			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
 		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le

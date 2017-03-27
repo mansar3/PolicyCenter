@@ -12,7 +12,13 @@ public class NCHO3Quote extends Quote<NCHO3Quote>
 	{
 		super(sh, path);
 	}
-	
+
+	public NCHO3Quote acceptyes()
+	{
+		return super.accept();
+	}
+
+
 	public NCHO3RiskAnalysis backToRiskAnalysis()
 	{
 		super.backRiskAnalysis();

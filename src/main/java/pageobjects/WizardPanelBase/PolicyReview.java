@@ -38,7 +38,7 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 	{
 		By	back = By.id(buttonBase + "Prev-btnInnerEl"),
 		    quote = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
-		    policychangereview = By.xpath(".//*[@id = 'PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:DifferencesPanelSet:DiffTreePanelSet:DiffTreePanelLV-body']//div[text() = 'No']/../following-sibling::td[1]"),
+		    policychangereview = By.xpath(".//*[@id = 'PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:DifferencesPanelSet:DiffTreePanelSet:DiffTreePanelLV-body']//div[text() = 'No']/../following-sibling::td[1]//div"),
 		    clickhangeconflicts = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:OOSConflictsTab-btnInnerEl");
 	}
 
@@ -63,6 +63,7 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 
 	public String getPolicyReviewChange()
 	{
+		sh.waitForNoMask();
 		return sh.getText(by.policychangereview);
 	}
 

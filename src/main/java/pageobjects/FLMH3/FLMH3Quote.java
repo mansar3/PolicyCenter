@@ -13,6 +13,11 @@ public class FLMH3Quote extends Quote<FLMH3Quote> {
         super(sh, path);
     }
 
+    public FLMH3Quote acceptyes()
+    {
+        return super.accept();
+    }
+
     public FLMH3RiskAnalysis backToRiskAnalysis()
     {
         super.backRiskAnalysis();

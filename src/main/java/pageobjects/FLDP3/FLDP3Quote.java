@@ -38,7 +38,15 @@ public class FLDP3Quote extends Quote<FLDP3Quote>
 	{
 		return super.isUnderWritingApprovalNeeded();
 	}
-	
+
+	public FLDP3Quote clickPolicyChangePrint()
+	{
+		return  super.clickPolicyIssuePolicyPrint();
+	}
+	public FLDP3Quote acceptyes()
+	{
+		return super.accept();
+	}
 	public int getTotalPremium()
 	{
 		return super.getTotalPremium();

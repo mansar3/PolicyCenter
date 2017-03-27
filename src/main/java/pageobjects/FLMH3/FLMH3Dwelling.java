@@ -1,7 +1,6 @@
 package pageobjects.FLMH3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLMH3.FLMH3Dwelling;
 import pageobjects.WizardPanelBase.Dwelling;
 
 /**
@@ -89,11 +88,6 @@ public class FLMH3Dwelling extends Dwelling<FLMH3Dwelling> {
     {
         super.waitForProtectionClassToUpdate(val);
         return new FLMH3Dwelling(sh, path);
-    }
-
-    public FLMH3Dwelling setTerritoryCode(String text)
-    {
-        return super.setTerritoryCode(text);
     }
 
     public String getTerritoryCode()
@@ -214,6 +208,10 @@ public class FLMH3Dwelling extends Dwelling<FLMH3Dwelling> {
     {
         return super.setOccupiedDaily(flag);
     }
+    public FLMH3Dwelling setPurchasedNew(String flag)
+	{
+		return super.setPurchasedNew(flag);
+	}
     public FLMH3Dwelling setAtInceptionOfPolicyIsDeedOwnedByEntity(String flag)
     {
         return super.setAtInceptionOfPolicyIsDeedOwnedByEntity(flag);

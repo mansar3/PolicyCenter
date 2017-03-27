@@ -714,7 +714,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
 			addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
 			removeOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../div//span[text() = 'Remove']"),
-
+			refrigeratedPersonalPropertyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Refrigerated Personal Property']/..//input"),
 
 			scheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/..//input"),
 			addScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../div//span[text() = 'A']"),
@@ -732,8 +732,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			theftCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Theft Coverage']/../../div//span[text() = 'Theft Type']/../..//div"),
 
 			earthquakeCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/..//input"),
-			earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Deductible Percentage']/../..//input"),
-
+			earthquakeCoverageDeductiblePercentage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Deductible Percentage']/../..//input"),	
+			earthquakeCoverageZone = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Earthquake Coverage']/../../div//span[text() = 'Zone']/../..//input"),
 			specificAdditionalAmountOfCoverageA = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/..//input"),
 			specificAdditionalAmountOfCoverageALimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specified Additional Amount of Coverage A']/../../div//span[text() = 'Limit']/../..//div/div"),
 
@@ -770,6 +770,23 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			golfCartCoverageMedPayLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Med Pay Limit']/../..//*[@role='textbox']"),
 			golfCartCoverageLiabilityLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Liability Limit']/../..//*[@role='textbox']");
 
+		}
+
+		protected T checkRefrigeratedPersonalPropertyLimit()
+		{
+			sh.clickElement(by.refrigeratedPersonalPropertyLimit);
+			return (T)this;
+		}
+
+		protected String getEarthquakeCoverageZone()
+		{
+			return sh.getValue(by.earthquakeCoverageZone);
+		}
+		
+		protected T setEarthquakeCoverageZone(String earthquakeCoverageZone)
+		{
+			sh.setTextAndTab(by.earthquakeCoverageZone, earthquakeCoverageZone);
+			return (T)this;
 		}
 
 		protected T setWaterBackUpLimit(String text)

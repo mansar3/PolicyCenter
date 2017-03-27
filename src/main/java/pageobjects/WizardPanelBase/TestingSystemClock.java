@@ -31,4 +31,19 @@ public class TestingSystemClock <T extends TestingSystemClock> extends CenterPan
         return  sh.getValue(by.date);
     }
 
+    protected T setDate(String date)
+    {
+        sh.waitForNoMask();
+        sh.setText(by.date, date);
+        return (T)this;
+    }
+
+    protected T clickchangeDate()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.changeDate);
+        return (T)this;
+
+    }
+
 }

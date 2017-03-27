@@ -53,6 +53,18 @@ public class FLDP3RiskAnalysis extends RiskAnalysis<FLDP3RiskAnalysis>
 
 	}
 
+	public FLDP3PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new FLDP3PriorLosses(sh, path);
+	}
+
+	public FLDP3PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new FLDP3PriorLosses(sh, path);
+	}
+
 	public String getusIssueblockingbind1()
 	{
 		return super.getusIssueblockingbind1();
@@ -94,6 +106,29 @@ public class FLDP3RiskAnalysis extends RiskAnalysis<FLDP3RiskAnalysis>
 			return new FLDP3Quote(sh,path);
 		}
 
+	}
+
+	public class FLDP3PriorLosses extends PriorLosses<FLDP3PriorLosses>
+	{
+
+		public FLDP3PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public FLDP3Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new FLDP3Quote(sh,path);
+		}
+
+		protected FLDP3RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new FLDP3RiskAnalysis(sh, path);
+		}
 	}
 	public class FLDP3CreateNewUWIssue extends CreateNewUWIssue<FLDP3CreateNewUWIssue>
 	{

@@ -1,6 +1,7 @@
 package pageobjects.FLDP3;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -24,5 +25,13 @@ public class FLDP3AccountFileSummary extends AccountFileSummary<FLDP3AccountFile
 	{
 		super.clickTransactionNumber();
 		return new FLDP3Quote(sh, path);
+	}
+
+	public Summary clickInforcedAccountNumber()
+	{
+		sh.waitForNoMask();
+		super.clickInforceAccountNumber();
+		return new Summary(sh);
+
 	}
 }

@@ -1,6 +1,7 @@
 package pageobjects.FLHO4;
 
 import Helpers.CenterSeleniumHelper;
+import pageobjects.Policy.Summary;
 import pageobjects.WestPanel.AccountFileSummaryWestPanel;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
@@ -24,5 +25,13 @@ public class FLHO4AccountFileSummary extends AccountFileSummary<FLHO4AccountFile
     {
         super.clickTransactionNumber();
         return new FLHO4Quote(sh, path);
+    }
+
+    public Summary clickInforcedAccountNumber()
+    {
+        sh.waitForNoMask();
+        super.clickInforceAccountNumber();
+        return new Summary(sh);
+
     }
 }

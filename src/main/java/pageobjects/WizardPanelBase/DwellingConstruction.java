@@ -221,6 +221,55 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         return (T) this;
     }
 
+
+    protected String getMobileHomeLength() {
+        return sh.getValue(by.mobileHomeLength);
+    }
+
+    protected T setMobileHomeLength(String mobilehomeLength) {
+        sh.setText(by.mobileHomeLength, mobilehomeLength);
+        sh.tab();
+        sh.waitForNoMask();
+        return (T) this;
+    }
+
+    protected String getMobileHomeMake() {
+        return sh.getValue(by.mobileHomeMake);
+    }
+
+    protected T setMobileHomeMake(String mobilehomeMake) {
+        sh.setText(by.mobileHomeMake, mobilehomeMake);
+        sh.tab();
+        sh.waitForNoMask();
+        return (T) this;
+    }
+
+    protected String getMobileHomeModel() {
+        return sh.getValue(by.mobileHomeModel);
+    }
+
+    protected T setMobileHomeModel(String mobilehomeModel) {
+        sh.setText(by.mobileHomeModel, mobilehomeModel);
+        sh.tab();
+        sh.waitForNoMask();
+        return (T) this;
+    }
+
+    protected String getMobileHomeId() {
+        return sh.getValue(by.mobileHomeId);
+    }
+
+    protected T setMobileHomeId(String mobilehomeModel) {
+        sh.setText(by.mobileHomeId, mobilehomeModel);
+        sh.tab();
+        sh.waitForNoMask();
+        return (T) this;
+    }
+
+
+
+
+
     protected String getElectricalSystem() {
         return sh.getValue(by.electricalSystem);
     }
@@ -265,6 +314,14 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         sh.waitForNoMask();
         return (T) this;
     }
+
+    protected T setIsTheMobileHomeTiedDown(String flag) {
+        sh.clickElement(By.id(dwellingConstructionBase + "MHConstructionDetail:IsMHTiedDown_fli_" + flag.toLowerCase() + "-inputEl"));
+        sh.waitForNoMask();
+        return (T) this;
+    }
+
+
 
     protected String getElectricalSystemDescribeOther() {
         return sh.getValue(by.electricalSystemDescribeOther);
@@ -478,6 +535,10 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                 floorUnitIsLocatedOn = By.id(dwellingConstructionBase + "CondoUnitFloorNumber_fli-inputEl"),
                 squareFootage = By.id(dwellingConstructionBase + "ApproxSquareFootage-inputEl"),
                 mobileHomeWidth = By.id(dwellingConstructionBase + "MHConstructionDetail:MHWidth_fli-inputEl"),
+                mobileHomeLength = By.id(dwellingConstructionBase + "MHConstructionDetail:MHLength_fli-inputEl"),
+                mobileHomeMake = By.id(dwellingConstructionBase + "MHConstructionDetail:MHMake_fli-inputEl"),
+                mobileHomeModel =  By.id(dwellingConstructionBase + "MHConstructionDetail:MHModel_fli-inputEl"),
+                mobileHomeId =  By.id(dwellingConstructionBase + "MHConstructionDetail:MHSerialNumber_fli-inputEl"),
                 foundationType = By.id(dwellingConstructionBase + "Foundation-inputEl"),
                 primaryHeating = By.id(dwellingConstructionBase + "PrimaryHeating-inputEl"),
                 plumbing = By.id((dwellingConstructionBase + "PlumbingType-inputEl")),

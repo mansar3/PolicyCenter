@@ -31,6 +31,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 						addressType = By.id(createAccountDiv + "AddressType-inputEl"),
 						organization = By.id(baseProducerId + "Producer-inputEl"),
 						producerCode = By.id(baseProducerId + "ProducerCode-inputEl"),
+		                producer = By.id(baseProducerId+ "Producer-inputEl"),
 						dateOfBirth = By.id(accountInputSet + "DateOfBirth-inputEl"),
 						homePhone = By.id(accountInputSet + "HomePhone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
 						workPhone = By.id(accountInputSet + "Phone:GlobalPhoneInputSet:NationalSubscriberNumber-inputEl"),
@@ -41,6 +42,8 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 						secondaryEmail = By.id(accountInputSet + "EmailAddress2-inputEl"),
 						description = By.id(createAccountDiv + "AddressDescription-inputEl"),
 						ssn = By.id(createAccountDiv + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+		               // ssn = By.xpath("//span[text()='SSN']/../..//input[@role='textbox']"),
+				        ssnunmasked = By.id(createAccountDiv + "OfficialIDInputSet:UmaskedOfficialIDDV_Input-inputEl"),
 						preferredLanguage = By.id(createAccountDiv + "PrimaryLanguage-inputEl"),
 						organizationSearchButton = By.id(baseProducerId + "Producer:SelectOrganization"),
 						producerCodeDropdown = By.id(base_id + baseProducerId + "ProducerCode-trigger-picker");
@@ -84,7 +87,15 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	
 	public T setSsn(String ssn)
 	{
+		sh.waitForNoMask();
 		sh.setText(by.ssn, ssn);
+		return (T)this;
+	}
+
+	public T setSsnUmasked(String ssn)
+	{
+		sh.waitForNoMask();
+		sh.setText(by.ssnunmasked, ssn);
 		return (T)this;
 	}
 	
@@ -352,6 +363,14 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		sh.tab();
 		return (T)this;
 	}
+
+	public T setProducerOrganisation(String producercode)
+	{
+		sh.setText(by.producer, producercode);
+		sh.tab();
+		return (T)this;
+	}
+
 	public String getProducerCode()
 	{
 		return sh.getValue(by.producerCode);

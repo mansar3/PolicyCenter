@@ -21,7 +21,7 @@ abstract public class CenterPanelBase
 	public enum Path
 	{
 		SUBMISSION, POLICYRENEWAL,
-		POLICYCHANGE;
+		POLICYCHANGE, POLICYCANCEL;
 	}
 
 

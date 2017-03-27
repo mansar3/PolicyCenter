@@ -58,6 +58,17 @@ public class NCHO3RiskAnalysis extends RiskAnalysis<NCHO3RiskAnalysis>
 	public NCHO3RiskAnalysis back(){
 		return  super.coveragesback();
 	}
+
+	public NCHO3PriorLosses clickPriorLosses()
+	{
+		super.riskAnalysisClickPriorLosses();
+		return new NCHO3PriorLosses(sh, path);
+	}
+	public NCHO3PriorLosses clickOrderAreport()
+	{
+		super.orderAReport1();
+		return new NCHO3PriorLosses(sh, path);
+	}
 	public String getusIssueblockingbind1()
 	{
 		return super.getusIssueblockingbind1();
@@ -97,6 +108,29 @@ public class NCHO3RiskAnalysis extends RiskAnalysis<NCHO3RiskAnalysis>
 			return new NCHO3Quote(sh,path);
 		}
 
+	}
+
+	public class NCHO3PriorLosses extends PriorLosses<NCHO3PriorLosses>
+	{
+
+		public NCHO3PriorLosses(CenterSeleniumHelper sh, Path path)
+		{
+			super(sh, path);
+		}
+
+		public NCHO3Quote quote()
+		{
+			super.PriorLossesQuote();
+			//sh.clickElement(by.submissionQuote);
+			//sh.waitForElementToAppear(By.id("SubmissionWizard:SubmissionWizard_QuoteScreen:ttlBar"));
+			return new NCHO3Quote(sh,path);
+		}
+
+		protected NCHO3RiskAnalysis clickOrderAReport()
+		{
+			super.orderAReport();
+			return new NCHO3RiskAnalysis(sh, path);
+		}
 	}
 	public class NCHO3CreateNewUWIssue extends CreateNewUWIssue<NCHO3CreateNewUWIssue>
 	{

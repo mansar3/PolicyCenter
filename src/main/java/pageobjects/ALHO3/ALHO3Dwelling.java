@@ -1,7 +1,6 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import org.testng.Assert;
 import pageobjects.WizardPanelBase.Dwelling;
 
 
@@ -441,11 +440,6 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		public String getFireAlarmType()
 		{
 			return super.getFireAlarmType();
-		}
-
-		public ALHO3ProtectionDetails setSprinklerSystemType(String text)
-		{
-			return super.setSprinklerSystemType(text);
 		}
 
 		public String getSprinklerSystemType()
