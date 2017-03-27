@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -89,6 +90,21 @@ public class CenterSeleniumHelper
 			clickElement(by);
 		}
 		clickElement(By.xpath("//*[text() = '" + text + "']"));
+	}
+
+	public boolean getItemsFromDropDown(By by, String item)
+	{
+		waitForElementToAppear(by);
+		clickElement(by);
+		ArrayList<String> items = new ArrayList<>();
+		for (WebElement element : driver.findElements(By.xpath("//ul/li")))
+		{
+			System.out.println(element.getText());
+			items.add(element.getText());
+			if (element.getText().equals(item))
+				return true;
+		}
+		return false;
 	}
 
 	public void waitForPageLoad()

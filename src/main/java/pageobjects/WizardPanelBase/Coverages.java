@@ -80,6 +80,12 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.getValue(by.personalPropertyLimit);
 	}
 
+
+	public String getPersonalPropertyLimitDiv()
+	{
+		sh.waitForElementToAppear(by.personalPropertyLimitDiv);
+		return sh.getText(by.personalPropertyLimitDiv);
+	}
 	protected String getOtherStructuresPercentage()
 	{
 		if (sh.isDisplayed(by.otherStructuresPercentage))
@@ -155,6 +161,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	protected boolean isPersonalPropertyExcluded()
 	{
 		boolean yesButton, noButton;
+		sh.waitForElementToAppear(by.personalPropertyExcluded);
 		yesButton = sh.isRadioButtonSelected(by.personalPropertyExcludedYes);
 		noButton = sh.isRadioButtonSelected(by.personalPropertyExcludedNo);
 		if (!yesButton && !noButton)
@@ -274,6 +281,21 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+
+	protected T clickAllOtherPerils()
+	{
+		sh.clickElement(by.allOtherPerils);
+		return (T)this;
+	}
+
+	protected boolean isItemInAllOtherPerilsDropdown(String item)
+	{
+		boolean found;
+	    found = sh.getItemsFromDropDown(by.allOtherPerils, item);
+	    sh.tab();
+	    return found;
+	}
+
 	protected String getAllOtherPerils()
 	{
 		return sh.getValue(by.allOtherPerils);
@@ -521,6 +543,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		public final By 		coverages = By.id(coveragesBase + "RequiredClausesCardTab-btnInnerEl"),
 								dwellingLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Dwelling']/../..//span[text() = 'Limit']/../..//input"),
 								personalPropertyLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Limit']/../..//input"),
+                                personalPropertyLimitDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								otherStructuresIncreasedCoverage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/..//input"),
 								otherStructuresIncreasedCoverageLimit =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures Increased Coverage']/../..//span[text() = 'Limit']/../..//input"),
 								otherStructuresPercentage = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Other Structures']/../..//span[text() = 'Percentage']/../..//input"),
@@ -1153,7 +1176,17 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isGuardianEndorsementsChecked()
 		{
-			return sh.checkboxHelper.isChecked(by.guardianEndorsements);
+			return sh.isRadioButtonSelected(by.guardianEndorsements);
+		}
+
+		protected boolean isGuardianEndorsementDisplayed()
+		{
+			return sh.isDisplayed(by.guardianEndorsements);
+		}
+
+		protected boolean isGuardianEndorsementRequired()
+		{
+			return sh.isFieldMarkedRequired(by.guardianEndorsements);
 		}
 
 		protected T checkGuardianEndorsements()
@@ -1315,6 +1348,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return sh.getValue(by.ordinanceOrLawLimitInput) == null ?
 					sh.getText(by.ordinanceOrLawLimitDiv) :
 					sh.getValue(by.ordinanceOrLawLimitInput);
+		}
+
+		protected boolean isOrdinanceOrLawLimitRequired()
+		{
+			return sh.isFieldMarkedRequired(by.ordinanceOrLawLimitDiv);
 		}
 
 		protected T setOrdinanceOrLawLimit(String ordinanceOrLawLimit)
@@ -1488,6 +1526,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return sh.isRadioButtonSelected(by.screenEnclosureHurricaneCoverage);
 		}
 
+		protected boolean isScreenEnclosureHurricaneCoverageRequired()
+		{
+			return sh.isFieldMarkedRequired(by.screenEnclosureHurricaneCoverageLimit);
+		}
+
 		protected T checkScreenEnclosureHurricaneCoverage()
 		{
 			sh.checkboxHelper.checkElement(by.screenEnclosureHurricaneCoverage);
@@ -1522,7 +1565,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isInflationGuardChecked()
 		{
-			return sh.isDisplayed(by.percentageOfAnnualIncrease);
+			return sh.isRadioButtonSelected(by.inflationGuard);
 		}
 
 		protected T checkInflationGuard()
@@ -1738,6 +1781,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 //			return sh.checkboxHelper.isChecked(by.animalLiability);
             return sh.isRadioButtonSelected(by.animalLiability);
 		}
+
+		protected String getAnimalLiability()
+        {
+            return sh.getText(by.animalLiabilityLimit);
+        }
 
 		protected T checkAnimalLiability()
 		{

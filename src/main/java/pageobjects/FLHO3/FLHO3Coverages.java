@@ -44,6 +44,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.getPersonalPropertyLimit();
 	}
 
+	public String getPersonalPropertyLimitDiv()
+	{
+		return super.getPersonalPropertyLimitDiv();
+	}
+
 	public FLHO3Coverages setPersonalPropertyLimit(String text)
 	{
 		return super.setPersonalPropertyLimit(text);
@@ -133,6 +138,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 	{
 		return super.setHurricane(text);
 
+	}
+
+	public boolean isItemInAllOtherPerilsDropdown(String item)
+	{
+		return super.isItemInAllOtherPerilsDropdown(item);
 	}
 
 	public String getPremisesLiabilityLimit()
@@ -503,6 +513,12 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.getOrdinanceOrLawLimit();
 		}
+
+		public boolean isOrdinanceOrLawLimitRequired()
+		{
+			return super.isOrdinanceOrLawLimitRequired();
+		}
+
 		public FLHO3PropertyEndorsements setPercentageOfAnnualIncrease(String text)
 		{
 			return super.setPercentageOfAnnualIncrease(text);
@@ -590,6 +606,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.isScreenEnclosureHurricaneCoverageChecked();
 		}
 
+		public boolean isScreenEnclosureHurricaneCoverageRequired()
+		{
+			return super.isScreenEnclosureHurricaneCoverageRequired();
+		}
+
 		public FLHO3PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
@@ -625,6 +646,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.isTheftCoverageChecked();
 		}
 
+		public boolean isInflationGuardChecked()
+		{
+			return super.isInflationGuardChecked();
+		}
+
 		public String getTheftType()
 		{
 			return super.getTheftType();
@@ -643,6 +669,16 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public boolean isGuardianEndorsementChecked()
 		{
 			return super.isGuardianEndorsementsChecked();
+		}
+
+		public boolean isGuardianEndorsementDisplayed()
+		{
+			return super.isGuardianEndorsementDisplayed();
+		}
+
+		public boolean isGuardianEndorsementRequired()
+		{
+			return super.isGuardianEndorsementRequired();
 		}
 	}
 
@@ -710,6 +746,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.unCheckPermittedIncidentalOccupancyLiability();
 		}
+
+		public String getAnimalLiability()
+        {
+            return super.getAnimalLiability();
+        }
 
 		public FLHO3LiabilityEndorsements checkAnimalLiability()
 		{
