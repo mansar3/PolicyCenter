@@ -17,4 +17,14 @@ public class SCDP3TestingSystemClock extends TestingSystemClock<SCDP3TestingSyst
     {
         return super.getCurrentDate();
     }
+
+    public SCDP3TestingSystemClock setDate(String date)
+    {
+        return   super.setDate(date);
+    }
+
+    public SCDP3TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
 }

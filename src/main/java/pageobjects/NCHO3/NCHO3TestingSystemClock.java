@@ -18,4 +18,14 @@ public class NCHO3TestingSystemClock extends TestingSystemClock<NCHO3TestingSyst
     {
         return super.getCurrentDate();
     }
+
+    public NCHO3TestingSystemClock setDate(String date)
+    {
+        return   super.setDate(date);
+    }
+
+    public NCHO3TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
 }

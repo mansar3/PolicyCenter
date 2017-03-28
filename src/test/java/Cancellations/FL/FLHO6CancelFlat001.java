@@ -31,7 +31,7 @@ import java.util.Random;
 /**
  * Created by spotnuru on 3/24/2017.
  */
-public class FLHO6CancelFlat extends BaseTest {
+public class FLHO6CancelFlat001 extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;

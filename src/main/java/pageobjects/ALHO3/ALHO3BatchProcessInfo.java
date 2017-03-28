@@ -8,6 +8,7 @@ import pageobjects.WizardPanelBase.BatchProcessInfo;
  */
 public class ALHO3BatchProcessInfo extends BatchProcessInfo <ALHO3BatchProcessInfo> {
 
+
     public ALHO3BatchProcessInfo(CenterSeleniumHelper sh)
     {
         super(sh);
@@ -17,5 +18,4 @@ public class ALHO3BatchProcessInfo extends BatchProcessInfo <ALHO3BatchProcessIn
     {
         return super.clickRunworkflow();
     }
-
 }

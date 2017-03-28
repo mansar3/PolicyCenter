@@ -17,4 +17,13 @@ public class FLHO3TestingSystemClock extends TestingSystemClock<FLHO3TestingSyst
     {
         return super.getCurrentDate();
     }
+    public FLHO3TestingSystemClock setDate(String date)
+    {
+        return   super.setDate(date);
+    }
+
+    public FLHO3TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
 }

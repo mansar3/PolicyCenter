@@ -65,7 +65,7 @@ public class PolicyChange1 extends BaseTest {
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc) {
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test5", dateString);
+        lastname = String.format("Test511", dateString);
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
@@ -217,7 +217,7 @@ public class PolicyChange1 extends BaseTest {
 
         String expectedreason, reason = "Amend Coverage",
                 reason1 = "Amend Alarm Credits";
-        String occuranceaggregateLimit = "25,000 / 50,000";
+        String occuranceaggregateLimit = "50,000 / 50,000";
         String burgular = "true",
                 burgulartype = "Central Station";
         String expectedPolicyType, PolicyType = "Policy Change";
@@ -225,7 +225,7 @@ public class PolicyChange1 extends BaseTest {
         String effectivedatelabel, expectedeffectivedatelabel = "Effective Date";
 
         firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test4111", dateString);
+        lastname = String.format("Test511", dateString);
 
 
         ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
@@ -250,7 +250,11 @@ public class PolicyChange1 extends BaseTest {
         ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
         StartPolicyChange spc = afs.clickInforcedAccountNumber().actions.clickChangePolicy();
 
-        spc.setEffectiveDate(futureDate);
+        //verifies the required label on both of them
+
+        Assert.assertTrue(spc.isEffectiveDateRequired(), "The Effective Date was expected to be a required feild but it was not ");
+
+        Assert.assertTrue(spc.isReasonRequired(), "The Reason was expected to be a required feild but it was not ");
 
         String[] expectedreasonlist = {"<none>", "Additional Insured/Interest Change", "Amend Alarm Credits", "Amend Coverage", "Amend Deductible", "Amend Named Insured", "Amend Occupancy",
                 "Amend Payor", "Amend Wind Mit Credits", "Mailing Address Change", "Mortgage Change", "Other"};
@@ -268,11 +272,6 @@ public class PolicyChange1 extends BaseTest {
         }
 
 
-        //verifies the required label on both of them
-
-        Assert.assertTrue(spc.isEffectiveDateRequired(), "The Effective Date was expected to be a required feild but it was not ");
-
-        Assert.assertTrue(spc.isReasonRequired(), "The Reason was expected to be a required feild but it was not ");
 
 
 //        List<String> differences = Arrays.stream(expectedreasonlist).filter(o -> !list.contains(o)).collect(Collectors.toList());
@@ -299,6 +298,8 @@ public class PolicyChange1 extends BaseTest {
 //        list.contains(expectedreasonlist);
 
 
+        spc.setEffectiveDate(futureDate);
+
         spc.setReason(reason)
                 .next();
 
@@ -309,8 +310,15 @@ public class PolicyChange1 extends BaseTest {
                 .clickPropertyEndorsements()
                 .setOccurrenceAggregateLimit(occuranceaggregateLimit)
                 .next()
-                .next()
-                .quote()
+                .next();
+
+
+        ALHO3PolicyReview pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
+
+   //     System.out.println(pr.checkPolicyReview());
+
+
+        pr.quote()
                 .clickPolicyChangeIssuePolicy()
                 .clickPolicyChangePrint();
 
@@ -380,9 +388,12 @@ public class PolicyChange1 extends BaseTest {
                 .next()
                 .next();
 
-        ALHO3PolicyReview pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
 
-        System.out.println(pr.checkPolicyReview());
+        //verifying the policy change
+
+        String policychange = "Yes";
+        Assert.assertTrue(policychange.equals(pr.checkPolicyReview()), "There should be a Policy Change when we change the Buglar Alarm to true and it was not");
+
 
         pr.quote()
                 .backToPoliycReview();

@@ -22,13 +22,16 @@ import pageobjects.WizardPanelBase.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
 /**
  * Created by spotnuru on 3/24/2017.
  */
-public class FLHO3CancelProrata extends BaseTest {
+public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
@@ -88,6 +91,8 @@ public class FLHO3CancelProrata extends BaseTest {
 
         String policyType = "Homeowners (HO3)",
                 distanceToFireHydrant = "79",
+                bceg = "04",
+                protectionclasscode = "4",
                 weeksrented = "10",
                 minrentalincre = "Monthly",
                 undercontract = "false",
@@ -166,6 +171,8 @@ public class FLHO3CancelProrata extends BaseTest {
         FLHO3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setBCEG(bceg)
+                .setProtectionClassCode(protectionclasscode)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
                 .setDistanceToCoast(distancetocoast);
@@ -243,7 +250,7 @@ public class FLHO3CancelProrata extends BaseTest {
                 insurerreason5 = "Substantial change in risk";
 
 
-        String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
+        //String futureCanEffectiveDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
         String refundMethod, expectedrefundMethod = "Flat";
         String refundMethod1, expectedrefundMethod1 = "Pro rata";
         String cancellationeffdate;
@@ -255,6 +262,17 @@ public class FLHO3CancelProrata extends BaseTest {
         String whensafescheducan, expectedwhensafescheducan = "The Policy is Pending Cancellation";
 
         FLHO3NavigationBar nav = new FLHO3NavigationBar(sh);
+
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+        FLHO3TestingSystemClock tsc = new FLHO3TestingSystemClock(sh);
+        String currentdate = tsc.getCurrentDate();
+        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
+        String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String futureCanEffectiveDate = dateTime.plusDays(2).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
         FLHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
@@ -355,7 +373,7 @@ public class FLHO3CancelProrata extends BaseTest {
 
         //now change the effective date to 2 days ahead of the system date
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -399,7 +417,7 @@ public class FLHO3CancelProrata extends BaseTest {
         }
 
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -482,7 +500,7 @@ public class FLHO3CancelProrata extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -531,7 +549,7 @@ public class FLHO3CancelProrata extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -782,7 +800,7 @@ public class FLHO3CancelProrata extends BaseTest {
 
 
         String insuredCanEffectiveDate1 = String.valueOf(difffDays);
-        String insuredDiffEffectiveDate1 = "125";
+        String insuredDiffEffectiveDate1 = "124";
 
 
         //verifies the diffrence between the date
@@ -800,7 +818,9 @@ public class FLHO3CancelProrata extends BaseTest {
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-
+        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
+        
+        
         //Hit the start button start button
 
         scfp.clickStartCancellation()
@@ -811,38 +831,37 @@ public class FLHO3CancelProrata extends BaseTest {
         cb.clickViewYourPolicy();
 
 
-//        nav.clickInternalToolTab()
-//                .clickTestingTimeClock();
-//        FLHO3TestingSystemClock tsc = new FLHO3TestingSystemClock(sh);
-//
-//
-//        tsc.setDate(cancellationeffdate)
-//                .clickchangedate();
-//
-//        //goes to server tools and clicks on batch process info
-//
-//        nav.clickServerTools()
-//                .clickBatchProcessInfo();
-//
-//
-//        //clicks on run workflow
-//
-//        FLHO3BatchProcessInfo bpi = new FLHO3BatchProcessInfo(sh);
-//        bpi.clickrunworkflow();
-//
-//        //goes back to policy center
-//
-//        nav.clickSettings()
-//                .clickReturntoPolicyCenter();
-//
-//
-//        sa.setFirstName(firstname);
-//        sa.setLastName(lastname);
-//        sa.clickSearchButton();
-//        sa.clickAccountNumberSearchAccount();
-//
-//        afs.clickInforcedAccountNumber();
-//
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+      
+        tsc.setDate(policyCancellationEffectiveDate)
+                .clickchangedate();
+
+        //goes to server tools and clicks on batch process info
+
+        nav.clickServerTools()
+                .clickBatchProcessInfo();
+
+
+        //clicks on run workflow
+
+        FLHO3BatchProcessInfo bpi = new FLHO3BatchProcessInfo(sh);
+        bpi.clickrunworkflow();
+
+        //goes back to policy center
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+
+
+        nav.clickSearchAccount();
+        
+        
+        sa.clickSearchButton();
+        sa.clickAccountNumberSearchAccount();
+
+        afs.clickInforcedAccountNumber();
+
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
@@ -873,6 +892,12 @@ public class FLHO3CancelProrata extends BaseTest {
         Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
 
         sum.actions.clickForms();
+
+
+        forms.clickSummary();
+
+
+
     }
 
 }

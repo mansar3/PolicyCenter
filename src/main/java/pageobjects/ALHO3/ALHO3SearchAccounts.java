@@ -20,6 +20,11 @@ public class ALHO3SearchAccounts extends SearchAccounts<ALHO3SearchAccounts>
         return super.setLastName(lastname);
     }
 
+    public ALHO3SearchAccounts setAccountNumber(String accnumber)
+    {
+        return super.setAccountNumber(accnumber);
+    }
+
     public ALHO3SearchAccounts clickSearchButton()
     {
         return super.clickSearchButton();

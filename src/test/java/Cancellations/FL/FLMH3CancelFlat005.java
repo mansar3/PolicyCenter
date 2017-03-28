@@ -16,7 +16,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.FLHO4.*;
+import pageobjects.FLMH3.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.Summary;
@@ -31,16 +31,16 @@ import java.util.Random;
 /**
  * Created by spotnuru on 3/24/2017.
  */
-public class FLHO4CancelFlat extends BaseTest{
+public class FLMH3CancelFlat005 extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
-    private FLHO4EnterAccountInformation enterAccountInformation;
+    private FLMH3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
     private String dateString;
     private MyActivities ma;
 
-    String firstname = "FLHO4";
+    String firstname = "FLMH3";
     Random rand = new Random();
     int num = rand.nextInt(99 - 10 + 1) + 10;
     String lastname = "CancelletionProRataTest" + num;
@@ -69,9 +69,9 @@ public class FLHO4CancelFlat extends BaseTest{
 
 
     @Test(description = "Creates account for Florida HO3 product")
-    public void createPersonAccountAndIssueQuoteFLHO4(ITestContext itc) {
+    public void createPersonAccountAndIssueQuoteFLMH3(ITestContext itc) {
 
-        FLHO4NavigationBar nb = new FLHO4NavigationBar(sh);
+        FLMH3NavigationBar nb = new FLMH3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
         log(itc.getName());
@@ -89,43 +89,35 @@ public class FLHO4CancelFlat extends BaseTest{
 
 
 
-        String policyType = "Renters (HO4)",
+        String policyType = "Mobile Home (MH3)",
                 distanceToFireHydrant = "79",
-                weeksrented = "10",
-                minrentalincre = "Monthly",
-                undercontract = "false",
-                inceptionno = "false",
-                windpoolfalse = "false",
-                distancetocoast = "200",
+                mobilehomepark = "1 - Aberdeen at Ormond Beach",
+                tieddownyes = "true",
+                fullyskirted = "false",
                 yearBuilt = "2000",
-                county = "Mobile",
-                roofShapeType = "Gable",
                 valuation = "Appraisal",
-                replacementcost = "400000",
-                constructiontype = "Masonry Veneer",
-                squarefootage = "3000",
-                foundationtype = "Closed",
+                replacementcost = "85000",
+                homemake = "Mobile",
+                homemodel = "Home",
+                homeid = "123445",
+                homelength = "60",
+                homewidth = "30",
+                squarefootage = "1800",
+                constructiontype = "Vinyl",
+                foundationtype = "Continuous Masonry",
                 primaryheating = "Electric",
                 secondaryheatingsystem = "false",
-                plumbing = "PVC",
-                plumbingyear = "2010",
-                waterheateryear = "2010",
-                wiring = "Copper",
-                electricalsystem = "Circuit Breaker",
-                rooftype = "Architectural Shingle",
-                roofyear = "2010",
-                conditionofroof = "Good",
-                screenenclosure = "false",
-                personalpropertylimit = "350,000";
+                dwellinglimit = "85,000";
 
-        enterAccountInformation = new FLHO4EnterAccountInformation(sh);
-        //new FLHO4Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
+
+        enterAccountInformation = new FLMH3EnterAccountInformation(sh);
+        //new FLMH3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .setCountry(country);
 
-        FLHO4CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLHO4();
+        FLMH3CreateAccount createAccount = enterAccountInformation.createNewPersonAccountFLMH3();
         log(String.format("Creating new account: %s", dateString));
 
         try {
@@ -146,18 +138,18 @@ public class FLHO4CancelFlat extends BaseTest{
                     .clickSearchButton()
                     .clickSelectOrganizationButton();
 
-            FLHO4AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+            FLMH3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
                     ", first name: " + firstname + ", last name: " + lastname);
         } catch (Exception e) {
             throw new WebDriverException(e);
         }
 
-        FLHO4AccountFileSummary afs = new FLHO4AccountFileSummary(sh);
+        FLMH3AccountFileSummary afs = new FLMH3AccountFileSummary(sh);
         afs.westPanel.actions.clickActions();
         afs.westPanel.actions.clickNewSubmission();
-        FLHO4NewSubmission ns = new FLHO4NewSubmission(sh);
-        FLHO4Qualification qua = ns.productTable.selectHomeowners();
+        FLMH3NewSubmission ns = new FLMH3NewSubmission(sh);
+        FLMH3Qualification qua = ns.productTable.selectHomeowners();
 
         qua.setPolicyType(policyType);
         qua.getOfferingSelection();
@@ -165,43 +157,37 @@ public class FLHO4CancelFlat extends BaseTest{
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
-        FLHO4PolicyInfo pi = qua.next();
-        FLHO4Dwelling dwe = pi.next()
+        FLMH3PolicyInfo pi = qua.next();
+        FLMH3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
-                .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
-                .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast);
+                .setMobileHomePark(mobilehomepark);
 
 
-
-
-        FLHO4Coverages coverages = dwe.next()
+        FLMH3Coverages coverages = dwe.next()
+                .setValuationType(valuation)
+                .setEstimatedReplacementCost(replacementcost)
+                .setMobileHomeMake(homemake)
+                .setMobileHomeModel(homemodel)
+                .setMobileHomeId(homeid)
+                .setIsTheMobileHomeTiedDown(tieddownyes)
+                .setMobileHomeLength(homelength)
+                .setMobileHomeWidth(homewidth)
                 .setConstructionType(constructiontype)
                 .setSquareFootage(squarefootage)
                 .setFoundationType(foundationtype)
+                .setIsTheMobileHomeFullySkirted(fullyskirted)
                 .setPrimaryHeating(primaryheating)
                 .setIsThereASecondaryHeatingSystem(secondaryheatingsystem)
-                .setPlumbing(plumbing)
-                .setPlumbingYear(plumbingyear)
-                .setWaterHeaterYear(waterheateryear)
-                .setWiring(wiring)
-                .setElectricalSystem(electricalsystem)
-                .setRoofType(rooftype)
-                .setRoofYear(roofyear)
-                .setConditionOfRoof(conditionofroof)
-                .setScreenEnclosureOnPremises(screenenclosure)
-                .clickWindMitigation()
-                .setRoofShapeType(roofShapeType)
                 .next()
-                .setPersonalPropertyLimit(personalpropertylimit);
+                .setDwellingLimit(dwellinglimit);
 
-        FLHO4RiskAnalysis ra = coverages.next();
+        FLMH3RiskAnalysis ra = coverages.next();
         ra.clickPriorLosses();
 
         ra.clickOrderAreport();
 
-        FLHO4Quote quote = ra.quote();
+        FLMH3Quote quote = ra.quote();
 
         //issue the policy
         quote.clickissuePolicy()
@@ -215,7 +201,7 @@ public class FLHO4CancelFlat extends BaseTest{
     }
 
     @Test(dependsOnMethods =
-            { "createPersonAccountAndIssueQuoteFLHO4" })
+            { "createPersonAccountAndIssueQuoteFLMH3" })
     public void CancelFlat() throws ParseException {
 
         String source = "Insured",
@@ -246,14 +232,14 @@ public class FLHO4CancelFlat extends BaseTest{
         String canceldescription, expectedcanceldescription = "Notice of Cancellation";
         String Insurercancellationeffdate1;
 
-        FLHO4NavigationBar nav = new FLHO4NavigationBar(sh);
-        FLHO4SearchAccounts sa = nav.clickSearchAccount();
+        FLMH3NavigationBar nav = new FLMH3NavigationBar(sh);
+        FLMH3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        FLHO4AccountFileSummary afs = new FLHO4AccountFileSummary(sh);
+        FLMH3AccountFileSummary afs = new FLMH3AccountFileSummary(sh);
         afs.clickInforcedAccountNumber();
 
         Summary sum = new Summary(sh);
@@ -800,15 +786,11 @@ public class FLHO4CancelFlat extends BaseTest{
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
-
-
-
-
         scfp.setReason(insurerreason6)
                 .setReasonDescription(reasondescription);
 
         //verifies the required label
-        Assert.assertTrue(scfp.isReasonDescriptionLabelRequired(), "The Reason Description was expected to be required but it was not");
+        Assert.assertFalse(scfp.isReasonDescriptionLabelRequired(), "The Reason Description was expected to be required but it was not");
 
 
         refundMethod1 = scfp.getRefundMethod();
@@ -822,7 +804,7 @@ public class FLHO4CancelFlat extends BaseTest{
 
         //Verifies whether Refund Method is Editable or not
 
-        Assert.assertTrue(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+        Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
 
         //verifies the diffrence between the date
 
@@ -895,7 +877,9 @@ public class FLHO4CancelFlat extends BaseTest{
 
 
         //verifies the notice of cancellation decription
-        Assert.assertTrue(cancelDescription.equals(expectedcanceldescription), "In the Description Form# FIM-CXB and Edition 06/14 (Notice Of Cancellation) should be present but it is not");
+
+        Assert.assertTrue(cancelDescription.equals(expectedcanceldescription), "In the Description Form# FIM-CXB and Edition 01/09 (Notice Of Cancellation) should be present but it is not");
+
 
     }
 
@@ -911,5 +895,4 @@ public class FLHO4CancelFlat extends BaseTest{
         if(driver != null)
             driver.quit();
     }
-    
 }
