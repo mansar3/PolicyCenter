@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20">
-	<parameter name="environment" value="47" />
+<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="25">
+	<parameter name="environment" value="48" />
 	<parameter name="local" value="false" />
-	<parameter name="threads" value="15" />
+	<parameter name="threads" value="25" />
 	<parameter name="userName" value="mcoad" />
 	<test name="Submission ETL">
         <classes>
-            <!--<class name="PolicyConversion.HO3.ALHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<!--<class name="PolicyConversion.HO3.FLHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<!--<class name="PolicyConversion.HO3.NCHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<!--<class name="PolicyConversion.HO3.SCHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<class name="PolicyConversion.HO6.SCHO6">
+            <class name="PolicyConversion.HO3.ALHO3">
                 <methods>
                     <include name="SubmissionLoadTest"></include>
                 </methods>
             </class>
-			<class name="PolicyConversion.HO6.FLHO6">
+			<class name="PolicyConversion.HO3.FLHO3">
                 <methods>
                     <include name="SubmissionLoadTest"></include>
                 </methods>
             </class>
-			<class name = "PolicyConversion.DP3.FLDP3">
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
-			<class name="PolicyConversion.DP3.SCDP3">
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
-			<class name="PolicyConversion.HOW.NCHOW" >
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
+			<class name="PolicyConversion.HO3.NCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
+			<class name="PolicyConversion.HO3.SCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
+			<!--<class name="PolicyConversion.HO6.SCHO6">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.FLHO6">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.DP3.SCDP3">-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.HOW.NCHOW" >-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
         </classes>
 	</test>
 </suite>

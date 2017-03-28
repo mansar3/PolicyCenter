@@ -21,9 +21,7 @@ import pageobjects.Logon;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -36,10 +34,6 @@ public class FLHO3 extends BaseTest
 
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -147,6 +141,7 @@ public class FLHO3 extends BaseTest
 		//***************************************************************************//
 
 		int i;
+
 
 
 
@@ -489,7 +484,7 @@ public class FLHO3 extends BaseTest
 		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
 		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
 		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","None"))
+		.setElectricalSystem(eai.getOrDefault("Electrical System","<None>"))
 		.setRoofType(eai.get("Roof Type"));
 		if(eai.get("Roof Type").toLowerCase().equals("other"))
 			dc.setRoofTypeDescription("Other");
@@ -526,16 +521,13 @@ public class FLHO3 extends BaseTest
 			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
 			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
 			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-//			if(qualifiesForHurricaneProtection(eai))
-//				co = wm.doubleClickNext();
-//			else
-				co = wm.next();
+			co = wm.next();
 		}
 		else
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -551,15 +543,11 @@ public class FLHO3 extends BaseTest
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
-
-		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
-			co
-			.setLossOfUseSelection(eai.get("Loss of Use - %"));
 		co
+		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
 
@@ -609,7 +597,7 @@ public class FLHO3 extends BaseTest
 			pe
 			.checkOtherStructuresIncreasedCoverageRentedToOthers()
 			.addOtherStructures()
-			.setOtherStructuresDescription(1, eai.get("Other Structures Increase Coverage - Rented to Others - Description"))
+			.setOtherStructuresDescription(1, eai.getOrDefault("Other Structures Increase Coverage - Rented to Others - Description","Test"))
 			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
 
 		}
@@ -643,17 +631,20 @@ public class FLHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
+		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
+			if(pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
 
-
+		if(eai.get("Inflation Guard").toLowerCase().equals("none"))
+			if(pe.isInflationGuardChecked())
+				pe.checkInflationGuard();
 
 		//.setPercentageOfAnnualIncrease("12%")
 		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
-			pe
-			.checkSinkholeLossCoverage()
-			.setSinkholeClaimsIndex("4500")
-			.setSinkholeIndex("330");
+			if(!pe.isSinkholeLossCoverageChecked())
+				pe.checkSinkholeLossCoverage();
+
+
 
 		// Liability Endorsements
 		FLHO3Coverages.FLHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
@@ -661,14 +652,25 @@ public class FLHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
+		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-//			.setLocationName("1")
+		{
+			le.checkAdditionalResidenceRentedToOthers()
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			le.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickLiabilityOk()
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()
@@ -680,11 +682,7 @@ public class FLHO3 extends BaseTest
 
 		FLHO3RiskAnalysis ra = le.next();
 		FLHO3Quote quote;
-//		if(qualifiesForHurricaneProtection(eai))
-//			quote = ra.qualifiesForAdditionalProtectionQuote();
-//		else
-			quote = ra.quote();
-
+		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 
 		if(eai.get("Consent to Rate") != null)
@@ -693,48 +691,15 @@ public class FLHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
-		if(quote.isUnderWritingApprovalNeeded())
-		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
-			eai.put("Submitted for Approval","Submitted for approval");
-		}
-		else
-		{
-			quote.renew();
-			eai.put("Submitted for Approval","Renewed");
-		}
-//		else if(addInts.size() > 0)
-//		{
-//			quote
-//			.backToPoliycReview()
-//			.back()
-//			.addUWIssue()
-//			.setIssueType("To be reviewed by underwriter 1, blocking bind")
-//			.setShortDescription("AddInts")
-//			.setLongDescription("Please check additional Interests section").clickOk();
-//			eai.put("Submitted for Approval","Submitted as UnderWriting Issue");
-//		}
-
-//		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
-////		System.out.println("In test result is ~~~~~" );
-//		for(i = 0; i < j.length - 1; i++)
-//		{
-//				System.out.print(j[i] + "\t");
-//
-//		}
-//		System.out.println();
-		//.back().requestApproval().sendRequest();
-
-
 
 
 	}
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLHO3Data")
 	public void SubmissionLoadTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
-		//***********************************************//*
-		//*      Remove hardcoded org and prod code 	   *//*
-		//***********************************************//*
+				//**********************************************************************************************//
+		//    Remove hardcoded org, prod code, SpecificOtherStructuresDescription  Policy Original Date //
+		//**********************************************************************************************//
 
 		int i;
 
@@ -817,7 +782,7 @@ public class FLHO3 extends BaseTest
 		// Policy Info
 		pi
 		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setEffectiveDate("5/1/2017");
 
 		i=1;
 
@@ -1216,17 +1181,20 @@ public class FLHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
+		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
+			if(pe.isWaterBackUpChecked())
 				pe.checkWaterBackUp();
 
-
+		if(eai.get("Inflation Guard").toLowerCase().equals("none"))
+			if(pe.isInflationGuardChecked())
+				pe.checkInflationGuard();
 
 		//.setPercentageOfAnnualIncrease("12%")
 		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
-			pe
-			.checkSinkholeLossCoverage()
-			.setSinkholeClaimsIndex("4500")
-			.setSinkholeIndex("330");
+			if(!pe.isSinkholeLossCoverageChecked())
+				pe.checkSinkholeLossCoverage();
+
+
 
 		// Liability Endorsements
 		FLHO3Coverages.FLHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
@@ -1234,8 +1202,8 @@ public class FLHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
+		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{

@@ -429,6 +429,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancy();
 		}
+		public boolean isInflationGuardChecked()
+		{
+			return super.isInflationGuardChecked();
+		}
 
 //		public FLHO3PropertyEndorsements setPermittedIncidentalOccupalimit(String text)
 //		{
@@ -646,10 +650,6 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.isTheftCoverageChecked();
 		}
 
-		public boolean isInflationGuardChecked()
-		{
-			return super.isInflationGuardChecked();
-		}
 
 		public String getTheftType()
 		{

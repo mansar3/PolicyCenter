@@ -344,8 +344,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setMedicalPaymentsLimit(String medicalPaymentsLimit)
 	{
-		sh.setText(by.medicalPaymentsLimit, medicalPaymentsLimit);
-		sh.tab();
+		sh.setTextAndTab(by.medicalPaymentsLimit, medicalPaymentsLimit);
+		//sh.tab();
 
 		return (T)this;
 	}
@@ -1344,8 +1344,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setLossAssessmentLimit(String lossAssessmentLimit)
 		{
-			sh.setText(by.lossAssessmentLimit, lossAssessmentLimit);
-			sh.tab();
+			sh.setTextAndTab(by.lossAssessmentLimit, lossAssessmentLimit);
+			//sh.tab();
 
 			return (T)this;
 		}
@@ -1402,9 +1402,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setSinkholeIndex(String sinkholeIndex)
 		{
-			sh.setText(by.sinkholeIndex, sinkholeIndex);
-			sh.tab();
-
+			sh.setTextAndTab(by.sinkholeIndex, sinkholeIndex);
 			return (T)this;
 		}
 
@@ -1422,9 +1420,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setSinkholeClaimsIndex(String sinkholeClaimsIndex)
 		{
-			sh.setText(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
-			sh.tab();
-			sh.waitForNoMask();
+			sh.setTextAndTab(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
 			return (T)this;
 		}
 		protected String getScreenEnclosureHurricaneCoverageLimit()
