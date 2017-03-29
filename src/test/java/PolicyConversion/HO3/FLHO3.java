@@ -1257,7 +1257,52 @@ public class FLHO3 extends BaseTest
 
 
 	}
+	@Test
+	public void DBFailTest()
+	{
+		//**********************************************************************************************//
+		//    Remove hardcoded org, prod code, SpecificOtherStructuresDescription  Policy Original Date //
+		//**********************************************************************************************//
 
+
+
+		WebDriver driver = LocalDriverManager.getDriver();
+		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
+
+		sh.wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
+		WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
+		Actions build = new Actions(driver);
+		build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1, actionTab.getSize().getHeight() / 2).click().build().perform();
+		sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
+		FLHO3EnterAccountInformation enterAccountInfo = new FLHO3EnterAccountInformation(sh);
+
+
+		log("Test new person account creation");
+
+		//String[] insuredName = eai.get("Name Insured").split("\\s+");
+		String firstName = "john", lastName = "smith";
+
+		enterAccountInfo
+		.setFirstName(firstName)
+		.setCountry("United States")
+		.setCity("Orlando")
+		.setState("Florida")
+		.setZipCode("32836")
+		.setLastName(lastName + dateString);
+		for(int i = 0; i<20; i++)
+		{
+			enterAccountInfo.clickSearch();
+			takeScreenShot(driver);
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 
 	private boolean qualifiesForHurricaneProtection(LinkedHashMap<String, String> eai)
 	{

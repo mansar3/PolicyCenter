@@ -194,8 +194,8 @@ public class FLMH3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("4 CORNERS INSURANCE")
-			.setProducerCode("8329736");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388");
 
 			FLMH3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
@@ -464,78 +464,40 @@ public class FLMH3 extends BaseTest
 		dc
 		.setValuationType(eai.getOrDefault("Valuation Type","<none>"))
 		.setEstimatedReplacementCost(eai.get("Estimated Replacement Cost"))
+		.setMobileHomeMake(eai.getOrDefault("Mobile Home Make", null))
+		.setMobileHomeModel(eai.getOrDefault("Mobile Home Model",null))
+		.setMobileHomeId(eai.getOrDefault("Mobile Home ID #", null))
+		.setIsTheMobileHomeTiedDown(eai.get("Is the mobile home tied down?"))
+		.setMobileHomeLength(eai.getOrDefault("Mobile Home Length", null))
+		.setMobileHomeWidth(eai.getOrDefault(" Mobile Home Width", null))
 		.setConstructionType(eai.get("Construction Type"))
-		.setNumberOfUnits(eai.get("Number of Units"))
-		.setUnitsInFireWall(eai.get("Units in Fire Wall"))
-		.setNumberOfStories(eai.get("Number of Stories"))
-		.setSquareFootage(eai.get("Square Footage"))
-		.setFoundationType(eai.get("Foundation Type"))
-		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
-		.setIsThereASecondaryHeatingSystem(eai.getOrDefault("Is there a secondary heating system?","false"))
-		.setPlumbing(eai.getOrDefault("Plumbing Type",null));
-		if(eai.getOrDefault("Plumbing Type","none").toLowerCase().equals("other"))
-			dc.setPlumbingDescribeOther("Other");
-		dc
-		.setPlumbingYear(eai.getOrDefault("Plumbing Year",null))
-		.setWaterHeaterYear(eai.getOrDefault("Water Heater Year",null))
-		.setWiring(eai.getOrDefault("Wiring", "Copper"))
-		.setElectricalSystem(eai.getOrDefault("Electrical System","<None>"))
-		.setRoofType(eai.get("Roof Type"));
-		if(eai.get("Roof Type").toLowerCase().equals("other"))
-			dc.setRoofTypeDescription("Other");
-		dc
-		.setRoofYear(eai.getOrDefault("Roof Year",eai.get("Year Built")))
-		.setConditionOfRoof(eai.getOrDefault("Condition of Roof","<none>"))
-		.setScreenEnclosureOnPremises(eai.getOrDefault("Is there a screen enclosure on premises?","false"))
-
-
-
-		.setPlumbingSystemHaveKnownLeaks(eai.getOrDefault("Does the plumbing system have known leaks?","false"))
-		.setBuildingRetrofittedForEarthquakes(eai.getOrDefault("Is the building retrofitted for earthquakes?","false"))
-		.setUncorrectedFireOrBuildingCodeViolations(eai.getOrDefault("Any uncorrected fire or building code violations?","false"))
-		.setStructureOriginallyBuiltForOtherThanPrivateResidence(eai.getOrDefault("Was the structure originally built for other than a private residence and then converted?","false"))
-		.setLeadPaintHazard(eai.getOrDefault("Any lead paint hazard", "false"))
-		.setAnyPortionOfAnyStructureAtThisPropertyLocation(eai.getOrDefault("Is any portion of any structure at this property location now (or ever has been) " +
-		"a mobile home, modular home, trailer home, or other pre-fabricated home?", "false"));
-
-
-		// Wind Mitigation
-		FLMH3DwellingConstruction.FLMH3WindMitigation wm = dc.clickWindMitigation();
-		wm
-		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
-		.setOpeningProtectionType(eai.get("Opening Protection Type"))
-		.setTerrain(eai.get("Terrain"))
-		.setSecondaryWaterResistance(eai.getOrDefault("Secondary Water Resistance","false"));
-
-		FLMH3Coverages co;
-
-		if(Integer.parseInt(eai.get("Year Built")) >= 2002)
-		{
-			wm
-			.setRoofDeck(eai.getOrDefault("Roof Deck","<none>"))
-			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
-			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
-			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-			if(qualifiesForHurricaneProtection(eai))
-				co = wm.doubleClickNext();
-			else
-				co = wm.next();
-		}
+		.setSquareFootage(eai.getOrDefault("Square Footage", null))
+		.setIsTheMobileHomeFullySkirted(eai.get(""));
+		if(!eai.getOrDefault("Foundation Type","none").toLowerCase().equals("none"))
+			dc.setFoundationType(eai.getOrDefault("Foundation Type","<none>"));
 		else
-		{
-			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
-			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
-			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
-			co = wm.next();
-		}
+			dc.setFoundationType("<none>")
+		.setPrimaryHeating(eai.getOrDefault("Primary Heating","<none>"))
+		.setIsThereASecondaryHeatingSystem(eai.getOrDefault("Is there a secondary heating system?","false"));
+
+
+
+		dc
+		.setAreThereAnyExteriorDoorOpeningsWithoutSteps(eai.get("Are there any exterior door openings without steps?"))
+		.setAreThereAnyAreasWith3OrMoreStairsAndNoHandrails(eai.get(" Are there any areas with 3 or more stairs and no handrails"))
+		.setUncorrectedFireOrBuildingCodeViolations(eai.getOrDefault("Any uncorrected fire or building code violations?","false"))
+		.setAtTheInceptionOfThisPolicyWillThisMobileHomeBeWithoutContinuousUtilityService(eai.get("At inception of this policy, will this mobile home be without continuous utility service?"))
+		.setConstructionCredit(eai.get("Construction Credit"));
+
+		FLMH3Coverages co = dc.next();
+
 
 
 
 		// Coverages
 		co
-		.setDwellingLimit(eai.get("Dwelling Limit"))
-		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+		.setDwellingLimit(eai.get("Dwelling Limit"));
+		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
@@ -545,8 +507,8 @@ public class FLMH3 extends BaseTest
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		co
-		.setLossOfUseSelection(eai.get("Loss of Use - %"))
-		.setWindExcluded(eai.get("Wind Excluded"))
+		//.setLossOfUseSelection(eai.get("Loss of Use - %"))
+		//.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
 
 		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
@@ -564,22 +526,22 @@ public class FLMH3 extends BaseTest
 		// Property Endorsements
 		FLMH3Coverages.FLMH3PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-		if(eai.get("Guardian Endorsement") != null)
-			pe
-			.checkGuardianEndorsements();
+//		if(eai.get("Guardian Endorsement") != null)
+//			pe
+//			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-		}
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -590,15 +552,15 @@ public class FLMH3 extends BaseTest
 			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
 		}
 
-		if(eai.get("Other Structures Increase Coverage - Rented to Others - Limit") != null)
-		{
-			pe
-			.checkOtherStructuresIncreasedCoverageRentedToOthers()
-			.addOtherStructures()
-			.setOtherStructuresDescription(1, eai.getOrDefault("Other Structures Increase Coverage - Rented to Others - Description","Test"))
-			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
-
-		}
+//		if(eai.get("Other Structures Increase Coverage - Rented to Others - Limit") != null)
+//		{
+//			pe
+//			.checkOtherStructuresIncreasedCoverageRentedToOthers()
+//			.addOtherStructures()
+//			.setOtherStructuresDescription(1, eai.getOrDefault("Other Structures Increase Coverage - Rented to Others - Description","Test"))
+//			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
+//
+//		}
 
 		if(spp.size() > 0)
 			pe.checkScheduledPersonalProperty();
@@ -614,67 +576,74 @@ public class FLMH3 extends BaseTest
 		}
 
 		pe
-		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
-		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
-
-		if(eai.getOrDefault("Screen Enclosure Hurricane Coverage (Limit)",null) != null)
-			pe
-			.checkScreenEnclosureHurricaneCoverage()
-			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-
-		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
-			if(pe.isCreditCardCheckBoxAvailable())
-				pe
-				.checkCreditCardFundTransferForgeryCounterfeitMoney()
-				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
-
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		if(!eai.getOrDefault("Golf Cart Coverage","false").toLowerCase().equals("false"))
+			pe.checkGolfCartCoverage();
+		if(!eai.getOrDefault("Jewelry Theft Increased Limits","false").toLowerCase().equals("false"))
+			pe.checkJewelryTheftIncreasedLimit();
 
 
+		FLMH3RiskAnalysis ra = pe.next();
+		//.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		//.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
-		//.setPercentageOfAnnualIncrease("12%")
-		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
-			pe
-			.checkSinkholeLossCoverage()
-			.setSinkholeClaimsIndex("4500")
-			.setSinkholeIndex("330");
+//		if(eai.getOrDefault("Screen Enclosure Hurricane Coverage (Limit)",null) != null)
+//			pe
+//			.checkScreenEnclosureHurricaneCoverage()
+//			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 
-		// Liability Endorsements
-		FLMH3Coverages.FLMH3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+//		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
+//			if(pe.isCreditCardCheckBoxAvailable())
+//				pe
+//				.checkCreditCardFundTransferForgeryCounterfeitMoney()
+//				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-//		if(!eai.get("Animal Liability").equals(""))
-//			le.checkAnimalLiability();
+//		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
+//				pe.checkWaterBackUp();
 
-		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-		{
-			le.checkAdditionalResidenceRentedToOthers()
-			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
-			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
-			le.addNewLocation()
-			.setAddress1(eai.get("Location Address"))
-			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
-			.setCity(eai.get("Location Address - City"))
-			.setZipCode(eai.get("Location Address - Zip"))
-			.setCounty(eai.get("Location Address - County"))
-			.clickVerifyAddress()
-			.selectSuccessfulVerificationIfPossibleForLocationInformation()
-			.clickLiabilityOk();
-		}
-		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
-			le
-			.checkBusinessPursuits()
-			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
-		if(eai.getOrDefault("Watercraft Liablity - Watercraft Type",null) != null)
-			le
-			.checkWatercraftLiability()
-			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		FLMH3RiskAnalysis ra = le.next();
+
+//		//.setPercentageOfAnnualIncrease("12%")
+//		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
+//			pe
+//			.checkSinkholeLossCoverage()
+//			.setSinkholeClaimsIndex("4500")
+//			.setSinkholeIndex("330");
+//
+//		// Liability Endorsements
+//		FLMH3Coverages.FLMH3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
+//		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+//			le
+//			.checkPermittedIncidentalOccupancyLiability();
+//
+////		if(!eai.get("Animal Liability").equals(""))
+////			le.checkAnimalLiability();
+//
+//		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
+//		{
+//			le.checkAdditionalResidenceRentedToOthers()
+//			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+//			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+//			le.addNewLocation()
+//			.setAddress1(eai.get("Location Address"))
+//			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+//			.setCity(eai.get("Location Address - City"))
+//			.setZipCode(eai.get("Location Address - Zip"))
+//			.setCounty(eai.get("Location Address - County"))
+//			.clickVerifyAddress()
+//			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+//			.clickLiabilityOk();
+//		}
+//		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
+//			le
+//			.checkBusinessPursuits()
+//			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
+//		if(eai.getOrDefault("Watercraft Liablity - Watercraft Type",null) != null)
+//			le
+//			.checkWatercraftLiability()
+//			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+//
+//		FLMH3RiskAnalysis ra = le.next();
 		FLMH3Quote quote;
 		if(qualifiesForHurricaneProtection(eai))
 			quote = ra.qualifiesForAdditionalProtectionQuote();

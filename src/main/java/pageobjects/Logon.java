@@ -11,7 +11,7 @@ public class Logon
 	protected String user,pwd;
 	CenterSeleniumHelper sh;
 
-	private By	byUsername = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:username-inputEl"),
+	private By	byUsername = By.cssSelector("[id*=username]>input"),
 				byPassword = By.cssSelector("[id*=password]>input"),
 				byRememberMe = By.cssSelector("[id*=remember] input"),
 				bySubmit	 = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnEl");
@@ -30,12 +30,12 @@ public class Logon
 	public void load()
 	{
 		sh.getURL(loginURL);
-		sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(byUsername));
+		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(byUsername));
 	}
 
 	public void isLoaded()
 	{
-		sh.waitForURLToContain(loginURL, 5);
+		sh.waitForURLToContain(loginURL, 10);
 	}
 
 	public Logon setUsername(String username)

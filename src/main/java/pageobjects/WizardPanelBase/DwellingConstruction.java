@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriverException;
 
 public abstract class DwellingConstruction<T extends DwellingConstruction> extends CenterPanelBase {
     private DwellingConstructionBy by;
-    protected String dwellingConstructionBase, windMitigationBase, tabBase;
+    protected String dwellingConstructionBase, windMitigationBase, tabBase, discountBase;
     public WindMitigation wm;
 
     public DwellingConstruction(CenterSeleniumHelper sh, Path path) {
@@ -26,10 +26,12 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
             case SUBMISSION:
                 dwellingConstructionBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
                 tabBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+                discountBase = "SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
                 break;
             case POLICYRENEWAL:
                 dwellingConstructionBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
                 tabBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
+                discountBase = "RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:";
                 break;
             case POLICYCHANGE:
                 dwellingConstructionBase = "PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingConstructionHOEScreen:HODwellingConstruction_fliPanelSet:HODwellingConstructionDetailsHOEDV:";
@@ -379,6 +381,32 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         sh.waitForNoMask();
         return (T) this;
     }
+	protected T setAreThereAnyExteriorDoorOpeningsWithoutSteps(String flag)
+	{
+		sh.clickElement(By.xpath(".//*[text() = 'Are there any exterior door openings without steps?']/../..//input[@inputvalue = '" +
+                        flag.toLowerCase() + "']"));
+		return (T)this;
+	}
+	protected T setAreThereAnyAreasWith3OrMoreStairsAndNoHandrails(String flag)
+	{
+		sh.clickElement(By.xpath(".//*[text() = 'Are there any areas with 3 or more stairs and no handrails?']/../..//input[@inputvalue = '" +
+                        flag.toLowerCase() + "']"));
+		return (T)this;
+	}
+	protected T setAtTheInceptionOfThisPolicyWillThisMobileHomeBeWithoutContinuousUtilityService(String flag)
+	{
+		sh.clickElement(By.xpath(".//*[text() = 'At inception of this policy, will this mobile home be without continuous utility service?']/../..//input[@inputvalue = '" +
+                        flag.toLowerCase() + "']"));
+		return (T)this;
+	}
+
+	protected T setConstructionCredit(String flag)
+	{
+		sh.clickElement(By.xpath("//*[@id = '" + discountBase +
+		"Modifiers_fliPanelSet:aRateModifierListView:0']//div[text() = 'Construction Credit']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
+
+		return (T)this;
+	}
 
     protected T setStructureOriginallyBuiltForOtherThanPrivateResidence(String flag) {
         sh.clickElement(

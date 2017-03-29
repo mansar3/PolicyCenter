@@ -631,8 +631,8 @@ public class ALHO3 extends BaseTest
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
-		//.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
+		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
 //		{

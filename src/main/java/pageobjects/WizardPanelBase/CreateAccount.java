@@ -360,6 +360,14 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	public T setProducerCode(String producerCode)
 	{
 		sh.setText(by.producerCode, producerCode);
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		sh.tab();
 		return (T)this;
 	}

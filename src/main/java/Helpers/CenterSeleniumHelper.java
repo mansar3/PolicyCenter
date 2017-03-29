@@ -48,6 +48,21 @@ public class CenterSeleniumHelper
 				return getValue(byLocator).equals(text);
 			}));
 	}
+	public void setTextUntil(By byLocator, String text)
+	{
+		if(text != null)
+			wait(25).until(ExpectedConditions.refreshed(driver1 ->
+			{
+				driver1.findElement(byLocator).sendKeys("");
+				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
+					return false;
+				driver1.findElement(byLocator).clear();
+				driver1.findElement(byLocator).sendKeys(text);
+				return text.equals(getValue(byLocator) == null ? getText(byLocator) : getValue(byLocator));
+			}));
+		tab();
+		waitForNoMask();
+	}
 	public void setTextAndTab(By byLocator, String text)
 	{
 		waitForNoMask();
