@@ -38,8 +38,10 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 	{
 		By	back = By.id(buttonBase + "Prev-btnInnerEl"),
 		    quote = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		    quoterenewal = By.id("RenewalWizard:LOBWizardStepGroup:RenewalWizard_DifferencesScreen:JobWizardToolbarButtonSet:RenewalQuote-btnInnerEl"),
 		    policychangereview = By.xpath(".//*[@id = 'PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:DifferencesPanelSet:DiffTreePanelSet:DiffTreePanelLV-body']//div[text() = 'No']/../following-sibling::td[1]//div"),
-		    clickhangeconflicts = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:OOSConflictsTab-btnInnerEl");
+		    clickhangeconflicts = By.id("PolicyChangeWizard:PolicyChangeWizard_DifferencesScreen:OOSConflictsTab-btnInnerEl"),
+				renewaleditpolicytransaction = By.id("RenewalWizard:LOBWizardStepGroup:RenewalWizard_DifferencesScreen:JobWizardToolbarButtonSet:EditPolicyWorkflow-btnInnerEl");
 	}
 
 	protected T clickChangeConflicts()
@@ -61,10 +63,29 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 		return (T) this;
 	}
 
+	public T policyreviewRenewalQuote()
+	{
+		sh.clickElement(by.quoterenewal);
+		return (T) this;
+	}
+
 	public String getPolicyReviewChange()
 	{
 		sh.waitForNoMask();
 		return sh.getText(by.policychangereview);
+	}
+
+	protected T editPolicyTransactionrenewal(){
+		sh.waitForNoMask();
+		sh.clickElement(by.renewaleditpolicytransaction);
+		return (T) this;
+	}
+	protected T accept()
+	{
+		sh.waitForElementToAppear(By.xpath(".//*[text()= 'OK']"));
+		sh.clickElement(By.xpath(".//*[text()= 'OK']"));
+		return (T) this;
+
 	}
 
 	protected class ChangeConflits<T extends ChangeConflits> extends CenterPanelBase

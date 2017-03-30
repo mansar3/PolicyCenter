@@ -29,6 +29,15 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return new FLHO3Quote(sh, path );
 	}
 
+	public FLHO3Quote coveragesQuotePolicyChange(){
+		super.CoverageQuotePolicychange();
+		return new FLHO3Quote(sh, path );
+	}
+	public FLHO3Quote coveragesQuoteRenewal(){
+		super.CoverageQuoterenewal();
+		return new FLHO3Quote(sh, path );
+	}
+
 	public FLHO3PreQuoteIssues  coveragesquoteWithIssues()
 	{
 		super.CoverageQuote();

@@ -35,4 +35,12 @@ public class NCHO3AccountFileSummary extends AccountFileSummary<NCHO3AccountFile
 
 	}
 
+	public Summary clickCancelledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
+
 }

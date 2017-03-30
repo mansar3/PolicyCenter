@@ -2,6 +2,7 @@ package Cancellations.FL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLDP3.*;
@@ -856,7 +859,9 @@ public class FLDP3CancelProrataWhenSafe004 extends BaseTest {
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
+     //   String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
+
+        String date = Insurercancellationeffdate + " 06:10 PM";
 
 
         //Hit the start button start button
@@ -872,7 +877,7 @@ public class FLDP3CancelProrataWhenSafe004 extends BaseTest {
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
 
-        tsc.setDate(policyCancellationEffectiveDate)
+        tsc.setDate(date)
                 .clickchangedate();
 
         //goes to server tools and clicks on batch process info
@@ -892,50 +897,50 @@ public class FLDP3CancelProrataWhenSafe004 extends BaseTest {
                 .clickReturntoPolicyCenter();
 
 
+        //goes back to the account
         nav.clickSearchAccount();
-        //sa.setFirstName(firstname);
-        //sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        afs.clickInforcedAccountNumber();
+        afs.clickCancelledPolicyNumber();
         
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
-//
-//
-//        String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+               String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+        Assert.assertTrue(expectedcanceldescription.equals(cancelDescription), "The Notice of Cancellation form is supposed to be in one of the forms but it is not");
 
         forms.clickSummary();
 
-
-        //click on when safe policy
-
-        //verifies the notice of cancellation decription
-
-//        try {
-//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-//            System.out.println("There is a " + cancellationeffdate + " in the Description");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-
-        //click on when safe policy
+       // click on when safe policy
 
         sum.clickwhensafepolicynumber();
 
         whensafescheducan = sum.getSummaryMessage();
 
-        //verifies the pending scheduled transaction
-
-        Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
 
         sum.actions.clickForms();
 
 
+        //Cancellation form is supposed to be generated in here when it the policy is in safe
 
+        //Assert.assertTrue(expectedcanceldescription.equals(cancelDescription), "The Notice of Cancellation form is supposed to be in one of the forms but it is not");
 
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
     }
 
 

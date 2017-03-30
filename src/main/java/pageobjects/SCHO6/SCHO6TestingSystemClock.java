@@ -17,4 +17,13 @@ public class SCHO6TestingSystemClock extends TestingSystemClock<SCHO6TestingSyst
     {
         return super.getCurrentDate();
     }
+    public SCHO6TestingSystemClock setDate(String date)
+    {
+        return   super.setDate(date);
+    }
+
+    public SCHO6TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
 }

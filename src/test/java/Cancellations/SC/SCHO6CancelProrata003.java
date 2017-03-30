@@ -2,6 +2,7 @@ package Cancellations.SC;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Logon;
@@ -22,6 +25,9 @@ import pageobjects.WizardPanelBase.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -75,12 +81,13 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
         String country = "United States",
                 dob = new DateTime().minusYears(31).toString("01/dd/yyyy"),
-                phoneNumber = "2561234566",
+                phoneNumber = "2561234560",
                 address = "371 Pelican Flight Dr",
                 city = "Dewees Island",
+                county = "Charleston",
                 state = "South Carolina",
                 addressType = "Home",
-                ssn = "777-12-7457",
+                ssn = "777-12-7450",
                 organizationName = "C.T",
                 organizationType = Organizations.OrganizationTypes.AGENCY.value,
                 producercode = "523-23-30007 C.T. Lowndes & Co. - Charleston";
@@ -89,6 +96,9 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
         String policyType = "Condominium (HO6)",
                 distanceToFireHydrant = "79",
+                bceg = "04",
+                protectionclasscode = "4",
+                territorycode = "04",
                 weeksrented = "10",
                 minrentalincre = "Monthly",
                 undercontract = "false",
@@ -96,7 +106,6 @@ public class SCHO6CancelProrata003 extends BaseTest {
                 windpoolfalse = "false",
                 distancetocoast = "200",
                 yearBuilt = "2000",
-                county = "Mobile",
                 roofShapeType = "Gable",
                 valuation = "Appraisal",
                 replacementcost = "400000",
@@ -135,6 +144,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
                     .setMobilePhone(phoneNumber)
                     .setAddressLine1(address)
                     .setCity(city)
+                    .setCounty(county)
                     .setState(state)
                     .clickVerifyAddress()
                     .selectSuccessfulVerificationIfPossibleForCreateAccount()
@@ -172,7 +182,11 @@ public class SCHO6CancelProrata003 extends BaseTest {
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast);
+                .setDistanceToCoast(distancetocoast)
+                .setBCEG(bceg)
+                .setProtectionClassCode(protectionclasscode)
+                .setTerritoryCode(territorycode);
+
 //                .setWeeksRentedAnnually(weeksrented)
 //                .setMinimumRentalIncrement(minrentalincre)
 //                .underContractWithRentalManagementCompany(undercontract);
@@ -245,7 +259,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
                 insurerreason6 = "Unable to Conduct a Favorable Company Inspection";
 
 
-        String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
+      //  String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
         String refundMethod, expectedrefundMethod = "Flat";
         String refundMethod1, expectedrefundMethod1 = "Pro rata";
         String cancellationeffdate;
@@ -258,6 +272,19 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
 
         SCHO6NavigationBar nav = new SCHO6NavigationBar(sh);
+
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+        SCHO6TestingSystemClock tsc = new SCHO6TestingSystemClock(sh);
+        String currentdate = tsc.getCurrentDate();
+        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
+        String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String futureCanEffectiveDate = dateTime.plusDays(2).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+        
+        
         SCHO6SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
@@ -358,7 +385,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
         //now change the effective date to 2 days ahead of the system date
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -402,7 +429,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
         }
 
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -485,7 +512,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -534,7 +561,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -832,6 +859,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
+        String date = Insurercancellationeffdate + " 06:10 PM";
 
         //Hit the start button start button
 
@@ -843,43 +871,40 @@ public class SCHO6CancelProrata003 extends BaseTest {
         cb.clickViewYourPolicy();
 
 
-//        nav.clickInternalToolTab()
-//                .clickTestingTimeClock();
-//        FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
-//
-//
-//        tsc.setDate(cancellationeffdate)
-//                .clickchangedate();
-//
-//        //goes to server tools and clicks on batch process info
-//
-//        nav.clickServerTools()
-//                .clickBatchProcessInfo();
-//
-//
-//        //clicks on run workflow
-//
-//        FLDP3BatchProcessInfo bpi = new FLDP3BatchProcessInfo(sh);
-//        bpi.clickrunworkflow();
-//
-//        //goes back to policy center
-//
-//        nav.clickSettings()
-//                .clickReturntoPolicyCenter();
-//
-//
-//        sa.setFirstName(firstname);
-//        sa.setLastName(lastname);
-//        sa.clickSearchButton();
-//        sa.clickAccountNumberSearchAccount();
-//
-//        afs.clickInforcedAccountNumber();
-//
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+        
+        tsc.setDate(date)
+                .clickchangedate();
+
+        //goes to server tools and clicks on batch process info
+
+        nav.clickServerTools()
+                .clickBatchProcessInfo();
+
+
+        //clicks on run workflow
+
+        SCHO6BatchProcessInfo bpi = new SCHO6BatchProcessInfo(sh);
+        bpi.clickrunworkflow();
+
+        //goes back to policy center
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+
+
+        //goes back to the account
+        nav.clickSearchAccount();
+        sa.clickSearchButton();
+        sa.clickAccountNumberSearchAccount();
+
+        afs.clickCancelledPolicyNumber();
+
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
-//
-//
+
        String cancelDescription =  forms.getnoticeofcancellationdescription();
 
         //verifies the notice of cancellation decription
@@ -887,6 +912,18 @@ public class SCHO6CancelProrata003 extends BaseTest {
 
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
 
 
 

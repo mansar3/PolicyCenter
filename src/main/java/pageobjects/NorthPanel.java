@@ -19,7 +19,8 @@ public class NorthPanel
 	}
 	public class NorthPanelBy
 	{
-		public   By    clickaccountNumber = By.xpath(".//*[@id='SubmissionWizard:JobWizardInfoBar:AccountNumber-btnInnerEl']/span[2]");
+		public   By    clickaccountNumber = By.xpath(".//*[@id='SubmissionWizard:JobWizardInfoBar:AccountNumber-btnInnerEl']/span[2]"),
+		               clickrenewalaccountnumber = By.xpath(".//*[@id='RenewalWizard:JobWizardInfoBar:AccountNumber-btnInnerEl']/span[2]");
 
 
 	}
@@ -28,6 +29,14 @@ public class NorthPanel
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.clickaccountNumber);
+		return new AccountFileSummary(sh);
+	}
+
+
+	public AccountFileSummary clickAccountNumberRenewal()
+	{
+		sh.waitForNoMask();
+		sh.clickElement(by.clickrenewalaccountnumber);
 		return new AccountFileSummary(sh);
 	}
 

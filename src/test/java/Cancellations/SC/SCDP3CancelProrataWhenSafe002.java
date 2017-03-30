@@ -2,6 +2,7 @@ package Cancellations.SC;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Logon;
@@ -22,6 +25,9 @@ import pageobjects.WizardPanelBase.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -90,13 +96,16 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
         String policyType = "Dwelling Fire (DP3)",
                 distanceToFireHydrant = "79",
                 weeksrented = "10",
+                bceg = "04",
+                protectionclasscode = "4",
+                territorycode = "04",
                 minrentalincre = "Monthly",
                 undercontract = "false",
                 inceptionno = "false",
                 windpoolfalse = "false",
                 distancetocoast = "200",
                 yearBuilt = "2000",
-                county = "Mobile",
+                county = "Charleston",
                 roofShapeType = "Gable",
                 valuation = "Appraisal",
                 replacementcost = "400000",
@@ -133,6 +142,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
                     .setMobilePhone(phoneNumber)
                     .setAddressLine1(address)
                     .setCity(city)
+                    .setCounty(county)
                     .setState(state)
                     .clickVerifyAddress()
                     .selectSuccessfulVerificationIfPossibleForCreateAccount()
@@ -168,6 +178,9 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
         SCDP3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setBCEG(bceg)
+                .setProtectionClassCode(protectionclasscode)
+                .setTerritoryCode(territorycode)
                 .setAtInceptionOfPolicyIsDeedOwnedByEntity(inceptionno)
                 .setInTheWindpool(windpoolfalse)
                 .setDistanceToCoast(distancetocoast)
@@ -246,7 +259,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
                 insurerreason6 = "Unable to Conduct a Favorable Company Inspection";
 
 
-        String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
+       // String futureCanEffecDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
         String refundMethod, expectedrefundMethod = "Flat";
         String refundMethod1, expectedrefundMethod1 = "Pro rata";
         String cancellationeffdate;
@@ -259,6 +272,19 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
 
 
         SCDP3NavigationBar nav = new SCDP3NavigationBar(sh);
+
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+        SCDP3TestingSystemClock tsc = new SCDP3TestingSystemClock(sh);
+        String currentdate = tsc.getCurrentDate();
+        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
+        String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String futureCanEffectiveDate = dateTime.plusDays(2).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+        
+        
         SCDP3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
@@ -359,7 +385,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
 
         //now change the effective date to 2 days ahead of the system date
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -403,7 +429,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
         }
 
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -486,7 +512,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -535,7 +561,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -834,6 +860,7 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
+        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi() + " 06:10 PM";
 
         //Hit the start button start button
 
@@ -845,71 +872,69 @@ public class SCDP3CancelProrataWhenSafe002 extends BaseTest {
         cb.clickViewYourPolicy();
 
 
-//        nav.clickInternalToolTab()
-//                .clickTestingTimeClock();
-//        FLDP3TestingSystemClock tsc = new FLDP3TestingSystemClock(sh);
-//
-//
-//        tsc.setDate(cancellationeffdate)
-//                .clickchangedate();
-//
-//        //goes to server tools and clicks on batch process info
-//
-//        nav.clickServerTools()
-//                .clickBatchProcessInfo();
-//
-//
-//        //clicks on run workflow
-//
-//        FLDP3BatchProcessInfo bpi = new FLDP3BatchProcessInfo(sh);
-//        bpi.clickrunworkflow();
-//
-//        //goes back to policy center
-//
-//        nav.clickSettings()
-//                .clickReturntoPolicyCenter();
-//
-//
-//        sa.setFirstName(firstname);
-//        sa.setLastName(lastname);
-//        sa.clickSearchButton();
-//        sa.clickAccountNumberSearchAccount();
-//
-//        afs.clickInforcedAccountNumber();
-//
+       nav.clickInternalToolTab()
+               .clickTestingTimeClock();
+     
+
+
+      tsc.setDate(policyCancellationEffectiveDate)
+              .clickchangedate();
+
+        //goes to server tools and clicks on batch process info
+
+      nav.clickServerTools()
+                .clickBatchProcessInfo();
+
+
+        //clicks on run workflow
+
+        SCDP3BatchProcessInfo bpi = new SCDP3BatchProcessInfo(sh);
+       bpi.clickrunworkflow();
+
+        //goes back to policy center
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+
+        //goes back to the account
+        nav.clickSearchAccount();
+        sa.clickSearchButton();
+        sa.clickAccountNumberSearchAccount();
+
+        //clicks on cancelled policy
+        afs.clickCancelledPolicyNumber();
+
+
         sum.actions.clickForms();
 
+
         Forms forms = new Forms(sh);
-//
-//
-//        String cancelDescription =  forms.getnoticeofcancellationdescription();
+        String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+        //verifies the notice of cancellation decription
+        Assert.assertTrue(cancelDescription.equals(expectedcanceldescription), "In the Description Form# FIM-CXB and Edition 09/13 (Notice Of Cancellation) should be present but it is not");
 
         forms.clickSummary();
 
 
         //click on when safe policy
-
-        //verifies the notice of cancellation decription
-
-//        try {
-//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-//            System.out.println("There is a " + cancellationeffdate + " in the Description");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-
-        //click on when safe policy
-
+        
         sum.clickwhensafepolicynumber();
 
-        whensafescheducan = sum.getSummaryMessage();
-
-        //verifies the pending scheduled transaction
-
-        Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
-
+        //clicks on forms page
         sum.actions.clickForms();
+    }
 
-
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
     }
 }

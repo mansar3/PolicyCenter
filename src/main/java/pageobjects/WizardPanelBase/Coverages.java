@@ -522,6 +522,17 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.clickElement(by.Quote);
 		return (T) this;
 	}
+	protected T CoverageQuotePolicychange(){
+		sh.waitForNoMask();
+		sh.clickElement(by.quotepolicycgange);
+		return (T) this;
+	}
+
+	protected T CoverageQuoterenewal(){
+		sh.waitForNoMask();
+		sh.clickElement(by.quoterenewal);
+		return (T) this;
+	}
 
 	protected T editPolicyTransaction(){
 		sh.waitForNoMask();
@@ -584,6 +595,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
                                 isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        quotepolicycgange = By.id("PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        quoterenewal = By.id("RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:RenewalQuote-btnInnerEl"),
 		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 								additionalLivingExpensesPercent = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Percent']/../..//div[@role='textbox']"),
 								additionalLivingExpensesLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Limit']/../..//div[@role='textbox']");

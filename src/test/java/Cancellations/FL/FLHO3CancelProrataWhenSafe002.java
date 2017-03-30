@@ -2,6 +2,7 @@ package Cancellations.FL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO3.*;
@@ -78,12 +81,12 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
 
         String country = "United States",
                 dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
-                phoneNumber = "2561234567",
+                phoneNumber = "2561234561",
                 address = "3546 Egret Dr",
                 city = "Melbourne",
                 state = "Florida",
                 addressType = "Home",
-                ssn = "777-12-7457",
+                ssn = "777-12-7451",
                 organizationName = "4",
                 organizationType = Organizations.OrganizationTypes.AGENCY.value;
 
@@ -247,7 +250,8 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
                 insurerreason2 = "Material Misrepresentation",
                 insurerreason3 = "Risk Does Not Meet Company Guidelines",
                 insurerreason4 = "Risk does not meet Occupancy Requirements",
-                insurerreason5 = "Substantial change in risk";
+                insurerreason5 = "Substantial change in risk",
+                insurerreason8 = "Unable to Conduct a Favorable Company Inspection";
 
 
         //String futureCanEffectiveDate = new DateTime().plusDays(2).toString("MM/dd/yyyy");
@@ -800,7 +804,7 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
 
 
         String insuredCanEffectiveDate1 = String.valueOf(difffDays);
-        String insuredDiffEffectiveDate1 = "124";
+        String insuredDiffEffectiveDate1 = "125";
 
 
         //verifies the diffrence between the date
@@ -818,9 +822,42 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
         Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
 
 
-        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
-        
-        
+        //String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
+
+
+        scfp.setReason(insurerreason8)
+                .setReasonDescription(reasondescription);
+
+        refundMethod1 = scfp.getRefundMethod();
+
+        try {
+            Assert.assertEquals(expectedrefundMethod1, refundMethod1);
+            System.out.println("The expected and actual are equal and the Refund Method is : " + refundMethod1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //Verifies whether Refund Method is Editable or not
+
+        Assert.assertFalse(scfp.isRefundMethodEditable(), "The Refund Method is not supposed to be editable but it is");
+
+
+        //verifies the diffrence between the date
+
+        Assert.assertEquals(insuredCanEffectiveDate, insuredDiffEffectiveDate, "The Cancellation effective date diffrence should be 25 days and it is not");
+
+
+        //verify the cancellation is manditory or not
+
+
+        Assert.assertTrue(scfp.isCancellationEffectiveDateEditable(), "The Cancellation effective date is supposed to be editable but it was not ");
+
+        //verifies the required label
+
+        Assert.assertTrue(scfp.isCancellationEffectiveDateLabelRequired(), "The Cancellation Effective Date was expected to be a required but it was not");
+
+
+        String date = Insurercancellationeffdate + " 06:10 PM";
         //Hit the start button start button
 
         scfp.clickStartCancellation()
@@ -834,7 +871,7 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
         nav.clickInternalToolTab()
                 .clickTestingTimeClock();
       
-        tsc.setDate(policyCancellationEffectiveDate)
+        tsc.setDate(date)
                 .clickchangedate();
 
         //goes to server tools and clicks on batch process info
@@ -854,42 +891,30 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
                 .clickReturntoPolicyCenter();
 
 
+        //goes back to the account
         nav.clickSearchAccount();
-        
-        
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        afs.clickInforcedAccountNumber();
+        afs.clickCancelledPolicyNumber();
 
         sum.actions.clickForms();
 
         Forms forms = new Forms(sh);
 
-//
-//        String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+       String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+       Assert.assertTrue(expectedcanceldescription.equals(cancelDescription), "The Notice of Cancellation form is supposed to be in one of the forms but it is not");
+
 
         forms.clickSummary();
-//
-//        //verifies the notice of cancellation decription
-//
-//        try {
-//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-//            System.out.println("There is a " + cancellationeffdate + " in the Description");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
 
 
         //click on when safe policy
 
         sum.clickwhensafepolicynumber();
 
-        whensafescheducan = sum.getSummaryMessage();
-
-        //verifies the pending scheduled transaction
-
-        Assert.assertTrue(expectedwhensafescheducan.equals(whensafescheducan), "In When safe policy  The Pending Scheduled Cancellation should pop up at the top of the screen but it was not.");
 
         sum.actions.clickForms();
 
@@ -897,7 +922,22 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
         forms.clickSummary();
 
 
+        sum.clickAccountNumber();
 
     }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
+
 
 }

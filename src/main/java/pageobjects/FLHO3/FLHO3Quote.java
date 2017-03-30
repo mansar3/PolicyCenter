@@ -37,6 +37,12 @@ public class FLHO3Quote extends Quote<FLHO3Quote>
 	{
 		return  super.clickPolicyIssuePolicyPrint();
 	}
+
+	public FLHO3Quote clickpolicychangeWithdrawTransaction()
+	{
+		return  super.clickPolicyChangeWithdrawTransaction();
+	}
+
 	public FLHO3RiskAnalysis backToRiskAnalysis()
 	{
 		super.backRiskAnalysis();

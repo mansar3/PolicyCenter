@@ -17,4 +17,8 @@ public class FLHO3BatchProcessInfo extends BatchProcessInfo<FLHO3BatchProcessInf
     {
         return super.clickRunworkflow();
     }
+    public FLHO3BatchProcessInfo clickpolicyrenewalStart()
+    {
+        return super.clickPolicyRenewalStart();
+    }
 }

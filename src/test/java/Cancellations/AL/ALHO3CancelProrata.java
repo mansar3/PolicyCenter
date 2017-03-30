@@ -2,6 +2,7 @@ package Cancellations.AL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
@@ -791,7 +794,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
 
 
-        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi();
+        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi() + " 06:10 PM";
 
         System.out.println(policyCancellationEffectiveDate);
 
@@ -830,13 +833,12 @@ public class ALHO3CancelProrata extends BaseTest {
         nav.clickSettings()
                 .clickReturntoPolicyCenter();
 
+        //goes back to the account
         nav.clickSearchAccount();
-     //   sa.setFirstName(firstname);
-      //  sa.setLastName(lastname);
         sa.clickSearchButton();
         sa.clickAccountNumberSearchAccount();
 
-        afs.clickInforcedAccountNumber();
+        afs.clickCancelledPolicyNumber();
 
         sum.actions.clickForms();
 
@@ -848,13 +850,23 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //verifies the notice of cancellation decription
 
-        try {
-            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-            System.out.println("There is a " + cancellationeffdate + " in the Description");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
+        Assert.assertTrue(expectedcanceldescription.equals(cancelDescription), "The Notice of Cancellation form is supposed to be in one of the forms but it is not");
+
     }
 
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
 
 }

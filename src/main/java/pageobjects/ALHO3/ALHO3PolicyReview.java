@@ -25,10 +25,24 @@ public class ALHO3PolicyReview extends PolicyReview<ALHO3PolicyReview>
 				return new ALHO3Quote(sh, path);
 	}
 
+	public  ALHO3Quote quoteRenewal()
+	{
+		super.policyreviewRenewalQuote();
+		return new ALHO3Quote(sh, path);
+	}
+
 	public String checkPolicyReview()
 	{
 		return  super.getPolicyReviewChange();
 
+	}
+	public ALHO3PolicyReview clickEditPolicyTransactionRenewal(){
+		return super.editPolicyTransactionrenewal();
+	}
+
+	public ALHO3PolicyReview acceptYes()
+	{
+		return super.accept();
 	}
 
 	public ALHO3ChangeConflits clickChangeConflits()

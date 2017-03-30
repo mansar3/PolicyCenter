@@ -21,13 +21,21 @@ public class CancellationBound <T extends CancellationBound> extends CenterPanel
 
     public class CancellationBoundBy {
 
-        public By clickviewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl");
+        public By clickviewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl"),
+                   laterboundperiod = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ResolveWithFutureBoundPeriods-inputEl");
     }
 
     public T clickViewYourPolicy()
     {
         sh.waitForNoMask();
         sh.clickElement(by.clickviewyourpolicy);
+        return (T)this;
+    }
+
+    public T clickLaterBoundPeriod()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.laterboundperiod);
         return (T)this;
     }
 }
