@@ -85,7 +85,10 @@ public class SCDP3PolicyInfo extends PolicyInfo<SCDP3PolicyInfo>
 	{
 		return super.setProducerCode(text);
 	}
-
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public String getProducerCode()
 	{
 		return super.getProducerCode();
@@ -94,7 +97,9 @@ public class SCDP3PolicyInfo extends PolicyInfo<SCDP3PolicyInfo>
 	{
 		return super.setPolicyWriter(text);
 	}
-
+	public SCDP3PolicyInfo Enter(){
+		return super.Enter();
+	}
 	public String getPolicyWriter()
 	{
 		return super.getPolicyWriter();

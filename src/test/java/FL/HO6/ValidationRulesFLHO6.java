@@ -15,6 +15,8 @@ import org.testng.annotations.Test;
 import pageobjects.FLHO6.*;
 import pageobjects.Logon;
 
+import java.util.Random;
+
 /**
  * Created by ssai on 3/1/2017.
  */
@@ -24,7 +26,10 @@ public class ValidationRulesFLHO6 extends BaseTest {
     private WebDriver driver;
     private Logon logon;
     private CenterSeleniumHelper sh;
-
+    String firstname = "FLHO6";
+    Random rand = new Random();
+    int num  = rand.nextInt(99 - 10 + 1)+10;
+    String lastname = "ValidationRuleTest"+num;
 
     @BeforeMethod
     public void beforeMethod() {
@@ -44,8 +49,8 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
     @Test(description = "Creates Account for FLHO6")
     public void CreatePersonalAccountforFLHO6(ITestContext itc) {
-        String firstname = "FLHO6";
-        String lastname = "Validationrule";
+        //String firstname = "FLHO6";
+      //  String lastname = "Validationrule";
         String date = "03/30/1985";
         String homephone = "8501112222";
         String homeaddress = "3546 Egret Dr";
@@ -88,8 +93,8 @@ public class ValidationRulesFLHO6 extends BaseTest {
     @Test(description = "Validating the HO6")
     public void ValidatingHO6FL() {
 
-        String firstname = "FLHO6";
-        String lastname = "Validationrule";
+       // String firstname = "FLHO6";
+       // String lastname = "Validationrule";
         String policyType = "Condominium (HO6)";
         String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
         String effectiveDate = new DateTime().toString("MM/dd/yyyy");
@@ -137,7 +142,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 personalpropertylimit1 = "5000",
                 personalpropertylimit2 = "50,000";
         String floorunits = "15";
-
+        String effectiveyear, expectedeffectiveyear = "Policy effective date is outside of the agent’s binding authority:";
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
         String protectionclasserror, expectedprotectionclasserror = "Property with a protection class of 10 or 10W are ineligible for coverage: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String poolerror1, expectedpoolerror1 = "Pools without approved security do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
@@ -177,15 +182,21 @@ public class ValidationRulesFLHO6 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
+        FLHO6PolicyInfo pi = qua.next();
 
-        FLHO6Dwelling dwe = qua.next()
-//                .setEffectiveDate(futureEffectiveDate)
-//                .next()
-//                .clickDwellingBack();
-//        System.out.println("Supposed to get a error message");
+        pi.setEffectiveDate(futureEffectiveDate)
+                .Enter();
 
-                .setEffectiveDate(effectiveDate)
-                .next()
+        //Verify the error message
+
+        effectiveyear =  pi.getErrorMessage();
+
+        Assert.assertTrue(effectiveyear.startsWith(expectedeffectiveyear), "The Policy effective date should is supposed to be shown but it is not");
+
+        pi.setEffectiveDate(effectiveDate);
+        
+
+        FLHO6Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setYearBuilt(futureYear)
@@ -193,7 +204,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
 
         yearerrormessage = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedyearerrormessage.equals(yearerrormessage));
+        Assert.assertTrue(yearerrormessage.startsWith(expectedyearerrormessage));
         System.out.println(" Expected Roof Year should be " + expectedyearerrormessage + " and it is " + yearerrormessage);
 
         dwe.setYearBuilt(currentYear)
@@ -208,15 +219,14 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .Enter();
 
         protectionclasserror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedprotectionclasserror.equals(protectionclasserror));
+        Assert.assertTrue(protectionclasserror.startsWith(expectedprotectionclasserror));
         System.out.println(" Expected error messsage  " + expectedprotectionclasserror + " but it was " + protectionclasserror);
 
         dwe.setProtectionClassCode(protectionclasscode1)
                 .Enter();
         protectionclasserror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedprotectionclasserror.equals(protectionclasserror));
-        System.out.println(" Expected error message is " + expectedprotectionclasserror + " but it was " + protectionclasserror);
-
+        Assert.assertTrue(protectionclasserror.startsWith(expectedprotectionclasserror));
+        System.out.println(" Expected error messsage  " + expectedprotectionclasserror + " but it was " + protectionclasserror);
         //setting the protectionclasscode
         dwe.setProtectionClassCode(protectionclasscode2)
                 .next()
@@ -232,7 +242,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .setPoolSlide(poolSlide)
                 .Enter();
         poolerror1 = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedpoolerror1.equals(poolerror1));
+        Assert.assertTrue(poolerror1.startsWith(expectedpoolerror1));
         System.out.println(" Expected error message is " + expectedpoolerror1 + " but it was " + poolerror1);
 
         //changing the pool options again
@@ -243,7 +253,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .Enter();
 
         divingerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expecteddivingerror.equals(divingerror));
+        Assert.assertTrue(divingerror.startsWith(expecteddivingerror));
         System.out.println(" Expected error message is " + expecteddivingerror + " but it was " + divingerror);
 
         //changing the slides in dwelling page
@@ -252,7 +262,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .Enter();
 
         slideerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedslideerror.equals(slideerror));
+        Assert.assertTrue(slideerror.startsWith(expectedslideerror));
         System.out.println(" Expected error message is " + expectedslideerror + " but it was " + slideerror);
 
         //changing the HOUSEKEEPING CONDITION
@@ -262,7 +272,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .Enter();
 
         housekeepingerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedhousekeepingwrror.equals(housekeepingerror));
+        Assert.assertTrue(housekeepingerror.startsWith(expectedhousekeepingwrror));
         System.out.println(" Expected error message is " + expectedhousekeepingwrror + " but it was " + housekeepingerror);
 
         dwe.setSwimmingPool(pool)
@@ -277,7 +287,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .clickProtectionDetailsenter();
 
         burgularbars = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedburgularbars.equals(burgularbars));
+        Assert.assertTrue(burgularbars.startsWith(expectedburgularbars));
         System.out.println(" Expected error message is " + expectedburgularbars + " but it was " + burgularbars);
 
         FLHO6DwellingConstruction dwellingConstruction = dwe.clickProtectionDetails()
@@ -292,7 +302,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         System.out.println(primaryheating);
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
@@ -301,15 +311,16 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is  " + expectedpprimaryheating + " but it was " + primaryheating);
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
+        System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
+
 
         //changing to woodstove
         dwellingConstruction.setPrimaryHeating(primaryHeatingwood)
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
@@ -318,8 +329,9 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
+
 
         //changing to electric
         dwellingConstruction.setPrimaryHeating(primaryHeatingelectric)
@@ -347,16 +359,9 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .dwellingConstructionEnter();
 
         electricsystemfuse = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedelectricsystemfuse.equals(electricsystemfuse));
+        Assert.assertTrue(electricsystemfuse.startsWith(expectedelectricsystemfuse));
         System.out.println(" Expected Error message is " + expectedelectricsystemfuse + "and it is " + electricsystemfuse);
 
-//        dwellingConstruction.setElectricalSystem(electricalsystemcircuitbreaker)
-//                .next()
-//                .back();
-//
-//        electricsystemfuse = dwellingConstruction.dwellingConstructionErrorMessage();
-//        Assert.assertTrue(expectedelectricsystemfuse.equals(electricsystemfuse));
-//        System.out.println(" Expected Error message is " +expectedelectricsystemfuse+ "and it is " + electricsystemfuse);
 
         dwellingConstruction.setElectricalSystem(electricalsystemcircuitbreaker)
                 .next()
@@ -381,7 +386,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
                 .dwellingConstructionEnter();
 
         conditionrooferror = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedconditionroof.equals(conditionrooferror));
+        Assert.assertTrue(conditionrooferror.startsWith(expectedconditionroof));
         System.out.println(" Expected error message is " + expectedconditionroof + "and it is " + conditionrooferror);
 
         FLHO6Coverages coverages = dwellingConstruction
@@ -395,15 +400,15 @@ public class ValidationRulesFLHO6 extends BaseTest {
         //3 error messages two are initiated and one needs to get the error message from the uI
 
         dwellinglimiterror = coverages.coveragesErrorMessage();
-        Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
+        Assert.assertTrue(dwellinglimiterror.startsWith(expecteddwellinglimiterror));
         System.out.println(" Expected error message is " + expecteddwellinglimiterror + "  and it is " + dwellinglimiterror);
 
         dwellingpersonalerror = coverages.coveragesErrorMessage2();
-        Assert.assertTrue(expecteddwellingpersonalerror.equals(dwellingpersonalerror));
+        Assert.assertTrue(dwellingpersonalerror.startsWith(expecteddwellingpersonalerror));
         System.out.println(" Expected error message is " + expecteddwellingpersonalerror + "  and it is " + dwellingpersonalerror);
 
         personalpropertylimmiterror = coverages.coveragesErrorMessage3();
-        Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
+        Assert.assertTrue(personalpropertylimmiterror.startsWith(expectedpersonalpropertylimmiterror));
         System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror + " and it is " + personalpropertylimmiterror);
 
 
@@ -424,7 +429,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
         riskanalysis.back();
 
         convitederror = riskanalysis.getErrorMessage();
-        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        Assert.assertTrue(convitederror.startsWith(expectedconvitederror));
         System.out.println("  Expected error message is " + expectedconvitederror + " and it is " + convitederror);
 
         for (int z = 9; z <= 9; z++) {
@@ -438,15 +443,15 @@ public class ValidationRulesFLHO6 extends BaseTest {
         //verifying the units, firewall and stories
 
         numberofunites = dwellingConstruction.getNumberOfUnits();
-        Assert.assertTrue(expectednumberofunits.equals(numberofunites));
+        Assert.assertTrue(numberofunites.startsWith(expectednumberofunits));
         System.out.println("  Expected error message is " + expectednumberofunits + " and it is " + numberofunites);
 
         unitsinfirewall = dwellingConstruction.getUnitsInFireWall();
-        Assert.assertTrue(expectedunitesinfirewall.equals(unitsinfirewall));
+        Assert.assertTrue(unitsinfirewall.startsWith(expectedunitesinfirewall));
         System.out.println("  Expected error message is " + expectedunitesinfirewall + " and it is " + unitsinfirewall);
 
         numberofstories = dwellingConstruction.getNumberOfStories();
-        Assert.assertTrue(expectednumberofstories.equals(numberofstories));
+        Assert.assertTrue(numberofstories.startsWith(expectednumberofstories));
         System.out.println("  Expected error message is " + expectednumberofstories + " and it is " + numberofstories);
 
         dwellingConstruction.setFloorUnitIsLocatedOn(floorunits);
@@ -454,7 +459,7 @@ public class ValidationRulesFLHO6 extends BaseTest {
 
         //veryfing the error message of units floor
         floorunitserror = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedfloorunitserror.equals(floorunitserror));
+        Assert.assertTrue(floorunitserror.startsWith(expectedfloorunitserror));
         System.out.println("  Expected error message is " + expectedfloorunitserror + " and it is " + floorunitserror);
 
         //clears the text in floor the units located in

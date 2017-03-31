@@ -25,6 +25,12 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 		return super.getErrorMessage();
 	}
 
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
+
+
 	public ALHO3PolicyInfo clickEditPolicyTransaction(){
 		return super.editPolicyTransaction();
 	}
@@ -37,6 +43,10 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 	public ALHO3PolicyInfo acceptYes()
 	{
 		return super.accept();
+	}
+
+	public ALHO3PolicyInfo Enter(){
+		return super.Enter();
 	}
 	public ALHO3SearchAddressBook searchFromAddressBook()
 	{

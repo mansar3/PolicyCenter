@@ -41,6 +41,10 @@ public class SCHO4PolicyInfo extends PolicyInfo<SCHO4PolicyInfo> {
     {
         return super.setNoPriorInsuranceSurcharge(flag);
     }
+    public String getErrorMessage()
+    {
+        return super.policyInfoErrorMessage();
+    }
     public SCHO4PolicyInfo clickEditPolicyTransaction(){
         return super.editPolicyTransaction();
     }
@@ -56,7 +60,9 @@ public class SCHO4PolicyInfo extends PolicyInfo<SCHO4PolicyInfo> {
     {
         return super.setTermType(text);
     }
-
+    public SCHO4PolicyInfo Enter(){
+        return super.Enter();
+    }
     public String getTermType()
     {
         return super.getTermType();

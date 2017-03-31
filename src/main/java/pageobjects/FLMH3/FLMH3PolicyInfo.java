@@ -48,6 +48,10 @@ public class FLMH3PolicyInfo extends PolicyInfo<FLMH3PolicyInfo> {
     {
         return super.accept();
     }
+    public String getErrorMessage()
+    {
+        return super.policyInfoErrorMessage();
+    }
     public FLMH3PolicyInfo clickRemoveAdditionalNameInsureds()
     {
         return super.clickRemoveAdditionalNameInsureds();
@@ -57,6 +61,9 @@ public class FLMH3PolicyInfo extends PolicyInfo<FLMH3PolicyInfo> {
         return super.setTermType(text);
     }
 
+    public FLMH3PolicyInfo Enter(){
+        return super.Enter();
+    }
     public String getTermType()
     {
         return super.getTermType();

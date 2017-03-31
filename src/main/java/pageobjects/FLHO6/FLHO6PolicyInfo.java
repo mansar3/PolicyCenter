@@ -53,6 +53,10 @@ public class FLHO6PolicyInfo extends PolicyInfo<FLHO6PolicyInfo>
 	{
 		return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);
 	}
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public FLHO6PolicyInfo setNoPriorInsuranceSurcharge(String flag)
 	{
 		return super.setNoPriorInsuranceSurcharge(flag);
@@ -65,7 +69,9 @@ public class FLHO6PolicyInfo extends PolicyInfo<FLHO6PolicyInfo>
 	{
 		return super.setTermType(text);
 	}
-
+	public FLHO6PolicyInfo Enter(){
+		return super.Enter();
+	}
 	public String getTermType()
 	{
 		return super.getTermType();

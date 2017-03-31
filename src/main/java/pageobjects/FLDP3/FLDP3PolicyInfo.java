@@ -34,6 +34,13 @@ public class FLDP3PolicyInfo extends PolicyInfo<FLDP3PolicyInfo>
 	{
 		return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);
 	}
+	public FLDP3PolicyInfo Enter(){
+		return super.Enter();
+	}
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public FLDP3PolicyInfo setNoPriorInsuranceSurcharge(String flag)
 	{
 		return super.setNoPriorInsuranceSurcharge(flag);

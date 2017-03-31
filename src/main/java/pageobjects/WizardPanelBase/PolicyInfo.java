@@ -2,6 +2,7 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import pageobjects.NorthPanel;
 
 public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
@@ -74,11 +75,26 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		                renewalquote = By.id("RenewalWizard:LOBWizardStepGroup:RenewalWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:RenewalQuote-btnInnerEl"),
 			        	editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 		                renewaleditpolicytransaction = By.id("RenewalWizard:LOBWizardStepGroup:RenewalWizard_PolicyInfoScreen:JobWizardToolbarButtonSet:EditPolicyWorkflow-btnInnerEl");
+
 		               // errormessage = By.id("PolicyChangeWizard:LOBWizardStepGroup:PolicyChangeWizard_PolicyInfoScreen:OOSEPanelSet:WarningsPanelSet:0:PanelSet:Warning");
 
 
 
 
+	}
+
+	protected  T Enter ()
+	{
+		sh.driver.findElement(By.id("SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:ttlBar")).sendKeys(Keys.ENTER);
+		sh.waitForNoMask(10);
+		return (T)this;
+	}
+	protected String policyInfoErrorMessage()
+
+	{
+		sh.waitForNoMask();
+		String Error=  sh.driver.findElement(By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:SubmissionWizard_PolicyInfoScreen:_msgs']/div")).getText();
+		return  Error;
 	}
 
 	protected String getErrorMessage()
