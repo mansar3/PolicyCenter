@@ -587,7 +587,7 @@ public class SCHO3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
@@ -644,6 +644,7 @@ public class SCHO3 extends BaseTest
 			}
 		}
 
+
 		if(eai.getOrDefault("Screen Enclosure Hurricane Coverage (Limit)",null) != null)
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
@@ -651,7 +652,7 @@ public class SCHO3 extends BaseTest
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.checkSpecificAdditionalAmountOfCoverageA();
@@ -766,7 +767,7 @@ public class SCHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		SCHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1172,7 +1173,7 @@ public class SCHO3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
@@ -1236,7 +1237,7 @@ public class SCHO3 extends BaseTest
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.checkSpecificAdditionalAmountOfCoverageA();
@@ -1250,7 +1251,7 @@ public class SCHO3 extends BaseTest
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
 			if(pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 
 
@@ -1268,7 +1269,7 @@ public class SCHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.checkAnimalLiability();
+			le.unCheckAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{

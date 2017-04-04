@@ -70,7 +70,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyLimit(String limit)
 	{
-		sh.setText(by.personalPropertyLimit, limit);
+		sh.setTextUntil(by.personalPropertyLimit, limit);
 		sh.tab();
 		return (T)this;
 
@@ -141,6 +141,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyExcluded(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
@@ -511,9 +512,22 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T unCheckPremisesLiability()
+	{
+		sh.checkboxHelper.unCheckElement(by.premisesLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+
 	protected T checkPersonalLiability()
 	{
 		sh.checkboxHelper.checkElement(by.personalLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T unCheckPersonalLiability()
+	{
+		sh.checkboxHelper.unCheckElement(by.personalLiabilityCheckBox);
 		sh.waitForNoMask();
 		return (T)this;
 	}
@@ -778,7 +792,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			ordinanceOrLawLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
 			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
-			ordinanceOrLawCheckbox = By.xpath("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:3:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
+			ordinanceOrLawCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/..//input"),
 			golfCartCoveragePropertyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Property Limit']/../..//*[@role='textbox']"),
 			golfCartCoverageMedPayLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Med Pay Limit']/../..//*[@role='textbox']"),
 			golfCartCoverageLiabilityLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Liability Limit']/../..//*[@role='textbox']");
@@ -861,7 +875,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T checkSpecificAdditionalAmountOfCoverageA()
 		{
-			sh.clickElement(by.specificAdditionalAmountOfCoverageA);
+			sh.checkboxHelper.checkElement(by.specificAdditionalAmountOfCoverageA);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected T unCheckSpecificAdditionalAmountOfCoverageA()
+		{
+			sh.checkboxHelper.unCheckElement(by.specificAdditionalAmountOfCoverageA);
 			sh.waitForNoMask();
 			return (T)this;
 		}
@@ -1132,10 +1152,19 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkEarthquakeLossAssessment()
 		{
-			sh.clickElement(by.earthquakeLossAssessment);
+			sh.checkboxHelper.checkElement(by.earthquakeLossAssessment);
 			sh.waitForNoMask();
 			return (T)this;
 		}
+
+		protected T unCheckEarthquakeLossAssessment()
+		{
+			sh.checkboxHelper.unCheckElement(by.earthquakeLossAssessment);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+
+
 
 		protected String getEarthquakeLossAssessmentLimit()
 		{
@@ -1329,6 +1358,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.isElementEditable(by.occurrenceAggregateLimit);
 		}
+		protected boolean isOccurrenceAggregateAnInput()
+		{
+			return sh.isDisplayed(by.occurrenceAggregateLimit);
+		}
 
 		protected boolean isOrdinanceOrLawEditable()
 		{
@@ -1439,6 +1472,21 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected String getScreenEnclosureHurricaneCoverageLimit()
 		{
 			return sh.getValue(by.screenEnclosureHurricaneCoverageLimit);
+		}
+		protected T checkOrdinanceOrLaw()
+		{
+			sh.checkboxHelper.checkElement(by.ordinanceOrLawCheckbox);
+			return (T)this;
+		}
+		protected T unCheckOrdinanceOrLaw()
+		{
+			sh.checkboxHelper.unCheckElement(by.ordinanceOrLawCheckbox);
+			return (T)this;
+		}
+		protected T isOrdinanceLawChecked()
+		{
+			sh.checkboxHelper.isChecked(by.ordinanceOrLawCheckbox);
+			return (T)this;
 		}
 
 		protected T setScreenEnclosureHurricaneCoverageLimit(String screenEnclosureHurricaneCoverageLimit)
@@ -1692,12 +1740,18 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 						businessPursuits = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Business Pursuits']/..//input"),
 						businessActivity = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Business Pursuits']/../../div//span[text() = 'Business Activity']/../..//input"),
 
+						personalInjury = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Personal Injury']/..//input"),
+
 
 						watercraftLiability = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Watercraft Liability']/..//input"),
 						watercraftType = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Watercraft Liability']/../../div//span[text() = 'Watercraft Type']/../..//input");
 
 		}
-
+		protected T unCheckPersonalInjury()
+		{
+			sh.checkboxHelper.checkElement(by.personalInjury);
+			return (T)this;
+		}
 		protected T clickPropertyEndorsementsTab()
 		{
 			sh.clickElement(by.propertyEndorsements);
@@ -1884,6 +1938,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			sh.waitForNoMask();
 			return (T)this;
 		}
 	}

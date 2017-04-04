@@ -241,7 +241,10 @@ public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
         {
             return super.checkInflationGuard();
         }
-
+		public NCHOWPropertyEndorsements unCheckInflationGuard()
+        {
+            return super.unCheckInflationGuard();
+        }
 
         public NCHOWRiskAnalysis next()
         {
@@ -256,6 +259,10 @@ public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
         public NCHOWPropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
         {
             return super.checkSpecificAdditionalAmountOfCoverageA();
+        }
+		public NCHOWPropertyEndorsements unCheckSpecificAdditionalAmountOfCoverageA()
+        {
+            return super.unCheckSpecificAdditionalAmountOfCoverageA();
         }
     }
 

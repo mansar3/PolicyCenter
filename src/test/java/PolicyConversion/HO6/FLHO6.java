@@ -524,16 +524,15 @@ public class FLHO6 extends BaseTest
 			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
 			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
 			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-			if(qualifiesForHurricaneProtection(eai))
-				co = wm.doubleClickNext();
-			else
 				co = wm.next();
 		}
 		else
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
+			else
+				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -570,22 +569,22 @@ public class FLHO6 extends BaseTest
 		// Property Endorsements
 		FLHO6Coverages.FLHO6PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-		if(eai.get("Guardian Endorsement") != null)
-			pe
-			.checkGuardianEndorsements();
-
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-		}
+//		if(eai.get("Guardian Endorsement") != null)
+//			pe
+//			.checkGuardianEndorsements();
+//
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -619,8 +618,11 @@ public class FLHO6 extends BaseTest
 
 		}
 
+
+		if(pe.isOccurrenceAggregateAnInput())
+			pe
+			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
-		//.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
@@ -645,7 +647,7 @@ public class FLHO6 extends BaseTest
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 
 
@@ -681,9 +683,6 @@ public class FLHO6 extends BaseTest
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;
-		if(qualifiesForHurricaneProtection(eai))
-			quote = ra.qualifiesForAdditionalProtectionQuote();
-		else
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 
@@ -692,6 +691,16 @@ public class FLHO6 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+		if(quote.isUnderWritingApprovalNeeded())
+		{
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -740,7 +749,7 @@ public class FLHO6 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		FLHO6CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1090,7 +1099,9 @@ public class FLHO6 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
+			else
+				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -1101,13 +1112,15 @@ public class FLHO6 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		if(eai.get("Personal Property - Limit") != null)
-			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 //		else
 //			co.setPersonalPropertyExcluded("true");
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
+		if(eai.get("Personal Property - Limit") != null)
+			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
+
 		co
 		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
@@ -1127,22 +1140,22 @@ public class FLHO6 extends BaseTest
 		// Property Endorsements
 		FLHO6Coverages.FLHO6PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-		if(eai.get("Guardian Endorsement") != null)
-			pe
-			.checkGuardianEndorsements();
+//		if(eai.get("Guardian Endorsement") != null)
+//			pe
+//			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-		}
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -1176,7 +1189,7 @@ public class FLHO6 extends BaseTest
 
 		}
 
-		if(pe.isOccurrenceAggregateLimitEditable())
+		if(pe.isOccurrenceAggregateAnInput())
 			pe
 			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
@@ -1205,7 +1218,7 @@ public class FLHO6 extends BaseTest
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 
 

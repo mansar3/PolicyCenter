@@ -17,7 +17,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
-import pageobjects.Account.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartPolicyChange;
 import pageobjects.Policy.Summary;
@@ -211,7 +210,7 @@ public class PolicyChange2  extends BaseTest {
         ALHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

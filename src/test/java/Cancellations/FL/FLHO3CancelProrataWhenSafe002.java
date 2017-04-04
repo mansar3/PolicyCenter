@@ -221,7 +221,7 @@ public class FLHO3CancelProrataWhenSafe002 extends BaseTest {
         FLHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

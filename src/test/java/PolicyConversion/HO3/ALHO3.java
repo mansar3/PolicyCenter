@@ -631,8 +631,9 @@ public class ALHO3 extends BaseTest
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
-		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
-		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
+		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
+		if(eai.get("Ordinance or Law - Percent").equals("0%"))
+			pe.unCheckOrdinanceOrLaw();
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
 //		{
@@ -674,7 +675,7 @@ public class ALHO3 extends BaseTest
 
 		if(eai.get("Inflation Guard - Percent") == null)
 			if(pe.isInflationGuardChecked())
-				pe.checkInflationGuard();
+				pe.unCheckInflationGuard();
 
 
 		//.setPercentageOfAnnualIncrease("12%")
@@ -774,7 +775,7 @@ public class ALHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		ALHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1225,6 +1226,8 @@ public class ALHO3 extends BaseTest
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
+		if(eai.get("Ordinance or Law - Percent").equals("0%"))
+			pe.unCheckOrdinanceOrLaw();
 		//.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
@@ -1263,11 +1266,11 @@ public class ALHO3 extends BaseTest
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 		if(eai.get("Inflation Guard - Percent") == null)
 			if(pe.isInflationGuardChecked())
-				pe.checkInflationGuard();
+				pe.unCheckInflationGuard();
 
 
 		//.setPercentageOfAnnualIncrease("12%")

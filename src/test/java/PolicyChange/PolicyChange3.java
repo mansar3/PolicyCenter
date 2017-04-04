@@ -16,7 +16,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.ALHO3.ALHO3BatchProcessInfo;
 import pageobjects.FLHO3.*;
 import pageobjects.Logon;
 import pageobjects.Policy.StartPolicyChange;
@@ -26,8 +25,6 @@ import pageobjects.WizardPanelBase.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -205,7 +202,7 @@ public class PolicyChange3 extends BaseTest {
         FLHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

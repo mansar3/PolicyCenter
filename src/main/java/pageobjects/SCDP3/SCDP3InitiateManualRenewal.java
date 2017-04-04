@@ -70,6 +70,10 @@ public class SCDP3InitiateManualRenewal extends InitiateManualRenewal<SCDP3Initi
 	{
 		return super.setOriginalEffectiveDate(text);
 	}
+	public SCDP3InitiateManualRenewal setTheftCoverage(String theftCoverage)
+	{
+		return super.setTheftCoverage(theftCoverage);
+	}
 
 	public String getOriginalEffectiveDate()
 	{

@@ -274,25 +274,31 @@ public class CenterSeleniumHelper
 	{
 		public boolean isChecked(By by)
 		{
-			return driver.findElement(by).isSelected();
+			return isRadioButtonSelected(by);
 		}
 
 		public void checkElement(By by)
 		{
-			if (!getElement(by).isSelected())
+			if (!isRadioButtonSelected(by))
+			{
+				clickElement(by);
+			}
+			tab();
+			if (!isRadioButtonSelected(by))
 			{
 				clickElement(by);
 			}
 
-			//assert isChecked(by);
+			assert isChecked(by);
 		}
 
 		public void unCheckElement(By by)
 		{
-			if (getElement(by).isSelected())
+			if (isRadioButtonSelected(by))
 			{
 				clickElement(by);
 			}
+			tab();
 
 			assert !isChecked(by);
 		}

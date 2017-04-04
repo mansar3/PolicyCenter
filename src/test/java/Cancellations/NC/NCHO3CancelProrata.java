@@ -205,7 +205,7 @@ public class NCHO3CancelProrata extends BaseTest {
         NCHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

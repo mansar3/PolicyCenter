@@ -30,7 +30,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by spotnuru on 3/23/2017.
@@ -222,7 +221,7 @@ public class FLDP3CancelProrataWhenSafe004 extends BaseTest {
         FLDP3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

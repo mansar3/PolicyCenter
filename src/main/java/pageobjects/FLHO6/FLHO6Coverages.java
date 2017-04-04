@@ -225,6 +225,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.isOccurrenceAggregateLimitEditable();
 		}
+		public boolean isOccurrenceAggregateAnInput()
+		{
+			return super.isOccurrenceAggregateAnInput();
+		}
 		public FLHO6PropertyEndorsements setDoesExteriorMasonryVeneerExclusionApply(String flag)
 		{
 			return super.setDoesExteriorMasonryVeneerExclusionApply(flag);
@@ -458,6 +462,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		public FLHO6PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
+		}
+		public FLHO6PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
 		}
 
 		public FLHO6PropertyEndorsements checkInflationGuard()

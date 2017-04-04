@@ -1003,7 +1003,7 @@ public class UWIssueFLHO3 extends BaseTest {
         coverages.clickPropertyEndorsements()
                 .checkSinkholeLossCoverage()
                 .clickcoveragesPropertyEndorsementsQuote()
-                .clickissuePolicy()
+                .clickIssuePolicy()
                 .acceptyes();
     }
 

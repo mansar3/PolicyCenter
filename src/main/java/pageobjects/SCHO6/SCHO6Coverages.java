@@ -419,6 +419,10 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkWhenSafe();
 		}
+		public SCHO6PropertyEndorsements unCheckWhenSafe()
+		{
+			return super.unCheckWhenSafe();
+		}
 		public boolean isWhenSafeChecked()
 		{
 			return super.isWhenSafeChecked();
@@ -466,6 +470,10 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		public SCHO6PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
+		}
+		public SCHO6PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
 		}
 
 		public SCHO6PropertyEndorsements checkInflationGuard()

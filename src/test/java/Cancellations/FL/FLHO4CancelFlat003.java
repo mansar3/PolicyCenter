@@ -204,7 +204,7 @@ public class FLHO4CancelFlat003 extends BaseTest{
         FLHO4Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

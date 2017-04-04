@@ -5,7 +5,6 @@ import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.joda.time.DateTime;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -14,12 +13,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.Logon;
-
 import pageobjects.NCHOW.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 /**
@@ -254,7 +249,7 @@ public class ValidationRulesNCHOW extends BaseTest {
 
 
         NCHOWQuote quote = ra.quote()
-                .clickissuePolicy()
+                .clickIssuePolicy()
                 .acceptyes();
 
         //verifies the error messages

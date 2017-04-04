@@ -527,7 +527,9 @@ public class FLHO3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
+			else
+				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -538,14 +540,15 @@ public class FLHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		co
 		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
@@ -580,7 +583,7 @@ public class FLHO3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
@@ -633,11 +636,11 @@ public class FLHO3 extends BaseTest
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
 			if(pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 		if(eai.get("Inflation Guard").toLowerCase().equals("none"))
 			if(pe.isInflationGuardChecked())
-				pe.checkInflationGuard();
+				pe.unCheckInflationGuard();
 
 		//.setPercentageOfAnnualIncrease("12%")
 		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
@@ -653,7 +656,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.checkAnimalLiability();
+			le.unCheckAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
@@ -690,6 +693,16 @@ public class FLHO3 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+		if(quote.isUnderWritingApprovalNeeded())
+		{
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 
 
 
@@ -727,7 +740,7 @@ public class FLHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		FLHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1077,7 +1090,9 @@ public class FLHO3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase());
+			else
+				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -1088,14 +1103,15 @@ public class FLHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		co
 		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
@@ -1130,7 +1146,7 @@ public class FLHO3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
@@ -1183,11 +1199,11 @@ public class FLHO3 extends BaseTest
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
 			if(pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 		if(eai.get("Inflation Guard").toLowerCase().equals("none"))
 			if(pe.isInflationGuardChecked())
-				pe.checkInflationGuard();
+				pe.unCheckInflationGuard();
 
 		//.setPercentageOfAnnualIncrease("12%")
 		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
@@ -1203,7 +1219,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.checkAnimalLiability();
+			le.unCheckAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
@@ -1243,6 +1259,9 @@ public class FLHO3 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

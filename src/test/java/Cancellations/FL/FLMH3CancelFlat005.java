@@ -190,7 +190,7 @@ public class FLMH3CancelFlat005 extends BaseTest {
         FLMH3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

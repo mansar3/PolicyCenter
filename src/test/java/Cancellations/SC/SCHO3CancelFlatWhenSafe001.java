@@ -206,7 +206,7 @@ public class SCHO3CancelFlatWhenSafe001 extends BaseTest {
             SCHO3Quote quote = ra.quote();
 
             //issue the policy
-            quote.clickissuePolicy()
+            quote.clickIssuePolicy()
                     .acceptyes();
 
             log("Policy has been created");

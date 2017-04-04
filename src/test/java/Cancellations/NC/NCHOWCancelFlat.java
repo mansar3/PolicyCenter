@@ -173,7 +173,7 @@ public class NCHOWCancelFlat extends BaseTest {
         NCHOWQuote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

@@ -226,7 +226,7 @@ public class SCHO6CancelProrata003 extends BaseTest {
         SCHO6Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

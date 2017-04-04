@@ -300,7 +300,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
     }
 
     protected T setConditionOfRoof(String conditionOfRoof) {
-        sh.setText(by.conditionOfRoof, conditionOfRoof);
+        sh.setTextUntil(by.conditionOfRoof, conditionOfRoof);
         sh.tab();
         return (T) this;
     }
@@ -783,6 +783,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         }
 
         protected T setRoofDeckAttachment(String roofDeckAttachment) {
+        	sh.waitForNoMask();
             sh.setText(by.roofDeckAttachment, roofDeckAttachment);
             // Added because tabbing is occurring too quickly for the value to match
             // with value in drop down.

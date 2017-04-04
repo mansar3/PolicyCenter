@@ -25,8 +25,9 @@ import pageobjects.WizardPanelBase.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ssai on 3/17/2017.
@@ -205,7 +206,7 @@ public class PolicyChange1 extends BaseTest {
         ALHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

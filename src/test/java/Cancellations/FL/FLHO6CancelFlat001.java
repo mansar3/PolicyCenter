@@ -213,7 +213,7 @@ public class FLHO6CancelFlat001 extends BaseTest {
         FLHO6Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");
