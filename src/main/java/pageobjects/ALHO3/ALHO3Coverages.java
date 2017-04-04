@@ -336,11 +336,6 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.setOtherStructuresLimit(itemNumber, text);
 		}
 
-		public ALHO3PropertyEndorsements checkOrdinanceOrLaw()
-		{
-			return super.checkOrdinanceOrLaw();
-		}
-
 		public ALHO3PropertyEndorsements unCheckOrdinanceOrLaw()
 		{
 			return super.unCheckOrdinanceOrLaw();
