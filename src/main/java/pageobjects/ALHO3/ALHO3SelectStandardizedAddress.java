@@ -34,6 +34,12 @@ public class ALHO3SelectStandardizedAddress extends SelectStandardizedAddress<AL
 		return new ALHO3LocationInformation(sh,path);
 	}
 
+	public ALHO3LocationInformation clickVerifiedAddressForCreateAccountALHO3(int row)
+	{
+		super.clickVerifiedAddressForCreateAccount(row);
+		return new ALHO3LocationInformation(sh, path);
+	}
+
 	public ALHO3NewAdditionalNamedInsured selectSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 	{
 		super.clickSuccessfulVerificationIfPossible();

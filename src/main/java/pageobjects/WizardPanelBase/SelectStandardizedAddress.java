@@ -42,7 +42,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 	 * @param row number among verified addresses
 	 * @return a CreateAccount page object
 	 */
-	public T clickVerifiedAddressForCreateAccount(int row)
+	protected T clickVerifiedAddressForCreateAccount(int row)
 	{
 		sh.waitForNoMask();
 		sh.clickElement(By.cssSelector("a[id='FP_VerifiedAddressSelectionPopup:" + row + ":_Select']"));

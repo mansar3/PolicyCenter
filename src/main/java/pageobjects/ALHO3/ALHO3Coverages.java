@@ -43,6 +43,11 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		return super.getPersonalPropertyLimit();
 	}
 
+	public String getPersonalPropertyLimitDiv()
+	{
+		return super.getPersonalPropertyLimitDiv();
+	}
+
 	public ALHO3Coverages setPersonalPropertyLimit(String text)
 	{
 		return super.setPersonalPropertyLimit(text);
@@ -72,6 +77,16 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 	}
 
 	public String coveragesErrorMessage(){return super.coveragesErrorMessage();}
+
+	public boolean isPersonalPropertyExcluded()
+	{
+		return super.isPersonalPropertyExcluded();
+	}
+
+	public boolean isPersonalPropertyExcludedPresent()
+	{
+		return super.isPersonalPropertyExcludedPresent();
+	}
 
 	public ALHO3Coverages setPersonalPropertyValuationMethod(String text)
 	{
@@ -126,6 +141,12 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 	{
 		return super.getPersonalLiabilityLimit();
 	}
+
+	public String getPersonalLiabilityLimitDiv()
+	{
+		return super.getPersonalLiabilityLimitDiv();
+	}
+
 
 	public ALHO3Coverages setPersonalLiabilityLimit(String text)
 	{
@@ -319,6 +340,16 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.setSpecificOtherStructuresDescription(itemNumber, text);
 		}
 
+		public boolean isSpecificOtherStructuresEnabled()
+		{
+			return super.isSpecificOtherStructuresEnabled();
+		}
+
+		public boolean isScheduledPersonalPropertyChecked()
+		{
+			return super.isScheduledPersonalPropertyChecked();
+		}
+
 		public ALHO3PropertyEndorsements coveragespropertyendorsementsEnter(){return super.coveragespropertyendorsementsEnter();}
 
 		public String coveragesPropertyEndorsnmentsErrorMessage()
@@ -338,6 +369,10 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimit()
 		{
 			return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
+		}
+		public String getCreditCardFundTransferForgeryCounterfeitMoneyLimitDiv()
+		{
+			return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimitDiv();
 		}
 		public ALHO3PropertyEndorsements checkEarthQuakeCoverage()
 		{
@@ -400,6 +435,12 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.checkGuardianEndorsements();
 		}
+
+		public boolean isGuardianEndorsementsDisplayed()
+		{
+			return super.isGuardianEndorsementsDisplayed();
+		}
+
 		public ALHO3PropertyEndorsements setWhenSafeCreditPercentage(String text)
 		{
 			return super.setWhenSafeCreditPercentage(text);
@@ -463,6 +504,16 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		public boolean isLossAssessmentLimitRequired()
 		{
 			return super.isLossAssessmentLimitRequired();
+		}
+
+		public boolean isOrdinanceOrLawLimitChecked()
+		{
+			return super.isOrdinanceOrLawLimitChecked();
+		}
+
+		public ALHO3PropertyEndorsements checkOrdinanceOrLaw()
+		{
+			return super.checkOrdinanceOrLaw();
 		}
 
 		public boolean isLossAssessmentLimitEditable()
@@ -557,12 +608,31 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.clickAddScheduledPersonalProperty();
 
 		}
+
 		public ALHO3PropertyEndorsements clickRemoveScheduledPersonalProperty()
 		{
 			return super.clickRemoveScheduledPersonalProperty();
 		}
 
+		public String getScheduledPersonalPropertyClassArticleType(int itemNumber)
+		{
+			return super.getScheduledPersonalPropertyClassArticleType(itemNumber);
+		}
 
+		public String getScheduledPersonalPropertyClassValue(int itemNumber)
+		{
+			return super.getScheduledPersonalPropertyClassValue(itemNumber);
+		}
+
+		public boolean isCreditCardFundTransferForgeryCounterfeitMoneyChecked()
+		{
+			return super.isCreditCardFundTransferForgeryCounterfeitMoneyChecked();
+		}
+
+		public boolean isCreditCardFundTransferForgeryCounterfeitMoneyLimitRequired()
+		{
+			return super.isCreditCardFundTransferForgeryCounterfeitMoneyLimitRequired();
+		}
 
 		public ALHO3PropertyEndorsements checkWaterBackUp()
 		{
@@ -675,9 +745,19 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.checkAdditionalResidenceRentedToOthers();
 		}
 
+		public boolean isPermittedIncidentalOccupancyLiabilityChecked()
+		{
+			return super.isPermittedIncidentalOccupancyLiabilityChecked();
+		}
+
 		public ALHO3LiabilityEndorsements checkBusinessPursuits()
 		{
 			return super.checkBusinessPursuits();
+		}
+
+		public boolean isAdditionalResidenceRentedToOthersChecked()
+		{
+			return super.isAdditionalResidenceRentedToOthersChecked();
 		}
 
 		public ALHO3LiabilityEndorsements checkWatercraftLiability()

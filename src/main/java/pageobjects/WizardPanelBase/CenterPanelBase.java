@@ -34,7 +34,8 @@ abstract public class CenterPanelBase
 								closeOptions =  By.cssSelector("[id*='CloseOptions-btnInnerEl']"),
 								withdrawTransaction = By.cssSelector("[id*='WithdrawJob-textEl']"),
 								decline = By.cssSelector("[id*='Decline-textEl']"),
-								notTaken = By.cssSelector("[id*='NotTakenJob-textEl']");
+								notTaken = By.cssSelector("[id*='NotTakenJob-textEl']"),
+		                        centerPanel = By.id("centerPanel");
 
 	}
 
@@ -55,6 +56,7 @@ abstract public class CenterPanelBase
 	}
 	protected void clickSaveDraft()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.saveDraft);
 	}
 	protected void clickWithdrawTransactions()
@@ -87,6 +89,10 @@ abstract public class CenterPanelBase
 	public void waitForTitle(CenterSeleniumHelper sh)
 	{
 		sh.wait(90).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
+	}
+	public void waitForContent(CenterSeleniumHelper sh)
+	{
+		sh.wait(20).until(ExpectedConditions.visibilityOfElementLocated(by.centerPanel));
 	}
 	public void waitForTitleToContain(CenterSeleniumHelper sh)
 	{

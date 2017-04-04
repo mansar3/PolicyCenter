@@ -30,6 +30,13 @@ public class ALHO3LocationInformation extends LocationInformation<ALHO3LocationI
 		super.ok();
 		return new ALHO3Dwelling(sh,path);
 	}
+
+	public ALHO3Coverages clickOkCoverages()
+	{
+		super.ok();
+		return new ALHO3Coverages(sh, path);
+	}
+
 	public ALHO3Dwelling clickCancel()
 	{
 		super.cancel();

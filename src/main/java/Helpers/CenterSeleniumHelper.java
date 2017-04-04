@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,6 +47,7 @@ public class CenterSeleniumHelper
 				return getValue(byLocator).equals(text);
 			}));
 	}
+
 	public void setTextAndTab(By byLocator, String text)
 	{
 		waitForNoMask();
@@ -63,9 +63,7 @@ public class CenterSeleniumHelper
 				return true;
 
 			}));
-			//driver.findElement(byLocator).sendKeys("");
-			// Added for those specific fields that throw raise conditions
-			// for the autofill.
+
 			try
 			{
 				Thread.sleep(5000);
@@ -96,11 +94,8 @@ public class CenterSeleniumHelper
 	{
 		waitForElementToAppear(by);
 		clickElement(by);
-		ArrayList<String> items = new ArrayList<>();
 		for (WebElement element : driver.findElements(By.xpath("//ul/li")))
 		{
-			System.out.println(element.getText());
-			items.add(element.getText());
 			if (element.getText().equals(item))
 				return true;
 		}
@@ -120,17 +115,15 @@ public class CenterSeleniumHelper
 
     /**
      * Gets value for locators pointing to an INPUT tag
-     * @param byLocator
+     * @param byLocator locator
      * @return String contained in byLocator, if byLocator
      */
 	public String getValue(By byLocator)
 	{
-		wait(20).until(ExpectedConditions.presenceOfElementLocated(byLocator));
-		return driver.findElement(byLocator).getAttribute("value");
-//		if (isDisplayed(byLocator))
-//			return driver.findElement(byLocator).getAttribute("value");
-//		else
-//			return "";
+		if (isDisplayed(byLocator))
+			return driver.findElement(byLocator).getAttribute("value");
+		else
+			return "";
 	}
 
 	public WebDriverWait wait(int time)
@@ -317,6 +310,10 @@ public class CenterSeleniumHelper
 		return (driver.findElement(by).getTagName().equals("input") && driver.findElement(by).isEnabled());
 	}
 
+	/**
+	 * Verifies if checkbox/radio button is checked
+	 * @param by Locator for the checkbox/radio button itself
+	 */
 	public boolean isRadioButtonSelected(By by)
 	{
 		return driver.findElement(by).findElement(By.xpath("../../..")).getAttribute("class").contains("x-form-cb-checked");
