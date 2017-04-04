@@ -496,10 +496,7 @@ public class FLDP3 extends BaseTest
 			.setFbcWindSpeed(eai.getOrDefault("FBC Wind Speed","100 MPH"))
 			.setInternalPressure(eai.getOrDefault("Internal Pressure", "<none>"))
 			.setWindBorneDebris(eai.get("Wind Borne Debris Region"));
-			if(qualifiesForHurricaneProtection(eai))
-				co = wm.doubleClickNext();
-			else
-				co = wm.next();
+			co = wm.next();
 		}
 		else
 		{
@@ -544,17 +541,21 @@ public class FLDP3 extends BaseTest
 
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
-			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
-			else
-				co.checkPremisesLiability();
+			if(eai.get("Personal Liability") != null)
+				co.checkPremisesLiability()
+				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
+
+
+			// defaults to unchecked
 		}
 		else
 		{
+			// defaults to check
 			if(eai.get("Personal Liability") != null)
 				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
-				co.checkPersonalLiability();
+				co.unCheckPersonalLiability();
+
 		}
 		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
@@ -576,7 +577,7 @@ public class FLDP3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 
@@ -604,7 +605,7 @@ public class FLDP3 extends BaseTest
 //				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 
 
@@ -618,10 +619,7 @@ public class FLDP3 extends BaseTest
 		// Liability Endorsements
 		FLDP3RiskAnalysis ra = pe.next();
 		FLDP3Quote quote;
-		if(qualifiesForHurricaneProtection(eai))
-			quote = ra.qualifiesForAdditionalProtectionQuote();
-		else
-			quote = ra.quote();
+		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 
 		if(eai.get("Consent to Rate") != null)
@@ -629,6 +627,16 @@ public class FLDP3 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+		if(quote.isUnderWritingApprovalNeeded())
+		{
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			eai.put("Submitted for Approval","Submitted for approval");
+		}
+		else
+		{
+			quote.renew();
+			eai.put("Submitted for Approval","Renewed");
+		}
 	}
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
@@ -664,7 +672,7 @@ public class FLDP3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		FLDP3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1025,6 +1033,7 @@ public class FLDP3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
 		 if(eai.get("Other Structures - Increased Limit") != null)
 		 {
 			 if(!co.isOtherStructuresIncreasedCoverageChecked())
@@ -1056,14 +1065,14 @@ public class FLDP3 extends BaseTest
 			if(eai.get("Premises Liability") != null)
 				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
-				co.checkPremisesLiability();
+				co.unCheckPremisesLiability();
 		}
 		else
 		{
 			if(eai.get("Personal Liability") != null)
 				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
-				co.checkPersonalLiability();
+				co.unCheckPersonalLiability();
 		}
 		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
@@ -1085,7 +1094,7 @@ public class FLDP3 extends BaseTest
 		else
 		{
 			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
+				pe.unCheckWhenSafe();
 		}
 
 
@@ -1113,7 +1122,7 @@ public class FLDP3 extends BaseTest
 //				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWaterBackUp();
 
 
 

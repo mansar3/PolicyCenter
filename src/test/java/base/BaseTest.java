@@ -22,10 +22,8 @@ import pageobjects.WizardPanelBase.CenterPanelBase;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public abstract class BaseTest
 {
@@ -40,6 +38,10 @@ public abstract class BaseTest
     protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
+	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
+			filePathBase = "/Users/aansari/Desktop/",
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
+	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 	@Parameters({"environment", "local", "threads","userName","passWord"})
 	@BeforeSuite
@@ -54,6 +56,8 @@ public abstract class BaseTest
 		this.passWord = passWord;
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
+		if(new File(filePath).exists())
+			new File(filePath).delete();
 		if(SystemUtils.IS_OS_MAC)
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
@@ -88,7 +92,7 @@ public abstract class BaseTest
 		try
 		{
 			// Dockers URL
-			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// VM URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
@@ -220,14 +224,14 @@ public abstract class BaseTest
 	}
 	public boolean isInArray(String[] arr, String flag)
 	{
-		return Arrays.stream(arr).anyMatch(t->t.equals(flag));
-//		for(String a : arr)
-//		{
-//
-//			if(a.equals(flag))
-//				return true;
-//		}
-//		return false;
+		//return Arrays.stream(arr).anyMatch(t->t.equals(flag));
+		for(String a : arr)
+		{
+
+			if(a.equals(flag))
+				return true;
+		}
+		return false;
 	}
 	public String[] errorReportingInfo(Map<String, String> eai, boolean result)
 	{

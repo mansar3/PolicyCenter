@@ -25,6 +25,9 @@ import pageobjects.WizardPanelBase.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -203,7 +206,7 @@ public class SCHO3CancelFlatWhenSafe001 extends BaseTest {
             SCHO3Quote quote = ra.quote();
 
             //issue the policy
-            quote.clickissuePolicy()
+            quote.clickIssuePolicy()
                     .acceptyes();
 
             log("Policy has been created");
@@ -249,6 +252,19 @@ public class SCHO3CancelFlatWhenSafe001 extends BaseTest {
 
 
             SCHO3NavigationBar nav = new SCHO3NavigationBar(sh);
+
+            nav.clickInternalToolTab()
+                    .clickTestingTimeClock();
+            SCHO3TestingSystemClock tsc = new SCHO3TestingSystemClock(sh);
+            String currentdate = tsc.getCurrentDate();
+            LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
+            String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            String futureCanEffectiveDate = dateTime.plusDays(2).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+            nav.clickSettings()
+                    .clickReturntoPolicyCenter();
+            
+            
             SCHO3SearchAccounts sa = nav.clickSearchAccount();
             sa.setFirstName(firstname);
             sa.setLastName(lastname);

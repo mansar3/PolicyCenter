@@ -69,6 +69,8 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
 
         sh.clickElement(by.reason);
         sh.waitForNoMask();
+
+
 //        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(by.reason));
 
 //        Select select = new Select(sh.getElement(By.xpath("//ul")));
@@ -88,6 +90,7 @@ public class StartPolicyChange <T extends StartPolicyChange> extends PolicyBase 
     {
         sh.waitForNoMask();
         sh.setText(by.effectivedate, effectiveDate);
+        sh.waitForNoMask();
         return  this;
     }
 

@@ -172,9 +172,17 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 	{
 		return super.checkPremisesLiability();
 	}
+	public FLDP3Coverages unCheckPremisesLiability()
+	{
+		return super.unCheckPremisesLiability();
+	}
 	public FLDP3Coverages checkPersonalLiability()
 	{
 		return super.checkPersonalLiability();
+	}
+	public FLDP3Coverages unCheckPersonalLiability()
+	{
+		return super.unCheckPersonalLiability();
 	}
 	public String getWindDeductibleType()
 	{
@@ -391,7 +399,10 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		{
 			return super.checkWhenSafe();
 		}
-
+		public FLDP3PropertyEndorsements unCheckWhenSafe()
+		{
+			return super.unCheckWhenSafe();
+		}
 		public FLDP3PropertyEndorsements checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
 			return super.checkCreditCardFundTransferForgeryCounterfeitMoney();
@@ -410,6 +421,10 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		public FLDP3PropertyEndorsements checkWaterBackUp()
 		{
 			return super.checkWaterBackUp();
+		}
+		public FLDP3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
 		}
 
 		public FLDP3PropertyEndorsements checkInflationGuard()

@@ -85,7 +85,10 @@ public class NCHOWPolicyInfo extends PolicyInfo<NCHOWPolicyInfo> {
     {
         return super.setPolicyWriter(text);
     }
-
+    public String getErrorMessage()
+    {
+        return super.policyInfoErrorMessage();
+    }
     public String getPolicyWriter()
     {
         return super.getPolicyWriter();
@@ -94,7 +97,9 @@ public class NCHOWPolicyInfo extends PolicyInfo<NCHOWPolicyInfo> {
     {
         return super.setUnderwritingCompanies(text);
     }
-
+    public NCHOWPolicyInfo Enter(){
+        return super.Enter();
+    }
     public String getUnderwritingCompanies()
     {
         return super.getUnderwritingCompanies();

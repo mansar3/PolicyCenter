@@ -199,7 +199,7 @@ public class SCHO4CancelFlat004 extends BaseTest {
         SCHO4Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

@@ -295,7 +295,7 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 
 	public class ALHO3PropertyEndorsements extends PropertyEndorsements<ALHO3PropertyEndorsements>
 	{
-		public ALHO3PropertyEndorsements(CenterSeleniumHelper sh ,Path path)
+		public ALHO3PropertyEndorsements(CenterSeleniumHelper sh, Path path)
 		{
 			super(sh, path);
 		}
@@ -335,6 +335,21 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.setOtherStructuresLimit(itemNumber, text);
 		}
+
+		public ALHO3PropertyEndorsements checkOrdinanceOrLaw()
+		{
+			return super.checkOrdinanceOrLaw();
+		}
+
+		public ALHO3PropertyEndorsements unCheckOrdinanceOrLaw()
+		{
+			return super.unCheckOrdinanceOrLaw();
+		}
+		public ALHO3PropertyEndorsements isOrdinanceOrLawChecked()
+		{
+			return super.isOrdinanceLawChecked();
+		}
+
 		public ALHO3PropertyEndorsements setSpecificOtherStructuresDescription(int itemNumber, String text)
 		{
 			return super.setSpecificOtherStructuresDescription(itemNumber, text);
@@ -638,6 +653,10 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.checkWaterBackUp();
 		}
+		public ALHO3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
+		}
 		public boolean isInflationGuardChecked()
 		{
 			return super.isInflationGuardChecked();
@@ -645,6 +664,10 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		public ALHO3PropertyEndorsements checkInflationGuard()
 		{
 			return super.checkInflationGuard();
+		}
+		public ALHO3PropertyEndorsements unCheckInflationGuard()
+		{
+			return super.unCheckInflationGuard();
 		}
 
 		public ALHO3PropertyEndorsements checkSinkholeLossCoverage()

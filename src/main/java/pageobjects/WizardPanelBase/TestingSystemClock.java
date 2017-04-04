@@ -35,6 +35,7 @@ public class TestingSystemClock <T extends TestingSystemClock> extends CenterPan
     {
         sh.waitForNoMask();
         sh.setText(by.date, date);
+        sh.tab();
         return (T)this;
     }
 

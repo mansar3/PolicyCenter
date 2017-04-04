@@ -192,6 +192,12 @@ public class ALHO3Dwelling extends Dwelling<ALHO3Dwelling>
 		return new ALHO3Dwelling(sh, path);
 	}
 
+	public ALHO3PolicyInfo back()
+	{
+		super.clickBack();
+		return new ALHO3PolicyInfo(sh, path);
+	}
+
 	public String getDwellingUsage()
 	{
 		return super.getDwellingUsage();

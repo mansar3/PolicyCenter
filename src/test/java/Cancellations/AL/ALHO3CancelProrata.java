@@ -2,6 +2,7 @@ package Cancellations.AL;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,9 +12,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
+import pageobjects.ALHO3.ALHO3TestingSystemClock;
 import pageobjects.Logon;
 import pageobjects.Policy.StartCancellationForPolicy;
 import pageobjects.Policy.Summary;
@@ -22,6 +26,9 @@ import pageobjects.WizardPanelBase.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -41,6 +48,7 @@ public class ALHO3CancelProrata extends BaseTest {
     Random rand = new Random();
     int num = rand.nextInt(99 - 10 + 1) + 10;
     String lastname = "CancelletionProRataTest" + num;
+    //String lastname = "CancelletionProRataBahu1";
 
     @BeforeMethod
     public void beforeMethod() {
@@ -92,6 +100,7 @@ public class ALHO3CancelProrata extends BaseTest {
                 distancetocoast = "200",
                 yearBuilt = "2000",
                 county = "Mobile",
+                protectionclasscode = "6",
                 roofShapeType = "Gable",
                 valuation = "Appraisal",
                 replacementcost = "400000",
@@ -111,8 +120,10 @@ public class ALHO3CancelProrata extends BaseTest {
                 screenenclosure = "false",
                 dwellingLimit = "350,000";
 
+      //  String effectiveDate = new DateTime().toString("MM/dd/yyyy");
+
         enterAccountInformation = new ALHO3EnterAccountInformation(sh);
-        //new FLHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
+        //new ALHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
@@ -159,6 +170,8 @@ public class ALHO3CancelProrata extends BaseTest {
             qua.questionnaire.answerNo(i + 1);
         }
         ALHO3PolicyInfo pi = qua.next();
+
+        //pi.setEffectiveDate(effectiveDate);
         ALHO3Dwelling dwe = pi.next()
                 .editLocation()
                 .setCounty(county)
@@ -166,7 +179,8 @@ public class ALHO3CancelProrata extends BaseTest {
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setInTheWindpool(windpoolfalse)
-                .setDistanceToCoast(distancetocoast);
+                .setDistanceToCoast(distancetocoast)
+                .setProtectionClassCode(protectionclasscode);
 
         ALHO3Coverages coverages = dwe.next()
                 .setValuationType(valuation)
@@ -203,7 +217,7 @@ public class ALHO3CancelProrata extends BaseTest {
         ALHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");
@@ -244,6 +258,19 @@ public class ALHO3CancelProrata extends BaseTest {
         String canceldescription, expectedcanceldescription = "Notice of Cancellation";
 
         ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
+
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
+        String currentdate = tsc.getCurrentDate();
+        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();//.plusYears(1);
+        String currentDate = dateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String futureCanEffectiveDate = dateTime.plusDays(2).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+        
+        
         ALHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
@@ -344,7 +371,7 @@ public class ALHO3CancelProrata extends BaseTest {
 
         //now change the effective date to 2 days ahead of the system date
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -388,7 +415,7 @@ public class ALHO3CancelProrata extends BaseTest {
         }
 
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -471,7 +498,7 @@ public class ALHO3CancelProrata extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -520,7 +547,7 @@ public class ALHO3CancelProrata extends BaseTest {
             System.out.println(e.getMessage());
         }
 
-        scfp.setCancellationEffectiveDate(futureCanEffecDate);
+        scfp.setCancellationEffectiveDate(futureCanEffectiveDate);
 
         //Refund method changes to flat to pro data
 
@@ -575,7 +602,7 @@ public class ALHO3CancelProrata extends BaseTest {
         System.out.println("diffrence between days: " + diffDays);
 
         String insuredCanEffectiveDate = String.valueOf(diffDays);
-        String insuredDiffEffectiveDate = "25";
+        String insuredDiffEffectiveDate = "35";
 
 
         //verify the diffrence between the policy eff date and can effective date
@@ -767,6 +794,11 @@ public class ALHO3CancelProrata extends BaseTest {
 
 
 
+        String policyCancellationEffectiveDate = scfp.getCancellationEffectiveDateEdi() + " 06:10 PM";
+
+        System.out.println(policyCancellationEffectiveDate);
+
+
         //Hit the start button start button
 
         scfp.clickStartCancellation()
@@ -777,55 +809,64 @@ public class ALHO3CancelProrata extends BaseTest {
         cb.clickViewYourPolicy();
 
 
-//        nav.clickInternalToolTab()
-//                .clickTestingTimeClock();
-//        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
-//
-//
-//        tsc.setDate(cancellationeffdate)
-//                .clickchangedate();
-//
-//        //goes to server tools and clicks on batch process info
-//
-//        nav.clickServerTools()
-//                .clickBatchProcessInfo();
-//
-//
-//        //clicks on run workflow
-//
-//        ALHO3BatchProcessInfo bpi = new ALHO3BatchProcessInfo(sh);
-//        bpi.clickrunworkflow();
-//
-//        //goes back to policy center
-//
-//        nav.clickSettings()
-//                .clickReturntoPolicyCenter();
-//
-//
-//        sa.setFirstName(firstname);
-//        sa.setLastName(lastname);
-//        sa.clickSearchButton();
-//        sa.clickAccountNumberSearchAccount();
-//
-//        afs.clickInforcedAccountNumber();
-//
-//        sum.actions.clickForms();
-//
-//        Forms forms = new Forms(sh);
-//
-//
-//        String cancelDescription =  forms.getnoticeofcancellationdescription();
-//
-//
-//        //verifies the notice of cancellation decription
-//
-//        try {
-//            Assert.assertEquals(cancelDescription, expectedcanceldescription);
-//            System.out.println("There is a " + cancellationeffdate + " in the Description");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
+        nav.clickInternalToolTab()
+                .clickTestingTimeClock();
+
+
+
+        tsc.setDate(policyCancellationEffectiveDate)
+                .clickchangedate();
+
+        //goes to server tools and clicks on batch process info
+
+        nav.clickServerTools()
+                .clickBatchProcessInfo();
+
+
+        //clicks on run workflow
+
+        ALHO3BatchProcessInfo bpi = new ALHO3BatchProcessInfo(sh);
+        bpi.clickrunworkflow();
+
+        //goes back to policy center
+
+        nav.clickSettings()
+                .clickReturntoPolicyCenter();
+
+        //goes back to the account
+        nav.clickSearchAccount();
+        sa.clickSearchButton();
+        sa.clickAccountNumberSearchAccount();
+
+        afs.clickCancelledPolicyNumber();
+
+        sum.actions.clickForms();
+
+        Forms forms = new Forms(sh);
+
+
+        String cancelDescription =  forms.getnoticeofcancellationdescription();
+
+
+        //verifies the notice of cancellation decription
+
+
+        Assert.assertTrue(expectedcanceldescription.equals(cancelDescription), "The Notice of Cancellation form is supposed to be in one of the forms but it is not");
+
     }
 
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc)
+    {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if(testResult.getStatus() != ITestResult.SUCCESS)
+        {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
+        }
+        if(driver != null)
+            driver.quit();
+    }
 
 }

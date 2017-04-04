@@ -3,6 +3,9 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import pageobjects.ALHO3.ALHO3PolicyInfo;
+import pageobjects.ALHO3.ALHO3Qualification;
+import pageobjects.FLHO3.FLHO3Offerings;
+import pageobjects.FLHO3.FLHO3Qualification;
 import pageobjects.Policy.Summary;
 
 /**
@@ -35,6 +38,13 @@ public class PolicyChangeBound extends CenterPanelBase {
         sh.waitForNoMask();
         sh.clickElement(by.viewlaterboundperios);
         return new ALHO3PolicyInfo(sh, path);
+    }
+
+    public FLHO3Offerings clickViewLaterbound()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.viewlaterboundperios);
+        return new FLHO3Offerings(sh, path);
     }
 
 }

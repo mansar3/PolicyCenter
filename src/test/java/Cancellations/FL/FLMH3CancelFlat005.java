@@ -31,7 +31,7 @@ import java.util.Random;
 /**
  * Created by spotnuru on 3/24/2017.
  */
-public class FLMH3CancelFlat extends BaseTest {
+public class FLMH3CancelFlat005 extends BaseTest {
 
     private WebDriver driver;
     private Logon logon;
@@ -190,7 +190,7 @@ public class FLMH3CancelFlat extends BaseTest {
         FLMH3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

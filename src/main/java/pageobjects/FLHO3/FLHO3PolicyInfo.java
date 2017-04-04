@@ -38,6 +38,10 @@ public class FLHO3PolicyInfo extends PolicyInfo<FLHO3PolicyInfo>
 	{
 		return super.setNoPriorInsuranceSurcharge(flag);
 	}
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public FLHO3PolicyInfo clickRemoveAdditionalNameInsureds()
 	{
 		return super.clickRemoveAdditionalNameInsureds();
@@ -46,7 +50,9 @@ public class FLHO3PolicyInfo extends PolicyInfo<FLHO3PolicyInfo>
 	{
 		return super.setTermType(text);
 	}
-
+	public FLHO3PolicyInfo Enter(){
+		return super.Enter();
+	}
 	public String getTermType()
 	{
 		return super.getTermType();

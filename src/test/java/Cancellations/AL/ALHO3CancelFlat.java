@@ -207,7 +207,7 @@ public class ALHO3CancelFlat extends BaseTest {
         ALHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");

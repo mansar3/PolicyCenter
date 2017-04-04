@@ -284,11 +284,7 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         return super.isMedicalPaymentsLimitEditable();
     }
 
-    public FLMH3LiabilityEndorsements clickLiabilityEndorsements()
-    {
-        super.clickLiabilityEndorsementsTab();
-        return new FLMH3LiabilityEndorsements(sh, path);
-    }
+
     public FLMH3PropertyEndorsements clickPropertyEndorsements()
     {
         super.clickPropertyEndorsementsTab();
@@ -379,11 +375,6 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
             return super.checkSpecificOtherStructures();
         }
 
-        public FLMH3LiabilityEndorsements clickLiabilityEndorsements()
-        {
-            super.clickLiabilityEndorsementsTab();
-            return new FLMH3LiabilityEndorsements(sh, path);
-        }
         public FLMH3Coverages clickCoverages()
         {
             super.clickCoveragesTab();
@@ -634,124 +625,4 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         }
     }
 
-
-    public class FLMH3LiabilityEndorsements extends LiabilityEndorsements<FLMH3LiabilityEndorsements>
-    {
-        public FLMH3LiabilityEndorsements(CenterSeleniumHelper sh, Path path)
-        {
-            super(sh,path);
-        }
-
-        public FLMH3PropertyEndorsements clickPropertyEndorsements()
-        {
-            super.clickPropertyEndorsementsTab();
-            return new FLMH3PropertyEndorsements(sh, path);
-        }
-        public FLMH3Coverages clickCoverages()
-        {
-            super.clickCoveragesTab();
-            return new FLMH3Coverages(sh, path);
-        }
-        public FLMH3LiabilityEndorsements setLocationName(String text)
-        {
-            return super.setLocationName(text);
-        }
-
-        public String getLocationName()
-        {
-            return super.getLocationName();
-        }
-        public FLMH3LiabilityEndorsements setNumberOfFamilies(String text)
-        {
-            return super.setNumberOfFamilies(text);
-        }
-
-        public String getNumberOfFamilies()
-        {
-            return super.getNumberOfFamilies();
-        }
-        public FLMH3LiabilityEndorsements setWatercraftType(String text)
-        {
-            return super.setWatercraftType(text);
-        }
-
-        public String getWatercraftType()
-        {
-            return super.getWatercraftType();
-        }
-        public FLMH3LiabilityEndorsements setBusinessActivity(String text)
-        {
-            return super.setBusinessActivity(text);
-        }
-
-        public String getBusinessActivity()
-        {
-            return super.getBusinessActivity();
-        }
-
-        public FLMH3LiabilityEndorsements checkPermittedIncidentalOccupancyLiability()
-        {
-            return super.checkPermittedIncidentalOccupancyLiability();
-        }
-
-        public FLMH3LiabilityEndorsements unCheckPermittedIncidentalOccupancyLiability()
-        {
-            return super.unCheckPermittedIncidentalOccupancyLiability();
-        }
-
-        public FLMH3LiabilityEndorsements checkAnimalLiability()
-        {
-            return super.checkAnimalLiability();
-        }
-
-        public FLMH3LiabilityEndorsements checkAdditionalResidenceRentedToOthers()
-        {
-            return super.checkAdditionalResidenceRentedToOthers();
-        }
-        public FLMH3LocationInformation addNewLocation()
-		{
-			super.addNewResidentLocation();
-			return new FLMH3LocationInformation(sh,path);
-		}
-
-        public FLMH3LiabilityEndorsements checkBusinessPursuits()
-        {
-            return super.checkBusinessPursuits();
-        }
-
-        public FLMH3LiabilityEndorsements checkWatercraftLiability()
-        {
-            return super.checkWatercraftLiability();
-        }
-        public FLMH3RiskAnalysis next()
-        {
-            super.liabilityEndorsementsNext();
-            return new FLMH3RiskAnalysis(sh, path);
-        }
-
-        public boolean isPermittedIncidentalOccupancyLiabilityChecked()
-        {
-            return super.isPermittedIncidentalOccupancyLiabilityChecked();
-        }
-
-        public boolean isAnimalLiabilityChecked()
-        {
-            return super.isAnimalLiabilityChecked();
-        }
-
-        public boolean isAdditionalResidenceRentedToOthersChecked()
-        {
-            return super.isAdditionalResidenceRentedToOthersChecked();
-        }
-
-        public boolean isBusinessPursuitsChecked()
-        {
-            return super.isBusinessPursuitsChecked();
-        }
-
-        public boolean isWatercraftLiabilityChecked()
-        {
-            return super.isWatercraftLiabilityChecked();
-        }
-    }
 }

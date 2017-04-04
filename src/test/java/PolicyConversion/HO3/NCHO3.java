@@ -22,9 +22,7 @@ import pageobjects.WizardPanelBase.AccountFileSummary;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -38,10 +36,6 @@ public class NCHO3 extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			//filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -257,7 +251,7 @@ public class NCHO3 extends BaseTest
 				person = true;
 				sab.setType("Person")
 				.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
-				.setLastName(eai.get("Additional Name Insured Last Name"))
+				.setLastName(eai.get("Additional Name Insured Last Name") + dateString )
 				.setTaxID(eai.getOrDefault("Additional Name Insured SSN", null));
 			}
 			else
@@ -589,18 +583,18 @@ public class NCHO3 extends BaseTest
 			pe
 			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-		}
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -639,6 +633,10 @@ public class NCHO3 extends BaseTest
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
+		if(eai.get("Refrigerated Personal Property") != null)
+			pe.checkRefrigeratedPersonalProperty();
+
+
 		if(eai.get("Earthquake Coverage Deductible") != null)
 		{
 			if(!pe.isEarthquakeCoverageChecked())
@@ -650,7 +648,7 @@ public class NCHO3 extends BaseTest
 			
 			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
 			{
-				if(pe.isEarthQuakeLossAssessment())
+				if(!pe.isEarthQuakeLossAssessment())
 					pe.checkEarthquakeLossAssessmentChecked();
 				pe.setEarthquakeLossAssessmentLimit(eai.get("Earthquake Loss Assessment Coverage (Limit)"));
 			}
@@ -663,7 +661,7 @@ public class NCHO3 extends BaseTest
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.checkSpecificAdditionalAmountOfCoverageA();
@@ -674,17 +672,18 @@ public class NCHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
+			if(pe.isWaterBackUpChecked())
+				pe.unCheckWaterBackUp();
+		else
+		{
+			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
+		}
 
 
 
-		//.setPercentageOfAnnualIncrease("12%")
-		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
-			pe
-			.checkSinkholeLossCoverage()
-			.setSinkholeClaimsIndex("4500")
-			.setSinkholeIndex("330");
+		if(eai.get("Inflation Guard - Percent") != null)
+			pe.checkInflationGuard();
 
 		// Liability Endorsements
 		NCHO3Coverages.NCHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
@@ -704,6 +703,10 @@ public class NCHO3 extends BaseTest
 			le
 			.checkBusinessPursuits()
 			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
+
+		if(eai.get("Personal Injury").toLowerCase().equals("false"))
+			le.unCheckPersonalInjury();
+
 		if(eai.getOrDefault("Watercraft Liablity - Watercraft Type",null) != null)
 			le
 			.checkWatercraftLiability()
@@ -776,7 +779,7 @@ public class NCHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName)
+			.setLastName(lastName + dateString)
 			.clickSearch();
 		NCHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -1177,18 +1180,18 @@ public class NCHO3 extends BaseTest
 			pe
 			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-		}
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -1257,7 +1260,7 @@ public class NCHO3 extends BaseTest
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.checkSpecificAdditionalAmountOfCoverageA();
@@ -1268,8 +1271,14 @@ public class NCHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+
+
+		if(eai.get("Inflation Guard - Percent") != null)
+			pe.checkInflationGuard();
+
+		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
+			if(pe.isWaterBackUpChecked())
+				pe.unCheckWaterBackUp();
 		else
 		{
 			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
@@ -1313,6 +1322,10 @@ public class NCHO3 extends BaseTest
 			le
 			.checkBusinessPursuits()
 			.setBusinessActivity(eai.get("Business Pursuits - Business activity"));
+		
+		if(eai.get("Personal Injury").toLowerCase().equals("false"))
+			le.unCheckPersonalInjury();
+		
 		if(eai.getOrDefault("Watercraft Liablity - Watercraft Type",null) != null)
 			le
 			.checkWatercraftLiability()

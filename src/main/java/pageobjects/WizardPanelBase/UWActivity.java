@@ -34,7 +34,7 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 
 	public T clickSendRequest()
 	{
-		sh.getValue(by.sendRequest);
+		sh.clickElement(by.sendRequest);
 		return (T)this;
 	}
 	public  T clickcancel()

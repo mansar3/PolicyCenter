@@ -24,7 +24,8 @@ public class SearchAccounts<T extends SearchAccounts> extends CenterPanelBase
         final By _firstname = By.id("AccountSearch:AccountSearchScreen:AccountSearchDV:GlobalPersonNameInputSet:FirstName-inputEl"),
                  _lastname = By.id("AccountSearch:AccountSearchScreen:AccountSearchDV:GlobalPersonNameInputSet:LastName-inputEl"),
                  searchButton = By.id("AccountSearch:AccountSearchScreen:AccountSearchDV:SearchAndResetInputSet:SearchLinksInputSet:Search"),
-                 accountNumber = By.id("AccountSearch:AccountSearchScreen:AccountSearchResultsLV:0:AccountNumber");
+                 accountNumber = By.id("AccountSearch:AccountSearchScreen:AccountSearchResultsLV:0:AccountNumber"),
+                 _accountNumber = By.id("AccountSearch:AccountSearchScreen:AccountSearchDV:AccountNumber-inputEl");
     }
 
     protected T setFirstName(String firstname)
@@ -38,6 +39,13 @@ public class SearchAccounts<T extends SearchAccounts> extends CenterPanelBase
         sh.getElement(by._lastname).sendKeys(lastname);
         return (T)this;
     }
+
+    protected T setAccountNumber(String accNumber)
+    {
+        sh.getElement(by._lastname).sendKeys(accNumber);
+        return (T)this;
+    }
+
 
     protected T clickSearchButton()
     {

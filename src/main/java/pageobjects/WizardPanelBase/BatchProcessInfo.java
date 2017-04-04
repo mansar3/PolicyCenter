@@ -21,7 +21,8 @@ public class BatchProcessInfo <T extends BatchProcessInfo> extends CenterPanelBa
 
     public class BatchProcessInfoBy
     {
-        public By workflowrun = By.xpath(".//*[@id='BatchProcessInfo:BatchProcessScreen:BatchProcessesLV-body']//div[text() = 'Workflow']/../following-sibling::td[2]/div/a[1]");
+        public By workflowrun = By.xpath(".//*[@id='BatchProcessInfo:BatchProcessScreen:BatchProcessesLV-body']//div[text() = 'Workflow']/../following-sibling::td[2]/div/a[1]"),
+                   policyrenewalstart = By.xpath(".//*[@id='BatchProcessInfo:BatchProcessScreen:BatchProcessesLV-body']//div[text() = 'Policy Renewal Start']/../following-sibling::td[2]/div/a[1]");
     }
 
     protected T clickRunworkflow()
@@ -30,4 +31,13 @@ public class BatchProcessInfo <T extends BatchProcessInfo> extends CenterPanelBa
         sh.clickElement(by.workflowrun);
         return (T) this;
     }
+
+    protected T clickPolicyRenewalStart()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.policyrenewalstart);
+        return (T) this;
+    }
+
+
 }

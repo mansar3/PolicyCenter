@@ -2,6 +2,7 @@ package PolicyChange;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
+import base.LocalDriverManager;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
@@ -23,10 +26,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 /**
  * Created by ssai on 3/17/2017.
@@ -37,8 +38,12 @@ public class PolicyChange1 extends BaseTest {
     private Logon logon;
     private ALHO3EnterAccountInformation enterAccountInformation;
     private CenterSeleniumHelper sh;
-    private String dateString, firstname, lastname;
+    private String dateString;
     private MyActivities ma;
+    String firstname = "ALHO3";
+    Random rand = new Random();
+    int num = rand.nextInt(999 - 10 + 1) + 10;
+    String lastname = "CancelletionTest" + num;
 
     @BeforeMethod
     public void beforeMethod() {
@@ -64,8 +69,8 @@ public class PolicyChange1 extends BaseTest {
 
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountAndIssueQuoteALHO3(ITestContext itc) {
-        firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test5", dateString);
+//        firstname = String.format("ALHO3PolicyChange", dateString);
+//        lastname = String.format("Test01", dateString);
         ALHO3NavigationBar nb = new ALHO3NavigationBar(sh);
         nb.clickAccountTab();
         nb.clickNewAccountDropdown();
@@ -201,7 +206,7 @@ public class PolicyChange1 extends BaseTest {
         ALHO3Quote quote = ra.quote();
 
         //issue the policy
-        quote.clickissuePolicy()
+        quote.clickIssuePolicy()
                 .acceptyes();
 
         log("Policy has been created");
@@ -217,15 +222,17 @@ public class PolicyChange1 extends BaseTest {
 
         String expectedreason, reason = "Amend Coverage",
                 reason1 = "Amend Alarm Credits";
-        String occuranceaggregateLimit = "25,000 / 50,000";
+        String occuranceaggregateLimit = "50,000 / 50,000";
         String burgular = "true",
                 burgulartype = "Central Station";
         String expectedPolicyType, PolicyType = "Policy Change";
         String reasonlabel, expectedreasonlabel = "Reason";
         String effectivedatelabel, expectedeffectivedatelabel = "Effective Date";
+//        String futureDate = new DateTime().plusDays(55).toString("MM/dd/yyyy");
+//        String futureDate1 = new DateTime().plusDays(30).toString("MM/dd/yyyy");
 
-        firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test4111", dateString);
+//        firstname = String.format("ALHO3PolicyChange", dateString);
+//        lastname = String.format("Test01", dateString);
 
 
         ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
@@ -240,7 +247,6 @@ public class PolicyChange1 extends BaseTest {
                 .clickReturntoPolicyCenter();
         sh.waitForNoMask();
 
-
         ALHO3SearchAccounts sa = nav.clickSearchAccount();
         sa.setFirstName(firstname);
         sa.setLastName(lastname);
@@ -250,7 +256,11 @@ public class PolicyChange1 extends BaseTest {
         ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
         StartPolicyChange spc = afs.clickInforcedAccountNumber().actions.clickChangePolicy();
 
-        spc.setEffectiveDate(futureDate);
+        //verifies the required label on both of them
+
+        Assert.assertTrue(spc.isEffectiveDateRequired(), "The Effective Date was expected to be a required feild but it was not ");
+
+        Assert.assertTrue(spc.isReasonRequired(), "The Reason was expected to be a required feild but it was not ");
 
         String[] expectedreasonlist = {"<none>", "Additional Insured/Interest Change", "Amend Alarm Credits", "Amend Coverage", "Amend Deductible", "Amend Named Insured", "Amend Occupancy",
                 "Amend Payor", "Amend Wind Mit Credits", "Mailing Address Change", "Mortgage Change", "Other"};
@@ -268,11 +278,6 @@ public class PolicyChange1 extends BaseTest {
         }
 
 
-        //verifies the required label on both of them
-
-        Assert.assertTrue(spc.isEffectiveDateRequired(), "The Effective Date was expected to be a required feild but it was not ");
-
-        Assert.assertTrue(spc.isReasonRequired(), "The Reason was expected to be a required feild but it was not ");
 
 
 //        List<String> differences = Arrays.stream(expectedreasonlist).filter(o -> !list.contains(o)).collect(Collectors.toList());
@@ -299,6 +304,8 @@ public class PolicyChange1 extends BaseTest {
 //        list.contains(expectedreasonlist);
 
 
+        spc.setEffectiveDate(futureDate);
+
         spc.setReason(reason)
                 .next();
 
@@ -309,8 +316,15 @@ public class PolicyChange1 extends BaseTest {
                 .clickPropertyEndorsements()
                 .setOccurrenceAggregateLimit(occuranceaggregateLimit)
                 .next()
-                .next()
-                .quote()
+                .next();
+
+
+        ALHO3PolicyReview pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
+
+   //     System.out.println(pr.checkPolicyReview());
+
+
+        pr.quote()
                 .clickPolicyChangeIssuePolicy()
                 .clickPolicyChangePrint();
 
@@ -380,161 +394,25 @@ public class PolicyChange1 extends BaseTest {
                 .next()
                 .next();
 
-        ALHO3PolicyReview pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
 
-        System.out.println(pr.checkPolicyReview());
+        //verifying the policy change
 
-        pr.quote()
-                .backToPoliycReview();
+        String policychange = "Yes";
+        Assert.assertTrue(policychange.equals(pr.checkPolicyReview()), "There should be a Policy Change when we change the Buglar Alarm to true and it was not");
 
-        pr.clickChangeConflits();
+
+        pr.quote();
 
     }
 
-    @Test
-    public void PolicyChange002() {
-
-        String expectedreason, reason = "Amend Coverage",
-                reason1 = "Amend Alarm Credits";
-        String dwellinglimit = "450,000";
-
-
-        firstname = String.format("ALHO3PolicyChange", dateString);
-        lastname = String.format("Test21111", dateString);
-
-
-        ALHO3NavigationBar nav = new ALHO3NavigationBar(sh);
-        nav.clickInternalToolTab()
-                .clickTestingTimeClock();
-        ALHO3TestingSystemClock tsc = new ALHO3TestingSystemClock(sh);
-        String currentdate = tsc.getCurrentDate();
-        LocalDate dateTime = LocalDateTime.parse(currentdate, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")).toLocalDate();
-        String futureDate = dateTime.plusDays(55).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        String futureDate1 = dateTime.plusDays(30).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        String priorrenewaleffdate = dateTime.plusDays(358).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        nav.clickSettings()
-                .clickReturntoPolicyCenter();
-        sh.waitForNoMask();
-
-
-        ALHO3SearchAccounts sa = nav.clickSearchAccount();
-        sa.setFirstName(firstname);
-        sa.setLastName(lastname);
-        sa.clickSearchButton();
-        sa.clickAccountNumberSearchAccount();
-
-        ALHO3AccountFileSummary afs = new ALHO3AccountFileSummary(sh);
-        afs.clickInforcedAccountNumber();
-
-        Summary sum = new Summary(sh);
-        sum.actions.clickRenewPolicy();
-        sum.accept();
-
-
-        ALHO3Offerings off = new ALHO3Offerings(sh, CenterPanelBase.Path.POLICYRENEWAL);
-        off.next();
-
-
-        ALHO3PolicyInfo pi = new ALHO3PolicyInfo(sh, CenterPanelBase.Path.POLICYRENEWAL);
-        pi.clickEditPolicyTransaction()
-                .acceptYes();
-
-        //clicks on  quote
-        pi.next()
-                .next()
-                .next()
-                .next()
-                .quote();
-
-        ALHO3Quote quote = new ALHO3Quote(sh, CenterPanelBase.Path.POLICYRENEWAL);
-        quote.issueNow();
-
-
-        RenewalBound rb = new RenewalBound(sh, CenterPanelBase.Path.POLICYRENEWAL);
-        rb.viewYourPolicy();
-
-        //step number 13
-        sum.actions.clickChangePolicy();
-
-        StartPolicyChange spc = new StartPolicyChange(sh);
-
-
-        String[] expectedreasonlist = {"<none>", "Additional Insured/Interest Change", "Amend Alarm Credits", "Amend Coverage", "Amend Deductible", "Amend Named Insured", "Amend Occupancy",
-                "Amend Payor", "Amend Wind Mit Credits", "Mailing Address Change", "Mortgage Change", "Other"};
-        List<String> expectedlist = Arrays.asList(expectedreasonlist);
-
-
-        List<String> list = spc.getTextInReasonList();
-
-        System.out.println(list);
-        try {
-            Assert.assertEquals(expectedlist, list);
-            System.out.println("The expected and actual are equal in the reason drop down list");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult testResult, ITestContext itc) {
+        WebDriver driver = LocalDriverManager.getDriver();
+        if (testResult.getStatus() != ITestResult.SUCCESS) {
+            takeScreenShot(driver);
+            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
         }
-
-        spc.setEffectiveDate(priorrenewaleffdate)
-                .setReason(reason)
-                .next();
-
-        ALHO3PolicyInfo PI = new ALHO3PolicyInfo(sh, CenterPanelBase.Path.POLICYCHANGE);
-
-        PI.next()
-                .next()
-                .next()
-                .setDwellingLimit(dwellinglimit)
-                .next()
-                .next();
-
-//lads on the policy review page verify the policy diffrences
-
-        ALHO3PolicyReview pr = new ALHO3PolicyReview(sh, CenterPanelBase.Path.POLICYCHANGE);
-
-        pr.quote()
-                .clickPolicyChangeIssuePolicy()
-                .clickPolicyChangePrint();
-
-        PolicyChangeBound pcb = new PolicyChangeBound(sh);
-
-        //lands on policy info
-
-        pcb.clickViewLaterBound();
-
-        PI.next()
-                .next()
-                .next();
-
-        //conform the new dwelling limit
-
-
-
-
-
-        ALHO3Coverages cov = new ALHO3Coverages(sh, CenterPanelBase.Path.POLICYCHANGE);
-        cov.next()
-                .next();
-
-
-        //conform the diffrences
-
-
-
-
-        pr.quote()
-                .clickPolicyChangeIssuePolicy()
-                .clickPolicyChangePrint();
-
-        //clicks on view your policy
-
-        CancellationBound cb = new CancellationBound(sh);
-
-        cb.clickViewYourPolicy();
-
-
-        //click on forms tab
-
+        if (driver != null)
+            driver.quit();
     }
-
-
 }

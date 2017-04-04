@@ -164,10 +164,17 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 	{
 		return super.checkPremisesLiability();
 	}
-
+	public SCDP3Coverages unCheckPremisesLiability()
+	{
+		return super.unCheckPremisesLiability();
+	}
 	public SCDP3Coverages checkPersonalLiability()
 	{
 		return super.checkPersonalLiability();
+	}
+	public SCDP3Coverages unCheckPersonalLiability()
+	{
+		return super.unCheckPersonalLiability();
 	}
 
 	public String getPremisesLiabilityLimit()
@@ -395,6 +402,10 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 		{
 			return super.checkWhenSafe();
 		}
+		public SCDP3PropertyEndorsements unCheckWhenSafe()
+		{
+			return super.unCheckWhenSafe();
+		}
 		public boolean isWhenSafeChecked()
 		{
 			return super.isWhenSafeChecked();
@@ -421,7 +432,10 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 		{
 			return super.checkWaterBackUp();
 		}
-
+		public SCDP3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
+		}
 		public SCDP3PropertyEndorsements checkInflationGuard()
 		{
 			return super.checkInflationGuard();

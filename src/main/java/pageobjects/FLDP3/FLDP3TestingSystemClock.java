@@ -16,4 +16,13 @@ public class FLDP3TestingSystemClock extends TestingSystemClock<FLDP3TestingSyst
     {
         return super.getCurrentDate();
     }
+    public FLDP3TestingSystemClock setDate(String date)
+    {
+        return   super.setDate(date);
+    }
+
+    public FLDP3TestingSystemClock clickchangedate()
+    {
+        return super.clickchangeDate();
+    }
 }

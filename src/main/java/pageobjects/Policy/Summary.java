@@ -2,6 +2,7 @@ package pageobjects.Policy;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.Account.AccountFileSummary;
 import pageobjects.NorthPanel;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
@@ -34,7 +35,8 @@ public class Summary extends PolicyBase {
                          pendingtype = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_JobsInProgressLV-body']//div[text() = 'Quoted']/../following-sibling::td[1]"),
                          policyeffectivedate = By.id("PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_DatesDV:PolicyPerEffDate-inputEl"),
                          whensafepolicynumber = By.id("PolicyFile_Summary:Policy_SummaryScreen:WhenSafePolicyNumber-inputEl"),
-                         message = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:_msgs']/div[1]");
+                         message = By.xpath(".//*[@id = 'PolicyFile_Summary:Policy_SummaryScreen:_msgs']/div[1]"),
+                         accountnumber = By.id("PolicyFile_Summary:Policy_SummaryScreen:Policy_Summary_AccountDV:Number-inputEl");
     }
 
     public String getTransEffDate()
@@ -87,6 +89,13 @@ public class Summary extends PolicyBase {
         sh.waitForNoMask();
         sh.clickElement(by.whensafepolicynumber);
         return this;
+    }
+
+    public AccountFileSummary clickAccountNumber()
+    {
+        sh.waitForNoMask();
+        sh.clickElement(by.accountnumber);
+        return new AccountFileSummary(sh);
     }
 
     public String getSummaryMessage()

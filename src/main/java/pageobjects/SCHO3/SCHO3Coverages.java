@@ -410,6 +410,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkWhenSafe();
 		}
+		public SCHO3PropertyEndorsements unCheckWhenSafe()
+		{
+			return super.unCheckWhenSafe();
+		}
 		public boolean isWhenSafeChecked()
 		{
 			return super.isWhenSafeChecked();
@@ -453,7 +457,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkWaterBackUp();
 		}
-
+		public SCHO3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
+		}
 		public SCHO3PropertyEndorsements checkInflationGuard()
 		{
 			return super.checkInflationGuard();
@@ -479,6 +486,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		public SCHO3PropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
 		{
 			return super.checkSpecificAdditionalAmountOfCoverageA();
+		}
+		public SCHO3PropertyEndorsements unCheckSpecificAdditionalAmountOfCoverageA()
+		{
+			return super.unCheckSpecificAdditionalAmountOfCoverageA();
 		}
 	}
 
@@ -551,7 +562,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkAnimalLiability();
 		}
-
+		public SCHO3LiabilityEndorsements unCheckAnimalLiability()
+		{
+			return super.unCheckAnimalLiability();
+		}
 		public SCHO3LiabilityEndorsements checkAdditionalResidenceRentedToOthers()
 		{
 			return super.checkAdditionalResidenceRentedToOthers();

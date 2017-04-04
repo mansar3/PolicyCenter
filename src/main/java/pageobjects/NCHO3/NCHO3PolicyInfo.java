@@ -85,6 +85,10 @@ public class NCHO3PolicyInfo extends PolicyInfo<NCHO3PolicyInfo>
 	{
 		return super.getProducerCode();
 	}
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public NCHO3PolicyInfo setPolicyWriter(String text)
 	{
 		return super.setPolicyWriter(text);
@@ -98,7 +102,9 @@ public class NCHO3PolicyInfo extends PolicyInfo<NCHO3PolicyInfo>
 	 {
 	 	return super.setUnderwritingCompanies(text);
 	 }
-
+	public NCHO3PolicyInfo Enter(){
+		return super.Enter();
+	}
 	 public String getUnderwritingCompanies()
 	 {
 	 	return super.getUnderwritingCompanies();

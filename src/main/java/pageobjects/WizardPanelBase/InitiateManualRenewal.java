@@ -161,7 +161,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 		return sh.getValue(by.theftCoverage);
 	}
 	
-	protected T  setTheftCoverage(String theftCoverage)
+	protected T setTheftCoverage(String theftCoverage)
 	{
 		sh.setText(by.theftCoverage, theftCoverage);
 		sh.tab();

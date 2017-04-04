@@ -54,6 +54,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	{
 		sh.waitForNoMask();
 		return sh.getValue(by.dwellingLimit);
+
 	}
 
 
@@ -71,7 +72,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyLimit(String limit)
 	{
-		sh.setText(by.personalPropertyLimit, limit);
+		sh.setTextUntil(by.personalPropertyLimit, limit);
 		sh.tab();
 		return (T)this;
 
@@ -143,6 +144,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setPersonalPropertyExcluded(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("//*[@id = '" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text() = 'Excluded?']/../..//label[contains(@id, '"
 		+ flag.toLowerCase() + "')]/..//input"));
 		sh.waitForNoMask();
@@ -356,8 +358,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setMedicalPaymentsLimit(String medicalPaymentsLimit)
 	{
-		sh.setText(by.medicalPaymentsLimit, medicalPaymentsLimit);
-		sh.tab();
+		sh.setTextAndTab(by.medicalPaymentsLimit, medicalPaymentsLimit);
+		//sh.tab();
 
 		return (T)this;
 	}
@@ -523,15 +525,39 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T unCheckPremisesLiability()
+	{
+		sh.checkboxHelper.unCheckElement(by.premisesLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
+
 	protected T checkPersonalLiability()
 	{
 		sh.checkboxHelper.checkElement(by.personalLiabilityCheckBox);
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected T unCheckPersonalLiability()
+	{
+		sh.checkboxHelper.unCheckElement(by.personalLiabilityCheckBox);
+		sh.waitForNoMask();
+		return (T)this;
+	}
 	protected T CoverageQuote(){
 		sh.waitForNoMask();
 		sh.clickElement(by.Quote);
+		return (T) this;
+	}
+	protected T CoverageQuotePolicychange(){
+		sh.waitForNoMask();
+		sh.clickElement(by.quotepolicycgange);
+		return (T) this;
+	}
+
+	protected T CoverageQuoterenewal(){
+		sh.waitForNoMask();
+		sh.clickElement(by.quoterenewal);
 		return (T) this;
 	}
 
@@ -597,6 +623,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
                                 isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        quotepolicycgange = By.id("PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
+		                        quoterenewal = By.id("RenewalWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:RenewalQuote-btnInnerEl"),
 		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
 								additionalLivingExpensesPercent = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Percent']/../..//div[@role='textbox']"),
 								additionalLivingExpensesLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Additional Living Expense']/../..//span[text() = 'Limit']/../..//div[@role='textbox']");
@@ -863,7 +891,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T checkSpecificAdditionalAmountOfCoverageA()
 		{
-			sh.clickElement(by.specificAdditionalAmountOfCoverageA);
+			sh.checkboxHelper.checkElement(by.specificAdditionalAmountOfCoverageA);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected T unCheckSpecificAdditionalAmountOfCoverageA()
+		{
+			sh.checkboxHelper.unCheckElement(by.specificAdditionalAmountOfCoverageA);
 			sh.waitForNoMask();
 			return (T)this;
 		}
@@ -1145,7 +1179,14 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkEarthquakeLossAssessment()
 		{
-			sh.clickElement(by.earthquakeLossAssessment);
+			sh.checkboxHelper.checkElement(by.earthquakeLossAssessment);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+
+		protected T unCheckEarthquakeLossAssessment()
+		{
+			sh.checkboxHelper.unCheckElement(by.earthquakeLossAssessment);
 			sh.waitForNoMask();
 			return (T)this;
 		}
@@ -1350,6 +1391,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			return sh.isElementEditable(by.occurrenceAggregateLimit);
 		}
+		protected boolean isOccurrenceAggregateAnInput()
+		{
+			return sh.isDisplayed(by.occurrenceAggregateLimit);
+		}
 
 		protected boolean isOrdinanceOrLawEditable()
 		{
@@ -1378,9 +1423,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setLossAssessmentLimit(String lossAssessmentLimit)
 		{
-			sh.setText(by.lossAssessmentLimit, lossAssessmentLimit);
-			sh.tab();
-
+			sh.setTextAndTab(by.lossAssessmentLimit, lossAssessmentLimit);
+			//sh.tab();
 			return (T)this;
 		}
 
@@ -1399,13 +1443,6 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return Strings.isNullOrEmpty(sh.getValue(by.ordinanceOrLawLimitInput))?
 					sh.getText(by.ordinanceOrLawLimitDiv) :
 					sh.getValue(by.ordinanceOrLawLimitInput);
-		}
-
-		protected T checkOrdinanceOrLaw()
-		{
-			sh.clickElement(by.ordinanceOrLawCheckbox);
-			sh.tab();
-			return (T)this;
 		}
 
 		protected boolean isOrdinanceOrLawLimitRequired()
@@ -1468,14 +1505,27 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setSinkholeClaimsIndex(String sinkholeClaimsIndex)
 		{
-			sh.setText(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
-			sh.tab();
-			sh.waitForNoMask();
+			sh.setTextAndTab(by.sinkholeClaimsIndex, sinkholeClaimsIndex);
 			return (T)this;
 		}
 		protected String getScreenEnclosureHurricaneCoverageLimit()
 		{
 			return sh.getValue(by.screenEnclosureHurricaneCoverageLimit);
+		}
+		protected T checkOrdinanceOrLaw()
+		{
+			sh.checkboxHelper.checkElement(by.ordinanceOrLawCheckbox);
+			return (T)this;
+		}
+		protected T unCheckOrdinanceOrLaw()
+		{
+			sh.checkboxHelper.unCheckElement(by.ordinanceOrLawCheckbox);
+			return (T)this;
+		}
+		protected T isOrdinanceLawChecked()
+		{
+			sh.checkboxHelper.isChecked(by.ordinanceOrLawCheckbox);
+			return (T)this;
 		}
 
 		protected String getScreenEnclosureHurricaneCoverageLimitDiv()
@@ -1742,12 +1792,18 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 						businessPursuits = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Business Pursuits']/..//input"),
 						businessActivity = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Business Pursuits']/../../div//span[text() = 'Business Activity']/../..//input"),
 
+						personalInjury = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Personal Injury']/..//input"),
+
 
 						watercraftLiability = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Watercraft Liability']/..//input"),
 						watercraftType = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Watercraft Liability']/../../div//span[text() = 'Watercraft Type']/../..//input");
 
 		}
-
+		protected T unCheckPersonalInjury()
+		{
+			sh.checkboxHelper.checkElement(by.personalInjury);
+			return (T)this;
+		}
 		protected T clickPropertyEndorsementsTab()
 		{
 			sh.clickElement(by.propertyEndorsements);
@@ -1937,6 +1993,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
+			sh.waitForNoMask();
 			return (T)this;
 		}
 	}

@@ -29,6 +29,15 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return new FLHO3Quote(sh, path );
 	}
 
+	public FLHO3Quote coveragesQuotePolicyChange(){
+		super.CoverageQuotePolicychange();
+		return new FLHO3Quote(sh, path );
+	}
+	public FLHO3Quote coveragesQuoteRenewal(){
+		super.CoverageQuoterenewal();
+		return new FLHO3Quote(sh, path );
+	}
+
 	public FLHO3PreQuoteIssues  coveragesquoteWithIssues()
 	{
 		super.CoverageQuote();
@@ -429,6 +438,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancy();
 		}
+		public boolean isInflationGuardChecked()
+		{
+			return super.isInflationGuardChecked();
+		}
 
 //		public FLHO3PropertyEndorsements setPermittedIncidentalOccupalimit(String text)
 //		{
@@ -565,7 +578,10 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.checkWhenSafe();
 		}
-
+		public FLHO3PropertyEndorsements unCheckWhenSafe()
+		{
+			return super.unCheckWhenSafe();
+		}
 		public FLHO3PropertyEndorsements checkOtherStructuresIncreasedCoverageRentedToOthers()
 		{
 			return super.checkOtherStructuresIncreasedCoverageRentedToOthers();
@@ -615,10 +631,18 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.checkWaterBackUp();
 		}
+		public FLHO3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
+		}
 
 		public FLHO3PropertyEndorsements checkInflationGuard()
 		{
 			return super.checkInflationGuard();
+		}
+		public FLHO3PropertyEndorsements unCheckInflationGuard()
+		{
+			return super.unCheckInflationGuard();
 		}
 
 		public FLHO3PropertyEndorsements checkSinkholeLossCoverage()
@@ -646,10 +670,6 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 			return super.isTheftCoverageChecked();
 		}
 
-		public boolean isInflationGuardChecked()
-		{
-			return super.isInflationGuardChecked();
-		}
 
 		public String getTheftType()
 		{
@@ -755,6 +775,11 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		public FLHO3LiabilityEndorsements checkAnimalLiability()
 		{
 			return super.checkAnimalLiability();
+		}
+
+		public FLHO3LiabilityEndorsements unCheckAnimalLiability()
+		{
+			return super.unCheckAnimalLiability();
 		}
 
 		public FLHO3LiabilityEndorsements checkAdditionalResidenceRentedToOthers()

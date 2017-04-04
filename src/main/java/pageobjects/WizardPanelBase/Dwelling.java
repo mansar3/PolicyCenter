@@ -80,9 +80,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	protected T setDistanceToFireHydrant(String distanceToFireHydrant)
 	{
 		sh.waitForNoMask();
-		sh.setText(by.distanceToFireHydrant, distanceToFireHydrant);
-		sh.tab();
-		sh.waitForNoMask();
+		sh.setTextUntil(by.distanceToFireHydrant, distanceToFireHydrant);
 //		if(path != Path.POLICYRENEWAL)
 //			sh.waitForValue(by.territoryCode,10);
 

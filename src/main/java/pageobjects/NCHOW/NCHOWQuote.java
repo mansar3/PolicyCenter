@@ -12,9 +12,9 @@ public class NCHOWQuote extends Quote<NCHOWQuote> {
         super(sh, path);
     }
 
-    public NCHOWQuote clickissuePolicy()
+    public NCHOWQuote clickIssuePolicy()
     {
-        return super.clickissuePolicy();
+        return super.clickIssuePolicy();
     }
 
     public NCHOWQuote acceptyes()

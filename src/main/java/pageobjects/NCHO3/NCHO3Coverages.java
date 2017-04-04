@@ -287,6 +287,12 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.checkEarthquakeLossAssessment();
 		}
+
+		public NCHO3PropertyEndorsements unCheckEarthquakeLossAssessmentChecked()
+		{
+			return super.unCheckEarthquakeLossAssessment();
+		}
+
 		public NCHO3PropertyEndorsements setEarthquakeLossAssessmentLimit(String text)
 		{
 			return super.setEarthquakeLossAssessmentLimit(text);
@@ -472,6 +478,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.checkWaterBackUp();
 		}
+		public NCHO3PropertyEndorsements unCheckWaterBackUp()
+		{
+			return super.unCheckWaterBackUp();
+		}
 
 		public NCHO3PropertyEndorsements checkInflationGuard()
 		{
@@ -498,6 +508,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		public NCHO3PropertyEndorsements checkSpecificAdditionalAmountOfCoverageA()
 		{
 			return super.checkSpecificAdditionalAmountOfCoverageA();
+		}
+		public NCHO3PropertyEndorsements unCheckSpecificAdditionalAmountOfCoverageA()
+		{
+			return super.unCheckSpecificAdditionalAmountOfCoverageA();
 		}
 	}
 
@@ -576,6 +590,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 			return super.checkAdditionalResidenceRentedToOthers();
 		}
 
+		public NCHO3LiabilityEndorsements unCheckPersonalInjury()
+		{
+			return super.unCheckPersonalInjury();
+		}
 		public NCHO3LiabilityEndorsements checkBusinessPursuits()
 		{
 			return super.checkBusinessPursuits();

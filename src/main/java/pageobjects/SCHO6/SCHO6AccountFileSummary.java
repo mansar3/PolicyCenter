@@ -27,4 +27,12 @@ public class SCHO6AccountFileSummary extends AccountFileSummary<SCHO6AccountFile
 		return new Summary(sh);
 
 	}
+
+	public Summary clickCancelledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
 }

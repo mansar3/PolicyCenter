@@ -73,6 +73,10 @@ public class SCHO6PolicyInfo extends PolicyInfo<SCHO6PolicyInfo>
 	{
 		return super.getTermType();
 	}
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
 	public SCHO6PolicyInfo setEffectiveDate(String text)
 	{
 		return super.setEffectiveDate(text);
@@ -86,7 +90,9 @@ public class SCHO6PolicyInfo extends PolicyInfo<SCHO6PolicyInfo>
 	{
 		return super.setOrganization(text);
 	}
-
+	public SCHO6PolicyInfo Enter(){
+		return super.Enter();
+	}
 	public String getOrganization()
 	{
 		return super.getOrganization();

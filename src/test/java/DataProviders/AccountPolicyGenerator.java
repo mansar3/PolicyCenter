@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
+	static String policyFolder = "ConversionPolicies-20170331_115657";
 	@DataProvider(parallel = true)
 	public static Object[][] POCData()
 	{
@@ -135,59 +136,59 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] ALHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170315_090545/ALHO3-20170315_090628/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder +"/ALHO3/");
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] FLDP3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170315_090545/FLDP3-20170315_090604/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLDP3/");
 	}
 
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170322_084550/FLHO3-20170322_084557/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLHO3/");
 	}
 	// /Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO6Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170308_140026/FLHO6-20170308_140417/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLHO6/");
 	}
 
 	@DataProvider(parallel = false)
 	public static Object[][] FLMH3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170320_141113/FLMH3-20170320_141745/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLMH3/");
 	}
 
 
 	@DataProvider(parallel = true)
 	public static Object[][] NCHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170315_090545/NCHO3-20170315_090642/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/NCHO3/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] NCHOWData()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170308_140026/NCHOW-20170308_140523/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/NCHOW/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] SCDP3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170308_140026/SCDP3-20170308_140455/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCDP3/");
 	}
 
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO3Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170315_090545/SCHO3-20170315_090624/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCHO3/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO6Data()
 	{
-		return DataCreator("/Users/aansari/Downloads/ConversionPolicies-20170308_140026/SCHO6-20170308_141417/");
+		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCHO6/");
 	}
 
 	public static Object[][] DataCreator(String filePathBase)

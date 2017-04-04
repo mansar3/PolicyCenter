@@ -33,6 +33,10 @@ public class FLHO4PolicyInfo extends PolicyInfo<FLHO4PolicyInfo> {
         super.dwellingNext();
         return new FLHO4Dwelling(sh,path);
     }
+    public String getErrorMessage()
+    {
+        return super.policyInfoErrorMessage();
+    }
     public FLHO4PolicyInfo setDoesInsuredOwnOtherResidenceWithFrontline(String flag)
     {
         return super.setDoesInsuredOwnOtherResidenceWithFrontline(flag);
@@ -40,6 +44,9 @@ public class FLHO4PolicyInfo extends PolicyInfo<FLHO4PolicyInfo> {
     public FLHO4PolicyInfo setNoPriorInsuranceSurcharge(String flag)
     {
         return super.setNoPriorInsuranceSurcharge(flag);
+    }
+    public FLHO4PolicyInfo Enter(){
+        return super.Enter();
     }
     public FLHO4PolicyInfo clickEditPolicyTransaction(){
         return super.editPolicyTransaction();

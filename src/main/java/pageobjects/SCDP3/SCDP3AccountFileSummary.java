@@ -27,5 +27,12 @@ public class SCDP3AccountFileSummary extends AccountFileSummary<SCDP3AccountFile
 		return new Summary(sh);
 
 	}
+	public Summary clickCancelledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
 
 }

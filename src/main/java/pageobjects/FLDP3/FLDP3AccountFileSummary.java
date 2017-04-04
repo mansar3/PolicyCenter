@@ -34,4 +34,12 @@ public class FLDP3AccountFileSummary extends AccountFileSummary<FLDP3AccountFile
 		return new Summary(sh);
 
 	}
+
+	public Summary clickCancelledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
 }

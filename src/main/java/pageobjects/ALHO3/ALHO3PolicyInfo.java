@@ -25,12 +25,28 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 		return super.getErrorMessage();
 	}
 
+	public String getErrorMessage()
+	{
+		return super.policyInfoErrorMessage();
+	}
+
+
 	public ALHO3PolicyInfo clickEditPolicyTransaction(){
 		return super.editPolicyTransaction();
 	}
+
+
+	public ALHO3PolicyInfo clickEditPolicyTransactionRenewal(){
+		return super.editPolicyTransactionrenewal();
+	}
+
 	public ALHO3PolicyInfo acceptYes()
 	{
 		return super.accept();
+	}
+
+	public ALHO3PolicyInfo Enter(){
+		return super.Enter();
 	}
 	public ALHO3SearchAddressBook searchFromAddressBook()
 	{
@@ -129,6 +145,11 @@ public class ALHO3PolicyInfo extends PolicyInfo<ALHO3PolicyInfo>
 		return new ALHO3Quote(sh, path);
 	}
 
+	public ALHO3Quote  quoteRenewal()
+	{
+		super.PolicyInfoRenewalQuote();
+		return new ALHO3Quote(sh, path);
+	}
 	public ALHO3PreQuoteIssues  quoteWithIssues()
 	{
 		super.PolicyInfoQuote();

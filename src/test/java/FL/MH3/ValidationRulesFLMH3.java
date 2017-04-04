@@ -15,6 +15,8 @@ import org.testng.annotations.Test;
 import pageobjects.FLMH3.*;
 import pageobjects.Logon;
 
+import java.util.Random;
+
 /**
  * Created by ssai on 3/3/2017.
  */
@@ -23,7 +25,10 @@ public class ValidationRulesFLMH3 extends BaseTest {
     private WebDriver driver;
     private Logon logon;
     private CenterSeleniumHelper sh;
-
+    String firstname = "FLMH3";
+    Random rand = new Random();
+    int num  = rand.nextInt(99 - 10 + 1)+10;
+    String lastname = "ValidationRuleTest"+num;
 
     @BeforeMethod
     public void beforeMethod() {
@@ -43,8 +48,8 @@ public class ValidationRulesFLMH3 extends BaseTest {
 
     @Test(description = "Creates Account for FLMH3")
     public void CreatePersonalAccountforFLMH3(ITestContext itc) {
-        String firstname = "FLMH3";
-        String lastname = "Validationrule";
+      //  String firstname = "FLMH3";
+     //   String lastname = "Validationrule";
         String date = "03/30/1985";
         String homephone = "8501112222";
         String homeaddress = "3546 Egret Dr";
@@ -88,10 +93,11 @@ public class ValidationRulesFLMH3 extends BaseTest {
     @Test(description = "Validating the MH3")
     public void ValidatingFLMH3() {
 
-        String firstname = "FLMH3";
-        String lastname = "Validationrule";
+   //     String firstname = "FLMH3";
+   //     String lastname = "Validationrule";
         String policyType = "Mobile Home (MH3)";
         String effectiveDate = new DateTime().toString("MM/dd/yyyy");
+        String futureEffectiveDate = new DateTime().plusDays(56).toString("MM/dd/yyyy");
         String futureYear = new DateTime().plusYears(1).toString("yyyy");
         String yearBuilt = new DateTime().minusYears(16).toString("yyyy");
         String yearBuilt1 = new DateTime().minusYears(17).toString("yyyy");
@@ -126,7 +132,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 personalpropertylimit1 = "10,000",
                 personalpropertylimit2 = "52,000",
                 personalpropertylimit3 = "48,000";
-
+        String effectiveyear, expectedeffectiveyear = "Policy effective date is outside of the agent’s binding authority:";
         String yearerrormessage, expectedyearerrormessage = "Please enter a valid 4 digit year: Year Built.";
         String mobilehomewidth, expectedmobilehomewidth = "Mobile home cannot be less than 8 feet wide: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
         String poolerror1, expectedpoolerror1 = "Pools without approved security do not meet eligibility guidelines: Dwelling at 3546 EGRET DR, MELBOURNE, FL.";
@@ -159,10 +165,21 @@ public class ValidationRulesFLMH3 extends BaseTest {
         for (int i = 0; i < 8; i++) {
             qua.questionnaire.answerNo(i + 1);
         }
+        FLMH3PolicyInfo pi = qua.next();
 
-        FLMH3Dwelling dwe = qua.next()
-                .setEffectiveDate(effectiveDate)
-                .next()
+        pi.setEffectiveDate(futureEffectiveDate)
+                .Enter();
+
+        //Verify the error message
+
+        effectiveyear =  pi.getErrorMessage();
+
+        Assert.assertTrue(effectiveyear.startsWith(expectedeffectiveyear), "The Policy effective date should is supposed to be shown but it is not");
+
+        pi.setEffectiveDate(effectiveDate);
+        
+
+        FLMH3Dwelling dwe = pi.next()
                 .setYearBuilt(yearBuilt)
                 .setDistanceToFireHydrant(distanceToFireHydrant)
                 .setMobileHomePark(mobilehomepark)
@@ -174,7 +191,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
 
         yearerrormessage = dwe.getdwellingErrorMessage();
 
-        if (expectedyearerrormessage.equals(yearerrormessage)) {
+        if (yearerrormessage.startsWith(expectedyearerrormessage)) {
             System.out.println(" Expected Roof Year should be " + expectedyearerrormessage + " and it is " + yearerrormessage);
             dwe.setYearBuilt(yearBuilt1);
 
@@ -193,7 +210,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
 
         //verify the message for mobile home width
         mobilehomewidth = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedmobilehomewidth.equals(mobilehomewidth));
+        Assert.assertTrue(mobilehomewidth.startsWith(expectedmobilehomewidth));
         System.out.println(" Expected Roof Year should be " + expectedmobilehomewidth + " and it is " + mobilehomewidth);
 
         //sets the mobile home to 10
@@ -218,7 +235,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .setPoolSlide(poolSlide)
                 .Enter();
         poolerror1 = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedpoolerror1.equals(poolerror1));
+        Assert.assertTrue(poolerror1.startsWith(expectedpoolerror1));
         System.out.println(" Expected error message is " + expectedpoolerror1 + " but it was " + poolerror1);
 
         //changing the pool options again
@@ -229,7 +246,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .Enter();
 
         divingerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expecteddivingerror.equals(divingerror));
+        Assert.assertTrue(divingerror.startsWith(expecteddivingerror));
         System.out.println(" Expected error message is " + expecteddivingerror + " but it was " + divingerror);
 
         //changing the slides in dwelling page
@@ -238,7 +255,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .Enter();
 
         slideerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedslideerror.equals(slideerror));
+        Assert.assertTrue(slideerror.startsWith(expectedslideerror));
         System.out.println(" Expected error message is " + expectedslideerror + " but it was " + slideerror);
 
         //changing the HOUSEKEEPING CONDITION
@@ -248,7 +265,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .Enter();
 
         housekeepingerror = dwe.getdwellingErrorMessage();
-        Assert.assertTrue(expectedhousekeepingwrror.equals(housekeepingerror));
+        Assert.assertTrue(housekeepingerror.startsWith(expectedhousekeepingwrror));
         System.out.println(" Expected error message is " + expectedhousekeepingwrror + " but it was " + housekeepingerror);
 
         dwe.setSwimmingPool(pool)
@@ -264,7 +281,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
         System.out.println(primaryheating);
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
@@ -273,15 +290,15 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
-        System.out.println(" Expected error message is  " + expectedpprimaryheating + " but it was " + primaryheating);
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
+        System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
         //changing to woodstove
         dwellingConstruction.setPrimaryHeating(primaryHeatingwood)
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
 
@@ -290,7 +307,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .dwellingConstructionEnter();
 
         primaryheating = dwellingConstruction.dwellingConstructionErrorMessage();
-        Assert.assertTrue(expectedpprimaryheating.equals(primaryheating));
+        Assert.assertTrue(primaryheating.startsWith(expectedpprimaryheating));
         System.out.println(" Expected error message is " + expectedpprimaryheating + " but it was " + primaryheating);
 
         //changing to electric
@@ -301,7 +318,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
 
         //verifies dwelling coverage limit is below
         dwellinglimiterror = coverages.coveragesErrorMessage();
-        Assert.assertTrue(expecteddwellinglimiterror.equals(dwellinglimiterror));
+        Assert.assertTrue(dwellinglimiterror.startsWith(expecteddwellinglimiterror));
         System.out.println(" Expected error message is " + expecteddwellinglimiterror + "  and it is " + dwellinglimiterror);
 
 
@@ -313,7 +330,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
         //verifies the personal property limit below
 
         personalpropertylimmiterror = coverages.coveragesErrorMessage();
-        Assert.assertTrue(expectedpersonalpropertylimmiterror.equals(personalpropertylimmiterror));
+        Assert.assertTrue(personalpropertylimmiterror.startsWith(expectedpersonalpropertylimmiterror));
         System.out.println("  Expected error message is " + expectedpersonalpropertylimmiterror + " and it is " + personalpropertylimmiterror);
 
         coverages.setPersonalPropertyLimit(personalpropertylimit2)
@@ -322,7 +339,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
         //verifies the personal property limit is above
 
         personalpropertylimitaboveerror = coverages.coveragesErrorMessage();
-        Assert.assertTrue(expectedpersonalpropertylimitaboveerror.equals(personalpropertylimitaboveerror));
+        Assert.assertTrue(personalpropertylimitaboveerror.startsWith(expectedpersonalpropertylimitaboveerror));
         System.out.println("  Expected error message is " + expectedpersonalpropertylimitaboveerror + " and it is " + personalpropertylimitaboveerror);
 
         coverages.setPersonalPropertyLimit(personalpropertylimit3)
@@ -339,7 +356,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
                 .coveragespropertyendorsementsEnter();
 
         combinedlimit = coverages.coveragesErrorMessage();
-        Assert.assertTrue(expectedcombinedlimit.equals(combinedlimit));
+        Assert.assertTrue(combinedlimit.startsWith(expectedcombinedlimit));
         System.out.println("  Expected error message is " + expectedcombinedlimit + " and it is " + combinedlimit);
 
 
@@ -362,7 +379,7 @@ public class ValidationRulesFLMH3 extends BaseTest {
         riskanalysis.back();
 
         convitederror = riskanalysis.getErrorMessage();
-        Assert.assertTrue(expectedconvitederror.equals(convitederror));
+        Assert.assertTrue(convitederror.startsWith(expectedconvitederror));
         System.out.println("  Expected error message is " + expectedconvitederror + " and it is " + convitederror);
 
         for (int z = 9; z <= 9; z++) {

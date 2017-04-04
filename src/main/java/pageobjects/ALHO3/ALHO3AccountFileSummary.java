@@ -31,4 +31,26 @@ public class ALHO3AccountFileSummary extends AccountFileSummary<ALHO3AccountFile
     		return new Summary(sh);
 
 	}
+
+	public Summary clickCancelledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
+
+	public Summary clickscheduledPolicyNumber()
+	{
+		sh.waitForNoMask();
+		super.clickCanceledPolicyNumber();
+		return new Summary(sh);
+
+	}
+
+	public ALHO3AccountFileSummary clickTransactionRenewalPending()
+	{
+		sh.waitForNoMask();
+		return super.clickTransactionNumberRenewalPen();
+	}
 }
