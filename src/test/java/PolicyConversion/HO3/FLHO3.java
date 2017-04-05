@@ -662,7 +662,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.unCheckAnimalLiability();
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
@@ -1231,7 +1231,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.unCheckAnimalLiability();
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
