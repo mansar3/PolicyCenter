@@ -587,7 +587,8 @@ public class SCDP3 extends BaseTest
 				if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}

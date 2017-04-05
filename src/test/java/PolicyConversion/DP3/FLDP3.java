@@ -547,21 +547,18 @@ public class FLDP3 extends BaseTest
 
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
-			if(eai.get("Personal Liability") != null)
+			if(eai.get("Premises Liability") != null)
 				co.checkPremisesLiability()
-				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
-
-
-			// defaults to unchecked
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+			else
+				co.unCheckPremisesLiability();
 		}
 		else
 		{
-			// defaults to check
 			if(eai.get("Personal Liability") != null)
 				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
-
 		}
 		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
