@@ -1236,6 +1236,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T clickCoveragesTab()
 		{
+			sh.waitForNoMask();
 			sh.clickElement(by.coverages);
 			return (T)this;
 		}
@@ -1543,6 +1544,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected boolean isWhenSafeChecked()
 		{
+			sh.waitForElementToAppear(by.whenSafe);
 			return sh.isRadioButtonSelected(by.whenSafe);
 		}
 
@@ -1991,7 +1993,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T liabilityEndorsementsNext()
 		{
-			sh.waitForNoMask();
+			sh.waitForNoMask(15);
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForNoMask();
 			return (T)this;

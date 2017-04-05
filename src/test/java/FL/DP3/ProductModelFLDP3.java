@@ -110,8 +110,8 @@ public class ProductModelFLDP3 extends BaseTest
         }
     }
 
-    @Test(description = "FL.DP3.productModel.LessCoverage001"/*,
-            dependsOnMethods = {"createPersonAccountFLDP3"}*/)
+    @Test(description = "FL.DP3.productModel.LessCoverage001",
+            dependsOnMethods = {"createPersonAccountFLDP3"})
     public void productModelLessCoverageFLDP3(ITestContext itc)
     {
        log(itc.getName());
@@ -119,8 +119,8 @@ public class ProductModelFLDP3 extends BaseTest
     /* Set Variables */
     //        String firstname = "Ricky0209015449";
     //        String lastname = "Bobby0209015449";
-            firstname = "FLDP3Ricky0317054746";
-            lastname = "Bobby0317054746";
+//            firstname = "FLDP3Ricky0317054746";
+//            lastname = "Bobby0317054746";
 
         String policyType = "Dwelling Fire (DP3)";
         String offeringSelection = "Less Coverage";

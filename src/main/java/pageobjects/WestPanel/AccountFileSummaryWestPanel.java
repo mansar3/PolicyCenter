@@ -23,6 +23,7 @@ public class AccountFileSummaryWestPanel<T extends AccountFileSummaryWestPanel> 
 
 	public T clickDwelling()
 	{
+		sh.waitForNoMask();
 		sh.clickElement(by.dwelling);
 		return (T)this;
 	}
