@@ -197,7 +197,9 @@ public class FLMH3 extends BaseTest
 			.setOrganization("Acentria, Inc")
 			.setProducerCode("523-23-21388");
 
-			FLMH3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLMH3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -270,6 +272,7 @@ public class FLMH3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -280,6 +283,7 @@ public class FLMH3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -448,7 +452,9 @@ public class FLMH3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 

@@ -356,10 +356,14 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		sh.clickElement(by.cancel);
 		return (T)this;
 	}
-	public T  clickCheckForDuplicates()
+	public T checkForDuplicatesAndReturn()
 	{
 		sh.clickElement(by.checkForDuplicates);
-		return (T)this;
+		sh.waitForNoMask();
+		if(sh.isDisplayed(by.returnToPolicyInfo))
+			sh.clickElement(by.returnToPolicyInfo);
+		sh.waitForNoMask();
+		return(T)this;
 	}
 	public String getRelationshipToPrimary()
 	{
@@ -467,7 +471,9 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 					// Tabs
 					ok = By.id(tabBase + "ForceDupCheckUpdate-btnInnerEl"),
 					cancel = By.id(tabBase + "Cancel-btnInnerEl"),
-					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl");
+					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl"),
+
+					returnToPolicyInfo = By.id("DuplicateContactsPopup:__crumb__");
 
 
 

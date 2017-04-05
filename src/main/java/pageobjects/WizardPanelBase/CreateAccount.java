@@ -17,6 +17,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 						baseProducerId = createAccountDiv + "ProducerSelectionInputSet:";
 
 		final public By	updateBtn = By.id(base_id + "ForceDupCheckUpdate-btnInnerEl"),
+						checkForDuplicates = By.id(base_id + "CheckForDuplicates-btnInnerEl"),
 						firstName = By.id(baseContactInputSet + "FirstName-inputEl"),
 						lastName = By.id(baseContactInputSet + "LastName-inputEl"),
 						address1 = By.id(baseAddressId + "AddressLine1-inputEl"),
@@ -46,7 +47,9 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 				        ssnunmasked = By.id(createAccountDiv + "OfficialIDInputSet:UmaskedOfficialIDDV_Input-inputEl"),
 						preferredLanguage = By.id(createAccountDiv + "PrimaryLanguage-inputEl"),
 						organizationSearchButton = By.id(baseProducerId + "Producer:SelectOrganization"),
-						producerCodeDropdown = By.id(base_id + baseProducerId + "ProducerCode-trigger-picker");
+						producerCodeDropdown = By.id(base_id + baseProducerId + "ProducerCode-trigger-picker"),
+
+						returnToCreateAccount = By.id("DuplicateContactsPopup:__crumb__");
 	}
 
 	public CreateAccount(CenterSeleniumHelper sh)
@@ -56,6 +59,15 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		expectedPanelTitle = "Create account";
 		waitForTitle(sh);
 		System.out.println("Navigated to page: "+ expectedPanelTitle);
+	}
+	public T checkForDuplicatesAndReturn()
+	{
+		sh.clickElement(by.checkForDuplicates);
+		sh.waitForNoMask();
+		if(sh.isDisplayed(by.returnToCreateAccount))
+			sh.clickElement(by.returnToCreateAccount);
+		sh.waitForNoMask();
+		return(T)this;
 	}
 
 	public String getHomePhone()

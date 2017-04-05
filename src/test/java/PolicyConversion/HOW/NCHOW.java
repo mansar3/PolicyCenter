@@ -199,7 +199,9 @@ public class NCHOW extends BaseTest
 			.setOrganization("Brown")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
-			NCHOWAccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			NCHOWAccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -287,6 +289,7 @@ public class NCHOW extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -297,6 +300,7 @@ public class NCHOW extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -353,7 +357,7 @@ public class NCHOW extends BaseTest
 
 			NCHOWSearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -397,7 +401,9 @@ public class NCHOW extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -598,7 +604,9 @@ public class NCHOW extends BaseTest
 			.setOrganization("Brown")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
-			NCHOWAccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			NCHOWAccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -671,6 +679,7 @@ public class NCHOW extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -681,6 +690,7 @@ public class NCHOW extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -737,7 +747,7 @@ public class NCHOW extends BaseTest
 
 			NCHOWSearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) +dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -781,7 +791,9 @@ public class NCHOW extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 

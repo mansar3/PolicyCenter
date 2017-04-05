@@ -19,6 +19,7 @@ import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +40,7 @@ public abstract class BaseTest
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			filePathBase = "/Users/aansari/Desktop/",
+			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
@@ -91,8 +92,10 @@ public abstract class BaseTest
 		URL gridHub = null;
 		try
 		{
-			// Dockers URL
-			gridHub = new URL("http://10.0.10.141:4444/wd/hub");
+			// New Dockers URL
+			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
+			// Old Dockers URL
+			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm

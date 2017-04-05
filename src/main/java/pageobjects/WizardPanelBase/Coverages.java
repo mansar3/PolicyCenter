@@ -1991,7 +1991,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T liabilityEndorsementsNext()
 		{
-			sh.waitForNoMask(15);
+			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForNoMask();
 			return (T)this;
