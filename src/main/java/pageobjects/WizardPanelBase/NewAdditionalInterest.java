@@ -376,6 +376,16 @@ public abstract class NewAdditionalInterest<T extends NewAdditionalInterest> ext
 		sh.clickElement(by.ok);
 		return (T)this;
 	}
+	public T checkForDuplicatesAndReturn()
+	{
+		sh.clickElement(by.checkForDuplicates);
+		sh.waitForNoMask();
+		if(sh.isDisplayed(by.returnToNewAdditionalInterest))
+			sh.clickElement(by.returnToNewAdditionalInterest);
+		sh.waitForNoMask();
+		return(T)this;
+
+	}
 	public String getCompanyName()
 	{
 		return sh.getValue(by.companyName);
@@ -474,8 +484,10 @@ public abstract class NewAdditionalInterest<T extends NewAdditionalInterest> ext
 					// Tabs
 					ok = By.id(tabBase+ "ForceDupCheckUpdate-btnInnerEl"),
 					cancel = By.id(tabBase + "Cancel-btnInnerEl"),
-					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl");
+					checkForDuplicates = By.id(tabBase + "CheckForDuplicates-btnInnerEl"),
 
+					// Matching Contacts
+					returnToNewAdditionalInterest = By.id("DuplicateContactsPopup:__crumb__");
 
 
 

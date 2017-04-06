@@ -192,7 +192,9 @@ public class FLHO3 extends BaseTest
 			.setOrganization("4 CORNERS INSURANCE")
 			.setProducerCode("8329736");
 
-			FLHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLHO3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -278,6 +280,7 @@ public class FLHO3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -288,6 +291,7 @@ public class FLHO3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -453,7 +457,9 @@ public class FLHO3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai.checkForDuplicatesAndReturn()
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -527,7 +533,7 @@ public class FLHO3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase() + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment"));
 			else
 				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
@@ -573,7 +579,7 @@ public class FLHO3 extends BaseTest
 			pe
 			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
+		if(eai.get("Whensafe - %") != null && eai.get("Wind Excluded").toLowerCase().equals("false"))
 		{
 			if(!pe.isWhenSafeChecked())
 				pe.checkWhenSafe();
@@ -656,7 +662,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.unCheckAnimalLiability();
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{
@@ -715,7 +721,7 @@ public class FLHO3 extends BaseTest
 		//**********************************************************************************************//
 
 		int i;
-
+		System.out.println(filePathBase);
 
 
 		WebDriver driver = LocalDriverManager.getDriver();
@@ -740,7 +746,7 @@ public class FLHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName + dateString)
+			.setLastName(lastName)
 			.clickSearch();
 		FLHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 
@@ -765,7 +771,9 @@ public class FLHO3 extends BaseTest
 			.setOrganization("4 CORNERS INSURANCE")
 			.setProducerCode("8329736");
 
-			FLHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLHO3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -838,6 +846,7 @@ public class FLHO3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -848,6 +857,7 @@ public class FLHO3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -1013,7 +1023,9 @@ public class FLHO3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -1090,7 +1102,7 @@ public class FLHO3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment").toLowerCase());
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment"));
 			else
 				wm.setRoofDeckAttachment("<none>");
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
@@ -1136,7 +1148,7 @@ public class FLHO3 extends BaseTest
 			pe
 			.checkGuardianEndorsements();
 
-		if(eai.get("Whensafe - %") != null)
+		if(eai.get("Whensafe - %") != null && eai.get("Wind Excluded").toLowerCase().equals("false"))
 		{
 			if(!pe.isWhenSafeChecked())
 				pe.checkWhenSafe();
@@ -1219,7 +1231,7 @@ public class FLHO3 extends BaseTest
 			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
-			le.unCheckAnimalLiability();
+			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 		{

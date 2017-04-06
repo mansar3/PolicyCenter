@@ -200,7 +200,9 @@ public class SCDP3 extends BaseTest
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
 
-			SCDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			SCDP3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -290,6 +292,7 @@ public class SCDP3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -300,6 +303,7 @@ public class SCDP3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -421,7 +425,7 @@ public class SCDP3 extends BaseTest
 
 			SCDP3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -465,7 +469,9 @@ public class SCDP3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -581,7 +587,8 @@ public class SCDP3 extends BaseTest
 				if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}
@@ -748,7 +755,9 @@ public class SCDP3 extends BaseTest
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
 
-			SCDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			SCDP3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -821,6 +830,7 @@ public class SCDP3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -831,6 +841,7 @@ public class SCDP3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -952,7 +963,7 @@ public class SCDP3 extends BaseTest
 
 			SCDP3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -996,7 +1007,9 @@ public class SCDP3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 

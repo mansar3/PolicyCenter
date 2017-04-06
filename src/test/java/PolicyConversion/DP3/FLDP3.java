@@ -172,7 +172,9 @@ public class FLDP3 extends BaseTest
 		//.setDescription("Nerd Lair")
 		.setSsn(eai.getOrDefault("SSN", null)).setOrganization("4 CORNERS INSURANCE").setProducerCode("8329736");
 
-		FLDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+		FLDP3AccountFileSummary accountFileSummary = createAccount
+		.checkForDuplicatesAndReturn()
+		.clickUpdate();
 		log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() + ", first name: " + firstName + ", last name: " + lastName);
 
 
@@ -253,6 +255,7 @@ public class FLDP3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -263,6 +266,7 @@ public class FLDP3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -384,7 +388,7 @@ public class FLDP3 extends BaseTest
 
 			FLDP3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -428,7 +432,9 @@ public class FLDP3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -502,7 +508,7 @@ public class FLDP3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment"));
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}
@@ -541,21 +547,18 @@ public class FLDP3 extends BaseTest
 
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
-			if(eai.get("Personal Liability") != null)
+			if(eai.get("Premises Liability") != null)
 				co.checkPremisesLiability()
-				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
-
-
-			// defaults to unchecked
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+			else
+				co.unCheckPremisesLiability();
 		}
 		else
 		{
-			// defaults to check
 			if(eai.get("Personal Liability") != null)
 				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
-
 		}
 		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
 
@@ -697,7 +700,9 @@ public class FLDP3 extends BaseTest
 			.setOrganization("4 CORNERS INSURANCE")
 			.setProducerCode("8329736");
 
-			FLDP3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			FLDP3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -770,6 +775,7 @@ public class FLDP3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -780,6 +786,7 @@ public class FLDP3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -945,7 +952,9 @@ public class FLDP3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -1022,7 +1031,7 @@ public class FLDP3 extends BaseTest
 		{
 			wm.setRoofCover(eai.getOrDefault("Roof Cover","<none>"));
 			if(eai.get("Roof Deck Attachment") != null)
-				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment") + "(");
+				wm.setRoofDeckAttachment(eai.get("Roof Deck Attachment"));
 			wm.setRoofWallConnection(eai.get("Roof Wall Connection"));
 			co = wm.next();
 		}

@@ -193,7 +193,9 @@ public class ALHO3 extends BaseTest
 			.setOrganization("Brown")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
-			ALHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			ALHO3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -279,6 +281,7 @@ public class ALHO3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -289,6 +292,7 @@ public class ALHO3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -409,7 +413,7 @@ public class ALHO3 extends BaseTest
 
 			ALHO3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -453,7 +457,9 @@ public class ALHO3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -632,7 +638,7 @@ public class ALHO3 extends BaseTest
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
-		if(eai.get("Ordinance or Law - Percent").equals("0%"))
+		if(eai.get("Ordinance or Law - Percent") == null)
 			pe.unCheckOrdinanceOrLaw();
 
 //		if(eai.get("Earthquake Coverage Deductible") != null)
@@ -800,7 +806,9 @@ public class ALHO3 extends BaseTest
 			.setOrganization("Brown")
 			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
 			//.setProducerCode("012-13-12345 ");
-			ALHO3AccountFileSummary accountFileSummary = createAccount.clickUpdate();
+			ALHO3AccountFileSummary accountFileSummary = createAccount
+			.checkForDuplicatesAndReturn()
+			.clickUpdate();
             log("Account successfully created: accountNumber=" + accountFileSummary.getAccountNumber() +
 			", first name: " + firstName + ", last name: " + lastName);
 
@@ -873,6 +881,7 @@ public class ALHO3 extends BaseTest
 					.setDateOfBirth(eai.getOrDefault("Additional Name Insured Date of Birth", null))
 					.setSsn(eai.getOrDefault("Additional Name Insured SSN" , null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 				}
 				// Add a company
@@ -883,6 +892,7 @@ public class ALHO3 extends BaseTest
 					ani
 					.setCompanyName(eai.getOrDefault("Additional Name Insured Company Name", null))
 					.clickSameAddressAsPrimaryNamedInsured()
+					.checkForDuplicatesAndReturn()
 					.clickOk();
 
 				}
@@ -1003,7 +1013,7 @@ public class ALHO3 extends BaseTest
 
 			ALHO3SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
+			String fName =  name[0], lName = getLastName(name) + dateString;
 			sab
 			.setType("Person")
 			.setFirstName(fName)
@@ -1047,7 +1057,9 @@ public class ALHO3 extends BaseTest
 				else
 					nai.clickSameAddressAsPrimaryNamedInsured();
 
-				nai.clickOk();
+				nai
+				.checkForDuplicatesAndReturn()
+				.clickOk();
 
 
 
@@ -1226,7 +1238,7 @@ public class ALHO3 extends BaseTest
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"));
-		if(eai.get("Ordinance or Law - Percent").equals("0%"))
+		if(eai.get("Ordinance or Law - Percent") == null)
 			pe.unCheckOrdinanceOrLaw();
 		//.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
 
