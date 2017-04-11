@@ -22,9 +22,7 @@ import pageobjects.WizardPanelBase.AccountFileSummary;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -38,10 +36,6 @@ public class SCHO6 extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -560,16 +554,15 @@ public class SCHO6 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		if(eai.get("Personal Property - Limit") != null)
-			co //.setPersonalPropertyExcluded("false")
-			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 //		else
 //			co.setPersonalPropertyExcluded("true");
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
-
+		if(eai.get("Personal Property - Limit") != null)
+			co //.setPersonalPropertyExcluded("false")
+			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 //		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 //			co
 //			.setLossOfUseSelection(eai.get("Loss of Use - %"));
@@ -1160,15 +1153,15 @@ public class SCHO6 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		if(eai.get("Personal Property - Limit") != null)
-			co //.setPersonalPropertyExcluded("false")
-			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 //		else
 //			co.setPersonalPropertyExcluded("true");
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+		if(eai.get("Personal Property - Limit") != null)
+			co //.setPersonalPropertyExcluded("false")
+			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 
 //		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 //			co
@@ -1345,7 +1338,22 @@ public class SCHO6 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 
+		SCHO6GoPaperless gp = quote.westPanel.goPaperless();
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 	}

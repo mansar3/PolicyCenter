@@ -7,9 +7,12 @@ import pageobjects.WizardPanelBase.Quote;
  * Created by ssai on 3/4/2017.
  */
 public class NCHOWQuote extends Quote<NCHOWQuote> {
+
+	public NCHOWWestPanel westPanel;
     public NCHOWQuote(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
+        westPanel = new NCHOWWestPanel(sh,path);
     }
 
     public NCHOWQuote clickIssuePolicy()

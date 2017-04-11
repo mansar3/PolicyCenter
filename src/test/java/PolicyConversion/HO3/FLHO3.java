@@ -35,7 +35,6 @@ public class FLHO3 extends BaseTest
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
 
-
 	@BeforeMethod
 	public void beforeMethod()
 	{
@@ -586,7 +585,7 @@ public class FLHO3 extends BaseTest
 
 			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
 		}
-		else
+		else if(eai.get("Whensafe - %") == null && eai.get("Wind Excluded").toLowerCase().equals("false"))
 		{
 			if(pe.isWhenSafeChecked())
 				pe.unCheckWhenSafe();
@@ -657,9 +656,6 @@ public class FLHO3 extends BaseTest
 
 		// Liability Endorsements
 		FLHO3Coverages.FLHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
 			le.checkAnimalLiability();
@@ -688,6 +684,16 @@ public class FLHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		FLHO3RiskAnalysis ra = le.next();
 		FLHO3Quote quote;
@@ -1119,6 +1125,7 @@ public class FLHO3 extends BaseTest
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
@@ -1155,7 +1162,7 @@ public class FLHO3 extends BaseTest
 
 			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
 		}
-		else
+		else if(eai.get("Whensafe - %") == null && eai.get("Wind Excluded").toLowerCase().equals("false"))
 		{
 			if(pe.isWhenSafeChecked())
 				pe.unCheckWhenSafe();
@@ -1226,9 +1233,6 @@ public class FLHO3 extends BaseTest
 
 		// Liability Endorsements
 		FLHO3Coverages.FLHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
 			le.checkAnimalLiability();
@@ -1258,6 +1262,17 @@ public class FLHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
+
 		FLHO3RiskAnalysis ra = le.next();
 		FLHO3Quote quote;
 		if(qualifiesForHurricaneProtection(eai))
@@ -1274,6 +1289,21 @@ public class FLHO3 extends BaseTest
 
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
+		FLHO3GoPaperless gp = quote.westPanel.goPaperless();
+		
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
+
+
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

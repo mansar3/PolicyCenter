@@ -22,9 +22,7 @@ import pageobjects.WizardPanelBase.AccountFileSummary;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -38,10 +36,6 @@ public class NCHOW extends BaseTest
 	private AccountFileSummary accountFileSummary;
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			//filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -64,7 +58,7 @@ public class NCHOW extends BaseTest
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date","Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
@@ -465,15 +459,16 @@ public class NCHOW extends BaseTest
 		// Coverages
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
-		if(eai.get("Personal Property - Limit") != null)
-			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
+		if(eai.get("Personal Property - Limit") != null)
+			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		co
-		.setNamedStorm(eai.get("Section I Deductibles - Named Storm"))
 		.setWindHail(eai.get("Section I Deductibles - Wind/Hail"));
+		if(!(eai.get("Section I Deductibles - Wind/Hail").contains("%") && eai.get("Section I Deductibles - Named Storm") == null))
+			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm","<none>"));
 
 
 		NCHOWCoverages.NCHOWPropertyEndorsements pe = co.clickPropertyEndorsements();
@@ -509,8 +504,9 @@ public class NCHOW extends BaseTest
 
 
 		if(eai.get("Inflation Guard - Percent") == null)
-			if(pe.isInflationGuardChecked())
-				pe.unCheckInflationGuard();
+			pe.unCheckInflationGuard();
+		else
+			pe.checkInflationGuard();
 		// Liability Endorsements
 
 		NCHOWRiskAnalysis ra = pe.next();
@@ -855,15 +851,17 @@ public class NCHOW extends BaseTest
 		// Coverages
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
-		if(eai.get("Personal Property - Limit") != null)
-			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
+
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
+		if(eai.get("Personal Property - Limit") != null)
+			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		co
-		.setNamedStorm(eai.get("Section I Deductibles - Named Storm"))
 		.setWindHail(eai.get("Section I Deductibles - Wind/Hail"));
+		if(!(eai.get("Section I Deductibles - Wind/Hail").contains("%") && eai.get("Section I Deductibles - Named Storm") == null))
+			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm","<none>"));
 
 
 		NCHOWCoverages.NCHOWPropertyEndorsements pe = co.clickPropertyEndorsements();
@@ -899,8 +897,9 @@ public class NCHOW extends BaseTest
 
 
 		if(eai.get("Inflation Guard - Percent") == null)
-			if(pe.isInflationGuardChecked())
-				pe.unCheckInflationGuard();
+			pe.unCheckInflationGuard();
+		else
+			pe.checkInflationGuard();
 		// Liability Endorsements
 
 		NCHOWRiskAnalysis ra = pe.next();
@@ -923,7 +922,22 @@ public class NCHOW extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 
+		NCHOWGoPaperless gp = quote.westPanel.goPaperless();
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 	}

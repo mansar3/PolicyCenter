@@ -229,6 +229,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		protected T rerate()
 		{
 			sh.clickElement(by.rerate);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 		protected T cancel()

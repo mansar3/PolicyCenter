@@ -550,15 +550,16 @@ public class SCHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 			co
@@ -657,7 +658,6 @@ public class SCHO3 extends BaseTest
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
@@ -671,7 +671,7 @@ public class SCHO3 extends BaseTest
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
 			if(pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+				pe.unCheckWhenSafe();
 
 
 
@@ -688,8 +688,10 @@ public class SCHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
+		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false"))
 			le.checkAnimalLiability();
+		else
+			le.unCheckAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
 			le
@@ -1142,15 +1144,16 @@ public class SCHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 			co
@@ -1248,7 +1251,6 @@ public class SCHO3 extends BaseTest
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
@@ -1280,7 +1282,9 @@ public class SCHO3 extends BaseTest
 			le
 			.checkPermittedIncidentalOccupancyLiability();
 
-		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false") && eai.get("Guardian Endorsement") == null)
+		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false"))
+			le.checkAnimalLiability();
+		else
 			le.unCheckAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
@@ -1328,7 +1332,22 @@ public class SCHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 
+		SCHO3GoPaperless gp = quote.westPanel.goPaperless();
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 	}

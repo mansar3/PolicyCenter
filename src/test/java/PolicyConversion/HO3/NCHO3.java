@@ -551,15 +551,17 @@ public class NCHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			//co.setPersonalPropertyExcluded("false")
 			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 //		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 //			co
@@ -666,11 +668,9 @@ public class NCHO3 extends BaseTest
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
 				pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
-			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+			pe.checkSpecificAdditionalAmountOfCoverageA();
 
 		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
 			if(pe.isCreditCardCheckBoxAvailable())
@@ -678,15 +678,13 @@ public class NCHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
-			if(pe.isWaterBackUpChecked())
-				pe.unCheckWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null)
+			pe.unCheckWaterBackUp();
 		else
-		{
 			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
-		}
 
-
+		if(!eai.get("Special Computer Coverage").toLowerCase().equals("false"))
+			pe.checkSpecialComputerCoverage();
 
 		if(eai.get("Inflation Guard - Percent") != null)
 			pe.checkInflationGuard();
@@ -1154,15 +1152,17 @@ public class NCHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			//co.setPersonalPropertyExcluded("false")
 			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 //		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 //			co
@@ -1271,30 +1271,27 @@ public class NCHO3 extends BaseTest
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
 		
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.unCheckSpecificAdditionalAmountOfCoverageA();
+			pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
-			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+			pe.checkSpecificAdditionalAmountOfCoverageA();
 
 		if(eai.getOrDefault("Credit Card (Limit)", null) != null)
 			if(pe.isCreditCardCheckBoxAvailable())
 				pe
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
-
+		if(!eai.get("Special Computer Coverage").toLowerCase().equals("false"))
+			pe.checkSpecialComputerCoverage();
 
 
 		if(eai.get("Inflation Guard - Percent") != null)
 			pe.checkInflationGuard();
 
-		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
-			if(pe.isWaterBackUpChecked())
-				pe.unCheckWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null)
+			pe.unCheckWaterBackUp();
 		else
-		{
 			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
-		}
+
 
 
 
@@ -1363,6 +1360,22 @@ public class NCHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
+
+		NCHO3GoPaperless gp = quote.westPanel.goPaperless();
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 

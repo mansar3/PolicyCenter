@@ -274,9 +274,13 @@ public class CenterSeleniumHelper
 		{
 			if (!isRadioButtonSelected(by))
 			{
+				waitForNoMask();
 				clickElement(by);
 			}
 			tab();
+			waitForNoMask();
+			// Added because sometimes it takes two clicks to check
+			// an element.
 			if (!isRadioButtonSelected(by))
 			{
 				clickElement(by);
@@ -289,9 +293,19 @@ public class CenterSeleniumHelper
 		{
 			if (isRadioButtonSelected(by))
 			{
+				waitForNoMask();
 				clickElement(by);
 			}
 			tab();
+			waitForNoMask();
+			// Added because sometimes it takes two clicks
+			// to uncheck an element.
+			if (isRadioButtonSelected(by))
+			{
+				waitForNoMask();
+				clickElement(by);
+			}
+
 
 			assert !isChecked(by);
 		}
