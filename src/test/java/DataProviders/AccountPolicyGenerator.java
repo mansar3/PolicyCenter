@@ -156,7 +156,7 @@ public class AccountPolicyGenerator
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLDP3/");
 	}
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Data()
 	{
 		policytype  = POLICYTYPE.FLHO3;
@@ -215,7 +215,7 @@ public class AccountPolicyGenerator
 	{
 		Object[][] dataBuffer = null;
 		CSVReader reader;
-		String filePath= filePathBase + "policies copy.csv";
+		String filePath= filePathBase + "policies.csv";
 
 		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
 //		NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("fpic.net", "username", "password"); // replace with actual values
