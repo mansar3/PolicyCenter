@@ -104,9 +104,14 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
+	}
+
+	public boolean isHurricanePresent()
+	{
+		return super.isHurricanePresent();
 	}
 
 	public FLHO6Coverages setHurricane(String text)

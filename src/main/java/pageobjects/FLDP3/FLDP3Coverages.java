@@ -108,9 +108,9 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public FLDP3Coverages setHurricane(String text)

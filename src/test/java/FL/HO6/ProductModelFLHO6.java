@@ -16,7 +16,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO6.*;
 import pageobjects.Logon;
-import pageobjects.WizardPanelBase.*;
 
 public class ProductModelFLHO6 extends BaseTest
 {
@@ -34,12 +33,12 @@ public class ProductModelFLHO6 extends BaseTest
         dateString = date.toString("MMddhhmmss");
         System.out.println(new DateTime().toString());
 
-        String user = "Su", password = "";
         driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
         sh = new CenterSeleniumHelper(driver);
         logon = new Logon(sh, sessionInfo);
         logon.load();
         logon.isLoaded();
+        String user = "User1brown", password = "";
         logon.login(user, password);
         log(String.format("Logged in as: %s\nPassword: %s", user, password));
 
@@ -65,9 +64,7 @@ public class ProductModelFLHO6 extends BaseTest
                 zipcode = "32114",
                 addressType = "Home",
                 ssn = "777-12-3456",
-                organizationName = "We Insure",
-                organizationType = Organizations.OrganizationTypes.AGENCY.value,
-                producerCode = "523-23-21531 We Insure(Jacksonville)";
+                producerCode = "523-23-21498 Brown & Brown of Florida - West Palm Beach";
 
         enterAccountInformation = new FLHO6EnterAccountInformation(sh);
         System.out.println(dob);
@@ -91,11 +88,6 @@ public class ProductModelFLHO6 extends BaseTest
                     .selectSuccessfulVerificationIfPossibleForCreateAccount()
                     .setAddressType(addressType)
                     .setSsn(ssn)
-                    .clickOrganizationSearch()
-                    .setOrganizationName(organizationName)
-                    .setOrganizationType(organizationType)
-                    .clickSearchButton()
-                    .clickSelectOrganizationButton()
                     .setProducerCode(producerCode);
 
             String expectedAddress = createAccount.getAddressLine1();
@@ -117,10 +109,289 @@ public class ProductModelFLHO6 extends BaseTest
         }
     }
 
-    @Test
-    public void productModelFLHO6LessCoverage(ITestContext itc)
+    @Test(description = "FL.HO6.productModel.LessCoverage001"/*,
+            dependsOnMethods = {"createPersonAccountFLHO6"}*/)
+    public void productModelLessCoverageFLHO6(ITestContext itc)
     {
+        log(itc.getName());
 
+    /* Set Variables */
+        //        String firstname = "Ricky0209015449";
+        //        String lastname = "Bobby0209015449";
+        firstname = "FLHO6Ricky0407112234";
+        lastname = "Bobby0407112234";
+
+        String policyType = "Condominium (HO6)";
+        String offeringSelection = "Less Coverage";
+        String county = "Mobile";
+        String yearBuilt = "2000";
+        String distanceToFireHydrant = "200";
+        String protectionClassCode = "1X";
+        String residenceType = "Condominium";
+        String dwellingUsage = "Primary";
+        String dwellingOccupance = "Tenant Occupied",
+                expectedDwellingOccupance;
+        String roofShapeType = "Gable";
+        String dwellingLimit = "100000";
+        String otherStructuresPercentage,
+                expectedOtherStructuresPercentage = "10%";
+        String otherStructuresLimit,
+                expectedOtherStructuresLimit = "25,000";
+        String personalPropertyLimit = "50,000",
+                expectedPersonalPropertyLimit = "",
+                personalPropertyValuationMethod,
+                defaultPersonalPropertyValuationMethod = "Actual Cash Value";
+        String lossOfUsePercentage, defaultLossOfUsePercentage = "40%";
+        String fairRentalValuePercentage,
+                defaultFairRentalValuePercentage = "10%";
+        String fairRentalValueLimit,
+                defaultFairRentalValueLimit = "25,000";
+        String premisesLiabilityLimit,
+                defaultPremisesLiabilityLimit = "100,000";
+        String allOtherPerils, defaultAllOtherPerils = "1,000";
+        String medicalPaymentsLimit, defaultMedicalPaymentsLimit = "1,000";
+        String hurricanePercentage, defaultHurricanePercentage = "10%";
+        String whenSafeCreditPercentage, defaultWhenSafeCreditPercentage = "5%";
+        String whenSafeCreditValue, defaultWhenSafeCreditValue = "1,250";
+        String fungiOccurrenceAggregateLimit,
+                defaultFungiOccurrenceAggregateLimit = "10,000 / 50,000";
+        String theftType, defaultTheftType = "Limited";
+        String waterBackUpLimit, defaultWaterBackUpLimit = "5,000";
+        String additionalLivingExpensesPercent, defaultAdditionalLivingExpensesPercent = "10%";
+        String additionalLivingExpensesLimit, defaultAdditionalLivingExpensesLimit = "25,000";
+
+    /* Begin Test */
+        enterAccountInformation = new FLHO6EnterAccountInformation(sh);
+        FLHO6AccountFileSummary afs = enterAccountInformation
+                .setFirstName(firstname)
+                .setLastName(lastname)
+                .clickSearch()
+                .clickAccountNumberFLHO6();
+
+        afs.westPanel.actions.clickActions();
+        afs.westPanel.actions.clickNewSubmission();
+        FLHO6NewSubmission ns = new FLHO6NewSubmission(sh);
+        FLHO6Qualification qualification = ns.productTable.selectHomeowners();
+        qualification
+                .setPolicyType(policyType)
+                .setOfferingSelection(offeringSelection);
+
+        // Answer 'no' to all 8 questions
+        for (int i=0; i< 8; i++)
+        {
+            qualification.questionnaire.answerNo(i+1);
+        }
+
+        FLHO6Dwelling dwelling = qualification
+                .next()
+                .next()
+                .editLocation()
+                .setCounty(county)
+                .clickOk()
+                .setYearBuilt(yearBuilt)
+                .setDistanceToFireHydrant(distanceToFireHydrant)
+                .setTerritoryCode("005")    // This line had to be added because test would not proceed without this value
+                .setBCEG("05")              // This line had to be added because test would not proceed without this value
+                .setProtectionClassCode(protectionClassCode)
+                .setAtInceptionOfPolicyIsDeedOwnedByEntity("false")
+                .setResidenceType(residenceType)
+                .setDwellingUsage(dwellingUsage)
+                .setDwellingOccupancy(dwellingOccupance);
+
+        FLHO6Coverages coverages = dwelling.next()
+                .clickWindMitigation()
+                .setRoofShapeType(roofShapeType)
+                .next();
+
+        /* Dwelling Limit */
+        String defaultDwellingLimit = coverages.getDwellingLimit();
+        Assert.assertTrue(defaultDwellingLimit.equals(defaultDwellingLimit),
+                "Dwelling limit was expected to be " + defaultDwellingLimit +
+                        " but it was" + defaultDwellingLimit);
+        coverages.setDwellingLimit(dwellingLimit);
+
+        /* Personal Property */
+        String defaultPersonalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(defaultPersonalPropertyLimit.equals(expectedPersonalPropertyLimit),
+                "Personal Property limit was expected to be " + expectedPersonalPropertyLimit +
+                        ", but it was " + defaultPersonalPropertyLimit);
+
+        coverages.setPersonalPropertyLimit(personalPropertyLimit);
+        expectedPersonalPropertyLimit = coverages.getPersonalPropertyLimit();
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                "Personal Property limit was expected to be " + expectedPersonalPropertyLimit +
+                        ", but it was " + personalPropertyLimit);
+
+        /* Personal Property Valuation Method */
+        personalPropertyValuationMethod = coverages.getPersonalPropertyValuationMethod();
+        Assert.assertTrue(defaultPersonalPropertyValuationMethod.equals(personalPropertyValuationMethod),
+                "Personal Property " + defaultPersonalPropertyValuationMethod +
+                        ", but it was " + personalPropertyValuationMethod);
+
+        lossOfUsePercentage = coverages.getLossOfUseSelection();
+        Assert.assertTrue(defaultLossOfUsePercentage.equals(lossOfUsePercentage),
+                "Loss Of Use Percentage was expected to be " + defaultLossOfUsePercentage +
+                        ", but it was " + lossOfUsePercentage);
+
+        /* Section I Deductibles */
+        Assert.assertFalse(coverages.isWindExcluded(),
+                "Deductibles Wind Excluded was expected to be 'No' but it was 'Yes'");
+
+        allOtherPerils = coverages.getAllOtherPerils();
+        Assert.assertTrue(defaultAllOtherPerils.equals(allOtherPerils),
+                "All Other Perils was expected to be " + defaultAllOtherPerils +
+                        ", but it was " + allOtherPerils);
+        hurricanePercentage = coverages.getHurricanePercentage();
+        Assert.assertTrue(defaultHurricanePercentage.equals(hurricanePercentage),
+                "Hurricane Deductible was expected to be " + defaultHurricanePercentage +
+                        ", but it was " + hurricanePercentage);
+
+        Assert.assertFalse(coverages.setWindExcluded("true").isHurricanePresent(),
+                "Hurricane was not expected to be present but it was");
+        Assert.assertTrue(coverages.setWindExcluded("false").isHurricanePresent(),
+                "Hurricane was expected to be present but it was not");
+
+
+
+        otherStructuresPercentage = coverages.getOtherStructuresPercentage();
+        Assert.assertTrue(expectedOtherStructuresPercentage.equals(otherStructuresPercentage),
+                "Expected Other Structures Percentage was " + expectedOtherStructuresPercentage +
+                        ", but it was " + otherStructuresPercentage);
+
+        otherStructuresLimit = coverages.getOtherStructuresLimit();
+        Assert.assertTrue(expectedOtherStructuresLimit.equals(otherStructuresLimit),
+                "Expected Other Structures Limit was " + expectedOtherStructuresLimit + ", but it was " +
+                        otherStructuresLimit);
+
+
+
+    /* Fair Rental */
+        fairRentalValuePercentage = coverages.getFairRentalValuePercentage();
+        Assert.assertTrue(defaultFairRentalValuePercentage.equals(fairRentalValuePercentage),
+                "Fair Rental Value Percentage was expected to be " + defaultFairRentalValuePercentage +
+                        ", but it was " + fairRentalValuePercentage);
+        fairRentalValueLimit = coverages.getFairRentalValueLimit();
+        Assert.assertTrue(defaultFairRentalValueLimit.equals(fairRentalValueLimit),
+                "Fair Rental Value Limit was expected to be " + defaultFairRentalValueLimit +
+                        ", but it was " + fairRentalValueLimit);
+
+
+
+    /* Premises Liability */
+        premisesLiabilityLimit = coverages.getPremisesLiabilityLimit();
+        Assert.assertTrue(defaultPremisesLiabilityLimit.equals(premisesLiabilityLimit),
+                "Premises Liability Limit was expected to be " + defaultPremisesLiabilityLimit +
+                        ", but it was " + premisesLiabilityLimit);
+
+    /* Medical Payments */
+        medicalPaymentsLimit = coverages.getMedicalPaymentsLimit();
+        Assert.assertTrue(defaultMedicalPaymentsLimit.equals(medicalPaymentsLimit),
+                "Medical Payments Limit was expected to be " + defaultMedicalPaymentsLimit +
+                        ", but it was " + medicalPaymentsLimit);
+
+        FLHO6Coverages.FLHO6PropertyEndorsements pe = coverages.clickPropertyEndorsements();
+
+    /* Property Endorsements */
+        Assert.assertTrue(pe.isWhenSafeChecked(),
+                "When Safe was expected to be checked but it was not");
+        whenSafeCreditPercentage = pe.getWhenSafeCreditPercentage();
+        Assert.assertTrue(defaultWhenSafeCreditPercentage.equals(whenSafeCreditPercentage),
+                "When Safe Credit Percentage was expected to be " + defaultWhenSafeCreditPercentage +
+                        ", but it was " + whenSafeCreditPercentage);
+        whenSafeCreditValue = pe.getWhenSafeCreditValue();
+        Assert.assertTrue(defaultWhenSafeCreditValue.equals(whenSafeCreditValue),
+                "When Safe Credit Value was expected to be " + defaultWhenSafeCreditValue +
+                        ", but it was " + whenSafeCreditValue);
+
+    /* Limited Fungi, Wet or dry Rot, or Bacteria */
+        fungiOccurrenceAggregateLimit = pe.getOccurrenceAggregateLimit();
+        Assert.assertTrue(defaultFungiOccurrenceAggregateLimit.equals(fungiOccurrenceAggregateLimit),
+                "Limit Fungi, Wet or Dry Rot... Occurrence/Aggregate Limit " + defaultFungiOccurrenceAggregateLimit +
+                        ", but it was " + fungiOccurrenceAggregateLimit);
+
+        Assert.assertFalse(pe.isScreenEnclosureHurricaneCoverageChecked(),
+                "Screen Enclosure Hurricane Coverage was expected to be checked but it was not");
+
+        /*Assert.assertFalse(pe.isTheftCoverageChecked(),
+                "Theft Coverage was expected to be checked but it was not");
+        theftType = pe.clickTheftCoverage().getTheftType();
+        Assert.assertTrue(defaultTheftType.equals(theftType),
+                "Theft Type was expected to be " + defaultTheftType +
+                        ", but it was " + theftType);
+
+        Assert.assertFalse(pe.isWaterBackUpChecked(),
+                "Water Back Up was not expected to be checked but it was");
+
+        waterBackUpLimit = pe.checkWaterBackUp().getWaterBackUpLimit();
+        Assert.assertTrue(defaultWaterBackUpLimit.equals(waterBackUpLimit),
+                "Water Back Up Limit was expected to be " + defaultWaterBackUpLimit +
+                        ", but it was " + waterBackUpLimit);
+
+        Assert.assertFalse(pe.isSinkholeLossCoverageChecked(),
+                "Sinkhole Loss Coverage was not expected to be checked but it was");
+        Assert.assertTrue(pe.checkSinkholeLossCoverage().isSinkholeLossCoverageChecked(),
+                "Sinkhole Loss Coverage was expected to be displayed after checked, but it was not");
+        afs.westPanel.clickDwelling();
+        dwelling = new FLHO6Dwelling(sh, CenterPanelBase.Path.SUBMISSION);
+        coverages = dwelling.setDwellingOccupancy("Owner Occupied").next().next();
+
+        additionalLivingExpensesPercent = coverages.getAdditionalLivingExpensesPercent();
+        Assert.assertTrue(defaultAdditionalLivingExpensesPercent.equals(additionalLivingExpensesPercent),
+                "Additional Living Expenses Percent was expected to be " + defaultAdditionalLivingExpensesPercent +
+                        ", but it was " + additionalLivingExpensesPercent);
+
+        additionalLivingExpensesLimit = coverages.getAdditionalLivingExpensesLimit();
+        Assert.assertTrue(defaultAdditionalLivingExpensesLimit.equals(additionalLivingExpensesLimit),
+                "Additional Living Expenses Limit was expected to be " + defaultAdditionalLivingExpensesLimit +
+                        ", but it was " + additionalLivingExpensesLimit);
+
+        Assert.assertFalse(coverages.isPremiseLiabilityPresent(),
+                "Premise Liability was not expected to be present but it was");
+
+        Assert.assertTrue(coverages.isPersonalLiabilityPresent(),
+                "Personal Liability was expected to be present but it was not");
+
+        pe = coverages.clickPropertyEndorsements();
+        defaultTheftType = "Broad";
+        theftType = pe.getTheftType();
+
+        Assert.assertTrue(defaultTheftType.equals(theftType),
+                "Theft Type was expected to be " + defaultTheftType +
+                        ", but it was " + theftType);
+        coverages = pe.clickCoverages();
+        coverages.setPersonalPropertyExcluded("true");
+        pe = coverages.clickPropertyEndorsements();
+
+        Assert.assertFalse(pe.isTheftCoveragePresent(),
+                "Theft Coverage was not expected to be present but it was not");
+
+        coverages = pe.clickCoverages();
+        personalPropertyLimit = coverages.setPersonalPropertyExcluded("false")
+                .getPersonalPropertyLimit();
+
+        Assert.assertTrue(expectedPersonalPropertyLimit.equals(personalPropertyLimit),
+                "Personal Property Limit was expected to be " + expectedPersonalPropertyLimit +
+                        ", but it was " + personalPropertyLimit);
+        coverages.clickPropertyEndorsements();
+        afs.westPanel.clickDwelling();
+
+        dwelling = new FLHO6Dwelling(sh, CenterPanelBase.Path.SUBMISSION);
+        dwellingOccupance = dwelling.getDwellingOccupancy();
+        expectedDwellingOccupance = "Owner Occupied";
+
+        Assert.assertTrue(expectedDwellingOccupance.equals(dwellingOccupance),
+                "Dwelling Occupancy was expected to be " + expectedDwellingOccupance +
+                        ", but it was " + dwellingOccupance);
+
+        dwelling.next().next(); // Go to coverages
+
+        coverages = new FLHO6Coverages(sh, CenterPanelBase.Path.SUBMISSION);
+
+        theftType = coverages.clickPropertyEndorsements().clickTheftCoverage().getTheftType();
+
+        Assert.assertTrue(defaultTheftType.equals(theftType),
+                "Theft Type was expected to be " + defaultTheftType +
+                        ", but it was " + theftType);*/
     }
 
     @Test(description = "FL.HO6.ProductModel.MoreCoverage003"/*, dependsOnMethods =
@@ -233,7 +504,7 @@ public class ProductModelFLHO6 extends BaseTest
         Assert.assertTrue(defaultAllOtherPerils.equals(allOtherPerils),
                 "All Other Perils was expected to be " + defaultAllOtherPerils +
                         ", but it was " + allOtherPerils);
-        hurricaneDeductible = coverages.getHurricane();
+        hurricaneDeductible = coverages.getHurricanePercentage();
         Assert.assertTrue(defaultHurricaneDeductible.equals(hurricaneDeductible),
                 "" + defaultHurricaneDeductible +
                         ", but it was " + hurricaneDeductible);

@@ -79,9 +79,9 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public SCDP3Coverages setHurricane(String text)

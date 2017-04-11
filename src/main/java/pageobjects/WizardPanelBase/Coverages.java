@@ -278,7 +278,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		return sh.isElementEditable(by.lossOfUseLimit);
 	}
 
-	protected String getHurricane()
+	protected String getHurricanePercentage()
 	{
 		return sh.getValue(by.hurricane);
 	}
@@ -289,6 +289,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
+	}
+
+	protected boolean isHurricanePresent()
+	{
+		return sh.isDisplayed(by.hurricane);
 	}
 
 	protected T clickAllOtherPerils()
@@ -619,8 +624,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								personalPropertyExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='Yes']"),
 								personalPropertyExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
                                 isWindExcluded = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Is Wind Excluded']/../..//span[text()='Excluded?']"),
-                                isWindExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='Yes']"),
-                                isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Property']/../..//span[text()='Excluded?']/../..//div/label[text()='No']"),
+                                isWindExcludedYes = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text()='Wind Excluded?']/../..//div/label[text()='Yes']"),
+                                isWindExcludedNo = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text()='Wind Excluded?']/../..//div/label[text()='No']"),
 				                saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
 				                Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 		                        quotepolicycgange = By.id("PolicyChangeWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),

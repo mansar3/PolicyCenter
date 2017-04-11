@@ -95,9 +95,9 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		return super.getLossOfUseLimit(flag);
 	}
 
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public SCHO6Coverages setHurricane(String text)

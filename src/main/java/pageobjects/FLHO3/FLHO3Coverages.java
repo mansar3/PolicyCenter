@@ -138,9 +138,9 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		return super.isLossOfUseLimitEditable();
 	}
 
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public FLHO3Coverages setHurricane(String text)

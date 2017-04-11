@@ -110,9 +110,9 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public ALHO3Coverages setHurricane(String text)

@@ -33,4 +33,10 @@ public class FLHO6EnterAccountInformation extends EnterAccountInformation<FLHO6E
 		super.searchFromAddressBookAccount();
 		return new FLHO6SearchAddressBook(sh);
 	}
+
+	public FLHO6AccountFileSummary clickAccountNumberFLHO6()
+	{
+		super.clickAccountNumber();
+		return new FLHO6AccountFileSummary(sh);
+	}
 }

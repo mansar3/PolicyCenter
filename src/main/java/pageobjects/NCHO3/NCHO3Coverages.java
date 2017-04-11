@@ -94,9 +94,9 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 	{
 		return super.getLossOfUseLimit();
 	}
-	public String getHurricane()
+	public String getHurricanePercentage()
 	{
-		return super.getHurricane();
+		return super.getHurricanePercentage();
 	}
 
 	public NCHO3Coverages setHurricane(String text)

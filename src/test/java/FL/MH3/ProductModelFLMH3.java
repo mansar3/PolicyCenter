@@ -263,7 +263,7 @@ public class ProductModelFLMH3 extends BaseTest
         Assert.assertTrue(defaultAllOtherPerils.equals(allOtherPerils),
                 "All Other Perils was expected to be " + defaultAllOtherPerils +
                         ", but it was " + allOtherPerils);
-        hurricaneDeductible = coverages.getHurricane();
+        hurricaneDeductible = coverages.getHurricanePercentage();
         Assert.assertTrue(defaultHurricaneDeductible.equals(hurricaneDeductible),
                 "" + defaultHurricaneDeductible +
                         ", but it was " + hurricaneDeductible);
