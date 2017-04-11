@@ -1338,7 +1338,22 @@ public class SCHO6 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 
+		SCHO6GoPaperless gp = quote.westPanel.goPaperless();
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 	}

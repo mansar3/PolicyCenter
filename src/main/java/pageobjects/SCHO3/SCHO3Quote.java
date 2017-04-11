@@ -8,9 +8,12 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class SCHO3Quote extends Quote<SCHO3Quote>
 {
-		public SCHO3Quote(CenterSeleniumHelper sh, Path path)
+	public SCHO3WestPanel westPanel;
+	public SCHO3Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new SCHO3WestPanel(sh, path);
+
 	}
 	
 	public SCHO3RiskAnalysis backToRiskAnalysis()

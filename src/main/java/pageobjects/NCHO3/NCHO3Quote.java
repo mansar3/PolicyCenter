@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class NCHO3Quote extends Quote<NCHO3Quote>
 {
+	public NCHO3WestPanel westPanel;
 		public NCHO3Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new NCHO3WestPanel(sh,path);
 	}
 
 	public NCHO3Quote acceptyes()

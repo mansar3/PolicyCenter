@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class FLHO6Quote extends Quote<FLHO6Quote>
 {
+	public FLHO6WestPanel westPanel;
 	public FLHO6Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new FLHO6WestPanel(sh,path);
 	}
 	public FLHO6Quote acceptyes()
 	{

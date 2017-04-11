@@ -656,6 +656,9 @@ public class FLMH3 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+
+		quote.clickIssuePolicy().acceptyes();
+		eai.put("Submitted for Approval","Bound");
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -665,7 +668,19 @@ public class FLMH3 extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
+		FLMH3GoPaperless gp = quote.westPanel.goPaperless();
 
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
 
 
 

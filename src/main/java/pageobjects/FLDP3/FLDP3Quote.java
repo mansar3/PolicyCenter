@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class FLDP3Quote extends Quote<FLDP3Quote>
 {
+	public FLDP3WestPanel westPanel;
 	public FLDP3Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new FLDP3WestPanel(sh,path);
 	}
 	
 	public FLDP3RiskAnalysis backToRiskAnalysis()

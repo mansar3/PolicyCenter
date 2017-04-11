@@ -1288,7 +1288,7 @@ public class FLHO3 extends BaseTest
 			.clickRerate();
 
 		quote.clickIssuePolicy().acceptyes();
-		
+		eai.put("Submitted for Approval","Bound");
 		FLHO3GoPaperless gp = quote.westPanel.goPaperless();
 		
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
@@ -1303,7 +1303,7 @@ public class FLHO3 extends BaseTest
 			.clickUpdate();
 		}
 
-		eai.put("Submitted for Approval","Bound");
+
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

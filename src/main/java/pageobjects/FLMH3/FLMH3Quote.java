@@ -6,11 +6,14 @@ import pageobjects.WizardPanelBase.Quote;
 /**
  * Created by ssai on 3/3/2017.
  */
-public class FLMH3Quote extends Quote<FLMH3Quote> {
+public class FLMH3Quote extends Quote<FLMH3Quote>
+{
 
+	public FLMH3WestPanel westPanel;
     public FLMH3Quote(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
+        westPanel = new FLMH3WestPanel(sh,path);
     }
 
     public FLMH3Quote acceptyes()

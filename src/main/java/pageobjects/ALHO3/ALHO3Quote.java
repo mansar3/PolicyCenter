@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class ALHO3Quote extends Quote<ALHO3Quote>
 {
-		public ALHO3Quote(CenterSeleniumHelper sh, Path path)
+	public ALHO3WestPanel westPanel;
+	public ALHO3Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new ALHO3WestPanel(sh,path);
 	}
 	
 	public ALHO3RiskAnalysis backToRiskAnalysis()

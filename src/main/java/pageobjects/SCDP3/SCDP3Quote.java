@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.Quote;
  */
 public class SCDP3Quote extends Quote<SCDP3Quote>
 {
-		public SCDP3Quote(CenterSeleniumHelper sh, Path path)
+	public SCDP3WestPanel westPanel;
+	public SCDP3Quote(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new SCDP3WestPanel(sh,path);
 	}
 	
 	public SCDP3RiskAnalysis backToRiskAnalysis()
