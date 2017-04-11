@@ -21,9 +21,7 @@ import pageobjects.Logon;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -36,10 +34,6 @@ public class FLDP3 extends BaseTest
 
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 	@BeforeMethod
 	public void beforeMethod()
@@ -528,14 +522,16 @@ public class FLDP3 extends BaseTest
 			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
 		 }
 
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		co
 //		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
@@ -1052,14 +1048,16 @@ public class FLDP3 extends BaseTest
 			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
 		 }
 
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 		co
 //		.setLossOfUseSelection(eai.get("Loss of Use - %"))
 		.setWindExcluded(eai.get("Wind Excluded"))
@@ -1083,7 +1081,7 @@ public class FLDP3 extends BaseTest
 			else
 				co.unCheckPersonalLiability();
 		}
-		//.setMedicalPaymentsLimit(eai.get("Medical Payments"));
+
 
 
 

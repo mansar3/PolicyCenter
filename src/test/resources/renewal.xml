@@ -7,16 +7,16 @@
 	<parameter name="userName" value="conversion2" />
 	<test name="Renewal ETL">
         <classes>
-              <class name="PolicyConversion.HO3.ALHO3">
+			<class name="PolicyConversion.HO3.ALHO3">
                 <methods>
                     <include name="RenewalLoadTest2"></include>
                 </methods>
             </class>
-			<class name="PolicyConversion.HO3.FLHO3">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
+			<!--<class name="PolicyConversion.HO3.FLHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
 			<class name="PolicyConversion.HO3.NCHO3">
                 <methods>
                     <include name="RenewalLoadTest2"></include>
@@ -27,11 +27,11 @@
                     <include name="RenewalLoadTest2"></include>
                 </methods>
             </class>
-			<!--<class name="PolicyConversion.HO6.SCHO6">-->
-                <!--<methods>-->
-                    <!--<include name="RenewalLoadTest2"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
+			<class name="PolicyConversion.HO6.SCHO6">
+                <methods>
+                    <include name="RenewalLoadTest2"></include>
+                </methods>
+            </class>
 			<class name="PolicyConversion.HO6.FLHO6">
                 <methods>
                     <include name="RenewalLoadTest2"></include>

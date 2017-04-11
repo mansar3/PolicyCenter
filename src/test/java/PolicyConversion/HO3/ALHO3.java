@@ -551,15 +551,17 @@ public class ALHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+
+
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
-
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 			co
@@ -676,12 +678,13 @@ public class ALHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.checkWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null)
+			pe.unCheckWaterBackUp();
 
 		if(eai.get("Inflation Guard - Percent") == null)
-			if(pe.isInflationGuardChecked())
-				pe.unCheckInflationGuard();
+			pe.unCheckInflationGuard();
+		else
+			pe.checkInflationGuard();
 
 
 		//.setPercentageOfAnnualIncrease("12%")
@@ -1151,15 +1154,16 @@ public class ALHO3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
+		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
+			co
+			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
 		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
 			co.setPersonalPropertyExcluded("true");
 
-		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
-			co
-			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
 
 		if(!eai.get("Loss of Use - %").equals(co.getLossOfUseSelection()))
 			co
@@ -1277,12 +1281,13 @@ public class ALHO3 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked())
-				pe.unCheckWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null)
+			pe.unCheckWaterBackUp();
 
 		if(eai.get("Inflation Guard - Percent") == null)
-			if(pe.isInflationGuardChecked())
-				pe.unCheckInflationGuard();
+			pe.unCheckInflationGuard();
+		else
+			pe.checkInflationGuard();
 
 
 		//.setPercentageOfAnnualIncrease("12%")

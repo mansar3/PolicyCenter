@@ -513,6 +513,14 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.unCheckSpecificAdditionalAmountOfCoverageA();
 		}
+		public NCHO3PropertyEndorsements checkSpecialComputerCoverage()
+		{
+			return super.checkSpecialComputerCoverage();
+		}
+		public NCHO3PropertyEndorsements unCheckSpecialComputerCoverage()
+		{
+			return super.unCheckSpecialComputerCoverage();
+		}
 	}
 
 

@@ -21,9 +21,7 @@ import pageobjects.Logon;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -37,10 +35,6 @@ public class FLHO6 extends BaseTest
 	
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
-	String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
-			filePathBase = "/Users/aansari/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
 
 	@BeforeMethod
@@ -549,13 +543,15 @@ public class FLHO6 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"))
 		.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		if(eai.get("Personal Property - Limit") != null)
-			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
+
 //		else
 //			co.setPersonalPropertyExcluded("true");
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
+
+		if(eai.get("Personal Property - Limit") != null)
+			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		co
 		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
@@ -625,7 +621,6 @@ public class FLHO6 extends BaseTest
 		}
 
 
-		if(pe.isOccurrenceAggregateAnInput())
 			pe
 			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
@@ -1201,7 +1196,6 @@ public class FLHO6 extends BaseTest
 
 		}
 
-		if(pe.isOccurrenceAggregateAnInput())
 			pe
 			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe

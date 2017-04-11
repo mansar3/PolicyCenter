@@ -16,7 +16,16 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
-	static String policyFolder = "ConversionPolicies-20170331_115657";
+	static String policyFolder = "ConversionPolicies-20170410_093355";
+	protected static int flho3pc,ncho3pc;
+	private static POLICYTYPE policytype;
+
+	public enum POLICYTYPE
+	{
+		FLDP3,SCDP3,ALHO3,FLHO3,NCHO3,
+		SCHO3,FLHO6,SCHO6,NCHOW,FLMH3;
+	}
+
 	@DataProvider(parallel = true)
 	public static Object[][] POCData()
 	{
@@ -136,30 +145,35 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] ALHO3Data()
 	{
+		policytype  = POLICYTYPE.ALHO3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder +"/ALHO3/");
 	}
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] FLDP3Data()
 	{
+		policytype  = POLICYTYPE.FLDP3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLDP3/");
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] FLHO3Data()
 	{
+		policytype  = POLICYTYPE.FLHO3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLHO3/");
 	}
 	// /Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO6Data()
 	{
+		policytype  = POLICYTYPE.FLHO6;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLHO6/");
 	}
 
 	@DataProvider(parallel = false)
 	public static Object[][] FLMH3Data()
 	{
+		policytype  = POLICYTYPE.FLMH3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/FLMH3/");
 	}
 
@@ -167,27 +181,33 @@ public class AccountPolicyGenerator
 	@DataProvider(parallel = true)
 	public static Object[][] NCHO3Data()
 	{
+		policytype  = POLICYTYPE.NCHO3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/NCHO3/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] NCHOWData()
 	{
+		policytype  = POLICYTYPE.NCHOW;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/NCHOW/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] SCDP3Data()
 	{
+		policytype  = POLICYTYPE.SCDP3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCDP3/");
 	}
 
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO3Data()
 	{
+		policytype  = POLICYTYPE.SCHO3;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCHO3/");
 	}
 	@DataProvider(parallel = true)
 	public static Object[][] SCHO6Data()
 	{
+
+		policytype  = POLICYTYPE.SCHO6;
 		return DataCreator("/Users/aansari/Downloads/" + policyFolder + "/SCHO6/");
 	}
 
@@ -195,7 +215,7 @@ public class AccountPolicyGenerator
 	{
 		Object[][] dataBuffer = null;
 		CSVReader reader;
-		String filePath= filePathBase + "policies.csv";
+		String filePath= filePathBase + "policies copy.csv";
 
 		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
 //		NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("fpic.net", "username", "password"); // replace with actual values
@@ -221,7 +241,7 @@ public class AccountPolicyGenerator
 		{
 			reader = new CSVReader(new FileReader(filePath));
 			List<String[]> data = reader.readAll();
-			System.out.println("data = '" + data.toArray()[0] + "'");
+			//System.out.println("data = '" + data.toArray()[0] + "'");
 			dataBuffer = new Object[data.size()-1][];
 			for(int row = 1; row < data.size(); row++)
 			{
@@ -296,6 +316,45 @@ public class AccountPolicyGenerator
 		}
 
 		System.out.println("databuffer.leg = '" + dataBuffer.length + "'");
+		//setCount(dataBuffer.length);
 		return dataBuffer;
+	}
+
+	private static void setCount(int count)
+	{
+		switch(policytype)
+		{
+			case FLHO3:
+				System.out.println("*************FLHO3 policy count: " +count + "\n");
+				break;
+			case NCHO3:
+				System.out.println("*************NCHO3 policy count: " +count + "\n");
+				break;
+			case SCHO3:
+				System.out.println("*************SCHO3 policy count: " +count + "\n");
+				break;
+			case ALHO3:
+				System.out.println("*************ALHO3 policy count: " +count + "\n");
+				break;
+			case FLDP3:
+				System.out.println("*************FLDP3 policy count: " +count + "\n");
+				break;
+			case FLHO6:
+				System.out.println("*************FLHO6 policy count: " +count + "\n");
+				break;
+			case FLMH3:
+				System.out.println("*************FLMH3 policy count: " +count + "\n");
+				break;
+			case SCDP3:
+				System.out.println("*************SCDP3 policy count: " +count + "\n");
+				break;
+			case SCHO6:
+				System.out.println("*************SCHO6 policy count: " +count + "\n");
+				break;
+			case NCHOW:
+				System.out.println("*************NCHOW policy count: " +count + "\n");
+				break;
+
+		}
 	}
 }

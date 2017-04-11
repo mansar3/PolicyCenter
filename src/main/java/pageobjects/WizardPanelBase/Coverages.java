@@ -368,6 +368,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.propertyEndorsements);
+		sh.waitForNoMask();
 		return (T)this;
 	}
 
@@ -763,6 +764,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			removeScheduledPersonalProperty = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Scheduled Personal Property']/../../div//span[text() = 'R']"),
 
 			permittedIncidentalOccupancy = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Property']/..//input"),
+			permittedIncidentalOccupancyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Permitted Incidental Occupancy - Property']/../../div//span[text() = 'Limit']/../..//input"),
 
 			creditCardFundTransferForgeryCounterfeitMoney = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/..//input"),
 			creditCardFundTransferForgeryCounterfeitMoneyLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Credit Card, Fund Transfer Card, Forgery and Counterfeit Money']/../../div//span[text() = 'Limit']/../..//input"),
@@ -806,6 +808,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 			ErrorMessage= By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:_msgs']/div"),
 
+			specialComputerCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Special Computer Coverage']/..//input"),
 			ordinanceOrLawLimitInput = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//input"),
 			ordinanceOrLawLimitDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Ordinance Or Law']/../../div//span[text() = 'Limit']/../..//div/div"),
 			ordinanceOrLawCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text()='Ordinance Or Law']/../..//input[@role='checkbox']"),
@@ -813,6 +816,30 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			golfCartCoverageMedPayLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Med Pay Limit']/../..//*[@role='textbox']"),
 			golfCartCoverageLiabilityLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/../..//*[text()='Liability Limit']/../..//*[@role='textbox']");
 
+		}
+
+		protected String getPermittedIncidentalOccupancyLimit()
+		{
+			return sh.getValue(by.permittedIncidentalOccupancyLimit);
+		}
+
+		protected T setPermittedIncidentalOccupancyLimit(String permittedIncidentalOccupancyLimit)
+		{
+			sh.setText(by.permittedIncidentalOccupancyLimit, permittedIncidentalOccupancyLimit);
+			sh.tab();
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected T checkSpecialComputerCoverage()
+		{
+			sh.checkboxHelper.checkElement(by.specialComputerCoverage);
+			return (T)this;
+		}
+
+		protected T unCheckSpecialComputerCoverage()
+		{
+			sh.checkboxHelper.unCheckElement(by.specialComputerCoverage);
+			return (T)this;
 		}
 
 		protected T checkRefrigeratedPersonalPropertyLimit()
@@ -828,13 +855,13 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		
 		protected T setEarthquakeCoverageZone(String earthquakeCoverageZone)
 		{
-			sh.setTextAndTab(by.earthquakeCoverageZone, earthquakeCoverageZone);
+			sh.selectFromDropDown(by.earthquakeCoverageZone, earthquakeCoverageZone);
 			return (T)this;
 		}
 
 		protected T setWaterBackUpLimit(String text)
 		{
-			sh.setTextAndTab(by.waterBackUpLimitInput, text);
+			sh.setTextUntil(by.waterBackUpLimitInput, text);
 			return (T)this;
 		}
 
@@ -1557,6 +1584,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T unCheckWhenSafe()
 		{
+			sh.waitForNoMask();
 			sh.checkboxHelper.unCheckElement(by.whenSafe);
 			return (T)this;
 		}
@@ -1803,7 +1831,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T unCheckPersonalInjury()
 		{
-			sh.checkboxHelper.checkElement(by.personalInjury);
+			sh.checkboxHelper.unCheckElement(by.personalInjury);
 			return (T)this;
 		}
 		protected T clickPropertyEndorsementsTab()

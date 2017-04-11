@@ -626,6 +626,16 @@ public class FLHO3Coverages extends Coverages<FLHO3Coverages>
 		{
 			return super.isScreenEnclosureHurricaneCoverageRequired();
 		}
+		public FLHO3PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
+		{
+			return super.setPermittedIncidentalOccupancyLimit(text);
+		}
+
+		public String getPermittedIncidentalOccupancyLimit()
+		{
+			return super.getPermittedIncidentalOccupancyLimit();
+		}
+
 
 		public FLHO3PropertyEndorsements checkWaterBackUp()
 		{

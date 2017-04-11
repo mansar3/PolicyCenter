@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageobjects.NorthPanel;
 
 abstract public class CenterPanelBase
 {
@@ -16,6 +15,7 @@ abstract public class CenterPanelBase
 	private CenterPanelBy by = new CenterPanelBy();
 	protected Path path = Path.SUBMISSION;
 	protected String firstName, lastName;
+	public WestPanel westPanel;
 
 
 	public enum Path
@@ -111,5 +111,35 @@ abstract public class CenterPanelBase
 	public void waitToBeQuoted(CenterSeleniumHelper sh)
 	{
 		sh.wait(180).until(ExpectedConditions.textToBe(by.title, expectedPanelTitle));
+	}
+	public static class WestPanel<T extends CenterPanelBase> extends CenterPanelBase
+	{
+
+		private WestPanelBy by;
+		public WestPanel(CenterSeleniumHelper sh)
+		{
+			this.sh = sh;
+			by = new WestPanelBy();
+		}
+		public WestPanel(CenterSeleniumHelper sh,Path path)
+		{
+			this.sh = sh;
+			this.path = path;
+			by = new WestPanelBy();
+		}
+		public class WestPanelBy
+		{
+			String 	preString = ".//*[@id='westPanel']//span[text()='",
+					postString = "']";
+
+			By	goPaperless = By.xpath(preString + "Go Paperless" + postString);
+		}
+		protected T clickGoPaperless()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.goPaperless);
+			return (T)this;
+		}
+
 	}
 }
