@@ -327,6 +327,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 			return super.checkPermittedIncidentalOccupancy();
 		}
 
+		public NCHO3PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
+		{
+			return super.setPermittedIncidentalOccupancyLimit(text);
+		}
 		public NCHO3PropertyEndorsements checkGuardianEndorsements()
 		{
 			return super.checkGuardianEndorsements();

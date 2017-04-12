@@ -315,6 +315,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancy();
 		}
+		public FLHO6PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
+		{
+			return super.setPermittedIncidentalOccupancyLimit(text);
+		}
 
 		public FLHO6PropertyEndorsements checkGuardianEndorsements()
 		{

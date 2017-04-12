@@ -686,9 +686,7 @@ public class SCHO6 extends BaseTest
 
 		// Liability Endorsements
 		SCHO6Coverages.SCHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 		if(eai.get("Animal Liability") != null)
 			le.checkAnimalLiability();
@@ -717,6 +715,17 @@ public class SCHO6 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		SCHO6RiskAnalysis ra = le.next();
 		SCHO6Quote quote;
@@ -1286,9 +1295,6 @@ public class SCHO6 extends BaseTest
 
 		// Liability Endorsements
 		SCHO6Coverages.SCHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
 
 		if(eai.get("Animal Liability") != null)
 			le.checkAnimalLiability();
@@ -1317,6 +1323,17 @@ public class SCHO6 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		SCHO6RiskAnalysis ra = le.next();
 		SCHO6Quote quote;
