@@ -624,7 +624,7 @@ public class SCHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -1218,7 +1218,7 @@ public class SCHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}

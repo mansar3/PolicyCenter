@@ -127,6 +127,16 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
         return super.setHurricane(text);
 
     }
+    public FLMH3Coverages setWater(String text)
+    {
+    	return super.setWater(text);
+    }
+
+    public String getWater()
+    {
+    	return super.getWater();
+    }
+
     public FLMH3Coverages back(){
         return super.dwellingConstructionBack();
     }
