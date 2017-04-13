@@ -656,8 +656,8 @@ public class NCHO3 extends BaseTest
 			
 			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
 			{
-				if(!pe.isEarthQuakeLossAssessment())
-					pe.checkEarthquakeLossAssessmentChecked();
+				pe.checkEarthquakeLossAssessmentChecked();
+
 				pe.setEarthquakeLossAssessmentLimit(eai.get("Earthquake Loss Assessment Coverage (Limit)"));
 			}
 		}
@@ -688,6 +688,9 @@ public class NCHO3 extends BaseTest
 
 		if(eai.get("Inflation Guard - Percent") != null)
 			pe.checkInflationGuard();
+		else
+			pe.unCheckInflationGuard();
+
 
 		// Liability Endorsements
 		NCHO3Coverages.NCHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
@@ -1264,12 +1267,11 @@ public class NCHO3 extends BaseTest
 			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"))
 			.setEarthquakeCoverageZone(eai.get("Earthquake Zone"));
 			
-//			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
-//			{
-//				if(pe.isEarthQuakeLossAssessment())
-//					pe.checkEarthquakeLossAssessmentChecked();
-//				pe.setEarthquakeLossAssessmentLimit(eai.get("Earthquake Loss Assessment Coverage (Limit)"));
-//			}
+			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
+			{
+				pe.checkEarthquakeLossAssessmentChecked();
+				pe.setEarthquakeLossAssessmentLimit(eai.get("Earthquake Loss Assessment Coverage (Limit)"));
+			}
 		}
 		
 		
@@ -1295,6 +1297,8 @@ public class NCHO3 extends BaseTest
 
 		if(eai.get("Inflation Guard - Percent") != null)
 			pe.checkInflationGuard();
+		else
+			pe.unCheckInflationGuard();
 
 		if(eai.get("Water Back Up (Limit)") == null)
 			pe.unCheckWaterBackUp();

@@ -172,6 +172,16 @@ public class NCHOWDwellingConstruction extends DwellingConstruction<NCHOWDwellin
         {
             return super.setDiscountType(text);
         }
+        public NCHOWWindMitigation setFortifiedHomeType(String text)
+        {
+        	return super.setFortifiedHomeType(text);
+        }
+
+        public String getFortifiedHomeType()
+        {
+        	return super.getFortifiedHomeType();
+        }
+
 
         public String getDiscountType()
         {

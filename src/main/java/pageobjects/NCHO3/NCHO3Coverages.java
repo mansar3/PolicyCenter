@@ -491,6 +491,10 @@ public class NCHO3Coverages extends Coverages<NCHO3Coverages>
 		{
 			return super.checkInflationGuard();
 		}
+		public NCHO3PropertyEndorsements unCheckInflationGuard()
+		{
+			return super.unCheckInflationGuard();
+		}
 
 		public NCHO3PropertyEndorsements checkSinkholeLossCoverage()
 		{

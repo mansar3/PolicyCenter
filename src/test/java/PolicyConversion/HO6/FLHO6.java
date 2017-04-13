@@ -621,8 +621,8 @@ public class FLHO6 extends BaseTest
 		}
 
 
-			pe
-			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		pe
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
@@ -1205,8 +1205,8 @@ public class FLHO6 extends BaseTest
 
 		}
 
-			pe
-			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		pe
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
