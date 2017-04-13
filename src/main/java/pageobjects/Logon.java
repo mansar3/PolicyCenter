@@ -21,7 +21,7 @@ public class Logon
 		this.sh = sh;
 
 		loginURL = sessionInfo.environment.length() <= 3 ?  "http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do"
-		: "http://aws-flgwqa09.fpic.net:8180/pc/PolicyCenter.do";
+		: sessionInfo.environment;
 
 		// AWS URL
 		System.out.println("LoginURL set to: " + loginURL);
