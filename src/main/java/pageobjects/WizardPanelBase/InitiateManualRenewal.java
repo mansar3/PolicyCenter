@@ -32,13 +32,23 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 							legacyPolicyNumber = By.id(manualBase + "policyNumber-inputEl"),
 							originalEffectiveDate = By.id(manualBase + "PolicyOrigEffDate-inputEl"),
 							effectiveDate = By.id(manualBase + "ExtEffDate-inputEl"),
+							mobileHomePark = By.id(manualBase + "ManHomeParkCode_fli-inputEl"),
 							inspectionDate = By.id(manualBase + "LastInspectionDate-inputEl"),
 							inflationGuard = By.id(manualBase + "inflationGuard-inputEl"),
 							excludeLossOfUseCoverageNo = By.id(manualBase + "excludeLossOfUse_false-inputEl"),
 							excludeLossOfUseCoverageYes = By.id(manualBase + "excludeLossOfUse_true-inputEl"),
 							theftCoverage = By.id(manualBase + "theft-inputEl");
 	}
+	protected String getMobileHomePark()
+	{
+		return sh.getValue(by.mobileHomePark);
+	}
 	
+	protected T setMobileHomePark(String mobileHomePark)
+	{
+		sh.setText(by.mobileHomePark, mobileHomePark);
+		return (T)this;
+	}
 	protected String getOrganization()
 	{
 		return sh.getValue(by.organization);

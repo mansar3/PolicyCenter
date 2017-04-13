@@ -696,9 +696,7 @@ public class ALHO3 extends BaseTest
 
 		// Liability Endorsements
 		ALHO3Coverages.ALHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 //		if(!eai.get("Animal Liability").equals(""))
 //			le.checkAnimalLiability();
@@ -716,6 +714,16 @@ public class ALHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		ALHO3RiskAnalysis ra = le.next();
 		ALHO3Quote quote;
@@ -1299,9 +1307,6 @@ public class ALHO3 extends BaseTest
 
 		// Liability Endorsements
 		ALHO3Coverages.ALHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
 
 //		if(!eai.get("Animal Liability").equals(""))
 //			le.checkAnimalLiability();
@@ -1331,6 +1336,16 @@ public class ALHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 		ALHO3RiskAnalysis ra = le.next();
 		ALHO3Quote quote;
 

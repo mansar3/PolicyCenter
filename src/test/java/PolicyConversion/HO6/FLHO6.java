@@ -621,8 +621,8 @@ public class FLHO6 extends BaseTest
 		}
 
 
-			pe
-			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		pe
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
@@ -661,9 +661,7 @@ public class FLHO6 extends BaseTest
 
 		// Liability Endorsements
 		FLHO6Coverages.FLHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 //		if(!eai.get("Animal Liability").equals(""))
 //			le.checkAnimalLiability();
@@ -681,6 +679,17 @@ public class FLHO6 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;
@@ -1196,8 +1205,8 @@ public class FLHO6 extends BaseTest
 
 		}
 
-			pe
-			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		pe
+		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
@@ -1237,9 +1246,7 @@ public class FLHO6 extends BaseTest
 
 		// Liability Endorsements
 		FLHO6Coverages.FLHO6LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 //		if(!eai.get("Animal Liability").equals(""))
 //			le.checkAnimalLiability();
@@ -1268,6 +1275,17 @@ public class FLHO6 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;

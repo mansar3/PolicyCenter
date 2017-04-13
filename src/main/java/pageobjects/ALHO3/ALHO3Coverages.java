@@ -441,6 +441,10 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 			return super.checkPermittedIncidentalOccupancy();
 		}
 
+		public ALHO3PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
+		{
+			return super.setPermittedIncidentalOccupancyLimit(text);
+		}
 		public ALHO3PropertyEndorsements checkGuardianEndorsements()
 		{
 			return super.checkGuardianEndorsements();

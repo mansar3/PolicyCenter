@@ -496,11 +496,9 @@ public class NCHOW extends BaseTest
 		if(!eai.getOrDefault("Residence Held in Trust", "False").toLowerCase().equals("false"))
 			pe.checkResidenceHeldInTrust();
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.unCheckSpecificAdditionalAmountOfCoverageA();
+			pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
-			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+			pe.checkSpecificAdditionalAmountOfCoverageA();
 
 
 		if(eai.get("Inflation Guard - Percent") == null)
@@ -819,6 +817,7 @@ public class NCHOW extends BaseTest
 		NCHOWDwellingConstruction.NCHOWWindMitigation wm = dc.clickWindMitigation();
 		wm
 		.setDiscountType(eai.get("Discount Type"))
+		.setFortifiedHomeType(eai.getOrDefault("Fortified Home Type",null))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
 
@@ -889,11 +888,9 @@ public class NCHOW extends BaseTest
 		if(!eai.getOrDefault("Residence Held in Trust", "False").toLowerCase().equals("false"))
 			pe.checkResidenceHeldInTrust();
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-			if(pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.unCheckSpecificAdditionalAmountOfCoverageA();
+			pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
-			if(!pe.isSpecificAdditionalAmountOfCoverageAChecked())
-				pe.checkSpecificAdditionalAmountOfCoverageA();
+			pe.checkSpecificAdditionalAmountOfCoverageA();
 
 
 		if(eai.get("Inflation Guard - Percent") == null)

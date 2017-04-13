@@ -624,7 +624,7 @@ public class SCHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -684,9 +684,7 @@ public class SCHO3 extends BaseTest
 
 		// Liability Endorsements
 		SCHO3Coverages.SCHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false"))
 			le.checkAnimalLiability();
@@ -706,6 +704,17 @@ public class SCHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		SCHO3RiskAnalysis ra = le.next();
 		SCHO3Quote quote;
@@ -1218,7 +1227,7 @@ public class SCHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -1278,9 +1287,7 @@ public class SCHO3 extends BaseTest
 
 		// Liability Endorsements
 		SCHO3Coverages.SCHO3LiabilityEndorsements le = pe.clickLiabilityEndorsements();
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
-			le
-			.checkPermittedIncidentalOccupancyLiability();
+
 
 		if(!eai.getOrDefault("Animal Liability","false").toLowerCase().equals("false"))
 			le.checkAnimalLiability();
@@ -1311,6 +1318,17 @@ public class SCHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
+
+		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		{
+			le.
+			checkPermittedIncidentalOccupancyLiability();
+			if(eai.get("Permitted Incidental Occupancy - Property (Limit)") != null)
+				le.clickPropertyEndorsements()
+				.checkPermittedIncidentalOccupancy()
+				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
+				.clickLiabilityEndorsements();
+		}
 
 		SCHO3RiskAnalysis ra = le.next();
 		SCHO3Quote quote;

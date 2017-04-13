@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
-	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Downloads/" + "ConversionPolicies-20170410_165534";
+	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
+	+ "/Downloads/" +
+	"ConversionPolicies-20170410_165534";
 	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
 

@@ -302,6 +302,11 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 			return super.checkPermittedIncidentalOccupancy();
 		}
 
+		public SCHO3PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
+		{
+			return super.setPermittedIncidentalOccupancyLimit(text);
+		}
+
 		public SCHO3PropertyEndorsements checkGuardianEndorsements()
 		{
 			return super.checkGuardianEndorsements();

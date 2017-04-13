@@ -290,6 +290,16 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.waitForNoMask();
 		return (T)this;
 	}
+	protected String getWater()
+	{
+		return sh.getValue(by.water);
+	}
+
+	protected T setWater(String water)
+	{
+		sh.setText(by.water, water);
+		return (T)this;
+	}
 
 	protected boolean isHurricanePresent()
 	{
@@ -602,6 +612,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 								allOtherPerils = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'All Other Perils']/../..//input"),
 								sectionIDeductibles = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../../../..//*[@role='textbox']"),
 								hurricane =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Hurricane']/../..//input"),
+								water =  By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Section I Deductibles']/../..//span[text() = 'Water']/../..//input"),
 								personalLiabilityLimit = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//input"),
 								personalLiabilityLimitDiv = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/../..//span[text() = 'Limit']/../..//div[@role='textbox']"),
 								personalLiabilityCheckBox = By.xpath(".//*[@id='" + coveragesBase + "RequiredClausesCardTab:panelId']//div[text() = 'Personal Liability']/..//input"),

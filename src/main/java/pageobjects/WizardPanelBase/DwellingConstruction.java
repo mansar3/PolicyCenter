@@ -385,18 +385,21 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 	{
 		sh.clickElement(By.xpath(".//*[text() = 'Are there any exterior door openings without steps?']/../..//input[@inputvalue = '" +
                         flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
 		return (T)this;
 	}
 	protected T setAreThereAnyAreasWith3OrMoreStairsAndNoHandrails(String flag)
 	{
 		sh.clickElement(By.xpath(".//*[text() = 'Are there any areas with 3 or more stairs and no handrails?']/../..//input[@inputvalue = '" +
                         flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
 		return (T)this;
 	}
 	protected T setAtTheInceptionOfThisPolicyWillThisMobileHomeBeWithoutContinuousUtilityService(String flag)
 	{
 		sh.clickElement(By.xpath(".//*[text() = 'At inception of this policy, will this mobile home be without continuous utility service?']/../..//input[@inputvalue = '" +
                         flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
 		return (T)this;
 	}
 
@@ -404,6 +407,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 	{
 		sh.clickElement(By.xpath("//*[@id = '" + discountBase +
 		"Modifiers_fliPanelSet:aRateModifierListView:0']//div[text() = 'Construction Credit']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
 
 		return (T)this;
 	}
@@ -437,7 +441,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         sh.clickElement(By.xpath("//*[text() = 'Is the building retrofitted for earthquakes?']/../../following-sibling::tr[1]/td[3]/div"));
         sh.waitForElementToAppear(By.name("c2"));
         sh.setText(By.name("c2"), text);
-
+		sh.waitForNoMask();
         return (T) this;
     }
 
@@ -446,7 +450,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
         sh.waitForElementToAppear(By.name("c2"));
         sh.setText(By.name("c2"), text);
-
+		sh.waitForNoMask();
         return (T) this;
     }
 
@@ -455,6 +459,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                 By.xpath(".//*[text() = 'Any uncorrected fire or building code violations?']/../../following-sibling::tr[1]/td[3]/div"));
         sh.waitForElementToAppear(By.name("c2"));
         sh.setText(By.name("c2"), text);
+        sh.waitForNoMask();
         return (T) this;
     }
 
@@ -463,6 +468,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
                 By.xpath("//*[text() = 'Any lead paint hazard?']/../../following-sibling::tr[1]/td[3]/div"));
         sh.waitForElementToAppear(By.name("c2"));
         sh.setText(By.name("c2"), text);
+        sh.waitForNoMask();
         return (T) this;
     }
 

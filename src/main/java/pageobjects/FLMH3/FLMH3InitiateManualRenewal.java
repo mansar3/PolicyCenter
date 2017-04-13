@@ -79,35 +79,44 @@ public class FLMH3InitiateManualRenewal extends InitiateManualRenewal<FLMH3Initi
     {
         return super.setEffectiveDate(text);
     }
+	public FLMH3InitiateManualRenewal setMobileHomePark(String text)
+	{
+		return super.setMobileHomePark(text);
+	}
+
+	public String getMobileHomePark()
+	{
+		return super.getMobileHomePark();
+	}
 
     public String getEffectiveDate()
     {
         return super.getEffectiveDate();
     }
-    public FLMH3InitiateManualRenewal setLastInspectionCompletionDate(String text)
-    {
-        return super.setLastInspectionCompletionDate(text);
-    }
+//    public FLMH3InitiateManualRenewal setLastInspectionCompletionDate(String text)
+//    {
+//        return super.setLastInspectionCompletionDate(text);
+//    }
 
     public String getLastInspectionCompletionDate()
     {
         return super.getLastInspectionCompletionDate();
     }
-    public FLMH3InitiateManualRenewal setInflationGuard(String text)
-    {
-        return super.setInflationGuard(text);
-    }
+//    public FLMH3InitiateManualRenewal setInflationGuard(String text)
+//    {
+//        return super.setInflationGuard(text);
+//    }
 
     public String getInflationGuard()
     {
         return super.getInflationGuard();
     }
 
-    public FLMH3InitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
-    {
-        return super.clickExcludeLossOfUseCoverage(bool);
-
-    }
+//    public FLMH3InitiateManualRenewal clickExcludedLossOfUseCoverage(String bool)
+//    {
+//        return super.clickExcludeLossOfUseCoverage(bool);
+//
+//    }
     public FLMH3InitiateManualRenewal nextAndDismiss()
     {
         return super.nextANDDismiss();
