@@ -633,7 +633,7 @@ public class FLDP3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().westPanel.viewQuote();
+			quote.renew().viewYourPolicy().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))

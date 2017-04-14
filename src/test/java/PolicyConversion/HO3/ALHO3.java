@@ -753,7 +753,7 @@ public class ALHO3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().westPanel.viewQuote();
+			quote.renew().viewYourPolicy().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
 		}
 

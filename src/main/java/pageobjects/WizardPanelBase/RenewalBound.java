@@ -33,6 +33,7 @@ public class RenewalBound<T extends RenewalBound> extends CenterPanelBase
 	public T viewYourPolicy()
 	{
 		sh.clickElement(by.viewYourPolicy);
+		sh.waitForNoMask();
 		return (T)this;
 	}
 	public T viewYourRenewal()

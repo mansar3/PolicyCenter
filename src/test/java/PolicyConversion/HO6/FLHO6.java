@@ -703,12 +703,12 @@ public class FLHO6 extends BaseTest
 			.clickRerate();
 		if(quote.isUnderWritingApprovalNeeded())
 		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote().westPanel.viewQuote();
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
 		else
 		{
-			quote.renew().westPanel.viewQuote().westPanel.viewQuote();
+			quote.renew().viewYourPolicy().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
