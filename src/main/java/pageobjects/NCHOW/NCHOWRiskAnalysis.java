@@ -7,16 +7,23 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  * Created by ssai on 3/4/2017.
  */
 public class NCHOWRiskAnalysis extends RiskAnalysis<NCHOWRiskAnalysis> {
+	public NCHOWWestPanel westPanel;
     public NCHOWRiskAnalysis(CenterSeleniumHelper sh, Path path)
     {
         super(sh, path);
-    }
+		westPanel = new NCHOWWestPanel(sh, path);
+	}
 
     public NCHOWQuote quote()
     {
         super.riskAnalysisQuote();
         return new NCHOWQuote(sh,path);
     }
+	public NCHOWQuote next()
+	{
+		super.clickNext();
+		return new NCHOWQuote(sh,path);
+	}
 
     public NCHOWQuote qualifiesForAdditionalProtectionQuote()
     {

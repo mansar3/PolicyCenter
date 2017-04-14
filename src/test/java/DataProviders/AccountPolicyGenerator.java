@@ -19,7 +19,7 @@ public class AccountPolicyGenerator
 {
 	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 	+ "/Downloads/" +
-	"ConversionPolicies-20170410_165534";
+	"ConversionPolicies-20170411_114931";
 	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
 
@@ -173,7 +173,7 @@ public class AccountPolicyGenerator
 		return DataCreator(policyFolder + "/FLHO6/");
 	}
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] FLMH3Data()
 	{
 		policytype  = POLICYTYPE.FLMH3;

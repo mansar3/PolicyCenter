@@ -470,6 +470,10 @@ public class SCHO3Coverages extends Coverages<SCHO3Coverages>
 		{
 			return super.checkInflationGuard();
 		}
+		public SCHO3PropertyEndorsements unCheckInflationGuard()
+		{
+			return super.unCheckInflationGuard();
+		}
 
 		public SCHO3PropertyEndorsements checkSinkholeLossCoverage()
 		{

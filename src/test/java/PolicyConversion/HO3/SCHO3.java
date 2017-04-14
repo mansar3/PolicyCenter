@@ -670,8 +670,12 @@ public class SCHO3 extends BaseTest
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
-			if(pe.isWaterBackUpChecked())
-				pe.unCheckWhenSafe();
+			pe.unCheckWaterBackUp();
+
+		if(eai.get("Inflation Guard - Percent") != null)
+			pe.checkInflationGuard();
+		else
+			pe.unCheckInflationGuard();
 
 
 
@@ -738,14 +742,27 @@ public class SCHO3 extends BaseTest
 
 		if(quote.isUnderWritingApprovalNeeded())
 		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
 		else
 		{
-			quote.renew();
+			quote.renew().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
 		}
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			SCHO3GoPaperless gp = quote.westPanel.goPaperless();
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
+		}
+
 
 
 
@@ -1273,10 +1290,12 @@ public class SCHO3 extends BaseTest
 
 
 		if(eai.get("Water Back Up (Limit)") == null && eai.get("Guardian Endorsement") == null)
-			if(pe.isWaterBackUpChecked())
-				pe.unCheckWaterBackUp();
+			pe.unCheckWaterBackUp();
 
-
+		if(eai.get("Inflation Guard - Percent") != null)
+			pe.checkInflationGuard();
+		else
+			pe.unCheckInflationGuard();
 
 		//.setPercentageOfAnnualIncrease("12%")
 		if(!eai.getOrDefault("Sinkhole Loss Coverage","false").toLowerCase().equals("false"))
@@ -1353,10 +1372,11 @@ public class SCHO3 extends BaseTest
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
 
-		SCHO3GoPaperless gp = quote.westPanel.goPaperless();
+
 
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
+			SCHO3GoPaperless gp = quote.westPanel.goPaperless();
 			if(gp.isEditButtonDisplayed())
 				gp.clickEdit();
 

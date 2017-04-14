@@ -449,7 +449,10 @@ public class ALHO3Coverages extends Coverages<ALHO3Coverages>
 		{
 			return super.checkGuardianEndorsements();
 		}
-
+		public ALHO3PropertyEndorsements uncheckGuardianEndorsements()
+		{
+			return super.unCheckGuardianEndorsements();
+		}
 		public boolean isGuardianEndorsementsDisplayed()
 		{
 			return super.isGuardianEndorsementsDisplayed();

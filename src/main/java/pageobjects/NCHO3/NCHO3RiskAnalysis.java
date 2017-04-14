@@ -8,14 +8,21 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  */
 public class NCHO3RiskAnalysis extends RiskAnalysis<NCHO3RiskAnalysis>
 {
+	public NCHO3WestPanel westPanel;
 		public NCHO3RiskAnalysis(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new NCHO3WestPanel(sh, path);
 	}
 
 	public NCHO3Quote quote()
 	{
 		super.riskAnalysisQuote();
+		return new NCHO3Quote(sh,path);
+	}
+	public NCHO3Quote next()
+	{
+		super.clickNext();
 		return new NCHO3Quote(sh,path);
 	}
 

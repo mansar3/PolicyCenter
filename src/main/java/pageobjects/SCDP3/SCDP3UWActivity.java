@@ -8,7 +8,7 @@ import pageobjects.WizardPanelBase.UWActivity;
  */
 public class SCDP3UWActivity extends UWActivity<SCDP3UWActivity>
 {
-		public SCDP3UWActivity(CenterSeleniumHelper sh, Path path)
+	public SCDP3UWActivity(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
 	}

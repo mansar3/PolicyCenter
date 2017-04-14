@@ -1,7 +1,6 @@
 package pageobjects.SCHO6;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.SCHO6.SCHO6GoPaperless;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 /**
@@ -17,5 +16,10 @@ public class SCHO6WestPanel extends CenterPanelBase.WestPanel<SCHO6WestPanel>
 	{
 		super.clickGoPaperless();
 		return new SCHO6GoPaperless(sh, path);
+	}
+		public SCHO6Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new SCHO6Quote(sh,path);
 	}
 }

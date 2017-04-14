@@ -1,7 +1,6 @@
 package pageobjects.ALHO3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.ALHO3.ALHO3GoPaperless;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 /**
@@ -17,5 +16,10 @@ public class ALHO3WestPanel extends CenterPanelBase.WestPanel<ALHO3WestPanel>
 	{
 		super.clickGoPaperless();
 		return new ALHO3GoPaperless(sh, path);
+	}
+	public ALHO3Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new ALHO3Quote(sh,path);
 	}
 }

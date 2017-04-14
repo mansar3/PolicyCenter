@@ -1,7 +1,6 @@
 package pageobjects.NCHOW;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.NCHO3.NCHO3GoPaperless;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 /**
@@ -17,5 +16,10 @@ public class NCHOWWestPanel extends CenterPanelBase.WestPanel<NCHOWWestPanel>
 	{
 		super.clickGoPaperless();
 		return new NCHOWGoPaperless(sh, path);
+	}
+	public NCHOWQuote viewQuote()
+	{
+		super.clickViewQuote();
+		return new NCHOWQuote(sh,path);
 	}
 }

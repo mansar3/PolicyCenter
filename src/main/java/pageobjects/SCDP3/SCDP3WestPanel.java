@@ -1,7 +1,6 @@
 package pageobjects.SCDP3;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.SCDP3.SCDP3GoPaperless;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 /**
@@ -17,5 +16,10 @@ public class SCDP3WestPanel extends CenterPanelBase.WestPanel<SCDP3WestPanel>
 	{
 		super.clickGoPaperless();
 		return new SCDP3GoPaperless(sh, path);
+	}
+		public SCDP3Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new SCDP3Quote(sh,path);
 	}
 }

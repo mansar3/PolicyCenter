@@ -17,4 +17,9 @@ public class NCHO3WestPanel extends CenterPanelBase.WestPanel<NCHO3WestPanel>
 		super.clickGoPaperless();
 		return new NCHO3GoPaperless(sh, path);
 	}
+	public NCHO3Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new NCHO3Quote(sh,path);
+	}
 }

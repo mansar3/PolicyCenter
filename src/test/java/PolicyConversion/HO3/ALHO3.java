@@ -588,9 +588,10 @@ public class ALHO3 extends BaseTest
 		// Property Endorsements
 		ALHO3Coverages.ALHO3PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-//		if(eai.get("Guardian Endorsement") != null)
-//			pe
-//			.checkGuardianEndorsements();
+		if(eai.get("Guardian Endorsement") != null)
+			pe
+			.checkGuardianEndorsements();
+
 //
 //		if(eai.get("Whensafe - %") != null)
 //		{
@@ -632,7 +633,7 @@ public class ALHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description",null))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -747,13 +748,26 @@ public class ALHO3 extends BaseTest
 
 		if(quote.isUnderWritingApprovalNeeded())
 		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
 		else
 		{
-			quote.renew();
+			quote.renew().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
+		}
+
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			ALHO3GoPaperless gp = quote.westPanel.goPaperless();
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
 		}
 
 
@@ -1198,9 +1212,10 @@ public class ALHO3 extends BaseTest
 		// Property Endorsements
 		ALHO3Coverages.ALHO3PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-//		if(eai.get("Guardian Endorsement") != null)
-//			pe
-//			.checkGuardianEndorsements();
+		if(eai.get("Guardian Endorsement") != null)
+			pe
+			.checkGuardianEndorsements();
+
 //
 //		if(eai.get("Whensafe - %") != null)
 //		{
@@ -1242,7 +1257,7 @@ public class ALHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description",null))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -1369,10 +1384,11 @@ public class ALHO3 extends BaseTest
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
 
-		ALHO3GoPaperless gp = quote.westPanel.goPaperless();
+
 
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
+			ALHO3GoPaperless gp = quote.westPanel.goPaperless();
 			if(gp.isEditButtonDisplayed())
 				gp.clickEdit();
 

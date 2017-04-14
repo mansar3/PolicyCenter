@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  */
 public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 {
-		public ALHO3RiskAnalysis(CenterSeleniumHelper sh, Path path)
+	public ALHO3WestPanel westPanel;
+	public ALHO3RiskAnalysis(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new ALHO3WestPanel(sh,path);
 	}
 
 	public ALHO3Quote quote()
@@ -18,7 +20,6 @@ public class ALHO3RiskAnalysis extends RiskAnalysis<ALHO3RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new ALHO3Quote(sh,path);
 	}
-
 	public ALHO3PreQuoteIssues Issuequote()
 	{
 		super.riskAnalysisIssueQuote();

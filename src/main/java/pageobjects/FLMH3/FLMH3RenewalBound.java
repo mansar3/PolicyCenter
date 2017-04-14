@@ -8,8 +8,10 @@ import pageobjects.WizardPanelBase.RenewalBound;
  */
 public class FLMH3RenewalBound extends RenewalBound<FLMH3RenewalBound> {
 
+	public FLMH3WestPanel westPanel;
     public FLMH3RenewalBound(CenterSeleniumHelper sh, Path path)
     {
         super(sh,path);
-    }
+		westPanel = new FLMH3WestPanel(sh, path);
+	}
 }

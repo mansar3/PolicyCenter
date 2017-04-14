@@ -680,13 +680,25 @@ public class SCDP3 extends BaseTest
 			.clickRerate();
 		if(quote.isUnderWritingApprovalNeeded())
 		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
 		else
 		{
-			quote.renew();
+			quote.renew().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
+		}
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			SCDP3GoPaperless gp = quote.westPanel.goPaperless();
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
 		}
 	}
 
@@ -1221,10 +1233,11 @@ public class SCDP3 extends BaseTest
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
 
-		SCDP3GoPaperless gp = quote.westPanel.goPaperless();
+
 
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
+			SCDP3GoPaperless gp = quote.westPanel.goPaperless();
 			if(gp.isEditButtonDisplayed())
 				gp.clickEdit();
 

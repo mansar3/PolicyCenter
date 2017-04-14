@@ -22,11 +22,11 @@
                     <!--<include name="SubmissionLoadTest"></include>-->
                 <!--</methods>-->
             <!--</class>-->
-			<!--<class name="PolicyConversion.HO3.SCHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
+			<class name="PolicyConversion.HO3.SCHO3">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
 			<!--<class name="PolicyConversion.HO6.SCHO6">-->
                 <!--<methods>-->
                     <!--<include name="SubmissionLoadTest"></include>-->
@@ -52,11 +52,11 @@
 					<!--<include name="SubmissionLoadTest"></include>-->
 				<!--</methods>-->
 			<!--</class>-->
-			<class name="PolicyConversion.HOW.NCHOW" >
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
+			<!--<class name="PolicyConversion.HOW.NCHOW" >-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
         </classes>
 	</test>
 </suite>

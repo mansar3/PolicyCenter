@@ -132,7 +132,8 @@ abstract public class CenterPanelBase
 			String 	preString = ".//*[@id='westPanel']//span[text()='",
 					postString = "']";
 
-			By	goPaperless = By.xpath(preString + "Go Paperless" + postString);
+			By	goPaperless = By.xpath(preString + "Go Paperless" + postString),
+				viewQuote = By.xpath(preString + "View Quote" + postString);
 		}
 		protected T clickGoPaperless()
 		{
@@ -140,6 +141,13 @@ abstract public class CenterPanelBase
 			sh.clickElement(by.goPaperless);
 			return (T)this;
 		}
+		protected T clickViewQuote()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.viewQuote);
+			return (T)this;
+		}
+
 
 	}
 }

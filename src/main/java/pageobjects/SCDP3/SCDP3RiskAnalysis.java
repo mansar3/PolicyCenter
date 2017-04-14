@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  */
 public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 {
+	public SCDP3WestPanel westPanel;
 		public SCDP3RiskAnalysis(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new SCDP3WestPanel(sh, path);
 	}
 
 	public SCDP3Quote quote()
@@ -18,7 +20,11 @@ public class SCDP3RiskAnalysis extends RiskAnalysis<SCDP3RiskAnalysis>
 		super.riskAnalysisQuote();
 		return new SCDP3Quote(sh,path);
 	}
-
+	public SCDP3Quote next()
+	{
+		super.clickNext();
+		return new SCDP3Quote(sh,path);
+	}
 	public SCDP3PreQuoteIssues Issuequote()
 	{
 		super.riskAnalysisIssueQuote();

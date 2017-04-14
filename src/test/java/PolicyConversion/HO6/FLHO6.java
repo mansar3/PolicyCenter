@@ -703,13 +703,25 @@ public class FLHO6 extends BaseTest
 			.clickRerate();
 		if(quote.isUnderWritingApprovalNeeded())
 		{
-			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest();
+			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Submitted for approval");
 		}
 		else
 		{
-			quote.renew();
+			quote.renew().westPanel.viewQuote().westPanel.viewQuote();
 			eai.put("Submitted for Approval","Renewed");
+		}
+		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
+		{
+			FLHO6GoPaperless gp = quote.westPanel.goPaperless();
+			if(gp.isEditButtonDisplayed())
+				gp.clickEdit();
+
+			gp
+			.checkPaperless()
+			.setEmailAddress(eai.get("Email Address"))
+			.setConfirmEmailAddress(eai.get("Email Address"))
+			.clickUpdate();
 		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
@@ -1312,10 +1324,11 @@ public class FLHO6 extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
-		FLHO6GoPaperless gp = quote.westPanel.goPaperless();
+
 
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
+			FLHO6GoPaperless gp = quote.westPanel.goPaperless();
 			if(gp.isEditButtonDisplayed())
 				gp.clickEdit();
 

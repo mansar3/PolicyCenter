@@ -8,11 +8,18 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  */
 public class FLHO3RiskAnalysis extends RiskAnalysis<FLHO3RiskAnalysis>
 {
+	public FLHO3WestPanel westPanel;
 	public FLHO3RiskAnalysis(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new FLHO3WestPanel(sh,path);
 	}
 
+	public FLHO3Quote next()
+	{
+		super.clickNext();
+		return new FLHO3Quote(sh,path);
+	}
 	public FLHO3Quote quote()
 	{
 		super.riskAnalysisQuote();

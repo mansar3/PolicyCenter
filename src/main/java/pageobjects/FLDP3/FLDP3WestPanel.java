@@ -17,4 +17,9 @@ public class FLDP3WestPanel extends CenterPanelBase.WestPanel<FLDP3WestPanel>
 		super.clickGoPaperless();
 		return new FLDP3GoPaperless(sh, path);
 	}
+	public FLDP3Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new FLDP3Quote(sh, path);
+	}
 }

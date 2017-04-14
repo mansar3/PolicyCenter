@@ -8,9 +8,16 @@ import pageobjects.WizardPanelBase.RiskAnalysis;
  */
 public class SCHO6RiskAnalysis extends RiskAnalysis<SCHO6RiskAnalysis>
 {
-		public SCHO6RiskAnalysis(CenterSeleniumHelper sh, Path path)
+	public SCHO6WestPanel westPanel;
+	public SCHO6RiskAnalysis(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh, path);
+		westPanel = new SCHO6WestPanel(sh, path);
+	}
+	public SCHO6Quote next()
+	{
+		super.clickNext();
+		return new SCHO6Quote(sh,path);
 	}
 
 	public SCHO6Quote quote()

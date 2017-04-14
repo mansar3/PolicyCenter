@@ -8,9 +8,11 @@ import pageobjects.WizardPanelBase.RenewalBound;
  */
 public class SCHO3RenewalBound extends RenewalBound<SCHO3RenewalBound>
 {
+	public SCHO3WestPanel westPanel;
 	public SCHO3RenewalBound(CenterSeleniumHelper sh, Path path)
 	{
 		super(sh,path);
+		westPanel = new SCHO3WestPanel(sh, path);
 	}
 	// Must create methods for proper return types ( WORK IN PROGRESS )
 }

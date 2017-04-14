@@ -1,7 +1,6 @@
 package pageobjects.FLHO6;
 
 import Helpers.CenterSeleniumHelper;
-import pageobjects.FLHO6.FLHO6GoPaperless;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 /**
@@ -17,5 +16,10 @@ public class FLHO6WestPanel extends CenterPanelBase.WestPanel<FLHO6WestPanel>
 	{
 		super.clickGoPaperless();
 		return new FLHO6GoPaperless(sh, path);
+	}
+	public FLHO6Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new FLHO6Quote(sh,path);
 	}
 }

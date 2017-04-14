@@ -11,10 +11,11 @@ public class Logon
 	protected String user,pwd;
 	CenterSeleniumHelper sh;
 
-	private By	byUsername = By.cssSelector("[id*=username]>input"),
-				byPassword = By.cssSelector("[id*=password]>input"),
+	private By	byUsername = By.cssSelector("input[id*=username]"),
+				byPassword = By.cssSelector("input[id*=password]"),
 				byRememberMe = By.cssSelector("[id*=remember] input"),
-				bySubmit	 = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnEl");
+				bySubmit = By.xpath(".//*[@id='kc-login']|//.//*[@id='Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnInnerEl']");
+				// bySubmit	 = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnEl");
 
 	public Logon(CenterSeleniumHelper sh, SessionInfo sessionInfo)
 	{

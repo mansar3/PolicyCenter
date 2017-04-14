@@ -17,4 +17,9 @@ public class FLHO3WestPanel extends CenterPanelBase.WestPanel<FLHO3WestPanel>
 		super.clickGoPaperless();
 		return new FLHO3GoPaperless(sh, path);
 	}
+	public FLHO3Quote viewQuote()
+	{
+		super.clickViewQuote();
+		return new FLHO3Quote(sh,path);
+	}
 }
