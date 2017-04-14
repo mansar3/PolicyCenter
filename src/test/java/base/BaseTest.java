@@ -28,11 +28,10 @@ import java.util.*;
 
 public abstract class BaseTest
 {
-	protected static String screenShotDirectory =
-			System.getenv("SCREENSHOTS_HOME") == null
-					? "src/test/resources/ScreenShots/"
-					: System.getenv("SCREENSHOTS_HOME"),
-			accountNumber, userName,passWord;
+	protected static String screenShotDirectory = "target/ScreenShots/",
+			accountNumber,
+			userName,
+			passWord;
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected static SessionInfo sessionInfo;
 	private static Boolean local;

@@ -320,6 +320,14 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 	    return found;
 	}
 
+	protected boolean isItemInHurricaneDropdown(String item)
+	{
+		boolean found;
+		found = sh.getItemsFromDropDown(by.hurricane, item);
+		sh.tab();
+		return found;
+	}
+
 	protected String getAllOtherPerils()
 	{
 		return sh.getValue(by.allOtherPerils);
@@ -1293,6 +1301,11 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		{
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancy);
 			return (T)this;
+		}
+
+		protected boolean isPermittedIncidentalOccupancyDisplayed()
+		{
+			return sh.isDisplayed(by.permittedIncidentalOccupancy);
 		}
 
 		protected T unCheckPermittedIncidentalOccupancy()

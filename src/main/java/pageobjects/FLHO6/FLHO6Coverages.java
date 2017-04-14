@@ -213,6 +213,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		return new FLHO6PropertyEndorsements(sh,path);
 	}
 
+	public boolean isItemInHurricaneDropdown(String item)
+	{
+		return super.isItemInHurricaneDropdown(item);
+	}
 
 	public class FLHO6PropertyEndorsements extends PropertyEndorsements<FLHO6PropertyEndorsements>
 	{
@@ -315,6 +319,12 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.checkPermittedIncidentalOccupancy();
 		}
+
+		public boolean isPermittedIncidentalOccupancyDisplayed()
+		{
+			return super.isPermittedIncidentalOccupancyDisplayed();
+		}
+
 		public FLHO6PropertyEndorsements setPermittedIncidentalOccupancyLimit(String text)
 		{
 			return super.setPermittedIncidentalOccupancyLimit(text);
