@@ -747,7 +747,7 @@ public class SCHO3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourPolicy().westPanel.viewQuote();
+			quote.renew().viewYourRenewal();
 			eai.put("Submitted for Approval","Renewed");
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))

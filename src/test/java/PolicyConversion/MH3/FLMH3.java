@@ -393,8 +393,7 @@ public class FLMH3 extends BaseTest
 //				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
-		.setFireExtinguishers(eai.get("One or more fire extinguishers in the home?"))
-		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
+		.setFireExtinguishers(eai.getOrDefault("One or more fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
@@ -678,7 +677,7 @@ public class FLMH3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourPolicy().westPanel.viewQuote();
+			quote.renew().viewYourRenewal();
 			eai.put("Submitted for Approval","Renewed");
 		}
 
@@ -755,7 +754,7 @@ public class FLMH3 extends BaseTest
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
 			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388");
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 			FLMH3AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()
@@ -944,8 +943,7 @@ public class FLMH3 extends BaseTest
 //				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
-		.setFireExtinguishers(eai.get("One or more fire extinguishers in the home?"))
-		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
+		.setFireExtinguishers(eai.getOrDefault("One or more fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
@@ -1112,13 +1110,27 @@ public class FLMH3 extends BaseTest
 //				pe.checkWhenSafe();
 //		}
 
-		if(eai.get("Specific Other Structures - Limit" ) != null)
+		if(eai.get("Specific Other Structures - Detached Limit" ) != null || eai.get("Specific Other Structures - Attached Limit") != null)
 		{
-			pe
-			.checkSpecificOtherStructures()
-			.addSpecificOtherStructures()
-			.setSpecificOtherStructuresDescription(1,"test")
-			.setSpecificOtherStructuresLimit(1,eai.get("Specific Other Structures - Limit"));
+			i = 1;
+			if(eai.get("Specific Other Structures - Detached Limit") != null)
+			{
+				pe.checkSpecificOtherStructures()
+				.addSpecificOtherStructures()
+				.setSpecificOtherStructuresAttachedDetached(i,"Detached")
+				.setSpecificOtherStructuresDescription(i, "test")
+				.setSpecificOtherStructuresLimit(i, eai.get("Specific Other Structures - Detached Limit"));
+				++i;
+			}
+			if(eai.get("Specific Other Structures - Attached Limit") != null)
+			{
+				pe.checkSpecificOtherStructures()
+				.addSpecificOtherStructures()
+				.setSpecificOtherStructuresAttachedDetached(i,"Attached")
+				.setSpecificOtherStructuresDescription(i, "test")
+				.setSpecificOtherStructuresLimit(i, eai.get("Specific Other Structures - Attached Limit"));
+				++i;
+			}
 		}
 
 //		if(eai.get("Other Structures Increase Coverage - Rented to Others - Limit") != null)

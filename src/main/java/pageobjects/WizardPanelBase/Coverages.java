@@ -1168,7 +1168,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkSpecificOtherStructures()
 		{
 			sh.waitForNoMask();
-			sh.clickElement(by.specificOtherStructures);
+			sh.checkboxHelper.checkElement(by.specificOtherStructures);
 			sh.waitForNoMask();
 			return (T)this;
 		}
