@@ -396,7 +396,7 @@ public class SCDP3 extends BaseTest
 				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
-		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
+		.setFireExtinguishers(eai.getOrDefault("One or more fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
@@ -947,7 +947,7 @@ public class SCDP3 extends BaseTest
 				.setFireAlarmType(eai.get("Fire Alarm type"));
 		pd
 		.setSmokeAlarm(eai.getOrDefault("Smoke Alarms","false"))
-		.setFireExtinguishers(eai.getOrDefault("One or move fire extinguishers in the home?","false"));
+		.setFireExtinguishers(eai.getOrDefault("One or more fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
 
