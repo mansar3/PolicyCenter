@@ -12,6 +12,8 @@ public class Logon
 	CenterSeleniumHelper sh;
 
 	private By	byUsername = By.cssSelector("input[id*=username]"),
+				byStagingUsername = By.id("username"),
+				byStagingPassword = By.id("password"),
 				byPassword = By.cssSelector("input[id*=password]"),
 				byRememberMe = By.cssSelector("[id*=remember] input"),
 				bySubmit = By.xpath(".//*[@id='kc-login']|//.//*[@id='Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnInnerEl']");
@@ -33,7 +35,11 @@ public class Logon
 		sh.getURL(loginURL);
 		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(byUsername));
 	}
-
+	public void loadConversionPage()
+	{
+		sh.driver.get(loginURL);
+		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(byUsername));
+	}
 	public void isLoaded()
 	{
 		sh.waitForURLToContain(loginURL, 10);
@@ -41,7 +47,10 @@ public class Logon
 
 	public Logon setUsername(String username)
 	{
-		sh.setText(byUsername, username);
+		if(sh.isDisplayed(byStagingUsername))
+			sh.driver.findElement(byStagingUsername).sendKeys(username);
+		else
+			sh.setText(byUsername, username);
 		return this;
 	}
 
@@ -52,7 +61,10 @@ public class Logon
 
 	public Logon setPassword(String password)
 	{
-		sh.setText(byPassword, password);
+		if(sh.isDisplayed(byStagingPassword))
+			sh.driver.findElement(byStagingPassword).sendKeys(password);
+		else
+			sh.setText(byPassword, password);
 		return this;
 	}
 

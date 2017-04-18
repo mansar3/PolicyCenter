@@ -97,12 +97,20 @@ public class CenterSeleniumHelper
 	public void selectFromDropDown(By by, String text)
 	{
 		clickElement(by);
-		if(!isDisplayed(By.xpath("//*[text() = '" + text + "']")))
+		waitForNoMask();
+		if(!isDisplayed(By.xpath("//li[text() = '" + text + "']")))
 		{
-			waitForNoMask();
 			clickElement(by);
 		}
-		clickElement(By.xpath("//*[text() = '" + text + "']"));
+		waitForNoMask();
+		List<WebElement> list = driver.findElements(By.xpath("//li[text() = '" + text + "']"));
+		for(WebElement we: list)
+		{
+			if(we.isDisplayed())
+				we.click();
+
+		}
+//		clickElement(By.xpath("//li[text() = '" + text + "']"));
 	}
 
 	public boolean getItemsFromDropDown(By by, String item)
@@ -279,12 +287,22 @@ public class CenterSeleniumHelper
 			}
 			tab();
 			waitForNoMask();
-			// Added because sometimes it takes two clicks to check
-			// an element.
-			if (!isRadioButtonSelected(by))
+			try
 			{
+				new WebDriverWait(driver,5).until(ExpectedConditions.refreshed(driver -> isRadioButtonSelected(by)));
+			}
+			catch(Exception e)
+			{
+				waitForNoMask();
 				clickElement(by);
 			}
+//			// Added because sometimes it takes two clicks to check
+//			// an element.
+//			if (!isRadioButtonSelected(by))
+//			{
+//				waitForNoMask();
+//				clickElement(by);
+//			}
 
 			assert isChecked(by);
 		}

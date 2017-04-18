@@ -405,6 +405,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 
 	protected T setConstructionCredit(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.xpath("//*[@id = '" + discountBase +
 		"Modifiers_fliPanelSet:aRateModifierListView:0']//div[text() = 'Construction Credit']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
 		sh.waitForNoMask();

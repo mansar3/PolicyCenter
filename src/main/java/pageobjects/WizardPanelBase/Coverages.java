@@ -1262,6 +1262,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T setEarthquakeCoverageDeductiblePercentage(String earthquakeCoverageDeductiblePercentage)
 		{
+			sh.waitForElementToAppear(by.earthquakeCoverageDeductiblePercentage);
 			sh.setText(by.earthquakeCoverageDeductiblePercentage, earthquakeCoverageDeductiblePercentage);
 			sh.tab();
 			sh.waitForNoMask();
