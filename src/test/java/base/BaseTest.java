@@ -143,6 +143,7 @@ public abstract class BaseTest
 		else{
 			driver = new FirefoxDriver(capabilities);
 		}
+		driver.manage().window().setSize(new Dimension(1024, 3072));
 		driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
 		return driver;
