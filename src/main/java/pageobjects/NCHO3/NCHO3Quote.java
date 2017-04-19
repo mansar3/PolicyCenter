@@ -15,6 +15,11 @@ public class NCHO3Quote extends Quote<NCHO3Quote>
 		westPanel = new NCHO3WestPanel(sh,path);
 	}
 
+	public NCHO3RenewalBound getRenewalBoundObject()
+	{
+		return new NCHO3RenewalBound(sh, path);
+	}
+
 	public NCHO3Quote acceptyes()
 	{
 		return super.accept();
@@ -31,10 +36,14 @@ public class NCHO3Quote extends Quote<NCHO3Quote>
 		super.backPolicyReview();
 		return new NCHO3PolicyReview(sh,path);
 	}
-		public NCHO3RenewalBound renew()
+	public NCHO3RenewalBound renew()
 	{
 		super.clickRenew();
 		return new NCHO3RenewalBound(sh, path);
+	}
+	public void renewVoid()
+	{
+		super.clickRenew();
 	}
 	public NCHO3RenewalBound issueNow()
 	{

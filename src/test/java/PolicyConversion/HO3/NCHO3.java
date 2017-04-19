@@ -220,7 +220,7 @@ public class NCHO3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016"/*eai.getOrDefault("Policy Original Effective Date",null)*/)
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
@@ -652,8 +652,9 @@ public class NCHO3 extends BaseTest
 				.checkEarthQuakeCoverage();
 			pe
 			.setEarthquakeCoverageDeductiblePercentage(eai.get("Earthquake Coverage Deductible"))
-			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"));
-			
+			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"))
+			.setEarthquakeCoverageZone(eai.get("Earthquake Zone"));
+
 			if(eai.get("Earthquake Loss Assessment Coverage (Limit)") != null)
 			{
 				pe.checkEarthquakeLossAssessmentChecked();
@@ -755,7 +756,22 @@ public class NCHO3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
+			//TODO finish implementing this logic when we get all info needed
+			quote.renewVoid();
+			if (true) //Condition 1
+			{
+				NCHO3RenewalBound ren = quote.getRenewalBoundObject();
+				ren.viewYourRenewal();
+			}
+			else if (false) //Condition 2
+			{
+
+			}
+			else //All other conditions
+			{
+
+			}
+
 			eai.put("Submitted for Approval","Renewed");
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
