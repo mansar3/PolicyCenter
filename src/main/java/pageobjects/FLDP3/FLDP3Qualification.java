@@ -37,6 +37,11 @@ public class FLDP3Qualification extends Qualification<FLDP3Qualification>
 	{
 		return super.getPolicyType();
 	}
+	public FLDP3PreQuoteIssues clickQuote()
+	{
+		super.clickQuote();
+		return new FLDP3PreQuoteIssues(sh, path);
+	}
 
 	public class FLDP3Questionnaire extends Questionnaire<FLDP3Questionnaire>
 	{

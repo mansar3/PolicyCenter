@@ -21,12 +21,6 @@ public class FLDP3AccountFileSummary extends AccountFileSummary<FLDP3AccountFile
 		return super.getAccountNumber();
 	}
 
-	public FLDP3Quote clickTransactionNumber()
-	{
-		super.clickTransactionNumber();
-		return new FLDP3Quote(sh, path);
-	}
-
 	public Summary clickInforcedAccountNumber()
 	{
 		sh.waitForNoMask();
