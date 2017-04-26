@@ -621,8 +621,9 @@ public class FLHO6 extends BaseTest
 		}
 
 
-		pe
-		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		if(pe.isOccurrenceAggregateAnInput())
+			pe
+			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
@@ -667,10 +668,21 @@ public class FLHO6 extends BaseTest
 //			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-			.setLocationName("1:")
+		{
+			le.checkAdditionalResidenceRentedToOthers()
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			le.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickLiabilityOk()
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()
@@ -693,9 +705,25 @@ public class FLHO6 extends BaseTest
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;
-			quote = ra.quote();
-		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		quote = ra.quote();
 
+
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		FLHO6Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 		if(eai.get("Consent to Rate") != null)
 			quote
 			.clickOverrideRating()
@@ -827,8 +855,8 @@ public class FLHO6 extends BaseTest
 		FLHO6PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		//.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 
@@ -1153,9 +1181,9 @@ public class FLHO6 extends BaseTest
 		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
 
-//		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
-//			co
-//			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
+			co
+			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"));
@@ -1212,13 +1240,13 @@ public class FLHO6 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
-
-		pe
-		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
+		if(pe.isOccurrenceAggregateAnInput())
+			pe
+			.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
 		pe
 		.setLossAssessmentLimit(eai.get("Loss Assessment (Limit)"))
 		.setOrdinanceOrLawLimit(eai.get("Ordinance or Law - Percent"));
@@ -1306,6 +1334,22 @@ public class FLHO6 extends BaseTest
 		else
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		FLHO6Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 
 		if(eai.get("Consent to Rate") != null)
 			quote

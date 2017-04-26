@@ -17,9 +17,14 @@ public class SCHO6WestPanel extends CenterPanelBase.WestPanel<SCHO6WestPanel>
 		super.clickGoPaperless();
 		return new SCHO6GoPaperless(sh, path);
 	}
-		public SCHO6Quote viewQuote()
+	public SCHO6Quote viewQuote()
 	{
 		super.clickViewQuote();
 		return new SCHO6Quote(sh,path);
+	}
+	public SCHO6Payment payment()
+	{
+		super.clickPayment();
+		return new SCHO6Payment(sh,path);
 	}
 }

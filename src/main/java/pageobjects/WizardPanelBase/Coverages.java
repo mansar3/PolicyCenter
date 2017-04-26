@@ -285,9 +285,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setHurricane(String hurricane)
 	{
-		sh.setText(by.hurricane, hurricane);
-		sh.tab();
-		sh.waitForNoMask();
+		sh.setTextAndTab(by.hurricane, hurricane);
 		return (T)this;
 	}
 	protected String getWater()
@@ -335,8 +333,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setAllOtherPerils(String allOtherPerils)
 	{
-		sh.setText(by.allOtherPerils, allOtherPerils);
-		sh.tab();
+		sh.setTextAndTab(by.allOtherPerils, allOtherPerils);
 		sh.waitForNoMask();
 		return (T)this;
 	}
@@ -454,6 +451,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
+	}
+	protected boolean isNamedStormDisplayed()
+	{
+		return sh.isDisplayed(by.namedStorm);
 	}
 	protected T clickLiabilityEndorsementsTab()
 	{
@@ -776,7 +777,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			addSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Add']"),
 			removeSpecificStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/../../../..//span[text() = 'Remove']"),
 
-			residenceHeldinTrust = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HOCoveragesHOEScreen:HOClauses_fliPanelSet:dwellingOptionalPropertyCovsPanel:ClausesInCategories_fliPanelSet:coveragesDV:1:Coverage_fliInputSet:CovPatternInputGroup:_checkbox"),
+			residenceHeldInTrust =By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Residence Held in Trust']/..//input"),
 			otherStructuresIncreasedCoverageRentedToOthers = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/..//input"),
 			addOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../../..//span[text() = 'Add']"),
 			otherStructuresIncreasedCoverageRentedToOthersContent = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage - Rented to Others']/../../div[@role='presentation']"),
@@ -1176,7 +1177,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		protected T checkResidenceHeldInTrust()
 		{
 			sh.waitForNoMask();
-			sh.clickElement(by.residenceHeldinTrust);
+			sh.checkboxHelper.checkElement(by.residenceHeldInTrust);
 			sh.waitForNoMask();
 			return  (T) this;
 
@@ -1300,6 +1301,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkPermittedIncidentalOccupancy()
 		{
+			sh.waitForElementToAppear(by.permittedIncidentalOccupancy);
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancy);
 			return (T)this;
 		}
@@ -1861,6 +1863,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T unCheckPersonalInjury()
 		{
+			sh.waitForElementToAppear(by.personalInjury);
 			sh.checkboxHelper.unCheckElement(by.personalInjury);
 			return (T)this;
 		}
@@ -1957,6 +1960,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkPermittedIncidentalOccupancyLiability()
 		{
+			sh.waitForElementToAppear(by.permittedIncidentalOccupancyLiability);
 			sh.checkboxHelper.checkElement(by.permittedIncidentalOccupancyLiability);
 			sh.waitForNoMask();
 			return (T)this;
@@ -2001,6 +2005,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkAdditionalResidenceRentedToOthers()
 		{
+			sh.waitForElementToAppear(by.additionalResidenceRentedToOthers);
 			sh.checkboxHelper.checkElement(by.additionalResidenceRentedToOthers);
 			return (T)this;
 		}
@@ -2020,6 +2025,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkBusinessPursuits()
 		{
+			sh.waitForElementToAppear(by.businessPursuits);
 			sh.checkboxHelper.checkElement(by.businessPursuits);
 			sh.tab();
 			return (T)this;
@@ -2039,6 +2045,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkWatercraftLiability()
 		{
+			sh.waitForElementToAppear(by.watercraftLiability);
 			sh.checkboxHelper.checkElement(by.watercraftLiability);
 			sh.tab();
 			return (T)this;

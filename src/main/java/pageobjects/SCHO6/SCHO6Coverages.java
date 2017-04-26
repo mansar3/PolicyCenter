@@ -320,6 +320,10 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkGuardianEndorsements();
 		}
+		public SCHO6PropertyEndorsements unCheckGuardianEndorsements()
+		{
+			return super.unCheckGuardianEndorsements();
+		}
 		public SCHO6PropertyEndorsements setWhenSafeCreditPercentage(String text)
 		{
 			return super.setWhenSafeCreditPercentage(text);

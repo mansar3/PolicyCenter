@@ -22,4 +22,9 @@ public class FLDP3WestPanel extends CenterPanelBase.WestPanel<FLDP3WestPanel>
 		super.clickViewQuote();
 		return new FLDP3Quote(sh, path);
 	}
+		public FLDP3Payment payment()
+	{
+		super.clickPayment();
+		return new FLDP3Payment(sh,path);
+	}
 }

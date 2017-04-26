@@ -45,7 +45,7 @@ public abstract class BaseTest
 
 	@Parameters({"environment", "local", "threads","userName","passWord"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads , @Optional("mcoad") String userName, @Optional("") String passWord)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads , @Optional("su") String userName, @Optional("su") String passWord)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -143,7 +143,7 @@ public abstract class BaseTest
 		else{
 			driver = new FirefoxDriver(capabilities);
 		}
-		driver.manage().window().setSize(new Dimension(1024, 3072));
+		driver.manage().window().setSize(new Dimension(2048, 3072));
 		driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
 		return driver;

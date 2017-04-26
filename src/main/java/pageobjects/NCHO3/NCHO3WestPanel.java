@@ -22,4 +22,9 @@ public class NCHO3WestPanel extends CenterPanelBase.WestPanel<NCHO3WestPanel>
 		super.clickViewQuote();
 		return new NCHO3Quote(sh,path);
 	}
+	public NCHO3Payment payment()
+	{
+		super.clickPayment();
+		return new NCHO3Payment(sh,path);
+	}
 }

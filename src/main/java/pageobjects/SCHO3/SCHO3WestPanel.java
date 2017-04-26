@@ -17,9 +17,14 @@ public class SCHO3WestPanel extends CenterPanelBase.WestPanel<SCHO3WestPanel>
 		super.clickGoPaperless();
 		return new SCHO3GoPaperless(sh, path);
 	}
-		public SCHO3Quote viewQuote()
+	public SCHO3Quote viewQuote()
 	{
 		super.clickViewQuote();
 		return new SCHO3Quote(sh,path);
+	}
+	public SCHO3Payment payment()
+	{
+		super.clickPayment();
+		return new SCHO3Payment(sh,path);
 	}
 }

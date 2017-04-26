@@ -133,7 +133,9 @@ abstract public class CenterPanelBase
 					postString = "']";
 
 			By	goPaperless = By.xpath(preString + "Go Paperless" + postString),
-				viewQuote = By.xpath(preString + "View Quote" + postString);
+				viewQuote = By.xpath(preString + "View Quote" + postString),
+				quote = By.xpath(preString + "Quote" + postString),
+				payment = By.xpath(preString + "Payment" + postString);
 		}
 		protected T clickGoPaperless()
 		{
@@ -144,7 +146,16 @@ abstract public class CenterPanelBase
 		protected T clickViewQuote()
 		{
 			sh.waitForNoMask();
-			sh.clickElement(by.viewQuote);
+			if(sh.isDisplayed(by.viewQuote))
+				sh.clickElement(by.viewQuote);
+			else
+				sh.clickElement(by.quote);
+			return (T)this;
+		}
+		protected T clickPayment()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.payment);
 			return (T)this;
 		}
 

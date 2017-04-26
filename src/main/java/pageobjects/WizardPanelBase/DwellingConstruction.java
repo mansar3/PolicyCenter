@@ -409,6 +409,9 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
 		sh.clickElement(By.xpath("//*[@id = '" + discountBase +
 		"Modifiers_fliPanelSet:aRateModifierListView:0']//div[text() = 'Construction Credit']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
 		sh.waitForNoMask();
+		sh.clickElement(By.xpath("//*[@id = '" + discountBase +
+		"Modifiers_fliPanelSet:aRateModifierListView:0']//div[text() = 'Construction Credit']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));
+		sh.waitForNoMask();
 
 		return (T)this;
 	}

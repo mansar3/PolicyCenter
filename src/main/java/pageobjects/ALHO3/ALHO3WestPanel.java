@@ -22,4 +22,9 @@ public class ALHO3WestPanel extends CenterPanelBase.WestPanel<ALHO3WestPanel>
 		super.clickViewQuote();
 		return new ALHO3Quote(sh,path);
 	}
+		public ALHO3Payment payment()
+	{
+		super.clickPayment();
+		return new ALHO3Payment(sh,path);
+	}
 }

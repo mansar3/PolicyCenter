@@ -5,6 +5,7 @@
 	<parameter name="local" value="false" />
 	<parameter name="threads" value="25" />
 	<parameter name="userName" value="conversion2" />
+	<parameter name="passWord" value="" />
 	<test name="Renewal ETL">
         <classes>
 			<!--<class name="PolicyConversion.HO3.ALHO3">-->

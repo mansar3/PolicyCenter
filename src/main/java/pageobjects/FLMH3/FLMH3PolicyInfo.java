@@ -72,6 +72,18 @@ public class FLMH3PolicyInfo extends PolicyInfo<FLMH3PolicyInfo> {
     {
         return super.setEffectiveDate(text);
     }
+    public FLMH3PolicyInfo addAAAMembership()
+	{
+		return super.addAAAMembership();
+	}
+	public FLMH3PolicyInfo addAARPMembership()
+	{
+		return super.addAARPMembership();
+	}
+	public FLMH3PolicyInfo addFMHOMembership()
+	{
+		return super.addFMHOMembership();
+	}
 
     public String getEffectiveDate()
     {

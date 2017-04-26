@@ -22,4 +22,9 @@ public class NCHOWWestPanel extends CenterPanelBase.WestPanel<NCHOWWestPanel>
 		super.clickViewQuote();
 		return new NCHOWQuote(sh,path);
 	}
+	public NCHOWPayment payment()
+	{
+		super.clickPayment();
+		return new NCHOWPayment(sh,path);
+	}
 }
