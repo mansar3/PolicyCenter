@@ -6,6 +6,7 @@
 	<parameter name="threads" value="25" />
 	<parameter name="userName" value="mcoad" />
 	<parameter name="passWord" value="" />
+    <parameter name="sendEmail" value="true"/>
 	<test name="Submission ETL">
         <classes>
             <!--<class name="PolicyConversion.HO3.ALHO3">-->
@@ -23,16 +24,16 @@
                     <!--<include name="SubmissionLoadTest"></include>-->
                 <!--</methods>-->
             <!--</class>-->
-			<!--<class name="PolicyConversion.HO3.SCHO3">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<class name="PolicyConversion.HO6.SCHO6">
+			<class name="PolicyConversion.HO3.SCHO3">
                 <methods>
                     <include name="SubmissionLoadTest"></include>
                 </methods>
             </class>
+			<!--<class name="PolicyConversion.HO6.SCHO6">-->
+                <!--<methods>-->
+                    <!--<include name="SubmissionLoadTest"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
 			<!--<class name="PolicyConversion.HO6.FLHO6">-->
                 <!--<methods>-->
                     <!--<include name="SubmissionLoadTest"></include>-->

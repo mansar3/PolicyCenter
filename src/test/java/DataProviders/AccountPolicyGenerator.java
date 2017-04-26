@@ -19,7 +19,7 @@ public class AccountPolicyGenerator
 {
 	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 	+ "/Downloads/" +
-	"ConversionPolicies-20170425_3";
+	"ConversionPolicies-20170420_3";
 	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
 
@@ -39,7 +39,7 @@ public class AccountPolicyGenerator
 			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
 			//filePathBase = "/Volumes/General/ConversionData/Policies/FLHO3-20170202_130152/";
 			//filePathBase = "/Users/aansari/Desktop/";
-			filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170208_095334/FLHO3-20170208_095336/";
+			filePathBase = "/Users/ajmac/Downloads/ConversionPolicies-20170420_3/";
 		else
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Policies\\FLHO3-20170202_130152\\";
 		String filePath= filePathBase + "policies.csv";
