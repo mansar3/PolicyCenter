@@ -248,7 +248,7 @@ public abstract class BaseTest
 		if(sh.isDisplayed(By.className("error_icon")))
 			info = new String[20 + sh.getElements(By.className("error_icon")).size()];
 		else
-			info = new String[20];
+			info = new String[21];
 		//String[] info = new String[25]; //logs = baos.toString().split("\n");
 		if(result)
 			info[0] = "PASS";

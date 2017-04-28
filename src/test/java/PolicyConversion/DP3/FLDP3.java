@@ -46,8 +46,8 @@ public class FLDP3 extends BaseTest
 		String user = userName, pwd = "";
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
+		logon.loadConversionPage();
+		//logon.isLoaded();
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
@@ -666,7 +666,7 @@ public class FLDP3 extends BaseTest
 			.clickUpdate();
 		}
 	}
-	
+
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
 	public void SubmissionLoadTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
@@ -1145,7 +1145,7 @@ public class FLDP3 extends BaseTest
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-		
+
 		if(eai.get("Theft Coverage") == null)
 			if(pe.isTheftCoverageChecked())
 				pe.clickTheftCoverage();

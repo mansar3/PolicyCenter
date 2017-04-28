@@ -281,7 +281,14 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 		{
 			return super.clickRemoveScheduledPersonalProperty();
 		}
-
+		public FLDP3PropertyEndorsements clickOtherStructuresIncreasedCoverage()
+		{
+			return super.clickOtherStructuresIncreasedCoverage();
+		}
+		public FLDP3PropertyEndorsements setOtherStructuresIncreasedCoverageLimit(String text)
+		{
+			return super.setOtherStructuresIncreasedCoverageLimit(text);
+		}
 
 		public FLDP3PropertyEndorsements setCreditCardFundTransferForgeryCounterfeitMoneyLimit(String text)
 		{
@@ -293,6 +300,10 @@ public class FLDP3Coverages extends Coverages<FLDP3Coverages>
 			return super.getCreditCardFundTransferForgeryCounterfeitMoneyLimit();
 		}
 
+		public boolean isOtherStructuresIncreasedCoverageChecked()
+		{
+			return super.isOtherStructruesIncreasedCoverageChecked();
+		}
 
 		public FLDP3Coverages clickCoverages()
 		{

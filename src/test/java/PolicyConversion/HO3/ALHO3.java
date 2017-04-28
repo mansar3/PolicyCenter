@@ -225,7 +225,7 @@ public class ALHO3 extends BaseTest
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
 			imr.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
-		if(eai.get("Exclude Loss of Use Coverage") == null)
+		if(!eai.get("Exclude Loss of Use Coverage").toLowerCase().equals("false"))
 			imr.clickExcludedLossOfUseCoverage("true");
 		else
 			imr.clickExcludedLossOfUseCoverage("false");

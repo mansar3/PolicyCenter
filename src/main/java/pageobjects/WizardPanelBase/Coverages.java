@@ -770,6 +770,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			creditPercentageDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Percentage']/../..//div[@role='textbox']"),
 			creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Value']/../..//div"),
 
+			otherStructuresIncreasedCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/..//input"),
+			otherStructuresIncreasedCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/../../div//span[text() = 'Limit']/../..//div"),
+
+
 			specificOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
 			golfCartCoverageCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Golf Cart Coverage']/..//input"),
 			jewelryTheftIncreasedLimitCheckbox = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Jewelry Theft Increased Limit']/..//input"),
@@ -890,6 +894,23 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			return (T)this;
 		}
 
+		protected T setOtherStructuresIncreasedCoverageLimit(String otherStructuresIncreasedCoverageLimit)
+		{
+			sh.setText(by.otherStructuresIncreasedCoverageLimit, otherStructuresIncreasedCoverageLimit);
+			sh.tab();
+
+			return (T)this;
+		}
+		protected boolean isOtherStructruesIncreasedCoverageChecked()
+		{
+			return sh.isDisplayed(by.otherStructuresIncreasedCoverageLimit);
+		}
+
+		protected T clickOtherStructuresIncreasedCoverage()
+		{
+			sh.clickElement(by.otherStructuresIncreasedCoverage);
+			return (T)this;
+		}
 
 		protected T checkUnitOwnersCoverageASpecialCoverage()
 		{

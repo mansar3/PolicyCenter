@@ -2,15 +2,17 @@ package base;
 
 import org.zeroturnaround.zip.ZipUtil;
 
-import java.io.File;
-import java.util.Properties;
-import javax.activation.*;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.util.Properties;
 
 /**
  * Created by ajmac on 4/25/17.
@@ -44,10 +46,23 @@ class EmailResults {
 
         // Properties required for sending the email
         Properties props = new Properties();
-        props.put("mail.smtp.auth", true);
-        props.put("mail.smtp.starttls.enable", true);
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+
+        // making sure to have this values for our socketFactory class
+        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+
+        // setting the proper values to make sure we are using port '465'
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.setProperty("mail.smtp.port", "465");
+        // set socketFactory port to '465'
+        props.setProperty("mail.smtp.socketFactory.port", "465");
+
+        // place our old values in properties like normal!
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.store.protocol", "pop3");
+        props.put("mail.transport.protocol", "smtp");
 
         // Authentication
         Session session = Session.getInstance(props,
@@ -65,7 +80,10 @@ class EmailResults {
 
             // EMAIL RECIPIENT
             String recipientEmail = "AAnsari@flhi.com";
+            // EMAIL RECIPIENT
 
+            // Setting the recipients here.
+            // Needs to change if we multiple users are requirec
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(recipientEmail));
 
@@ -108,17 +126,23 @@ class EmailResults {
 
 
             // Second attachment CSV
-            MimeBodyPart attachmentBodyPartCSV = new MimeBodyPart();
-            String fileNameCSV = "TestResult_CSV.csv";
+            File csvFile = new File(filePath);
+            if (csvFile.exists()) {
+                MimeBodyPart attachmentBodyPartCSV = new MimeBodyPart();
+                String fileNameCSV = "TestResult_CSV.csv";
 
-            String csvPath = filePath;
-            DataSource sourceCsv = new FileDataSource(csvPath);
-            attachmentBodyPartCSV.setDataHandler(new DataHandler(sourceCsv));
-            attachmentBodyPartCSV.setFileName(fileNameCSV);
+                String csvPath = filePath;
+                DataSource sourceCsv = new FileDataSource(csvPath);
+                attachmentBodyPartCSV.setDataHandler(new DataHandler(sourceCsv));
+                attachmentBodyPartCSV.setFileName(fileNameCSV);
+
+                // add to our message
+                multipart.addBodyPart(attachmentBodyPartCSV);
+            }
+
 
             //Add message and attachments
             multipart.addBodyPart(messageBodyPart);
-            multipart.addBodyPart(attachmentBodyPartCSV);
 
             message.setContent(multipart);
 

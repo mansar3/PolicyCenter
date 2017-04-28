@@ -674,7 +674,7 @@ public class SCHO6 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement").toLowerCase().equals("false"))
 				pe.unCheckWaterBackUp();
 
 
@@ -1311,8 +1311,8 @@ public class SCHO6 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
-				pe.unCheckWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement").toLowerCase().equals("false"))
+			pe.unCheckWaterBackUp();
 
 
 

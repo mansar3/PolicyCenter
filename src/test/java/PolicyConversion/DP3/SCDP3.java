@@ -46,11 +46,11 @@ public class SCDP3 extends BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = userName, pwd = "";
+		String user = userName, pwd = passWord;
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
+		logon.loadConversionPage();
+		//logon.isLoaded();
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
@@ -583,14 +583,18 @@ public class SCDP3 extends BaseTest
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co
+				.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}
 		else
 		{
 			if(eai.get("Personal Liability") != null)
-				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
+				co
+				.checkPersonalLiability()
+				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
 		}
@@ -1149,14 +1153,18 @@ public class SCDP3 extends BaseTest
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co
+				.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}
 		else
 		{
 			if(eai.get("Personal Liability") != null)
-				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
+				co
+				.checkPersonalLiability()
+				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
 		}
