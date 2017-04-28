@@ -19,7 +19,7 @@ public class AccountPolicyGenerator
 {
 	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 	+ "/Downloads/" +
-	"ConversionPolicies-20170411_114931";
+	"ConversionPolicies-20170420_3";
 	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
 
@@ -39,7 +39,7 @@ public class AccountPolicyGenerator
 			//filePathBase = "/Users/aansari/Downloads/FLHO3-20170125_160052/";
 			//filePathBase = "/Volumes/General/ConversionData/Policies/FLHO3-20170202_130152/";
 			//filePathBase = "/Users/aansari/Desktop/";
-			filePathBase = "/Users/aansari/Downloads/ConversionPolicies-20170208_095334/FLHO3-20170208_095336/";
+			filePathBase = "/Users/ajmac/Downloads/ConversionPolicies-20170420_3/";
 		else
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Policies\\FLHO3-20170202_130152\\";
 		String filePath= filePathBase + "policies.csv";
@@ -289,6 +289,27 @@ public class AccountPolicyGenerator
 							spc.add(spp);
 						}
 
+					}
+					else if(key.equals("Group Membership") && !value.equals(""))
+					{
+						CSVReader gmReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+						List<String[]> gmData = gmReader.readAll();
+
+						for(int gmRow =1; gmRow < gmData.size();gmRow++)
+						{
+							String membership = gmData.get(gmRow)[0];
+							switch(membership)
+							{
+								case "AAA":
+									rowData.put("AAA Membership", "True");
+									break;
+								case "AARP":
+									rowData.put("AARP Membership", "True");
+									break;
+								case "FMHO":
+									rowData.put("FMHO Membership", "True");
+							}
+						}
 					}
 					else if(!value.equals("") && !value.equals(" "))
 						rowData.put(key, value);

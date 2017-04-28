@@ -212,7 +212,7 @@ public class CenterSeleniumHelper
 	}
 	public void waitForElementToAppear(By by)
 	{
-		new WebDriverWait(driver, 45).until(new ExpectedCondition<Boolean>()
+		new WebDriverWait(driver, 60).until(new ExpectedCondition<Boolean>()
 		{
 			public Boolean apply(WebDriver d)
 			{

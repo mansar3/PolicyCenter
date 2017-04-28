@@ -46,11 +46,11 @@ public class SCDP3 extends BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = userName, pwd = "";
+		String user = userName, pwd = passWord;
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
+		logon.loadConversionPage();
+		//logon.isLoaded();
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
@@ -567,7 +567,8 @@ public class SCDP3 extends BaseTest
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
 			co
 			.setPersonalPropertyValuationMethod(eai.get("Personal Property - Valuation Method"));
-		 if(eai.get("Personal Property - Limit") != null)
+
+		if(eai.get("Personal Property - Limit") != null)
 			co.setPersonalPropertyExcluded("false")
 			.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		else
@@ -578,11 +579,12 @@ public class SCDP3 extends BaseTest
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"))
 
 		.setHurricane(eai.get("Section I Deductibles - Hurricane"));
-		
-				if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
+
+		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.checkPremisesLiability()
+				co
+				.checkPremisesLiability()
 				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
@@ -590,7 +592,9 @@ public class SCDP3 extends BaseTest
 		else
 		{
 			if(eai.get("Personal Liability") != null)
-				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
+				co
+				.checkPersonalLiability()
+				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
 		}
@@ -664,6 +668,21 @@ public class SCDP3 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		SCDP3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -1134,14 +1153,18 @@ public class SCDP3 extends BaseTest
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co
+				.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}
 		else
 		{
 			if(eai.get("Personal Liability") != null)
-				co.setPersonalLiabilityLimit(eai.get("Personal Liability"));
+				co
+				.checkPersonalLiability()
+				.setPersonalLiabilityLimit(eai.get("Personal Liability"));
 			else
 				co.unCheckPersonalLiability();
 		}
@@ -1215,6 +1238,21 @@ public class SCDP3 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		SCDP3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

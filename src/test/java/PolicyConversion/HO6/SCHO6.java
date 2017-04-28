@@ -582,22 +582,24 @@ public class SCHO6 extends BaseTest
 		// Property Endorsements
 		SCHO6Coverages.SCHO6PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-		if(eai.get("Guardian Endorsement") != null)
+		if(!eai.get("Guardian Endorsement").toLowerCase().equals("false"))
 			pe
 			.checkGuardianEndorsements();
-
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
 		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.unCheckWhenSafe();
-		}
+			pe.unCheckGuardianEndorsements();
+
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.unCheckWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -672,7 +674,7 @@ public class SCHO6 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement").toLowerCase().equals("false"))
 				pe.unCheckWaterBackUp();
 
 
@@ -741,7 +743,21 @@ public class SCHO6 extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
+		SCHO6Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
 
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 		if(eai.get("Consent to Rate") != null)
 			quote
 			.clickOverrideRating()
@@ -862,8 +878,8 @@ public class SCHO6 extends BaseTest
 		SCHO6PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		//.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 
@@ -1019,7 +1035,6 @@ public class SCHO6 extends BaseTest
 		.setFireExtinguishers(eai.getOrDefault("One or more fire extinguishers in the home?","false"));
 
 		if(!eai.getOrDefault("Sprinkler System", "none").toLowerCase().equals("none") && !eai.get("Sprinkler System").toLowerCase().equals("false"))
-
 			pd.
 			setSprinklerSystem("true")
 			.setSprinklerSystemType(eai.get("Sprinkler System"));
@@ -1189,8 +1204,8 @@ public class SCHO6 extends BaseTest
 //			.setLossOfUseSelection(eai.get("Loss of Use - %"));
 		co
 		//.setWindExcluded(eai.get("Wind Excluded"))
-		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
-		//.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"))
+		.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"));
@@ -1203,22 +1218,25 @@ public class SCHO6 extends BaseTest
 		// Property Endorsements
 		SCHO6Coverages.SCHO6PropertyEndorsements pe = co.clickPropertyEndorsements();
 
-		if(eai.get("Guardian Endorsement") != null)
+		if(!eai.get("Guardian Endorsement").toLowerCase().equals("false"))
 			pe
 			.checkGuardianEndorsements();
-
-		if(eai.get("Whensafe - %") != null)
-		{
-			if(!pe.isWhenSafeChecked())
-				pe.checkWhenSafe();
-
-			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
-		}
 		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.unCheckWhenSafe();
-		}
+			pe.unCheckGuardianEndorsements();
+
+
+//		if(eai.get("Whensafe - %") != null)
+//		{
+//			if(!pe.isWhenSafeChecked())
+//				pe.checkWhenSafe();
+//
+//			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
+//		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.unCheckWhenSafe();
+//		}
 
 		if(eai.get("Specific Other Structures - Limit" ) != null)
 		{
@@ -1293,8 +1311,8 @@ public class SCHO6 extends BaseTest
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
 
-		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement") == null)
-				pe.unCheckWaterBackUp();
+		if(eai.get("Water Back Up (Limit)") == null && pe.isWaterBackUpChecked() && eai.get("Guardian Endorsement").toLowerCase().equals("false"))
+			pe.unCheckWaterBackUp();
 
 
 
@@ -1352,6 +1370,22 @@ public class SCHO6 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		SCHO6Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

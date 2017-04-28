@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium - Functional Testing" >
+    <!--parameter name="environment" value="139" />-->
+    <parameter name="environment" value="http://aws-flgwqa09.fpic.net:8180/pc/PolicyCenter.do" />
+    <parameter name="username" value="Sam1" />
+    <parameter name="local" value="true" />
+    <test name="NCHOW">
+        <classes>
+            <class name="FL.HO4.ValidationRulesFLHO4">
+                <methods>
+                    <include name="CreatePersonalAccountforFLHO4"></include>
+                    <include name="ValidatingHO4FL"></include>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>

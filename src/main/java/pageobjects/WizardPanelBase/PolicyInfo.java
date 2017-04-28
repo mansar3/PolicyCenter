@@ -3,7 +3,10 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import pageobjects.NorthPanel;
+
+import java.util.List;
 
 public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 {
@@ -52,7 +55,8 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 	{
 
 		// REPLACE policyBase with enum value here
-		final  String	addressBase = policyBase +"AccountInfoInputSet:PolicyAddressDisplayInputSet:globalAddressContainer:GlobalAddressInputSet:";
+		final  String	addressBase = policyBase +"AccountInfoInputSet:PolicyAddressDisplayInputSet:globalAddressContainer:GlobalAddressInputSet:",
+						gmBase = policyBase + "AccountInfoInputSet:groupMembership:GroupMembershipInputSet:GroupMembershipsIteratorLV_tb:";
 
 		final  By		termType = By.id(policyBase + "PolicyInfoInputSet:TermType-inputEl"),
 						effectiveDate = By.id(policyBase + "PolicyInfoInputSet:EffectiveDate-inputEl"),
@@ -62,6 +66,7 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 						policyWriter = By.id(policyBase + "PolicyInfoProducerOfRecordInputSet:PolicyWriter-inputEl"),
 						underwritingCompanies = By.id(policyBase + "UWCompanyInputSet:UWCompany-inputEl"),
 						occupation = By.id(policyBase + "AccountInfoInputSet:occupation-inputEl"),
+						addGroupMemberships = By.id(gmBase + "AddMembershipButton-btnWrap"),
 						addAdditionalNameInsureds = By.id(insuredBase + "AddContactsButton"),
 						removeAdditionalNameInsureds = By.id(insuredBase + "Remove"),
 						name = By.id(policyBase + "AccountInfoInputSet:Name-inputEl"),
@@ -153,7 +158,42 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		return (T)this;
 
 	}
+	protected T addAAAMembership()
+	{
+		sh.clickElement(by.addGroupMemberships);
+		//sh.clickElement(By.xpath("//*[@id= '" + by.gmBase + "AddMembershipButton:0:GroupsList-itemEl']"));
+		clickGroupMembership("AAA Membership");
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T addAARPMembership()
+	{
+		sh.clickElement(by.addGroupMemberships);
+		//sh.clickElement(By.xpath("//*[@id= '" + by.gmBase + "AddMembershipButton:1:GroupsList-itemEl']"));
+		clickGroupMembership("AARP Membership");
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	protected T addFMHOMembership()
+	{
+		sh.clickElement(by.addGroupMemberships);
+		//sh.clickElement(By.xpath("//*[@id= '" + by.gmBase + "AddMembershipButton:2:GroupsList-itemEl']"));
+		clickGroupMembership("FMHO Membership");
+		sh.waitForNoMask();
+		return (T)this;
+	}
+	private void clickGroupMembership(String text)
+	{
+		sh.waitForNoMask();
+		List<WebElement> list = sh.driver.findElements(By.xpath("//span[text() = '" + text + "']"));
+		for(WebElement we: list)
+		{
+			if(we.isDisplayed())
+				we.click();
 
+		}
+		sh.waitForNoMask();
+	}
 	protected T setSeniorCitizenDiscount(String flag)
 	{
 		sh.clickElement(By.xpath("//*[@id='" + discountsBase + "Modifiers_fliPanelSet:aRateModifierListView:0-body']//div[text() = 'Senior Citizens Discount']/../..//input[@inputvalue = '" + flag.toLowerCase() + "']"));

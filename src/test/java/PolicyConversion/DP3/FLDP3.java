@@ -46,8 +46,8 @@ public class FLDP3 extends BaseTest
 		String user = userName, pwd = "";
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
+		logon.loadConversionPage();
+		//logon.isLoaded();
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
@@ -192,7 +192,7 @@ public class FLDP3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage", null));
@@ -544,7 +544,8 @@ public class FLDP3 extends BaseTest
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.checkPremisesLiability()
+				co
+				.checkPremisesLiability()
 				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
@@ -621,6 +622,22 @@ public class FLDP3 extends BaseTest
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 
+		FLDP3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
+
 		if(eai.get("Consent to Rate") != null)
 			quote
 			.clickOverrideRating()
@@ -649,7 +666,7 @@ public class FLDP3 extends BaseTest
 			.clickUpdate();
 		}
 	}
-	
+
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
 	public void SubmissionLoadTest(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
@@ -1082,7 +1099,9 @@ public class FLDP3 extends BaseTest
 		if(eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
 			if(eai.get("Premises Liability") != null)
-				co.setPremisesLiabilityLimit(eai.get("Premises Liability"));
+				co
+				.checkPremisesLiability()
+				.setPremisesLiabilityLimit(eai.get("Premises Liability"));
 			else
 				co.unCheckPremisesLiability();
 		}
@@ -1126,7 +1145,7 @@ public class FLDP3 extends BaseTest
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-		
+
 		if(eai.get("Theft Coverage") == null)
 			if(pe.isTheftCoverageChecked())
 				pe.clickTheftCoverage();
@@ -1160,6 +1179,21 @@ public class FLDP3 extends BaseTest
 		else
 			quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+		FLDP3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 
 		if(eai.get("Consent to Rate") != null)
 			quote

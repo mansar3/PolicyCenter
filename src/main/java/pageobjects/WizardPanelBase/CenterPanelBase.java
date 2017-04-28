@@ -48,7 +48,12 @@ abstract public class CenterPanelBase
 	{
 		sh.clickElement(by.back);
 	}
-	
+
+	// TODO if this breaks something, roll it back
+    // to void. It's Friday, end of the day,
+    // and I'll look into it on Monday.
+    // BJ said he needs us to push everything
+    // today so blame it on him
 	public <T extends CenterPanelBase> T clickQuote()
 	{
 		sh.waitForNoMask();
@@ -135,6 +140,9 @@ abstract public class CenterPanelBase
 
 			By	goPaperless = By.xpath(preString + "Go Paperless" + postString),
 				viewQuote = By.xpath(preString + "View Quote" + postString),
+				quote = By.xpath(preString + "Quote" + postString),
+				payment = By.xpath(preString + "Payment" + postString),
+				viewQuote = By.xpath(preString + "View Quote" + postString),
 			    forms = By.xpath(preString + "Forms" + postString);
 		}
 		protected T clickGoPaperless()
@@ -146,7 +154,16 @@ abstract public class CenterPanelBase
 		protected T clickViewQuote()
 		{
 			sh.waitForNoMask();
-			sh.clickElement(by.viewQuote);
+			if(sh.isDisplayed(by.viewQuote))
+				sh.clickElement(by.viewQuote);
+			else
+				sh.clickElement(by.quote);
+			return (T)this;
+		}
+		protected T clickPayment()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.payment);
 			return (T)this;
 		}
 		public T clickForms()

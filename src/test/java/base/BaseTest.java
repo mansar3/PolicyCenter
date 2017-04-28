@@ -13,6 +13,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -35,6 +36,7 @@ public abstract class BaseTest
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected static SessionInfo sessionInfo;
 	private static Boolean local;
+	private static Boolean sendEmail;
     protected String errorReportDirectory;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
@@ -43,9 +45,10 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 
-	@Parameters({"environment", "local", "threads","userName","passWord"})
+	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads , @Optional("mcoad") String userName, @Optional("") String passWord)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads ,
+							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -54,6 +57,7 @@ public abstract class BaseTest
 		this.local = local;
 		this.userName = userName;
 		this.passWord = passWord;
+		this.sendEmail = sendEmail;
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
 		if(new File(filePath).exists())
@@ -63,6 +67,7 @@ public abstract class BaseTest
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
 	}
+
 	// For other test Suites to access.
 	public void beforeSuite(@Nullable() String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName,@Optional("") String passWord)
 	{
@@ -143,7 +148,7 @@ public abstract class BaseTest
 		else{
 			driver = new FirefoxDriver(capabilities);
 		}
-		driver.manage().window().setSize(new Dimension(1024, 3072));
+		driver.manage().window().setSize(new Dimension(2048, 3072));
 		driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
 		return driver;
@@ -243,7 +248,7 @@ public abstract class BaseTest
 		if(sh.isDisplayed(By.className("error_icon")))
 			info = new String[20 + sh.getElements(By.className("error_icon")).size()];
 		else
-			info = new String[20];
+			info = new String[21];
 		//String[] info = new String[25]; //logs = baos.toString().split("\n");
 		if(result)
 			info[0] = "PASS";
@@ -307,4 +312,12 @@ public abstract class BaseTest
 
 	}
 
+	//AfterSuite to send Email
+	@AfterSuite(alwaysRun = true)
+	public void emailTestResults() {
+		// Only will send if it is parallel and if SendEmail is true
+		if (!local && sendEmail) {
+			EmailResults.sendEmail(filePath, timeStamp);
+		}
+	}
 }

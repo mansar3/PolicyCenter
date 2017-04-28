@@ -427,6 +427,7 @@ public class NCHOW extends BaseTest
 		NCHOWDwellingConstruction.NCHOWWindMitigation wm = dc.clickWindMitigation();
 		wm
 		.setDiscountType(eai.get("Discount Type"))
+		.setFortifiedHomeType(eai.getOrDefault("Fortified Home Type",null))
 		.setRoofShapeType(eai.getOrDefault("Roof Shape","Other"))
 		.setOpeningProtectionType(eai.get("Opening Protection Type"));
 
@@ -493,7 +494,7 @@ public class NCHOW extends BaseTest
 			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
 
 		}
-		if(!eai.getOrDefault("Residence Held in Trust", "False").toLowerCase().equals("false"))
+		if(!eai.get("Residence Held in Trust").toLowerCase().equals("false"))
 			pe.checkResidenceHeldInTrust();
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			pe.unCheckSpecificAdditionalAmountOfCoverageA();
@@ -521,6 +522,21 @@ public class NCHOW extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
+		NCHOWPayment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 		if(eai.get("Consent to Rate") != null)
 			quote
 			.clickOverrideRating()
@@ -871,9 +887,11 @@ public class NCHOW extends BaseTest
 			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		co
 		.setWindHail(eai.get("Section I Deductibles - Wind/Hail"));
-		if(!(eai.get("Section I Deductibles - Wind/Hail").contains("%") && eai.get("Section I Deductibles - Named Storm") == null))
-			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm","<none>"));
+		if(!eai.get("Section I Deductibles - Wind/Hail").contains("%") && co.isNamedStormDisplayed())
+		{
+			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm", "<none>"));
 
+		}
 
 		NCHOWCoverages.NCHOWPropertyEndorsements pe = co.clickPropertyEndorsements();
 
@@ -897,7 +915,7 @@ public class NCHOW extends BaseTest
 			.setOtherStructuresLimit(1, eai.get("Other Structures Increase Coverage - Rented to Others - Limit"));
 
 		}
-		if(!eai.getOrDefault("Residence Held in Trust", "False").toLowerCase().equals("false"))
+		if(!eai.get("Residence Held in Trust").toLowerCase().equals("false"))
 			pe.checkResidenceHeldInTrust();
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
 			pe.unCheckSpecificAdditionalAmountOfCoverageA();
@@ -916,6 +934,22 @@ public class NCHOW extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		NCHOWPayment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

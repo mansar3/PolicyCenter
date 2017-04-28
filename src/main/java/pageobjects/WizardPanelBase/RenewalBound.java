@@ -13,8 +13,8 @@ public class RenewalBound<T extends RenewalBound> extends CenterPanelBase
 	{
 		this.sh = sh;
 		this.path = path;
-		expectedPanelTitle = "Renewal Bound";
-		waitForTitle(sh);
+		expectedPanelTitle = "Renewal Bound Renewal Renewing";
+		waitForTitleToContain(sh);
 		System.out.println("Navigated to page: " + expectedPanelTitle);
 		by = new RenewalBoundBy();
 
@@ -38,7 +38,8 @@ public class RenewalBound<T extends RenewalBound> extends CenterPanelBase
 	}
 	public T viewYourRenewal()
 	{
-		sh.clickElement(by.viewYourRenewal);
+		if(sh.isDisplayed(by.viewYourRenewal))
+			sh.clickElement(by.viewYourRenewal);
 		return (T)this;
 	}
 	public T goToYourDesktop()

@@ -46,11 +46,11 @@ public class SCHO3 extends BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = userName, pwd = "";
+		String user = userName, pwd = passWord;
 		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
+		logon.loadConversionPage();
+		//logon.isLoaded();
 		logon.login(user, pwd);
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
@@ -221,12 +221,12 @@ public class SCHO3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate("06/01/2016"/*eai.getOrDefault("Policy Original Effective Date",null)*/)
+		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
 			imr.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
-		if(eai.get("Exclude Loss of Use Coverage") == null)
+		if(!eai.get("Exclude Loss of Use Coverage").toLowerCase().equals("false"))
 			imr.clickExcludedLossOfUseCoverage("true");
 		else
 			imr.clickExcludedLossOfUseCoverage("false");
@@ -736,6 +736,22 @@ public class SCHO3 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		SCHO3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)
@@ -1365,6 +1381,22 @@ public class SCHO3 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		SCHO3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

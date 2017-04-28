@@ -109,6 +109,10 @@ public class NCHOWCoverages extends Coverages<NCHOWCoverages> {
         return super.setNamedStorm(text);
 
     }
+    public boolean isNamedStormDisplayed()
+	{
+		return super.isNamedStormDisplayed();
+	}
 
     public NCHOWPropertyEndorsements clickPropertyEndorsements()
     {

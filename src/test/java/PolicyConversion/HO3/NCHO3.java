@@ -220,7 +220,7 @@ public class NCHO3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate("06/01/2016"/*eai.getOrDefault("Policy Original Effective Date",null)*/)
+		.setOriginalEffectiveDate("06/01/2016")/*eai.getOrDefault("Policy Original Effective Date",null)*/
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
@@ -667,9 +667,9 @@ public class NCHO3 extends BaseTest
 			pe
 			.checkScreenEnclosureHurricaneCoverage()
 			.setScreenEnclosureHurricaneCoverageLimit(eai.get("Screen Enclosure Hurricane Coverage (Limit)"));
-		
+
 		if(eai.get("Specified Additional Amount of Coverage A").toLowerCase().equals("false"))
-				pe.unCheckSpecificAdditionalAmountOfCoverageA();
+			pe.unCheckSpecificAdditionalAmountOfCoverageA();
 		else
 			pe.checkSpecificAdditionalAmountOfCoverageA();
 
@@ -678,12 +678,6 @@ public class NCHO3 extends BaseTest
 				pe
 				.checkCreditCardFundTransferForgeryCounterfeitMoney()
 				.setCreditCardFundTransferForgeryCounterfeitMoneyLimit(eai.get("Credit Card (Limit)"));
-
-		if(eai.get("Water Back Up (Limit)") == null)
-			pe.unCheckWaterBackUp();
-		else
-			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
-
 		if(!eai.get("Special Computer Coverage").toLowerCase().equals("false"))
 			pe.checkSpecialComputerCoverage();
 
@@ -691,6 +685,11 @@ public class NCHO3 extends BaseTest
 			pe.checkInflationGuard();
 		else
 			pe.unCheckInflationGuard();
+
+		if(eai.get("Water Back Up (Limit)") == null)
+			pe.unCheckWaterBackUp();
+		else
+			pe.setWaterBackupLimit(eai.get("Water Back Up (Limit)"));
 
 
 		// Liability Endorsements
@@ -701,10 +700,21 @@ public class NCHO3 extends BaseTest
 //			le.checkAnimalLiability();
 
 		if(eai.getOrDefault("Additional Residence Rented to Others - Number of families",null) != null)
-			le
-			.checkAdditionalResidenceRentedToOthers()
-			//.setLocationName("1:")
+		{
+			le.checkAdditionalResidenceRentedToOthers()
+			.setLocationName(eai.getOrDefault("Additional Residence Rented to Others - Number of families", "1:"));
+			//.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+			le.addNewLocation()
+			.setAddress1(eai.get("Location Address"))
+			.setAddress2(eai.getOrDefault("Location Address - Unit", null))
+			.setCity(eai.get("Location Address - City"))
+			.setZipCode(eai.get("Location Address - Zip"))
+			.setCounty(eai.get("Location Address - County"))
+			.clickVerifyAddress()
+			.selectSuccessfulVerificationIfPossibleForLocationInformation()
+			.clickLiabilityOk()
 			.setNumberOfFamilies(eai.get("Additional Residence Rented to Others - Number of families"));
+		}
 		if(eai.getOrDefault("Business Pursuits - Business activity", null) != null)
 			le
 			.checkBusinessPursuits()
@@ -743,6 +753,22 @@ public class NCHO3 extends BaseTest
 //		}
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
+		NCHO3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
+
 		if(eai.get("Consent to Rate") != null)
 			quote
 			.clickOverrideRating()
@@ -756,22 +782,7 @@ public class NCHO3 extends BaseTest
 		}
 		else
 		{
-			//TODO finish implementing this logic when we get all info needed
-			quote.renewVoid();
-			if (true) //Condition 1
-			{
-				NCHO3RenewalBound ren = quote.getRenewalBoundObject();
-				ren.viewYourRenewal();
-			}
-			else if (false) //Condition 2
-			{
-
-			}
-			else //All other conditions
-			{
-
-			}
-
+			quote.renew().viewYourRenewal();
 			eai.put("Submitted for Approval","Renewed");
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
@@ -1290,6 +1301,7 @@ public class NCHO3 extends BaseTest
 			if(!pe.isEarthquakeCoverageChecked())
 				pe
 				.checkEarthQuakeCoverage();
+
 			pe
 			.setEarthquakeCoverageDeductiblePercentage(eai.get("Earthquake Coverage Deductible"))
 			.setDoesExteriorMasonryVeneerExclusionApply(eai.get("Earthquake Coverage - Construction Class"))
@@ -1395,6 +1407,22 @@ public class NCHO3 extends BaseTest
 
 		quote = ra.quote();
 		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
+
+		NCHO3Payment payment;
+		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
+		{
+			payment = quote.westPanel.payment();
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Payment Plan Schedule").equals("2Pay"))
+				payment.clickTwoPay();
+
+			else if(eai.get("Payment Plan Schedule").equals("4Pay"))
+				payment.clickFourPay();
+
+			quote = payment.westPanel.viewQuote();
+		}
 //		String[] j = errorReportingInfo(itc.getCurrentXmlTest().getLocalParameters(),true);
 ////		System.out.println("In test result is ~~~~~" );
 //		for(i = 0; i < j.length - 1; i++)

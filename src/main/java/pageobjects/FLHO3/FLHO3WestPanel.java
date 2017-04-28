@@ -22,4 +22,9 @@ public class FLHO3WestPanel extends CenterPanelBase.WestPanel<FLHO3WestPanel>
 		super.clickViewQuote();
 		return new FLHO3Quote(sh,path);
 	}
+	public FLHO3Payment payment()
+	{
+		super.clickPayment();
+		return new FLHO3Payment(sh,path);
+	}
 }

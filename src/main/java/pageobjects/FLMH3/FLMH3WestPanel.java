@@ -17,9 +17,14 @@ public class FLMH3WestPanel extends CenterPanelBase.WestPanel<FLMH3WestPanel>
 		super.clickGoPaperless();
 		return new FLMH3GoPaperless(sh, path);
 	}
-		public FLMH3Quote viewQuote()
+	public FLMH3Quote viewQuote()
 	{
 		super.clickViewQuote();
 		return new FLMH3Quote(sh,path);
+	}
+		public FLMH3Payment payment()
+	{
+		super.clickPayment();
+		return new FLMH3Payment(sh,path);
 	}
 }

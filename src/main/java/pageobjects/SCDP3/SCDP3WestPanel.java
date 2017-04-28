@@ -17,9 +17,14 @@ public class SCDP3WestPanel extends CenterPanelBase.WestPanel<SCDP3WestPanel>
 		super.clickGoPaperless();
 		return new SCDP3GoPaperless(sh, path);
 	}
-		public SCDP3Quote viewQuote()
+	public SCDP3Quote viewQuote()
 	{
 		super.clickViewQuote();
 		return new SCDP3Quote(sh,path);
+	}
+	public SCDP3Payment payment()
+	{
+		super.clickPayment();
+		return new SCDP3Payment(sh,path);
 	}
 }

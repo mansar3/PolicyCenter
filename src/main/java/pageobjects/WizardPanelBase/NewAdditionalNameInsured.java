@@ -332,7 +332,10 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 
 	public T  setSsn(String ssn)
 	{
-		sh.setText(by.ssn, ssn);
+		if(sh.isDisplayed(by.ssn))
+			sh.setText(by.ssn, ssn);
+		else
+			sh.setText(by.ssnUnmasked,ssn);
 		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
@@ -465,6 +468,7 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 					licenseNumber = By.id(contactDetailsBase + "LicenseInputSet:LicenseNumber-inputEl"),
 					licenseState = By.id(contactDetailsBase  + "LicenseInputSet:LicenseState-inputEl"),
 					ssn = By.id(contactDetailsBase + "OfficialIDInputSet:OfficialIDDV_Input-inputEl"),
+					ssnUnmasked = By.id(contactDetailsBase + "OfficialIDInputSet:UmaskedOfficialIDDV_Input-inputEl"),
 					verifyAddress = By.id(contactDetailsBase + "AddressInputSet:globalAddressContainer:GlobalAddressInputSet:VerifyAddressPickerButton"),
 					sameAddressAs = By.id(contactDetailsBase + "LinkedAddressInputSet:LinkAddressMenu:LinkAddressMenuMenuIcon"),
 

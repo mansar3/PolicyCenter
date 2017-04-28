@@ -5,6 +5,8 @@
 	<parameter name="local" value="false" />
 	<parameter name="threads" value="25" />
 	<parameter name="userName" value="mcoad" />
+	<parameter name="passWord" value="" />
+    <parameter name="sendEmail" value="true"/>
 	<test name="Submission ETL">
         <classes>
             <!--<class name="PolicyConversion.HO3.ALHO3">-->
