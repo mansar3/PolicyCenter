@@ -265,7 +265,7 @@ public abstract class BaseTest
 		if(eai.get("Whensafe - %") != null)
 			info[12] = eai.get("Whensafe - %");
 		else
-			info[12] = "NA";
+			info[12] = "NULL";
 		if(!result)
 			try
 			{
