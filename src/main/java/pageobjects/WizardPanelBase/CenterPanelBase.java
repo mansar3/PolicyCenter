@@ -139,11 +139,11 @@ abstract public class CenterPanelBase
 					postString = "']";
 
 			By	goPaperless = By.xpath(preString + "Go Paperless" + postString),
+			    forms = By.xpath(preString + "Forms" + postString),
 				viewQuote = By.xpath(preString + "View Quote" + postString),
 				quote = By.xpath(preString + "Quote" + postString),
-				payment = By.xpath(preString + "Payment" + postString),
-				viewQuote = By.xpath(preString + "View Quote" + postString),
-			    forms = By.xpath(preString + "Forms" + postString);
+				payment = By.xpath(preString + "Payment" + postString);
+
 		}
 		protected T clickGoPaperless()
 		{

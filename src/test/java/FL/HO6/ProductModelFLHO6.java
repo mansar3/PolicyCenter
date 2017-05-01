@@ -1,62 +1,29 @@
 package FL.HO6;
 
-
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
-import org.joda.time.DateTime;
+import base.BaseTestPC;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO6.*;
-import pageobjects.Logon;
 
-public class ProductModelFLHO6 extends BaseTest
+import java.time.format.DateTimeFormatter;
+
+public class ProductModelFLHO6 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private FLHO6EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString;
     private String firstname, lastname;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        String user = "User1brown", password = "";
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-
-        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-    }
 
     @Test(description = "Creates account for Florida HO6 product")
     public void createPersonAccountFLHO6(ITestContext itc)
     {
         log(itc.getName());
+
+        DateTimeFormatter.ofPattern("01/dd/uuuu");
         firstname = String.format("FLHO6Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
         String country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "4071234567",
                 address = "234 Walnut St",
                 city = "Daytona Beach",
@@ -114,11 +81,6 @@ public class ProductModelFLHO6 extends BaseTest
     public void productModelLessCoverageFLHO6(ITestContext itc)
     {
         log(itc.getName());
-    /* Set Variables */
-//        String firstname = "Ricky0209015449";
-//        String lastname = "Bobby0209015449";
-//        firstname = "FLHO6Ricky0407112234";
-//        lastname = "Bobby0407112234";
 
         String policyType = "Condominium (HO6)";
         String offeringSelection = "Less Coverage";
@@ -551,18 +513,5 @@ public class ProductModelFLHO6 extends BaseTest
                 "Business Pursuits was not expected to be checked but it was");
         Assert.assertFalse(le.isWatercraftLiabilityChecked(),
                 "Watercraft Liability was not expected to be checked but it was");
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
     }
 }

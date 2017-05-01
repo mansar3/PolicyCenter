@@ -1,65 +1,33 @@
 package FL.DP3;
 
-
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
-import org.joda.time.DateTime;
+import base.BaseTestPC;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLDP3.*;
-import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-public class FormsSubmissionFLDP3 extends BaseTest
+public class FormsSubmissionFLDP3 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private FLDP3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString;
-    private String firstname, lastname;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        String user = "User1brown", password = "";
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-
-        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-    }
+    private DateTimeFormatter formatter;
 
     @Test(description = "Creates account for Florida DP3 product")
     public void createPersonAccountFLDP3(ITestContext itc)
     {
         log(itc.getName());
+
+        formatter = DateTimeFormatter.ofPattern("01/dd/uuuu");
         firstname = String.format("FLDP3Ricky%s", dateString);
         lastname = String.format("Submission%s", dateString);
+        ldt = LocalDateTime.now();
         String country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "4071234567",
                 address = "234 Walnut St",
                 city = "Daytona Beach",
@@ -118,12 +86,6 @@ public class FormsSubmissionFLDP3 extends BaseTest
     {
         log(itc.getName());
 
-    /* Set Variables */
-        //        String firstname = "Ricky0209015449";
-        //        String lastname = "Bobby0209015449";
-            firstname = "FLDP3Ricky0420041335";
-            lastname = "Bobby0420041335";
-
         String policyType = "Dwelling Fire (DP3)";
         String offeringSelection = "Less Coverage";
         String county = "Mobile";
@@ -176,10 +138,8 @@ public class FormsSubmissionFLDP3 extends BaseTest
 
         afs.clickTransactionNumber().clickQuote().westPanel.clickForms();
 
-
 //        afs.westPanel.actions.clickActions();
 //        afs.westPanel.actions.clickNewSubmission();
-
 
         FLDP3NewSubmission ns = new FLDP3NewSubmission(sh);
         FLDP3Qualification qualification = ns.productTable.selectHomeowners();
@@ -374,18 +334,5 @@ public class FormsSubmissionFLDP3 extends BaseTest
         Assert.assertTrue(defaultTheftType.equals(theftType),
                 "Theft Type was expected to be " + defaultTheftType +
                         ", but it was " + theftType);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
     }
 }

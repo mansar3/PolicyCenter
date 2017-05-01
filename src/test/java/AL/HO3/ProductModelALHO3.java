@@ -1,55 +1,21 @@
 package AL.HO3;
 
 import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
+import base.BaseTestPC;
 
 import base.LocalDriverManager;
-import org.joda.time.DateTime;
-import org.junit.runner.Description;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
-import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
 
-public class ProductModelALHO3 extends BaseTest
+public class ProductModelALHO3 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private ALHO3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString, firstname, lastname;
-    private MyActivities ma;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        String userName = "User1brown", passWord = "";
-        logon.login(userName, passWord);
-        log(String.format("Logged in as: %s\nPassword: %s", userName, passWord));
-
-        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-    }
+    private String firstname, lastname;
 
     @Test(description = "Creates account for Alabama HO3 product")
     public void createPersonAccountALHO3(ITestContext itc)
@@ -62,7 +28,7 @@ public class ProductModelALHO3 extends BaseTest
         log(itc.getName());
 
         String  country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "2561234567",
                 address = "5264 Willard Dr N",
                 city = "Theodore",
@@ -72,7 +38,6 @@ public class ProductModelALHO3 extends BaseTest
                 producerCode = "523-23-21498 Brown & Brown of Florida - West Palm Beach";
 
         enterAccountInformation = new ALHO3EnterAccountInformation(sh);
-		//new ALHO3Coverages(sh, CenterPanelBase.Path.POLICYRENEWAL).setPersonalPropertyLimit("fasdf").setOtherStructuresPercentage("afda").clickPropertyEndorsements().
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
@@ -111,57 +76,31 @@ public class ProductModelALHO3 extends BaseTest
     {
         log(itc.getName());
 
-        /*Set Variables*/
-
-        //        String firstname = "Ricky0209015449";
-        //        String lastname = "Bobby0209015449";
-//        firstname = "ALHO3Ricky0328114843";
-//        lastname = "Bobby0328114843";
-
         String policyType = "Homeowners (HO3)";
         String offeringSelection = "Less Coverage";
         String county = "Mobile";
         String yearBuilt = "2000";
         String distanceToFireHydrant = "120";
         String protectionClassCode = "3";
-        String residenceType = "1 Family Residence";
-        String dwellingUsage = "Primary";
-        String dwellingOccupance = "Owner Occupied",
-                expectedDwellingOccupance;
         String roofShapeType = "Gable";
         String dwellingLimit = "980000",
                 defaultDwellingLimit = "",
                 actualDwellingLimit;
         String otherStructuresPercentage,
                 expectedOtherStructuresPercentage = "0%";
-        String otherStructuresLimit,
-                expectedOtherStructuresLimit = "0";
         String personalPropertyLimit,
                 expectedPersonalPropertyLimit = "490,000",
                 personalPropertyValuationMethod,
                 defaultPersonalPropertyValuationMethod = "Actual Cash Value";
-        String lossOfUseSelectionPercentage,
-                defaultLossOfUseSelectionPercentage = "20%";
         String lossOfUseLimit, defaultLossOfUseLimit = "10,000";
         String windHail, defaultWindHail = "5%";
         String windHailDeductible, defaultWindHailDeductible = "49,000";
-        String fairRentalValuePercentage,
-                defaultFairRentalValuePercentage = "10%";
-        String fairRentalValueLimit,
-                defaultFairRentalValueLimit = "25,000";
-        String premisesLiabilityLimit,
-                defaultPremisesLiabilityLimit = "100,000";
         String allOtherPerils, defaultAllOtherPerils = "2,500";
         String personalLiabilityLimit, defaultPersonalLiabilityLimit = "100,000";
         String medicalPaymentsLimit, defaultMedicalPaymentsLimit = "1,000";
-        String specificOtherStructureDescription = "test",
-                specificOtherStructuresLimit = "25,000";
         String otherStructuresTableDescription = "test",
                 otherStructuresTableLimit = "25,000";
 
-        String hurricaneDeductible, defaultHurricaneDeductible = "5%";
-        String whenSafeCreditPercentage, defaultWhenSafeCreditPercentage = "5%";
-        String whenSafeCreditValue, defaultWhenSafeCreditValue = "500";
         String fungiOccurrenceAggregateLimit,
                 defaultFungiOccurrenceAggregateLimit = "5,000 / 50,000";
         String scheduledPersonalPropertyArticleType = "Antiques",
@@ -181,19 +120,10 @@ public class ProductModelALHO3 extends BaseTest
         String newAddress1 = "2009 RIVER FOREST DR", newAddressCity = "MOBILE", newAddressCounty = "Volusia";
         String businessActivity = "Clerical Employee";
         String watercraftType = "Sailboat 26-40 feet with or with out auxiliary power";
-        String sinkholeIndex = "10", sinkholeClaimsIndex = "10";
-        String animalLiability, defaultAnimalLiability = "25,000";
         String locationName = "1: 5264 WILLARD DR N, THEODORE, AL 36582-2382",
                 numberOfFamilies = "2 Family Residence";
 
-
-        String theftType, defaultTheftType = "Limited";
-
-        String additionalLivingExpensesPercent, defaultAdditionalLivingExpensesPercent = "10%";
-        String additionalLivingExpensesLimit, defaultAdditionalLivingExpensesLimit = "25,000";
-
         /*Begin Test*/
-
         enterAccountInformation = new ALHO3EnterAccountInformation(sh);
         ALHO3AccountFileSummary afs = enterAccountInformation
                 .setFirstName(firstname)
@@ -593,7 +523,6 @@ public class ProductModelALHO3 extends BaseTest
 
         Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
                 "Personal Liability Limit dropdown was expected to be enabled but it was not");
-        takeScreenShot(driver);
 
         personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
         Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
@@ -669,7 +598,6 @@ public class ProductModelALHO3 extends BaseTest
 
         Assert.assertTrue(coverages.isPersonalLiabilityLimitEnabled(),
                 "Personal Liability Limit dropdown was expected to be enabled but it was not");
-        takeScreenShot(driver);
 
         personalLiabilityLimit = coverages.getPersonalLiabilityLimit();
         Assert.assertTrue(expectedPersonalLiabilityLimit.equals(personalLiabilityLimit),
@@ -737,20 +665,8 @@ public class ProductModelALHO3 extends BaseTest
     public void productModelMoreCoverageALHO3(ITestContext itc)
     {
 
-    /* Declare Variables */
-//        String firstname = "ALHO3Ricky0308042946";
-//        String lastname = "Bobby0308042946";
-//        firstname = "ALHO3Ricky0404111732";
-//        lastname = "Bobby0404111732";
-
         String policyType = "Homeowners (HO3)";
         String expectedOfferingSelection, offeringSelection = "More Coverage";
-        String county = "Mobile";
-        String yearBuilt = "2000";
-        String distanceToFireHydrant = "60";
-        String protectionClassCode,
-                expectedProtectionClassCode = "5";
-        String roofShapeType = "Gable";
         String dwellingLimit = "600000";
         String otherStructuresPercentage,
                 expectedOtherStructuresPercentage = "2%";
@@ -891,18 +807,5 @@ public class ProductModelALHO3 extends BaseTest
                         ", but it was " + inflationGuardAnnualIncrease);
 
         coverages.clickSaveDraftCoverages();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
     }
 }

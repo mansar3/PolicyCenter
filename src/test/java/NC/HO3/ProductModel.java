@@ -1,55 +1,29 @@
 package NC.HO3;
 
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
-import org.joda.time.DateTime;
-import org.openqa.selenium.WebDriver;
+import base.BaseTestPC;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.Logon;
 import pageobjects.NCHO3.*;
-import pageobjects.WizardPanelBase.MyActivities;
 import pageobjects.WizardPanelBase.Organizations;
+
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by afilizzola on 2/22/17.
  */
 
-public class ProductModel extends BaseTest
+public class ProductModel extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private NCHO3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString, firstname, lastname;
-    private MyActivities ma;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        String user = "Su", password = "";
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-    }
+    private String firstname, lastname;
 
     @Test(description = "Creates account for NCHO3 product")
     public void createPersonAccountNCHO3(ITestContext itc)
     {
+        log(itc.getName());
+        DateTimeFormatter.ofPattern("01/dd/uuuu");
         firstname = String.format("NCHO3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
         NCHO3NavigationBar nb = new NCHO3NavigationBar(sh);
@@ -58,7 +32,7 @@ public class ProductModel extends BaseTest
         log(itc.getName());
 
         String  country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "2561234567",
                 address = "1128 Waxwing Ln",
                 city = "Duck",
@@ -384,17 +358,4 @@ public class ProductModel extends BaseTest
 //        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 //        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
 //    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
-    }
 }
