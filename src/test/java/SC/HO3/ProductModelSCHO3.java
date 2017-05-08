@@ -1,58 +1,33 @@
 package SC.HO3;
 
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
+import base.BaseTestPC;
 import org.joda.time.DateTime;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.Logon;
 import pageobjects.SCHO3.SCHO3AccountFileSummary;
 import pageobjects.SCHO3.SCHO3CreateAccount;
 import pageobjects.SCHO3.SCHO3EnterAccountInformation;
 import pageobjects.SCHO3.SCHO3NavigationBar;
-import pageobjects.WizardPanelBase.MyActivities;
-import pageobjects.WizardPanelBase.Organizations;
+
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by afilizzola on 2/22/17.
  */
 
-public class ProductModelSCHO3 extends BaseTest
+public class ProductModelSCHO3 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private SCHO3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString, firstname, lastname;
-    private MyActivities ma;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        String user = "Su", password = "";
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-    }
+    private String firstname, lastname;
 
     @Test(description = "Creates account for SCHO3 product")
     public void createPersonAccountSCHO3(ITestContext itc)
     {
+        log(itc.getName());
+
+        DateTimeFormatter.ofPattern("01/dd/uuuu");
         firstname = String.format("SCHO3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
         SCHO3NavigationBar nb = new SCHO3NavigationBar(sh);
@@ -71,9 +46,7 @@ public class ProductModelSCHO3 extends BaseTest
                 zipcode = "29466",
                 addressType = "Home",
                 ssn = "777-12-3456",
-                organizationName = "We Insure",
-                organizationType = Organizations.OrganizationTypes.AGENCY.value,
-                producerCode = "523-23-21531 We Insure(Jacksonville)";
+                producerCode = "523-23-21498 Brown & Brown of Florida - West Palm Beach";
 
         enterAccountInformation = new SCHO3EnterAccountInformation(sh);
         enterAccountInformation
@@ -98,11 +71,6 @@ public class ProductModelSCHO3 extends BaseTest
                     .selectSuccessfulVerificationIfPossibleForCreateAccount()
                     .setAddressType(addressType)
                     .setSsn(ssn)
-                    .clickOrganizationSearch()
-                    .setOrganizationName(organizationName)
-                    .setOrganizationType(organizationType)
-                    .clickSearchButton()
-                    .clickSelectOrganizationButton()
                     .setProducerCode(producerCode);
 
             String expectedAddress = createAccount.getAddressLine1();
@@ -391,17 +359,4 @@ public class ProductModelSCHO3 extends BaseTest
 //        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
 //        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
 //    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
-    }
 }

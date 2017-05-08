@@ -2,6 +2,7 @@ package PolicyConversion.HO3;
 
 import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
+import Helpers.DBUtil;
 import base.BaseTest;
 import base.LocalDriverManager;
 import com.opencsv.CSVWriter;
@@ -21,6 +22,8 @@ import pageobjects.Logon;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -60,8 +63,6 @@ public class FLHO3 extends BaseTest
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
-
-
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
 			csvInput[15] = screenshotName;
@@ -83,7 +84,19 @@ public class FLHO3 extends BaseTest
 				writer = null;
 				e.printStackTrace();
 			}
+
 			writer.writeNext(csvInput);
+			/* This new feature is coming soon folks! */
+//			DBUtil db = new DBUtil();
+//			try
+//			{
+//				Connection connection = db.connect();
+//				db.writeToDb(csvInput);
+//			}
+//			catch (SQLException e)
+//			{
+//				System.out.println(e.getStackTrace());
+//			}
 			try
 			{
 				writer.close();
@@ -117,6 +130,17 @@ public class FLHO3 extends BaseTest
 				e.printStackTrace();
 			}
 			writer.writeNext(csvInput);
+			// HO HO HO! Coming up next christmas...
+//			DBUtil db = new DBUtil();
+//			try
+//			{
+//				Connection connection = db.connect();
+//				db.writeToDb(csvInput);
+//			}
+//			catch (SQLException e)
+//			{
+//				System.out.println(e.getStackTrace());
+//			}
 			try
 			{
 

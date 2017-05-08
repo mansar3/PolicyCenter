@@ -1,63 +1,29 @@
 package FL.DP3;
 
-
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
-import org.joda.time.DateTime;
+import base.BaseTestPC;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLDP3.*;
-import pageobjects.Logon;
 import pageobjects.WizardPanelBase.*;
+import java.time.format.DateTimeFormatter;
 
-public class ProductModelFLDP3 extends BaseTest
+public class ProductModelFLDP3 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private FLDP3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString;
-    private String firstname, lastname;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        String user = "User1brown", password = "";
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-
-        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-    }
+    private DateTimeFormatter formatter;
 
     @Test(description = "Creates account for Florida DP3 product")
     public void createPersonAccountFLDP3(ITestContext itc)
     {
+        formatter = DateTimeFormatter.ofPattern("01/dd/yyyy");
         log(itc.getName());
         firstname = String.format("FLDP3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
+
         String country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "4071234567",
                 address = "234 Walnut St",
                 city = "Daytona Beach",
@@ -115,12 +81,6 @@ public class ProductModelFLDP3 extends BaseTest
     public void productModelLessCoverageFLDP3(ITestContext itc)
     {
        log(itc.getName());
-
-    /* Set Variables */
-    //        String firstname = "Ricky0209015449";
-    //        String lastname = "Bobby0209015449";
-//            firstname = "FLDP3Ricky0317054746";
-//            lastname = "Bobby0317054746";
 
         String policyType = "Dwelling Fire (DP3)";
         String offeringSelection = "Less Coverage";
@@ -371,12 +331,6 @@ public class ProductModelFLDP3 extends BaseTest
     {
         log(itc.getName());
 
-        /* Set Variables */
-//        String firstname = "Ricky0209015449";
-//        String lastname = "Bobby0209015449";
-//        firstname = "FLDP3Ricky0314043331";
-//        lastname = "Bobby0314043331";
-
         String policyType = "Dwelling Fire (DP3)";
         String offeringSelection = "Most Popular";
         String county = "Mobile";
@@ -548,12 +502,6 @@ public class ProductModelFLDP3 extends BaseTest
     {
         log(itc.getName());
 
-        /* Set Variables */
-//        String firstname = "Ricky0209015449";
-//        String lastname = "Bobby0209015449";
-//        firstname = "FLDP3Ricky0301100306";
-//        lastname = "Bobby0301100306";
-
         String policyType = "Dwelling Fire (DP3)";
         String offeringSelection = "More Coverage";
         String county = "Mobile";
@@ -603,7 +551,8 @@ public class ProductModelFLDP3 extends BaseTest
                 .setOfferingSelection(offeringSelection);
 
         // Answer 'no' to all 8 questions
-        for (int i=0; i< 8; i++) {
+        for (int i=0; i< 8; i++)
+        {
             qualification.questionnaire.answerNo(i+1);
         }
 
@@ -708,18 +657,5 @@ public class ProductModelFLDP3 extends BaseTest
 
         Assert.assertFalse(pe.isSinkholeLossCoverageChecked(),
         "Sinkhole Loss Coverage was not expected to be checked but it was");
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
     }
 }

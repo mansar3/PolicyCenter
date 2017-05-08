@@ -1,63 +1,31 @@
 package FL.MH3;
 
-
-import Helpers.CenterSeleniumHelper;
-import base.BaseTest;
-import base.LocalDriverManager;
-import org.joda.time.DateTime;
+import base.BaseTestPC;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.FLMH3.*;
-import pageobjects.Logon;
 
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class ProductModelFLMH3 extends BaseTest
+public class ProductModelFLMH3 extends BaseTestPC
 {
-    private WebDriver driver;
-    private Logon logon;
     private FLMH3EnterAccountInformation enterAccountInformation;
-    private CenterSeleniumHelper sh;
-    private String dateString;
     private String firstname, lastname;
-
-    @BeforeMethod
-    public void beforeMethod()
-    {
-        DateTime date = new DateTime();
-        dateString = date.toString("MMddhhmmss");
-        System.out.println(new DateTime().toString());
-
-        String user = "User1brown", password = "";
-        driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-        sh = new CenterSeleniumHelper(driver);
-        logon = new Logon(sh, sessionInfo);
-        logon.load();
-        logon.isLoaded();
-        logon.login(user, password);
-        log(String.format("Logged in as: %s\nPassword: %s", user, password));
-
-        sh.wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.id("TabBar:AccountTab")));
-        WebElement actionTab = driver.findElement(By.id("TabBar:AccountTab"));
-        Actions build = new Actions(driver);
-        build.moveToElement(actionTab, actionTab.getSize().getWidth() - 1 , actionTab.getSize().getHeight()/2).click().build().perform();
-        sh.clickElement(By.id("TabBar:AccountTab:AccountTab_NewAccount-textEl"));
-    }
 
     @Test(description = "Creates account for Florida MH3 product")
     public void createPersonAccountFLMH3(ITestContext itc)
     {
         log(itc.getName());
+
+        DateTimeFormatter.ofPattern("01/dd/uuuu");
         firstname = String.format("FLMH3Ricky%s", dateString);
         lastname = String.format("Bobby%s", dateString);
         String country = "United States",
-                dob = new DateTime().minusYears(30).toString("01/dd/yyyy"),
+                dob = ldt.minusYears(30).format(formatter),
                 phoneNumber = "4071234567",
                 address = "234 Walnut St",
                 city = "Daytona Beach",
@@ -68,7 +36,6 @@ public class ProductModelFLMH3 extends BaseTest
                 producerCode = "523-23-21498 Brown & Brown of Florida - West Palm Beach";
 
         enterAccountInformation = new FLMH3EnterAccountInformation(sh);
-        System.out.println(dob);
         enterAccountInformation
                 .setFirstName(firstname)
                 .setLastName(lastname)
@@ -121,12 +88,6 @@ public class ProductModelFLMH3 extends BaseTest
     public void productModelMostPopularFLMH3(ITestContext itc)
     {
         log(itc.getName());
-
-        /* Set Variables */
-/*        String firstname = "Ricky0209015449";
-        String lastname = "Bobby0209015449";*/
-//        firstname = "FLMH3Ricky0310021911";
-//        lastname = "Bobby0310021911";
 
         String policyType = "Mobile Home (MH3)";
         String offeringSelection = "Most Popular";
@@ -333,18 +294,5 @@ public class ProductModelFLMH3 extends BaseTest
                                 ", but it was " + jewelryTheftIncreasedLimit);
 
         pe.clickSaveDraft();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethod(ITestResult testResult, ITestContext itc)
-    {
-        WebDriver driver = LocalDriverManager.getDriver();
-        if(testResult.getStatus() != ITestResult.SUCCESS)
-        {
-            takeScreenShot(driver);
-            System.out.println(String.format("\n'%s' Failed.\n", testResult.getMethod().getMethodName()));
-        }
-        if(driver != null)
-            driver.quit();
     }
 }

@@ -48,11 +48,17 @@ abstract public class CenterPanelBase
 	{
 		sh.clickElement(by.back);
 	}
-	
-	protected void clickQuote()
+
+	// TODO if this breaks something, roll it back
+    // to void. It's Friday, end of the day,
+    // and I'll look into it on Monday.
+    // BJ said he needs us to push everything
+    // today so blame it on him
+	public <T extends CenterPanelBase> T clickQuote()
 	{
 		sh.waitForNoMask();
 		sh.clickElement(by.quote);
+		return (T)this;
 	}
 	protected void clickSaveDraft()
 	{
@@ -129,13 +135,15 @@ abstract public class CenterPanelBase
 		}
 		public class WestPanelBy
 		{
-			String 	preString = ".//*[@id='westPanel']//span[text()='",
+			String 	preString = ".//div[@id='westPanel']//span[text()='",
 					postString = "']";
 
 			By	goPaperless = By.xpath(preString + "Go Paperless" + postString),
+			    forms = By.xpath(preString + "Forms" + postString),
 				viewQuote = By.xpath(preString + "View Quote" + postString),
 				quote = By.xpath(preString + "Quote" + postString),
 				payment = By.xpath(preString + "Payment" + postString);
+
 		}
 		protected T clickGoPaperless()
 		{
@@ -158,7 +166,12 @@ abstract public class CenterPanelBase
 			sh.clickElement(by.payment);
 			return (T)this;
 		}
-
-
+		public T clickForms()
+		{
+			sh.waitForNoMask();
+			sh.waitForElementToAppear(by.forms);
+			sh.clickElement(by.forms);
+			return (T)this;
+		}
 	}
 }
