@@ -2,11 +2,12 @@ package AL.HO3;
 
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
-
 import base.LocalDriverManager;
 import org.joda.time.DateTime;
-import org.junit.runner.Description;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -17,7 +18,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ALHO3.*;
 import pageobjects.Logon;
-import pageobjects.WizardPanelBase.*;
+import pageobjects.WizardPanelBase.CenterPanelBase;
+import pageobjects.WizardPanelBase.MyActivities;
 
 public class ProductModelALHO3 extends BaseTest
 {
@@ -30,7 +32,7 @@ public class ProductModelALHO3 extends BaseTest
 
     @BeforeMethod
     public void beforeMethod()
-    {
+	{
         DateTime date = new DateTime();
         dateString = date.toString("MMddhhmmss");
         System.out.println(new DateTime().toString());

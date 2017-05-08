@@ -207,6 +207,15 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 		accept();
 		return (T)this;
 	}
+	protected T nextRefreshAndAccept()
+	{
+		sh.waitForPageLoad();
+		sh.clickElement(By.id("InitManualRenewalPage:NewManualConvertRenewal-btnInnerEl"));
+		sh.waitForNoMask();
+		sh.driver.navigate().refresh();
+		nextANDAccept();
+		return (T)this;
+	}
 
 	private void accept()
 	{

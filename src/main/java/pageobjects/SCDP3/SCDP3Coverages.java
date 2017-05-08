@@ -398,6 +398,10 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 			return super.getScreenEnclosureHurricaneCoverageLimit();
 		}
 
+		public boolean isOtherStructuresIncreasedCoverageChecked()
+		{
+			return super.isOtherStructruesIncreasedCoverageChecked();
+		}
 		public SCDP3PropertyEndorsements checkWhenSafe()
 		{
 			return super.checkWhenSafe();
@@ -405,6 +409,14 @@ public class SCDP3Coverages extends Coverages<SCDP3Coverages>
 		public SCDP3PropertyEndorsements unCheckWhenSafe()
 		{
 			return super.unCheckWhenSafe();
+		}
+		public SCDP3PropertyEndorsements clickOtherStructuresIncreasedCoverage()
+		{
+			return super.clickOtherStructuresIncreasedCoverage();
+		}
+		public SCDP3PropertyEndorsements setOtherStructuresIncreasedCoverageLimit(String text)
+		{
+			return super.setOtherStructuresIncreasedCoverageLimit(text);
 		}
 		public boolean isWhenSafeChecked()
 		{

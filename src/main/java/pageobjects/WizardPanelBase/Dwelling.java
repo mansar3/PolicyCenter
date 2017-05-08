@@ -615,7 +615,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
                  				Quote = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:QuoteOrReview-btnInnerEl"),
 		                        editPolicyTransaction = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:EditPolicy-btnInnerEl"),
                                 saveDraft = By.id("SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:JobWizardToolbarButtonSet:Draft-btnInnerEl"),
-		//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
+								//	ErrorMessage = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:LineWizardStepSet:HODwellingHOEScreen:_msgs']//div"),
 
 
 								// Protection Details

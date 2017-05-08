@@ -230,6 +230,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		{
 			sh.clickElement(by.rerate);
 			sh.waitForNoMask();
+			System.out.println("Consenting to rate...");
 			return (T)this;
 		}
 		protected T cancel()

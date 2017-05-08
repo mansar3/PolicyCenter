@@ -115,7 +115,7 @@ public class FLDP3InitiateManualRenewal extends InitiateManualRenewal<FLDP3Initi
 	}
 	public FLDP3Offerings nextAndAccept()
 	{
-		super.nextANDAccept();
+		super.nextRefreshAndAccept();
 		return new FLDP3Offerings(sh,path);
 	}
 

@@ -726,7 +726,7 @@ public class ALHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -736,6 +736,7 @@ public class ALHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		ALHO3RiskAnalysis ra = le.next();
 		ALHO3Quote quote;
@@ -1378,7 +1379,7 @@ public class ALHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1388,6 +1389,7 @@ public class ALHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 		ALHO3RiskAnalysis ra = le.next();
 		ALHO3Quote quote;
 

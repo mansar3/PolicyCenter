@@ -285,7 +285,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 	protected T setHurricane(String hurricane)
 	{
-		sh.setTextAndTab(by.hurricane, hurricane);
+		sh.selectFromDropDown(by.hurricane, hurricane);
 		return (T)this;
 	}
 	protected String getWater()
@@ -770,8 +770,8 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			creditPercentageDiv = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Percentage']/../..//div[@role='textbox']"),
 			creditValue = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'WhenSafe']/../../div//span[text() = 'Credit Value']/../..//div"),
 
-			otherStructuresIncreasedCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/..//input"),
-			otherStructuresIncreasedCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/../../div//span[text() = 'Limit']/../..//div"),
+			otherStructuresIncreasedCoverage = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/..//input"),
+			otherStructuresIncreasedCoverageLimit = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Other Structures Increased Coverage']/../../div//span[text() = 'Limit']/../..//input"),
 
 
 			specificOtherStructures = By.xpath("//*[@id='" + coveragesBase + "0']//div[text() = 'Specific Other Structures']/..//input"),
@@ -908,7 +908,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T clickOtherStructuresIncreasedCoverage()
 		{
-			sh.clickElement(by.otherStructuresIncreasedCoverage);
+			sh.checkboxHelper.checkElement(by.otherStructuresIncreasedCoverage);
 			return (T)this;
 		}
 

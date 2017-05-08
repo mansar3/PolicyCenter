@@ -218,7 +218,7 @@ public class FLMH3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setMobileHomePark(eai.getOrDefault("Mobile Home Park","<none>"));
 		//.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
@@ -237,8 +237,8 @@ public class FLMH3 extends BaseTest
 		FLMH3PolicyInfo pi = offerings.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		//.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 

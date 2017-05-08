@@ -6,6 +6,7 @@
 	<parameter name="threads" value="25" />
 	<parameter name="userName" value="conversion2" />
 	<parameter name="passWord" value="" />
+	<parameter name="sendEmail" value="true"/>
 	<test name="Renewal ETL">
         <classes>
 			<!--<class name="PolicyConversion.HO3.ALHO3">-->
@@ -13,11 +14,11 @@
                     <!--<include name="RenewalLoadTest2"></include>-->
                 <!--</methods>-->
             <!--</class>-->
-			<class name="PolicyConversion.HO3.FLHO3">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
+			<!--<class name="PolicyConversion.HO3.FLHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
 			<!--<class name="PolicyConversion.HO3.NCHO3">-->
                 <!--<methods>-->
                     <!--<include name="RenewalLoadTest2"></include>-->
@@ -38,7 +39,12 @@
                     <!--<include name="RenewalLoadTest2"></include>-->
                 <!--</methods>-->
             <!--</class>-->
-			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
+			<class name = "PolicyConversion.DP3.FLDP3">
+				<methods>
+					<include name="RenewalLoadTest2"></include>
+				</methods>
+			</class>
+			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
 				<!--<methods>-->
 					<!--<include name="RenewalLoadTest2"></include>-->
 				<!--</methods>-->

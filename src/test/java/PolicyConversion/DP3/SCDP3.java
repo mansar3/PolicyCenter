@@ -221,7 +221,7 @@ public class SCDP3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage",null));
@@ -554,14 +554,7 @@ public class SCDP3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		 if(eai.get("Other Structures - Increased Limit") != null)
-		 {
-			 if(!co.isOtherStructuresIncreasedCoverageChecked())
-				 co.clickOtherStructuresIncreasedCoverage()
-				 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-			 else
-			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-		 }
+
 
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
@@ -623,7 +616,13 @@ public class SCDP3 extends BaseTest
 				pe.unCheckWhenSafe();
 		}
 
+		if(eai.get("Other Structures - Increased Limit") != null)
+		 {
 
+			 pe.clickOtherStructuresIncreasedCoverage()
+			 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
+
+		 }
 
 
 		pe
@@ -1124,14 +1123,7 @@ public class SCDP3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		 if(eai.get("Other Structures - Increased Limit") != null)
-		 {
-			 if(!co.isOtherStructuresIncreasedCoverageChecked())
-				 co.clickOtherStructuresIncreasedCoverage()
-				 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-			 else
-			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-		 }
+
 
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
@@ -1195,6 +1187,13 @@ public class SCDP3 extends BaseTest
 
 
 
+		if(eai.get("Other Structures - Increased Limit") != null)
+		 {
+
+			 pe.clickOtherStructuresIncreasedCoverage()
+			 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
+
+		 }
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"))

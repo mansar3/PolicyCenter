@@ -219,7 +219,7 @@ public class FLHO6 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 		//.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 
@@ -556,9 +556,9 @@ public class FLHO6 extends BaseTest
 		.setWindExcluded(eai.get("Wind Excluded"))
 		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
 
-//		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
-//			co
-//			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+		if(eai.get("Wind Excluded").toLowerCase().equals("false") && eai.get("Wind Excluded") != null)
+			co
+			.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"));
@@ -615,7 +615,7 @@ public class FLHO6 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).get("Description"))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","Test"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
@@ -692,7 +692,7 @@ public class FLHO6 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -702,6 +702,7 @@ public class FLHO6 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;
@@ -1316,7 +1317,7 @@ public class FLHO6 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1326,6 +1327,7 @@ public class FLHO6 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		FLHO6RiskAnalysis ra = le.next();
 		FLHO6Quote quote;
@@ -1386,10 +1388,6 @@ public class FLHO6 extends BaseTest
 
 
 	}
-	
-	
-	
-
 
 	private boolean qualifiesForHurricaneProtection(LinkedHashMap<String, String> eai)
 	{

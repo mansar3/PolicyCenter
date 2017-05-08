@@ -684,7 +684,7 @@ public class FLHO3 extends BaseTest
 			le
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -694,6 +694,7 @@ public class FLHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		FLHO3RiskAnalysis ra = le.next();
 		FLHO3Quote quote;
@@ -720,6 +721,7 @@ public class FLHO3 extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 		if(quote.isUnderWritingApprovalNeeded())
 		{
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
@@ -835,8 +837,8 @@ public class FLHO3 extends BaseTest
 		FLHO3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate("5/1/2017");
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		//.setEffectiveDate("5/1/2017");
 
 		i=1;
 
@@ -1289,7 +1291,7 @@ public class FLHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1330,6 +1332,7 @@ public class FLHO3 extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
 

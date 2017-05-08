@@ -1,6 +1,7 @@
 package DataProviders;
 
 import com.opencsv.CSVReader;
+import jcifs.smb.NtlmPasswordAuthentication;
 import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
 
@@ -17,9 +18,14 @@ import java.util.List;
  */
 public class AccountPolicyGenerator
 {
+	//static String policyFolder = "smb://flhifs1/AutoRenewalProject/" +
+	String user = "hgfdh";
+	NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(user);
+	String path = "smb://flhifs1/AutoRenewalProject/";
+	//SmbFile sFile = new SmbFile(path, auth);
 	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 	+ "/Downloads/" +
-	"ConversionPolicies-20170420_3";
+	"ConversionPolicies-20170504_1";
 	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
 

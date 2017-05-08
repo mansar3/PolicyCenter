@@ -728,7 +728,7 @@ public class NCHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -738,6 +738,7 @@ public class NCHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		NCHO3RiskAnalysis ra = le.next();
 		NCHO3Quote quote;
@@ -891,8 +892,8 @@ public class NCHO3 extends BaseTest
 		// Policy Info
 		pi
 		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setSeniorCitizenDiscount(eai.get("Senior Citizen Discount"))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setSeniorCitizenDiscount(eai.get("Senior Citizen Discount"));
+		//.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 
@@ -1391,7 +1392,7 @@ public class NCHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1401,6 +1402,7 @@ public class NCHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		NCHO3RiskAnalysis ra = le.next();
 		NCHO3Quote quote;

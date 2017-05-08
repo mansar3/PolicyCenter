@@ -196,7 +196,9 @@ public class FLDP3 extends BaseTest
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage", null));
+
 		FLDP3Offerings offerings = imr.nextAndAccept();
+
 
 		// Offerings
 		offerings
@@ -513,14 +515,7 @@ public class FLDP3 extends BaseTest
 		co
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		 if(eai.get("Other Structures - Increased Limit") != null)
-		 {
-			 if(!co.isOtherStructuresIncreasedCoverageChecked())
-				 co.clickOtherStructuresIncreasedCoverage()
-				 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-			 else
-			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-		 }
+
 
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
@@ -580,7 +575,12 @@ public class FLDP3 extends BaseTest
 				pe.unCheckWhenSafe();
 		}
 
+		 if(eai.get("Other Structures - Increased Limit") != null)
+		 {
+			 pe.clickOtherStructuresIncreasedCoverage()
+			 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
 
+		 }
 
 		pe
 		.setOccurrenceAggregateLimit(eai.get("Limited Fungi (Limit)"));
@@ -1068,14 +1068,7 @@ public class FLDP3 extends BaseTest
 		.setDwellingLimit(eai.get("Dwelling Limit"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
 		//.setOtherStructuresPercentage(eai.get("Other Structures - %"));
-		 if(eai.get("Other Structures - Increased Limit") != null)
-		 {
-			 if(!co.isOtherStructuresIncreasedCoverageChecked())
-				 co.clickOtherStructuresIncreasedCoverage()
-				 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-			 else
-			 	co.setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
-		 }
+
 
 
 		if(!eai.get("Personal Property - Valuation Method").toLowerCase().equals(co.getPersonalPropertyValuationMethod().toLowerCase()))
@@ -1135,6 +1128,11 @@ public class FLDP3 extends BaseTest
 				pe.unCheckWhenSafe();
 		}
 
+		if(eai.get("Other Structures - Increased Limit") != null)
+		 {
+			 pe.clickOtherStructuresIncreasedCoverage()
+			 .setOtherStructuresIncreasedCoverageLimit(eai.get("Other Structures - Increased Limit"));
+		 }
 
 
 		pe

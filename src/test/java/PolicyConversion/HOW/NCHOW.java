@@ -220,7 +220,7 @@ public class NCHOW extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
@@ -468,9 +468,11 @@ public class NCHOW extends BaseTest
 			co.setPersonalPropertyLimit(eai.get("Personal Property - Limit"));
 		co
 		.setWindHail(eai.get("Section I Deductibles - Wind/Hail"));
-		if(!(eai.get("Section I Deductibles - Wind/Hail").contains("%") && eai.get("Section I Deductibles - Named Storm") == null))
-			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm","<none>"));
+		if(!eai.get("Section I Deductibles - Wind/Hail").contains("%") && co.isNamedStormDisplayed())
+		{
+			co.setNamedStorm(eai.getOrDefault("Section I Deductibles - Named Storm", "<none>"));
 
+		}
 
 		NCHOWCoverages.NCHOWPropertyEndorsements pe = co.clickPropertyEndorsements();
 
@@ -542,6 +544,8 @@ public class NCHOW extends BaseTest
 			.clickOverrideRating()
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
+
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 		if(quote.isUnderWritingApprovalNeeded())
 		{
 			quote.backToPoliycReview().back().riskAnalysisRequestApproval().sendRequest().westPanel.viewQuote();
@@ -965,6 +969,7 @@ public class NCHOW extends BaseTest
 			.setTermAmount(eai.get("Consent to Rate"))
 			.clickRerate();
 
+		eai.put("Annualized Total Cost", quote.getAnnualizedTotalCost());
 		quote.clickIssuePolicy().acceptyes();
 		eai.put("Submitted for Approval","Bound");
 

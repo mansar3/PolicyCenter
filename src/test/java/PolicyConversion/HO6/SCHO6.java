@@ -222,7 +222,7 @@ public class SCHO6 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 		//.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
@@ -568,8 +568,8 @@ public class SCHO6 extends BaseTest
 //			.setLossOfUseSelection(eai.get("Loss of Use - %"));
 		co
 		//.setWindExcluded(eai.get("Wind Excluded"))
-		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"));
-		//.setHurricane(eai.get("Section I Deductibles - Hurricane"));
+		.setAllOtherPerils(eai.get("Section I Deductibles - AOP"))
+		.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"));
@@ -718,7 +718,7 @@ public class SCHO6 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -728,6 +728,7 @@ public class SCHO6 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		SCHO6RiskAnalysis ra = le.next();
 		SCHO6Quote quote;
@@ -1354,7 +1355,7 @@ public class SCHO6 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1364,6 +1365,7 @@ public class SCHO6 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		SCHO6RiskAnalysis ra = le.next();
 		SCHO6Quote quote;

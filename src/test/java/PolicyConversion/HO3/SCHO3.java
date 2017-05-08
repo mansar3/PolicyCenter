@@ -720,7 +720,7 @@ public class SCHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -730,6 +730,7 @@ public class SCHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		SCHO3RiskAnalysis ra = le.next();
 		SCHO3Quote quote;
@@ -741,8 +742,9 @@ public class SCHO3 extends BaseTest
 		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
 		{
 			payment = quote.westPanel.payment();
-			if(eai.get("Billing Contact (insured or mortgage)") != null)
-				payment.selectMortgagePremiumFinance(0);
+			// TODO uncomment this
+//			if(eai.get("Billing Contact (insured or mortgage)") != null)
+//				payment.selectMortgagePremiumFinance(0);
 
 			if(eai.get("Payment Plan Schedule").equals("2Pay"))
 				payment.clickTwoPay();
@@ -1365,7 +1367,7 @@ public class SCHO3 extends BaseTest
 			.checkWatercraftLiability()
 			.setWatercraftType(eai.get("Watercraft Liablity - Watercraft Type"));
 
-		if(eai.getOrDefault("Permitted Incidental Occupancy - Liability",null) != null)
+		if(!eai.getOrDefault("Permitted Incidental Occupancy - Liability","false").toLowerCase().equals("false"))
 		{
 			le.
 			checkPermittedIncidentalOccupancyLiability();
@@ -1375,6 +1377,7 @@ public class SCHO3 extends BaseTest
 				.setPermittedIncidentalOccupancyLimit(eai.get("Permitted Incidental Occupancy - Property (Limit)"))
 				.clickLiabilityEndorsements();
 		}
+
 
 		SCHO3RiskAnalysis ra = le.next();
 		SCHO3Quote quote;
