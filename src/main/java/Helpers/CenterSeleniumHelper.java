@@ -290,7 +290,7 @@ public class CenterSeleniumHelper
 			waitForNoMask();
 			try
 			{
-				new WebDriverWait(driver,5).until(ExpectedConditions.refreshed(driver -> isRadioButtonSelected(by)));
+				new WebDriverWait(driver,25).until(ExpectedConditions.refreshed(driver -> isRadioButtonSelected(by)));
 			}
 			catch(Exception e)
 			{
