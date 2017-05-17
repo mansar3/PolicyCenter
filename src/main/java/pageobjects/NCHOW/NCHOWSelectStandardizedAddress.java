@@ -27,6 +27,12 @@ public class NCHOWSelectStandardizedAddress<T extends NCHOWSelectStandardizedAdd
         return new NCHOWNewAdditionalInterest(sh,path);
     }
 
+    public NCHOWNewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new NCHOWNewAdditionalInterest(sh,path);
+	}
+
     public NCHOWLocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
     {
         super.clickSuccessfulVerificationIfPossible();

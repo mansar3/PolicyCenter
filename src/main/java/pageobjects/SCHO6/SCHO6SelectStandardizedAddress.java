@@ -27,6 +27,11 @@ public class SCHO6SelectStandardizedAddress extends SelectStandardizedAddress<SC
 		super.clickSuccessfulVerificationIfPossible();
 		return new SCHO6NewAdditionalInterest(sh,path);
 	}
+	public SCHO6NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new SCHO6NewAdditionalInterest(sh,path);
+	}
 
 	public SCHO6LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{

@@ -27,6 +27,11 @@ public class FLMH3SelectStandardizedAddress extends SelectStandardizedAddress<FL
         super.clickSuccessfulVerificationIfPossible();
         return new FLMH3NewAdditionalInterest(sh,path);
     }
+    public FLMH3NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new FLMH3NewAdditionalInterest(sh,path);
+	}
 
     public FLMH3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
     {

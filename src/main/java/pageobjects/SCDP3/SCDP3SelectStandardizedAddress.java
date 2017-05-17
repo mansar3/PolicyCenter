@@ -27,6 +27,11 @@ public class SCDP3SelectStandardizedAddress extends SelectStandardizedAddress<SC
 		super.clickSuccessfulVerificationIfPossible();
 		return new SCDP3NewAdditionalInterest(sh,path);
 	}
+	public SCDP3NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new SCDP3NewAdditionalInterest(sh,path);
+	}
 
 	public SCDP3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{

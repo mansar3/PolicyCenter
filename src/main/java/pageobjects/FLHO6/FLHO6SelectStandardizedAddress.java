@@ -27,6 +27,11 @@ public class FLHO6SelectStandardizedAddress extends SelectStandardizedAddress<FL
 		super.clickSuccessfulVerificationIfPossible();
 		return new FLHO6NewAdditionalInterest(sh,path);
 	}
+	public FLHO6NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new FLHO6NewAdditionalInterest(sh,path);
+	}
 
 	public FLHO6LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{

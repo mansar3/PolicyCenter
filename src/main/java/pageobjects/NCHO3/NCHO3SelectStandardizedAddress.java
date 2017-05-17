@@ -27,6 +27,11 @@ public class NCHO3SelectStandardizedAddress<T extends NCHO3SelectStandardizedAdd
 		super.clickSuccessfulVerificationIfPossible();
 		return new NCHO3NewAdditionalInterest(sh,path);
 	}
+	public NCHO3NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new NCHO3NewAdditionalInterest(sh,path);
+	}
 
 	public NCHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{
