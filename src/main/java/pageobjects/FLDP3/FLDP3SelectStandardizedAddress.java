@@ -27,6 +27,11 @@ public class FLDP3SelectStandardizedAddress extends SelectStandardizedAddress<FL
 		super.clickSuccessfulVerificationIfPossible();
 		return new FLDP3NewAdditionalInterest(sh,path);
 	}
+	public FLDP3NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new FLDP3NewAdditionalInterest(sh,path);
+	}
 
 	public FLDP3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{

@@ -79,6 +79,12 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 			sh.clickElement(by.unmatchedAddress);
 		return (T)this;
 	}
+	public T clickUserOverride()
+	{
+		sh.waitForNoMask();
+		sh.clickElement(by.unmatchedAddress);
+		return (T)this;
+	}
 
 //	public T clickSuccessfulVerificationIfPossibleForNewAdditionalNamedInsured()
 //	{

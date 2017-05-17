@@ -2007,6 +2007,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkAnimalLiability()
 		{
+			sh.waitForElementToAppear(by.animalLiability);
 			sh.checkboxHelper.checkElement(by.animalLiability);
 			return (T)this;
 		}

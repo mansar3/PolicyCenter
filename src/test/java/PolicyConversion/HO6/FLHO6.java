@@ -410,11 +410,19 @@ public class FLHO6 extends BaseTest
 
 			FLHO6SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name) + dateString;
+			String fName =  name[0], lName = getLastName(name);
+			if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
+			{
+				sab.setType("Company")
+				.setCompanyName(addInts.get(i).get("Name"));
+			}
+			else
+			{
+				sab.setType("Person")
+				.setFirstName(fName)
+				.setLastName(lName);
+			}
 			sab
-			.setType("Person")
-			.setFirstName(fName)
-			.setLastName(lName)
 			.setCity(addInts.get(i).get("City"))
 			.setState(addInts.get(i).get("State"))
 			.setZipCode(addInts.get(i).get("Zip Code"))
@@ -433,12 +441,22 @@ public class FLHO6 extends BaseTest
 			{
 
 				ai = sab.clickReturnToDwelling();
-				FLHO6NewAdditionalInterest nai =  ai.clickAddNewPerson();
+				FLHO6NewAdditionalInterest nai = null;
+				if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
+				{
+					nai = ai.clickAddNewCompany();
+					nai.setCompanyName(addInts.get(i).get("Name"));
+				}
+				else
+				{
+					nai = ai.clickAddNewPerson();
+					nai
+					.setFirstName(fName)
+					.setLastName(lName);
+				}
 				nai
 				.setType(addInts.get(i).get("Type"))
-				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
-				.setFirstName(fName)
-				.setLastName(lName);
+				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null));
 				if(addInts.get(i).get("Address") != null)
 				{
 					nai
@@ -448,7 +466,7 @@ public class FLHO6 extends BaseTest
 					.setState(addInts.get(i).get("State"))
 					.setZipCode(addInts.get(i).get("Zip Code"))
 					.clickVerifyAddress()
-					.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+					.selectUserOverride()
 					.setAddressType("Home");
 				}
 				else
@@ -1033,11 +1051,19 @@ public class FLHO6 extends BaseTest
 
 			FLHO6SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name) + dateString;
+			String fName =  name[0], lName = getLastName(name);
+			if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
+			{
+				sab.setType("Company")
+				.setCompanyName(addInts.get(i).get("Name"));
+			}
+			else
+			{
+				sab.setType("Person")
+				.setFirstName(fName)
+				.setLastName(lName);
+			}
 			sab
-			.setType("Person")
-			.setFirstName(fName)
-			.setLastName(lName)
 			.setCity(addInts.get(i).get("City"))
 			.setState(addInts.get(i).get("State"))
 			.setZipCode(addInts.get(i).get("Zip Code"))
@@ -1056,12 +1082,22 @@ public class FLHO6 extends BaseTest
 			{
 
 				ai = sab.clickReturnToDwelling();
-				FLHO6NewAdditionalInterest nai =  ai.clickAddNewPerson();
+				FLHO6NewAdditionalInterest nai = null;
+				if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
+				{
+					nai = ai.clickAddNewCompany();
+					nai.setCompanyName(addInts.get(i).get("Name"));
+				}
+				else
+				{
+					nai = ai.clickAddNewPerson();
+					nai
+					.setFirstName(fName)
+					.setLastName(lName);
+				}
 				nai
 				.setType(addInts.get(i).get("Type"))
-				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null))
-				.setFirstName(fName)
-				.setLastName(lName);
+				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null));
 				if(addInts.get(i).get("Address") != null)
 				{
 					nai
@@ -1071,7 +1107,7 @@ public class FLHO6 extends BaseTest
 					.setState(addInts.get(i).get("State"))
 					.setZipCode(addInts.get(i).get("Zip Code"))
 					.clickVerifyAddress()
-					.selectSuccessfulVerificationIfPossibleForNewAdditionalInterests()
+					.selectUserOverride()
 					.setAddressType("Home");
 				}
 				else

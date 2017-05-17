@@ -27,6 +27,11 @@ public class ALHO3SelectStandardizedAddress extends SelectStandardizedAddress<AL
 		super.clickSuccessfulVerificationIfPossible();
 		return new ALHO3NewAdditionalInterest(sh,path);
 	}
+	public ALHO3NewAdditionalInterest selectUserOverride()
+	{
+		super.clickUserOverride();
+		return new ALHO3NewAdditionalInterest(sh,path);
+	}
 
 	public ALHO3LocationInformation selectSuccessfulVerificationIfPossibleForLocationInformation()
 	{
