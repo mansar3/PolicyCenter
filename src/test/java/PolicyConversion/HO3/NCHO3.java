@@ -4,21 +4,15 @@ import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
-import com.opencsv.CSVWriter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pageobjects.NCHO3.*;
 import pageobjects.WizardPanelBase.AccountFileSummary;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -34,103 +28,6 @@ public class NCHO3 extends BaseTest
 	private String 	policyNumHO3 = "FPH3-324233601",
 					policyNumDP3 = "FPD3-324237824";
 
-
-//	@BeforeMethod
-//	public void beforeMethod()
-//	{
-//		DateTime date = new DateTime();
-//		dateString = date.toString("MMddhhmmss");
-//
-//		System.out.println(new DateTime().toString());
-//		// users: conversion2,mcoad
-//		String user = userName, pwd = "";
-//		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-//		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-//		logon.load();
-//		logon.isLoaded();
-//		logon.login(user, pwd);
-//		log("Logged in as: " + user + "\nPassword: " + pwd);
-//	}
-	@AfterMethod(alwaysRun = true)
-	public void afterMethod(ITestResult testResult, Object[] parameters)
-	{
-		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date","Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
-					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
-		WebDriver driver = LocalDriverManager.getDriver();
-		if(testResult.getStatus() != ITestResult.SUCCESS)
-		{
-
-
-			String screenshotName = takeScreenShot(driver);
-			String[] csvInput =  errorReportingInfo(eai,false).clone();
-			csvInput[15] = screenshotName;
-
-			CSVWriter writer;
-			try
-			{
-				if(!new File(filePath).exists())
-				{
-					writer = new CSVWriter(new FileWriter(filePath));
-					writer.writeNext(headers);
-				}
-
-				else
-					writer = new CSVWriter(new FileWriter(filePath,true));
-			}
-			catch(IOException e)
-			{
-				writer = null;
-				e.printStackTrace();
-			}
-			writer.writeNext(csvInput);
-			try
-			{
-				writer.close();
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-
-			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
-		}
-		else if(testResult.getStatus() == ITestResult.SUCCESS)
-		{
-			String[] csvInput =  errorReportingInfo(eai,true).clone();
-
-			CSVWriter writer;
-			try
-			{
-				if(!new File(filePath).exists())
-				{
-					writer = new CSVWriter(new FileWriter(filePath));
-					writer.writeNext(headers);
-				}
-
-				else
-					writer = new CSVWriter(new FileWriter(filePath,true));
-			}
-			catch(IOException e)
-			{
-				writer = null;
-				e.printStackTrace();
-			}
-			writer.writeNext(csvInput);
-			try
-			{
-
-				writer.close();
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
-		if(driver != null)
-			driver.quit();
-	}
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "NCHO3Data")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
