@@ -13,11 +13,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 import javax.swing.filechooser.FileSystemView;
@@ -35,6 +34,7 @@ public abstract class BaseTest
 			passWord;
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected static SessionInfo sessionInfo;
+	private String dateString;
 	private static Boolean local;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
@@ -66,6 +66,22 @@ public abstract class BaseTest
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
+	}
+	@BeforeMethod
+	public void beforeMethod()
+	{
+		DateTime date = new DateTime();
+		dateString = date.toString("MMddhhmmss");
+
+		System.out.println(new DateTime().toString());
+		// users: conversion2,mcoad
+		String user = userName, pwd = "";
+		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
+		logon.load();
+		logon.isLoaded();
+		logon.login(user, pwd);
+		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
 
 	// For other test Suites to access.

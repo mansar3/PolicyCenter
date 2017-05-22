@@ -5,7 +5,6 @@ import Helpers.CenterSeleniumHelper;
 import base.BaseTest;
 import base.LocalDriverManager;
 import com.opencsv.CSVWriter;
-import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,10 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.FLHO6.*;
-import pageobjects.Logon;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,22 +34,22 @@ public class FLHO6 extends BaseTest
 					policyNumDP3 = "FPD3-324237824";
 
 
-	@BeforeMethod
-	public void beforeMethod()
-	{
-		DateTime date = new DateTime();
-		dateString = date.toString("MMddhhmmss");
-
-		System.out.println(new DateTime().toString());
-		// users: conversion2,mcoad
-		String user = userName, pwd = "";
-		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
-		logon.login(user, pwd);
-		log("Logged in as: " + user + "\nPassword: " + pwd);
-	}
+//	@BeforeMethod
+//	public void beforeMethod()
+//	{
+//		DateTime date = new DateTime();
+//		dateString = date.toString("MMddhhmmss");
+//
+//		System.out.println(new DateTime().toString());
+//		// users: conversion2,mcoad
+//		String user = userName, pwd = "";
+//		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+//		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
+//		logon.load();
+//		logon.isLoaded();
+//		logon.login(user, pwd);
+//		log("Logged in as: " + user + "\nPassword: " + pwd);
+//	}
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
