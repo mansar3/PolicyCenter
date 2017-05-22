@@ -1,8 +1,10 @@
 package base;
 
 import Helpers.CenterSeleniumHelper;
+import Helpers.MountUtil;
 import Helpers.SessionInfo;
 import com.beust.jcommander.internal.Nullable;
+import com.opencsv.CSVWriter;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -13,15 +15,16 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.xml.XmlTest;
+import pageobjects.Logon;
 import pageobjects.WizardPanelBase.CenterPanelBase;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -44,11 +47,13 @@ public abstract class BaseTest
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
+	public static String policyFolder;
 
-	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail"})
+	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads ,
-							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail)
+	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads,
+							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
+							@Optional("false")Boolean sharedFolder)
 	{
 		xml.getSuite().setThreadCount(threads);
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -66,6 +71,18 @@ public abstract class BaseTest
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
+
+		if (sharedFolder)
+		{
+			policyFolder = MountUtil.mountSharedFolder();
+		}
+		else
+		{
+			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
+					+ "/Downloads/" +
+					"ConversionPolicies-20170516_1";
+		}
+
 	}
 
 	// For other test Suites to access.
@@ -84,11 +101,102 @@ public abstract class BaseTest
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
 	}
-	public void afterMethod()
+
+	@BeforeMethod
+	public void beforeMethod()
 	{
+		DateTime date = new DateTime();
+//		dateString = date.toString("MMddhhmmss");
+
+		System.out.println(new DateTime().toString());
+		// users: conversion2,mcoad
+		String user = userName, pwd = "";
+		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
+		logon.load();
+		logon.isLoaded();
+		logon.login(user, pwd);
+		log("Logged in as: " + user + "\nPassword: " + pwd);
+	}
+
+	@AfterMethod(alwaysRun = true)
+	public void afterMethod(ITestResult testResult, Object[] parameters)
+	{
+		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
-        if(driver != null)
-            driver.quit();
+		if(testResult.getStatus() != ITestResult.SUCCESS)
+		{
+
+
+			String screenshotName = takeScreenShot(driver);
+			String[] csvInput =  errorReportingInfo(eai,false).clone();
+			csvInput[15] = screenshotName;
+
+			CSVWriter writer;
+			try
+			{
+				if(!new File(filePath).exists())
+				{
+					writer = new CSVWriter(new FileWriter(filePath));
+					writer.writeNext(headers);
+				}
+
+				else
+					writer = new CSVWriter(new FileWriter(filePath,true));
+			}
+			catch(IOException e)
+			{
+				writer = null;
+				e.printStackTrace();
+			}
+			writer.writeNext(csvInput);
+			try
+			{
+				writer.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+
+			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
+		}
+		else if(testResult.getStatus() == ITestResult.SUCCESS)
+		{
+			String[] csvInput =  errorReportingInfo(eai,true).clone();
+
+			CSVWriter writer;
+			try
+			{
+				if(!new File(filePath).exists())
+				{
+					writer = new CSVWriter(new FileWriter(filePath));
+					writer.writeNext(headers);
+				}
+
+				else
+					writer = new CSVWriter(new FileWriter(filePath,true));
+			}
+			catch(IOException e)
+			{
+				writer = null;
+				e.printStackTrace();
+			}
+			writer.writeNext(csvInput);
+			try
+			{
+
+				writer.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		if(driver != null)
+			driver.quit();
 	}
 
 	protected URL setGridHub()
@@ -319,5 +427,6 @@ public abstract class BaseTest
 		if (!local && sendEmail) {
 			EmailResults.sendEmail(filePath, timeStamp);
 		}
+		MountUtil.unMountSharedFolder();
 	}
 }

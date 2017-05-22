@@ -1,33 +1,24 @@
 package DataProviders;
 
 import com.opencsv.CSVReader;
-import jcifs.smb.NtlmPasswordAuthentication;
 import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import base.BaseTest;
 
 /**
  * Created by aansari on 11/15/16.
  */
-public class AccountPolicyGenerator
+public class AccountPolicyGenerator extends BaseTest
 {
-	//static String policyFolder = "smb://flhifs1/AutoRenewalProject/" +
-	String user = "hgfdh";
-	NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(user);
-	String path = "smb://flhifs1/AutoRenewalProject/";
-	//SmbFile sFile = new SmbFile(path, auth);
-	static String policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
-	+ "/Downloads/" +
-	"ConversionPolicies-20170504_1";
-	protected static int flho3pc,ncho3pc;
 	private static POLICYTYPE policytype;
+	protected static int flho3pc,ncho3pc;
 
 	public enum POLICYTYPE
 	{
@@ -50,25 +41,6 @@ public class AccountPolicyGenerator
 			filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Policies\\FLHO3-20170202_130152\\";
 		String filePath= filePathBase + "policies.csv";
 
-		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
-//		NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("fpic.net", "username", "password"); // replace with actual values
-//		SmbFile file = null; // note the different format
-//		try
-//		{
-//			file = new SmbFile(filePath, authentication);
-//		}
-//		catch(MalformedURLException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		try
-//		{
-//			OutputStream out = file.getOutputStream();
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
 
 		try
 		{
