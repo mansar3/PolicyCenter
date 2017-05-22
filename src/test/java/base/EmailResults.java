@@ -99,8 +99,9 @@ class EmailResults {
             File zippedScreensFile = new File(filePathHome + "ScreenShots.zip");
 
             // Path to our screens
-            String filePathScreens = FileSystemView.getFileSystemView().getHomeDirectory()
-                    .toString() + "/IdeaProjects/centerswebtestframework/target/ScreenShots";
+//            String filePathScreens = FileSystemView.getFileSystemView().getHomeDirectory()
+//                    .toString() + "target/ScreenShots";
+            String filePathScreens = "target/ScreenShots";
 
             // Saves out to desktop a zipped folder that will be deleted upon sending
             File screenFile = new File(filePathScreens);

@@ -11,18 +11,17 @@ import java.nio.file.Paths;
  */
 public class MountUtil
 {
+    static String username = "gwtest";
+    static String password = "Frontline123";
+    static String address = "10.50.50.157";
+    static String homeFolder = System.getenv("HOME");
+    static String smbFolder = "/AutoRenewalProject";
+    static String mountFolder = homeFolder + "/AutoRenewalProject/";
+    static String workingFolder = mountFolder;
+    static String defaultMountFolder = "/Volumes/AutoRenewalProject/";
+
     public static String mountSharedFolder()
     {
-        String username = "gwtest";
-        String password = "Frontline123";
-        String address = "10.50.50.157";
-        String homeFolder = System.getenv("HOME");
-        String smbFolder = "/AutoRenewalProject";
-        String mountFolder = homeFolder + "/AutoRenewal/";
-        String workingFolder;
-        String defaultMountFolder = "/Volumes/AutoRenewalProject/";
-        Files f;
-
         try
         {
             Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
@@ -33,31 +32,33 @@ public class MountUtil
             Process p2 = Runtime.getRuntime().exec(connString);
             p2.waitFor();
 
-            if (p2.exitValue() == 64) // if shared folder is already mounted,
+            if (p2.exitValue() == 64) // if shared folder is already mounted
             {
                 System.out.println("It looks like the AutoRenewalProject shared folder is already mounted in the " +
-                        "filesystem, I can use that but it'd be better if you could unmount it manually. Thanks bro...");
+                        "filesystem, I can use that but it'd be better if you could unmount it manually [umount path/to/sharedFolder/]. Thanks bro...");
                 Process p3 = Runtime.getRuntime().exec(new String[] { "ls", "/Volumes/AutoRenewalProject"});
                 p3.waitFor();
 
                 if (Files.exists(Paths.get(defaultMountFolder)))
                 {
                     workingFolder = getPoliciesFolder(defaultMountFolder);
+                    mountFolder = defaultMountFolder;
                 }
-
-//                System.out.println(workingFolder);
+                else if (Files.exists(Paths.get(mountFolder)))
+                {
+                    workingFolder = getPoliciesFolder(mountFolder);
+                }
             }
             else
             {
-                workingFolder = mountFolder;
+                workingFolder = getPoliciesFolder(mountFolder);
             }
-//            return getPoliciesFolder(workingFolder);
         }
         catch (IOException|InterruptedException e)
         {
             System.out.println(e.getStackTrace());
         }
-        return mountFolder;
+        return workingFolder;
     }
 
 
@@ -76,8 +77,18 @@ public class MountUtil
         return policiesConversionFolder;
     }
 
-    public static void unmountSharedFolder()
+    public static void unMountSharedFolder()
     {
-
+        try
+        {
+            Process p1 = Runtime.getRuntime().exec(new String[] {"umount", mountFolder});
+            p1.waitFor();
+        }
+        catch (InterruptedException|IOException e)
+        {
+            System.out.println(e.getStackTrace());
+        }
+        System.out.println("mountFolder: " + mountFolder);
+        System.out.println("workingFolder: " + workingFolder);
     }
 }
