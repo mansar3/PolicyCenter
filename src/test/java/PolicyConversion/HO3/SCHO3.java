@@ -11,7 +11,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pageobjects.SCHO3.*;
-import pageobjects.WizardPanelBase.AccountFileSummary;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,14 +20,6 @@ import java.util.LinkedHashMap;
  */
 public class SCHO3 extends BaseTest
 {
-	private String dateString;
-	private String errorOutput;
-
-	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233601",
-					policyNumDP3 = "FPD3-324237824";
-
-	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCHO3Data")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
@@ -742,7 +733,7 @@ public class SCHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName + dateString)
+			.setLastName(lastName)
 			.clickSearch();
 		SCHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 

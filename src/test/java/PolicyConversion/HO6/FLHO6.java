@@ -20,15 +20,6 @@ import java.util.LinkedHashMap;
  */
 public class FLHO6 extends BaseTest
 {
-	private String dateString;
-	private String errorOutput;
-
-	
-	private String 	policyNumHO3 = "FPH3-324233601",
-					policyNumDP3 = "FPD3-324237824";
-
-
-
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLHO6Data")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
@@ -714,7 +705,7 @@ public class FLHO6 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName + dateString)
+			.setLastName(lastName)
 			.clickSearch();
 		FLHO6CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 

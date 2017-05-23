@@ -30,11 +30,11 @@
                     <!--<include name="SubmissionLoadTest"></include>-->
                 <!--</methods>-->
             <!--</class>-->
-			<!--<class name="PolicyConversion.HO6.SCHO6">-->
-                <!--<methods>-->
-                    <!--<include name="SubmissionLoadTest"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
+			<class name="PolicyConversion.HO6.SCHO6">
+                <methods>
+                    <include name="SubmissionLoadTest"></include>
+                </methods>
+            </class>
 			<!--<class name="PolicyConversion.HO6.FLHO6">-->
                 <!--<methods>-->
                     <!--<include name="SubmissionLoadTest"></include>-->
@@ -45,11 +45,11 @@
 					<!--<include name="SubmissionLoadTest"></include>-->
 				<!--</methods>-->
 			<!--</class>-->
-			<class name = "PolicyConversion.MH3.FLMH3">
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
+			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
 			<!--<class name="PolicyConversion.DP3.SCDP3">-->
 				<!--<methods>-->
 					<!--<include name="SubmissionLoadTest"></include>-->

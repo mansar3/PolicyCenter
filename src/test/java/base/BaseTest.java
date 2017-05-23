@@ -3,7 +3,6 @@ package base;
 import Helpers.CenterSeleniumHelper;
 import Helpers.MountUtil;
 import Helpers.SessionInfo;
-import com.beust.jcommander.internal.Nullable;
 import com.opencsv.CSVWriter;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
@@ -38,7 +37,7 @@ public abstract class BaseTest
 			passWord;
 	private File screenShotFolder = new File(screenShotDirectory);
 	protected static SessionInfo sessionInfo;
-	private String dateString;
+	protected String dateString;
 	private static Boolean local;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
@@ -81,10 +80,11 @@ public abstract class BaseTest
 		{
 			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 					+ "/Downloads/" +
-					"ConversionPolicies-20170516_1";
+					"ConversionPolicies-20170519_1";
 		}
 
 	}
+
 	@BeforeMethod
 	public void beforeMethod()
 	{
@@ -102,29 +102,12 @@ public abstract class BaseTest
 		log("Logged in as: " + user + "\nPassword: " + pwd);
 	}
 
-	// For other test Suites to access.
-	public void beforeSuite(@Nullable() String environment, @Optional("true") Boolean local, @Optional("30") int threads , @Optional("mcoad") String userName,@Optional("") String passWord)
-	{
-		FileUtils.deleteQuietly(screenShotFolder);
-		screenShotFolder.mkdir();
-		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
-		this.local = local;
-		this.userName = userName;
-		this.passWord = passWord;
-		assert sessionInfo.capabilities != null;
-		assert sessionInfo.gridHub != null;
-		if(SystemUtils.IS_OS_MAC)
-			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
-		else
-			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
-	}
-
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
-				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
@@ -259,7 +242,7 @@ public abstract class BaseTest
 		driver.manage().window().setSize(new Dimension(2048, 3072));
 		driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
-		return driver;
+		return LocalDriverManager.getDriver();
 	}
 
 	protected void failureBehavior(WebDriver driver, String directory, String methodName)

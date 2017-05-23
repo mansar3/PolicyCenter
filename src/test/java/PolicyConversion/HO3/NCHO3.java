@@ -11,7 +11,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pageobjects.NCHO3.*;
-import pageobjects.WizardPanelBase.AccountFileSummary;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,13 +20,6 @@ import java.util.LinkedHashMap;
  */
 public class NCHO3 extends BaseTest
 {
-	private String dateString;
-	private String errorOutput;
-
-	private AccountFileSummary accountFileSummary;
-	private String 	policyNumHO3 = "FPH3-324233601",
-					policyNumDP3 = "FPD3-324237824";
-
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "NCHO3Data")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
@@ -147,7 +139,7 @@ public class NCHO3 extends BaseTest
 				person = true;
 				sab.setType("Person")
 				.setFirstName(eai.getOrDefault("Additional Name Insured First Name", null))
-				.setLastName(eai.get("Additional Name Insured Last Name") + dateString )
+				.setLastName(eai.get("Additional Name Insured Last Name"))
 				.setTaxID(eai.getOrDefault("Additional Name Insured SSN", null));
 			}
 			else
@@ -747,7 +739,7 @@ public class NCHO3 extends BaseTest
 			.setCity(eai.get("Mailing City"))
 			.setState(eai.get("Mailing State"))
 			.setZipCode(eai.get("Mailing Zip Code"))
-			.setLastName(lastName + dateString)
+			.setLastName(lastName)
 			.clickSearch();
 		NCHO3CreateAccount createAccount = enterAccountInfo.createPersonAccount();
 

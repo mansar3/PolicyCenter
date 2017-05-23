@@ -20,13 +20,6 @@ import java.util.LinkedHashMap;
  */
 public class FLMH3 extends BaseTest
 {
-	private String dateString;
-	private String errorOutput;
-
-	private String 	policyNumHO3 = "FPH3-324233601",
-					policyNumDP3 = "FPD3-324237824";
-
-	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLMH3Data")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
@@ -1300,6 +1293,5 @@ public class FLMH3 extends BaseTest
 		return false;
 
 	}
-
 
 }
