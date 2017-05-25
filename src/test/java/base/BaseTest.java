@@ -47,7 +47,8 @@ public abstract class BaseTest
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
-	public static String policyFolder;
+	public static String policyFolder,
+	policyDirectory = "ConversionPolicies-20170503_3";
 
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder"})
 	@BeforeSuite
@@ -80,7 +81,7 @@ public abstract class BaseTest
 		{
 			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 					+ "/Downloads/" +
-					"ConversionPolicies-20170519_1";
+					policyDirectory;
 		}
 
 	}
@@ -105,6 +106,8 @@ public abstract class BaseTest
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
+		if(parameters.length == 0)
+			return;
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
 		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 					"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};

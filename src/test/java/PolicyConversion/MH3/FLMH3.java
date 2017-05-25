@@ -105,7 +105,7 @@ public class FLMH3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setMobileHomePark(eai.getOrDefault("Mobile Home Park","<none>"));
 		//.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
