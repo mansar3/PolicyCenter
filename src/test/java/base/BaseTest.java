@@ -1,6 +1,7 @@
 package base;
 
 import Helpers.CenterSeleniumHelper;
+import Helpers.DBUtil;
 import Helpers.MountUtil;
 import Helpers.SessionInfo;
 import com.beust.jcommander.internal.Nullable;
@@ -42,6 +43,7 @@ public abstract class BaseTest
 	private static Boolean local;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
+	protected WebDriver driver;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -83,7 +85,6 @@ public abstract class BaseTest
 					+ "/Downloads/" +
 					"ConversionPolicies-20170516_1";
 		}
-
 	}
 	@BeforeMethod
 	public void beforeMethod()
@@ -94,7 +95,7 @@ public abstract class BaseTest
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
 		String user = userName, pwd = "";
-		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+		setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 		logon.load();
 		logon.isLoaded();
@@ -125,6 +126,8 @@ public abstract class BaseTest
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
 		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
+		String[] dbHeaders = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Annualized Total Cost", "Year Built", "Construction Type", "Dwelling Limit",
+				"Territory Code", "Section I Deductibles - AOP", "WhenSafe - %", "Last Page Visited", "Annualized Total Cost", "Submitted for Approval"};
 		WebDriver driver = LocalDriverManager.getDriver();
 		if(testResult.getStatus() != ITestResult.SUCCESS)
 		{
@@ -132,7 +135,9 @@ public abstract class BaseTest
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
+			Map<String, String> dbInput = errorReportingInfoDb(eai, dbHeaders, false);
 			csvInput[15] = screenshotName;
+			dbInput.put("ScreenShot", screenshotName);
 
 			CSVWriter writer;
 			try
@@ -152,6 +157,8 @@ public abstract class BaseTest
 				e.printStackTrace();
 			}
 			writer.writeNext(csvInput);
+			DBUtil db = new DBUtil();
+			db.writeToDb(dbInput, "PASS");
 			try
 			{
 				writer.close();
@@ -248,7 +255,6 @@ public abstract class BaseTest
 
 	protected WebDriver setupDriver(URL gridHub, DesiredCapabilities capabilities)
 	{
-		WebDriver driver = null;
 		if(!local)
 		{
 			driver = new RemoteWebDriver(gridHub, capabilities);
@@ -259,7 +265,7 @@ public abstract class BaseTest
 		driver.manage().window().setSize(new Dimension(2048, 3072));
 		driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
-		return driver;
+		return LocalDriverManager.getDriver();
 	}
 
 	protected void failureBehavior(WebDriver driver, String directory, String methodName)
@@ -400,13 +406,40 @@ public abstract class BaseTest
 			for(int i = 0; i < warnings.length ; i++)
 				info[17 + i] = warnings[i];
 		}
-
 		return info;
-
-
-
-
 	}
+
+	public Map<String, String> errorReportingInfoDb(Map<String, String> eai, String[] headers, boolean result)
+	{
+		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
+		Map<String, String> info = new LinkedHashMap<>();
+		int i = 0;
+		info.put("Result", (result) ? "PASS" : "FAIL");
+
+		for (String header : headers)
+		{
+			if (header.equals("Annualized Total Cost") && eai.get("Annualized Total Cost") != null)
+			{
+				info.put(header, String.valueOf(Math.abs(Double.parseDouble(eai.getOrDefault("Total Cost","0")) -
+						Double.parseDouble(eai.get("Annualized Total Cost")
+								.replaceAll("[^0-9?!\\.]","")))));
+			}
+			info.put(header, eai.get(header));
+		}
+		if (!result)
+		{
+			try
+			{
+				info.put("Last Page Visited", sh.getText(CenterPanelBase.CenterPanelBy.title));
+			}
+			catch (Exception e)
+			{
+				info.put("Last Page Visited", "Last page cannot be obtained");
+			}
+		}
+		return info;
+	}
+
 	public String[] getBannerErrors(CenterSeleniumHelper sh)
 	{
 		List<WebElement> errors = sh.getElements(By.className("message"));
