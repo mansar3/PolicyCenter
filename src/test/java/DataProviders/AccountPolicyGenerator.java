@@ -1,5 +1,6 @@
 package DataProviders;
 
+import base.BaseTest;
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
@@ -10,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import base.BaseTest;
 
 /**
  * Created by aansari on 11/15/16.

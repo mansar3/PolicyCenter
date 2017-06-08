@@ -17,6 +17,7 @@ public class ImportLegacyRenewalData
 		this.sh = sh;
 		by= new ImportLegacyRenewalDataBy();
 		waitForTitle();
+		System.out.println("Navigated to page: Import Legacy Renewal Data");
 
 	}
 	public class ImportLegacyRenewalDataBy
@@ -36,10 +37,12 @@ public class ImportLegacyRenewalData
 		WebElement browseElement = sh.driver.findElement(by.browse);
 		JavascriptExecutor je =(JavascriptExecutor)sh.driver;
 
-
+		System.out.println("Uploading file...");
 		je.executeScript("arguments[0].setAttribute('name','browseButton')", browseElement);
 		sh.driver.findElement(By.name("browseButton")).sendKeys(filePath);
-		sh.waitForElementToAppear(by.finish);
+		sh.waitForNoMask();
+		//sh.driver.findElement(By.name("browseButton")).sendKeys(filePath);
+		//sh.waitForElementToAppear(by.finish);
 		return this;
 	}
 	public ImportResults clickFinish()

@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
  */
 public class NCHOW extends BaseTest
 {
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "NCHOWData")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "NCHOWData",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		
@@ -76,8 +76,8 @@ public class NCHOW extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 			//.setProducerCode("012-13-12345 ");
 			NCHOWAccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()
@@ -106,7 +106,7 @@ public class NCHOW extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
@@ -457,8 +457,10 @@ public class NCHOW extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			NCHOWRenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
@@ -531,8 +533,8 @@ public class NCHOW extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 			//.setProducerCode("012-13-12345 ");
 			NCHOWAccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()

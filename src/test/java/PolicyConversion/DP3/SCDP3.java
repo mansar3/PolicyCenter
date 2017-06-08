@@ -22,7 +22,7 @@ public class SCDP3 extends BaseTest
 {
 
 	
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCDP3Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCDP3Data",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 				//***********************************************//*
@@ -77,9 +77,8 @@ public class SCDP3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
-			//.setProducerCode("012-13-12345 ");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 			SCDP3AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()
@@ -108,7 +107,7 @@ public class SCDP3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage",null));
@@ -608,8 +607,10 @@ public class SCDP3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			SCDP3RenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
@@ -681,8 +682,8 @@ public class SCDP3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 			//.setProducerCode("012-13-12345 ");
 
 			SCDP3AccountFileSummary accountFileSummary = createAccount
@@ -716,8 +717,8 @@ public class SCDP3 extends BaseTest
 		SCDP3PolicyInfo pi = qualification.next();
 		// Policy Info
 		pi
-		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null))
-		.setEffectiveDate(eai.getOrDefault("Effective Date",null));
+		.setDoesInsuredOwnOtherResidenceWithFrontline(eai.getOrDefault("Does the insured own any other residence that is insured with Frontline?", null));
+		//.setEffectiveDate(eai.getOrDefault("Effective Date",null));
 
 		i=1;
 

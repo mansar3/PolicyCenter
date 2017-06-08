@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 public class FLHO6 extends BaseTest
 {
 	
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLHO6Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLHO6Data",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		//***********************************************//*
@@ -76,8 +76,8 @@ public class FLHO6 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("4 CORNERS INSURANCE")
-			.setProducerCode("8329736");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 			FLHO6AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()
@@ -642,8 +642,10 @@ public class FLHO6 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			FLHO6RenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
@@ -727,8 +729,8 @@ public class FLHO6 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("4 CORNERS INSURANCE")
-			.setProducerCode("8329736");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 			FLHO6AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()

@@ -26,6 +26,11 @@ public class RenewalBound<T extends RenewalBound> extends CenterPanelBase
 			viewYourPolicy = By.id(rbBase + "ViewPolicy-inputEl"),
 			goToYourDesktop = By.id(rbBase + "ReturnToDesktop-inputEl");
 	}
+	public String getTitle()
+	{
+		By title = By.cssSelector("#centerPanel .g-title");
+		return sh.driver.findElement(title).getText();
+	}
 
 	// In policy specific classes
 	// Next page needs to be instantiated

@@ -1,7 +1,6 @@
 package base;
 
 import Helpers.CenterSeleniumHelper;
-import Helpers.DBUtil;
 import Helpers.MountUtil;
 import Helpers.SessionInfo;
 import com.opencsv.CSVWriter;
@@ -42,7 +41,6 @@ public abstract class BaseTest
 	private static Boolean local;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
-	protected WebDriver driver;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -50,11 +48,13 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String policyFolder,
-	policyDirectory = "ConversionPolicies-20170503_3";
+	policyDirectory = "ConversionPolicies-20170607_1",
+	xmlFilepath,file;
+
 
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads,
+	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("20") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
 							@Optional("false")Boolean sharedFolder)
 	{
@@ -85,6 +85,10 @@ public abstract class BaseTest
 					+ "/Downloads/" +
 					policyDirectory;
 		}
+		file ="RENW GW - Control File_" +  new SimpleDateFormat("yyyy_MM_dd").format(new Date()) + ".xml";
+		 xmlFilepath= policyFolder + "//" + file + "//";
+		//new UploadXML().uploadXML();
+
 	}
 
 	@BeforeMethod
@@ -95,8 +99,8 @@ public abstract class BaseTest
 
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
-		String user = userName, pwd = "";
-		setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+		String user = userName, pwd = passWord;
+		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 		logon.load();
 		logon.isLoaded();
@@ -143,8 +147,8 @@ public abstract class BaseTest
 				e.printStackTrace();
 			}
 			writer.writeNext(csvInput);
-			DBUtil db = new DBUtil();
-			db.writeToDb(dbInput, "PASS");
+//			DBUtil db = new DBUtil();
+//			db.writeToDb(dbInput, "PASS");
 			try
 			{
 				writer.close();
@@ -241,6 +245,7 @@ public abstract class BaseTest
 
 	protected WebDriver setupDriver(URL gridHub, DesiredCapabilities capabilities)
 	{
+		WebDriver driver;
 		if(!local)
 		{
 			driver = new RemoteWebDriver(gridHub, capabilities);
@@ -249,7 +254,7 @@ public abstract class BaseTest
 			driver = new FirefoxDriver(capabilities);
 		}
 		driver.manage().window().setSize(new Dimension(2048, 3072));
-		driver.manage().window().maximize();
+		//driver.manage().window().maximize();
 		LocalDriverManager.setWebDriver(driver);
 		return LocalDriverManager.getDriver();
 	}
@@ -443,7 +448,7 @@ public abstract class BaseTest
 	@AfterSuite(alwaysRun = true)
 	public void emailTestResults() {
 		// Only will send if it is parallel and if SendEmail is true
-		if (!local && sendEmail) {
+		if (sendEmail) {
 			EmailResults.sendEmail(filePath, timeStamp);
 		}
 		MountUtil.unMountSharedFolder();
