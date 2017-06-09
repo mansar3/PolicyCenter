@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 public class FLDP3 extends BaseTest
 {
 
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLDP3Data",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		//***********************************************//*
@@ -54,7 +54,9 @@ public class FLDP3 extends BaseTest
 
 		createAccount.setAddressLine1(eai.get("Mailing Address")).setCity(eai.get("Mailing City")).setState(eai.get("Mailing State")).setCounty(eai.getOrDefault("Mailing County", null)).setDateOfBirth(eai.get("Date of Birth")).setHomePhone(eai.get("Home Phone")).setWorkPhone(eai.getOrDefault("Work Phone", null)).setPrimaryEmail(eai.getOrDefault("Email Address", null)).setState(eai.getOrDefault("Mailing State", null)).setZipCode(eai.getOrDefault("Mailing Zip Code", null)).clickVerifyAddress().selectSuccessfulVerificationIfPossibleForCreateAccount().setAddressType(eai.getOrDefault("Address Type", "Home"))
 		//.setDescription("Nerd Lair")
-		.setSsn(eai.getOrDefault("SSN", null)).setOrganization("4 CORNERS INSURANCE").setProducerCode("8329736");
+		.setSsn(eai.getOrDefault("SSN", null))
+		.setOrganization("Acentria, Inc")
+		.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 		FLDP3AccountFileSummary accountFileSummary = createAccount
 		.checkForDuplicatesAndReturn()
@@ -82,7 +84,7 @@ public class FLDP3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage", null));
@@ -558,8 +560,10 @@ public class FLDP3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			FLDP3RenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
@@ -630,8 +634,8 @@ public class FLDP3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("4 CORNERS INSURANCE")
-			.setProducerCode("8329736");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 
 			FLDP3AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()

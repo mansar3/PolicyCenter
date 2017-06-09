@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
  */
 public class FLMH3 extends BaseTest
 {
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLMH3Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "FLMH3Data",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		//***********************************************//*
@@ -105,7 +105,7 @@ public class FLMH3 extends BaseTest
 		.setProduct(eai.getOrDefault("Product", null))
 		.setPolicyType(eai.getOrDefault("Policy Type", null))
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
-		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
+		.setOriginalEffectiveDate("06/01/2016")//eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
 		.setMobileHomePark(eai.getOrDefault("Mobile Home Park","<none>"));
 		//.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", null));
@@ -618,8 +618,10 @@ public class FLMH3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			FLMH3RenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))

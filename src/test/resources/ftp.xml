@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="25">
+	<!--<parameter name="local" value="true" />-->
+	<test name="ftp" >
+		<parameter name="local" value="true" />
+		<classes>
+			<class name="PolicyConversion.UploadXML" >
+				<methods>
+					<include name="ftp" ></include>
+					<exclude name="uploadXML"></exclude>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

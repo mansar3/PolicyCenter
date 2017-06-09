@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="allSuites">
+	<parameter name="environment" value="151" />
+	<parameter name="sharedFolder" value="false" />
+	<parameter name="threads" value="25" />
+	<parameter name="sendEmail" value="true"/>
+
+	  <suite-files>
+		  	<suite-file path="ftp.xml" />
+			<suite-file path="upload.xml" />
+			<suite-file path="renewal.xml" />
+	  </suite-files>
+
+</suite>

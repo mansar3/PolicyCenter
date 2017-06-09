@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
  */
 public class SCHO3 extends BaseTest
 {
-	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCHO3Data")
+	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCHO3Data",groups = "Renewal Test")
 	public void RenewalLoadTest2(LinkedHashMap<String, String> eai, ArrayList<LinkedHashMap<String, String>> addInts, ArrayList<LinkedHashMap<String, String>> spp)
 	{
 		//***********************************************//*
@@ -75,8 +75,8 @@ public class SCHO3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 			//.setProducerCode("012-13-12345 ");
 
 			SCHO3AccountFileSummary accountFileSummary = createAccount
@@ -679,8 +679,10 @@ public class SCHO3 extends BaseTest
 		}
 		else
 		{
-			quote.renew().viewYourRenewal();
-			eai.put("Submitted for Approval","Renewed");
+			SCHO3RenewalBound rb = quote.renew();
+			String title = rb.getTitle();
+			rb.viewYourRenewal();
+			eai.put("Submitted for Approval",title);
 		}
 		if(!eai.get("GoPaperless").toLowerCase().equals("false"))
 		{
@@ -755,8 +757,8 @@ public class SCHO3 extends BaseTest
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
 			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Brown")
-			.setProducerCode("523-23-21297 Brown & Brown of Florida, Inc. - Miami Division");
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
 			//.setProducerCode("012-13-12345 ");
 
 			SCHO3AccountFileSummary accountFileSummary = createAccount

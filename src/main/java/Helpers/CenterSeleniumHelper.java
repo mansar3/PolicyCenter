@@ -158,7 +158,7 @@ public class CenterSeleniumHelper
 	public CenterSeleniumHelper getURL(String url)
 	{
 		driver.get(url);
-		waitForURLToContain(url, 20);
+		//waitForURLToContain(url, 20);
 		return this;
 	}
 

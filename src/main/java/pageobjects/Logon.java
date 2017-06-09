@@ -23,7 +23,9 @@ public class Logon
 	{
 		this.sh = sh;
 
-		loginURL = sessionInfo.environment.length() <= 3 ?  "http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do"
+		loginURL = sessionInfo.environment.length() <= 3 ? //"http://10.50.50." + sessionInfo.environment + ":8180/pc/PolicyCenter.do"
+		"http://10.0.4." + sessionInfo.environment + ":8180/pc/PolicyCenter.do"
+		//"https://gwstg.frontlineinsurance.com/pc/"
 		: sessionInfo.environment;
 
 		// AWS URL
@@ -42,7 +44,7 @@ public class Logon
 	}
 	public void isLoaded()
 	{
-		sh.waitForURLToContain(loginURL, 10);
+		//sh.waitForURLToContain(loginURL, 10);
 	}
 
 	public Logon setUsername(String username)
