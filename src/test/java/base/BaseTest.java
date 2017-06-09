@@ -120,7 +120,6 @@ public abstract class BaseTest
 
 		if (testResult.getStatus() != ITestResult.SUCCESS) {
 
-//			String lastPage = driver.findElement(CenterPanelBase.CenterPanelBy.title).getText();
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput = errorReportingInfo(eai, false).clone();
 			Map<String, String> dbInput = errorReportingInfoDb(eai, dbHeaders, false);
@@ -446,7 +445,7 @@ public abstract class BaseTest
 			{
 				lastPage = "Last page cannot be obtained";
 			}
-			info.put("Last Page Visited", lastPage);
+			info.put("LastPageVisited", lastPage);
 		}
 		return info;
 	}
