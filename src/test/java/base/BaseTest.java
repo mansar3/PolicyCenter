@@ -40,25 +40,26 @@ public abstract class BaseTest
 	protected static SessionInfo sessionInfo;
 	protected String dateString;
 	private static Boolean local;
+	protected static Boolean db;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
-	protected WebDriver driver;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
-	public static String policyFolder,
-	policyDirectory = "ConversionPolicies-20170503_3";
+	public static String policyFolder, lastPage,
+	policyDirectory = "ConversionPolicies-TEST";
 
-	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder"})
+	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database"})
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("48") String environment, @Optional("true") Boolean local, @Optional("20") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
-							@Optional("false")Boolean sharedFolder)
+							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database)
 	{
 		xml.getSuite().setThreadCount(threads);
+		db = database;
 		FileUtils.deleteQuietly(screenShotFolder);
 		screenShotFolder.mkdir();
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
@@ -96,7 +97,7 @@ public abstract class BaseTest
 		System.out.println(new DateTime().toString());
 		// users: conversion2,mcoad
 		String user = userName, pwd = "";
-		setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 		logon.load();
 		logon.isLoaded();
@@ -107,89 +108,82 @@ public abstract class BaseTest
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
-		if(parameters.length == 0)
+		if (parameters.length == 0)
 			return;
-		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
-		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
-				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
+		LinkedHashMap<String, String> eai = (LinkedHashMap<String, String>) parameters[0];
+		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
+				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited", "Total Annualized Premium", "ScreenShot", "Submitted for Approval", "GW Warnings"};
 		String[] dbHeaders = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Annualized Total Cost", "Year Built", "Construction Type", "Dwelling Limit",
-				"Territory Code", "Section I Deductibles - AOP", "WhenSafe - %", "Last Page Visited", "Annualized Total Cost", "Submitted for Approval"};
+				"Territory Code", "Section I Deductibles - AOP", "WhenSafe - %", "Last Page Visited", "Annualized Total Cost", "Submitted for Approval", "DataSet", "MachineName"};
 		WebDriver driver = LocalDriverManager.getDriver();
-		if(testResult.getStatus() != ITestResult.SUCCESS)
-		{
+//		driver = LocalDriverManager.getDriver();
 
+		if (testResult.getStatus() != ITestResult.SUCCESS) {
 
+//			String lastPage = driver.findElement(CenterPanelBase.CenterPanelBy.title).getText();
 			String screenshotName = takeScreenShot(driver);
-			String[] csvInput =  errorReportingInfo(eai,false).clone();
+			String[] csvInput = errorReportingInfo(eai, false).clone();
 			Map<String, String> dbInput = errorReportingInfoDb(eai, dbHeaders, false);
 			csvInput[15] = screenshotName;
-			dbInput.put("ScreenShot", screenshotName);
+
+			System.out.println(testResult.getMethod().getMethodName());
 
 			CSVWriter writer;
-			try
-			{
-				if(!new File(filePath).exists())
-				{
+			try {
+				if (!new File(filePath).exists()) {
 					writer = new CSVWriter(new FileWriter(filePath));
 					writer.writeNext(headers);
-				}
-
-				else
-					writer = new CSVWriter(new FileWriter(filePath,true));
-			}
-			catch(IOException e)
-			{
+				} else
+					writer = new CSVWriter(new FileWriter(filePath, true));
+			} catch (IOException e) {
 				writer = null;
 				e.printStackTrace();
 			}
 			writer.writeNext(csvInput);
-			DBUtil db = new DBUtil();
-			db.writeToDb(dbInput, "PASS");
-			try
+			if (db)
 			{
-				writer.close();
+				dbInput.put("ScreenShot", screenshotName);
+				dbInput.put("StackTrace", testResult.getThrowable().getMessage());
+				dbInput.put("MethodName", testResult.getMethod().getMethodName());
+				DBUtil.insertIntoResultsTable(dbInput);
 			}
-			catch(IOException e)
-			{
+			try {
+				writer.close();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			System.out.println("\n'" + testResult.getMethod().getMethodName() + "' Failed.\n");
-		}
-		else if(testResult.getStatus() == ITestResult.SUCCESS)
-		{
-			String[] csvInput =  errorReportingInfo(eai,true).clone();
+		} else if (testResult.getStatus() == ITestResult.SUCCESS) {
+			String[] csvInput = errorReportingInfo(eai, true).clone();
+			Map<String, String> dbInput = errorReportingInfoDb(eai, dbHeaders, true);
 
 			CSVWriter writer;
-			try
-			{
-				if(!new File(filePath).exists())
-				{
+			try {
+				if (!new File(filePath).exists()) {
 					writer = new CSVWriter(new FileWriter(filePath));
 					writer.writeNext(headers);
-				}
-
-				else
-					writer = new CSVWriter(new FileWriter(filePath,true));
-			}
-			catch(IOException e)
-			{
+				} else
+					writer = new CSVWriter(new FileWriter(filePath, true));
+			} catch (IOException e) {
 				writer = null;
 				e.printStackTrace();
 			}
 			writer.writeNext(csvInput);
-			try
+			if (db)
 			{
-
-				writer.close();
+				DBUtil.insertIntoResultsTable(dbInput);
 			}
-			catch(IOException e)
-			{
+			try {
+				writer.close();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		if(driver != null)
+		if (driver != null)
 			driver.quit();
+
+
 	}
 
 	protected URL setGridHub()
@@ -200,7 +194,8 @@ public abstract class BaseTest
 			// New Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+//			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://localhost:4444/wd/hub");
 			// VM URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
@@ -241,6 +236,7 @@ public abstract class BaseTest
 
 	protected WebDriver setupDriver(URL gridHub, DesiredCapabilities capabilities)
 	{
+		WebDriver driver;
 		if(!local)
 		{
 			driver = new RemoteWebDriver(gridHub, capabilities);
@@ -380,6 +376,10 @@ public abstract class BaseTest
 			{
 				info[13] = "Last page cannot be obtained";
 			}
+			finally
+			{
+				lastPage = info[13];
+			}
 
 		if(eai.get("Annualized Total Cost") != null)
 			info[14] = eai.get("Annualized Total Cost").replaceAll("[^0-9?!\\.]","");
@@ -399,29 +399,54 @@ public abstract class BaseTest
 	{
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(LocalDriverManager.getDriver());
 		Map<String, String> info = new LinkedHashMap<>();
-		int i = 0;
+
 		info.put("Result", (result) ? "PASS" : "FAIL");
 
 		for (String header : headers)
 		{
 			if (header.equals("Annualized Total Cost") && eai.get("Annualized Total Cost") != null)
 			{
-				info.put(header, String.valueOf(Math.abs(Double.parseDouble(eai.getOrDefault("Total Cost","0")) -
+				info.put("PremiumVariation", String.valueOf(Math.abs(Double.parseDouble(eai.getOrDefault("Total Cost","0")) -
 						Double.parseDouble(eai.get("Annualized Total Cost")
 								.replaceAll("[^0-9?!\\.]","")))));
+				info.put("TotalAnnualizedPremium", eai.get("Annualized Total Cost").replaceAll("[^\\d?!\\.]",""));
 			}
-			info.put(header, eai.get(header));
+			else if (eai.get(header) != null)
+				if (header.equals("Section I Deductibles - AOP"))
+				{
+					info.put(("AOPDeductible"), eai.get("Section I Deductibles - AOP"));
+				}
+				else
+					info.put(header.replace(" ", ""), eai.get(header));
 		}
+		try
+		{
+			String[] warnings = getBannerErrors(sh);
+			StringJoiner warningMessages = new StringJoiner(" | ");
+			for (String warning : warnings)
+			{
+				warningMessages.add(warning);
+			}
+			info.put("GWWarnings", warningMessages.toString().replaceAll("\"", "'"));
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		info.put("DataSet", policyFolder);
+		info.put("MachineName", System.getenv("USER"));
+
 		if (!result)
 		{
 			try
 			{
-				info.put("Last Page Visited", sh.getText(CenterPanelBase.CenterPanelBy.title));
+				lastPage = sh.getText(CenterPanelBase.CenterPanelBy.title);
 			}
-			catch (Exception e)
+			catch(Exception e)
 			{
-				info.put("Last Page Visited", "Last page cannot be obtained");
+				lastPage = "Last page cannot be obtained";
 			}
+			info.put("Last Page Visited", lastPage);
 		}
 		return info;
 	}
