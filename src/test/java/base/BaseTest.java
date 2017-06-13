@@ -81,10 +81,12 @@ public abstract class BaseTest
 
 		if (sharedFolder)
 		{
+			System.out.println("Shared folder is true...");
 			policyFolder = MountUtil.mountSharedFolder() ;
 		}
 		else
 		{
+			System.out.println("Shared folder is false...");
 			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 					+ "/Downloads/" +
 					policyDirectory;
