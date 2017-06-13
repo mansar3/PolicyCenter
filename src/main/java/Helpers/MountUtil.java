@@ -51,7 +51,8 @@ public class MountUtil
             }
             else
             {
-                workingFolder = getPoliciesFolder(mountFolder);
+				System.out.println("Drive was not mounted.. \nMounting in progres...");
+				workingFolder = getPoliciesFolder(mountFolder);
             }
         }
         catch (IOException|InterruptedException e)
