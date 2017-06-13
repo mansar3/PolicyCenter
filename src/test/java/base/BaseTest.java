@@ -51,7 +51,8 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String policyFolder, lastPage,
-	policyDirectory = "ConversionPolicies-20170607_1",
+	//policyDirectory = "ConversionPolicies-20170612_1",
+	policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file;
 
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database"})
@@ -80,7 +81,7 @@ public abstract class BaseTest
 
 		if (sharedFolder)
 		{
-			policyFolder = MountUtil.mountSharedFolder();
+			policyFolder = MountUtil.mountSharedFolder() ;
 		}
 		else
 		{
@@ -88,7 +89,7 @@ public abstract class BaseTest
 					+ "/Downloads/" +
 					policyDirectory;
 		}
-		file ="RENW GW - Control File_" +  new SimpleDateFormat("yyyy_MM_dd").format(new Date()) + ".xml";
+		file ="/RENW GW - Control File_" +  new SimpleDateFormat("yyyy_MM_dd").format(new Date()) + ".xml";
 		 xmlFilepath= policyFolder + "//" + file + "//";
 		//new UploadXML().uploadXML();
 

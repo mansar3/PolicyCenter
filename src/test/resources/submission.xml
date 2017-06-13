@@ -46,21 +46,21 @@
 					<!--<include name="SubmissionLoadTest"></include>-->
 				<!--</methods>-->
 			<!--</class>-->
-			<class name = "PolicyConversion.MH3.FLMH3">
-				<methods>
-					<include name="SubmissionLoadTest"></include>
-				</methods>
-			</class>
+			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
+				<!--<methods>-->
+					<!--<include name="SubmissionLoadTest"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
 			<!--<class name="PolicyConversion.DP3.SCDP3">-->
 				<!--<methods>-->
 					<!--<include name="SubmissionLoadTest"></include>-->
 				<!--</methods>-->
 			<!--</class>-->
-			<!--<class name="PolicyConversion.HOW.NCHOW" >-->
-				<!--<methods>-->
-					<!--<include name="SubmissionLoadTest"></include>-->
-				<!--</methods>-->
-			<!--</class>-->
+			<class name="PolicyConversion.HOW.NCHOW" >
+				<methods>
+					<include name="SubmissionLoadTest"></include>
+				</methods>
+			</class>
         </classes>
 	</test>
 </suite>

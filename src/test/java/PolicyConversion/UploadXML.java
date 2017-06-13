@@ -36,14 +36,15 @@ public class UploadXML extends BaseTest
 
 
 		// Get Driver and Instantiate Helper
+		if(!new File(policyFolder + file).exists())
+			Assert.fail("XML File does not exist here, please check the path.");
+
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
 		ImportLegacyRenewalData imr = new NorthPanel(sh).administration.clickImportLegacyRenewalData();
-		if(!new File("/www/"+file).exists())
-			Assert.fail("XML File does not exist here, please check the path.");
 		//imr.uploadFile(xmlFilepath)
-		imr.uploadFile("/www/"+ file)
+		imr.uploadFile(policyFolder + file)
 		.clickFinish();
 		System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
 	}
