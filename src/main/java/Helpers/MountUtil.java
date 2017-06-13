@@ -1,5 +1,7 @@
 package Helpers;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -22,45 +24,50 @@ public class MountUtil
 
     public static String mountSharedFolder()
     {
-        try
-        {
-            Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
-            p1.waitFor();
+    	if(!SystemUtils.IS_OS_LINUX)
+		{
+			try
+			{
 
-            String connString = "/sbin/mount_smbfs " + "//" + username + ":" + password +
-                    "@" + address + smbFolder + " " + mountFolder;
-            Process p2 = Runtime.getRuntime().exec(connString);
-            p2.waitFor();
+				Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
+				p1.waitFor();
 
-			System.out.println("Beginning mounting process..");
-			if (p2.exitValue() == 64) // if shared folder is already mounted
-            {
-                System.out.println("It looks like the AutoRenewalProject shared folder is already mounted in the " +
-                        "filesystem, I can use that but it'd be better if you could unmount it manually [umount path/to/sharedFolder/]. Thanks bro...");
-                Process p3 = Runtime.getRuntime().exec(new String[] { "ls", "/Volumes/AutoRenewalProject"});
-                p3.waitFor();
+				String connString = "/sbin/mount_smbfs " + "//" + username + ":" + password + "@" + address + smbFolder + " " + mountFolder;
+				Process p2 = Runtime.getRuntime().exec(connString);
+				p2.waitFor();
 
-                if (Files.exists(Paths.get(defaultMountFolder)))
-                {
-                    workingFolder = getPoliciesFolder(defaultMountFolder);
-                    mountFolder = defaultMountFolder;
-                }
-                else if (Files.exists(Paths.get(mountFolder)))
-                {
-                    workingFolder = getPoliciesFolder(mountFolder);
-                }
-            }
-            else
-            {
-				System.out.println("Drive was not mounted.. \nMounting in progres...");
-				workingFolder = getPoliciesFolder(mountFolder);
-            }
-        }
-        catch (IOException|InterruptedException e)
-        {
-            System.out.println(e.getStackTrace());
-        }
-        return workingFolder;
+				System.out.println("Beginning mounting process..");
+				if(p2.exitValue() == 64) // if shared folder is already mounted
+				{
+					System.out.println("It looks like the AutoRenewalProject shared folder is already mounted in the " + "filesystem, I can use that but it'd be better if you could unmount it manually [umount path/to/sharedFolder/]. Thanks bro...");
+					Process p3 = Runtime.getRuntime().exec(new String[]{"ls", "/Volumes/AutoRenewalProject"});
+					p3.waitFor();
+
+					if(Files.exists(Paths.get(defaultMountFolder)))
+					{
+						workingFolder = getPoliciesFolder(defaultMountFolder);
+						mountFolder = defaultMountFolder;
+					}
+					else if(Files.exists(Paths.get(mountFolder)))
+					{
+						workingFolder = getPoliciesFolder(mountFolder);
+					}
+				}
+				else
+				{
+					System.out.println("Drive was not mounted.. \nMounting in progres...");
+					workingFolder = getPoliciesFolder(mountFolder);
+				}
+			}
+			catch(IOException | InterruptedException e)
+			{
+				System.out.println("~~~~~~~~~~~~~Could not mount folder~~~~~~~~~~~~~~`");
+				System.out.println(e.getStackTrace());
+			}
+			return workingFolder;
+		}
+		else
+			return defaultMountFolder;
     }
 
 
