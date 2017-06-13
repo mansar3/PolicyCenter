@@ -67,23 +67,32 @@ public class MountUtil
 			return workingFolder;
 		}
 		else
-			return defaultMountFolder;
+			return defaultMountFolder + getPoliciesFolder(defaultMountFolder);
     }
 
 
-    private static String getPoliciesFolder(String folder) throws IOException
+    private static String getPoliciesFolder(String folder)
     {
-        Path dir = Paths.get(folder);
-        String policiesConversionFolder = "";
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir))
-        {
-            for (Path item : stream)
-            {
-                if (!item.toString().contains("DS_Store"))
-                    policiesConversionFolder = item.toString();
-            }
-        }
+    	String policiesConversionFolder = "";
+    	try
+		{
+			Path dir = Paths.get(folder);
+
+			try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir))
+			{
+				for(Path item : stream)
+				{
+					if(!item.toString().contains("DS_Store"))
+						policiesConversionFolder = item.toString();
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("File was not found in the directory.");
+		}
         return policiesConversionFolder;
+
     }
 
     public static void unMountSharedFolder()
