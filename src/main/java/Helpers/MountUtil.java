@@ -67,7 +67,7 @@ public class MountUtil
 			return workingFolder;
 		}
 		else
-			return defaultMountFolder + getPoliciesFolder(defaultMountFolder);
+			return getPoliciesFolder(defaultMountFolder);
     }
 
 
