@@ -70,8 +70,7 @@
 								<suiteXmlFile>src/test/resources/submission.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<systemPropertyVariables>
-								<environment>47</environment>
-                                <local>false</local>
+								<environment>151</environment>
 								<threads>20</threads>
 							</systemPropertyVariables>
 						</configuration>
@@ -88,12 +87,11 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/renewal.xml</suiteXmlFile>
+								<suiteXmlFile>src/test/resources/final.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<systemPropertyVariables>
-								<environment>48</environment>
-                                <local>false</local>
-								<threads>30</threads>
+								<environment>151</environment>
+								<threads>20</threads>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
