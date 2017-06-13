@@ -32,7 +32,8 @@ public class MountUtil
             Process p2 = Runtime.getRuntime().exec(connString);
             p2.waitFor();
 
-            if (p2.exitValue() == 64) // if shared folder is already mounted
+			System.out.println("Beginning mounting process..");
+			if (p2.exitValue() == 64) // if shared folder is already mounted
             {
                 System.out.println("It looks like the AutoRenewalProject shared folder is already mounted in the " +
                         "filesystem, I can use that but it'd be better if you could unmount it manually [umount path/to/sharedFolder/]. Thanks bro...");
