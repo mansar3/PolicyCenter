@@ -4,7 +4,7 @@
 <suite name="allSuites">
 	<parameter name="environment" value="151" />
 	<parameter name="sharedFolder" value="false" />
-	<parameter name="threads" value="25" />
+	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>
 
 	  <suite-files>

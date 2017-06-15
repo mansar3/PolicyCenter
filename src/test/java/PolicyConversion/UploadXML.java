@@ -37,7 +37,7 @@ public class UploadXML extends BaseTest
 
 		// Get Driver and Instantiate Helper
 		if(!new File(policyFolder + file).exists())
-			Assert.fail("XML File does not exist here, please check the path.");
+			Assert.fail("XML File does not exist here, please check the path: "+ policyFolder + file);
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);

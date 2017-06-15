@@ -29,6 +29,7 @@ public class MountUtil
 			try
 			{
 
+				unMountSharedFolder();
 				Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
 				p1.waitFor();
 

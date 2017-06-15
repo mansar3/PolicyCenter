@@ -312,6 +312,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 
 	protected T setInTheWindpool(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.id(dwellingBase + "IsInWindpool_fli_"+ flag.toLowerCase() + "-inputEl"));
 		return (T)this;
 	}
@@ -477,6 +478,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 	}
 	protected T underContractWithRentalManagementCompany(String flag)
 	{
+		sh.waitForNoMask();
 		sh.clickElement(By.id(dwellingBase + "IsUnderRentalMgmtCompany_fli_" + flag.toLowerCase() + "-inputEl"));
 		sh.waitForNoMask();
 		return (T)this;

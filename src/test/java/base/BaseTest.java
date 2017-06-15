@@ -43,7 +43,6 @@ public abstract class BaseTest
 	protected static Boolean db;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
-	protected WebDriver driver;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -51,13 +50,23 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String policyFolder, lastPage,
-	//policyDirectory = "ConversionPolicies-20170612_1",
-	policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
+	policyDirectory = "ConversionPolicies-20170606_3",
+	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file;
 
+//	private String getPolicyNumber(int i)
+//	{
+//		if(!new File(policyFolder + "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + i).exists())
+//			return  "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + --i;
+//		return getPolicyNumber(++i);
+//	}
+//	private String getPolicyNumber()
+//	{
+//
+//	}
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database"})
 	@BeforeSuite
-	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("20") int threads,
+	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
 							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database)
 	{
