@@ -76,6 +76,7 @@ public abstract class BaseTest
 		screenShotFolder.mkdir();
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
 		this.local = local;
+		System.out.println("Local is : " + local.toString());
 		this.userName = userName;
 		this.passWord = passWord;
 		this.sendEmail = sendEmail;
