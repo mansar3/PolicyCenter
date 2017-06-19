@@ -12,6 +12,7 @@
 			<class name="PolicyConversion.UploadXML" >
 				<methods>
 					<include name="uploadXML" ></include>
+					<include name="moveFile" ></include>
 				</methods>
 			</class>
 		</classes>

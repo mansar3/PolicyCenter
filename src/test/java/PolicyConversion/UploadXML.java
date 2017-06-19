@@ -2,6 +2,7 @@ package PolicyConversion;
 
 import Helpers.CenterSeleniumHelper;
 import Helpers.FTPConnector;
+import Helpers.MountUtil;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -25,28 +26,35 @@ public class UploadXML extends BaseTest
 	public void uploadXML()
 	{
 
-		//String filepath = policyFolder + "//PROD GW - Control File_2017_05_10.xml//";
-//		File file = new File(xmlFilepath);
-//		System.out.println("File path is: " + xmlFilepath);
-//		if(!file.exists())
-//			Assert.fail("XML File does not exist here, please check the path.");
-//		System.out.println("Beginning FTP file transfer");
-//		FTPConnector ftpc = new FTPConnector();
-//		ftpc.connector(xmlFilepath,super.file);
+		//String filepath = sharedDirectory + "//PROD GW - Control File_2017_05_10.xml//";
+		//		File file = new File(xmlFilepath);
+		//		System.out.println("File path is: " + xmlFilepath);
+		//		if(!file.exists())
+		//			Assert.fail("XML File does not exist here, please check the path.");
+		//		System.out.println("Beginning FTP file transfer");
+		//		FTPConnector ftpc = new FTPConnector();
+		//		ftpc.connector(xmlFilepath,super.file);
 
 
 		// Get Driver and Instantiate Helper
-		if(!new File(policyFolder + file).exists())
-			Assert.fail("XML File does not exist here, please check the path: "+ policyFolder + file);
+		if(!new File(xmlFilepath).exists())
+			Assert.fail("XML File does not exist here, please check the path: " + xmlFilepath);
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
 		ImportLegacyRenewalData imr = new NorthPanel(sh).administration.clickImportLegacyRenewalData();
 		//imr.uploadFile(xmlFilepath)
-		imr.uploadFile(policyFolder + file)
+		imr
+		.uploadFile(xmlFilepath)
 		.clickFinish();
 		System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
+	}
+
+	@Test (dependsOnMethods = "uploadXML")
+	public void moveFile()
+	{
+		MountUtil.moveXML(xmlFilepath, oldXML);
 	}
 	@Test(groups = "ftp",priority = 0)
 	public void ftpFile()

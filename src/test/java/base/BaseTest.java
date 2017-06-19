@@ -49,14 +49,14 @@ public abstract class BaseTest
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
-	public static String policyFolder, lastPage,
+	public static String sharedDirectory, lastPage,
 	policyDirectory = "ConversionPolicies-20170606_3",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
-	xmlFilepath,file;
+	xmlFilepath,file,oldXML,policyFolder;
 
 //	private String getPolicyNumber(int i)
 //	{
-//		if(!new File(policyFolder + "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + i).exists())
+//		if(!new File(sharedDirectory + "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + i).exists())
 //			return  "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + --i;
 //		return getPolicyNumber(++i);
 //	}
@@ -68,7 +68,7 @@ public abstract class BaseTest
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
-							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database)
+							@Optional("true")Boolean sharedFolder, @Optional("false")Boolean database)
 	{
 		xml.getSuite().setThreadCount(threads);
 		db = database;
@@ -89,20 +89,26 @@ public abstract class BaseTest
 		else
 			errorReportDirectory = "/Volumes/General/ConversionData/FLHO3-20170119_114257/Error Report/";
 
+		file ="/RENW GW - Control File_" +  new SimpleDateFormat("yyyy_MM_dd").format(new Date()) + ".xml";
 		if (sharedFolder)
 		{
 			System.out.println("Shared folder is true...");
-			policyFolder = MountUtil.mountSharedFolder() ;
+			sharedDirectory = MountUtil.mountSharedFolder() ;
+			policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1";
+			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
+			oldXML = sharedDirectory + "control-file/old/uploaded" + file;
 		}
 		else
 		{
 			System.out.println("Shared folder is false...");
+
 			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 					+ "/Downloads/" +
 					policyDirectory;
 		}
-		file ="/RENW GW - Control File_" +  new SimpleDateFormat("yyyy_MM_dd").format(new Date()) + ".xml";
-		 xmlFilepath= policyFolder + "//" + file + "//";
+
+		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
+
 		//new UploadXML().uploadXML();
 
 	}
@@ -463,7 +469,7 @@ public abstract class BaseTest
 		{
 			System.out.println(e.getMessage());
 		}
-		info.put("DataSet", policyFolder);
+		info.put("DataSet", sharedDirectory);
 		info.put("MachineName", System.getenv("USER"));
 
 		if (!result)
@@ -501,6 +507,7 @@ public abstract class BaseTest
 		if (sendEmail) {
 			EmailResults.sendEmail(filePath, timeStamp);
 		}
-		MountUtil.unMountSharedFolder();
+		if(!SystemUtils.IS_OS_LINUX)
+			MountUtil.unMountSharedFolder();
 	}
 }
