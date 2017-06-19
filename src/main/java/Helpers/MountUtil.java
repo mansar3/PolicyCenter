@@ -118,8 +118,7 @@ public class MountUtil
 		File current = new File(currentDir);
 		System.out.println("Moving XML...");
 		current.renameTo(new File(destDir));
-		System.out.println("Deleting old XML...");
-		current.delete();
+		System.out.println("~~~~ XML has been successfully moved. ~~~~");
 
 	}
 }
