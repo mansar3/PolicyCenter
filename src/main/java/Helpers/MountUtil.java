@@ -4,10 +4,6 @@ import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Created by afilizzola on 5/10/17.
@@ -75,29 +71,29 @@ public class MountUtil
     }
 
 
-    private static String getPoliciesFolder(String folder)
-    {
-    	String policiesConversionFolder = "";
-    	try
-		{
-			Path dir = Paths.get(folder);
-
-			try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir))
-			{
-				for(Path item : stream)
-				{
-					if(!item.toString().contains("DS_Store"))
-						policiesConversionFolder = item.toString();
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("File was not found in the directory.");
-		}
-        return policiesConversionFolder;
-
-    }
+//    private static String getPoliciesFolder(String folder)
+//    {
+//    	String policiesConversionFolder = "";
+//    	try
+//		{
+//			Path dir = Paths.get(folder);
+//
+//			try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir))
+//			{
+//				for(Path item : stream)
+//				{
+//					if(!item.toString().contains("DS_Store"))
+//						policiesConversionFolder = item.toString();
+//				}
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("File was not found in the directory.");
+//		}
+//        return policiesConversionFolder;
+//
+//    }
 
     public static void unMountSharedFolder()
     {

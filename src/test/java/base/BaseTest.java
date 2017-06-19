@@ -54,16 +54,13 @@ public abstract class BaseTest
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder;
 
-//	private String getPolicyNumber(int i)
-//	{
-//		if(!new File(sharedDirectory + "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + i).exists())
-//			return  "/ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + --i;
-//		return getPolicyNumber(++i);
-//	}
-//	private String getPolicyNumber()
-//	{
-//
-//	}
+	private String getPolicyNumber()
+	{
+		int i =1;
+		while(new File(sharedDirectory + "csv-output/" + policyDirectory + String.valueOf(i)).exists())
+			i++;
+		return String.valueOf(--i);
+	}
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database"})
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
@@ -94,7 +91,9 @@ public abstract class BaseTest
 		{
 			System.out.println("Shared folder is true...");
 			sharedDirectory = MountUtil.mountSharedFolder() ;
-			policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1";
+			policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_";
+			policyDirectory+=getPolicyNumber();
+			System.out.println("Policy Directory to be used: " + policyDirectory);
 			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
 			oldXML = sharedDirectory + "control-file/old/uploaded" + file;
 		}
