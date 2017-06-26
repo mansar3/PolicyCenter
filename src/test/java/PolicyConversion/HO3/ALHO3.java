@@ -538,7 +538,7 @@ public class ALHO3 extends BaseTest
 			pe
 			.clickAddScheduledPersonalProperty()
 			.setPersonalPropertyArticleType(j,spp.get(j-1).get("Class"))
-			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description",null))
+			.setPersonalPropertyDescription(j, spp.get(j-1).getOrDefault("Description","TEST"))
 			.setPersonalPropertyValue(j, spp.get(j-1).get("Limit"));
 
 		}
