@@ -31,6 +31,8 @@ public class UploadXML extends BaseTest
 		// Get Driver and Instantiate Helper
 		if(xmls == null)
 			Assert.fail("No Files found.");
+		else
+			System.out.println("Xmls in folder are: " + String.valueOf(xmls.length));
 
 		for(File file : xmls)
 		{
