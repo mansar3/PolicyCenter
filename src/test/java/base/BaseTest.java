@@ -517,7 +517,7 @@ public abstract class BaseTest
 		{
 			System.out.println(e.getMessage());
 		}
-		info.put("DataSet", policyFolder);
+		info.put("DataSet", sharedDirectory);
 		info.put("MachineName", System.getenv("USER"));
 
 		if (!result)
@@ -555,6 +555,7 @@ public abstract class BaseTest
 		if (sendEmail) {
 			EmailResults.sendEmail(filePath, timeStamp);
 		}
-		MountUtil.unMountSharedFolder();
+		if(!SystemUtils.IS_OS_LINUX)
+			MountUtil.unMountSharedFolder();
 	}
 }

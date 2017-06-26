@@ -10,7 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.TestNGUtils;
+import org.testng.TestRunner;
 import org.testng.annotations.Test;
+import org.testng.annotations.TestInstance;
 import pageobjects.FLHO6.*;
 
 import java.util.ArrayList;
@@ -683,15 +686,6 @@ public class FLHO6 extends BaseTest
 		//***********************************************//*
 
 		int i;
-		if (db)
-		{
-			DBUtil.insertIntoPoliciesTable(eai);
-			for (LinkedHashMap<String, String> entry : addInts)
-			{
-				DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
-			}
-		}
-
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
