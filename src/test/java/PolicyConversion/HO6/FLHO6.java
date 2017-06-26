@@ -2,7 +2,6 @@ package PolicyConversion.HO6;
 
 import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
-import Helpers.DBUtil;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.openqa.selenium.By;
@@ -10,10 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.TestNGUtils;
-import org.testng.TestRunner;
 import org.testng.annotations.Test;
-import org.testng.annotations.TestInstance;
 import pageobjects.FLHO6.*;
 
 import java.util.ArrayList;
