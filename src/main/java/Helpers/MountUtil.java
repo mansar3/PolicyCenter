@@ -1,5 +1,6 @@
 package Helpers;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -111,9 +112,22 @@ public class MountUtil
     }
 	public static void moveXML(String currentDir, String destDir)
 	{
-		File current = new File(currentDir);
-		System.out.println("Moving XML...");
-		current.renameTo(new File(destDir));
+		try
+		{
+			System.out.println("Copying file(s) to: " + destDir);
+			FileUtils.copyDirectory(new File(currentDir),new File(destDir));
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+//		if(!new File(destDir).exists())
+//		{
+//			File current = new File(currentDir);
+//			System.out.println("Moving XML...");
+//			current.renameTo(new File(destDir));
+//
+//		}
 		System.out.println("~~~~ XML has been successfully moved. ~~~~");
 
 	}

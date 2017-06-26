@@ -50,13 +50,14 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String sharedDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170606_3",
+	policyDirectory = "ConversionPolicies-20170517_2",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
-	xmlFilepath,file,oldXML,policyFolder;
+	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
+	public static File[] xmls;
 
 	private String getPolicyNumber()
 	{
-		int i =1;
+		int i =0;
 		while(new File(sharedDirectory + "csv-output/" + policyDirectory + String.valueOf(i)).exists())
 			i++;
 		return String.valueOf(--i);
@@ -95,7 +96,7 @@ public abstract class BaseTest
 			policyDirectory+=getPolicyNumber();
 			System.out.println("Policy Directory to be used: " + policyDirectory);
 			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
-			oldXML = sharedDirectory + "control-file/old/uploaded" + file;
+			oldXML = sharedDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
 		}
 		else
 		{
@@ -107,6 +108,9 @@ public abstract class BaseTest
 		}
 
 		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
+		xmlDirectory = sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 xmls = new File(sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "/")
+		 .listFiles();
 
 		//new UploadXML().uploadXML();
 

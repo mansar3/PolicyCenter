@@ -131,6 +131,10 @@ public class FLMH3Coverages extends Coverages<FLMH3Coverages> {
     {
     	return super.setWater(text);
     }
+    public boolean isWaterDisplayed()
+	{
+		return super.isWaterDisplayed();
+	}
 
     public String getWater()
     {

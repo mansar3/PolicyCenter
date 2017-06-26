@@ -298,6 +298,10 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		sh.setText(by.water, water);
 		return (T)this;
 	}
+	protected boolean isWaterDisplayed()
+	{
+		return sh.isDisplayed(by.water);
+	}
 
 	protected boolean isHurricanePresent()
 	{
@@ -2080,7 +2084,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		}
 		protected T liabilityEndorsementsNext()
 		{
-			sh.waitForNoMask(15);
+			sh.waitForNoMask();
 			sh.clickElement(By.cssSelector("[id*='Next-btnInnerEl']"));
 			sh.waitForNoMask();
 			return (T)this;

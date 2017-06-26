@@ -443,6 +443,8 @@ public class FLMH3 extends BaseTest
 		.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 		if(eai.get("Section I Deductibles - Water") != null)
 			co.setWater(eai.get("Section I Deductibles - Water"));
+		else if(co.isWaterDisplayed())
+			co.setWater("<none>");
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"))
@@ -1056,6 +1058,8 @@ public class FLMH3 extends BaseTest
 		.setHurricane(eai.get("Section I Deductibles - Hurricane"));
 		if(eai.get("Section I Deductibles - Water") != null)
 			co.setWater(eai.get("Section I Deductibles - Water"));
+		else if(co.isWaterDisplayed())
+			co.setWater("<none>");
 
 		co
 		.setPersonalLiabilityLimit(eai.get("Personal Liability"))

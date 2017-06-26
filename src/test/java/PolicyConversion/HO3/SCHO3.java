@@ -218,7 +218,10 @@ public class SCHO3 extends BaseTest
 		dwelling
 		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"))
+		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
+		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
+			dwelling.setWindpoolZone(eai.getOrDefault("Windpool Zone","<none>"));
+		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
 		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
@@ -893,7 +896,10 @@ public class SCHO3 extends BaseTest
 		dwelling
 		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"))
+		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
+		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
+			dwelling.setWindpoolZone(eai.getOrDefault("Windpool Zone","<none>"));
+		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
 		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
