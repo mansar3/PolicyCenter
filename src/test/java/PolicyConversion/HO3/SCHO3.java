@@ -2,7 +2,6 @@ package PolicyConversion.HO3;
 
 import DataProviders.AccountPolicyGenerator;
 import Helpers.CenterSeleniumHelper;
-import Helpers.DBUtil;
 import base.BaseTest;
 import base.LocalDriverManager;
 import org.openqa.selenium.By;
@@ -220,7 +219,9 @@ public class SCHO3 extends BaseTest
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
 		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
 		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
-			dwelling.setWindpoolZone(eai.getOrDefault("Windpool Zone","<none>"));
+			if(eai.get("Windpool Zone").toLowerCase().equals("none"))
+				eai.put("Windpool Zone","<none>");
+			dwelling.setWindpoolZone(eai.get("Windpool Zone"));
 		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
@@ -890,7 +891,9 @@ public class SCHO3 extends BaseTest
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
 		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
 		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
-			dwelling.setWindpoolZone(eai.getOrDefault("Windpool Zone","<none>"));
+			if(eai.get("Windpool Zone").toLowerCase().equals("none"))
+				eai.put("Windpool Zone","<none>");
+			dwelling.setWindpoolZone(eai.get("Windpool Zone"));
 		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
