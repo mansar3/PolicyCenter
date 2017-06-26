@@ -635,15 +635,6 @@ public class SCDP3 extends BaseTest
 		//***********************************************//*
 
 		int i;
-		if (db)
-		{
-			DBUtil.insertIntoPoliciesTable(eai);
-			for (LinkedHashMap<String, String> entry : addInts)
-			{
-				DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
-			}
-		}
-
 
 		WebDriver driver = LocalDriverManager.getDriver();
 		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);

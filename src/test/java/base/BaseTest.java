@@ -28,6 +28,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public abstract class BaseTest
@@ -43,6 +45,8 @@ public abstract class BaseTest
 	protected static Boolean db;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
+	protected WebDriver driver;
+	private Throwable error;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
@@ -54,6 +58,8 @@ public abstract class BaseTest
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
+	private String testRunID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YMdHms"));
+
 
 	private String getPolicyNumber()
 	{
@@ -68,6 +74,7 @@ public abstract class BaseTest
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
 							@Optional("true")Boolean sharedFolder, @Optional("false")Boolean database)
 	{
+		System.out.println("testRunID: " + testRunID);
 		xml.getSuite().setThreadCount(threads);
 		db = database;
 		FileUtils.deleteQuietly(screenShotFolder);
@@ -96,7 +103,7 @@ public abstract class BaseTest
 			policyDirectory+=getPolicyNumber();
 			System.out.println("Policy Directory to be used: " + policyDirectory);
 			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
-			oldXML = sharedDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+			oldXML = sharedDirectory + "control-file/old/uploaded" + file;
 		}
 		else
 		{
@@ -108,9 +115,6 @@ public abstract class BaseTest
 		}
 
 		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
-		xmlDirectory = sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		 xmls = new File(sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "/")
-		 .listFiles();
 
 		//new UploadXML().uploadXML();
 
@@ -119,18 +123,25 @@ public abstract class BaseTest
 	@BeforeMethod
 	public void beforeMethod()
 	{
-		DateTime date = new DateTime();
-		dateString = date.toString("MMddhhmmss");
+		try
+        {
+			DateTime date = new DateTime();
+			dateString = date.toString("MMddhhmmss");
 
-		System.out.println(new DateTime().toString());
-		// users: conversion2,mcoad
-		String user = userName, pwd = passWord;
-		WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
-		Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
-		logon.load();
-		logon.isLoaded();
-		logon.login(user, pwd);
-		log("Logged in as: " + user + "\nPassword: " + pwd);
+			System.out.println(new DateTime().toString());
+			// users: conversion2,mcoad
+			String user = userName, pwd = passWord;
+			WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
+			Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
+			logon.load();
+			logon.isLoaded();
+			logon.login(user, pwd);
+			log("Logged in as: " + user + "\nPassword: " + pwd);
+		}
+		catch (Exception e)
+		{
+			error = e.getCause();
+		}
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -139,6 +150,8 @@ public abstract class BaseTest
 		if(parameters.length == 0)
 			return;
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
+		List<LinkedHashMap<String, String>> addInts = (ArrayList<LinkedHashMap<String, String>>) parameters[1];
+		List<LinkedHashMap<String, String>> spc = (ArrayList<LinkedHashMap<String, String>>) parameters[2];
 		String[] headers = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State","Premium Variation", "Year Built", "Construction Type", "Dwelling Limit",
 				"Territory Code", "AOP Deductible", "WhenSafe Percentage", "Last Page Visited","Total Annualized Premium", "ScreenShot","Submitted for Approval", "GW Warnings"};
 		String[] dbHeaders = {"Result", "Account Number", "Legacy Policy Number", "Effective Date", "Policy Type", "Base State", "Annualized Total Cost", "Year Built", "Construction Type", "Dwelling Limit",
@@ -172,8 +185,31 @@ public abstract class BaseTest
 			if (db)
 			{
 				dbInput.put("ScreenShot", screenshotName);
-				dbInput.put("StackTrace", testResult.getThrowable().getMessage());
+
+				try
+				{
+					dbInput.put("StackTrace", testResult.getThrowable().getMessage());
+				}
+				catch (NullPointerException e)
+				{
+					if (error != null)
+						dbInput.put("StackTrace", error.toString());
+					else
+						dbInput.put("StackTrace", "Unable to get StackTrace");
+				}
 				dbInput.put("MethodName", testResult.getMethod().getMethodName());
+				dbInput.put("TestRunID", testRunID);
+				eai.put("TestRunID", testRunID);
+				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+
+				for (LinkedHashMap<String, String> entry : addInts)
+				{
+					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+				}
+				for (LinkedHashMap<String, String> entry : spc)
+				{
+					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+				}
 				DBUtil.insertIntoResultsTable(dbInput);
 			}
 			try {
@@ -211,6 +247,17 @@ public abstract class BaseTest
 			writer.writeNext(csvInput);
 			if (db)
 			{
+				dbInput.put("TestRunID", testRunID);
+				eai.put("TestRunID", testRunID);
+				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+				for (LinkedHashMap<String, String> entry : addInts)
+				{
+					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+				}
+				for (LinkedHashMap<String, String> entry : spc)
+				{
+					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+				}
 				DBUtil.insertIntoResultsTable(dbInput);
 			}
 			try
