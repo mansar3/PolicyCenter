@@ -67,7 +67,7 @@ public class MountUtil
 			}
 //			return workingFolder;
 		}
-
+			System.out.println("Mounted folder is: " + mountFolder);
 			return mountFolder;
     }
 

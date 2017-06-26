@@ -114,7 +114,9 @@ public abstract class BaseTest
 		}
 
 		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
-
+		xmlDirectory = sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 xmls = new File(xmlDirectory + "/")
+		 .listFiles();
 		//new UploadXML().uploadXML();
 
 	}
