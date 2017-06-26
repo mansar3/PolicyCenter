@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="tests">
-	<parameter name="local" value="true" />
+	<parameter name="local" value="false" />
 	<parameter name="sharedFolder" value="true" />
 	<parameter name="userName" value="su" />
 	<parameter name="passWord" value="su" />
