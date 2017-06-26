@@ -102,7 +102,7 @@ public abstract class BaseTest
 			policyDirectory+=getPolicyNumber();
 			System.out.println("Policy Directory to be used: " + policyDirectory);
 			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
-			oldXML = sharedDirectory + "control-file/old/uploaded" + file;
+			oldXML = sharedDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
 		}
 		else
 		{
