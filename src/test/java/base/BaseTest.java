@@ -45,7 +45,6 @@ public abstract class BaseTest
 	protected static Boolean db;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
-	protected WebDriver driver;
 	private Throwable error;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
@@ -63,7 +62,7 @@ public abstract class BaseTest
 
 	private String getPolicyNumber()
 	{
-		int i =0;
+		int i =1;
 		while(new File(sharedDirectory + "csv-output/" + policyDirectory + String.valueOf(i)).exists())
 			i++;
 		return String.valueOf(--i);
