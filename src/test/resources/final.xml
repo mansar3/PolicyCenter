@@ -10,7 +10,7 @@
 	  <suite-files>
 		  	<!--<suite-file path="ftp.xml" />-->
 			<suite-file path="upload.xml" />
-			<suite-file path="renewal.xml" />
+			<!--<suite-file path="renewal.xml" />-->
 	  </suite-files>
 
 </suite>
