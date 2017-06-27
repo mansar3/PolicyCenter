@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="allSuites">
-	<parameter name="environment" value="151" />
+	<parameter name="environment" value="https://10.0.8.131/pc/PolicyCenter.do" />
 	<parameter name="sharedFolder" value="false" />
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>

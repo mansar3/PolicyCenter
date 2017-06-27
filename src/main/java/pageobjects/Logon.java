@@ -15,6 +15,7 @@ public class Logon
 				byStagingUsername = By.id("username"),
 				byStagingPassword = By.id("password"),
 				byPassword = By.cssSelector("input[id*=password]"),
+				byBackToApplication = By.id("backToApplication"),
 				byRememberMe = By.cssSelector("[id*=remember] input"),
 				bySubmit = By.xpath(".//*[@id='kc-login']|//.//*[@id='Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnInnerEl']");
 				// bySubmit	 = By.id("Login:LoginScreen:nonSecuredEnvPanelSet:LoginDV:submit-btnEl");
@@ -35,6 +36,8 @@ public class Logon
 	public void load()
 	{
 		sh.getURL(loginURL);
+		if(sh.isDisplayed(byBackToApplication))
+			sh.clickElement(byBackToApplication);
 		sh.wait(10).until(ExpectedConditions.visibilityOfElementLocated(byUsername));
 	}
 	public void loadConversionPage()
@@ -51,6 +54,7 @@ public class Logon
 	{
 		if(sh.isDisplayed(byStagingUsername))
 			sh.driver.findElement(byStagingUsername).sendKeys(username);
+
 		else
 			sh.setText(byUsername, username);
 		return this;
