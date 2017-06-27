@@ -45,6 +45,7 @@ public abstract class BaseTest
 	protected static Boolean db;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
+	protected WebDriver driver;
 	private Throwable error;
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	private String lastLoggedMessage;
