@@ -12,5 +12,4 @@
 			<suite-file path="upload.xml" />
 			<suite-file path="renewal.xml" />
 	  </suite-files>
-
 </suite>
