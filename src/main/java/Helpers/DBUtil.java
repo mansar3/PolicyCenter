@@ -41,10 +41,10 @@ public abstract class DBUtil implements Collection
                 + "'EffectiveDate' DATE, "
                 + "'PolicyType' TEXT, "
                 + "'BaseState' TEXT, "
-                + "'PremiumVariation' INTEGER, "
+                + "'PremiumVariation' NUMERIC(20, 2), "
                 + "'YearBuilt' DATE, "
                 + "'ConstructionType' TEXT, "
-                + "'DwellingLimit' INTEGER, "
+                + "'DwellingLimit' BIGINT, "
                 + "'TerritoryCode' INTEGER, "
                 + "'AOPDeductible' NUMERIC, "
                 + "'WhenSafePercentage' INTEGER, "
@@ -85,7 +85,6 @@ public abstract class DBUtil implements Collection
                 "'State' TEXT," +
                 "'ZipCode' TEXT" +
                 ");";
-
         try
         {
             connect();
@@ -123,202 +122,6 @@ public abstract class DBUtil implements Collection
         }
     }
 
-    private static void createPoliciesTable()
-    {
-        String tableName = "policies";
-        String sqlCreate = "CREATE TABLE IF NOT EXISTS '" + tableName + "' (" +
-                "'NameInsuredFirstName'	TEXT," +
-                "'NameInsuredMiddleName'	TEXT," +
-                "'NameInsuredLastName'	TEXT," +
-                "'NameInsuredTitle'	TEXT," +
-                "'DateofBirth'	TEXT," +
-                "'HomePhone'	TEXT," +
-                "'WorkPhone'	TEXT," +
-                "'CellPhone'	TEXT," +
-                "'EmailAddress'	TEXT," +
-                "'MailingAddress'	TEXT," +
-                "'MailingCity'	TEXT," +
-                "'MailingCounty'	TEXT," +
-                "'MailingState'	TEXT," +
-                "'MailingZipCode'	TEXT," +
-                "'AddressType'	TEXT," +
-                "'Organization'	TEXT," +
-                "'ProducerCode'	TEXT," +
-                "'BaseState'	TEXT," +
-                "'Product'	TEXT," +
-                "'PolicyType'	TEXT," +
-                "'LegacyPolicyNumber'	TEXT," +
-                "'PolicyOriginalEffectiveDate'	TEXT," +
-                "'EffectiveDate'	TEXT," +
-                "'MobileHomePark'   TEXT," +
-                "'IsTheMobileHomeTiedDown'  TEXT," +
-                "'MobileHomeLength' TEXT," +
-                "'MobileHomeWidth'  TEXT," +
-                "'RoofCover'    TEXT," +
-                "'AreThereAnyExteriorDoorOpeningsWithoutSteps'  TEXT," +
-                "'AreThereAnyAreasWith3orMoreStairsAndNoHandrails'   TEXT," +
-                "'AtInceptionOnThisPolicyWillThisMobileHomeBeWithoutContinuousUtilityService' TEXT," +
-                "'IsTheMobileHomeFullySkirted' TEXT," +
-                "'ConstructionCredit'   TEXT," +
-                "'LastInspectionCompletionDate'	TEXT," +
-                "'ExcludeLossofUseCoverage'	TEXT," +
-                "'OfferingSelection'	TEXT," +
-                "'NoPriorInsuranceSurcharge'	TEXT," +
-                "'AdditionalNameInsuredFirstName'	TEXT," +
-                "'AdditionalNameInsuredLastName'	TEXT," +
-                "'AdditionalNameInsuredCompanyName'	TEXT," +
-                "'AdditionalNameInsuredDateofBirth'	TEXT," +
-                "'DoesTheInsuredOwnAnyOtherResidenceThatIsInsuredWithFrontline'	TEXT," +
-                "'PolicyWriter'	TEXT," +
-                "'LocationAddress'	TEXT," +
-                "'LocationAddressUnit'	TEXT," +
-                "'LocationAddressCity'	TEXT," +
-                "'LocationAddressState'	TEXT," +
-                "'LocationAddressZip'	TEXT," +
-                "'LocationAddressCounty'	TEXT," +
-                "'YearBuilt'	TEXT," +
-                "'DistancetoFireHydrant'	TEXT," +
-                "'DistancetoFireStation'	TEXT," +
-                "'Terrain'  TEXT," +
-                "'TerritoryCode'	TEXT," +
-                "'ProtectionClassCode'	TEXT," +
-                "'LocationType'	TEXT," +
-                "'IntheWindpool'	TEXT," +
-                "'DistancetoCoast'	TEXT," +
-                "'PurchaseDate'	TEXT," +
-                "'PurchasePrice'	TEXT," +
-                "'PurchasedNew' TEXT," +
-                "'MarketValue'	TEXT," +
-                "'AttheinceptionofthispolicywillthispropertybedeededinthenameofcorporationbusinessLLCoranyotherentity'	TEXT," +
-                "'OccupiedDaily'	TEXT," +
-                "'ResidenceType'	TEXT," +
-                "'HowisthedwellingcustomarilyUsed'	TEXT," +
-                "'Howisthedwellingoccupied'	TEXT," +
-                "'WeeksRentedAnnually'	TEXT," +
-                "'MinimumRentalIncrement'	TEXT," +
-                "'UnderContractwithRentalManagementcompany'	TEXT," +
-                "'Isthereaswimmingpool'	TEXT," +
-                "'Isthereatrampoline'	TEXT," +
-                "'isthereaskateboardorbicycleramponpremises'	TEXT," +
-                "'Anyanimalsorexoticpetsonpremises'	TEXT," +
-                "'AnyownedGolfCarts'	TEXT," +
-                "'Anyownedrecreationalvehicles'	TEXT," +
-                "'HousekeepingCondition'	TEXT," +
-                "'BurglarAlarmType'	TEXT," +
-                "'Istherealockedprivacyfence'	TEXT," +
-                "'arethereanyburglarbarsonthewindowsdoors'	TEXT," +
-                "'IsthecommunityGuarded'	TEXT," +
-                "'IsthecommunityGated'	TEXT," +
-                "'FireAlarmtype'	TEXT," +
-                "'SmokeAlarms'	TEXT," +
-                "'Oneormorefireextinguishersinthehome'	TEXT," +
-                "'SprinklerSystem'	TEXT," +
-                "'Deadbolts'	TEXT," +
-                "'ResidenceVisibletoneighbors'	TEXT," +
-                "'ValuationType'	TEXT," +
-                "'EstimatedReplacementCost'	TEXT," +
-                "'ConstructionType'	TEXT," +
-                "'NumberofUnits'	TEXT," +
-                "'UnitsinFireWall'	TEXT," +
-                "'NumberofStories'	TEXT," +
-                "'SquareFootage'	TEXT," +
-                "'FoundationType'	TEXT," +
-                "'PrimaryHeating'	TEXT," +
-                "'Isthereasecondaryheatingsystem'	TEXT," +
-                "'PlumbingType'	TEXT," +
-                "'PlumbingYear'	TEXT," +
-                "'WaterHeaterYear'	TEXT," +
-                "'Wiring'	TEXT," +
-                "'ElectricalSystem'	TEXT," +
-                "'RoofType'	TEXT," +
-                "'RoofYear'	TEXT," +
-                "'ConditionofRoof'	TEXT," +
-                "'Isthereascreenenclosureonpremises'	TEXT," +
-                "'Doestheplumbingsystemhaveknownleaks'	TEXT," +
-                "'Isthebuildingretrofittedforearthquakes'	TEXT," +
-                "'Anyuncorrectedfireorbuildingcodeviolations'	TEXT," +
-                "'Wasthestructureoriginallybuiltforotherthanaprivateresidenceandthenconverted'	TEXT," +
-                "'Anyleadpainthazard'	TEXT," +
-                "'Isanyportionofanystructureatthispropertylocationnoworeverhasbeenamobilehomemodularhometrailerhomeorotherprefabricatedhome'	TEXT," +
-                "'DiscountType'	TEXT," +
-                "'FortifiedHomeType'	TEXT," +
-                "'RoofShape'	TEXT," +
-                "'OpeningProtectionType'	TEXT," +
-                "'DwellingLimit'	TEXT," +
-                "'OtherStructures'	TEXT," +
-                "'PersonalPropertyExcluded'	TEXT," +
-                "'PersonalPropertyLimit'	TEXT," +
-                "'PersonalPropertyValuationMethod'	TEXT," +
-                "'LossofUse'	TEXT," +
-                "'SectionIDeductiblesAOP'	TEXT," +
-                "'SectionIDeductiblesWindHail'	TEXT," +
-                "'SectionIDeductiblesNamedStorm' TEXT," +
-                "'SectionIDeductiblesHurricane'    TEXT," +
-                "'SectionIDeductiblesWater'    TEXT," +
-                "'ResidenceHeldInTrust' TEXT," +
-                "'PersonalLiability'	TEXT," +
-                "'MedicalPayments'	TEXT," +
-                "'SpecifiedAdditionalAmountofCoverageA' TEXT," +
-                "'GuardianEndorsement'	TEXT," +
-                "'SpecificOtherStructuresDescription'	TEXT," +
-                "'SpecificOtherStructuresLimit'	TEXT," +
-                "'SpecificOtherStructuresAttachedLimit'   TEXT," +
-                "'SpecificOtherStructuresAttachedDescription' TEXT," +
-                "'OtherStructuresIncreaseCoverageRentedtoOthersDescription'	TEXT," +
-                "'OtherStructuresIncreaseCoverageRentedtoOthersLimit'	TEXT," +
-                "'PermittedIncidentalOccupancyPropertyLimit'	TEXT," +
-                "'CreditCardLimit'	TEXT," +
-                "'GolfCartCoverage'   TEXT," +
-                "'JewelryTheftIncreasedLimits'   TEXT," +
-                "'LimitedFungiLimit'	TEXT," +
-                "'LossAssessmentLimit'	TEXT," +
-                "'OrdinanceorLawPercent'	TEXT," +
-                "'ScreenEnclosureHurricaneCoverageLimit'	TEXT," +
-                "'WaterBackUpLimit'	TEXT," +
-                "'InflationGuardPercent'	TEXT," +
-                "'PermittedIncidentalOccupancyLiability'	TEXT," +
-                "'AdditionalResidenceRentedtoOthersLocation'	TEXT," +
-                "'AdditionalResidenceRentedtoOthersNumberoffamilies'	TEXT," +
-                "'BusinessPursuitsBusinessactivity'	TEXT," +
-                "'WatercraftLiablityWatercraftType'	TEXT," +
-                "'InflationGuard'   TEXT," +
-                "'BCEG' TEXT," +
-                "'SeniorCitizenDiscount'    TEXT," +
-                "'ConsentToRate'	TEXT," +
-                "'BillingContactInsuredOrMortgage'	TEXT," +
-                "'PaymentPlanSchedule'	TEXT," +
-                "'TotalCost'	NUMERIC(28,2)," +
-                "'GoPaperless'	TEXT," +
-                "'SecondaryWaterResistance' TEXT," +
-                "'RoofDeck' TEXT," +
-                "'RoofDeckAttachment'   TEXT," +
-                "'RoofWallConnection'   TEXT," +
-                "'UnitOwnersRentedtoOthers' TEXT," +
-                "'UnitOwnersCoverageASpecialCoverageLimit', TEXT," +
-                "'InternalPressure' TEXT," +
-                "'WindBorneDebrisRegion'    TEXT," +
-                "'FBCWindSpeed' TEXT," +
-                "'WindExcluded' TEXT," +
-                "'PremisesLiability'    TEXT," +
-                "'AAAMembership'    TEXT," +
-                "'AARPMembership'   TEXT," +
-                "'FMHOMembership'   TEXT" +
-                ");";
-
-        try
-        {
-            connect();
-            statement = conn.createStatement();
-            statement.execute(sqlCreate);
-            conn.close();
-        }
-        catch (SQLException e)
-        {
-            System.out.println("\nUnable to create table " + tableName);
-            System.out.println("\n" + e.getMessage());
-        }
-    }
-
     private static void createFLDP3Table()
     {
         String tableName = "FLDP3";
@@ -330,7 +133,7 @@ public abstract class DBUtil implements Collection
                 "'NameInsuredMiddleName' TEXT," +
                 "'NameInsuredLastName' TEXT," +
                 "'NameInsuredTitle' TEXT," +
-                "'DateofBirth' TEXT," +
+                "'DateOfBirth' DATE," +
                 "'HomePhone' TEXT," +
                 "'WorkPhone' TEXT," +
                 "'CellPhone' TEXT," +
@@ -355,8 +158,8 @@ public abstract class DBUtil implements Collection
                 "'AdditionalNameInsuredFirstName' TEXT," +
                 "'AdditionalNameInsuredLastName' TEXT," +
                 "'AdditionalNameInsuredCompanyName' TEXT," +
-                "'AdditionalNameInsuredDateofBirth' TEXT," +
-                "'DoestheinsuredownanyotherresidencethatisinsuredwithFrontline' TEXT," +
+                "'AdditionalNameInsuredDateOfBirth' DATE," +
+                "'DoesTheInsuredOwnAnyOtherResidenceThatIsInsuredWithFrontline' TEXT," +
                 "'PolicyWriter' TEXT," +
                 "'LocationAddress' TEXT," +
                 "'LocationAddressUnit' TEXT," +
@@ -364,49 +167,49 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressState' TEXT," +
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
-                "'YearBuilt' TEXT," +
-                "'DistancetoFireHydrant' TEXT," +
-                "'DistancetoFireStation' TEXT," +
+                "'YearBuilt' DATE," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
-                "'IntheWindpool' TEXT," +
-                "'DistancetoCoast' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
-                "'MarketValue' TEXT," +
-                "'AttheinceptionofthispolicywillthispropertybedeededinthenameofcorporationbusinessLLCoranyotherentity' TEXT," +
+                "'InTheWindPool' TEXT," +
+                "'DistanceToCoast' BIGINT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
+                "'MarketValue' NUMERIC(28,2)," +
+                "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
                 "'ResidenceType' TEXT," +
-                "'HowisthedwellingcustomarilyUsed' TEXT," +
-                "'Howisthedwellingoccupied' TEXT," +
-                "'WeeksRentedAnnually' TEXT," +
+                "'HowIsTheDwellingCustomarilyUsed' TEXT," +
+                "'HowIsTheDwellingOccupied' TEXT," +
+                "'WeeksRentedAnnually' INT," +
                 "'MinimumRentalIncrement' TEXT," +
-                "'UnderContractwithRentalManagementcompany' TEXT," +
-                "'Isthereaswimmingpool' TEXT," +
-                "'Isthereatrampoline' TEXT," +
-                "'isthereaskateboardorbicycleramponpremises' TEXT," +
-                "'Anyanimalsorexoticpetsonpremises' TEXT," +
-                "'AnyownedGolfCarts' TEXT," +
-                "'Anyownedrecreationalvehicles' TEXT," +
+                "'UnderContractWithRentalManagementCompany' TEXT," +
+                "'IsThereASwimmingPool' TEXT," +
+                "'IsThereATrampoline' TEXT," +
+                "'IsThereASkateboardOrBicycleRampOnPremises' TEXT," +
+                "'AnyAnimalsOrExoticPetsOnPremises' TEXT," +
+                "'AnyOwnedGolfCarts' TEXT," +
+                "'AnyOwnedRecreationalVehicles' TEXT," +
                 "'HousekeepingCondition' TEXT," +
                 "'BurglarAlarmType' TEXT," +
-                "'Istherealockedprivacyfence' TEXT," +
+                "'IsThereALockedPrivacyFence' TEXT," +
                 "'AreThereAnyBurglarBarsOnTheWindowsDoors' TEXT," +
-                "'IsthecommunityGuarded' TEXT," +
-                "'IsthecommunityGated' TEXT," +
-                "'FireAlarmtype' TEXT," +
+                "'IsTheCommunityGuarded' TEXT," +
+                "'IsTheCommunityGated' TEXT," +
+                "'FireAlarmType' TEXT," +
                 "'SmokeAlarms' TEXT," +
-                "'Oneormorefireextinguishersinthehome' TEXT," +
+                "'OneOrMoreFireExtinguishersInTheHome' TEXT," +
                 "'SprinklerSystem' TEXT," +
                 "'Deadbolts' TEXT," +
-                "'ResidenceVisibletoneighbors' TEXT," +
+                "'ResidenceVisibleToNeighbors' TEXT," +
                 "'EstimatedReplacementCost' TEXT," +
                 "'ConstructionType' TEXT," +
-                "'NumberofUnits' TEXT," +
-                "'UnitsinFireWall' TEXT," +
-                "'NumberofStories' TEXT," +
+                "'NumberOfUnits' TEXT," +
+                "'UnitsInFireWall' TEXT," +
+                "'NumberOfStories' TEXT," +
                 "'SquareFootage' TEXT," +
                 "'FoundationType' TEXT," +
                 "'PrimaryHeating' TEXT," +
@@ -417,14 +220,14 @@ public abstract class DBUtil implements Collection
                 "'Wiring' TEXT," +
                 "'ElectricalSystem' TEXT," +
                 "'RoofType' TEXT," +
-                "'RoofYear' TEXT," +
+                "'RoofYear' DATE," +
                 "'ConditionOfRoof' TEXT," +
                 "'IsThereAScreenEnclosureOnPremises' TEXT," +
                 "'DoesThePlumbingSystemHaveKnownLeaks' TEXT," +
-                "'Isthebuildingretrofittedforearthquakes' TEXT," +
-                "'Anyuncorrectedfireorbuildingcodeviolations' TEXT," +
-                "'Wasthestructureoriginallybuiltforotherthanaprivateresidenceandthenconverted' TEXT," +
-                "'Anyleadpainthazard' TEXT," +
+                "'IsTheBuildingRetrofittedForEarthquakes' TEXT," +
+                "'AnyUncorrectedFireOrBuildingCodeViolations' TEXT," +
+                "'WasTheStructureOriginallyBuiltForOtherThanAPrivateResidenceAndThenConverted' TEXT," +
+                "'AnyLeadPaintHazard' TEXT," +
                 "'IsAnyPortionOfAnyStructureAtThisPropertyLocationNowOrEverHasBeenAMobileHomeModularHomeTrailerHomeOrOtherPreFabricatedHome' TEXT," +
                 "'RoofShape' TEXT," +
                 "'OpeningProtectionType' TEXT," +
@@ -437,9 +240,9 @@ public abstract class DBUtil implements Collection
                 "'FBCWindSpeed' TEXT," +
                 "'InternalPressure' TEXT," +
                 "'WindBorneDebrisRegion' TEXT," +
-                "'DwellingLimit' TEXT," +
+                "'DwellingLimit' BIGINT," +
                 "'OtherStructures' TEXT," +
-                "'OtherStructuresIncreasedLimit' TEXT," +
+                "'OtherStructuresIncreasedLimit' BIGINT," +
                 "'PersonalPropertyExcluded' TEXT," +
                 "'PersonalPropertyLimit' TEXT," +
                 "'PersonalPropertyValuationMethod' TEXT," +
@@ -455,13 +258,12 @@ public abstract class DBUtil implements Collection
                 "'ScreenEnclosureHurricaneCoverageLimit' TEXT," +
                 "'WaterBackUpLimit' TEXT," +
                 "'SinkholeLossCoverage' TEXT," +
-                "'ConsenttoRate' TEXT," +
+                "'ConsentToRate' TEXT," +
                 "'BillingContactInsuredOrMortgage' TEXT," +
                 "'PaymentPlanSchedule' TEXT," +
                 "'TotalCost' NUMERIC(28,2)," +
                 "'GoPaperless' TEXT" +
                 ");";
-
         try
         {
             connect();
@@ -523,23 +325,24 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip'   TEXT," +
                 "'LocationAddressCounty'    TEXT," +
                 "'YearBuilt'    TEXT," +
-                "'DistanceToFireHydrant'    TEXT," +
-                "'DistanceToFireStation'    TEXT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode'    TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode'  TEXT," +
                 "'LocationType' TEXT," +
-                "'InTheWindpool'    TEXT," +
+                "'InTheWindPool'    TEXT," +
+                "'WindPoolZone' TEXT," +
                 "'DistanceToCoast'  TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice'    TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice'    NUMERIC(28, 2)," +
                 "'MarketValue'  TEXT," +
-                "'AttheinceptionofthispolicywillthispropertybedeededinthenameofcorporationbusinessLLCorAnyOtherEntity'  TEXT," +
+                "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCorAnyOtherEntity'  TEXT," +
                 "'OccupiedDaily'    TEXT," +
                 "'ResidenceType'    TEXT," +
                 "'HowIsTheDwellingCustomarilyUsed'  TEXT," +
                 "'HowIsTheDwellingOccupied' TEXT," +
-                "'WeeksRentedAnnually'  TEXT," +
+                "'WeeksRentedAnnually'  INT," +
                 "'MinimumRentalIncrement'   TEXT," +
                 "'UnderContractWithRentalManagementCompany' TEXT," +
                 "'IsThereASwimmingPool' TEXT," +
@@ -566,17 +369,17 @@ public abstract class DBUtil implements Collection
                 "'NumberOfUnits'    TEXT," +
                 "'UnitsInFireWall'  TEXT," +
                 "'NumberOfStories'  TEXT," +
-                "'SquareFootage'    TEXT," +
+                "'SquareFootage'    BIGINT," +
                 "'FoundationType'   TEXT," +
                 "'PrimaryHeating'   TEXT," +
                 "'IsThereASecondaryHeatingSystem'   TEXT," +
                 "'PlumbingType' TEXT," +
-                "'PlumbingYear' TEXT," +
-                "'WaterHeaterYear'   TEXT," +
+                "'PlumbingYear' DATE," +
+                "'WaterHeaterYear'   DATE," +
                 "'Wiring'   TEXT," +
                 "'ElectricalSystem' TEXT," +
                 "'RoofType' TEXT," +
-                "'RoofYear' TEXT," +
+                "'RoofYear' DATE," +
                 "'ConditionOfRoof'  TEXT," +
                 "'IsThereAScreenEnclosureOnPremises'    TEXT," +
                 "'DoesThePlumbingSystemHaveKnownLeaks'  TEXT," +
@@ -591,10 +394,10 @@ public abstract class DBUtil implements Collection
                 "'IsTheRoofCoverConstructionBuildingCodeCompliant'  TEXT," +
                 "'IsTheRoofDeckAttachmentBuidingCodeCompliant'  TEXT," +
                 "'IsTheRoofWallConnectionBuildingCodeCompliant' TEXT," +
-                "'DwellingLimit'    TEXT," +
+                "'DwellingLimit'    BIGINT," +
                 "'OtherStructures' TEXT," +
                 "'OtherStructuresPercentage'    TEXT," +
-                "'OtherStructuresIncreasedLimit'    TEXT," +
+                "'OtherStructuresIncreasedLimit'    BIGINT," +
                 "'PersonalPropertyExcluded' TEXT," +
                 "'PersonalPropertyLimit'    TEXT," +
                 "'PersonalPropertyValuationMethod'  TEXT," +
@@ -603,7 +406,7 @@ public abstract class DBUtil implements Collection
                 "'PersonalLiability'    TEXT," +
                 "'PremisesLiability'    TEXT," +
                 "'MedicalPayments'  TEXT," +
-                "'WhensafePercentage'   TEXT," +
+                "'WhenSafePercentage'   TEXT," +
                 "'LimitedFungiLimit'    TEXT," +
                 "'EarthquakeCoverageDeductible' TEXT," +
                 "'EarthquakeCoverageConstructionClass'  TEXT," +
@@ -617,7 +420,6 @@ public abstract class DBUtil implements Collection
                 "'TotalCost'    NUMERIC(28,2)," +
                 "'GoPaperless'  TEXT" +
                 ");";
-
         try
         {
             connect();
@@ -642,8 +444,9 @@ public abstract class DBUtil implements Collection
                 "'NameInsuredFirstName' TEXT," +
                 "'NameInsuredMiddleName' TEXT," +
                 "'NameInsuredLastName' TEXT," +
+                "'BillingContactInsuredOrMortgage' TEXT," +
                 "'NameInsuredTitle' TEXT," +
-                "'DateofBirth' TEXT," +
+                "'DateOfBirth' DATE," +
                 "'HomePhone' TEXT," +
                 "'WorkPhone' TEXT," +
                 "'CellPhone' TEXT," +
@@ -660,16 +463,16 @@ public abstract class DBUtil implements Collection
                 "'Product' TEXT," +
                 "'PolicyType' TEXT," +
                 "'LegacyPolicyNumber' TEXT," +
-                "'PolicyOriginalEffectiveDate' TEXT," +
-                "'EffectiveDate' TEXT," +
+                "'PolicyOriginalEffectiveDate' DATE," +
+                "'EffectiveDate' DATE," +
                 "'LastInspectionCompletionDate' TEXT," +
-                "'ExcludeLossofUseCoverage' TEXT," +
+                "'ExcludeLossOfUseCoverage' TEXT," +
                 "'OfferingSelection' TEXT," +
                 "'NoPriorInsuranceSurcharge' TEXT," +
                 "'AdditionalNameInsuredFirstName' TEXT," +
                 "'AdditionalNameInsuredLastName' TEXT," +
                 "'AdditionalNameInsuredCompanyName' TEXT," +
-                "'AdditionalNameInsuredDateOfBirth' TEXT," +
+                "'AdditionalNameInsuredDateOfBirth' DATE," +
                 "'DoesTheInsureDownAnyOtherResidenceThatIsInsuredWithFrontline' TEXT," +
                 "'PolicyWriter' TEXT," +
                 "'LocationAddress' TEXT," +
@@ -679,15 +482,15 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' DATE," +
-                "'DistanceToFireHydrant' NUMERIC," +
-                "'DistanceToFireStation' NUMERIC," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
                 "'InTheWindPool' TEXT," +
                 "'DistanceToCoast' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
                 "'MarketValue' TEXT," +
                 "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
@@ -744,7 +547,7 @@ public abstract class DBUtil implements Collection
                 "'FortifiedHomeType' TEXT," +
                 "'RoofShape' TEXT," +
                 "'OpeningProtectionType' TEXT," +
-                "'DwellingLimit' TEXT," +
+                "'DwellingLimit' BIGINT," +
                 "'OtherStructures' TEXT," +
                 "'PersonalPropertyExcluded' TEXT," +
                 "'PersonalPropertyLimit' TEXT," +
@@ -760,9 +563,9 @@ public abstract class DBUtil implements Collection
                 "'OtherStructuresIncreaseCoverageRentedToOthersDescription' TEXT," +
                 "'OtherStructuresIncreaseCoverageRentedToOthersLimit' TEXT," +
                 "'PermittedIncidentalOccupancyPropertyLimit' TEXT," +
-                "'CreditCardLimit' TEXT," +
+                "'CreditCardLimit' BIGINT," +
                 "'LimitedFungiLimit' TEXT," +
-                "'LossAssessmentLimit' TEXT," +
+                "'LossAssessmentLimit' BIGINT," +
                 "'OrdinanceOrLawPercent' TEXT," +
                 "'ScreenEnclosureHurricaneCoverageLimit' TEXT," +
                 "'WaterBackUpLimit' NUMERIC(28,2)," +
@@ -838,16 +641,16 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' DATE," +
-                "'DistanceToFireHydrant' BIGINT," +
-                "'DistanceToFireStation' BIGINT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
                 "'InTheWindPool' TEXT," +
                 "'DistanceToCoast' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
                 "'MarketValue' TEXT," +
                 "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
@@ -1005,14 +808,14 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' TEXT," +
-                "'DistanceToFireHydrant' TEXT," +
-                "'DistanceToFireStation' TEXT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
                 "'DistanceToCoast' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
                 "'MarketValue' TEXT," +
                 "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTHeNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
@@ -1069,7 +872,7 @@ public abstract class DBUtil implements Collection
                 "'FortifiedHomeType' TEXT," +
                 "'RoofShape' TEXT," +
                 "'OpeningProtectionType' TEXT," +
-                "'DwellingLimit' TEXT," +
+                "'DwellingLimit' BIGINT," +
                 "'OtherStructures' TEXT," +
                 "'PersonalPropertyLimit' TEXT," +
                 "'PersonalPropertyValuationMethod' TEXT," +
@@ -1085,8 +888,8 @@ public abstract class DBUtil implements Collection
                 "'OtherStructuresIncreaseCoverageRentedToOthersDescription' TEXT," +
                 "'OtherStructuresIncreaseCoverageRentedToOthersLimit' TEXT," +
                 "'PermittedIncidentalOccupancyPropertyLimit' TEXT," +
-                "'CreditCardLimit' TEXT," +
-                "'LossAssessmentLimit' TEXT," +
+                "'CreditCardLimit' BIGINT," +
+                "'LossAssessmentLimit' BIGINT," +
                 "'OrdinanceOrLawPercent' TEXT," +
                 "'RefrigeratedPersonalProperty' TEXT," +
                 "'EarthquakeCoverageDeductible' TEXT," +
@@ -1170,16 +973,17 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' DATE," +
-                "'DistanceToFireHydrant' BIGINT," +
-                "'DistanceToFireStation' BIGINT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
                 "'InTheWindPool' TEXT," +
+                "'WindPoolZone' TEXT," +
                 "'DistanceToCoast' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
                 "'MarketValue' TEXT," +
                 "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
@@ -1235,7 +1039,7 @@ public abstract class DBUtil implements Collection
                 "'IsTheRoofCoverConstructionBuildingCodeCompliant' TEXT," +
                 "'IsTheRoofDeckAttachmentBuidingCodeCompliant' TEXT," +
                 "'IsTheRoofWallConnectionBuildingCodeCompliant' TEXT," +
-                "'DwellingLimit' TEXT," +
+                "'DwellingLimit' BIGINT," +
                 "'OtherStructures' TEXT," +
                 "'PersonalPropertyExcluded' TEXT," +
                 "'PersonalPropertyLimit' TEXT," +
@@ -1252,7 +1056,7 @@ public abstract class DBUtil implements Collection
                 "'OtherStructuresIncreaseCoverageRentedToOthersDescription' TEXT," +
                 "'OtherStructuresIncreaseCoverageRentedToOthersLimit' TEXT," +
                 "'PermittedIncidentalOccupancyPropertyLimit' TEXT," +
-                "'CreditCardLimit' TEXT," +
+                "'CreditCardLimit' BIGINT," +
                 "'LimitedFungiLimit' TEXT," +
                 "'LossAssessmentLimit' TEXT," +
                 "'OrdinanceOrLawPercent' TEXT," +
@@ -1332,8 +1136,8 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' DATE," +
-                "'DistanceToFireHydrant' BIGINT," +
-                "'DistanceToFireStation' BIGINT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode' TEXT," +
@@ -1417,7 +1221,7 @@ public abstract class DBUtil implements Collection
                 "'SpecificOtherStructuresDescription' TEXT," +
                 "'SpecificOtherStructuresLimit' TEXT," +
                 "'PermittedIncidentalOccupancyPropertyLimit' TEXT," +
-                "'CreditCardLimit' TEXT," +
+                "'CreditCardLimit' BIGINT," +
                 "'LimitedFungiLimit' TEXT," +
                 "'LossAssessmentLimit' INT," +
                 "'OrdinanceOrLawPercent' TEXT," +
@@ -1454,7 +1258,9 @@ public abstract class DBUtil implements Collection
     {
         String tableName = "SCHO6";
         String sqlCreate = "CREATE TABLE IF NOT EXISTS '" + tableName + "' (" +
-        "'NameInsuredFirstName' TEXT," +
+                "'TestRunID' BIGINT," +
+                "'AccountNumber' BIGINT," +
+                "'NameInsuredFirstName' TEXT," +
                 "'NameInsuredMiddleName' TEXT," +
                 "'NameInsuredLastName' TEXT," +
                 "'NameInsuredTitle' TEXT," +
@@ -1483,7 +1289,6 @@ public abstract class DBUtil implements Collection
                 "'AdditionalNameInsuredLastName' TEXT," +
                 "'AdditionalNameInsuredCompanyName' TEXT," +
                 "'AdditionalNameInsuredDateOfBirth' DATE," +
-                "'AdditionalNameInsuredSSN' TEXT," +
                 "'DoesTheInsuredOwnAnyOtherResidenceThatIsInsuredWithFrontline' TEXT," +
                 "'PolicyWriter' TEXT," +
                 "'LocationAddress' TEXT," +
@@ -1493,17 +1298,18 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' DATE," +
-                "'DistanceToFireHydrant' BIGINT," +
-                "'DistanceToFireStation' BIGINT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
                 "'BCEG' TEXT," +
                 "'ProtectionClassCode' TEXT," +
                 "'LocationType' TEXT," +
                 "'InTheWindPool' TEXT," +
+                "'WindPoolZone' TEXT," +
                 "'DistanceToCoast' BIGINT," +
                 "'PurchaseDate' DATE," +
                 "'PurchasePrice' NUMERIC(28, 2)," +
-                "'MarketValue' TEXT," +
+                "'MarketValue' NUMERIC(28,2)," +
                 "'AtTheInceptionOfThisPolicyWillThisPropertyBeDeededInTheNameOfCorporationBusinessLLCOrAnyOtherEntity' TEXT," +
                 "'OccupiedDaily' TEXT," +
                 "'ResidenceType' TEXT," +
@@ -1574,8 +1380,8 @@ public abstract class DBUtil implements Collection
                 "'SpecificOtherStructuresLimit' BIGINT," +
                 "'PermittedIncidentalOccupancyPropertyLimit' BIGINT," +
                 "'CreditCardLimit' BIGINT," +
-                "'LimitedFungiLimit' BIGINT," +
-                "'LossAssessmentLimit' TEXT," +
+                "'LimitedFungiLimit' TEXT," +
+                "'LossAssessmentLimit' BIGINT," +
                 "'OrdinanceOrLawPercent' TEXT," +
                 "'EarthquakeCoverageDeductible' TEXT," +
                 "'EarthquakeCoverageConstructionClass' TEXT," +
@@ -1670,7 +1476,7 @@ public abstract class DBUtil implements Collection
         "'FortifiedHomeType' TEXT," +
         "'RoofShape' TEXT," +
         "'OpeningProtectionType' TEXT," +
-        "'DwellingLimit' TEXT," +
+        "'DwellingLimit' BIGINT," +
         "'OtherStructures' TEXT," +
         "'PersonalPropertyLimit' TEXT," +
         "'PersonalPropertyValuationMethod' TEXT," +
@@ -1725,7 +1531,6 @@ public abstract class DBUtil implements Collection
                 "'MailingState' TEXT," +
                 "'MailingZipCode' TEXT," +
                 "'AddressType' TEXT," +
-                "'SSN' TEXT," +
                 "'Organization' TEXT," +
                 "'ProducerCode' TEXT," +
                 "'BaseState' TEXT," +
@@ -1750,13 +1555,13 @@ public abstract class DBUtil implements Collection
                 "'LocationAddressZip' TEXT," +
                 "'LocationAddressCounty' TEXT," +
                 "'YearBuilt' TEXT," +
-                "'DistanceToFireHydrant' TEXT," +
-                "'DistanceToFireStation' TEXT," +
+                "'DistanceToFireHydrant' NUMERIC(28, 2)," +
+                "'DistanceToFireStation' NUMERIC(28, 2)," +
                 "'TerritoryCode' TEXT," +
-                "'PurchaseDate' TEXT," +
-                "'PurchasePrice' TEXT," +
+                "'PurchaseDate' DATE," +
+                "'PurchasePrice' NUMERIC(28, 2)," +
                 "'PurchasedNew' TEXT," +
-                "'MarketValue' TEXT," +
+                "'MarketValue' NUMERIC(28,2)," +
                 "'OccupiedDaily' TEXT," +
                 "'ResidenceType' TEXT," +
                 "'HowIsTheDwellingCustomarilyUsed' TEXT," +
@@ -1794,7 +1599,7 @@ public abstract class DBUtil implements Collection
                 "'AtInceptionOnThisPolicyWillThisMobileHomeBeWithoutContinuousUtilityService' TEXT," +
                 "'IsTheMobileHomeFullySkirted' TEXT," +
                 "'ConstructionCredit' TEXT," +
-                "'DwellingLimit' TEXT," +
+                "'DwellingLimit' BIGINT," +
                 "'PersonalPropertyExcluded' TEXT," +
                 "'PersonalPropertyLimit' TEXT," +
                 "'PersonalPropertyValuationMethod' TEXT," +
@@ -1813,7 +1618,10 @@ public abstract class DBUtil implements Collection
                 "'JewelryTheftIncreasedLimits' TEXT," +
                 "'BillingContactInsuredOrMortgage' TEXT," +
                 "'PaymentPlanSchedule' TEXT," +
-                "'TotalCost' TEXT," +
+                "'AAAMembership' TEXT," +
+                "'AARPMembership' TEXT," +
+                "'FMHOMembership' TEXT," +
+                "'TotalCost' NUMERIC(28, 2)," +
                 "'GoPaperless' TEXT" +
                 ");";
         try
@@ -2268,12 +2076,12 @@ public abstract class DBUtil implements Collection
 
             System.out.println(query);
             int result = statement.executeUpdate(query);
-            if (result != 1)
-                System.out.println("\nUnable to insert data into database\n");
+            System.out.println(query + "\nresult = " + String.valueOf(result));
             conn.close();
         }
         catch (SQLException e)
         {
+            System.out.println("Unable to insert into FLMH3");
             System.out.println(e.getMessage());
         }
     }

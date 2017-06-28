@@ -8,8 +8,9 @@ qa-centers.iml
 .settings/
 
 ### Maven ###
-target/
-.target
+#target/
+#!target/db
+#.target
 
 ### Project ###
 test-output/
