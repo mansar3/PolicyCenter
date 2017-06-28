@@ -42,7 +42,7 @@ public abstract class BaseTest
 	protected static SessionInfo sessionInfo;
 	protected String dateString;
 	private static Boolean local;
-	protected static Boolean db;
+	protected static Boolean db,qaMain;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
 	protected WebDriver driver;
@@ -54,7 +54,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String sharedDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170626_1",
+	policyDirectory = "ConversionPolicies-20170627_3",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -68,11 +68,11 @@ public abstract class BaseTest
 			i++;
 		return String.valueOf(--i);
 	}
-	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database"})
+	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain"})
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
-							@Optional("true")Boolean sharedFolder, @Optional("false")Boolean database)
+							@Optional("true")Boolean sharedFolder, @Optional("false")Boolean database, @Optional("true") Boolean qaMain)
 	{
 		System.out.println("testRunID: " + testRunID);
 		xml.getSuite().setThreadCount(threads);
@@ -85,6 +85,8 @@ public abstract class BaseTest
 		this.userName = userName;
 		this.passWord = passWord;
 		this.sendEmail = sendEmail;
+		this.qaMain = qaMain;
+		System.out.println("Running in QA Main: " + String.valueOf(qaMain));
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
 		if(new File(filePath).exists())

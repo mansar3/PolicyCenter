@@ -76,9 +76,19 @@ public class SCHO6 extends BaseTest
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			.setSsn(eai.getOrDefault("SSN", null));
+			if(qaMain)
+			{
+				createAccount
+				.setOrganization("Acentria, Inc")
+				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			}
+			else
+			{
+				createAccount
+				.setOrganization(eai.get("Organization"))
+				.setProducerCode(eai.get("Producer Code"));
+			}
 			//.setProducerCode("012-13-12345 ");
 
 			SCHO6AccountFileSummary accountFileSummary = createAccount
@@ -222,7 +232,14 @@ public class SCHO6 extends BaseTest
 		dwelling
 		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"))
+		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
+		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
+		{
+			if(eai.get("Windpool Zone").toLowerCase().equals("none"))
+				eai.put("Windpool Zone", "<none>");
+			dwelling.setWindpoolZone(eai.get("Windpool Zone"));
+		}
+		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
 		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))
@@ -747,9 +764,19 @@ public class SCHO6 extends BaseTest
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			.setSsn(eai.getOrDefault("SSN", null));
+			if(qaMain)
+			{
+				createAccount
+				.setOrganization("Acentria, Inc")
+				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			}
+			else
+			{
+				createAccount
+				.setOrganization(eai.get("Organization"))
+				.setProducerCode(eai.get("Producer Code"));
+			}
 			//.setProducerCode("012-13-12345 ");
 
 			SCHO6AccountFileSummary accountFileSummary = createAccount
@@ -877,7 +904,14 @@ public class SCHO6 extends BaseTest
 		dwelling
 		.setProtectionClassCode(eai.getOrDefault("Protection Class Code", null))
 		.setLocationType(eai.getOrDefault("Location Type","In City Limits"))
-		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"))
+		.setInTheWindpool(eai.getOrDefault("In the Windpool?", "false"));
+		if(eai.get("In the Windpool?").toLowerCase().equals("true"))
+		{
+			if(eai.get("Windpool Zone").toLowerCase().equals("none"))
+				eai.put("Windpool Zone", "<none>");
+			dwelling.setWindpoolZone(eai.get("Windpool Zone"));
+		}
+		dwelling
 		.setDistanceToCoast(eai.getOrDefault("Distance to Coast", null))
 		.setPurchaseDate(eai.getOrDefault("Purchase Date", null))
 		.setPurchasePrice(eai.getOrDefault("Purchase Price", null))

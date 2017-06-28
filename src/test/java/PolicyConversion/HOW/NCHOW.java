@@ -73,9 +73,19 @@ public class NCHOW extends BaseTest
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			.setSsn(eai.getOrDefault("SSN", null));
+			if(qaMain)
+			{
+				createAccount
+				.setOrganization("Acentria, Inc")
+				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			}
+			else
+			{
+				createAccount
+				.setOrganization(eai.get("Organization"))
+				.setProducerCode(eai.get("Producer Code"));
+			}
 			//.setProducerCode("012-13-12345 ");
 			NCHOWAccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()
@@ -528,9 +538,19 @@ public class NCHOW extends BaseTest
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			.setSsn(eai.getOrDefault("SSN", null));
+			if(qaMain)
+			{
+				createAccount
+				.setOrganization("Acentria, Inc")
+				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			}
+			else
+			{
+				createAccount
+				.setOrganization(eai.get("Organization"))
+				.setProducerCode(eai.get("Producer Code"));
+			}
 			//.setProducerCode("012-13-12345 ");
 			NCHOWAccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()

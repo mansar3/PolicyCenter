@@ -54,9 +54,19 @@ public class FLDP3 extends BaseTest
 
 		createAccount.setAddressLine1(eai.get("Mailing Address")).setCity(eai.get("Mailing City")).setState(eai.get("Mailing State")).setCounty(eai.getOrDefault("Mailing County", null)).setDateOfBirth(eai.get("Date of Birth")).setHomePhone(eai.get("Home Phone")).setWorkPhone(eai.getOrDefault("Work Phone", null)).setPrimaryEmail(eai.getOrDefault("Email Address", null)).setState(eai.getOrDefault("Mailing State", null)).setZipCode(eai.getOrDefault("Mailing Zip Code", null)).clickVerifyAddress().selectSuccessfulVerificationIfPossibleForCreateAccount().setAddressType(eai.getOrDefault("Address Type", "Home"))
 		//.setDescription("Nerd Lair")
-		.setSsn(eai.getOrDefault("SSN", null))
-		.setOrganization("Acentria, Inc")
-		.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+		.setSsn(eai.getOrDefault("SSN", null));
+		if(qaMain)
+		{
+			createAccount
+			.setOrganization("Acentria, Inc")
+			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+		}
+		else
+		{
+			createAccount
+			.setOrganization(eai.get("Organization"))
+			.setProducerCode(eai.get("Producer Code"));
+		}
 
 		FLDP3AccountFileSummary accountFileSummary = createAccount
 		.checkForDuplicatesAndReturn()
@@ -631,9 +641,19 @@ public class FLDP3 extends BaseTest
 				.selectSuccessfulVerificationIfPossibleForCreateAccount()
 			.setAddressType(eai.getOrDefault("Address Type","Home"))
 			//.setDescription("Nerd Lair")
-			.setSsn(eai.getOrDefault("SSN", null))
-			.setOrganization("Acentria, Inc")
-			.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			.setSsn(eai.getOrDefault("SSN", null));
+			if(qaMain)
+			{
+				createAccount
+				.setOrganization("Acentria, Inc")
+				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+			}
+			else
+			{
+				createAccount
+				.setOrganization(eai.get("Organization"))
+				.setProducerCode(eai.get("Producer Code"));
+			}
 
 			FLDP3AccountFileSummary accountFileSummary = createAccount
 			.checkForDuplicatesAndReturn()

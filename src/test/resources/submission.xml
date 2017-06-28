@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Selenium Grid - POS2 Regression Test" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="30" >
-	<parameter name="environment" value="https://10.0.8.131/pc/PolicyCenter.do" />
+	<parameter name="environment" value="https://gwstg.frontlineinsurance.com/pc/PolicyCenter.do" />
 	<parameter name="local" value="false" />
 	<parameter name="sharedFolder" value="true" />
 	<parameter name="threads" value="10" />
@@ -9,6 +9,7 @@
 	<parameter name="passWord" value="su" />
     <parameter name="sendEmail" value="true"/>
 	<parameter name="database" value="false"/>
+	<parameter name="qaMain" value="false" />
 	<test name="Submission ETL">
         <classes>
             <class name="PolicyConversion.HO3.ALHO3">
