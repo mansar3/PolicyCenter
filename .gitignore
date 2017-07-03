@@ -15,3 +15,6 @@ qa-centers.iml
 ### Project ###
 test-output/
 src/test/resources/ScreenShots/
+
+target/*
+!target/db/
