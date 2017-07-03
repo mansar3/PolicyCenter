@@ -71,7 +71,6 @@
 							</suiteXmlFiles>
 							<systemPropertyVariables>
 								<environment>151</environment>
-								<threads>10</threads>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>

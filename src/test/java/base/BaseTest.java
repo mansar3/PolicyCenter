@@ -54,7 +54,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
 	public static String sharedDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170627_3",
+	policyDirectory = "ConversionPolicies-20170628_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -152,7 +152,11 @@ public abstract class BaseTest
 	public void afterMethod(ITestResult testResult, Object[] parameters)
 	{
 		if(parameters.length == 0)
+		{
+			if((testResult.getStatus() != ITestResult.SUCCESS) && qaMain == false)
+				System.out.println(testResult.getThrowable().toString());
 			return;
+		}
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
 		List<LinkedHashMap<String, String>> addInts = (ArrayList<LinkedHashMap<String, String>>) parameters[1];
 		List<LinkedHashMap<String, String>> spc = (ArrayList<LinkedHashMap<String, String>>) parameters[2];
@@ -164,6 +168,9 @@ public abstract class BaseTest
 //		driver = LocalDriverManager.getDriver();
 
 		if (testResult.getStatus() != ITestResult.SUCCESS) {
+
+			if(qaMain == false)
+				System.out.println(testResult.getThrowable().toString());
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();

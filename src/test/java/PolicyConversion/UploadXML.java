@@ -25,26 +25,33 @@ public class UploadXML extends BaseTest
 	@Test(priority = 1, groups = "XML Upload")
 	public void uploadXML()
 	{
-		WebDriver driver = LocalDriverManager.getDriver();
-		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
-
-		// Get Driver and Instantiate Helper
-		if(xmls == null)
-			Assert.fail("No Files found.");
-		else
-			System.out.println("Xmls in folder are: " + String.valueOf(xmls.length));
-
-		for(File file : xmls)
+		try
 		{
+			WebDriver driver = LocalDriverManager.getDriver();
+			CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
-			ImportLegacyRenewalData imr = new NorthPanel(sh).administration.clickImportLegacyRenewalData();
-			//imr.uploadFile(xmlFilepath)
-			imr
-			.uploadFile(file.getPath())
-			.clickFinish();
+			// Get Driver and Instantiate Helper
+			if(xmls == null)
+				Assert.fail("No Files found.");
+			else
+				System.out.println("Xmls in folder are: " + String.valueOf(xmls.length));
 
+			for(File file : xmls)
+			{
+
+				ImportLegacyRenewalData imr = new NorthPanel(sh).administration.clickImportLegacyRenewalData();
+				//imr.uploadFile(xmlFilepath)
+				imr
+				.uploadFile(file.getPath())
+				.clickFinish();
+
+			}
+			System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
 		}
-		System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Test (dependsOnMethods = "uploadXML")
