@@ -8,6 +8,7 @@
 	<parameter name="userName" value="su" />
 	<parameter name="local" value="false" />
 	<parameter name="passWord" value="su" />
+	<parameter name="database" value="true" />
 	<!--<parameter name="qaMain" value="false" />-->
 
 	<test name="Renewal ETL" >
