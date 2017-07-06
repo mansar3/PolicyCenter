@@ -8,7 +8,7 @@
 	<parameter name="userName" value="su" />
 	<parameter name="passWord" value="su" />
     <parameter name="sendEmail" value="true"/>
-	<parameter name="database" value="true"/>
+	<parameter name="database" value="false"/>
 	<parameter name="qaMain" value="false" />
 	<test name="Submission ETL">
         <classes>

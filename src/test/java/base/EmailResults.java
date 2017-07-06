@@ -122,7 +122,8 @@ class EmailResults {
                 //add the attachment
 
                 multipart.addBodyPart(attachmentBodyPartScreens);
-            }
+				System.out.println("Screenshots Attached");
+			}
 
 
 
@@ -139,7 +140,23 @@ class EmailResults {
 
                 // add to our message
                 multipart.addBodyPart(attachmentBodyPartCSV);
-            }
+				System.out.println("CSV Attached");
+			}
+            // Third attachment log file
+			File logFile = new File("log.txt");
+			if (logFile.exists()) {
+                MimeBodyPart attachmentBodyPartLog = new MimeBodyPart();
+                String fileNameLog = "Log.txt";
+
+
+                DataSource sourceLog = new FileDataSource(logFile.getAbsolutePath());
+                attachmentBodyPartLog.setDataHandler(new DataHandler(sourceLog));
+                attachmentBodyPartLog.setFileName(fileNameLog);
+
+                // add to our message
+                multipart.addBodyPart(attachmentBodyPartLog);
+				System.out.println("Log File Attached");
+			}
 
 
             //Add message and attachments

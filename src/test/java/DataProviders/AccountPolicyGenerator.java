@@ -5,10 +5,14 @@ import com.opencsv.CSVReader;
 import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -143,7 +147,7 @@ public class AccountPolicyGenerator extends BaseTest
 		policytype  = POLICYTYPE.FLHO3;
 		return DataCreator(policyFolder + "/FLHO3/");
 	}
-	// /Users/aansari/Downloads/ConversionPolicies-20170301_134457/FLHO3-20170301_134508/
+
 	@DataProvider(parallel = true)
 	public static Object[][] FLHO6Data()
 	{
@@ -197,26 +201,6 @@ public class AccountPolicyGenerator extends BaseTest
 		Object[][] dataBuffer = null;
 		CSVReader reader;
 		String filePath= filePathBase + "policies.csv";
-
-		//OutputStream out=new FileOutputStream(new File("\\\\10.28.45.80\\share\\myFile.txt"));
-//		NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication("fpic.net", "username", "password"); // replace with actual values
-//		SmbFile file = null; // note the different format
-//		try
-//		{
-//			file = new SmbFile(filePath, authentication);
-//		}
-//		catch(MalformedURLException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		try
-//		{
-//			OutputStream out = file.getOutputStream();
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
 
 		try
 		{
@@ -358,5 +342,71 @@ public class AccountPolicyGenerator extends BaseTest
 				break;
 
 		}
+	}
+	@DataProvider(parallel = true)
+	public static Object[][] Rerun()
+	{
+		Object[][] buffer = null;
+		List<LinkedHashMap<String, String>> testResultData = new ArrayList<>();
+		List<LinkedHashMap<String, String>> scdp3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> fldp3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> flho3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> ncho3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> scho3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> flho6Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> scho6Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> flmh3Policies = new ArrayList<>();
+		List<LinkedHashMap<String, String>> nchowPolicies = new ArrayList<>();
+
+		String filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Downloads/ConversionPolicies-20170628_1";
+		CSVReader reader;
+		String policiesFilePath= filePathBase + "policies.csv";
+		String desktop= FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/",
+		timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
+		String filePath= getTestResultIndex();
+
+		try
+		{
+			reader = new CSVReader(new FileReader(filePath));
+			List<String[]> data = reader.readAll();
+			//System.out.println("data = '" + data.toArray()[0] + "'");
+			buffer = new Object[data.size() - 1][];
+			for(int row = 1; row < data.size(); row++)
+			{
+				LinkedHashMap<String, String> failData = new LinkedHashMap<>();
+				int numColumns = data.get(0).length;
+				if(!data.get(row)[0].toLowerCase().equals("pass"))
+				{
+					for(int column = 0; column < numColumns; column++)
+					{
+						String key = data.get(0)[column], value = data.get(row)[column];
+						if(key.equals("Legacy Policy Number"))
+							failData.put(key, value);
+						if(key.equals("Account Number"))
+							failData.put(key, value);
+					}
+					testResultData.add(failData);
+
+				}
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return buffer;
+	}
+	private static String getTestResultIndex()
+	{
+		String filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
+		String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
+		if(new File(filePath).exists())
+		{
+			int i = 1;
+			while(new File(filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv").exists())
+				i++;
+			return filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(--i) + ".csv";
+		}
+		return filePath;
 	}
 }

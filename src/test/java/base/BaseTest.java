@@ -52,7 +52,7 @@ public abstract class BaseTest
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	public String filePath= filePathBase + "TestResult" + timeStamp + ".csv";
+	public String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
 	public static String sharedDirectory, lastPage,
 	policyDirectory = "ConversionPolicies-20170628_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
@@ -68,11 +68,22 @@ public abstract class BaseTest
 			i++;
 		return String.valueOf(--i);
 	}
+	private void setTestResultIndex()
+	{
+		if(new File(filePath).exists())
+		{
+			int i = 1;
+			while(new File(filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv").exists())
+				i++;
+			filePath = filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv";
+			return;
+		}
+	}
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain"})
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
-							@Optional("true")Boolean sharedFolder, @Optional("false")Boolean database, @Optional("true") Boolean qaMain)
+							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database, @Optional("true") Boolean qaMain)
 	{
 		System.out.println("testRunID: " + testRunID);
 		xml.getSuite().setThreadCount(threads);
@@ -86,11 +97,10 @@ public abstract class BaseTest
 		this.passWord = passWord;
 		this.sendEmail = sendEmail;
 		this.qaMain = qaMain;
+		setTestResultIndex();
 		System.out.println("Running in QA Main: " + String.valueOf(qaMain));
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
-		if(new File(filePath).exists())
-			new File(filePath).delete();
 		if(SystemUtils.IS_OS_MAC)
 			errorReportDirectory =  "\\\\FLHIFS1\\General\\ConversionData\\FLHO3-20170119_114257\\Error Report\\";
 		else
