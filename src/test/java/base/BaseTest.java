@@ -51,8 +51,8 @@ public abstract class BaseTest
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	public String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory, lastPage,
 	policyDirectory = "ConversionPolicies-20170628_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
@@ -68,16 +68,18 @@ public abstract class BaseTest
 			i++;
 		return String.valueOf(--i);
 	}
-	private void setTestResultIndex()
+	private String getTestResultIndex()
 	{
+		String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
 		if(new File(filePath).exists())
 		{
 			int i = 1;
 			while(new File(filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv").exists())
 				i++;
-			filePath = filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv";
-			return;
+
+			return filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv";
 		}
+		return filePath;
 	}
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain"})
 	@BeforeSuite
@@ -97,7 +99,6 @@ public abstract class BaseTest
 		this.passWord = passWord;
 		this.sendEmail = sendEmail;
 		this.qaMain = qaMain;
-		setTestResultIndex();
 		System.out.println("Running in QA Main: " + String.valueOf(qaMain));
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
@@ -299,11 +300,13 @@ public abstract class BaseTest
 		URL gridHub = null;
 		try
 		{
-			// New Dockers URL
+			// AWS PROD grid
+			//gridHub = new URL("http://10.20.8.145:4444/wd/hub");
+			// AWS DEV Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
 			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
-			// VM URL
+			// VM GRID URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");

@@ -10,11 +10,11 @@
 	<parameter name="passWord" value="su" />
 	<!--<parameter name="qaMain" value="false" />-->
 
-	<test name="Renewal ETL" >
+	<test name="Rerun Renewal ETL" >
 		<classes>
 			<class name="PolicyConversion.HO3.FLHO3" >
 				<methods>
-					<include name="rerunTest" />
+					<include name="rerunRenewalTest" />
 				</methods>
 			</class>
 		</classes>

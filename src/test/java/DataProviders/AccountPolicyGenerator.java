@@ -343,20 +343,223 @@ public class AccountPolicyGenerator extends BaseTest
 
 		}
 	}
-	@DataProvider(parallel = true)
-	public static Object[][] Rerun()
+
+
+
+	//***************************************//
+	//			Rerun DataProvider			 //
+	//***************************************//
+
+	@DataProvider(parallel = false)
+	public static Object[][] ALHO3Rerun()
 	{
-		Object[][] buffer = null;
+
+		 return DataCreator(Rerun("Alabama","HO3"),policyFolder + "/ALHO3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] FLDP3Rerun()
+	{
+
+		 return DataCreator(Rerun("Florida","DP3"),policyFolder + "/FLDP3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] FLHO3Rerun()
+	{
+
+		 return DataCreator(Rerun("Florida","HO3"),policyFolder + "/FLHO3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] FLHO6Rerun()
+	{
+
+		 return DataCreator(Rerun("Florida","HO6"),policyFolder + "/FLHO6/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] FLMH3Rerun()
+	{
+
+		 return DataCreator(Rerun("Florida","MH3"),policyFolder + "/FLMH3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] NCHO3Rerun()
+	{
+
+		 return DataCreator(Rerun("North Carolina","HO3"),policyFolder + "/NCHO3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] NCHOWRerun()
+	{
+
+		 return DataCreator(Rerun("North Carolina","Wind Only"),policyFolder + "/NCHOW/");
+
+	}
+
+	@DataProvider(parallel = true)
+	public static Object[][] SCDP3Rerun()
+	{
+
+		return DataCreator(Rerun("South Carolina","DP3"),policyFolder + "/SCDP3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] SCHO3Rerun()
+	{
+
+		 return DataCreator(Rerun("South Carolina","HO3"),policyFolder + "/SCHO3/");
+
+	}
+
+	@DataProvider(parallel = false)
+	public static Object[][] SCHO6Rerun()
+	{
+
+		 return DataCreator(Rerun("South Carolina","HO6"),policyFolder + "/SCHO6/");
+
+	}
+
+
+
+
+
+	//***************************************//
+	//			Methods for Rerun            //
+	//***************************************//
+
+	public static Object[][] DataCreator(List<LinkedHashMap<String, String>> policies,String filePathBase)
+	{
+		int i=0;
+		Object[][] dataBuffer = null;
+		CSVReader reader;
+		String filePath= filePathBase + "policies.csv";
+
+		try
+		{
+			reader = new CSVReader(new FileReader(filePath));
+			List<String[]> data = reader.readAll();
+			//System.out.println("data = '" + data.toArray()[0] + "'");
+			dataBuffer = new Object[policies.size()][];
+			for(int row = 1; row < data.size(); row++)
+			{
+
+				List<LinkedHashMap<String, String>> addInts = new ArrayList<>();
+				List<LinkedHashMap<String, String>> spc = new ArrayList<>();
+				LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
+				int numColumns = data.get(0).length;
+				for(int column = 0; column < numColumns  ; column++)
+				{
+					String key = data.get(0)[column],
+					value = data.get(row)[column];
+
+					if(key.equals("Additional Interests File") && !value.equals(""))
+					{
+						CSVReader addIntsReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+
+						List<String[]> addIntsData = addIntsReader.readAll();
+
+						for(int aiRow = 1; aiRow < addIntsData.size(); aiRow++)
+						{
+							LinkedHashMap<String, String> addInt = new LinkedHashMap<>();
+							for(int thisColumn = 0; thisColumn < addIntsData.get(0).length; thisColumn++)
+								if(!addIntsData.get(aiRow)[thisColumn].equals("") && !addIntsData.get(aiRow)[thisColumn].equals(" "))
+									addInt.put(addIntsData.get(0)[thisColumn], addIntsData.get(aiRow)[thisColumn]);
+
+							addInts.add(addInt);
+						}
+					}
+					else if(key.equals("SPC File") && !value.equals(""))
+					{
+						CSVReader sppReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+
+						List<String[]> sppData = sppReader.readAll();
+
+						for(int sppRow = 1; sppRow < sppData.size();sppRow++)
+						{
+							LinkedHashMap<String, String> spp = new LinkedHashMap<>();
+							for(int thisColumn = 0; thisColumn < sppData.get(0).length; thisColumn++)
+								if(!sppData.get(sppRow)[thisColumn].equals("") && !sppData.get(sppRow)[thisColumn].equals(" "))
+									spp.put(sppData.get(0)[thisColumn], sppData.get(sppRow)[thisColumn]);
+
+							spc.add(spp);
+						}
+
+					}
+					else if(key.equals("Group Membership") && !value.equals(""))
+					{
+						CSVReader gmReader = new CSVReader(new FileReader(filePathBase + data.get(row)[column]));
+						List<String[]> gmData = gmReader.readAll();
+
+						for(int gmRow =1; gmRow < gmData.size();gmRow++)
+						{
+							String membership = gmData.get(gmRow)[0];
+							switch(membership)
+							{
+								case "AAA":
+									rowData.put("AAA Membership", "True");
+									break;
+								case "AARP":
+									rowData.put("AARP Membership", "True");
+									break;
+								case "FMHO":
+									rowData.put("FMHO Membership", "True");
+							}
+						}
+					}
+					else if(!value.equals("") && !value.equals(" "))
+						rowData.put(key, value);
+				}
+
+				if(rowData.get("Mailing Address") == null)
+				{
+					rowData.put("Mailing Address", rowData.get("Location Address"));
+					rowData.put("Mailing City", rowData.get("Location Address - City"));
+					rowData.put("Mailing State", rowData.get("Location Address - State"));
+					rowData.put("Mailing Zip Code",rowData.get("Location Address - Zip"));
+					rowData.put("Mailing County",rowData.get("Location Address - County"));
+
+
+				}
+				if(containedInList(rowData.get("Legacy Policy Number"), policies))
+				{
+					String accountNumber =getAccountNumber(rowData.get("Legacy Policy Number"),policies);
+					if(accountNumber != null)
+						rowData.put("Account Number",accountNumber);
+
+					dataBuffer[i++] = new Object[]{(rowData), (addInts), (spc)};
+				}
+			}
+
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		System.out.println("databuffer.leg = '" + dataBuffer.length + "'");
+		//setCount(dataBuffer.length);
+		return dataBuffer;
+
+	}
+
+	public static List<LinkedHashMap<String, String>> Rerun(String state, String policyType)
+	{
 		List<LinkedHashMap<String, String>> testResultData = new ArrayList<>();
-		List<LinkedHashMap<String, String>> scdp3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> fldp3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> flho3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> ncho3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> scho3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> flho6Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> scho6Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> flmh3Policies = new ArrayList<>();
-		List<LinkedHashMap<String, String>> nchowPolicies = new ArrayList<>();
 
 		String filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Downloads/ConversionPolicies-20170628_1";
 		CSVReader reader;
@@ -364,28 +567,32 @@ public class AccountPolicyGenerator extends BaseTest
 		String desktop= FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/",
 		timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 		String filePath= getTestResultIndex();
+		System.out.println("Using: " + new File(filePath).getName() + " for Reruns");
 
 		try
 		{
 			reader = new CSVReader(new FileReader(filePath));
 			List<String[]> data = reader.readAll();
 			//System.out.println("data = '" + data.toArray()[0] + "'");
-			buffer = new Object[data.size() - 1][];
 			for(int row = 1; row < data.size(); row++)
 			{
 				LinkedHashMap<String, String> failData = new LinkedHashMap<>();
 				int numColumns = data.get(0).length;
 				if(!data.get(row)[0].toLowerCase().equals("pass"))
 				{
-					for(int column = 0; column < numColumns; column++)
+					if(data.get(row)[5].equals(state) && (data.get(row)[4].contains(policyType)))
 					{
-						String key = data.get(0)[column], value = data.get(row)[column];
-						if(key.equals("Legacy Policy Number"))
-							failData.put(key, value);
-						if(key.equals("Account Number"))
-							failData.put(key, value);
+ 						for(int column = 0; column < numColumns; column++)
+						{
+
+							String key = data.get(0)[column], value = data.get(row)[column];
+							if(key.equals("Legacy Policy Number"))
+								failData.put(key, value);
+							if(!value.equals("") && !value.equals(" ") && key.equals("Account Number"))
+								failData.put(key, value);
+						}
+						testResultData.add(failData);
 					}
-					testResultData.add(failData);
 
 				}
 			}
@@ -393,8 +600,29 @@ public class AccountPolicyGenerator extends BaseTest
 		catch (Exception e)
 		{
 		}
-		return buffer;
+		return testResultData;
 	}
+
+	// Helper Method
+	private static String getAccountNumber(String policyNumber,List<LinkedHashMap<String, String>> policies)
+	{
+		//addInts.get(i).get("Name")
+		for(int i= 0; i <= policies.size() -1;i++)
+			if(policyNumber.equals(policies.get(i).get("Legacy Policy Number")))
+				if(policies.get(i).get("Account Number") != null)
+					return policies.get(i).get("Account Number");
+		return null;
+	}
+	private static boolean containedInList(String policyNumber,List<LinkedHashMap<String, String>> policies)
+	{
+		//addInts.get(i).get("Name")
+		for(int i= 0; i <= policies.size() -1;i++)
+			if(policyNumber.equals(policies.get(i).get("Legacy Policy Number")))
+				return true;
+		return false;
+	}
+
+
 	private static String getTestResultIndex()
 	{
 		String filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
@@ -405,6 +633,7 @@ public class AccountPolicyGenerator extends BaseTest
 			int i = 1;
 			while(new File(filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv").exists())
 				i++;
+
 			return filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(--i) + ".csv";
 		}
 		return filePath;

@@ -37,10 +37,10 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 		return sh.getText(by.accountNumber);
 	}
 
-	public <T extends CenterPanelBase> T clickTransactionNumber()
+	public void clickTransactionNumber()
 	{
 		sh.clickElement(by.transactionNumber);
-		return (T)this;
+		return;
 	}
 
 	protected T clickCoverages()
