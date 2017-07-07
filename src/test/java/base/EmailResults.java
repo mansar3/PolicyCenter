@@ -145,11 +145,14 @@ class EmailResults {
             // Third attachment log file
 			File logFile = new File("log.txt");
 			if (logFile.exists()) {
+				File zippedLogFile = new File("log.zip");
+				String filePathLog = "log.txt";
+				ZipUtil.pack(new File(filePathLog), zippedLogFile);
                 MimeBodyPart attachmentBodyPartLog = new MimeBodyPart();
-                String fileNameLog = "Log.txt";
+                String fileNameLog = "log.zip";
 
 
-                DataSource sourceLog = new FileDataSource(logFile.getAbsolutePath());
+                DataSource sourceLog = new FileDataSource(zippedLogFile);
                 attachmentBodyPartLog.setDataHandler(new DataHandler(sourceLog));
                 attachmentBodyPartLog.setFileName(fileNameLog);
 
