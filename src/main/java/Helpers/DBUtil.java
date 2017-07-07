@@ -1,6 +1,8 @@
 package Helpers;
 
 import org.testng.util.Strings;
+
+import java.io.File;
 import java.sql.*;
 import java.util.*;
 
@@ -12,6 +14,9 @@ public abstract class DBUtil implements Collection
 //    private String connectionString = "jdbc:mysql://172.16.35.78/frontline_automation";
 //    private String connectionString = "jdbc:jtds:sqlserver://AWS-FLGWDEVDB9.fpic.net:1433;databaseName=FLAutomation;domain=FPIC.NET";
 //    private String connectionString = "jdbc:sqlserver://AWS-FLGWDEVDB9.fpic.net:1433;databaseName=FLAutomation;integratedSecurity=true;authenticationScheme=JavaKerberos";
+    private static String dbFolder = "target/db/";
+    static File dbLocation = new File(dbFolder);
+
     private static String connectionString = "jdbc:sqlite:target/db/frontlineTests.db";
 
     private static String query;
@@ -20,6 +25,10 @@ public abstract class DBUtil implements Collection
     {
         try
         {
+            if (!dbLocation.exists())
+            {
+                dbLocation.mkdir();
+            }
             conn = DriverManager.getConnection(connectionString);
             System.out.println(conn.toString());
         }
