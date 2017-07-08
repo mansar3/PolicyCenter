@@ -180,8 +180,8 @@ public abstract class BaseTest
 
 		if (testResult.getStatus() != ITestResult.SUCCESS) {
 
-			if(qaMain == false)
-				System.out.println(testResult.getThrowable().toString());
+//			if(qaMain == false)
+//				System.out.println(testResult.getThrowable().toString());
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
