@@ -116,7 +116,7 @@ public class NCHOW extends BaseTest
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
 		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
-		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"));
+		.setLastInspectionCompletionDate(eai.get("Last Inspection Completion Date"));
 //		if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
 //			imr.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
 //		if(eai.get("Exclude Loss of Use Coverage") == null)

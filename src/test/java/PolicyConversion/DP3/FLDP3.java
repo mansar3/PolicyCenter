@@ -96,7 +96,7 @@ public class FLDP3 extends BaseTest
 		.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
 		.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date",null))
 		.setEffectiveDate(eai.getOrDefault("Effective Date",null))
-		.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"))
+		.setLastInspectionCompletionDate(eai.get("Last Inspection Completion Date"))
 		.setTheftCoverage(eai.getOrDefault("Theft Coverage", null));
 
 		FLDP3Offerings offerings = imr.nextAndAccept();
