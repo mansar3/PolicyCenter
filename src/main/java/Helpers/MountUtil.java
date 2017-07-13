@@ -29,7 +29,7 @@ public class MountUtil
 	{
 		switch(folder)
 		{
-			case CSV:
+			case CONTROL_FILE:
 				username = "gwtest";
 				password = "Frontline123";
 				address = "10.50.50.157";
@@ -37,7 +37,7 @@ public class MountUtil
 				mountFolder = homeFolder + "/AutoRenewalProject/";
 				workingFolder = mountFolder;
 				break;
-			case CONTROL_FILE:
+			case CSV:
 				username = "gwconversionrenewals";
 				password = "ThD605Cz";
 				address = "10.50.50.116";
@@ -54,14 +54,16 @@ public class MountUtil
 			{
 				if(!controlFile)
 				{
-					setCredentials(Folder.CSV);
 					unMountSharedFolder(false);
+					setCredentials(Folder.CSV);
+
 				}
 
 				else
 				{
-					setCredentials(Folder.CONTROL_FILE);
 					unMountSharedFolder(true);
+					setCredentials(Folder.CONTROL_FILE);
+
 				}
 
 				Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
