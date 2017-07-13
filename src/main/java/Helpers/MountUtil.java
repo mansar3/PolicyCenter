@@ -87,14 +87,18 @@ public class MountUtil
 		else
 		{
 			if(!controlFile)
+			{
 				setCredentials(Folder.CSV);
-
+				System.out.println("CSV Mounted folder is: " + mountFolder);
+			}
 			else
+			{
 				setCredentials(Folder.CONTROL_FILE);
-
+				System.out.println("Control File Mounted folder is: " + mountFolder);
+			}
 
 		}
-			System.out.println("Mounted folder is: " + mountFolder);
+
 			return mountFolder;
     }
 
