@@ -84,6 +84,16 @@ public class MountUtil
 			}
 
 		}
+		else
+		{
+			if(!controlFile)
+				setCredentials(Folder.CSV);
+
+			else
+				setCredentials(Folder.CONTROL_FILE);
+
+
+		}
 			System.out.println("Mounted folder is: " + mountFolder);
 			return mountFolder;
     }
