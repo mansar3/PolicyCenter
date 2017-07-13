@@ -377,7 +377,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		sh.setText(by.producerCode, producerCode);
 		try
 		{
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}
 		catch(InterruptedException e)
 		{

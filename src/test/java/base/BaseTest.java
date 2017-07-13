@@ -53,8 +53,8 @@ public abstract class BaseTest
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
-	public static String sharedDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170628_1",
+	public static String sharedDirectory,controlFileDirectory, lastPage,
+	policyDirectory = "ConversionPolicies-20170711_3",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -64,7 +64,7 @@ public abstract class BaseTest
 	private String getPolicyNumber()
 	{
 		int i =1;
-		while(new File(sharedDirectory + "csv-output/" + policyDirectory + String.valueOf(i)).exists())
+		while(new File(sharedDirectory + policyDirectory + String.valueOf(i)).exists())
 			i++;
 		return String.valueOf(--i);
 	}
@@ -111,12 +111,13 @@ public abstract class BaseTest
 		if (sharedFolder)
 		{
 			System.out.println("Shared folder is true...");
-			sharedDirectory = MountUtil.mountSharedFolder() ;
+			sharedDirectory = MountUtil.mountSharedFolder(false) ;
+			controlFileDirectory = MountUtil.mountSharedFolder(true);
 			policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_";
 			policyDirectory+=getPolicyNumber();
-			System.out.println("Policy Directory to be used: " + policyDirectory);
-			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
-			oldXML = sharedDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+
+			policyFolder = sharedDirectory + policyDirectory;
+			oldXML = controlFileDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
 		}
 		else
 		{
@@ -125,10 +126,12 @@ public abstract class BaseTest
 			policyFolder = FileSystemView.getFileSystemView().getHomeDirectory().toString()
 					+ "/Downloads/" +
 					policyDirectory;
-		}
 
-		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
-		xmlDirectory = sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		}
+		System.out.println("Policy Directory to be used: " + policyDirectory);
+
+		 xmlFilepath= controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
+		xmlDirectory = controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		 xmls = new File(xmlDirectory + "/")
 		 .listFiles();
 		//new UploadXML().uploadXML();
@@ -180,9 +183,6 @@ public abstract class BaseTest
 
 		if (testResult.getStatus() != ITestResult.SUCCESS) {
 
-//			if(qaMain == false)
-//				System.out.println(testResult.getThrowable().toString());
-
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
 			Map<String, String> dbInput = errorReportingInfoDb(eai, dbHeaders, false);
@@ -197,6 +197,7 @@ public abstract class BaseTest
 					writer.writeNext(headers);
 				} else
 					writer = new CSVWriter(new FileWriter(filePath, true));
+
 			}
 			catch (IOException e)
             {
@@ -236,6 +237,8 @@ public abstract class BaseTest
 			}
 			try {
 				writer.close();
+				if(!qaMain)
+					System.out.println(testResult.getThrowable().toString());
 			}
 			catch(IOException e)
 			{
@@ -582,6 +585,6 @@ public abstract class BaseTest
 			EmailResults.sendEmail(filePath, timeStamp);
 		}
 		if(!SystemUtils.IS_OS_LINUX)
-			MountUtil.unMountSharedFolder();
+			MountUtil.unMountSharedFolders();
 	}
 }

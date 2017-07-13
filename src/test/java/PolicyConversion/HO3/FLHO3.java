@@ -1504,7 +1504,14 @@ public class FLHO3 extends BaseTest
 			new FLHO3AccountFileSummary(sh).westPanel.actions.convertManualPolicy();
 			FLHO3InitiateManualRenewal imr = new FLHO3InitiateManualRenewal(sh);
 			// Initiate Manual Renewal
-			imr.setBaseState(eai.getOrDefault("Base State", null)).setProduct(eai.getOrDefault("Product", null)).setPolicyType(eai.getOrDefault("Policy Type", null)).setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null)).setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date", null)).setEffectiveDate(eai.getOrDefault("Effective Date", null)).setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"));
+			imr.setBaseState(eai.getOrDefault("Base State", null))
+			.setProduct(eai.getOrDefault("Product", null))
+			.setPolicyType(eai.getOrDefault("Policy Type", null))
+			.setLegacyPolicyNumber(eai.getOrDefault("Legacy Policy Number", null))
+			.setOriginalEffectiveDate(eai.getOrDefault("Policy Original Effective Date", null))
+			.setEffectiveDate(eai.getOrDefault("Effective Date", null))
+			.setLastInspectionCompletionDate(eai.getOrDefault("Last Inspection Completion Date", "06/01/2013"));
+
 			if(!eai.getOrDefault("Inflation Guard", "none").toLowerCase().equals("none"))
 				imr.setInflationGuard(eai.getOrDefault("Inflation Guard", null));
 			if(!eai.get("Exclude Loss of Use Coverage").toLowerCase().equals("false"))
@@ -1517,8 +1524,8 @@ public class FLHO3 extends BaseTest
 		else
 		{
 			// Add standard tab func
-
 			offerings = new FLHO3Offerings(sh, CenterPanelBase.Path.POLICYRENEWAL);
+			offerings.westPanel.clickOfferings();
 		}
 		// Offerings
 		offerings

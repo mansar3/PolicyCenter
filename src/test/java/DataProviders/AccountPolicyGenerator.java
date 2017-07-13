@@ -350,7 +350,7 @@ public class AccountPolicyGenerator extends BaseTest
 	//			Rerun DataProvider			 //
 	//***************************************//
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] ALHO3Rerun()
 	{
 
@@ -366,7 +366,7 @@ public class AccountPolicyGenerator extends BaseTest
 
 	}
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public static Object[][] FLHO3Rerun()
 	{
 

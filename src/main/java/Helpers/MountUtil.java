@@ -11,23 +11,59 @@ import java.io.IOException;
  */
 public class MountUtil
 {
-    static String username = "gwtest";
-    static String password = "Frontline123";
-    static String address = "10.50.50.157";
-    static String homeFolder = System.getenv("HOME");
-    static String smbFolder = "/AutoRenewalProject";
-    static String mountFolder = homeFolder + "/AutoRenewalProject/";
-    static String workingFolder = mountFolder;
-//    static String defaultMountFolder = "/Volumes/AutoRenewalProject/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "/";
+	public enum Folder
+	{
+		CSV, CONTROL_FILE
+	}
 
-    public static String mountSharedFolder()
+
+    static String username;
+    static String password;
+    static String address;
+    static String homeFolder = System.getenv("HOME");
+    static String smbFolder;
+    static String mountFolder;
+    static String workingFolder;
+
+	private static void setCredentials(Folder folder)
+	{
+		switch(folder)
+		{
+			case CSV:
+				username = "gwtest";
+				password = "Frontline123";
+				address = "10.50.50.157";
+				smbFolder = "/AutoRenewalProject";
+				mountFolder = homeFolder + "/AutoRenewalProject/";
+				workingFolder = mountFolder;
+				break;
+			case CONTROL_FILE:
+				username = "gwconversionrenewals";
+				password = "ThD605Cz";
+				address = "10.50.50.116";
+				smbFolder = "/croutput";
+				mountFolder = homeFolder + "/AutoRenewalProjectTest/";
+				workingFolder = mountFolder;
+		}
+	}
+    public static String mountSharedFolder(boolean controlFile)
     {
     	if(!SystemUtils.IS_OS_LINUX)
 		{
 			try
 			{
+				if(!controlFile)
+				{
+					setCredentials(Folder.CSV);
+					unMountSharedFolder(false);
+				}
 
-				unMountSharedFolder();
+				else
+				{
+					setCredentials(Folder.CONTROL_FILE);
+					unMountSharedFolder(true);
+				}
+
 				Process p1 = Runtime.getRuntime().exec("/bin/mkdir -p " + mountFolder);
 				p1.waitFor();
 
@@ -37,71 +73,42 @@ public class MountUtil
 
 				System.out.println("Beginning mounting process..");
 				return mountFolder;
-//				if(p2.exitValue() == 64) // if shared folder is already mounted
-//				{
-//					System.out.println("It looks like the AutoRenewalProject shared folder is already mounted in the " + "filesystem, I can use that but it'd be better if you could unmount it manually [umount path/to/sharedFolder/]. Thanks bro...");
-//					Process p3 = Runtime.getRuntime().exec(new String[]{"ls", "/Volumes/AutoRenewalProject"});
-//					p3.waitFor();
-//
-//					if(Files.exists(Paths.get(defaultMountFolder)))
-//					{
-//						workingFolder = getPoliciesFolder(defaultMountFolder);
-//						mountFolder = defaultMountFolder;
-//					}
-//					else if(Files.exists(Paths.get(mountFolder)))
-//					{
-//						workingFolder = getPoliciesFolder(mountFolder);
-//					}
-//				}
-//				else
-//				{
-//					System.out.println("Drive was not mounted.. \nMounting in progres...");
-////					workingFolder = getPoliciesFolder(mountFolder);
-//					workingFolder = mountFolder;
-//				}
+
 			}
 			catch(IOException | InterruptedException e)
 			{
 				System.out.println("~~~~~~~~~~~~~Could not mount folder~~~~~~~~~~~~~~`");
 				System.out.println(e.getStackTrace());
 			}
-//			return workingFolder;
+
 		}
 			System.out.println("Mounted folder is: " + mountFolder);
 			return mountFolder;
     }
 
-
-//    private static String getPoliciesFolder(String folder)
-//    {
-//    	String policiesConversionFolder = "";
-//    	try
-//		{
-//			Path dir = Paths.get(folder);
-//
-//			try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir))
-//			{
-//				for(Path item : stream)
-//				{
-//					if(!item.toString().contains("DS_Store"))
-//						policiesConversionFolder = item.toString();
-//				}
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("File was not found in the directory.");
-//		}
-//        return policiesConversionFolder;
-//
-//    }
-
-    public static void unMountSharedFolder()
+	public static void unMountSharedFolders()
+	{
+		unMountSharedFolder(true);
+		unMountSharedFolder(false);
+	}
+    public static void unMountSharedFolder(boolean controlFileFolder)
     {
         try
-        {
-            Process p1 = Runtime.getRuntime().exec(new String[] {"umount", mountFolder});
-            p1.waitFor();
+		{
+			if(!controlFileFolder)
+			{
+				setCredentials(Folder.CSV);
+				Process p2 = Runtime.getRuntime().exec(new String[]{"umount", mountFolder});
+				p2.waitFor();
+			}
+			else
+			{
+				setCredentials(Folder.CONTROL_FILE);
+				Process p2 = Runtime.getRuntime().exec(new String[]{"umount", mountFolder});
+				p2.waitFor();
+			}
+			System.out.println("mountFolder: " + mountFolder);
+			System.out.println("workingFolder: " + workingFolder);
         }
         catch (InterruptedException|IOException e)
         {

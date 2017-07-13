@@ -1722,6 +1722,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
+			sh.waitForNoMask();
 			sh.checkboxHelper.checkElement(by.creditCardFundTransferForgeryCounterfeitMoney);
 			return (T)this;
 		}
