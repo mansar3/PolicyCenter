@@ -79,9 +79,9 @@ public class SCHO6 extends BaseTest
 			.setSsn(eai.getOrDefault("SSN", null));
 			if(qaMain)
 			{
-				createAccount
-				.setOrganization("Acentria, Inc")
-				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+					createAccount
+				.setOrganization(organization)
+				.setProducerCode(prodCode);
 			}
 			else
 			{
@@ -583,6 +583,8 @@ public class SCHO6 extends BaseTest
 
 		if(eai.get("Unit Owners Coverage A - Special Coverage (Limit)") != null)
 			pe.checkUnitOwnersCoverageASpecialCoverage();
+		else
+			pe.unCheckUnitOwnersCoveragesASpecialCoverage();
 
 		if(!eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{
@@ -1256,6 +1258,8 @@ public class SCHO6 extends BaseTest
 		
 		if(eai.get("Unit Owners Coverage A - Special Coverage (Limit)") != null)
 			pe.checkUnitOwnersCoverageASpecialCoverage();
+		else
+			pe.unCheckUnitOwnersCoveragesASpecialCoverage();
 
 		if(!eai.get("How is the dwelling occupied").toLowerCase().equals("tenant occupied"))
 		{

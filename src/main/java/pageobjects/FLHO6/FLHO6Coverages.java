@@ -501,6 +501,10 @@ public class FLHO6Coverages extends Coverages<FLHO6Coverages>
 		{
 			return super.checkUnitOwnersCoverageASpecialCoverage();
 		}
+		public FLHO6PropertyEndorsements unCheckUnitOwnersCoveragesASpecialCoverage()
+		{
+			return super.unCheckUnitOwnersCoveragesASpecialCoverage();
+		}
 
 		public String getScheduledPersonalPropertyClassArticleType(int itemNumber)
 		{

@@ -54,11 +54,12 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170711_3",
+	policyDirectory = "ConversionPolicies-20170714_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
 	private String testRunID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YMdHms"));
+	public static String organization = "First Baldwin Insurance", prodCode= "523-23-40004";
 
 
 	private String getPolicyNumber()

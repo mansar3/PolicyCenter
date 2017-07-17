@@ -82,8 +82,8 @@ public class ALHO3 extends BaseTest
 			if(qaMain)
 			{
 				createAccount
-				.setOrganization("Acentria, Inc")
-				.setProducerCode("523-23-21388 Acentria, Inc. (MAIN)");
+				.setOrganization(organization)
+				.setProducerCode(prodCode);
 			}
 			else
 			{
