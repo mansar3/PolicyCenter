@@ -12,6 +12,7 @@ public class Logon
 	CenterSeleniumHelper sh;
 
 	private By	byUsername = By.cssSelector("input[id*=username]"),
+				byNorthPanel = By.id("northPanel"),
 				byStagingUsername = By.id("username"),
 				byStagingPassword = By.id("password"),
 				byPassword = By.cssSelector("input[id*=password]"),
@@ -104,6 +105,7 @@ public class Logon
 		setUsername(username)
 		.setPassword(password)
 		.clickLogin();
+		sh.waitForElementToAppear(byNorthPanel);
 		// new NavigationBar(sh);
 	}
 }

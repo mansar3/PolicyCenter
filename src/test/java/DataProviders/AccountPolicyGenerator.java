@@ -560,12 +560,7 @@ public class AccountPolicyGenerator extends BaseTest
 	public static List<LinkedHashMap<String, String>> Rerun(String state, String policyType)
 	{
 		List<LinkedHashMap<String, String>> testResultData = new ArrayList<>();
-
-		String filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Downloads/ConversionPolicies-20170628_1";
 		CSVReader reader;
-		String policiesFilePath= filePathBase + "policies.csv";
-		String desktop= FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/",
-		timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
 		String filePath= getTestResultIndex();
 		System.out.println("Using: " + new File(filePath).getName() + " for Reruns");
 

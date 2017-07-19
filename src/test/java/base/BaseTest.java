@@ -54,7 +54,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170714_1",
+	policyDirectory = "ConversionPolicies-20170718_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -168,8 +168,15 @@ public abstract class BaseTest
 	{
 		if(parameters.length == 0)
 		{
-			if((testResult.getStatus() != ITestResult.SUCCESS) && qaMain == false)
-				System.out.println(testResult.getThrowable().toString());
+			driver=LocalDriverManager.getDriver();
+			if((testResult.getStatus() != ITestResult.SUCCESS))
+			{
+				takeScreenShot(driver);
+				if(!qaMain)
+					System.out.println(testResult.getThrowable().toString());
+			}
+			if(driver != null)
+				driver.quit();
 			return;
 		}
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
@@ -577,15 +584,32 @@ public abstract class BaseTest
 		return bannerText;
 
 	}
+	private void deletePolicyDirectory(String folder)
+	{
+		System.out.println("Attempting to delete folder: " + folder);
+		try
+		{
+			FileUtils.deleteDirectory(new File(folder));
+			System.out.println("~~~~~~~~~~~~~~~~~	Folder Deleted 	~~~~~~~~~~~~~~~~~~~~");
+		}
+		catch(IOException e)
+		{
+			System.out.println("~~~~~	Folder was not deleted.	~~~~~");
+			e.printStackTrace();
+
+		}
+	}
 
 	//AfterSuite to send Email
 	@AfterSuite(alwaysRun = true)
 	public void emailTestResults() {
 		// Only will send if it is parallel and if SendEmail is true
-		if (sendEmail) {
+		if (sendEmail)
 			EmailResults.sendEmail(filePath, timeStamp);
-		}
+
 		if(!SystemUtils.IS_OS_LINUX)
 			MountUtil.unMountSharedFolders();
+		else
+			deletePolicyDirectory(policyFolder);
 	}
 }

@@ -2067,5 +2067,15 @@ public class FLHO3 extends BaseTest
 
 	}
 
+	@Test()
+	public void prodTest()
+	{
+		WebDriver driver = LocalDriverManager.getDriver();
+		CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
+
+		new NorthPanel(sh)
+		.accountTab
+		.setAccountSearch("sjdflajdfla");
+	}
 
 }
