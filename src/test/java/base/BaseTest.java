@@ -143,8 +143,6 @@ public abstract class BaseTest
 	@BeforeMethod
 	public void beforeMethod()
 	{
-		try
-        {
 			DateTime date = new DateTime();
 			dateString = date.toString("MMddhhmmss");
 
@@ -157,11 +155,6 @@ public abstract class BaseTest
 			logon.isLoaded();
 			logon.login(user, pwd);
 			log("Logged in as: " + user + "\nPassword: " + pwd);
-		}
-		catch (Exception e)
-		{
-			error = e.getCause();
-		}
 	}
 
 	@AfterMethod(alwaysRun = true)

@@ -24,8 +24,6 @@ public class UploadXML extends BaseTest
 	@Test(priority = 1, groups = "XML Upload")
 	public void uploadXML()
 	{
-		try
-		{
 			WebDriver driver = LocalDriverManager.getDriver();
 			CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
@@ -48,11 +46,6 @@ public class UploadXML extends BaseTest
 
 			}
 			System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
 	}
 
 	@Test (dependsOnMethods = "uploadXML")
