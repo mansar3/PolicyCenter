@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="allSuites">
-	<parameter name="environment" value="https://gw.frontlineinsurance.com/" />
+	<parameter name="environment" value="https://gw.frontlineinsurance.com/pc/" />
 	<parameter name="sharedFolder" value="true" />
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>
