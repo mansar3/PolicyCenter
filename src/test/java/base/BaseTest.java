@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
@@ -54,7 +55,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170718_1",
+	policyDirectory = "ConversionPolicies-20170719_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -602,14 +603,14 @@ public abstract class BaseTest
 
 	//AfterSuite to send Email
 	@AfterSuite(alwaysRun = true)
-	public void emailTestResults() {
+	public void emailTestResults(ITestContext testContext) {
 		// Only will send if it is parallel and if SendEmail is true
 		if (sendEmail)
 			EmailResults.sendEmail(filePath, timeStamp);
 
 		if(!SystemUtils.IS_OS_LINUX)
 			MountUtil.unMountSharedFolders();
-		else
+		else if(testContext.getName().equals("Renewal ETL"))
 			deletePolicyDirectory(policyFolder);
 	}
 }
