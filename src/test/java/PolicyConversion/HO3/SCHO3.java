@@ -665,9 +665,9 @@ public class SCHO3 extends BaseTest
 		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
 		{
 			payment = quote.westPanel.payment();
-			// TODO uncomment this
-//			if(eai.get("Billing Contact (insured or mortgage)") != null)
-//				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
 
 			if(eai.get("Payment Plan Schedule").equals("2Pay"))
 				payment.clickTwoPay();
@@ -2047,9 +2047,9 @@ public class SCHO3 extends BaseTest
 		if(eai.get("Billing Contact (insured or mortgage)") != null || !eai.get("Payment Plan Schedule").toLowerCase().equals("fullpay"))
 		{
 			payment = quote.westPanel.payment();
-			// TODO uncomment this
-//			if(eai.get("Billing Contact (insured or mortgage)") != null)
-//				payment.selectMortgagePremiumFinance(0);
+
+			if(eai.get("Billing Contact (insured or mortgage)") != null)
+				payment.selectMortgagePremiumFinance(0);
 
 			if(eai.get("Payment Plan Schedule").equals("2Pay"))
 				payment.clickTwoPay();
