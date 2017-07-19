@@ -108,7 +108,7 @@ class EmailResults {
             File[] screenCount = screenFile.listFiles();
             int size = screenCount.length;
             if (size != 0 ) {
-				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Zipping ScreenShots	~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Zipping ScreenShots	  ~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				ZipUtil.pack(new File(filePathScreens), zippedScreensFile);
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Screenshots have been zipped	~~~~~~~~~~~~~~~~~~~~~~~~~~");
 //				if(zippedScreensFile.length()/(Math.pow(1024,2)) < 25)
@@ -184,7 +184,7 @@ class EmailResults {
             Transport.send(message);
 
             //Delete new zip
-            zippedScreensFile.delete();
+//            zippedScreensFile.delete();
 
             System.out.println("Done");
 
