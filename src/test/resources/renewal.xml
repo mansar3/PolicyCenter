@@ -5,9 +5,9 @@
 	<parameter name="sharedFolder" value="true" />
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>
-	<parameter name="userName" value="su" />
+	<parameter name="userName" value="jellyjiggla" />
 	<parameter name="local" value="false" />
-	<parameter name="passWord" value="su" />
+	<parameter name="passWord" value="jellyjiggla" />
 	<parameter name="database" value="false" />
 	<parameter name="qaMain" value="false" />
 
