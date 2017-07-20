@@ -166,8 +166,7 @@ public abstract class BaseTest
 			if((testResult.getStatus() != ITestResult.SUCCESS))
 			{
 				takeScreenShot(driver);
-				if(!qaMain)
-					System.out.println(testResult.getThrowable().toString());
+				System.out.println(testResult.getThrowable().toString());
 			}
 			if(driver != null)
 				driver.quit();
@@ -239,8 +238,7 @@ public abstract class BaseTest
 			}
 			try {
 				writer.close();
-				if(!qaMain)
-					System.out.println(testResult.getThrowable().toString());
+				System.out.println(testResult.getThrowable().toString());
 			}
 			catch(IOException e)
 			{
