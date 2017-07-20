@@ -306,11 +306,11 @@ public abstract class BaseTest
 		try
 		{
 			// AWS PROD grid
-			gridHub = new URL("http://10.20.8.145:4444/wd/hub");
+			//gridHub = new URL("http://10.20.8.145:4444/wd/hub");
 			// AWS DEV Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-			//gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM GRID URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
