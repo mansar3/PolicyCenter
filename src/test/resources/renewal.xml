@@ -5,9 +5,9 @@
 	<parameter name="sharedFolder" value="true" />
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>
-	<parameter name="userName" value="su" />
+	<parameter name="userName" value="jelly" />
 	<parameter name="local" value="false" />
-	<parameter name="passWord" value="su" />
+	<parameter name="passWord" value="jellyjiggla" />
 	<parameter name="database" value="false" />
 	<parameter name="qaMain" value="false" />
 
@@ -18,51 +18,51 @@
                     <include name="RenewalLoadTest2" ></include>
                 </methods>
             </class>
-			<class name="PolicyConversion.HO3.FLHO3">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
-			<class name="PolicyConversion.HO3.NCHO3">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
-			<class name="PolicyConversion.HO3.SCHO3">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
-			<class name="PolicyConversion.HO6.SCHO6">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
-			<class name="PolicyConversion.HO6.FLHO6">
-                <methods>
-                    <include name="RenewalLoadTest2"></include>
-                </methods>
-            </class>
-			<class name = "PolicyConversion.DP3.FLDP3">
-				<methods>
-					<include name="RenewalLoadTest2"></include>
-				</methods>
-			</class>
-			<class name = "PolicyConversion.MH3.FLMH3">
-				<methods>
-					<include name="RenewalLoadTest2"></include>
-				</methods>
-			</class>
-			<class name="PolicyConversion.DP3.SCDP3">
-				<methods>
-					<include name="RenewalLoadTest2"></include>
-				</methods>
-			</class>
-			<class name="PolicyConversion.HOW.NCHOW" >
-				<methods>
-					<include name="RenewalLoadTest2"></include>
-				</methods>
-			</class>
+			<!--<class name="PolicyConversion.HO3.FLHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO3.NCHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO3.SCHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.SCHO6">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.FLHO6">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.DP3.SCDP3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.HOW.NCHOW" >-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
         </classes>
 	</test>
 </suite>
