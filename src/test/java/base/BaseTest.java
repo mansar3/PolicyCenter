@@ -587,7 +587,7 @@ public abstract class BaseTest
 		catch(IOException e)
 		{
 			System.out.println("~~~~~	Folder was not deleted.	~~~~~");
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 
 		}
 	}
