@@ -221,17 +221,18 @@ public abstract class BaseTest
 				dbInput.put("MethodName", testResult.getMethod().getMethodName());
 				dbInput.put("TestRunID", testRunID);
 				eai.put("TestRunID", testRunID);
-				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+				DBUtil dbUtil = new DBUtil();
+				dbUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
 
 				for (LinkedHashMap<String, String> entry : addInts)
 				{
-					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
 				}
 				for (LinkedHashMap<String, String> entry : spc)
 				{
-					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
 				}
-				DBUtil.insertIntoResultsTable(dbInput);
+				dbUtil.insertIntoResultsTable(dbInput);
 			}
 			try {
 				writer.close();
@@ -270,16 +271,17 @@ public abstract class BaseTest
 			{
 				dbInput.put("TestRunID", testRunID);
 				eai.put("TestRunID", testRunID);
-				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+				DBUtil dbUtil = new DBUtil();
+				dbUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
 				for (LinkedHashMap<String, String> entry : addInts)
 				{
-					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
 				}
 				for (LinkedHashMap<String, String> entry : spc)
 				{
-					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
 				}
-				DBUtil.insertIntoResultsTable(dbInput);
+				dbUtil.insertIntoResultsTable(dbInput);
 			}
 			try
             {
@@ -302,7 +304,8 @@ public abstract class BaseTest
 			// New Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+//			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			gridHub = new URL("http://localhost:4444/wd/hub");
 			// VM URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
