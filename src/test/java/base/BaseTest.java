@@ -228,17 +228,18 @@ public abstract class BaseTest
 				dbInput.put("MethodName", testResult.getMethod().getMethodName());
 				dbInput.put("TestRunID", testRunID);
 				eai.put("TestRunID", testRunID);
-				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+				DBUtil dbUtil = new DBUtil();
+				dbUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
 
 				for (LinkedHashMap<String, String> entry : addInts)
 				{
-					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
 				}
 				for (LinkedHashMap<String, String> entry : spc)
 				{
-					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+					dbUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
 				}
-				DBUtil.insertIntoResultsTable(dbInput);
+				dbUtil.insertIntoResultsTable(dbInput);
 			}
 			try {
 				writer.close();
