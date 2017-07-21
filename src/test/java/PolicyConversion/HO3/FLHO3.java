@@ -2075,7 +2075,11 @@ public class FLHO3 extends BaseTest
 
 		new NorthPanel(sh)
 		.accountTab
-		.setAccountSearch("sjdflajdfla");
+		.setAccountSearch("9442727246")
+		.clickAccountSearch();
+		new FLHO3AccountFileSummary(sh).westPanel.actions.convertManualPolicy();
+
+
 	}
 
 }

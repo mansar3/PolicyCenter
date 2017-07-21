@@ -5,9 +5,9 @@
 	<parameter name="sharedFolder" value="false" />
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="false"/>
-	<parameter name="userName" value="su" />
+	<parameter name="userName" value="" />
 	<parameter name="local" value="false" />
-	<parameter name="passWord" value="su" />
+	<parameter name="passWord" value="" />
 	<parameter name="database" value="false" />
 
 	<test name="ProdTest">
