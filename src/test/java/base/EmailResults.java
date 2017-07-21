@@ -96,7 +96,7 @@ class EmailResults {
 
 
             // Packing file for email
-            File zippedScreensFile = new File(filePathHome + "ScreenShots.zip");
+            File zippedScreensFile = new File(filePathHome + "ScreenShots" + timeStamp + ".zip");
 
             // Path to our screens
 //            String filePathScreens = FileSystemView.getFileSystemView().getHomeDirectory()
@@ -108,21 +108,26 @@ class EmailResults {
             File[] screenCount = screenFile.listFiles();
             int size = screenCount.length;
             if (size != 0 ) {
-                ZipUtil.pack(new File(filePathScreens), zippedScreensFile);
-
-                // now create this segment
-                // First attachment here (Screens)
-                MimeBodyPart attachmentBodyPartScreens = new MimeBodyPart();
-
-                String fileName = filePath + ".zip";
-                DataSource source = new FileDataSource(zippedScreensFile);
-                attachmentBodyPartScreens.setDataHandler(new DataHandler(source));
-                attachmentBodyPartScreens.setFileName(fileName);
-
-                //add the attachment
-
-                multipart.addBodyPart(attachmentBodyPartScreens);
-				System.out.println("Screenshots Attached");
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Zipping ScreenShots	  ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				ZipUtil.pack(new File(filePathScreens), zippedScreensFile);
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Screenshots have been zipped	~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//				if(zippedScreensFile.length()/(Math.pow(1024,2)) < 25)
+//				{
+//
+//				}
+//                // now create this segment
+//                // First attachment here (Screens)
+//                MimeBodyPart attachmentBodyPartScreens = new MimeBodyPart();
+//
+//                String fileName = filePath + ".zip";
+//                DataSource source = new FileDataSource(zippedScreensFile);
+//                attachmentBodyPartScreens.setDataHandler(new DataHandler(source));
+//                attachmentBodyPartScreens.setFileName(fileName);
+//
+//                //add the attachment
+//
+//                multipart.addBodyPart(attachmentBodyPartScreens);
+//				System.out.println("Screenshots Attached");
 			}
 
 
@@ -140,7 +145,7 @@ class EmailResults {
 
                 // add to our message
                 multipart.addBodyPart(attachmentBodyPartCSV);
-				System.out.println("CSV Attached");
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~		CSV Attached	  ~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			}
 
 			// Third attachment log file
@@ -179,7 +184,7 @@ class EmailResults {
             Transport.send(message);
 
             //Delete new zip
-            zippedScreensFile.delete();
+//            zippedScreensFile.delete();
 
             System.out.println("Done");
 

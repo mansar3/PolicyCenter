@@ -918,7 +918,14 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkUnitOwnersCoverageASpecialCoverage()
 		{
-			sh.clickElement(by.unitOwnersCoverageASpecialCoverage);
+			sh.checkboxHelper.checkElement(by.unitOwnersCoverageASpecialCoverage);
+			sh.waitForNoMask();
+			return (T)this;
+		}
+		protected T unCheckUnitOwnersCoveragesASpecialCoverage()
+		{
+			sh.checkboxHelper.unCheckElement(by.unitOwnersCoverageASpecialCoverage);
+			sh.waitForNoMask();
 			return (T)this;
 		}
 
@@ -1722,6 +1729,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 
 		protected T checkCreditCardFundTransferForgeryCounterfeitMoney()
 		{
+			sh.waitForNoMask();
 			sh.checkboxHelper.checkElement(by.creditCardFundTransferForgeryCounterfeitMoney);
 			return (T)this;
 		}

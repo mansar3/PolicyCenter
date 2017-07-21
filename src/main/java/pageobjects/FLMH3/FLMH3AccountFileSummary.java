@@ -21,10 +21,10 @@ public class FLMH3AccountFileSummary extends AccountFileSummary<FLMH3AccountFile
         return super.getAccountNumber();
     }
 
-    public FLMH3Quote clickTransactionNumber()
+    public void clickTransactionNumber()
     {
         super.clickTransactionNumber();
-        return new FLMH3Quote(sh, path);
+        return;
     }
     public Summary clickInforcedAccountNumber()
     {

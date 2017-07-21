@@ -37,8 +37,13 @@ public class AccountFileSummary<T extends CenterPanelBase> extends AccountBase
         sh.waitForNoMask();
         return sh.getText(by.accountNumber);
     }
+    public boolean isTransactionNumberDisplayed()
+	{
+		return sh.isDisplayed(by.transactionNumber);
 
-    protected void clickTransactionNumber()
+	}
+
+    public void clickTransactionNumber()
     {
         sh.clickElement(by.transactionNumber);
     }

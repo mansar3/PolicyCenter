@@ -519,6 +519,10 @@ public class SCHO6Coverages extends Coverages<SCHO6Coverages>
 		{
 			return super.checkUnitOwnersCoverageASpecialCoverage();
 		}
+		public SCHO6PropertyEndorsements unCheckUnitOwnersCoveragesASpecialCoverage()
+		{
+			return super.unCheckUnitOwnersCoveragesASpecialCoverage();
+		}
 
 		public boolean isUnitOwnersCoverageASpecialCoverage()
 		{

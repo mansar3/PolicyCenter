@@ -21,10 +21,10 @@ public class NCHO3AccountFileSummary extends AccountFileSummary<NCHO3AccountFile
 		return super.getAccountNumber();
 	}
 
-	public NCHO3Quote clickTransactionNumber()
+	public void clickTransactionNumber()
 	{
 		super.clickTransactionNumber();
-		return new NCHO3Quote(sh, path);
+		return;
 	}
 
 	public Summary clickInforcedAccountNumber()

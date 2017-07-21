@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
@@ -51,33 +52,36 @@ public abstract class BaseTest
 	private String lastLoggedMessage;
 	public String 	//filePathBase = "\\\\FLHIFS1\\General\\ConversionData\\Error Report\\",
 			filePathBase = FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/Desktop/", //+"/Desktop/",
-			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());;
-	public String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
-	public static String sharedDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170628_1",
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	public final String filePath = getTestResultIndex();
+	public static String sharedDirectory,controlFileDirectory, lastPage,
+	policyDirectory = "ConversionPolicies-20170719_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
 	private String testRunID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YMdHms"));
+	public static String organization = "First Baldwin Insurance", prodCode= "523-23-40004";
 
 
 	private String getPolicyNumber()
 	{
 		int i =1;
-		while(new File(sharedDirectory + "csv-output/" + policyDirectory + String.valueOf(i)).exists())
+		while(new File(sharedDirectory + policyDirectory + String.valueOf(i)).exists())
 			i++;
 		return String.valueOf(--i);
 	}
-	private void setTestResultIndex()
+	private String getTestResultIndex()
 	{
+		String filePath= filePathBase + "TestResult" + timeStamp + "_1.csv";
 		if(new File(filePath).exists())
 		{
 			int i = 1;
 			while(new File(filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv").exists())
 				i++;
-			filePath = filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv";
-			return;
+
+			return filePathBase + "TestResult" + timeStamp + "_" + String.valueOf(i) + ".csv";
 		}
+		return filePath;
 	}
 	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain"})
 	@BeforeSuite
@@ -95,9 +99,13 @@ public abstract class BaseTest
 		System.out.println("Local is : " + local.toString());
 		this.userName = userName;
 		this.passWord = passWord;
+		if(sharedFolder)
+		{
+			this.userName = System.getenv("USER_NAME");
+			this.passWord = System.getenv("PASS_WORD");
+		}
 		this.sendEmail = sendEmail;
 		this.qaMain = qaMain;
-		setTestResultIndex();
 		System.out.println("Running in QA Main: " + String.valueOf(qaMain));
 		assert sessionInfo.capabilities != null;
 		assert sessionInfo.gridHub != null;
@@ -110,12 +118,13 @@ public abstract class BaseTest
 		if (sharedFolder)
 		{
 			System.out.println("Shared folder is true...");
-			sharedDirectory = MountUtil.mountSharedFolder() ;
+			sharedDirectory = MountUtil.mountSharedFolder(false) ;
+			controlFileDirectory = MountUtil.mountSharedFolder(true);
 			policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_";
 			policyDirectory+=getPolicyNumber();
-			System.out.println("Policy Directory to be used: " + policyDirectory);
-			policyFolder = sharedDirectory + "csv-output/" + policyDirectory;
-			oldXML = sharedDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+
+			policyFolder = sharedDirectory + policyDirectory;
+			oldXML = controlFileDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
 		}
 		else
 		{
@@ -125,9 +134,10 @@ public abstract class BaseTest
 					+ "/Downloads/" +
 					policyDirectory;
 		}
+		System.out.println("Policy Directory to be used: " + policyDirectory);
 
-		 xmlFilepath= sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
-		xmlDirectory = sharedDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 xmlFilepath= controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
+		xmlDirectory = controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		 xmls = new File(xmlDirectory + "/")
 		 .listFiles();
 		//new UploadXML().uploadXML();
@@ -137,25 +147,19 @@ public abstract class BaseTest
 	@BeforeMethod
 	public void beforeMethod()
 	{
-		try
-        {
 			DateTime date = new DateTime();
 			dateString = date.toString("MMddhhmmss");
 
 			System.out.println(new DateTime().toString());
 			// users: conversion2,mcoad
 			String user = userName, pwd = passWord;
+			System.out.println("username = " + userName +"	password = " + passWord);
 			WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 			Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 			logon.load();
 			logon.isLoaded();
 			logon.login(user, pwd);
 			log("Logged in as: " + user + "\nPassword: " + pwd);
-		}
-		catch (Exception e)
-		{
-			error = e.getCause();
-		}
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -163,8 +167,14 @@ public abstract class BaseTest
 	{
 		if(parameters.length == 0)
 		{
-			if((testResult.getStatus() != ITestResult.SUCCESS) && qaMain == false)
-				System.out.println(testResult.getThrowable().toString());
+			driver=LocalDriverManager.getDriver();
+			if((testResult.getStatus() != ITestResult.SUCCESS))
+			{
+				takeScreenShot(driver);
+				//System.out.println(testResult.getThrowable().toString());
+			}
+			if(driver != null)
+				driver.quit();
 			return;
 		}
 		LinkedHashMap<String, String> eai = (LinkedHashMap<String,String>) parameters[0];
@@ -178,9 +188,6 @@ public abstract class BaseTest
 //		driver = LocalDriverManager.getDriver();
 
 		if (testResult.getStatus() != ITestResult.SUCCESS) {
-
-			if(qaMain == false)
-				System.out.println(testResult.getThrowable().toString());
 
 			String screenshotName = takeScreenShot(driver);
 			String[] csvInput =  errorReportingInfo(eai,false).clone();
@@ -221,18 +228,17 @@ public abstract class BaseTest
 				dbInput.put("MethodName", testResult.getMethod().getMethodName());
 				dbInput.put("TestRunID", testRunID);
 				eai.put("TestRunID", testRunID);
-				DBUtil dbUtil = new DBUtil();
-				dbUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
+				DBUtil.insertIntoPoliciesTable(eai, testResult.getInstanceName());
 
 				for (LinkedHashMap<String, String> entry : addInts)
 				{
-					dbUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
+					DBUtil.insertIntoAddIntsTable(eai.get("Legacy Policy Number"), entry);
 				}
 				for (LinkedHashMap<String, String> entry : spc)
 				{
-					dbUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
+					DBUtil.insertIntoSpcTable(eai.get("Legacy Policy Number"), entry);
 				}
-				dbUtil.insertIntoResultsTable(dbInput);
+				DBUtil.insertIntoResultsTable(dbInput);
 			}
 			try {
 				writer.close();
@@ -301,12 +307,13 @@ public abstract class BaseTest
 		URL gridHub = null;
 		try
 		{
-			// New Dockers URL
+			// AWS PROD grid
+			//gridHub = new URL("http://10.20.8.145:4444/wd/hub");
+			// AWS DEV Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-//			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
-			gridHub = new URL("http://localhost:4444/wd/hub");
-			// VM URL
+			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+			// VM GRID URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");
@@ -416,7 +423,7 @@ public abstract class BaseTest
 
 		try
 		{
-			FileUtils.moveFile(screenShot, new File(fileName + ".jpg"));
+			FileUtils.moveFile(screenShot, new File(fileName + ".png"));
 		}
 		catch(FileExistsException e)
 		{
@@ -573,15 +580,32 @@ public abstract class BaseTest
 		return bannerText;
 
 	}
+	private void deletePolicyDirectory(String folder)
+	{
+		System.out.println("Attempting to delete folder: " + folder);
+		try
+		{
+			FileUtils.deleteDirectory(new File(folder));
+			System.out.println("~~~~~~~~~~~~~~~~~	Folder Deleted 	~~~~~~~~~~~~~~~~~~~~");
+		}
+		catch(IOException e)
+		{
+			System.out.println("~~~~~	Folder was not deleted.	~~~~~");
+			System.out.println(e.getMessage());
+
+		}
+	}
 
 	//AfterSuite to send Email
 	@AfterSuite(alwaysRun = true)
-	public void emailTestResults() {
+	public void emailTestResults(ITestContext testContext) {
 		// Only will send if it is parallel and if SendEmail is true
-		if (sendEmail) {
+		if (sendEmail)
 			EmailResults.sendEmail(filePath, timeStamp);
-		}
+
 		if(!SystemUtils.IS_OS_LINUX)
-			MountUtil.unMountSharedFolder();
+			MountUtil.unMountSharedFolders();
+		else if(testContext.getName().equals("Renewal ETL"))
+			deletePolicyDirectory(policyFolder);
 	}
 }

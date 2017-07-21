@@ -7,7 +7,6 @@ import base.BaseTest;
 import base.LocalDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pageobjects.Administration.ImportLegacyRenewalData;
 import pageobjects.NorthPanel;
@@ -25,8 +24,6 @@ public class UploadXML extends BaseTest
 	@Test(priority = 1, groups = "XML Upload")
 	public void uploadXML()
 	{
-		try
-		{
 			WebDriver driver = LocalDriverManager.getDriver();
 			CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
@@ -38,6 +35,8 @@ public class UploadXML extends BaseTest
 
 			for(File file : xmls)
 			{
+				if(!file.getAbsolutePath().contains(".xml"))
+					continue;
 
 				ImportLegacyRenewalData imr = new NorthPanel(sh).administration.clickImportLegacyRenewalData();
 				//imr.uploadFile(xmlFilepath)
@@ -47,11 +46,6 @@ public class UploadXML extends BaseTest
 
 			}
 			System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
 	}
 
 	@Test (dependsOnMethods = "uploadXML")
@@ -59,6 +53,7 @@ public class UploadXML extends BaseTest
 	{
 		MountUtil.moveXML(xmlDirectory, oldXML);
 	}
+
 	@Test(groups = "ftp",priority = 0)
 	public void ftpFile()
 	{
@@ -70,6 +65,7 @@ public class UploadXML extends BaseTest
 		FTPConnector ftpc = new FTPConnector();
 		ftpc.connector(xmlFilepath,super.file);
 	}
+
 	@Test
 	public void pwdTest() throws Exception
 	{
@@ -84,12 +80,4 @@ public class UploadXML extends BaseTest
 		}
 	}
 
-
-	@AfterMethod
-	public void afterMethod()
-	{
-		takeScreenShot(LocalDriverManager.getDriver());
-		LocalDriverManager.getDriver().quit();
-
-	}
 }

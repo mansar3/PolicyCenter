@@ -142,8 +142,15 @@ abstract public class CenterPanelBase
 			    forms = By.xpath(preString + "Forms" + postString),
 				viewQuote = By.xpath(preString + "View Quote" + postString),
 				quote = By.xpath(preString + "Quote" + postString),
-				payment = By.xpath(preString + "Payment" + postString);
+				payment = By.xpath(preString + "Payment" + postString),
+				offerings = By.xpath(preString + "Offerings" + postString);
 
+		}
+		public T clickOfferings()
+		{
+			sh.waitForNoMask();
+			sh.clickElement(by.offerings);
+			return (T)this;
 		}
 		protected T clickGoPaperless()
 		{
