@@ -99,6 +99,11 @@ public abstract class BaseTest
 		System.out.println("Local is : " + local.toString());
 		this.userName = userName;
 		this.passWord = passWord;
+		if(sharedFolder)
+		{
+			this.userName = System.getenv("USER_NAME");
+			this.passWord = System.getenv("PASS_WORD");
+		}
 		this.sendEmail = sendEmail;
 		this.qaMain = qaMain;
 		System.out.println("Running in QA Main: " + String.valueOf(qaMain));
@@ -149,6 +154,7 @@ public abstract class BaseTest
 			System.out.println(new DateTime().toString());
 			// users: conversion2,mcoad
 			String user = userName, pwd = passWord;
+			System.out.println("username = " + userName +"	password = " + passWord);
 			WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 			Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 			logon.load();
