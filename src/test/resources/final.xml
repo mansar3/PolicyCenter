@@ -8,8 +8,8 @@
 	<parameter name="threads" value="10" />
 	<parameter name="sendEmail" value="true"/>
 	<parameter name="qaMain" value="false" />
-	<parameter name="userName" value= "${env.USER_NAME}" />
-	<parameter name="passWord" value="${env.PASS_WORD}" />
+	<parameter name="userName" value= "su" />
+	<parameter name="passWord" value="su" />
 
 	  <suite-files>
 		  	<!--<suite-file path="ftp.xml" />-->
