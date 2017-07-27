@@ -41,7 +41,7 @@ public class MountUtil
 				username = "gwconversionrenewals";
 				password = "ThD605Cz";
 				address = "10.50.50.116";
-				smbFolder = "/croutput";
+				smbFolder = "/testing_croutput";
 				mountFolder = homeFolder + "/AutoRenewalProjectTest/";
 				workingFolder = mountFolder;
 		}

@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +154,7 @@ public abstract class BaseTest
 			System.out.println(new DateTime().toString());
 			// users: conversion2,mcoad
 			String user = userName, pwd = passWord;
-			System.out.println("username = " + userName +"	password = " + passWord);
+			//System.out.println("username = " + userName +"	password = " + passWord);
 			WebDriver driver = setupDriver(sessionInfo.gridHub, sessionInfo.capabilities);
 			Logon logon = new Logon(new CenterSeleniumHelper(driver), sessionInfo);
 			logon.load();
@@ -318,6 +319,8 @@ public abstract class BaseTest
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");
+			// Localhost
+			//gridHub = new URL("http://localhost:4444/wd/hub");
 		}
 		catch(Exception e)
 		{
@@ -358,13 +361,17 @@ public abstract class BaseTest
 		if(!local)
 		{
 			driver = new RemoteWebDriver(gridHub, capabilities);
+			LocalDriverManager.setWebDriver(driver);
+			LocalDriverManager.getRemoteDriver()
+			.setFileDetector(new LocalFileDetector());
 		}
 		else{
 			driver = new FirefoxDriver(capabilities);
+			LocalDriverManager.setWebDriver(driver);
 		}
 		driver.manage().window().setSize(new Dimension(2048, 3072));
 		//driver.manage().window().maximize();
-		LocalDriverManager.setWebDriver(driver);
+
 		return LocalDriverManager.getDriver();
 	}
 

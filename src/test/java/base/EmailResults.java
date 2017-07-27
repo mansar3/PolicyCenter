@@ -87,12 +87,12 @@ class EmailResults {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(recipientEmail));
 
-            message.setSubject("Testing Results " + timeStamp);
+            message.setSubject("Renewal Run " + timeStamp);
 
             Multipart multipart = new MimeMultipart();
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Test results from " + timeStamp);
+            messageBodyPart.setText("PROD Renewal Test results from " + timeStamp);
 
 
             // Packing file for email

@@ -5,7 +5,7 @@ import Helpers.FTPConnector;
 import Helpers.MountUtil;
 import base.BaseTest;
 import base.LocalDriverManager;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.Administration.ImportLegacyRenewalData;
@@ -24,7 +24,7 @@ public class UploadXML extends BaseTest
 	@Test(priority = 1, groups = "XML Upload")
 	public void uploadXML()
 	{
-			WebDriver driver = LocalDriverManager.getDriver();
+			RemoteWebDriver driver = LocalDriverManager.getRemoteDriver();
 			CenterSeleniumHelper sh = new CenterSeleniumHelper(driver);
 
 			// Get Driver and Instantiate Helper
@@ -45,6 +45,8 @@ public class UploadXML extends BaseTest
 				.clickFinish();
 
 			}
+
+
 			System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
 	}
 
