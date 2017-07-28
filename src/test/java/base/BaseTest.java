@@ -44,7 +44,7 @@ public abstract class BaseTest
 	protected static SessionInfo sessionInfo;
 	protected String dateString;
 	private static Boolean local;
-	protected static Boolean db,qaMain;
+	protected static Boolean db,qaMain,prod;
 	private static Boolean sendEmail;
     protected String errorReportDirectory;
 	protected WebDriver driver;
@@ -56,7 +56,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170719_1",
+	policyDirectory = "ConversionPolicies-20170727_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -84,11 +84,11 @@ public abstract class BaseTest
 		}
 		return filePath;
 	}
-	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain"})
+	@Parameters({"environment", "local", "threads","userName","passWord","sendEmail", "sharedFolder", "database","qaMain","prod"})
 	@BeforeSuite
 	public void beforeSuite(XmlTest xml, @Optional("151") String environment, @Optional("true") Boolean local, @Optional("10") int threads,
 							@Optional("su") String userName, @Optional("su") String passWord, @Optional("false") Boolean sendEmail,
-							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database, @Optional("true") Boolean qaMain)
+							@Optional("false")Boolean sharedFolder, @Optional("false")Boolean database, @Optional("false") Boolean qaMain,@Optional("false") Boolean prod)
 	{
 		System.out.println("testRunID: " + testRunID);
 		xml.getSuite().setThreadCount(threads);
@@ -100,7 +100,8 @@ public abstract class BaseTest
 		System.out.println("Local is : " + local.toString());
 		this.userName = userName;
 		this.passWord = passWord;
-		if(sharedFolder)
+		this.prod= prod;
+		if(sharedFolder && SystemUtils.IS_OS_LINUX)
 		{
 			this.userName = System.getenv("USER_NAME");
 			this.passWord = System.getenv("PASS_WORD");
@@ -125,7 +126,11 @@ public abstract class BaseTest
 			policyDirectory+=getPolicyNumber();
 
 			policyFolder = sharedDirectory + policyDirectory;
-			oldXML = controlFileDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+			if(this.prod)
+				oldXML = controlFileDirectory + "control-file/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+			else
+				oldXML = controlFileDirectory + "control-file/testing/old/uploaded/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+
 		}
 		else
 		{
@@ -138,7 +143,10 @@ public abstract class BaseTest
 		System.out.println("Policy Directory to be used: " + policyDirectory);
 
 		 xmlFilepath= controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + file;
-		xmlDirectory = controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 if(this.prod)
+			xmlDirectory = controlFileDirectory + "control-file/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 else
+		 	xmlDirectory = controlFileDirectory + "control-file/testing/old/input-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		 xmls = new File(xmlDirectory + "/")
 		 .listFiles();
 		//new UploadXML().uploadXML();
@@ -613,7 +621,7 @@ public abstract class BaseTest
 
 		if(!SystemUtils.IS_OS_LINUX)
 			MountUtil.unMountSharedFolders();
-		else if(testContext.getName().equals("Renewal ETL"))
+		else if(testContext.getName().equals("Renewal ETL") && SystemUtils.IS_OS_LINUX && prod)
 			deletePolicyDirectory(policyFolder);
 	}
 }

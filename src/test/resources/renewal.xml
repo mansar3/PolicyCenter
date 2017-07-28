@@ -9,7 +9,7 @@
 	<parameter name="local" value="false" />
 	<!--<parameter name="passWord" value="su" />-->
 	<parameter name="database" value="false" />
-	<parameter name="qaMain" value="false" />
+	<!--<parameter name="qaMain" value="false" />-->
 
 	<test name="Renewal ETL" >
         <classes>

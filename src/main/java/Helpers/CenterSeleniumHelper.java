@@ -63,6 +63,21 @@ public class CenterSeleniumHelper
 		tab();
 		waitForNoMask();
 	}
+	public void setTextContain(By byLocator, String text)
+	{
+		if(text != null)
+			wait(25).until(ExpectedConditions.refreshed(driver1 ->
+			{
+				driver1.findElement(byLocator).sendKeys("");
+				if(!driver1.findElement(byLocator).getAttribute("class").contains("focus"))
+					return false;
+				driver1.findElement(byLocator).clear();
+				driver1.findElement(byLocator).sendKeys(text);
+				tab();
+				return getValue(byLocator).contains(text);
+			}));
+		waitForNoMask();
+	}
 
 	public void setTextAndTab(By byLocator, String text)
 	{

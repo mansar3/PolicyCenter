@@ -29,7 +29,7 @@ import java.util.Properties;
     *  so the version of zeroturnaround should not have any slf4j issues
     *  */
 
-class EmailResults {
+class EmailResults extends BaseTest{
 
     //Frontline.QA.Email@gmail.com
 
@@ -79,7 +79,13 @@ class EmailResults {
             message.setFrom(new InternetAddress(username));
 
             // EMAIL RECIPIENT
-            String recipientEmail = "AAnsari@flhi.com";
+
+            String recipientEmail;
+            if(prod)
+				recipientEmail = "AAnsari@flhi.com,kgeist@flhi.com,mcoad@flhi.com,kbabroski@flhi.com";
+			else
+            	recipientEmail= "AAnsari@flhi.com";
+
             // EMAIL RECIPIENT
 
             // Setting the recipients here.
@@ -92,8 +98,10 @@ class EmailResults {
             Multipart multipart = new MimeMultipart();
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("PROD Renewal Test results from " + timeStamp);
-
+            if(prod)
+            	messageBodyPart.setText("PROD Renewal Test results from " + timeStamp);
+			else
+				messageBodyPart.setText("Staging Renewal Test results from " + timeStamp);
 
             // Packing file for email
             File zippedScreensFile = new File(filePathHome + "ScreenShots" + timeStamp + ".zip");

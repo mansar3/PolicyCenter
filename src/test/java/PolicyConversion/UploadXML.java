@@ -45,15 +45,11 @@ public class UploadXML extends BaseTest
 				.clickFinish();
 
 			}
-
-
 			System.out.println("~~~~~~~XML File Uploaded Successfully~~~~~~~~");
-	}
 
-	@Test (dependsOnMethods = "uploadXML")
-	public void moveFile()
-	{
-		MountUtil.moveXML(xmlDirectory, oldXML);
+			MountUtil.moveXML(xmlDirectory, oldXML);
+
+
 	}
 
 	@Test(groups = "ftp",priority = 0)

@@ -374,10 +374,10 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 
 	public T setProducerCode(String producerCode)
 	{
-		sh.setText(by.producerCode, producerCode);
+		sh.setTextContain(by.producerCode, producerCode);
 		try
 		{
-			Thread.sleep(2000);
+			Thread.sleep(10000);
 		}
 		catch(InterruptedException e)
 		{
