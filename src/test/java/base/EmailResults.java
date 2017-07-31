@@ -93,16 +93,21 @@ class EmailResults extends BaseTest{
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(recipientEmail));
 
-            message.setSubject("Renewal Run " + timeStamp);
+
 
             Multipart multipart = new MimeMultipart();
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
             if(prod)
-            	messageBodyPart.setText("PROD Renewal Test results from " + timeStamp);
+			{
+				message.setSubject("PROD Renewal Run " + timeStamp);
+				messageBodyPart.setText("PROD Renewal Test results from " + timeStamp);
+			}
 			else
+			{
+				message.setSubject("Staging Renewal Run " + timeStamp);
 				messageBodyPart.setText("Staging Renewal Test results from " + timeStamp);
-
+			}
             // Packing file for email
             File zippedScreensFile = new File(filePathHome + "ScreenShots" + timeStamp + ".zip");
 

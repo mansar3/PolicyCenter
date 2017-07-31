@@ -317,24 +317,14 @@ public class SCHO6 extends BaseTest
 
 		// Additional Interests
 		SCHO6Dwelling.SCHO6AdditionalInterests ai = pd.clickAdditionalInterests();
-		for(i= 0; i <= addInts.size() -1;i++)
+				for(i= 0; i <= addInts.size() -1;i++)
 		{
 
 			SCHO6SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
-			if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
-			{
-				sab.setType("Company")
-				.setCompanyName(addInts.get(i).get("Name"));
-			}
-			else
-			{
-				sab.setType("Person")
-				.setFirstName(fName)
-				.setLastName(lName);
-			}
 			sab
+			.setType("Company")
+			.setCompanyName(addInts.get(i).get("Name"))
 			.setCity(addInts.get(i).get("City"))
 			.setState(addInts.get(i).get("State"))
 			.setZipCode(addInts.get(i).get("Zip Code"))
@@ -354,19 +344,9 @@ public class SCHO6 extends BaseTest
 
 				ai = sab.clickReturnToDwelling();
 				SCHO6NewAdditionalInterest nai = null;
-				if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
-				{
-					nai = ai.clickAddNewCompany();
-					nai.setCompanyName(addInts.get(i).get("Name"));
-				}
-				else
-				{
-					nai = ai.clickAddNewPerson();
-					nai
-					.setFirstName(fName)
-					.setLastName(lName);
-				}
+				nai = ai.clickAddNewCompany();
 				nai
+				.setCompanyName(addInts.get(i).get("Name"))
 				.setType(addInts.get(i).get("Type"))
 				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null));
 				if(addInts.get(i).get("Address") != null)
@@ -990,24 +970,14 @@ public class SCHO6 extends BaseTest
 
 		// Additional Interests
 		SCHO6Dwelling.SCHO6AdditionalInterests ai = pd.clickAdditionalInterests();
-		for(i= 0; i <= addInts.size() -1;i++)
+				for(i= 0; i <= addInts.size() -1;i++)
 		{
 
 			SCHO6SearchAddressBook sab = ai.clickFromAddressBook();
 			String[] name =  addInts.get(i).get("Name").split("\\s+");
-			String fName =  name[0], lName = getLastName(name);
-			if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
-			{
-				sab.setType("Company")
-				.setCompanyName(addInts.get(i).get("Name"));
-			}
-			else
-			{
-				sab.setType("Person")
-				.setFirstName(fName)
-				.setLastName(lName);
-			}
 			sab
+			.setType("Company")
+			.setCompanyName(addInts.get(i).get("Name"))
 			.setCity(addInts.get(i).get("City"))
 			.setState(addInts.get(i).get("State"))
 			.setZipCode(addInts.get(i).get("Zip Code"))
@@ -1027,19 +997,9 @@ public class SCHO6 extends BaseTest
 
 				ai = sab.clickReturnToDwelling();
 				SCHO6NewAdditionalInterest nai = null;
-				if(addInts.get(i).get("Type").toLowerCase().contains("mortgagee"))
-				{
-					nai = ai.clickAddNewCompany();
-					nai.setCompanyName(addInts.get(i).get("Name"));
-				}
-				else
-				{
-					nai = ai.clickAddNewPerson();
-					nai
-					.setFirstName(fName)
-					.setLastName(lName);
-				}
+				nai = ai.clickAddNewCompany();
 				nai
+				.setCompanyName(addInts.get(i).get("Name"))
 				.setType(addInts.get(i).get("Type"))
 				.setLoanNumber(addInts.get(i).getOrDefault("Loan Number",null));
 				if(addInts.get(i).get("Address") != null)
