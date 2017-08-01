@@ -56,7 +56,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170727_1",
+	policyDirectory = "ConversionPolicies-20170714_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -95,6 +95,8 @@ public abstract class BaseTest
 		db = database;
 		FileUtils.deleteQuietly(screenShotFolder);
 		screenShotFolder.mkdir();
+		if(prod)
+			environment = "https://gw.frontlineinsurance.com/pc/";
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
 		this.local = local;
 		System.out.println("Local is : " + local.toString());

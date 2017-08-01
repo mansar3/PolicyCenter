@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 public class UploadXML extends BaseTest
 {
 	// POC test to see if xml upload is possible
-	@Test(priority = 1, groups = "XML Upload")
+	@Test(priority = 1, groups = "XMLUpload")
 	public void uploadXML()
 	{
 			RemoteWebDriver driver = LocalDriverManager.getRemoteDriver();
