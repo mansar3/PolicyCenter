@@ -104,9 +104,6 @@
 						<suiteXmlFiles>
 							<suiteXmlFile>src/test/resources/prodTest.xml</suiteXmlFile>
 						</suiteXmlFiles>
-						<systemPropertyVariables>
-							<environment>151</environment>
-						</systemPropertyVariables>
 					</configuration>
 				</plugin>
 			</plugins>
