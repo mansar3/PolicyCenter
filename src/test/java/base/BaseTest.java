@@ -95,8 +95,8 @@ public abstract class BaseTest
 		db = database;
 		FileUtils.deleteQuietly(screenShotFolder);
 		if(SystemUtils.IS_OS_LINUX && System.getenv("PROD").toLowerCase().equals("true"))
-			this.prod = true;
-
+			prod=true;
+		this.prod = prod;
 		screenShotFolder.mkdir();
 		if(this.prod)
 			environment = "https://gw.frontlineinsurance.com/pc/";
