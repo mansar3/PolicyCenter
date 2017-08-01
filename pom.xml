@@ -88,9 +88,6 @@
 							<suiteXmlFiles>
 								<suiteXmlFile>src/test/resources/test.xml</suiteXmlFile>
 							</suiteXmlFiles>
-							<systemPropertyVariables>
-								<environment>151</environment>
-							</systemPropertyVariables>
 						</configuration>
 					</plugin>
 				</plugins>
