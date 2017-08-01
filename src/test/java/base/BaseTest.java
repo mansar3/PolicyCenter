@@ -94,15 +94,17 @@ public abstract class BaseTest
 		xml.getSuite().setThreadCount(threads);
 		db = database;
 		FileUtils.deleteQuietly(screenShotFolder);
+		if(SystemUtils.IS_OS_LINUX && System.getenv("PROD").toLowerCase().equals("true"))
+			this.prod = true;
+
 		screenShotFolder.mkdir();
-		if(prod)
+		if(this.prod)
 			environment = "https://gw.frontlineinsurance.com/pc/";
 		sessionInfo = new SessionInfo(environment, setCapabilities(), setGridHub());
 		this.local = local;
 		System.out.println("Local is : " + local.toString());
 		this.userName = userName;
 		this.passWord = passWord;
-		this.prod= prod;
 		if(sharedFolder && SystemUtils.IS_OS_LINUX)
 		{
 			this.userName = System.getenv("USER_NAME");

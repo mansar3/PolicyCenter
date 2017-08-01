@@ -10,7 +10,7 @@
 	<parameter name="qaMain" value="false" />
 	<parameter name="userName" value= "su" />
 	<parameter name="passWord" value="su" />
-	<parameter name="prod" value="false" />
+
 
 	  <suite-files>
 		  	<!--<suite-file path="ftp.xml" />-->
