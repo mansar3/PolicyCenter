@@ -74,7 +74,7 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/test.xml</suiteXmlFile>
+								<suiteXmlFile>src/test/resources/conversion.xml</suiteXmlFile>
 							</suiteXmlFiles>
 						</configuration>
 					</plugin>

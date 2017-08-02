@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="allSuites" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20">
+	<!--<parameter name="environment" value="https://gw.frontlineinsurance.com/pc/" />-->
+	<parameter name="environment" value="https://gwstg.frontlineinsurance.com/pc/PolicyCenter.do" />
+	<parameter name="sharedFolder" value="true" />
+	<parameter name="threads" value="10" />
+	<parameter name="sendEmail" value="true"/>
+	<parameter name="qaMain" value="false" />
+	<parameter name="userName" value= "su" />
+	<parameter name="passWord" value="su" />
+	<parameter name="local" value="false" />
+	<parameter name="sendEmail" value="true" />
+	<parameter name="prod" value="false" />
+
+
+
+	<test name="Renewal ETL" >
+
+		<groups>
+			<dependencies>
+				<group name="Renewal Test" depends-on="XMLUpload" />
+			</dependencies>
+		</groups>
+
+
+
+
+        <classes>
+			<class name="PolicyConversion.UploadXML" >
+				<methods>
+					<include name="uploadXML" ></include>
+				</methods>
+			</class>
+
+
+			<class name="PolicyConversion.HO3.ALHO3">
+                <methods>
+                    <include name="RenewalLoadTest2" ></include>
+                </methods>
+            </class>
+			<!--<class name="PolicyConversion.HO3.FLHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO3.NCHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO3.SCHO3">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.SCHO6">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name="PolicyConversion.HO6.FLHO6">-->
+                <!--<methods>-->
+                    <!--<include name="RenewalLoadTest2"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.DP3.SCDP3">-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+			<!--<class name="PolicyConversion.HOW.NCHOW" >-->
+				<!--<methods>-->
+					<!--<include name="RenewalLoadTest2"></include>-->
+				<!--</methods>-->
+			<!--</class>-->
+        </classes>
+	</test>
+
+
+</suite>
