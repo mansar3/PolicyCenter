@@ -82,7 +82,7 @@ class EmailResults extends BaseTest{
 
             String recipientEmail;
             if(prod)
-				recipientEmail = "AAnsari@flhi.com,kgeist@flhi.com,mcoad@flhi.com,kbabroski@flhi.com";
+				recipientEmail = "AAnsari@flhi.com,kgeist@flhi.com,mcoad@flhi.com,kbabroski@flhi.com,JCarlos@flhi.com";
 			else
             	recipientEmail= "AAnsari@flhi.com";
 
