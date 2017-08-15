@@ -322,17 +322,20 @@ public abstract class BaseTest
 		try
 		{
 			// AWS PROD grid
-			//gridHub = new URL("http://10.20.8.145:4444/wd/hub");
+			if(this.prod)
+				gridHub = new URL("http://10.20.8.145:4444/wd/hub");
+			else
 			// AWS DEV Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-			gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+				gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM GRID URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm
 			//gridHub = new URL("http://172.16.35.79:4444/wd/hub");
 			// Localhost
 			//gridHub = new URL("http://localhost:4444/wd/hub");
+			System.out.println("Using grid:" + gridHub.toString());
 		}
 		catch(Exception e)
 		{
