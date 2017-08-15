@@ -473,11 +473,11 @@ public class FLDP3 extends BaseTest
 
 			pe.setWhenSafeCreditPercentage(eai.get("Whensafe - %"));
 		}
-		else
-		{
-			if(pe.isWhenSafeChecked())
-				pe.unCheckWhenSafe();
-		}
+//		else
+//		{
+//			if(pe.isWhenSafeChecked())
+//				pe.unCheckWhenSafe();
+//		}
 
 		 if(eai.get("Other Structures - Increased Limit") != null)
 		 {

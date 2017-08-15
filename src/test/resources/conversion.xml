@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="allSuites">
+<suite name="allSuites" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20">
 	<!--<parameter name="environment" value="https://gw.frontlineinsurance.com/pc/" />-->
 	<parameter name="environment" value="https://gwstg.frontlineinsurance.com/pc/PolicyCenter.do" />
 	<parameter name="sharedFolder" value="true" />
@@ -33,6 +33,8 @@
 					<include name="uploadXML" ></include>
 				</methods>
 			</class>
+
+
 			<class name="PolicyConversion.HO3.ALHO3">
                 <methods>
                     <include name="RenewalLoadTest2" ></include>

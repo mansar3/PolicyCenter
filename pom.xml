@@ -19,15 +19,6 @@
 							<suiteXmlFiles>
 								<suiteXmlFile>src/test/resources/smoketest.xml</suiteXmlFile>
 							</suiteXmlFiles>
-							<systemPropertyVariables>
-								<environment>http://aws-flgwdev09.fpic.net:8180/pc</environment>
-								<local>true</local>
-								<threads>5</threads>
-								<!-- 
-								<grid>http://172.16.31.94:4444/wd/hub</grid>
-								<dataProviderThreads>20</dataProviderThreads>
-								-->
-							</systemPropertyVariables>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -69,9 +60,6 @@
 							<suiteXmlFiles>
 								<suiteXmlFile>src/test/resources/submission.xml</suiteXmlFile>
 							</suiteXmlFiles>
-							<systemPropertyVariables>
-								<environment>151</environment>
-							</systemPropertyVariables>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -86,7 +74,7 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/test.xml</suiteXmlFile>
+								<suiteXmlFile>src/test/resources/conversion.xml</suiteXmlFile>
 							</suiteXmlFiles>
 						</configuration>
 					</plugin>
@@ -104,9 +92,6 @@
 						<suiteXmlFiles>
 							<suiteXmlFile>src/test/resources/prodTest.xml</suiteXmlFile>
 						</suiteXmlFiles>
-						<systemPropertyVariables>
-							<environment>151</environment>
-						</systemPropertyVariables>
 					</configuration>
 				</plugin>
 			</plugins>

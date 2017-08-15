@@ -82,7 +82,7 @@ class EmailResults extends BaseTest{
 
             String recipientEmail;
             if(prod)
-				recipientEmail = "AAnsari@flhi.com,kgeist@flhi.com,mcoad@flhi.com,kbabroski@flhi.com";
+				recipientEmail = "AAnsari@flhi.com,kgeist@flhi.com,mcoad@flhi.com,kbabroski@flhi.com,JCarlos@flhi.com";
 			else
             	recipientEmail= "AAnsari@flhi.com";
 
@@ -124,23 +124,22 @@ class EmailResults extends BaseTest{
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Zipping ScreenShots	  ~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				ZipUtil.pack(new File(filePathScreens), zippedScreensFile);
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~	Screenshots have been zipped	~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//				if(zippedScreensFile.length()/(Math.pow(1024,2)) < 25)
-//				{
-//
-//				}
-//                // now create this segment
-//                // First attachment here (Screens)
-//                MimeBodyPart attachmentBodyPartScreens = new MimeBodyPart();
-//
-//                String fileName = filePath + ".zip";
-//                DataSource source = new FileDataSource(zippedScreensFile);
-//                attachmentBodyPartScreens.setDataHandler(new DataHandler(source));
-//                attachmentBodyPartScreens.setFileName(fileName);
-//
-//                //add the attachment
-//
-//                multipart.addBodyPart(attachmentBodyPartScreens);
-//				System.out.println("Screenshots Attached");
+				if(!prod)
+				{
+					// now create this segment
+					// First attachment here (Screens)
+					MimeBodyPart attachmentBodyPartScreens = new MimeBodyPart();
+
+					String fileName = filePath + ".zip";
+					DataSource source = new FileDataSource(zippedScreensFile);
+					attachmentBodyPartScreens.setDataHandler(new DataHandler(source));
+					attachmentBodyPartScreens.setFileName(fileName);
+
+					//add the attachment
+
+					multipart.addBodyPart(attachmentBodyPartScreens);
+					System.out.println("Screenshots Attached");
+				}
 			}
 
 
@@ -162,28 +161,32 @@ class EmailResults extends BaseTest{
 			}
 
 			// Third attachment log file
-//			File logFile = new File("log.txt");
-//			if (logFile.exists()) {
-//				System.out.println("Log file found");
-//				File zippedLogFile = new File("log.zip");
-//				ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedLogFile));
-//				ZipEntry e = new ZipEntry("log.txt");
-//				out.putNextEntry(e);
-//				out.closeEntry();
-//				out.close();
-//				String filePathLog = "log.zip";
-//				//ZipUtil.pack(new File(filePathLog), zippedLogFile);
-//                MimeBodyPart attachmentBodyPartLog = new MimeBodyPart();
-//                String fileNameLog = "log.zip";
+//			if(!prod)
+//			{
+//				File logFile = new File("log.txt");
+//				if(logFile.exists())
+//				{
+//					System.out.println("Log file found");
+//					File zippedLogFile = new File("log.zip");
+//					ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedLogFile));
+//					ZipEntry e = new ZipEntry("log.txt");
+//					out.putNextEntry(e);
+//					out.closeEntry();
+//					out.close();
+//					String filePathLog = "log.zip";
+//					//ZipUtil.pack(new File(filePathLog), zippedLogFile);
+//					MimeBodyPart attachmentBodyPartLog = new MimeBodyPart();
+//					String fileNameLog = "log.zip";
 //
 //
-//                DataSource sourceLog = new FileDataSource(filePathLog);
-//                attachmentBodyPartLog.setDataHandler(new DataHandler(sourceLog));
-//                attachmentBodyPartLog.setFileName(fileNameLog);
+//					DataSource sourceLog = new FileDataSource(filePathLog);
+//					attachmentBodyPartLog.setDataHandler(new DataHandler(sourceLog));
+//					attachmentBodyPartLog.setFileName(fileNameLog);
 //
-//                // add to our message
-//                multipart.addBodyPart(attachmentBodyPartLog);
-//				System.out.println("Log File Attached");
+//					// add to our message
+//					multipart.addBodyPart(attachmentBodyPartLog);
+//					System.out.println("Log File Attached");
+//				}
 //			}
 
 
