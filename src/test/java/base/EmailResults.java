@@ -41,8 +41,8 @@ class EmailResults extends BaseTest{
 
         // These are needed for the Email sending.
         //Created a new one for our QA team so that anybody can have access.
-        final String username = "ConversionRenewals@fpic.net";
-        final String password = "Fr0nt@2#7$8";
+        final String username = "Frontline.QA.Email@gmail.com";
+        final String password = "Frontline1";
 
         // Properties required for sending the email
         Properties props = new Properties();
@@ -51,12 +51,12 @@ class EmailResults extends BaseTest{
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
         // setting the proper values to make sure we are using port '465'
-        props.setProperty("mail.smtp.host", "flhicas1.fpic.net");
-        //props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-        props.setProperty("mail.smtp.socketFactory.fallback", "true");
-        props.setProperty("mail.smtp.port", "25");
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.setProperty("mail.smtp.port", "465");
         // set socketFactory port to '465'
-        props.setProperty("mail.smtp.socketFactory.port", "25");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
 
         // place our old values in properties like normal!
         props.put("mail.smtp.auth", "true");
@@ -208,10 +208,13 @@ class EmailResults extends BaseTest{
             System.out.println("Error Sending mail: ");
             e.printStackTrace();
         }
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-
+//		catch(FileNotFoundException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
 	}
 }
