@@ -75,14 +75,14 @@ public class CenterSeleniumHelper
 				driver1.findElement(byLocator).sendKeys(text);
 				try
 				{
-					Thread.sleep(2000);
+					Thread.sleep(5000);
 				}
 				catch(InterruptedException e)
 				{
 					e.printStackTrace();
 				}
 				tab();
-				return getValue(byLocator).contains(text);
+				return getValue(byLocator).contains(text) && getValue(byLocator).length() >15 ;
 			}));
 		waitForNoMask();
 	}
