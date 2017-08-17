@@ -99,6 +99,8 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	
 	public T setSsn(String ssn)
 	{
+		if(ssn.length() != 11)
+			return (T)this;
 		sh.waitForNoMask();
 		if(sh.isDisplayed(by.ssn))
 			sh.setText(by.ssn, ssn);
@@ -375,15 +377,15 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	public T setProducerCode(String producerCode)
 	{
 		sh.setTextContain(by.producerCode, producerCode);
-		try
-		{
-			Thread.sleep(10000);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		sh.tab();
+//		try
+//		{
+//			Thread.sleep(10000);
+//		}
+//		catch(InterruptedException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
 	}
