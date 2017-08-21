@@ -1,15 +1,15 @@
 package pageobjects.WestPanel;
 
-import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
+import pageobjects.WizardPanelBase.CenterPanelBase;
 
-abstract public class ActionsBase
+abstract public class ActionsBase extends CenterPanelBase
 {
-	protected CenterSeleniumHelper sh;
-	private ActionsBaseBy by;
-	abstract static class ActionsBaseBy
+
+	public ActionsBaseBy by = new ActionsBaseBy();
+	public class ActionsBaseBy
 	{
-		public static final By actions = By.cssSelector("#westPanel .x-btn-button"),
+		public final By actions = By.cssSelector("#westPanel .x-btn-button"),
 				               newSubmission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl"),
 				               copySubmission = By.id("SubmissionWizard:WizardMenuActions:WizardMenuActions_Create:WizardMenuActions_CopySubmission-itemEl");
 	}

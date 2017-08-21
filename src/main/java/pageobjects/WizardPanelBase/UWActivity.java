@@ -19,9 +19,9 @@ public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 	}
 
 
-	static class UWActivityBy
+	public class UWActivityBy
 	{
-		final  static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
+		final By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
 				        getAssignTo = By.id("UWActivityPopup:NewActivityDV:SelectFromList-inputEl"),
 		                Cancel = By.id("UWActivityPopup:Cancel-btnInnerEl"),
 		                description = By.id("UWActivityPopup:NewActivityDV:Description-inputEl");

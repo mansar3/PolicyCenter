@@ -56,7 +56,7 @@ public abstract class BaseTest
 			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	public final String filePath = getTestResultIndex();
 	public static String sharedDirectory,controlFileDirectory, lastPage,
-	policyDirectory = "ConversionPolicies-20170714_1",
+	policyDirectory = "ConversionPolicies-20170801_1",
 	//policyDirectory = "ConversionPolicies-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_1",
 	xmlFilepath,file,oldXML,policyFolder, xmlDirectory;
 	public static File[] xmls;
@@ -321,14 +321,16 @@ public abstract class BaseTest
 		URL gridHub = null;
 		try
 		{
+			if(SystemUtils.IS_OS_LINUX)
+				gridHub = new URL("http://localhost:4444/wd/hub");
 			// AWS PROD grid
-			if(this.prod)
-				gridHub = new URL("http://10.20.8.145:4444/wd/hub");
 			else
+				// AWS PROD Docker
+			//gridHub = new URL("http://10.20.8.145:4444/wd/hub");
 			// AWS DEV Dockers URL
 			//gridHub = new URL("http://10.0.10.141:4444/wd/hub");
 			// Old Dockers URL
-				gridHub = new URL("http://10.50.50.150:4444/wd/hub");
+				 gridHub = new URL("http://10.50.50.150:4444/wd/hub");
 			// VM GRID URL
 			//gridHub = new URL("http://172.16.31.94:4444/wd/hub");
 			// ubuntu vm

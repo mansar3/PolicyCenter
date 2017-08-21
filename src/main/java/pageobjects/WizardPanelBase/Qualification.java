@@ -58,7 +58,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 		return (T)this;
 	}
 
-	public static class Questionnaire<T extends Questionnaire> extends TableBase
+	public class Questionnaire<T extends Questionnaire> extends TableBase
 	{
 		protected Questionnaire(CenterSeleniumHelper sh)
 		{
