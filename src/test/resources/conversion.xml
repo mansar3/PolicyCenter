@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="allSuites" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20">
+<suite name="allSuites" configfailurepolicy="continue" parallel="classes" data-provider-thread-count="20" time-out="960000">
 	<!--<parameter name="environment" value="https://gw.frontlineinsurance.com/pc/" />-->
 	<parameter name="environment" value="https://gwstg.frontlineinsurance.com/pc/PolicyCenter.do" />
 	<parameter name="sharedFolder" value="true" />
@@ -40,11 +40,11 @@
                     <include name="RenewalLoadTest2" ></include>
                 </methods>
             </class>
-			<!--<class name="PolicyConversion.HO3.FLHO3">-->
-                <!--<methods>-->
-                    <!--<include name="RenewalLoadTest2"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
+			<class name="PolicyConversion.HO3.FLHO3">
+                <methods>
+                    <include name="RenewalLoadTest2"></include>
+                </methods>
+            </class>
 			<class name="PolicyConversion.HO3.NCHO3">
                 <methods>
                     <include name="RenewalLoadTest2"></include>
@@ -60,21 +60,21 @@
                     <include name="RenewalLoadTest2"></include>
                 </methods>
             </class>
-			<!--<class name="PolicyConversion.HO6.FLHO6">-->
-                <!--<methods>-->
-                    <!--<include name="RenewalLoadTest2"></include>-->
-                <!--</methods>-->
-            <!--</class>-->
-			<!--<class name = "PolicyConversion.DP3.FLDP3">-->
-				<!--<methods>-->
-					<!--<include name="RenewalLoadTest2"></include>-->
-				<!--</methods>-->
-			<!--</class>-->
-			<!--<class name = "PolicyConversion.MH3.FLMH3">-->
-				<!--<methods>-->
-					<!--<include name="RenewalLoadTest2"></include>-->
-				<!--</methods>-->
-			<!--</class>-->
+			<class name="PolicyConversion.HO6.FLHO6">
+                <methods>
+                    <include name="RenewalLoadTest2"></include>
+                </methods>
+            </class>
+			<class name = "PolicyConversion.DP3.FLDP3">
+				<methods>
+					<include name="RenewalLoadTest2"></include>
+				</methods>
+			</class>
+			<class name = "PolicyConversion.MH3.FLMH3">
+				<methods>
+					<include name="RenewalLoadTest2"></include>
+				</methods>
+			</class>
 			<class name="PolicyConversion.DP3.SCDP3">
 				<methods>
 					<include name="RenewalLoadTest2"></include>
