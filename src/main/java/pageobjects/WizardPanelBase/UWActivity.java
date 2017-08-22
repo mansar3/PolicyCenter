@@ -8,14 +8,15 @@ import org.openqa.selenium.By;
  */
 public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 {
-	private UWActivityBy by;
+	public UWActivityBy by;
 	public UWActivity(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
 		this.path = path;
 		expectedPanelTitle = "UW Activity";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		by = new UWActivityBy();
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 

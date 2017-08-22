@@ -23,7 +23,7 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 		setID(path);
 		by = new PolicyInfoBy();
 		np = new NorthPanel(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)
@@ -209,7 +209,7 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 
 	protected T addNewCompany()
 	{
-		System.out.println("Adding a new company...");
+		log("Adding a new company...");
 		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);
@@ -232,7 +232,7 @@ public abstract class PolicyInfo<T extends PolicyInfo> extends CenterPanelBase
 	}
 	protected T addNewPerson()
 	{
-		System.out.println("~~~~~~~~Adding a new person for Additional Named Insured~~~~~~~~~");
+		log("~~~~~~~~Adding a new person for Additional Named Insured~~~~~~~~~");
 		for(int i= 0 ;i < 10;i++)
 		{
 			sh.clickElement(by.addAdditionalNameInsureds);

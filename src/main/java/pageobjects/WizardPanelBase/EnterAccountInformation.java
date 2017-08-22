@@ -36,7 +36,7 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		by = new EnterAccountInformationBy();
 		expectedPanelTitle = "Enter Account Information";
 		waitForTitle(sh);
-		System.out.println("Navigated to: " + expectedPanelTitle);
+		log("Navigated to: " + expectedPanelTitle);
 	}
 
 	public E setCompanyName(String companyName)

@@ -623,6 +623,8 @@ public class SCDP3 extends BaseTest
 			.setConfirmEmailAddress(eai.get("Email Address"))
 			.clickUpdate();
 		}
+		log("~~~~Policy Number :"+  eai.get("Legacy Policy Number") + " Entered Correctly~~~~\n"
+		+ "~~~~Account Number is: " + eai.get("Account Number") + "~~~~");
 	}
 
 	

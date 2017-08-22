@@ -16,7 +16,7 @@ public class PolicyChangeBound extends CenterPanelBase {
         this.sh = sh;
         expectedPanelTitle = "Policy Change Bound";
         waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
     public class PolicyChangeBoundBy {

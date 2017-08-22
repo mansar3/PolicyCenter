@@ -17,7 +17,7 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 		expectedPanelTitle = "New Additional Named Insured";
 		waitForTitle(sh);
 		by = new NewAdditionalNameInsuredBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public T certRequired(boolean flag)

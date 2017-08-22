@@ -16,7 +16,7 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 		path = Path.POLICYRENEWAL;
 		by = new InitiateManualRenewalBy();
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle );
+		log("Navigated to page: " + expectedPanelTitle );
 	}
 	public class InitiateManualRenewalBy
 	{

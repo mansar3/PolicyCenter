@@ -18,7 +18,7 @@ public class GoPaperless<T extends CenterPanelBase> extends CenterPanelBase
 		waitForTitle(sh);
 		setID(path);
 		by = new GoPaperlessBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 	private void setID(Path path)
 	{

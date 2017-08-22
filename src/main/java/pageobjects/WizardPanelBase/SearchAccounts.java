@@ -16,7 +16,7 @@ public class SearchAccounts<T extends SearchAccounts> extends CenterPanelBase
         this.sh = sh;
         expectedPanelTitle = "Search Accounts";
         waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
         westPanel = new AccountFileSummaryWestPanel(sh);
     }
     public class SearchAccountsBy extends CenterPanelBy

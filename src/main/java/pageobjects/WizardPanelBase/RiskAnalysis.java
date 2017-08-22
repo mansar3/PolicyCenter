@@ -18,7 +18,7 @@ public abstract class RiskAnalysis<T extends RiskAnalysis> extends CenterPanelBa
 		setID(path);
 		np = new NorthPanel(sh);
 		by = new RiskAnalysisBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)

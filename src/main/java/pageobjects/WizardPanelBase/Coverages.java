@@ -24,7 +24,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 		pe = new PropertyEndorsements(sh, path);
 		le = new LiabilityEndorsements(sh, path);
 		waitForContent(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)
@@ -738,7 +738,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new PropertyEndorsementsBy();
-			System.out.println("Navigated to page: Property Endorsements");
+			log("Navigated to page: Property Endorsements");
 		}
 
 		public void setID(Path path)
@@ -1843,7 +1843,7 @@ public abstract class Coverages<T  extends Coverages> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new LiabilityEndorsementsBy();
-			System.out.println("Navigated to page: Liability Endorsements");
+			log("Navigated to page: Liability Endorsements");
 
 		}
 		public void setID(Path path)

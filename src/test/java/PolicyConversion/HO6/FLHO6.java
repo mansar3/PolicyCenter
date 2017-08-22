@@ -661,7 +661,8 @@ public class FLHO6 extends BaseTest
 //		System.out.println();
 		//.back().requestApproval().sendRequest();
 
-
+		log("~~~~Policy Number :"+  eai.get("Legacy Policy Number") + " Entered Correctly~~~~\n"
+		+ "~~~~Account Number is: " + eai.get("Account Number") + "~~~~");
 
 
 	}

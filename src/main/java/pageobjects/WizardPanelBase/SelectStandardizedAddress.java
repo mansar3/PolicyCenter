@@ -19,7 +19,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 		by = new SelectStandardizedAddressBy();
 		expectedPanelTitle = "Select a Standardized Address";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 	public SelectStandardizedAddress(CenterSeleniumHelper sh,Path path)
 	{
@@ -28,7 +28,7 @@ public abstract class SelectStandardizedAddress<T extends SelectStandardizedAddr
 		by = new SelectStandardizedAddressBy();
 		expectedPanelTitle = "Select a Standardized Address";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public T clickAddressForCreateAccount(int row)

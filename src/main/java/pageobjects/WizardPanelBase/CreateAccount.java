@@ -58,7 +58,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		by = new CreateAccountBy();
 		expectedPanelTitle = "Create account";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: "+ expectedPanelTitle);
+		log("Navigated to page: "+ expectedPanelTitle);
 	}
 	public T checkForDuplicatesAndReturn()
 	{

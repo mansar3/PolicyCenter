@@ -16,7 +16,7 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 		expectedPanelTitle = "Search Address Book";
 		waitForTitle(sh);
 		by = new SearchAddressBookBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 	public SearchAddressBook(CenterSeleniumHelper sh)
 	{
@@ -24,7 +24,7 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 		expectedPanelTitle = "Search Address Book";
 		waitForTitle(sh);
 		by = new SearchAddressBookBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public class SearchAddressBookBy
@@ -65,13 +65,13 @@ public abstract class SearchAddressBook<T extends CenterPanelBase> extends Cente
 	protected T clickFirstSearchResultPolicyInfo()
 	{
 		selectSearchResult(0);
-		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
+		log("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return (T)this;
 	}
 	protected T clickFirstSearchResultAdditionalInterest()
 	{
 		selectSearchResult(0);
-		System.out.println("Result found in Address Book: " + this.firstName + " " + this.lastName);
+		log("Result found in Address Book: " + this.firstName + " " + this.lastName);
 		return (T)this;
 	}
 	protected boolean areThereSearchResults()
