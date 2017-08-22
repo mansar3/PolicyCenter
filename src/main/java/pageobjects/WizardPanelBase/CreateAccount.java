@@ -99,13 +99,16 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	
 	public T setSsn(String ssn)
 	{
-		if(ssn.length() != 11)
-			return (T)this;
-		sh.waitForNoMask();
-		if(sh.isDisplayed(by.ssn))
-			sh.setText(by.ssn, ssn);
-		else
-			sh.setText(by.ssnunmasked, ssn);
+		if(ssn != null)
+		{
+			if(ssn.length() != 11)
+				return (T) this;
+			sh.waitForNoMask();
+			if(sh.isDisplayed(by.ssn))
+				sh.setText(by.ssn, ssn);
+			else
+				sh.setText(by.ssnunmasked, ssn);
+		}
 		return (T)this;
 	}
 
