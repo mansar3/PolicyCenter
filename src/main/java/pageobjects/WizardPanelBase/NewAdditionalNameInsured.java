@@ -61,6 +61,11 @@ public abstract class NewAdditionalNameInsured<T extends NewAdditionalNameInsure
 
 	public T setDateOfBirth(String dateOfBirth)
 	{
+		if(dateOfBirth == null)
+			return (T)this;
+		int year = Integer.parseInt(dateOfBirth.split("/")[2].replaceAll("\\D+",""));
+		if(year < 1800)
+			return (T)this;
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
 		sh.waitForNoMask();
