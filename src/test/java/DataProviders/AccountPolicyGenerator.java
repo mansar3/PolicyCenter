@@ -141,7 +141,7 @@ public class AccountPolicyGenerator extends BaseTest
 		return DataCreator(policyFolder + "/FLDP3/");
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public static Object[][] FLHO3Data()
 	{
 		policytype  = POLICYTYPE.FLHO3;
