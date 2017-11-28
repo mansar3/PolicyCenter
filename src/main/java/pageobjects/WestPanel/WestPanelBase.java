@@ -14,9 +14,9 @@ public class WestPanelBase
 
 	}
 
-	static class WestPanelBaseBy
+	public class WestPanelBaseBy
 	{
-		static final By  riskAnalysis = By.xpath(".//*[text()= 'Risk Analysis']");
+		final By  riskAnalysis = By.xpath(".//*[text()= 'Risk Analysis']");
 	}
 
 

@@ -16,7 +16,7 @@ public class BatchProcessInfo <T extends BatchProcessInfo> extends CenterPanelBa
         expectedPanelTitle = "Batch Process Info";
         waitForTitle(sh);
         by = new BatchProcessInfoBy();
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
     public class BatchProcessInfoBy

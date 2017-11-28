@@ -14,7 +14,7 @@ public class CancellationBound <T extends CancellationBound> extends CenterPanel
         this.sh = sh;
         expectedPanelTitle = "Cancellation Bound";
       //  waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
         by = new CancellationBoundBy();
 
     }

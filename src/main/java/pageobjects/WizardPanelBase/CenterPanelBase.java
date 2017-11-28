@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 abstract public class CenterPanelBase
 {
@@ -16,7 +18,7 @@ abstract public class CenterPanelBase
 	protected Path path = Path.SUBMISSION;
 	protected String firstName, lastName;
 	public WestPanel westPanel;
-
+	public final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public enum Path
 	{
@@ -90,6 +92,10 @@ abstract public class CenterPanelBase
 	public String getTitle()
 	{
 		return sh.getText(by.title);
+	}
+
+	public void log(String message) {
+		logger.info(message);
 	}
 
 	public void waitForTitle(CenterSeleniumHelper sh)
@@ -180,5 +186,6 @@ abstract public class CenterPanelBase
 			sh.clickElement(by.forms);
 			return (T)this;
 		}
+
 	}
 }

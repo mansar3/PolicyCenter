@@ -18,7 +18,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
         setID(path);
         by = new DwellingConstructionBy();
         wm = new WindMitigation(sh, path);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
     public void setID(Path path) {
@@ -613,7 +613,7 @@ public abstract class DwellingConstruction<T extends DwellingConstruction> exten
             this.path = path;
             setID(path);
             by = new WindMitigationBy();
-            System.out.println("Navigated to page: Wind Mitigation");
+            log("Navigated to page: Wind Mitigation");
         }
 
         public void setID(Path path) {

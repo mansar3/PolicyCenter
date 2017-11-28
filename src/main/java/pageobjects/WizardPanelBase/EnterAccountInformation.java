@@ -36,7 +36,19 @@ public abstract class EnterAccountInformation<E extends EnterAccountInformation>
 		by = new EnterAccountInformationBy();
 		expectedPanelTitle = "Enter Account Information";
 		waitForTitle(sh);
-		System.out.println("Navigated to: " + expectedPanelTitle);
+		log("Navigated to: " + expectedPanelTitle);
+	}
+
+	public int getNumberOfAccounts()
+	{
+		return sh.driver.findElements(
+		By.xpath("//*[@id = 'NewAccount:NewAccountScreen:NewAccountSearchResultsLV-body']//table")).size();
+	}
+	public E selectAccount(int oneBasedRow)
+	{
+		sh.clickElement(By.xpath("//*[@id = 'NewAccount:NewAccountScreen:NewAccountSearchResultsLV-body']//table["
+		+ String.valueOf(oneBasedRow) +"]//td[2]//a"));
+		return (E)this;
 	}
 
 	public E setCompanyName(String companyName)

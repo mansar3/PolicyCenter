@@ -2,7 +2,6 @@ package pageobjects.WizardPanelBase;
 
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
-import pageobjects.ALHO3.ALHO3RiskAnalysis;
 
 /**
  * Created by ssai on 3/8/2017.
@@ -18,7 +17,7 @@ public class PreQuoteIssues<T extends PreQuoteIssues> extends CenterPanelBase {
         expectedPanelTitle = "Pre-Quote Issues";
         waitForTitle(sh);
         by = new PreQuoteIssuesBy();
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
     public class PreQuoteIssuesBy{

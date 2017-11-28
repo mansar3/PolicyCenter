@@ -15,7 +15,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 		this.sh = sh;
 		expectedPanelTitle = "Qualification";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 		questionnaire = new Questionnaire(sh);
 	}
 	public Qualification(CenterSeleniumHelper sh,Path path)
@@ -24,7 +24,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 		this.path = path;
 		expectedPanelTitle = "Qualification";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 		questionnaire = new Questionnaire(sh);
 	}
 
@@ -78,7 +78,7 @@ public abstract class Qualification<T extends Qualification> extends CenterPanel
 //			By answerBy = new ByChained(getTableBy(questionNum, 3), By.cssSelector("tbody input[inputvalue='"+bool+"']"));
 //			if(sh.driver.findElements(answerBy).size() > 1)
 //			{
-//				System.out.println("Found too many elements on question: " + questionNum);
+//				log("Found too many elements on question: " + questionNum);
 //				answerBy = By.cssSelector("[id='SubmissionWizard:SubmissionWizard_PreQualificationScreen:PreQualQuestionSetsDV:QuestionSetsDV:0:QuestionSetLV-body'] tbody tr:nth-of-type(" + questionNum + ") td:nth-of-type(3) tbody input[inputvalue='false']");
 //			}
 			sh.waitForNoMask();

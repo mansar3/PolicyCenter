@@ -58,7 +58,7 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 		by = new CreateAccountBy();
 		expectedPanelTitle = "Create account";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: "+ expectedPanelTitle);
+		log("Navigated to page: "+ expectedPanelTitle);
 	}
 	public T checkForDuplicatesAndReturn()
 	{
@@ -99,11 +99,16 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	
 	public T setSsn(String ssn)
 	{
-		sh.waitForNoMask();
-		if(sh.isDisplayed(by.ssn))
-			sh.setText(by.ssn, ssn);
-		else
-			sh.setText(by.ssnunmasked, ssn);
+		if(ssn != null)
+		{
+			if(ssn.length() != 11)
+				return (T) this;
+			sh.waitForNoMask();
+			if(sh.isDisplayed(by.ssn))
+				sh.setText(by.ssn, ssn);
+			else
+				sh.setText(by.ssnunmasked, ssn);
+		}
 		return (T)this;
 	}
 
@@ -239,6 +244,11 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	
 	public T setDateOfBirth(String dateOfBirth)
 	{
+		if(dateOfBirth == null)
+			return (T)this;
+		int year = Integer.parseInt(dateOfBirth.split("/")[2].replaceAll("\\D+",""));
+		if(year < 1800)
+			return (T)this;
 		sh.setText(by.dateOfBirth, dateOfBirth);
 		sh.tab();
 		return (T)this;
@@ -375,15 +385,15 @@ public abstract class CreateAccount<T extends CreateAccount> extends CenterPanel
 	public T setProducerCode(String producerCode)
 	{
 		sh.setTextContain(by.producerCode, producerCode);
-		try
-		{
-			Thread.sleep(10000);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		sh.tab();
+//		try
+//		{
+//			Thread.sleep(10000);
+//		}
+//		catch(InterruptedException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		sh.tab();
 		sh.waitForNoMask();
 		return (T)this;
 	}

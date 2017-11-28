@@ -41,4 +41,9 @@ public class FLHO3EnterAccountInformation extends EnterAccountInformation<FLHO3E
 		super.clickAccountNumber();
 		return new FLHO3AccountFileSummary(sh);
 	}
+	public FLHO3AccountFileSummary selectAccountNumber(int oneBasedRow)
+	{
+		super.selectAccount(oneBasedRow);
+		return new FLHO3AccountFileSummary(sh);
+	}
 }
