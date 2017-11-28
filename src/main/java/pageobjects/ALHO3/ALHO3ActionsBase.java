@@ -7,7 +7,7 @@ public class ALHO3ActionsBase<T extends ALHO3ActionsBase>
 {
 	protected CenterSeleniumHelper sh;
 	private ActionsBaseBy by = new ActionsBaseBy();
-	static class ActionsBaseBy
+	public class ActionsBaseBy
     {
 		public final By actions = By.cssSelector("#westPanel .x-btn-button"),
 							   newSubmission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl");

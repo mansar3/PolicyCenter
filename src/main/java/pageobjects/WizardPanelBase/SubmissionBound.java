@@ -15,7 +15,7 @@ public class SubmissionBound extends CenterPanelBase {
         this.path = path;
         expectedPanelTitle = "Submission Bound";
         waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
         by = new SubmissionBoundBy();
 
     }

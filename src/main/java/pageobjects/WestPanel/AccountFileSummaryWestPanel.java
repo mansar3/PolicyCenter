@@ -16,9 +16,9 @@ public class AccountFileSummaryWestPanel<T extends AccountFileSummaryWestPanel> 
 		AFC = new AccountFileContacts(sh);
 	}
 
-	private static class AccountFileSummaryWestPanelBy
+	private class AccountFileSummaryWestPanelBy
 	{
-		public static By dwelling = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']");
+		public By dwelling = By.xpath(".//*[@id='SubmissionWizard:LOBWizardStepGroup:HomeownersDwelling']");
 	}
 
 	public T clickDwelling()
@@ -28,16 +28,17 @@ public class AccountFileSummaryWestPanel<T extends AccountFileSummaryWestPanel> 
 		return (T)this;
 	}
 
-	public static class AccountFileSummaryActions<T extends AccountFileSummaryActions> extends ActionsBase{
-		private AccountFileSummaryActionsBy by;
+	public class AccountFileSummaryActions<T extends AccountFileSummaryActions> extends ActionsBase{
+		public AccountFileSummaryActionsBy by;
 		private AccountFileSummaryActions(CenterSeleniumHelper sh)
 		{
 			this.sh = sh;
+			by = new AccountFileSummaryActionsBy();
 		}
 
-		public static class AccountFileSummaryActionsBy
+		public class AccountFileSummaryActionsBy
 		{
-			public static By	submission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl"),
+			public By	submission = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_Create:AccountFileMenuActions_NewSubmission-textEl"),
 								convertManualPolicy = By.id("AccountFile:AccountFileMenuActions:AccountFileMenuActions_ConvertManualPolicy-textEl"),
 			                    clickContacts = By.xpath(".//*[@id='AccountFile:MenuLinks:AccountFile_AccountFile_Contacts']/div/span");
 		}

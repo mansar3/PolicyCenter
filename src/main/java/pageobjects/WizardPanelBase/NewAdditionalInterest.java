@@ -17,7 +17,7 @@ public abstract class NewAdditionalInterest<T extends NewAdditionalInterest> ext
 		expectedPanelTitle = "New Additional Interest";
 		waitForTitleToContain(sh);
 		by = new NewAdditionalInterestBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 	
 	public T clickCertificateRequired(String flag)

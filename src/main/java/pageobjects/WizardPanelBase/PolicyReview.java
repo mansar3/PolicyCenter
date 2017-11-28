@@ -18,7 +18,7 @@ public abstract class PolicyReview<T extends PolicyReview> extends CenterPanelBa
 		waitForTitle(sh);
 		setID(path);
 		by = new PolicyReviewBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 	public void setID(Path path)
 	{

@@ -15,7 +15,7 @@ public class RenewalBound<T extends RenewalBound> extends CenterPanelBase
 		this.path = path;
 		expectedPanelTitle = "Renewal";
 		waitForTitleToContain(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 		by = new RenewalBoundBy();
 
 	}

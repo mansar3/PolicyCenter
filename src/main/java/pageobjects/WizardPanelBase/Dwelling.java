@@ -22,7 +22,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		by = new DwellingBy();
 		pd = new ProtectionDetails(sh,path);
 		ai = new AdditionalInterests(sh,path);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 	public void setID(Path path)
@@ -646,7 +646,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by= new ProtectionDetailsBy();
-			System.out.println("Navigated to page: Protection Details");
+			log("Navigated to page: Protection Details");
 		}
 
 		public void setID(Path path)
@@ -852,7 +852,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 			this.path = path;
 			setID(path);
 			by = new AdditionalInterestsBy();
-			System.out.println("Navigated to page: Additional Interests");
+			log("Navigated to page: Additional Interests");
 		}
 	
 		public void setID(Path path)
@@ -908,7 +908,7 @@ public class Dwelling<T extends Dwelling> extends CenterPanelBase
 		protected T addNewPerson()
 		{
 
-			System.out.println("~~~~~~Adding a New Person for New Additional Interest~~~~~~~~");
+			log("~~~~~~Adding a New Person for New Additional Interest~~~~~~~~");
 			for(int i = 0; i<10; i++)
 			{
 				sh.clickElement(by.add);

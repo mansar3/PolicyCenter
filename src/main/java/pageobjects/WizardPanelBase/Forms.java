@@ -19,7 +19,7 @@ public class Forms <T extends Forms> extends CenterPanelBase {
         by = new FormsBy();
         expectedPanelTitle = "Forms";
         waitForTitle(sh);
-        System.out.println("Navigated to page: "+ expectedPanelTitle);
+        log("Navigated to page: "+ expectedPanelTitle);
         westPanel = new WestPanelBase(sh);
 
 

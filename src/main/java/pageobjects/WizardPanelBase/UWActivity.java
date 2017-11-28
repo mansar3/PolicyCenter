@@ -8,20 +8,21 @@ import org.openqa.selenium.By;
  */
 public abstract class UWActivity<T extends UWActivity> extends CenterPanelBase
 {
-	private UWActivityBy by;
+	public UWActivityBy by;
 	public UWActivity(CenterSeleniumHelper sh,Path path)
 	{
 		this.sh = sh;
 		this.path = path;
 		expectedPanelTitle = "UW Activity";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		by = new UWActivityBy();
+		log("Navigated to page: " + expectedPanelTitle);
 	}
 
 
-	static class UWActivityBy
+	public class UWActivityBy
 	{
-		final  static By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
+		final By	sendRequest = By.id("UWActivityPopup:Update-btnInnerEl"),
 				        getAssignTo = By.id("UWActivityPopup:NewActivityDV:SelectFromList-inputEl"),
 		                Cancel = By.id("UWActivityPopup:Cancel-btnInnerEl"),
 		                description = By.id("UWActivityPopup:NewActivityDV:Description-inputEl");

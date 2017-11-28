@@ -629,7 +629,8 @@ public class FLMH3 extends BaseTest
 			.clickUpdate();
 		}
 
-
+		log("~~~~Policy Number :"+  eai.get("Legacy Policy Number") + " Entered Correctly~~~~\n"
+		+ "~~~~Account Number is: " + eai.get("Account Number") + "~~~~");
 
 	}
 	

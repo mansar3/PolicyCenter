@@ -15,7 +15,7 @@ public class TestingSystemClock <T extends TestingSystemClock> extends CenterPan
         this.sh = sh;
         expectedPanelTitle = "Testing System Clock";
         waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
 

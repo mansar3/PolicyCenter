@@ -16,15 +16,15 @@ public class InitiateManualRenewal<T extends InitiateManualRenewal> extends Cent
 		path = Path.POLICYRENEWAL;
 		by = new InitiateManualRenewalBy();
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle );
+		log("Navigated to page: " + expectedPanelTitle );
 	}
-	static class InitiateManualRenewalBy
+	public class InitiateManualRenewalBy
 	{
 
-		static final String manualBase = "InitManualRenewalPage:",
+		final String manualBase = "InitManualRenewalPage:",
 							producerBase = manualBase+"ProducerSelection_fliInputSet:";
 
-		static final By		organization = By.id(producerBase + "Producer-inputEl"),
+		final By		organization = By.id(producerBase + "Producer-inputEl"),
 							producerCode = By.id(producerBase + "ProducerCode-inputEl"),
 							baseState = By.id(manualBase + "StateSelection_fliInputSet:DefaultBaseState-inputEl"),
 							product = By.id(manualBase + "products-inputEl"),

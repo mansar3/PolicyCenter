@@ -20,7 +20,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		waitToBeQuoted(sh);
 		setID(path);
 		by = new QuoteBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 		westPanel = new WestPanelBase(sh);
 	}
 	private String setExpectedTitle()
@@ -210,7 +210,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 			this.path = path;
 			expectedPanelTitle = "Rating Overrides";
 			waitForTitle(sh);
-			System.out.println("Navigated to page: " + expectedPanelTitle);
+			log("Navigated to page: " + expectedPanelTitle);
 			by = new RatingOverridesBy();
 
 		}
@@ -230,7 +230,7 @@ public abstract class Quote<T extends Quote> extends CenterPanelBase
 		{
 			sh.clickElement(by.rerate);
 			sh.waitForNoMask();
-			System.out.println("Consenting to rate...");
+			log("Consenting to rate...");
 			return (T)this;
 		}
 		protected T cancel()

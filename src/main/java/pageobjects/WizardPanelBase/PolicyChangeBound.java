@@ -3,9 +3,7 @@ package pageobjects.WizardPanelBase;
 import Helpers.CenterSeleniumHelper;
 import org.openqa.selenium.By;
 import pageobjects.ALHO3.ALHO3PolicyInfo;
-import pageobjects.ALHO3.ALHO3Qualification;
 import pageobjects.FLHO3.FLHO3Offerings;
-import pageobjects.FLHO3.FLHO3Qualification;
 import pageobjects.Policy.Summary;
 
 /**
@@ -18,11 +16,11 @@ public class PolicyChangeBound extends CenterPanelBase {
         this.sh = sh;
         expectedPanelTitle = "Policy Change Bound";
         waitForTitle(sh);
-        System.out.println("Navigated to page: " + expectedPanelTitle);
+        log("Navigated to page: " + expectedPanelTitle);
     }
 
-    static class PolicyChangeBoundBy {
-        final static By viewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl"),
+    public class PolicyChangeBoundBy {
+        final By viewyourpolicy = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ViewPolicy-inputEl"),
         viewlaterboundperios = By.id("JobComplete:JobCompleteScreen:JobCompleteDV:ResolveWithFutureBoundPeriods-inputEl");
     }
 

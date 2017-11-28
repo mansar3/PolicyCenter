@@ -14,7 +14,7 @@ public abstract class AccountFileSummary<T extends AccountFileSummary> extends C
 		this.sh = sh;
 		expectedPanelTitle = "Account File Summary";
 		waitForTitle(sh);
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 		westPanel = new AccountFileSummaryWestPanel(sh);
 	}
 

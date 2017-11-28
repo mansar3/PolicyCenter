@@ -16,7 +16,7 @@ public abstract class LocationInformation<T extends LocationInformation> extends
 		expectedPanelTitle = "Location Information";
 		waitForTitle(sh);
 		by = new LocationInformationBy();
-		System.out.println("Navigated to page: " + expectedPanelTitle);
+		log("Navigated to page: " + expectedPanelTitle);
 
 	}
 	public class LocationInformationBy

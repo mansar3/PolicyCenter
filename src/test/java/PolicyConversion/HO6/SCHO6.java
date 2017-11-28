@@ -692,6 +692,9 @@ public class SCHO6 extends BaseTest
 			.clickUpdate();
 		}
 
+		log("~~~~Policy Number :"+  eai.get("Legacy Policy Number") + " Entered Correctly~~~~\n"
+		+ "~~~~Account Number is: " + eai.get("Account Number") + "~~~~");
+
 	}
 	
 	@Test(dataProviderClass = AccountPolicyGenerator.class, dataProvider = "SCHO6Data")
